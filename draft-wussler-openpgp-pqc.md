@@ -1079,7 +1079,7 @@ has to be performed:
 To verify a Dilithium + ECDSA signature the following sequence of operations
 has to be performed:
 
- 1. Verify the ECDSA signature with `ecdsa.verify()` from {{eddsa-signature}}
+ 1. Verify the ECDSA signature with `ecdsa.verify()` from {{ecdsa-signature}}
 
  2. Verify the Dilithium signature with `dilithium.verify()` from
     {{dilithium-signature}}
