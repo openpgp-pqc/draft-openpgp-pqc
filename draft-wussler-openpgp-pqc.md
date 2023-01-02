@@ -1210,6 +1210,9 @@ SK)` specified in {{SPHINCS-Subm}}, Sec. 6.4 as Alg. 20.  Here, `M` is the
 specified in Alg. 20 is to be considered as not set, i.e. the variable `opt`
 shall be initialized with `PK.seed`. See also {{sphincs-sec-cons}}.
 
+An implementation MUST set the Parameter ID in the signature equal to the
+issuing private key Parameter ID.
+
 ### Signature Verification
 
 The procedure for SPHINCS+ signature verification is the function
@@ -1217,6 +1220,9 @@ The procedure for SPHINCS+ signature verification is the function
 Here, `M` is the `dataDigest` generated according to
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4, `SIG` is the signature, and
 `PK` is the SPHINCS+ public key.
+
+An implementation MUST check that the Parameter ID in the signature and in the
+key match when verifying.
 
 ## Packet specifications
 
