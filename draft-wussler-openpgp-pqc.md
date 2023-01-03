@@ -808,7 +808,7 @@ construction is a one-step key derivation function compliant to
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
     //   domSeparation - the UTF-8 encoding of the string
-                         "OpenPGPV5CompositeKDF"
+                         "OpenPGPKyberCompositeKeyDerivation"
     //   counter - a 4 byte counter set to the value 1
     //   eccKeyShare - the ECC key share encoded as an octet string
     //   kyberKeyShare - the Kyber key share encoded as an octet string
@@ -820,10 +820,10 @@ construction is a one-step key derivation function compliant to
     MB = KMAC256(domSeparation, encKeyShares, oBits, customizationString)
 
 The value of `domSeparation` is the UTF-8 encoding of the string
-"OpenPGPV5CompositeKDF" and MUST be the following octet sequence:
+"OpenPGPKyberCompositeKeyDerivation" and MUST be the following octet sequence:
 
-    domSeparation := 4F 70 65 6E 50 47 50 56 35 43 6F
-                     6D 70 6F 73 69 74 65 4B 44 46
+    domSeparation := 4F 70 65 6E 50 47 50 4B 79 62 65 72 43 6F 6D 70 6F
+                     73 69 74 65 4B 65 79 44 65 72 69 76 61 74 69 6F 6E
 
 The value of `counter` MUST be set to the following octet sequence:
 
