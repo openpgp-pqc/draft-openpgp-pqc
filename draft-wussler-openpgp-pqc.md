@@ -1041,9 +1041,10 @@ Algorithm ID reference | Dilithium instance | Public key | Secret key | Signatur
 
 Composite Dilithium + ECC signatures MUST use SHA3-256 (hash algorithm ID 12)
 or SHA3-512 (hash algorithm ID 14) as hashing algorithm. Signatures using other
-hash algorithms MUST be considered invalid. Given that Dilithium + ECC
-signature support is mandatory, an implementation MUST support SHA3-256 and
-SHOULD support SHA3-512.
+hash algorithms MUST be considered invalid.
+
+An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
+order to support the hash binding with Dilithium + ECC signatures.
 
 ### Signature Generation
 
