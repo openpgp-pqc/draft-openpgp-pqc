@@ -660,15 +660,17 @@ row "ECC-KEM" of {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 The operations `x25519Kem.encap()` and `x448Kem.encap()` are defined as
 follows:
 
- 1. Generate an ephemeral key pair {`v`, `V=vG`}, without any masking or
-    clamping as defined in [RFC7748]
+ 1. Generate an ephemeral key pair {`v`, `V=vG`} according to 
+    the procedure defined in RFC7748, that is, without any 
+    measures such as masking or clamping that are applied 
+    in previous OpenPGP specifications of this scheme.
 
- 2. Compute the shared point `X = vR` where `R` is the component public key
+ 3. Compute the shared point `X = vR` where `R` is the component public key
     `eccPublicKey` according to [RFC7748]
 
- 3. Set the output `eccCipherText` to `V`
+ 4. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `X` in native format
+ 5. Set the output `eccKeyShare` to `X` in native format
 
 The operations `x25519Kem.decap()` and `x448Kem.decap()` are defined as
 follows:
@@ -1321,7 +1323,7 @@ when using a sponge-based construction like KMAC. The construction using KMAC
 ensures a standardized domain separation. In this case, the processed message
 is then the concatenation of any number of key shares.
 
-More precisely, for given capacity `c` the indifferentiability proof shows that
+More precisely, for a given capacity `c` the indifferentiability proof shows that
 assuming there are no weaknesses found in the Keccak permutation, an attacker
 has to make an expected number of `2^(c/2)` calls to the permutation to tell
 KMAC from a random oracle. For a random oracle, a difference in only a single
