@@ -1060,7 +1060,7 @@ operations has to be performed:
  3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
     from {{dilithium-signature}}
 
- 4. Encode the EdDSA and Dilithium signatures according to the the packet
+ 4. Encode the EdDSA and Dilithium signatures according to the packet
     structure given in {{ecc-dilithium-sig-packet}}.
 
 To sign a message `M` with Dilithium + ECDSA the following sequence of
