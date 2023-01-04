@@ -661,9 +661,8 @@ The operations `x25519Kem.encap()` and `x448Kem.encap()` are defined as
 follows:
 
  1. Generate an ephemeral key pair {`v`, `V=vG`} according to
-    the procedure defined in RFC7748, that is, without any
-    measures such as masking or clamping that are applied
-    in previous OpenPGP specifications of this scheme.
+    the procedure defined in [RFC7748], that is, without any
+    measures such as masking or clamping
 
  2. Compute the shared point `X = vR` where `R` is the component public key
     `eccPublicKey` according to [RFC7748]
