@@ -1075,7 +1075,7 @@ operations has to be performed:
  3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
     from {{dilithium-signature}}
 
- 4. Encode the ECDSA and Dilithium signatures according to the the packet
+ 4. Encode the ECDSA and Dilithium signatures according to the packet
     structure given in {{ecc-dilithium-sig-packet}}.
 
 ### Signature Verification
