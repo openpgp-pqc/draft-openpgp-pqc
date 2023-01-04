@@ -1378,7 +1378,7 @@ signatures already provide a salted hash of the appropriate size.
 
 In order not to extend the attack surface, we bind the hash algorithm used for
 message digestion to the hash algorithm used internally by the signature
-algorithm.  Dilithium internally uses a SHAKE256 digest, therefore we require
+algorithm. Dilithium internally uses a SHAKE256 digest, therefore we require
 SHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the
 internal hash algorithm varies based on the algorithm and parameter ID.
 
