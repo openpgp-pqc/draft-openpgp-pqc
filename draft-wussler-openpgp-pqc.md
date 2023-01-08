@@ -725,7 +725,7 @@ format defined in [Kyber-Subm].
 {: title="Kyber-KEM parameters artifact lengths in octets" #tab-kyber-artifacts}
 Algorithm ID reference | Kyber-KEM    | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ------------ | ---------- | ---------- | ---------- | ---------
-25, 27, 29             | kyberKem768  | 1184       | 2400       | 1088       | 24
+25, 27, 29             | kyberKem768  | 1184       | 2400       | 1088       | 32
 26, 28, 30             | kyberKem1024 | 1568       | 3186       | 1568       | 32
 
 The placeholder `kyberKem` has to be replaced with the specific Kyber-KEM from
