@@ -660,8 +660,9 @@ row "ECC-KEM" of {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 The operations `x25519Kem.encap()` and `x448Kem.encap()` are defined as
 follows:
 
- 1. Generate an ephemeral key pair {`v`, `V=vG`}, without any masking or
-    clamping as defined in [RFC7748]
+ 1. Generate an ephemeral key pair {`v`, `V=vG`} according to
+    the procedure defined in [RFC7748], that is, without any
+    measures such as masking or clamping
 
  2. Compute the shared point `X = vR` where `R` is the component public key
     `eccPublicKey` according to [RFC7748]
@@ -1054,9 +1055,14 @@ operations has to be performed:
  1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}
     Section 5.2.4
 
- 2. Sign `dataDigest` with `eddsa.sign()` from {{eddsa-signature}}
+ 2. Create the EdDSA signature over `dataDigest` with `eddsa.sign()` from
+    {{eddsa-signature}}
 
- 3. Sign `dataDigest` with `dilithium.sign()` from {{dilithium-signature}}
+ 3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
+    from {{dilithium-signature}}
+
+ 4. Encode the EdDSA and Dilithium signatures according to the packet
+    structure given in {{ecc-dilithium-sig-packet}}.
 
 To sign a message `M` with Dilithium + ECDSA the following sequence of
 operations has to be performed:
@@ -1064,9 +1070,14 @@ operations has to be performed:
  1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}
     Section 5.2.4
 
- 2. Sign `dataDigest` with `ecdsa.sign()` from {{ecdsa-signature}}
+ 2. Create the ECDSA signature over `dataDigest` with `ecdsa.sign()` from
+    {{ecdsa-signature}}
 
- 3. Sign `dataDigest` with `dilithium.sign()` from {{dilithium-signature}}
+ 3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
+    from {{dilithium-signature}}
+
+ 4. Encode the ECDSA and Dilithium signatures according to the packet
+    structure given in {{ecc-dilithium-sig-packet}}.
 
 ### Signature Verification
 
@@ -1092,7 +1103,7 @@ signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite Dilithium
 
 ## Packet Specifications
 
-### Signature Packet (Tag 2)
+### Signature Packet (Tag 2) {#ecc-dilithium-sig-packet}
 
 The composite Dilithium + ECC schemes MUST be used only with v5 signatures, as
 defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
@@ -1329,7 +1340,7 @@ when using a sponge-based construction like KMAC. The construction using KMAC
 ensures a standardized domain separation. In this case, the processed message
 is then the concatenation of any number of key shares.
 
-More precisely, for given capacity `c` the indifferentiability proof shows that
+More precisely, for a given capacity `c` the indifferentiability proof shows that
 assuming there are no weaknesses found in the Keccak permutation, an attacker
 has to make an expected number of `2^(c/2)` calls to the permutation to tell
 KMAC from a random oracle. For a random oracle, a difference in only a single
@@ -1372,11 +1383,11 @@ signatures already provide a salted hash of the appropriate size.
 
 ## Binding hashes in signatures with signature algorithms
 
-In order not to extend the attack surface, we bind the hash algorithm to the
-hash internally used into the signature algorithm. Dilithium internally uses a
-SHAKE256 digest, therefore we require SHA3 in the Dilithium + ECC signature
-packet. In the case of SPHINCS+ the internal hash algorithm varies based on
-the algorithm and parameter ID.
+In order not to extend the attack surface, we bind the hash algorithm used for
+message digestion to the hash algorithm used internally by the signature
+algorithm. Dilithium internally uses a SHAKE256 digest, therefore we require
+SHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the
+internal hash algorithm varies based on the algorithm and parameter ID.
 
 ## Elliptic curves
 
