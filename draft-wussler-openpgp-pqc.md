@@ -846,6 +846,16 @@ and MUST be set to the following octet sequence:
 
     customizationString := 4B 44 46
 
+### Key generation procedure {#ecc-kyber-generation}
+
+The implementation MUST independently generate the Kyber and the ECC component
+keys. Kyber key generation follows the specification [KYBER-Subm] and the
+artifacts are encoded in native format as fixed-length octet strings.
+For ECC this is done following the relative specification in {{RFC7748}},
+{{NIST-SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length
+octet strings in the format specified in table {{tab-ecdh-cfrg-artifacts}},
+{{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
+
 ### Encryption procedure {#ecc-kyber-encryption}
 
 The procedure to perform public-key encryption with a Kyber + ECC composite
@@ -1011,7 +1021,6 @@ Algorithm ID reference | Curve           | Field size | Public key | Secret key 
 35                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
 36                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
-
 ### Dilithium signatures {#dilithium-signature}
 
 The procedure for Dilithium signature generation is the function `Sign(sk, M)`
@@ -1054,6 +1063,16 @@ hash algorithms MUST be considered invalid.
 
 An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
 order to support the hash binding with Dilithium + ECC signatures.
+
+### Key generation procedure {#ecc-dilithium-generation}
+
+The implementation MUST independently generate the Dilithium and the ECC
+component keys. The dilithium component is generated as specified in
+[DILITHIUM-Subm] and the artifacts are encoded in native format as
+fixed-length octet strings as defined in {{dilithium-signature}}.
+For ECC this is done following the relative specification in {{RFC7748}},
+{{NIST-SP800-186}}, or {{RFC5639}}, and encoding the artifacts as specified in
+{{eddsa-signature}} or {{ecdsa-signature}} as fixed-length octet strings.
 
 ### Signature Generation
 
@@ -1221,6 +1240,12 @@ Algorithm ID reference | Parameter ID reference | Hash function | Hash function 
 
 An implementation supporting a specific SPHINCS+ algorithm and parameter MUST
 also support the matching hash algorithm.
+
+### Key generation
+
+To generate a SPHINCS+ key the function `spx_keygen()` specified in
+{{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private and public key are encoded in
+native format.
 
 ### Signature Generation
 
