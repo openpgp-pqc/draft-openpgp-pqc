@@ -564,7 +564,15 @@ As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently
 supports parallel encryption to different keys of the same recipient.
 Implementations MUST NOT encrypt a message to a purely traditional public-key
 encryption key of a recipient if it is encrypted to a PQ/T key of the same
-recipient.
+recipient. This can be achieved with checks at different levels, for instance:
+
+- By ensuring only one key per recipient is used.
+
+- By checking if there is a "Superseded by" signature that links to another
+key used in the encryption process.
+
+The list is not exhaustive, and other methods may be used to prevent this
+downgrade from happening.
 
 ## Composite Signatures
 
