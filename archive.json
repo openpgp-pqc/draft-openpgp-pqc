@@ -1,0 +1,1121 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-01-26T01:16:39.708066+00:00",
+  "repo": "openpgp-pqc/draft-openpgp-pqc",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    },
+    {
+      "name": "postponed",
+      "description": "",
+      "color": "d93f0b"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOIrmZ-85aIRQu",
+      "title": "Guidance on how to avoid encrypting PQ(/T) and traditional for the same user",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/2",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "The text contains the following statement:\r\n> Implementations MUST NOT encrypt a message to a purely traditional public-key encryption key of a recipient if it is encrypted to a PQ/T key of the same recipient.\r\n\r\nThis should be expanded to ensure what to check when encrypting to the same recipient. Should it be the primary identity?\r\n\r\n",
+      "createdAt": "2022-12-27T19:56:07Z",
+      "updatedAt": "2023-01-19T14:15:17Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Meeting 2023-01-19:\r\n* Aron: was difficult to implement. At which level should this be done: application level or library level? Check for different keys how / where? use primary identity as identification ?\r\n* Andreas: should at least inform the user\r\n* Aron: then not \"MUST\". In go we cannot model warnings, only errors\r\n* Andreas: when allowing users to use some primary identity ...\r\n* Aron: concept of linked keys with same primary identity, an impl. should only encrypt to one of these. Could be seen as task for application or for library.\r\n* Aron: keep statement but give guidance for how to do it. Define standard behaviour\r\n* Andreas: Aron, would you come up with a proposal?\r\n* Aron: yes, but not clear so far. Key pointing to another key as newer then no false positive.\r\n* Stavros: is parallel public key encryption done often?\r\n* Aron: can be done by the library if it receives the key information\r\n* Stavros: migration sec says prefer PQC\r\n* Aron: but not MUST, but if using PQC encryption \"use only PQC\"\r\n* Stavros: talking about the same certificate:\r\n* Aron: not necessarily. Cannot safely decide whether 2 certs belong to the same user. thus false positives can happen. Should not stop encryption.\r\n* Stavros: 2 statements about this: this one and 7.1 migration considerations. There: SHOULD prefer PQC certificate.\r\n* Aron: reference to this statement in migrations considerations.\r\n* Falko: make this statmt a SHOULD?\r\n* Aron: keep it, but give guidance\r\n* Stavros: can always make PQC cert\r\n* Falko: but what if no end date in old\r\n* Aron: will make proposal",
+          "createdAt": "2023-01-19T14:15:08Z",
+          "updatedAt": "2023-01-19T14:15:08Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOIrmZ-85aIUrV",
+      "title": "Missing key generation procedures",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/3",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "Encryption, decryption, signing and verification are described, but not how to generate keys",
+      "createdAt": "2022-12-27T20:15:10Z",
+      "updatedAt": "2023-01-19T13:54:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this is perfectly in line with the existing OpenPGP standards. As far as I know, they do not specify anything about key generation. Historically, the OpenPGP standard is a mere \"on wire format\", meaning that it only specifies how to encode the data on the wire and not how implementations are supposed to process the data. I think latest with the crypto-refresh that is changing in the sense that more specifications about the behaviour of an implementation are made. But I think key generation is still out of scope for the OpenPGP standard. The NIST standards will specify how this is done.\r\n",
+          "createdAt": "2023-01-03T07:25:04Z",
+          "updatedAt": "2023-01-03T07:25:04Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "AFAIK our draft is much more verbose with the encryption and decryption procedures, while RFC 4880, 6637, or the crypto-refresh tend to be more dry about that.\r\nMy point is that if we include verbose and explicit instructions on how to encrypt and decrypt, we should also include a paragraph stating that keys should be generated natively according to \\[spec\\].\r\n\r\nI'd propose something like:\r\n```\r\n### Key generation procedure {#ecc-kyber-generation}\r\n\r\nTo generate Kyber + ECC composite key the implementation MUST independently\r\ngenerate  the Kyber and the ECC component keys.\r\nFor Kyber this is done in native format as specified in {{Kyber-Subm}} and encoded\r\nas fixed-length octet strings depending on the security level. \r\nFor ECC this is done following the relative specification in {{RFC7748}}, \r\n{{NIST-SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length \r\noctet strings based on the curve's field size.\r\n```\r\n\r\nSimilar for Dilithium and SPHINCS+.",
+          "createdAt": "2023-01-03T09:35:30Z",
+          "updatedAt": "2023-01-03T09:35:30Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Minutes Meeting 2023-01-19:\r\n\r\n* Aron: crypto-refresh already addesses key generation of X...\r\n* Stavros: should have paragraph\r\n* Falko: agreed",
+          "createdAt": "2023-01-19T13:54:17Z",
+          "updatedAt": "2023-01-19T13:54:17Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOIrmZ-85abN1-",
+      "title": "Various review comments",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/6",
+      "state": "CLOSED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "~~Regarding the sentence in the introduction:~~\r\n\r\n~~> \"Here, the term \"composite\" indicates that the combination of the two components forms a single atomic object.~~\r\n\r\n~~I don't think that this sentence is saying something useful. Clearly, they are not essentially atomic (as nothing is in the known universe, not even atoms). What is meant here, is that they appear as single cryptogrpaphic schemes on the protocol layer. Accordingly, that is what I would propose to state here.~~\r\n\r\nFalko: moved to separate issue",
+      "createdAt": "2023-01-03T08:43:32Z",
+      "updatedAt": "2023-01-09T14:51:54Z",
+      "closedAt": "2023-01-09T14:51:54Z",
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~Section 4.1.1.1:~~\r\n\r\n~~> Generate an ephemeral key pair {v, V=vG}, without any masking or clamping as defined in [[RFC7748](file:///home/fstrenzke/doc/pqc_thunderbird/draft-openpgp-pqc/draft-wussler-openpgp-pqc.html#RFC7748)]~~\r\n\r\n~~I think this can be understood in two ways:~~\r\n~~1. that the definition in RFC7748 should be used and that this definition does not include \"masking or clamping\"~~\r\n~~2. that \"masking or clamping\" should not be used, and that \"masking and clamping\" is defined in RFC7748~~\r\n\r\n~~In my understanding, the first variant is the intended statement. To make that entirely clear, I would rather write: \"Generate an ephemeral key pair {v, V=vG} according to the procedure defined in RFC7748, that is, without any measure such as masking or clamping that are applied previous OpenPGP specifications of this scheme.\"~~\r\n\r\nPR with the proposed change is in progess...",
+          "createdAt": "2023-01-03T09:08:19Z",
+          "updatedAt": "2023-01-03T11:45:25Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~In Section 4.1.2 we state~~\r\n\r\n~~> Extract the component public key kyberPublicKey that is part of the recipient's composite public key~~\r\n\r\n~~This seems inconsistent in wording with the descriptions for the EC-KEMs, where no mentioning of the extraction of the component public key from the composite key is made. IMO it should be mentioned in for each scheme or for none.~~\r\n\r\nFalko:  moved to separate issue",
+          "createdAt": "2023-01-03T09:14:36Z",
+          "updatedAt": "2023-01-09T14:48:28Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> Section 4.1.1.1~~\r\n~~> the first variant is the intended statement~~\r\n\r\n~~Correct. The spec still defines clamping, but not in the key generation context.~~\r\n\r\n~~> Generate an ephemeral key pair {v, V=vG} according to the procedure defined in RFC7748, that is, without any measure such as masking or clamping that are applied previous OpenPGP specifications of this scheme.~~\r\n\r\n~~I like it! Mind making a PR?~~\r\n\r\nFalko: strikeout as this point is covered in an upcoming PR",
+          "createdAt": "2023-01-03T09:45:07Z",
+          "updatedAt": "2023-01-03T11:46:10Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> In Section 4.1.2~~\r\n~~>This seems inconsistent in wording with the descriptions for the EC-KEMs, ~~\r\n\r\n~~In the ECC sections we mention~~\r\n```...where R is the component public key eccPublicKey...```\r\n~~I would consider removing point (1) from 4.1.2 and rewrite~~\r\n``` \r\n2. Invoke (kyberCipherText, keyShare) <- kyberKem.encap(kyberPublicKey) \r\n   where kyberPublicKey is extracted from recipient's composite public key\r\n```\r\n\r\nFalko: moved to separate issue",
+          "createdAt": "2023-01-03T09:50:54Z",
+          "updatedAt": "2023-01-09T14:50:31Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~In Section 4.2.3 we have a forward reference to Section 4.3.2. I think normally in a specification one would only make backwards references to things already defined. Thus the referenced section specifying the packet structure should better be moved in front IMO.~~\r\n\r\n~~(Section 4.2.4 also has a similar forward reference)~~\r\n\r\nFalko: moved to separate issue",
+          "createdAt": "2023-01-03T11:40:51Z",
+          "updatedAt": "2023-01-09T14:43:53Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~In Section 5.2.1 it says: ~~\r\n~~> Given that Dilithium + ECC signature support is mandatory, an implementation MUST support SHA3-256 and SHOULD support SHA3-512.~~\r\n\r\n~~The logic implied by \"Given ...\" is not entirely convincing to me, as it sounds as that the requirements stated the second clause sentence somehow naturally arise based on the first clause. But that seems not to hold, as an implementation could also just support one of them. So I would suggest to simply remove the first clause of that sentence, i.e. let the sentence start with \"An implementations MUST ...\"~~\r\n\r\nResolved already.",
+          "createdAt": "2023-01-03T12:06:59Z",
+          "updatedAt": "2023-01-04T06:37:28Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> forward reference~~\r\n\r\n~~I personally don't have anything against forward references. I usually like even the backrefs, so that you can navigate the spec in both directions.\r\nGenerally, when implementing, I don't use the spec linearly~~\r\n\r\nFalko: moved to separate issue",
+          "createdAt": "2023-01-03T12:07:20Z",
+          "updatedAt": "2023-01-09T14:44:15Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> as an implementation could also just support one of them~~\r\n\r\n~~Indeed. But here we define which one of the two is \"more important\".~~\r\n\r\n~~We can rephrase it as~~\r\n```\r\n~~An implementation MUST support SHA3-256 and SHOULD support SHA3-512, since \r\nthis specification mandates Dilithium + ECC signature support.~~\r\n```",
+          "createdAt": "2023-01-03T12:10:05Z",
+          "updatedAt": "2023-01-04T06:38:11Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> > as an implementation could also just support one of them~~\r\n>\r\n~~> Indeed. But here we define which one of the two is \"more important\".~~\r\n> \r\n~~> We can rephrase it as~~\r\n> \r\n> ```\r\n> An implementation MUST support SHA3-256 and SHOULD support SHA3-512, since \r\n> this specification mandates Dilithium + ECC signature support.\r\n> ```\r\n\r\n~~I don't think that this rephrasing makes an essential difference. But it is also not a really severe point in my view, so maybe we simply leave it as it is.~~",
+          "createdAt": "2023-01-03T12:29:52Z",
+          "updatedAt": "2023-01-04T06:38:51Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~I personally like it more, as it puts the focus on the MUST. We can also drop the \"since...\" but I would keep some justification for that must there.~~\r\n\r\n~~What about~~\r\n```\r\nAn implementation MUST support SHA3-256 and SHOULD support SHA3-512, in\r\norder to support the hash binding with Dilithium + ECC signatures.\r\n```",
+          "createdAt": "2023-01-03T12:32:19Z",
+          "updatedAt": "2023-01-04T06:39:12Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> I personally like it more, as it puts the focus on the MUST. We can also drop the \"since...\" but I would keep some justification for that must there.~~\r\n> \r\n~~> What about~~\r\n> \r\n> ```\r\n> An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in\r\n> order to support the hash binding with Dilithium + ECC signatures.\r\n> ```\r\n\r\n~~Would also be OK for me.~~",
+          "createdAt": "2023-01-03T15:05:41Z",
+          "updatedAt": "2023-01-04T06:39:42Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~Section 8.4:~~\r\n\r\n~~> In order not to extend the attack surface, we bind the hash algorithm to the hash internally used into the signature algorithm.~~\r\n\r\n~~I don't understand the meaning of the word \"into\" here. What is supposed to signify exactly? In my understanding, we are ensuring that the hash algorithm used for message digestion is the same as the one used internally in the signature algorithm.~~",
+          "createdAt": "2023-01-03T15:22:17Z",
+          "updatedAt": "2023-01-04T07:03:56Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~In the Security Considerations, under Section 8.5, a normative statement is made (\"MUST NOT\"). In my understanding, normative statements do not belong in the Security Considerations, but under one of the normative sections.~~",
+          "createdAt": "2023-01-03T15:23:56Z",
+          "updatedAt": "2023-01-09T14:46:12Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~This is technically already in the crypto-refresh: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-12.2.3~~\r\n\r\n~~I would like to reiterate here in the security considerations~~\r\n\r\nFalko: moved to separate issue (applies also to comment above this one)",
+          "createdAt": "2023-01-03T15:26:18Z",
+          "updatedAt": "2023-01-09T14:46:47Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> Section 8.4:~~\r\n> \r\n~~> > In order not to extend the attack surface, we bind the hash algorithm to the hash internally used into the signature algorithm.~~\r\n> \r\n~~> I don't understand the meaning of the word \"into\" here. What is supposed to signify exactly? In my understanding, we are ensuring that the hash algorithm used for message digestion is the same as the one used internally in the signature algorithm.~~\r\n\r\n~~We can do `in` instead~~",
+          "createdAt": "2023-01-03T15:28:00Z",
+          "updatedAt": "2023-01-04T06:47:57Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~In Section 5.2.2 and 5.2.3 there are statements like~~\r\n~~> Sign dataDigest with eddsa.sign() from [Section 5.1.1]~~\r\n\r\n~~I think it is somewhat unlucky to speak of \"signing\" here, because word this means \"create a signature and add it to the signed data\". However, how to add the signature to the packet is not specified here. This becomes clear only later when the signature packet structure is explained. ~~\r\n\r\n~~I suggest to change the specification to saying \"create an EdDSA signature with ...\" and \"create a Dilithium signature with ...\" and then in a new step after these two: \"encode the EdDSA and Dilithium signatures according to the the packet structure given in Section ...\". But sure there also other possibilities to make the same statement.~~\r\n\r\nadapted into upcoming PR\r\n",
+          "createdAt": "2023-01-03T15:38:18Z",
+          "updatedAt": "2023-01-04T07:02:46Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "~~> > Section 8.4:~~\r\n> > > In order not to extend the attack surface, we bind the hash algorithm to the hash internally used into the signature algorithm.~~\r\n> > \r\n> > \r\n~~> > I don't understand the meaning of the word \"into\" here. What is supposed to signify exactly? In my understanding, we are ensuring that the hash algorithm used for message digestion is the same as the one used internally in the signature algorithm.~~\r\n> \r\n~~> We can do `in` instead~~\r\n\r\n~~OK, and I would also suggest: \"... we bind the hash algorithm used for message digestion to the hash algorithm used internally by signature algorithm.\"~~\r\n\r\nFalko: adapted in upcoming PR",
+          "createdAt": "2023-01-03T15:41:10Z",
+          "updatedAt": "2023-01-04T06:49:37Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "What's left in this issue?",
+          "createdAt": "2023-01-09T13:06:53Z",
+          "updatedAt": "2023-01-09T13:06:53Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I now made separate issues with all remaining open points.",
+          "createdAt": "2023-01-09T14:51:54Z",
+          "updatedAt": "2023-01-09T14:51:54Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOIrmZ-85ai-Ez",
+      "title": "Test data",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/10",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add some verified test data to the RFC for:\r\n- ECC + Kyber keys\r\n- Dilithium + Kyber keys\r\n- SPHINCS + Kyber keys\r\n\r\n+ relative messages and signatures",
+      "createdAt": "2023-01-04T14:55:07Z",
+      "updatedAt": "2023-01-04T14:56:22Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Here is a first Alg ID 25 Kyber768 + X25519 key, hex-encoded\r\n```\r\nc5610551d0c680160000002d092b06010401da470f010107406960888b34d1ac7e135d36da4e901e666c84d3a3396bf458b7c4f9809150adca0000000000220100b3f8bc9516a14f4480c02fe7c17a0c9d20c0fb9ea055ea8d9a6fb7bf95d49c2e1218cd2e476f6c616e6720476f70686572202854657374204b657929203c6e6f2d7265706c7940676f6c616e672e636f6d3ec28d0513160a003f050251d0c68022a105c8fed072621e971623c5552a1a3433897de8e3bac6c4592d7e88529a3c9c9485021b03021e05021901020b0703150a080216000222010000fce800fa039d9909e831486cb8979b03458032811ee3ddf799cae10e0226be2b6bb33c5100fd17497f80063d77ca75c58037eed6bb9a340a32196544b3e381526acf1b2d1808c7cd920551d0c68019000004c05a4036f6c2ca1752878ac44e461934e33b196e79310d1a953d0ec9629cfbe61688304437f84d4d735acd810061752da08302f8203f65a56a36b81f8fa1cb51fa041dbbbba591bf88885a25c45683c96057f29922d4ce60a33559b671a8f4a4465040d4a94dd85c4b35a78813c7a6c1e759c0f8423260a88c9819b7d913b29b38cec7a84ad03c70a909006466d0dc2fa3b52f2dc304aae79b84b5954f67956c8896714058c3eb72c2988bcca2be45f7333ef8282a4a44eab61b6777cb247255bff44c994952820058655735a4680c7bb67f82bb7cb882a7ef6923b5fa75bb74b61d608161d5c72ad8b397eca3204a0e8b636751e9922bca71c8dc3198630516d143bba62987a920e2b68de4220c8df47bbd3925974c9868048b0639994bea0dff198eb342924d5978e12c6cc97b9152558089f7901d2a5fe1c8c3bfa81eecea485b233ef3e73711a8c2e86713c9f0b25990346240211d9795d97290664cbe769c50b8680e1bd98ec58c379a8cafdf5250427835280ab9e256c0fd5b523c45c994ea303606afe2b735ca82cca0c8af1d45c2ca12322a65353eb6336bb4817357bc86b49c61d42dfa57ba41650e49d2512834837080a368b29cacb10ff3baa0a4463828c195b057305cf96ffad866d305318779a78fd8ab0774540cba3214ca711c37476d9707e1d5af5654a26ac8ab3a893c0cf6459bd5ad834a3cee7c1248513fb46773ce65b8bb927759ebc49a688a67a9157fa10c709727e0e0ba9b695a9a87adbb99598dd05d2b639c4e5053e3778300855b12a3218ca8c3f168cb59165c94027045f88e2e6c3b9674114685204546340a8b63d72614143a408d100137a7bc261428526b683a911ec1e63adfb5429f73cb02ec03c945a51ae14dce403098854252b922604c8786cc4875814ace16ad0c727cdf61bc8ba07784127d1d036670d93a86a7742ddbbb765bb2bfd431dea1b69288012a0c6c7d3997bb32c75bd1216347aecae98782a97a32523c5f018c52ca74c325a6eab5b1fdaa7ba0801987f5c38fa96f180c26918b57586a98c0f06adcaa1cd43354473389940bad117042a5f6cb28e9aa5ab5a8bbeb8652ba2a8a1825928213f711bda08c7fe4c88ddfe2bccc07c76a93b40da688c42b91d99460b33b139f4482c6ec3dd64a98cc9890b15b09dbeba297f57bfa2b09d3db67b6118972460f1ab3aac2920e56b1cbcd3726f8c23f976c1c90e443005231975b404684530cdb54b6d41c82d2c2cd70a9fd3ba447c20cc6b5707cd258be8a3cf903711a47c459d4a6c7d7b68a6552d36570cb634c506009c76a1dbe05c069f8a119a55bae4b8d3d4298bb50a0e0c1bdff631dbef415e09702d7fc52955b72a1917d8d69a0be8354d8467b8f95bdbb59828a86c85e99ae9a68181bc191eeb4b043b70cd8f758fcb377c868bb41555b7afc1d9f6155849911bd11731155b94893554441c3ab1c020dbbab866c68e9ac9a00f814a6757f5cfc29dbd15a558389e0483220760e54100036d97b44b2432cea9b594ba61a1c39f06056d563ba22427a006c6a6771c6937b5309196e6926ce7d75a33621070f8a9150392d29992286c364a9019029415f76f2ac4089a745031a0e37b99337a8da520423e25cbd4742027a1e6dd9985b116586238d24c18c44eabe6c1479eaed8ecf641ec1a5c8b782e6c85523b60181b4c36a6565db7ed17adc66b438d700000000098092e99abe621906a9823754dde17079d9268dc2012d5dab9668cce6610cc01abc9bd530648200f25a60e0097e9f3455ab6605f125630031c21511ccf1852046c89f0f98992a414bed69115c48777273b2743453b1d60970ea18ee026056141b9c2ba85bcc4ae83503a7a2543a18617babb7fe4607bb449c420b27bfd28a550650b9b6ab80f224807a8850e372a7738897d1c82903a61d4156bf3a4fe6f22ec4ca6c7e71a3d314cb85e7201e5861d7c792b810cbcc0b0c4843b51eb986f9851d3917acc29b2e9a526cee46b6d6fc6f4cd43215384f3bebcf105a5129f0cd9c3a324452804bc816f26324665c0166f04cff8526be47b0812326994bcc69814fccb835eed21e7897b81567077cb1cf1e5978c56875f1e75c10e25a700a5a573c6148fbc9193b06cb236def3a12a9f6b48d177ad0b25a83595f3d020eddb79fe0c591b0bc4e6f3900e544b3502a4b4c5cc73ac82a19798594a4b99d795f598ba09c8523949a9d460715c9031835408cb5b786a0e42e027587ed4a0b3cb49ce3c272f3302a4c436470621c73b4ceda02485416b3699c0f6bb74cde58724d480b283810dc977c2726735cfb08b2086639994f29ba45d6416ebb58220a06a3819b18acd4ba4846456ec0c4acbc7f6490714d17b2085b16e1a8880ce634a8fca70aa087501140627cc15e63a6c3d802814075d0fa64c12853590b45ebe040405b0384b47bfef5294bb0813ef112c4310c7d65c1dc8055e872b25519200e8667592926307bb0bcc65e35d34c3a1936faa63b3f9a90bc62419744ad430c3a63b335e91a4d1cfc50cad7a1eb84bf736a66a61cb27e7809bbe9ca50a422e2eb6a7d566a524c29463bcbbc14bbfe398e6d60399ceb7f8703a13fa786566500dd01a5f95765326c09fbb4aae4bb3f0a7c0e72a3797d0b2079f57be685981ec165220648fff9427ac2a025e9c6657921b9f87c4d5c2b8c582760772ab8c80b6af3b8dac2096c973d9c712b0977209bb69c2fd5b41201c9c882c2ee3649b341532553becb953453a728d4d8122620a97e0361b930cf26a8118dcc524801c1bbfba07e351a949a40173339d7c888e66b2018509cceb37483c64b55b57ec933bb0dd6a75e4310111c81a85ccb40e8a442767e668044be5a3b58687163e6acb1573bdc9c954e6381f3a826b52c22055b82b6eac1f5a9504aa7344101426a443b624a9a2cda46512c27a62a693f57aa4f67cb4ba14e397b25066520ce14830a90984e3a1b46927160534bfaf282a9833d1971068579cc9ca41a44c66c612076a438a74d38cd25747b79068ce0c73cb2e082680816826565f78a968a2385648aa5d7868e7c020bab719b0c520c61a3492c8032dba5209f65705df611a9aa66dcc947efa602b64c0fbd0b9151786f3446afa386ae6c389bbc9367cf9cc8665337d867896fb79297c3b57253c537591ed3f55572869d72d39358210fcad381f4b38437cb1a8b41b9b87915ba4c9f0f9490b70b337097b59fa302bb7c981d8bb293c2a99a222cb2bb2eff24cc0cbb60ad5bc3080b00c35944ae85bebd774fd53cad60c84f057202ce5098efc177310a2186989862067eb41badbe11288a007cbb1737bd4962e18c40ef317cf4d45717c56b9b6a77ddc77cf192205ca5b2d7a92148550418c720989bace8834f88304437f84d4d735acd810061752da08302f8203f65a56a36b81f8fa1cb51fa041dbbbba591bf88885a25c45683c96057f29922d4ce60a33559b671a8f4a4465040d4a94dd85c4b35a78813c7a6c1e759c0f8423260a88c9819b7d913b29b38cec7a84ad03c70a909006466d0dc2fa3b52f2dc304aae79b84b5954f67956c8896714058c3eb72c2988bcca2be45f7333ef8282a4a44eab61b6777cb247255bff44c994952820058655735a4680c7bb67f82bb7cb882a7ef6923b5fa75bb74b61d608161d5c72ad8b397eca3204a0e8b636751e9922bca71c8dc3198630516d143bba62987a920e2b68de4220c8df47bbd3925974c9868048b0639994bea0dff198eb342924d5978e12c6cc97b9152558089f7901d2a5fe1c8c3bfa81eecea485b233ef3e73711a8c2e86713c9f0b25990346240211d9795d97290664cbe769c50b8680e1bd98ec58c379a8cafdf5250427835280ab9e256c0fd5b523c45c994ea303606afe2b735ca82cca0c8af1d45c2ca12322a65353eb6336bb4817357bc86b49c61d42dfa57ba41650e49d2512834837080a368b29cacb10ff3baa0a4463828c195b057305cf96ffad866d305318779a78fd8ab0774540cba3214ca711c37476d9707e1d5af5654a26ac8ab3a893c0cf6459bd5ad834a3cee7c1248513fb46773ce65b8bb927759ebc49a688a67a9157fa10c709727e0e0ba9b695a9a87adbb99598dd05d2b639c4e5053e3778300855b12a3218ca8c3f168cb59165c94027045f88e2e6c3b9674114685204546340a8b63d72614143a408d100137a7bc261428526b683a911ec1e63adfb5429f73cb02ec03c945a51ae14dce403098854252b922604c8786cc4875814ace16ad0c727cdf61bc8ba07784127d1d036670d93a86a7742ddbbb765bb2bfd431dea1b69288012a0c6c7d3997bb32c75bd1216347aecae98782a97a32523c5f018c52ca74c325a6eab5b1fdaa7ba0801987f5c38fa96f180c26918b57586a98c0f06adcaa1cd43354473389940bad117042a5f6cb28e9aa5ab5a8bbeb8652ba2a8a1825928213f711bda08c7fe4c88ddfe2bccc07c76a93b40da688c42b91d99460b33b139f4482c6ec3dd64a98cc9890b15b09dbeba297f57bfa2b09d3db67b6118972460f1ab3aac2920e56b1cbcd3726f8c23f976c1c90e443005231975b404684530cdb54b6d41c82d2c2cd70a9fd3ba447c20cc6b5707cd258be8a3cf903711a47c459d4a6c7d7b68a6552d36570cb634c506009c76a1dbe05c069f8a119a55bae4b8d3d4298bb50a0e0c1bdff631dbef415e09702d7fc52955b72a1917d8d69a0be8354d8467b8f95bdbb59828a86c85e99ae9a68181bc191eeb4b043b70cd8f758fcb377c868bb41555b7afc1d9f6155849911bd11731155b94893554441c3ab1c020dbbab866c68e9ac9a00f814a6757f5cfc29dbd15a558389e0483220760e54100036d97b44b2432cea9b594ba61a1c39f06056d563ba22427a006c6a6771c6937b5309196e6926ce7d75a33621070f8a9150392d29992286c364a9019029415f76f2ac4089a745031a0e37b99337a8da520423e25cbd4742027a1e6dd9985b116586238d24c18c44eabe6c1479eaed8ecf641ec1a5c8b782e6c85523b60181b4c36a6565db7ed17adc66b438d79d32171131cfa4991cf7c4f7bb37590950cce5604acb46200094b085d388621f387713ab0818dcbedc41fb90332c3ebaa89d0e6844ac0f199b6607018eba61857c86c27a0518160a002c050251d0c68022a105c8fed072621e971623c5552a1a3433897de8e3bac6c4592d7e88529a3c9c9485021b0c0000c78100ff7218ff671da0349a77b1ad53c5e174393110664d1e1194b41bad6cf1908c13470100e433500b3798f3bee0c0a2af2fc0bee61c9e9a492947735e436172a271188304```",
+          "createdAt": "2023-01-04T14:55:56Z",
+          "updatedAt": "2023-01-04T14:56:08Z"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOIrmZ-85a8MB_",
+      "title": "definition of term \"composite\"",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/12",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "falko-strenzke"
+      ],
+      "labels": [],
+      "body": "Regarding the sentence in the introduction:\r\n\r\n> \"Here, the term \"composite\" indicates that the combination of the two components forms a single atomic object.\r\n\r\nI don't think that this sentence is saying something useful. Clearly, they are not essentially atomic (as nothing is in the known universe, not even atoms). What is meant here, is that they appear as single cryptogrpaphic schemes on the protocol layer. Accordingly, that is what I would propose to state here.",
+      "createdAt": "2023-01-09T14:42:12Z",
+      "updatedAt": "2023-01-19T13:50:47Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> they appear as single cryptogrpaphic schemes on the protocol layer\r\n\r\nI think this was the original statement and we replaced it.\r\nThe problem I raised was that \"protocol layer\" is not clear terminology. In internal discussions we distinguish protocol and algorithm layer but in the draft everything is the protocol layer.\r\n\r\nPerhaps we can just phrase it slightly differently, for example that they appear as single cryptographic schemes to the rest of the protocol.",
+          "createdAt": "2023-01-09T15:20:21Z",
+          "updatedAt": "2023-01-09T15:20:21Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "If the word \"layer\" is the problem, then I propose just to leave it out and say:  \"they appear as single cryptographic schemes in the protocol\".",
+          "createdAt": "2023-01-09T15:34:03Z",
+          "updatedAt": "2023-01-09T15:34:03Z"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOIrmZ-85a8NS0",
+      "title": "should we use forward reference?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/13",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "fluppe2"
+      ],
+      "labels": [],
+      "body": "# Falko's original remark\r\n\r\nIn Section 4.2.3 we have a forward reference to Section 4.3.2. I think normally in a specification one would only make backwards references to things already defined. Thus the referenced section specifying the packet structure should better be moved in front IMO.\r\n\r\n(Section 4.2.4 also has a similar forward reference)\r\n\r\n# Comment on this from Aron (from previous issue):\r\n\r\n> forward reference\r\n\r\nI personally don't have anything against forward references. I usually like even the backrefs, so that you can navigate the spec in both directions.\r\nGenerally, when implementing, I don't use the spec linearly",
+      "createdAt": "2023-01-09T14:44:54Z",
+      "updatedAt": "2023-01-19T13:19:20Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Meeting 2023-01-19: \r\n\r\n* Aron: circle reference not avoidable for data generation and their encoding\r\n* Stavros: do we have many forward references?\r\n* Aron: a couple in the context of packet formats\r\n* Falko: agreed to the circular dependency problem\r\n* All: generally we should make it without forward references\r\n* Stavros: will read through and check for forward references again",
+          "createdAt": "2023-01-19T13:19:08Z",
+          "updatedAt": "2023-01-19T13:19:08Z"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOIrmZ-85a8OeO",
+      "title": "Should we have normative statements in the Security Considerations?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/14",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "falko-strenzke"
+      ],
+      "labels": [],
+      "body": "# Falko's original remark\r\n\r\nIn the Security Considerations, under Section 8.5, a normative statement is made (\"MUST NOT\"). In my understanding, normative statements do not belong in the Security Considerations, but under one of the normative sections.\r\n\r\n# Comment by Aron (from previous issue)\r\n\r\nThis is technically already in the crypto-refresh: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-12.2.3\r\n\r\nI would like to reiterate here in the security considerations",
+      "createdAt": "2023-01-09T14:47:23Z",
+      "updatedAt": "2023-01-19T13:38:34Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Minutes meeting 2023-01-19:\r\n\r\n* Andreas: normative statement should be in EC section\r\n* Aron: have no such section\r\n* Stavros: section 1\r\n* Falko: sec 1 not normative\r\n* Aron: move normative statement to sec 1\r\n* Aron and Falko: make new section 2 with normative preliminaries",
+          "createdAt": "2023-01-19T13:37:33Z",
+          "updatedAt": "2023-01-19T13:37:33Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOIrmZ-85a8QHX",
+      "title": "Consistency with respect to wording \"extraction\" of component key",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/15",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "# Falko's original remark\r\n\r\nIn Section 4.1.2 we state\r\n\r\n> Extract the component public key kyberPublicKey that is part of the recipient's composite public key\r\n\r\nThis seems inconsistent in wording with the descriptions for the EC-KEMs, where no mentioning of the extraction of the component public key from the composite key is made. IMO it should be mentioned in for each scheme or for none.\r\n\r\n# Aron's comment on this (from previous issue)\r\n\r\n> In Section 4.1.2\r\n>This seems inconsistent in wording with the descriptions for the EC-KEMs, \r\n\r\nIn the ECC sections we mention \r\n```...where R is the component public key eccPublicKey...```\r\nI would consider removing point (1) from 4.1.2 and rewrite\r\n``` \r\n2. Invoke (kyberCipherText, keyShare) <- kyberKem.encap(kyberPublicKey) \r\n   where kyberPublicKey is extracted from recipient's composite public key\r\n```\r\n",
+      "createdAt": "2023-01-09T14:50:58Z",
+      "updatedAt": "2023-01-19T13:50:16Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Meeting 2023-01-19:\r\n\r\n* Aron & Falko: just about consistency, will be aligned",
+          "createdAt": "2023-01-19T13:49:39Z",
+          "updatedAt": "2023-01-19T13:49:39Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOIrmZ-85bTd2r",
+      "title": "From pqc@ietf: Summary OpenPGP crypto functions and further references",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/16",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "In view of\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/pqc/rX2AcijHUbdiijehEaZS5PmpulQ/\r\n\r\naddress (how?) the following\r\n\r\n>> I think it would also benefit from a intro section that summarizes OpenPGP Crypto functions. ... Even references to the proper RFCs for more info would be beneficial.\r\n\r\n> This RFC is designed to be an addition to the crypto-refresh (what the WG is working on right now), and is directly based on it. I think you're right about the references, and it could be very beneficial to add more links to it, with specific references to the sections.\r\n",
+      "createdAt": "2023-01-13T07:19:20Z",
+      "updatedAt": "2023-01-16T11:49:20Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Personally I think there are still some places where we can add backreferences, especially when we introduce packets or so on. This is mostly cosmetic, and I can take care of this.",
+          "createdAt": "2023-01-13T08:37:40Z",
+          "updatedAt": "2023-01-13T08:37:40Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think we can orient towards RFC 6637 in this respect. [There](https://www.rfc-editor.org/rfc/rfc6637#section-9), it is written for instance\r\n\r\n```\r\n9. Encoding of Public and Private Keys\r\n\r\n   The following algorithm-specific packets are added to Section\u00a05.5.2\r\n   of [RFC4880], \"Public-Key Packet Formats\", to support ECDH and ECDSA.\r\n```\r\n\r\nIt also [mentions](https://www.rfc-editor.org/rfc/rfc6637#section-10) where no changes are needed:\r\n```\r\n10.  Message Encoding with Public Keys\r\n\r\n   Section\u00a05.2.2 of [RFC4880], \"Version 3 Signature Packet Format\"\r\n   defines signature formats.  No changes in the format are needed for\r\n   ECDSA.\r\n```\r\n",
+          "createdAt": "2023-01-16T08:05:32Z",
+          "updatedAt": "2023-01-16T11:49:20Z"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOIrmZ-85bTht0",
+      "title": "Should we point to https://datatracker.ietf.org/doc/draft-ounsworth-cfrg-kem-combiners/",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/17",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "postponed"
+      ],
+      "body": "Such that our proposal for KEM combination automatically docks to the discussion of this draft?",
+      "createdAt": "2023-01-13T07:34:54Z",
+      "updatedAt": "2023-01-19T13:46:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Minutes Meeting 2023-01-19:\r\n\r\n* Stavros: expect to be discussed in CFRG and our construction is an instance of this\r\n* Aron: wait until CFRG has given a vote\r\n* Andreas: what ounsworth needs is a dual-prf, but we use SHA3 which is thus a dual-prf\r\n* Andreas: the simple way is to just concat everything into a KDF, but this is not addresing the attacks that were pointed out some time ago. \r\n* Stavros: we can decide whether to include reference\r\n* Andreas, Stavros: when CFRG has voted, add statement to sec. considerations",
+          "createdAt": "2023-01-19T13:45:40Z",
+          "updatedAt": "2023-01-19T13:45:40Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOIrmZ-85cVkcZ",
+      "title": "Missing SPHINCS+ reference",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/18",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "at [1.2.3. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#section-1.2.3)[SPHINCS+](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#name-sphincs-7)",
+      "createdAt": "2023-01-19T13:26:21Z",
+      "updatedAt": "2023-01-19T13:26:21Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOIrmZ-85GP0Mh",
+      "title": "Change KDF domain separation to be > 32 chars",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/1",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "NIST.SP.800-185-2 specifies:\r\n> Applications of this Recommendation shall not select an input key, K, whose length is less than their required security strength. Guidance for cryptographic algorithm and key-size selection is available in [4].\r\n\r\nI would raise the length of our domain separation string to > 32 chars for conformance with the specification. Also many implementations implement this strictly, so this ensures easy reuse of existing implementations.\r\n\r\nFurthermore I'd drop the `V5` from the string. I don't think we want to customize the string based on the PKESK version (we also don't for ECDH, that can be used across v4 and v5)",
+      "createdAt": "2022-12-27T13:29:47Z",
+      "updatedAt": "2023-01-03T14:40:26Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "86a898b9289ecbd8951db4b4ee6a168d00f8e495",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "kdf-dom-separation",
+      "headRefOid": "82e2550b723cd2bb0132362f1ad799a5095560da",
+      "closedAt": "2023-01-03T11:28:26Z",
+      "mergedAt": "2023-01-03T11:28:25Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "95dedf7ee6bbb455e874381ef7d7fc79019041cf"
+      },
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm not sure I understand. It is the KMAC *key* that needs to have a sufficient length. The domain seperation just needs to be unique.",
+          "createdAt": "2023-01-02T15:46:18Z",
+          "updatedAt": "2023-01-02T15:46:18Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As far as I understand we're effectively using `domSeparation` as a KMAC key",
+          "createdAt": "2023-01-02T15:48:15Z",
+          "updatedAt": "2023-01-02T15:48:15Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "OK, I see, it really seems to be an sublte inconsistency between the NIST specification of the one step key deriviation based on KMAC and this restriction of KMAC regarding the key length. So I think your suggestion is the correct solution.",
+          "createdAt": "2023-01-03T11:25:58Z",
+          "updatedAt": "2023-01-03T11:25:58Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We can extend the length of the domain seperation string, but I wouldn't put \"Kyber\" in there for two reasons:\r\n\r\na) The name \"Kyber\" will eventually turn into \"MLWE\". I suggest to keep the amount of necessary code changes when we align to the forthcoming NIST standards as small as possible. This is somehow an analoguous argument as to not include version information.\r\n\r\nb) The composite KDF does not care if it is feeded with ECC, Kyber or something else. Therefore I suggest to keep the domain seperation generic. e.g. if the CFRG decides to standardize NTRU in the future, the KDF will receive maybe an ECC || NTRU value.\r\n\r\nI would suggest, instead of putting \"OpenPGPKyberCompositeKeyDerivation\" we should do something like \"OpenPGPCompositeKeyDerivationFunction\".",
+          "createdAt": "2023-01-03T13:03:25Z",
+          "updatedAt": "2023-01-03T14:38:51Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "So @fluppe2 you would keep the same hash for Kyber or other algorithms?\r\n\r\nI am happy with the proposal `OpenPGPCompositeKeyDerivationFunction`",
+          "createdAt": "2023-01-03T13:06:50Z",
+          "updatedAt": "2023-01-03T13:06:50Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler : Yes, I would prefer the domain separation to specify a generic composer, so that potential future PQC-extensions for OpenPGP could adopt this. The fixedInfo field contains the specific algorithm information anyway.",
+          "createdAt": "2023-01-03T14:38:26Z",
+          "updatedAt": "2023-01-03T14:38:26Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> @wussler : Yes, I would prefer the domain separation to specify a generic composer, so that potential future PQC-extensions for OpenPGP could adopt this. The fixedInfo field contains the specific algorithm information anyway.\r\n\r\nMakes sense, is fine for me, too",
+          "createdAt": "2023-01-03T14:40:26Z",
+          "updatedAt": "2023-01-03T14:40:26Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85Jk6_R",
+          "commit": {
+            "abbreviatedOid": "82e2550"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-03T11:26:51Z",
+          "updatedAt": "2023-01-03T11:26:51Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOIrmZ-85GQ9Sh",
+      "title": "Fix typo with ECDSA/EdDSA",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/4",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-12-27T20:33:28Z",
+      "updatedAt": "2023-01-04T10:47:31Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "86a898b9289ecbd8951db4b4ee6a168d00f8e495",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "ecdsa-typo",
+      "headRefOid": "91768d4b0327a9c7c8932fd03bf42e6bf1a3227e",
+      "closedAt": "2023-01-04T10:47:31Z",
+      "mergedAt": "2023-01-04T10:47:30Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "96772432da2cf6690acc8c05bcd9da9cc8086864"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85JpPYJ",
+          "commit": {
+            "abbreviatedOid": "91768d4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T09:06:16Z",
+          "updatedAt": "2023-01-04T09:06:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85JpwAB",
+          "commit": {
+            "abbreviatedOid": "91768d4"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T10:44:11Z",
+          "updatedAt": "2023-01-04T10:44:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOIrmZ-85Ge7-R",
+      "title": "Add parameter IDs condition for SPHINCS+",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/5",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "When issuing or verifying SPHINCS+ signature, it is not specified how to handle parameter IDs",
+      "createdAt": "2023-01-02T11:18:09Z",
+      "updatedAt": "2023-01-04T10:47:19Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "86a898b9289ecbd8951db4b4ee6a168d00f8e495",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "spx-verification",
+      "headRefOid": "94cd221c90b2de8124a59bbe3d6ec621fb65bf0f",
+      "closedAt": "2023-01-04T10:47:19Z",
+      "mergedAt": "2023-01-04T10:47:19Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "72ef73d3c91a74648812fe8a8e25ce1019389fbb"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85JpPQG",
+          "commit": {
+            "abbreviatedOid": "94cd221"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T09:05:51Z",
+          "updatedAt": "2023-01-04T09:05:51Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85Jpwb1",
+          "commit": {
+            "abbreviatedOid": "94cd221"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T10:45:36Z",
+          "updatedAt": "2023-01-04T10:45:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOIrmZ-85GjDQw",
+      "title": "Changed value of 'domSeparation' to the UTF-8 encoding of 'OpenPGPCom\u2026",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/7",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026positeKeyDerivationFunction'",
+      "createdAt": "2023-01-03T15:07:59Z",
+      "updatedAt": "2023-01-03T15:20:03Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "95dedf7ee6bbb455e874381ef7d7fc79019041cf",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "kdf-dom-separation",
+      "headRefOid": "05760b9ffe1c0be8bd355c0a0f6505c1cb7a7078",
+      "closedAt": "2023-01-03T15:20:03Z",
+      "mergedAt": "2023-01-03T15:20:03Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "67352990f097e4af146bfc922b83f1d1827162db"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85Jl_5V",
+          "commit": {
+            "abbreviatedOid": "05760b9"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-03T15:14:31Z",
+          "updatedAt": "2023-01-03T15:14:31Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85JmBzv",
+          "commit": {
+            "abbreviatedOid": "05760b9"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-03T15:19:57Z",
+          "updatedAt": "2023-01-03T15:19:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOIrmZ-85GjIQX",
+      "title": "Change sentence for SHA3 support requirement",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/8",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Address part of issue #6 ",
+      "createdAt": "2023-01-03T15:23:13Z",
+      "updatedAt": "2023-01-04T10:36:33Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "67352990f097e4af146bfc922b83f1d1827162db",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sha3-must",
+      "headRefOid": "d06f460fcd6ad207068126e1f908c381941d5896",
+      "closedAt": "2023-01-04T10:36:33Z",
+      "mergedAt": "2023-01-04T10:36:33Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "f6571482ae72fff59558bd1ea10ec7585378d95a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85Joq88",
+          "commit": {
+            "abbreviatedOid": "d06f460"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T06:31:41Z",
+          "updatedAt": "2023-01-04T06:31:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85JpO8o",
+          "commit": {
+            "abbreviatedOid": "d06f460"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T09:04:52Z",
+          "updatedAt": "2023-01-04T09:04:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOIrmZ-85GmP56",
+      "title": "New year review falko",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/9",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Most changes were previously discussed in https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/6. The respective comments are indicated by crossed out text in the issue.",
+      "createdAt": "2023-01-04T07:16:33Z",
+      "updatedAt": "2023-01-09T13:06:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "67352990f097e4af146bfc922b83f1d1827162db",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "new-year-review-falko",
+      "headRefOid": "457b24636aad788bcae751eb4585a56bedcc111f",
+      "closedAt": "2023-01-09T13:06:25Z",
+      "mergedAt": "2023-01-09T13:06:25Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "a203efa37326fcb3e9d4968d2645750ce8321adc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85JpQCw",
+          "commit": {
+            "abbreviatedOid": "2c9b175"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-04T09:08:17Z",
+          "updatedAt": "2023-01-04T09:08:17Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "I think the 'a' is not necessary here, because the capacity is a definite value. But I might be mistaken.",
+              "createdAt": "2023-01-04T09:08:17Z",
+              "updatedAt": "2023-01-04T09:09:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85Jpcyt",
+          "commit": {
+            "abbreviatedOid": "1a3090c"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-04T09:44:15Z",
+          "updatedAt": "2023-01-04T09:52:16Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "I think the part about previous specs is not necessary here, as it is already said in \u00a71.3.1. The formulations here should be brief. I liked the old sentence better.",
+              "createdAt": "2023-01-04T09:44:16Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "Now the list seems to go from 1 then 3,4,5. Is the 2 missing?",
+              "createdAt": "2023-01-04T09:44:50Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            },
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\n 1. Generate an ephemeral key pair {`v`, `V=vG`} according to\r\n    the procedure defined in [RFC7748], that is, without any\r\n    measures such as masking or clamping\r\n```",
+              "createdAt": "2023-01-04T09:49:23Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\n 4. Encode the EdDSA and Dilithium signatures according to the packet\r\n    structure given in {{ecc-dilithium-sig-packet}}.\r\n```",
+              "createdAt": "2023-01-04T09:50:11Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            },
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\n 4. Encode the ECDSA and Dilithium signatures according to the packet\r\n    structure given in {{ecc-dilithium-sig-packet}}.\r\n```",
+              "createdAt": "2023-01-04T09:50:37Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            },
+            {
+              "originalPosition": 78,
+              "body": "```suggestion\r\nIn order not to extend the attack surface, we bind the hash algorithm used for\r\nmessage digestion to the hash algorithm used internally by the signature\r\nalgorithm. Dilithium internally uses a SHAKE256 digest, therefore we require\r\nSHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the\r\ninternal hash algorithm varies based on the algorithm and parameter ID.\r\n```",
+              "createdAt": "2023-01-04T09:51:32Z",
+              "updatedAt": "2023-01-04T09:52:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85JpwEc",
+          "commit": {
+            "abbreviatedOid": "1b67336"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-04T10:44:26Z",
+          "updatedAt": "2023-01-04T10:45:18Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Probably it's better to remove the reference to older OpenPGP specs, but i like the sentence either way",
+              "createdAt": "2023-01-04T10:44:26Z",
+              "updatedAt": "2023-01-04T10:45:18Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "Also to me it \"sounds better\" with the `a` but I see Stavros' point",
+              "createdAt": "2023-01-04T10:45:06Z",
+              "updatedAt": "2023-01-04T10:45:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85Jpwm0",
+          "commit": {
+            "abbreviatedOid": "2c9b175"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-04T10:46:11Z",
+          "updatedAt": "2023-01-04T10:46:11Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "FYI this does not matter with markdown, but I agree it's nice to keep tidy",
+              "createdAt": "2023-01-04T10:46:11Z",
+              "updatedAt": "2023-01-04T10:46:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85JpxdC",
+          "commit": {
+            "abbreviatedOid": "2c9b175"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-04T10:49:01Z",
+          "updatedAt": "2023-01-04T10:49:01Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\nMore precisely, for given capacity `c` the indifferentiability proof shows that\r\n```\r\nI don't know english grammar well enough to be sure but also I don't mind too much. Maybe we get a review from an english native speaker at some point.",
+              "createdAt": "2023-01-04T10:49:01Z",
+              "updatedAt": "2023-01-04T10:49:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85J4v2C",
+          "commit": {
+            "abbreviatedOid": "2c9b175"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-07T06:34:41Z",
+          "updatedAt": "2023-01-07T06:34:41Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "For me introducing an 'a' is fine.",
+              "createdAt": "2023-01-07T06:34:41Z",
+              "updatedAt": "2023-01-07T06:34:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85J4v4K",
+          "commit": {
+            "abbreviatedOid": "457b246"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-07T06:36:46Z",
+          "updatedAt": "2023-01-07T06:36:46Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85J6YF_",
+          "commit": {
+            "abbreviatedOid": "457b246"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-09T07:42:42Z",
+          "updatedAt": "2023-01-09T07:42:42Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOIrmZ-85G7EDW",
+      "title": "Update Key Share size for Kyber",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/11",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As defined in section 1.4 of the spec, Kyber.CCAKEM outputs a `sha-256`, therefore it's always 32 octets long",
+      "createdAt": "2023-01-08T16:42:37Z",
+      "updatedAt": "2023-01-13T04:03:29Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "96772432da2cf6690acc8c05bcd9da9cc8086864",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "kyber-key-share",
+      "headRefOid": "b5cd6743756fbeaf9a0f71b0c2f4af0aabd3fb7f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85J6QOL",
+          "commit": {
+            "abbreviatedOid": "b5cd674"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-09T07:03:43Z",
+          "updatedAt": "2023-01-09T07:03:43Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85KUdPO",
+          "commit": {
+            "abbreviatedOid": "b5cd674"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-13T04:03:28Z",
+          "updatedAt": "2023-01-13T04:03:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOIrmZ-85IjYjd",
+      "title": "Add key generation procedures",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/19",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses #3 ",
+      "createdAt": "2023-01-25T23:24:02Z",
+      "updatedAt": "2023-01-25T23:25:55Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "generation-procedure",
+      "headRefOid": "9afd2d9f3cc2354dae0ad3d9788a5e6ff3e200a5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOIrmZ-85IjZ8B",
+      "title": "Add some guidance to prevent parallel encryption",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/20",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses #2 ",
+      "createdAt": "2023-01-25T23:33:19Z",
+      "updatedAt": "2023-01-25T23:34:06Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "avoid-double-encryption",
+      "headRefOid": "af41b93306dfadca4e3ca5666d3f29782c8a9da8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
