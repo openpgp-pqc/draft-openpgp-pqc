@@ -409,20 +409,6 @@ For interoperability this extension offers CRYSTALS-* in composite combinations
 with the NIST curves P-256, P-384 defined in {{NIST-SP800-186}} and the
 Brainpool curves brainpoolP256r1, brainpoolP384r1 defined in {{RFC5639}}.
 
-### SEC1 EC Point Wire Format {#sec1-format}
-
-Elliptic curve points of the generic prime curves are encoded using the SEC1
-(uncompressed) format as the following octet string:
-
-    B = 04 || X || Y
-
-where `X` and `Y` are coordinates of the elliptic curve point `P = (X, Y)`, and
-each coordinate is encoded in the big-endian format and zero-padded to the
-adjusted underlying field size. The adjusted underlying field size is the
-underlying field size rounded up to the nearest 8-bit boundary, as noted in the
-"Field size" column in {{tab-ecdh-nist-artifacts}},
-{{tab-ecdh-brainpool-artifacts}}, or {{tab-ecdsa-artifacts}}. This encoding is
-compatible with the definition given in [SEC1].
 
 ## Standalone and Multi-Algorithm Schemes {#multi-algo-schemes}
 
@@ -470,6 +456,43 @@ multi-algorithm public-key encryption is realized where the recipient has to
 decrypt only one of the PKESK packages in order to decrypt the message. See
 {{no-pq-t-parallel-encryption}} for restrictions on parallel encryption
 mandated by this specification.
+
+# Preliminaries
+
+This section provides some preliminaries for the definitions in the subsequent
+sections.
+
+## Elliptic curves
+
+### SEC1 EC Point Wire Format {#sec1-format}
+
+Elliptic curve points of the generic prime curves are encoded using the SEC1
+(uncompressed) format as the following octet string:
+
+    B = 04 || X || Y
+
+where `X` and `Y` are coordinates of the elliptic curve point `P = (X, Y)`, and
+each coordinate is encoded in the big-endian format and zero-padded to the
+adjusted underlying field size. The adjusted underlying field size is the
+underlying field size rounded up to the nearest 8-bit boundary, as noted in the
+"Field size" column in {{tab-ecdh-nist-artifacts}},
+{{tab-ecdh-brainpool-artifacts}}, or {{tab-ecdsa-artifacts}}. This encoding is
+compatible with the definition given in [SEC1].
+
+### Measures to Ensure Secure Implementations
+
+The following paragraphs describe measures that ensure secure implementations
+according to existing best practices and standards defining the operations of
+Elliptic Curve Cryptography.
+
+Even though the zero point, also called the point at infinity, may occur as a
+result of arithmetic operations on points of an elliptic curve, it MUST NOT
+appear in any ECC data structure defined in this document.
+
+Furthermore, when performing the explicitly listed multiplications in
+{{x25519-x448-kem}} or {{ecdh-kem}} it is REQUIRED to perform all checks,
+clamping, or masking mandated from the relative elliptic curve specification.
+
 
 # Supported Public Key Algorithms
 
@@ -1381,15 +1404,6 @@ algorithm. Dilithium internally uses a SHAKE256 digest, therefore we require
 SHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the
 internal hash algorithm varies based on the algorithm and parameter ID.
 
-## Elliptic curves
-
-Even though the zero point, also called the point at infinity, may occur as a
-result of arithmetic operations on points of an elliptic curve, it MUST NOT
-appear in any ECC data structure defined in this document.
-
-Furthermore, when performing the explicitly listed multiplications in
-{{x25519-x448-kem}} or {{ecdh-kem}} it is REQUIRED to perform all checks,
-clamping, or masking mandated from the relative elliptic curve specification.
 
 # Additional considerations
 
