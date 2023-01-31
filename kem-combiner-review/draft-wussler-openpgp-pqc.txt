@@ -5,10 +5,10 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                               F. Strenzke
-Expires: 3 August 2023                                            MTG AG
+Expires: 4 August 2023                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         30 January 2023
+                                                         31 January 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2023.
+   This Internet-Draft will expire on 4 August 2023.
 
 Copyright Notice
 
@@ -1540,8 +1540,7 @@ Table of Contents
               Kelsey, J., Chang, S., and R. Perlner, "NIST Special
               Publication 800-185 – SHA-3 Derived Functions – cSHAKE,
               KMAC, TupleHash and ParallelHash", n.d.,
-              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
-              NIST.SP.800-185.pdf>.
+              <https://doi.org/10.6028/NIST.SP.800-185>.
 
    [NIST-SP800-186]
               Chen, L., Moody, D., Regenscheid, A., and K. Randall,
