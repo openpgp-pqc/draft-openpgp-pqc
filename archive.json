@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-01-26T01:16:39.708066+00:00",
+  "timestamp": "2023-01-31T01:20:19.776439+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -300,7 +300,7 @@
       "id": "I_kwDOIrmZ-85a8MB_",
       "title": "definition of term \"composite\"",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/12",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -309,8 +309,8 @@
       "labels": [],
       "body": "Regarding the sentence in the introduction:\r\n\r\n> \"Here, the term \"composite\" indicates that the combination of the two components forms a single atomic object.\r\n\r\nI don't think that this sentence is saying something useful. Clearly, they are not essentially atomic (as nothing is in the known universe, not even atoms). What is meant here, is that they appear as single cryptogrpaphic schemes on the protocol layer. Accordingly, that is what I would propose to state here.",
       "createdAt": "2023-01-09T14:42:12Z",
-      "updatedAt": "2023-01-19T13:50:47Z",
-      "closedAt": null,
+      "updatedAt": "2023-01-30T12:41:48Z",
+      "closedAt": "2023-01-30T12:41:47Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -325,6 +325,13 @@
           "body": "If the word \"layer\" is the problem, then I propose just to leave it out and say:  \"they appear as single cryptographic schemes in the protocol\".",
           "createdAt": "2023-01-09T15:34:03Z",
           "updatedAt": "2023-01-09T15:34:03Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Addressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/22",
+          "createdAt": "2023-01-30T12:41:47Z",
+          "updatedAt": "2023-01-30T12:41:47Z"
         }
       ]
     },
@@ -359,7 +366,7 @@
       "id": "I_kwDOIrmZ-85a8OeO",
       "title": "Should we have normative statements in the Security Considerations?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/14",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -368,8 +375,8 @@
       "labels": [],
       "body": "# Falko's original remark\r\n\r\nIn the Security Considerations, under Section 8.5, a normative statement is made (\"MUST NOT\"). In my understanding, normative statements do not belong in the Security Considerations, but under one of the normative sections.\r\n\r\n# Comment by Aron (from previous issue)\r\n\r\nThis is technically already in the crypto-refresh: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-07.html#section-12.2.3\r\n\r\nI would like to reiterate here in the security considerations",
       "createdAt": "2023-01-09T14:47:23Z",
-      "updatedAt": "2023-01-19T13:38:34Z",
-      "closedAt": null,
+      "updatedAt": "2023-01-30T12:34:02Z",
+      "closedAt": "2023-01-30T12:34:01Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -377,6 +384,13 @@
           "body": "Minutes meeting 2023-01-19:\r\n\r\n* Andreas: normative statement should be in EC section\r\n* Aron: have no such section\r\n* Stavros: section 1\r\n* Falko: sec 1 not normative\r\n* Aron: move normative statement to sec 1\r\n* Aron and Falko: make new section 2 with normative preliminaries",
           "createdAt": "2023-01-19T13:37:33Z",
           "updatedAt": "2023-01-19T13:37:33Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Adressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/21",
+          "createdAt": "2023-01-30T12:34:01Z",
+          "updatedAt": "2023-01-30T12:34:01Z"
         }
       ]
     },
@@ -478,6 +492,38 @@
       "body": "at [1.2.3. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#section-1.2.3)[SPHINCS+](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#name-sphincs-7)",
       "createdAt": "2023-01-19T13:26:21Z",
       "updatedAt": "2023-01-19T13:26:21Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOIrmZ-85dICav",
+      "title": "Fix GitHub actions: node-js upgrade to 16",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/23",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.blog/changelog/2022-09-22-github-actions-all-actions-will-begin-running-on-node16-instead-of-node12/",
+      "createdAt": "2023-01-30T12:48:29Z",
+      "updatedAt": "2023-01-30T12:48:29Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOIrmZ-85dIDBc",
+      "title": "Fix GitHub actions: save-state and set-output commands",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/24",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/",
+      "createdAt": "2023-01-30T12:50:05Z",
+      "updatedAt": "2023-01-30T12:50:05Z",
       "closedAt": null,
       "comments": []
     }
@@ -1077,7 +1123,7 @@
       "labels": [],
       "body": "This PR addresses #3 ",
       "createdAt": "2023-01-25T23:24:02Z",
-      "updatedAt": "2023-01-25T23:25:55Z",
+      "updatedAt": "2023-01-30T12:12:41Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
@@ -1089,7 +1135,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85L_55j",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-30T12:12:41Z",
+          "updatedAt": "2023-01-30T12:12:41Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 20,
@@ -1103,13 +1163,118 @@
       "labels": [],
       "body": "Addresses #2 ",
       "createdAt": "2023-01-25T23:33:19Z",
-      "updatedAt": "2023-01-25T23:34:06Z",
+      "updatedAt": "2023-01-30T10:45:47Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "avoid-double-encryption",
       "headRefOid": "af41b93306dfadca4e3ca5666d3f29782c8a9da8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85L_X2Q",
+          "commit": {
+            "abbreviatedOid": "af41b93"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-30T10:43:56Z",
+          "updatedAt": "2023-01-30T10:45:47Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "This seems to refer to this proposal: https://gitlab.com/openpgp-wg/rfc4880bis/-/issues/64\r\n\r\nBut this is not yet part of the crypto-refresh. So I would prefer not to include it here until it becomes adapted into the cr-re",
+              "createdAt": "2023-01-30T10:43:56Z",
+              "updatedAt": "2023-01-30T10:45:47Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "How is this check to performed exactly? By comparing the user IDs of the keys?",
+              "createdAt": "2023-01-30T10:44:52Z",
+              "updatedAt": "2023-01-30T10:45:47Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOIrmZ-85Iz5FE",
+      "title": "new section 2 'preliminnaries'",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/21",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses issue #14",
+      "createdAt": "2023-01-30T12:32:14Z",
+      "updatedAt": "2023-01-30T12:32:38Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue_14_new_sec_prel",
+      "headRefOid": "67be3e0a4cab46c32e03c1d77a8cb44c07096a73",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOIrmZ-85Iz8kY",
+      "title": "rephrased definition of 'composite'",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/22",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses issue #12.",
+      "createdAt": "2023-01-30T12:41:12Z",
+      "updatedAt": "2023-01-30T12:41:27Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue12_definition_composite",
+      "headRefOid": "e872ac304ca45f4b1aa9ed20411b03a48f27793d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOIrmZ-85I0f5a",
+      "title": "minor additions in kem-combiner section",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/25",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Since we give an explicit description of the one-step key derivation in terms of KMAC, a reference to the defintion of KMAC is also necessary in my view.",
+      "createdAt": "2023-01-30T14:20:07Z",
+      "updatedAt": "2023-01-30T14:20:19Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "kem-combiner-review",
+      "headRefOid": "b75fca82e74e7593d7bcfaa20b3b93fa771f9e81",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
