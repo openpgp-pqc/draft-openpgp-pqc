@@ -2456,8 +2456,8 @@ fixedInfo = algID || SHA3-256(publicKey)
 <p id="section-4.2.2-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following
 procedure MUST be used to compute the KEK that wraps a session key. The
 construction is a one-step key derivation function compliant to
-<span>[<a href="#NIST-SP800-56C" class="cite xref">NIST-SP800-56C</a>]</span> Section 4 based on the KMAC256 MAC algorithm defined in
-<span>[<a href="#NIST-SP800-185" class="cite xref">NIST-SP800-185</a>]</span>. It is given by the following algorithm.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+<span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span> Section 4 based on the KMAC256 MAC algorithm defined in
+<span>[<a href="#SP800-185" class="cite xref">SP800-185</a>]</span>. It is given by the following algorithm.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.2-2">
 <pre>
 //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
@@ -3528,10 +3528,6 @@ Johannes Roth (MTG AG)<a href="#section-11-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Post-Quantum Cryptography Standardization"</span>, <time datetime="2016-12" class="refDate">December 2016</time>, <span>&lt;<a href="https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization">https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="NIST-SP800-185">[NIST-SP800-185]</dt>
-        <dd>
-<span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Chang, S.</span>, and <span class="refAuthor">R. Perlner</span>, <span class="refTitle">"NIST Special Publication 800-185 – SHA-3 Derived Functions – cSHAKE, KMAC, TupleHash and ParallelHash"</span>, <span>n.d.</span>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-185">https://doi.org/10.6028/NIST.SP.800-185</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="NIST-SP800-186">[NIST-SP800-186]</dt>
         <dd>
 <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Regenscheid, A.</span>, and <span class="refAuthor">K. Randall</span>, <span class="refTitle">"Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters"</span>, <time datetime="2019-10" class="refDate">October 2019</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-186-draft">https://doi.org/10.6028/NIST.SP.800-186-draft</a>&gt;</span>. </dd>
@@ -3539,10 +3535,6 @@ Johannes Roth (MTG AG)<a href="#section-11-1" class="pilcrow">¶</a></p>
 <dt id="NIST-SP800-56A">[NIST-SP800-56A]</dt>
         <dd>
 <span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="NIST-SP800-56C">[NIST-SP800-56C]</dt>
-        <dd>
-<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NISTIR-8413">[NISTIR-8413]</dt>
         <dd>
@@ -3555,6 +3547,14 @@ Johannes Roth (MTG AG)<a href="#section-11-1" class="pilcrow">¶</a></p>
 <dt id="SEC1">[SEC1]</dt>
         <dd>
 <span class="refAuthor">Standards for Efficient Cryptography Group</span>, <span class="refTitle">"Standards for Efficient Cryptography 1 (SEC 1)"</span>, <time datetime="2009-05" class="refDate">May 2009</time>, <span>&lt;<a href="https://secg.org/sec1-v2.pdf">https://secg.org/sec1-v2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-185">[SP800-185]</dt>
+        <dd>
+<span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Chang, S.</span>, and <span class="refAuthor">R. Perlner</span>, <span class="refTitle">"NIST Special Publication 800-185 – SHA-3 Derived Functions – cSHAKE, KMAC, TupleHash and ParallelHash"</span>, <span class="seriesInfo">NIST Special Publication 800-185</span>, <span>n.d.</span>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-185">https://doi.org/10.6028/NIST.SP.800-185</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-56C">[SP800-56C]</dt>
+        <dd>
+<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <span class="seriesInfo">NIST Special Publication 800-56C</span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SPHINCS-Subm">[SPHINCS-Subm]</dt>
         <dd>
