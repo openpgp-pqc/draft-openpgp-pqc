@@ -110,6 +110,8 @@ informative:
         ins: Y. Liu
         name: Yi-Kai Liu
     date: September 2022
+    seriesinfo:
+      NIST IR 8413-upd1
 
   NIST-SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
@@ -126,7 +128,7 @@ informative:
         name: Richard Davis
     date: August 2020
 
-  NIST-SP800-56A:
+  SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
     author:
@@ -146,8 +148,10 @@ informative:
         ins: R. Davis
         name: Richard Davis
     date: April 2018
+    seriesinfo:
+      NIST Special Publication 800-56A
 
-  NIST-SP800-186:
+  SP800-186:
     target: https://doi.org/10.6028/NIST.SP.800-186-draft
     title: Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters
     author:
@@ -164,6 +168,8 @@ informative:
         ins: K. Randall
         name: Karen Randall
     date: October 2019
+    seriesinfo:
+      NIST Special Publication SP800-186
 
   SPONGE:
     target: https://keccak.team/files/CSF-0.1.pdf
@@ -406,7 +412,7 @@ native format in contrast to [I-D.ietf-openpgp-crypto-refresh].
 ### Generic Prime Curves
 
 For interoperability this extension offers CRYSTALS-* in composite combinations
-with the NIST curves P-256, P-384 defined in {{NIST-SP800-186}} and the
+with the NIST curves P-256, P-384 defined in {{SP800-186}} and the
 Brainpool curves brainpoolP256r1, brainpoolP384r1 defined in {{RFC5639}}.
 
 ### SEC1 EC Point Wire Format {#sec1-format}
@@ -684,10 +690,10 @@ follows:
 The operation `ecdhKem.encap()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
-    {{NIST-SP800-186}} or {{RFC5639}}
+    {{SP800-186}} or {{RFC5639}}
 
  2. Compute the shared point `S = vR` where `R` is the component public key
-    `eccPublicKey` according to {{NIST-SP800-186}} or {{RFC5639}}
+    `eccPublicKey` according to {{SP800-186}} or {{RFC5639}}
 
  3. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
@@ -699,7 +705,7 @@ The operation `ecdhKem.encap()` is defined as follows:
 The operation `ecdhKem.decap()` is defined as follows:
 
  1. Compute the shared Point `S` as `rV` where `r` is the `eccPrivateKey` and
-    `V` is the `eccCipherText` according to {{NIST-SP800-186}} or {{RFC5639}}
+    `V` is the `eccCipherText` according to {{SP800-186}} or {{RFC5639}}
 
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
@@ -1370,7 +1376,7 @@ ciphertext malleability, this prevents transformations onto the ciphertext
 without the final recipient's knowledge.
 
 This is in line with the Recommendation for ECC in section 5.5 of
-[NIST-SP800-56A]. Other fields included in the recommendation are not relevant
+[SP800-56A]. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key on
 their own, there are no pre-shared secrets, and all the other parameters are
 univocally defined by the algorithm ID.
