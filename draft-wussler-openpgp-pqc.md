@@ -113,7 +113,7 @@ informative:
     seriesinfo:
       NIST IR 8413-upd1
 
-  NIST-SP800-56C:
+  SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
     title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
     author:
@@ -127,7 +127,10 @@ informative:
         ins: R. Davis
         name: Richard Davis
     date: August 2020
-  NIST-SP800-185:
+    seriesinfo:
+      NIST Special Publication: 800-56C
+
+  SP800-185:
     target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
     title: NIST Special Publication 800-185 – SHA-3 Derived Functions – cSHAKE, KMAC, TupleHash and ParallelHash
     author:
@@ -140,6 +143,8 @@ informative:
       -
         ins: R. Perlner
         name: Ray Perlner
+    seriesinfo:
+      NIST Special Publication: 800-185
 
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
@@ -823,8 +828,8 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
 construction is a one-step key derivation function compliant to
-{{NIST-SP800-56C}} Section 4 based on the KMAC256 MAC algorithm defined in
-{{NIST-SP800-185}}. It is given by the following algorithm.
+{{SP800-56C}} Section 4 based on the KMAC256 MAC algorithm defined in
+{{SP800-185}}. It is given by the following algorithm.
 
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
