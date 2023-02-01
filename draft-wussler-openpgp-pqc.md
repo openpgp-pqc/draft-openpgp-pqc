@@ -169,7 +169,7 @@ informative:
         name: Karen Randall
     date: October 2019
     seriesinfo:
-      NIST Special Publication SP800-186
+      NIST Special Publication 800-186
 
   SPONGE:
     target: https://keccak.team/files/CSF-0.1.pdf
