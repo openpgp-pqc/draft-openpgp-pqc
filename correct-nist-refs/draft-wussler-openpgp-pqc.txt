@@ -5,10 +5,10 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                               F. Strenzke
-Expires: 4 August 2023                                            MTG AG
+Expires: 5 August 2023                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         31 January 2023
+                                                         1 February 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2023.
+   This Internet-Draft will expire on 5 August 2023.
 
 Copyright Notice
 
@@ -1561,7 +1561,7 @@ Table of Contents
               Chen, L., Moody, D., Regenscheid, A., and K. Randall,
               "Recommendations for Discrete Logarithm-Based Cryptography
               - Elliptic Curve Domain Parameters", NIST Special
-              Publication SP800-186 , October 2019,
+              Publication 800-186 , October 2019,
               <https://doi.org/10.6028/NIST.SP.800-186-draft>.
 
    [SP800-56A]
