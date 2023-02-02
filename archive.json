@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-01-31T01:20:19.776439+00:00",
+  "timestamp": "2023-02-02T01:19:23.098058+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1063,24 +1063,26 @@
       "id": "PR_kwDOIrmZ-85G7EDW",
       "title": "Update Key Share size for Kyber",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/11",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "As defined in section 1.4 of the spec, Kyber.CCAKEM outputs a `sha-256`, therefore it's always 32 octets long",
       "createdAt": "2023-01-08T16:42:37Z",
-      "updatedAt": "2023-01-13T04:03:29Z",
+      "updatedAt": "2023-02-02T00:32:52Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "96772432da2cf6690acc8c05bcd9da9cc8086864",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kyber-key-share",
       "headRefOid": "b5cd6743756fbeaf9a0f71b0c2f4af0aabd3fb7f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-02-02T00:32:37Z",
+      "mergedAt": "2023-02-02T00:32:37Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "bc6485c195102028c7c08ef59f3ccd60a14b69c3"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1108,6 +1110,19 @@
           "createdAt": "2023-01-13T04:03:28Z",
           "updatedAt": "2023-01-13T04:03:29Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFZZ8",
+          "commit": {
+            "abbreviatedOid": "b5cd674"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-01-31T05:02:47Z",
+          "updatedAt": "2023-01-31T05:02:47Z",
+          "comments": []
         }
       ]
     },
@@ -1123,7 +1138,7 @@
       "labels": [],
       "body": "This PR addresses #3 ",
       "createdAt": "2023-01-25T23:24:02Z",
-      "updatedAt": "2023-01-30T12:12:41Z",
+      "updatedAt": "2023-01-31T05:01:55Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
@@ -1147,6 +1162,99 @@
           "body": "",
           "createdAt": "2023-01-30T12:12:41Z",
           "updatedAt": "2023-01-30T12:12:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFYcl",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:56:19Z",
+          "updatedAt": "2023-01-31T04:56:19Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "```suggestion\r\nThe SPHINCS+ key generation is performed according to the function `spx_keygen()` specified in\r\n```",
+              "createdAt": "2023-01-31T04:56:19Z",
+              "updatedAt": "2023-01-31T04:56:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFYkJ",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:57:09Z",
+          "updatedAt": "2023-01-31T04:57:09Z",
+          "comments": [
+            {
+              "originalPosition": 48,
+              "body": "There was something missing like \"the function is used\" in the previous sentence.",
+              "createdAt": "2023-01-31T04:57:09Z",
+              "updatedAt": "2023-01-31T04:57:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFZDj",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T05:00:31Z",
+          "updatedAt": "2023-01-31T05:00:31Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "```suggestion\r\ncomponent keys. Dilithium key generation follows the specification in\r\n```",
+              "createdAt": "2023-01-31T05:00:31Z",
+              "updatedAt": "2023-01-31T05:00:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFZIk",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T05:01:00Z",
+          "updatedAt": "2023-01-31T05:01:01Z",
+          "comments": [
+            {
+              "originalPosition": 32,
+              "body": "Aligned to the text for Kyber, fixed typo.",
+              "createdAt": "2023-01-31T05:01:01Z",
+              "updatedAt": "2023-01-31T05:01:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFZQ6",
+          "commit": {
+            "abbreviatedOid": "9afd2d9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Apart from the suggestions great for me.",
+          "createdAt": "2023-01-31T05:01:55Z",
+          "updatedAt": "2023-01-31T05:01:55Z",
           "comments": []
         }
       ]
@@ -1216,7 +1324,7 @@
       "labels": [],
       "body": "This PR addresses issue #14",
       "createdAt": "2023-01-30T12:32:14Z",
-      "updatedAt": "2023-01-30T12:32:38Z",
+      "updatedAt": "2023-01-31T04:48:40Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
@@ -1228,7 +1336,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85MFXUu",
+          "commit": {
+            "abbreviatedOid": "67be3e0"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Looks good for me.",
+          "createdAt": "2023-01-31T04:48:40Z",
+          "updatedAt": "2023-01-31T04:48:40Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 22,
@@ -1242,19 +1364,73 @@
       "labels": [],
       "body": "This PR addresses issue #12.",
       "createdAt": "2023-01-30T12:41:12Z",
-      "updatedAt": "2023-01-30T12:41:27Z",
+      "updatedAt": "2023-02-02T00:31:14Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue12_definition_composite",
-      "headRefOid": "e872ac304ca45f4b1aa9ed20411b03a48f27793d",
+      "headRefOid": "2488f615e10e43e71f7cac8c0da6edb509ba15e5",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85MFW1P",
+          "commit": {
+            "abbreviatedOid": "e872ac3"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:45:27Z",
+          "updatedAt": "2023-01-31T04:45:27Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Is there a 'the' missing?, i.e. should it read 'from the protocol perspective'?",
+              "createdAt": "2023-01-31T04:45:27Z",
+              "updatedAt": "2023-01-31T04:45:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MGBlL",
+          "commit": {
+            "abbreviatedOid": "e872ac3"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T07:56:37Z",
+          "updatedAt": "2023-01-31T07:56:37Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Indeed, added the missing 'the'.",
+              "createdAt": "2023-01-31T07:56:37Z",
+              "updatedAt": "2023-01-31T07:56:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MTJi4",
+          "commit": {
+            "abbreviatedOid": "2488f61"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-02T00:31:14Z",
+          "updatedAt": "2023-02-02T00:31:14Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 25,
@@ -1268,19 +1444,293 @@
       "labels": [],
       "body": "Since we give an explicit description of the one-step key derivation in terms of KMAC, a reference to the defintion of KMAC is also necessary in my view.",
       "createdAt": "2023-01-30T14:20:07Z",
-      "updatedAt": "2023-01-30T14:20:19Z",
+      "updatedAt": "2023-02-02T00:36:20Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-review",
-      "headRefOid": "b75fca82e74e7593d7bcfaa20b3b93fa771f9e81",
+      "headRefOid": "2527c2adfd0214d9284d9884f6b0f5258bba7c20",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85MFUlq",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:29:08Z",
+          "updatedAt": "2023-01-31T04:29:08Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n    target: https://doi.org/10.6028/NIST.SP.800-185\r\n```",
+              "createdAt": "2023-01-31T04:29:08Z",
+              "updatedAt": "2023-01-31T04:29:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFUty",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:30:05Z",
+          "updatedAt": "2023-01-31T04:30:06Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n    title: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash\r\n```",
+              "createdAt": "2023-01-31T04:30:05Z",
+              "updatedAt": "2023-01-31T04:30:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFVEr",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:32:53Z",
+          "updatedAt": "2023-01-31T04:32:54Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n{{NIST-SP800-56C}} Section 4, based on KMAC256\r\n```",
+              "createdAt": "2023-01-31T04:32:53Z",
+              "updatedAt": "2023-01-31T04:32:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFVQP",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:34:14Z",
+          "updatedAt": "2023-01-31T04:34:14Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The DOI is a much more future-proof target.",
+              "createdAt": "2023-01-31T04:34:14Z",
+              "updatedAt": "2023-01-31T04:34:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFVZv",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:35:18Z",
+          "updatedAt": "2023-01-31T04:35:18Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Aligned to the other NIST citations (without repeating \"NIST Special...\") we have, and aligned to the original title.",
+              "createdAt": "2023-01-31T04:35:18Z",
+              "updatedAt": "2023-01-31T04:35:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFVjA",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T04:36:21Z",
+          "updatedAt": "2023-01-31T04:36:21Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Smoothed text a little and inserted a comma for easier reading.",
+              "createdAt": "2023-01-31T04:36:21Z",
+              "updatedAt": "2023-01-31T04:36:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MFV4F",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Agreed that a reference to KMAC256 is helpful. Added some suggestions.",
+          "createdAt": "2023-01-31T04:38:40Z",
+          "updatedAt": "2023-01-31T04:39:38Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MGDvd",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T08:03:38Z",
+          "updatedAt": "2023-01-31T08:03:38Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "\"NIST Special Publication 800-185\" is the essential part of the title, without it the reference is formally not complete (and be just guessed via our label, which is not sufficient and overly lengthy due to holding the whole string, I would say) omitting it is in my opinion out of the question. I make a different proposal though, following how the crypto-refresh handles this.",
+              "createdAt": "2023-01-31T08:03:38Z",
+              "updatedAt": "2023-01-31T08:03:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MGLPf",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-01-31T08:26:21Z",
+          "updatedAt": "2023-01-31T08:26:21Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Ok, I'm fine with this. Then we should also align the other reference to NIST SP 800 56C, so that it is homogeneous.",
+              "createdAt": "2023-01-31T08:26:21Z",
+              "updatedAt": "2023-01-31T08:26:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MTLuN",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-02T00:36:20Z",
+          "updatedAt": "2023-02-02T00:36:20Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "I think this still has to be addressed.",
+              "createdAt": "2023-02-02T00:36:20Z",
+              "updatedAt": "2023-02-02T00:36:20Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOIrmZ-85I4_dw",
+      "title": "aligned NIST references to the crypto-refresh",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/26",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-01-31T08:23:36Z",
+      "updatedAt": "2023-02-02T00:25:39Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "correct-nist-refs",
+      "headRefOid": "94f3b7646dcdf46b8af1319bb66cdb3f4c4e8e39",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85MM0Oy",
+          "commit": {
+            "abbreviatedOid": "b9fb33d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-01T04:51:40Z",
+          "updatedAt": "2023-02-01T04:51:40Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n      NIST Special Publication 800-186\r\n```",
+              "createdAt": "2023-02-01T04:51:40Z",
+              "updatedAt": "2023-02-01T04:51:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MM0cy",
+          "commit": {
+            "abbreviatedOid": "b9fb33d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-01T04:53:12Z",
+          "updatedAt": "2023-02-01T04:53:12Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "\"SP\" not needed if spelled out.\r\n\r\nAligned to the above proposal for the other reference SP800-56A.",
+              "createdAt": "2023-02-01T04:53:12Z",
+              "updatedAt": "2023-02-01T04:53:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MTIn7",
+          "commit": {
+            "abbreviatedOid": "94f3b76"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-02T00:25:39Z",
+          "updatedAt": "2023-02-02T00:25:39Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
