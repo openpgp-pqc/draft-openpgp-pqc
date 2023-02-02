@@ -827,9 +827,9 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
-construction is a one-step key derivation function compliant to
-{{SP800-56C}} Section 4 based on the KMAC256 MAC algorithm defined in
-{{SP800-185}}. It is given by the following algorithm.
+construction is a one-step key derivation function compliant to {{SP800-56C}}
+Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
+algorithm.
 
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
