@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-02T01:19:23.098058+00:00",
+  "timestamp": "2023-02-05T01:24:13.547929+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1364,7 +1364,7 @@
       "labels": [],
       "body": "This PR addresses issue #12.",
       "createdAt": "2023-01-30T12:41:12Z",
-      "updatedAt": "2023-02-02T00:31:14Z",
+      "updatedAt": "2023-02-02T10:27:14Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
@@ -1429,6 +1429,19 @@
           "createdAt": "2023-02-02T00:31:14Z",
           "updatedAt": "2023-02-02T00:31:14Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MVuoV",
+          "commit": {
+            "abbreviatedOid": "2488f61"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-02T10:27:14Z",
+          "updatedAt": "2023-02-02T10:27:14Z",
+          "comments": []
         }
       ]
     },
@@ -1444,13 +1457,13 @@
       "labels": [],
       "body": "Since we give an explicit description of the one-step key derivation in terms of KMAC, a reference to the defintion of KMAC is also necessary in my view.",
       "createdAt": "2023-01-30T14:20:07Z",
-      "updatedAt": "2023-02-02T00:36:20Z",
+      "updatedAt": "2023-02-02T07:20:07Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-review",
-      "headRefOid": "2527c2adfd0214d9284d9884f6b0f5258bba7c20",
+      "headRefOid": "6217276dc7e42a1d558ab78a3069e979f17e91d6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1647,6 +1660,26 @@
               "body": "I think this still has to be addressed.",
               "createdAt": "2023-02-02T00:36:20Z",
               "updatedAt": "2023-02-02T00:36:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85MUjlL",
+          "commit": {
+            "abbreviatedOid": "b75fca8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-02T07:20:07Z",
+          "updatedAt": "2023-02-02T07:20:07Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Sorry, I had missed out on that comment somehow. The suggestion is now adopted.",
+              "createdAt": "2023-02-02T07:20:07Z",
+              "updatedAt": "2023-02-02T07:20:07Z"
             }
           ]
         }
