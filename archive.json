@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-05T01:24:13.547929+00:00",
+  "timestamp": "2023-02-16T01:21:16.197434+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -526,6 +526,65 @@
       "updatedAt": "2023-01-30T12:50:05Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOIrmZ-85ehLrn",
+      "title": "\"Session Key\" is unclear / inconsistent with Crypto Refresh",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/27",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The encryption/decryption of the session key is not sufficiently described and inconsistent with the Crypto Refresh.\r\n\r\nIn the Crypto Refresh for PKESKv5, we do not encrypt the session key itself, but the session key + 2 checksum bytes (for PKESK v3 also an algorithm identifier is included). The PQ/T algorithms should therefore encrypt the session key + checksum as well and it should be made explicit to the reader. I realize that the key wrap itself already has an integrity check but there is no harm in including the checksum bytes. Otherwise we explicitly have to deviate from the standard PKESK format which introduces an unnecessary special case.\r\n\r\nThen, the additional problem of AES Key Wrap (RFC3394) only accepting data with length of multiples of 8 bytes arises: With the checksum, the key has improper length. The crypto refresh already uses pkcs5/pkcs7 padding for ECDH (Section 12.5).\r\nWe can do the same or use another method, e.g., there exists RFC5649 which extends the AES Key Wrap with padding.\r\nEven if it is decided to only wrap the session key without a checksum, we should include some form of padding. This reduces the risk of future incompatibilities if (for whatever reasons) there are symmetric algorithms with key sizes that are not multiples of 64 bit.\r\n\r\nRelevant lines in the Crypto Refresh for the ECDH encryption (Section 12.5):\r\n```\r\nm = symm_alg_ID || session key || checksum || pkcs5_padding;\r\n```\r\n```\r\nCompute C = AESKeyWrap( Z, m ) as per [[RFC3394](https://www.rfc-editor.org/info/rfc3394)]\r\n```\r\n\r\n",
+      "createdAt": "2023-02-15T12:15:32Z",
+      "updatedAt": "2023-02-15T15:11:05Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't think this is inconsistent with the crypto-refresh. The checksum is not part of the v5 PKESK specification, but only of the ECDH specification. And we are defining an alternate algorithm, so we are not at all bound to align it with the existing ECDH specification. I think this part is intentional. Otherwise, which part of the specification in our draft would you want to change and how?\r\n\r\nRegarding the AES-Keywrap, without the checksum we wouldn't have that problem. But if I remember correctly, Aron intended to use the RFC 5649 key wrap that doesn't have this limitation. @wussler Is that correct?",
+          "createdAt": "2023-02-15T12:45:41Z",
+          "updatedAt": "2023-02-15T12:45:41Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The checksum is not part of the v5 PKESK specification\r\n\r\nSee https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-07#section-5.1.2:\r\n\r\n> Before encrypting, a two-octet checksum is appended, which is equal to the sum of the preceding session key octets, modulo 65536.\r\n> \r\n> The resulting octet string (session key and checksum) is encrypted according to the public-key algorithm used, as described below.\r\n\r\n--- \r\n\r\n> Otherwise, which part of the specification in our draft would you want to change and how?\r\n\r\nWe only need to make clear that the session key includes the checksum bytes and reference to Crypto Refresh Section 5.1.2. We can rename the session key in the procedures to something else, to avoid confusion.\r\n\r\nAs an example, the RSA encryption case is specified as:\r\n> * Multiprecision integer (MPI) of RSA-encrypted value m**e mod n.\r\n>\r\n> The value \"m\" in the above formula is the plaintext value described above, encoded in the PKCS#1 block encoding EME-PKCS1-v1_5 described in Section 7.2.1 of [[RFC8017](https://www.rfc-editor.org/info/rfc8017)] (see also [Section 13.1](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-07#pkcs-encoding)).",
+          "createdAt": "2023-02-15T13:17:39Z",
+          "updatedAt": "2023-02-15T13:17:39Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't think we need the checksum bytes, they are already included in the AES wrapping.\n\nI had also considered upgrading the wrapping, but it's useless: we don't need padding at all, unless we want to support ciphers with keys not multiple of 8 bytes.\n\nCheck out this 4880bis MR: https://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/223/diffs\n\nAlso, from the minutes of the meeting:\n\n> Remove checksum and padding for v5 PKESK? This reduces the bytes on the wire at no loss of functionality as there is already a checksum in the key wrapping algorithm.\nMR that does this: !223\n...\n> dkg: poll: shall we simplify v6 ECDH PKESK keywrap input?\n> dkg: 5 for, 0 against. Fewer people are actively engaging, but no one is objecting.\nstephen: we're 90 minutes in, let's speed up\n\u200b\n\n--\nAron Wussler\nSent with ProtonMail, OpenPGP key 0x7E6761563EFE3930\n\n-------- Original Message --------\nOn Feb 15, 2023, 08:17, Johannes Roth wrote:\n\n>> The checksum is not part of the v5 PKESK specification\n>\n> See https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-07#section-5.1.2:\n>\n>> Before encrypting, a two-octet checksum is appended, which is equal to the sum of the preceding session key octets, modulo 65536.\n>>\n>> The resulting octet string (session key and checksum) is encrypted according to the public-key algorithm used, as described below.\n>\n> ---------------------------------------------------------------\n>\n>> Otherwise, which part of the specification in our draft would you want to change and how?\n>\n> We only need to make clear that the session key includes the checksum bytes and reference to Crypto Refresh Section 5.1.2. We can rename the session key in the procedures to something else, to avoid confusion.\n>\n> As an example, the RSA encryption case is specified as:\n>\n>> - Multiprecision integer (MPI) of RSA-encrypted value m**e mod n.\n>>\n>> The value \"m\" in the above formula is the plaintext value described above, encoded in the PKCS#1 block encoding EME-PKCS1-v1_5 described in Section 7.2.1 of [[RFC8017](https://www.rfc-editor.org/info/rfc8017)] (see also [Section 13.1](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-07#pkcs-encoding)).\n>\n> \u2014\n> Reply to this email directly, [view it on GitHub](https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/27#issuecomment-1431356950), or [unsubscribe](https://github.com/notifications/unsubscribe-auth/ACFR5N7R5KDIDNIFGKBNL6DWXTJP5ANCNFSM6AAAAAAU4YU5DA).\n> You are receiving this because you were mentioned.Message ID: ***@***.***>",
+          "createdAt": "2023-02-15T13:36:54Z",
+          "updatedAt": "2023-02-15T13:36:54Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok with this MR the checksum is obsolete.\r\n\r\n> I had also considered upgrading the wrapping, but it's useless: we don't need padding at all, unless we want to support ciphers with keys not multiple of 8 bytes.\r\n\r\nPadding is simple enough to justify it even if there is only a very slight chance that it will become relevant. If we go with RFC5649 it's the same as RFC3394 AES Key Wrap for keys that are multiples of 8 (i.e., no padding is applied). That means, implementers can simply ignore the padding part (for now) if MR!223 goes through. I'm not insisting on padding, but it'd make the construction more robust against protocol changes or new ciphers with \"strange\" key sizes at no additional cost.",
+          "createdAt": "2023-02-15T14:08:07Z",
+          "updatedAt": "2023-02-15T14:08:07Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Here we don't have to consider ciphers as v5 PKESK session keys are only used in v2 SEIPD which  use the session key as input to the key derivation. Thus I wouldn't see a problem without the padding.",
+          "createdAt": "2023-02-15T14:12:48Z",
+          "updatedAt": "2023-02-15T14:12:48Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Very good point @falko-strenzke. I think this should be reflected on the rfc4880bis PR too, as this comment from dkg may be misleading, I got tricked by it too. The random material for key derivation could always be defined by rounding up to 8 bytes in future cipher constructions if needed.\n\nIn general I think this discussion is more relevant on the refresh if we decide to adopt this for v5 pkesk. Once we have a constraint there we gotta live with it.\n\n--\nAron Wussler\nSent with ProtonMail, OpenPGP key 0x7E6761563EFE3930\n\n-------- Original Message --------\nOn Feb 15, 2023, 09:12, Falko Strenzke wrote:\n\n> Here we don't have to consider ciphers as v5 PKESK session keys are only used in v2 SEIPD which use the session key as input to the key derivation. Thus I wouldn't see a problem without the padding.\n>\n> \u2014\n> Reply to this email directly, [view it on GitHub](https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/27#issuecomment-1431434563), or [unsubscribe](https://github.com/notifications/unsubscribe-auth/ACFR5N4PDCAZ752TINGOT73WXTP6VANCNFSM6AAAAAAU4YU5DA).\n> You are receiving this because you were mentioned.Message ID: ***@***.***>",
+          "createdAt": "2023-02-15T15:11:05Z",
+          "updatedAt": "2023-02-15T15:11:05Z"
+        }
+      ]
     }
   ],
   "pulls": [
