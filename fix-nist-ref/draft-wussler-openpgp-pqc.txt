@@ -1,0 +1,1611 @@
+
+
+
+
+Network Working Group                                        S. Kousidis
+Internet-Draft                                                       BSI
+Intended status: Informational                               F. Strenzke
+Expires: 27 August 2023                                           MTG AG
+                                                              A. Wussler
+                                                               Proton AG
+                                                        23 February 2023
+
+
+                  Post-Quantum Cryptography in OpenPGP
+                    draft-wussler-openpgp-pqc-latest
+
+Abstract
+
+   This document defines a post-quantum public-key algorithm extension
+   for the OpenPGP protocol.  Given the generally assumed threat of a
+   cryptographically relevant quantum computer, this extension provides
+   a basis for long-term secure OpenPGP signatures and ciphertexts.
+   Specifically, it defines composite public-key encryption based on
+   CRYSTALS-Kyber, composite public-key signatures based on CRYSTALS-
+   Dilithium, both in combination with elliptic curve cryptography, and
+   SPHINCS+ as a standalone public key signature scheme.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-wussler-openpgp-pqc/.
+
+   Discussion of this document takes place on the WG Working Group
+   mailing list (mailto:openpgp@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/openpgp/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/openpgp/.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 27 August 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+     1.1.  Conventions used in this Document
+       1.1.1.  Terminology for Multi-Algorithm Schemes
+     1.2.  Post-Quantum Cryptography
+       1.2.1.  CRYSTALS-Kyber
+       1.2.2.  CRYSTALS-Dilithium
+       1.2.3.  SPHINCS+
+     1.3.  Elliptic Curve Cryptography
+       1.3.1.  Curve25519 and Curve448
+       1.3.2.  Generic Prime Curves
+       1.3.3.  SEC1 EC Point Wire Format
+     1.4.  Standalone and Multi-Algorithm Schemes
+       1.4.1.  Standalone and Composite Multi-Algorithm Schemes
+       1.4.2.  Non-Composite Algorithm Combinations
+   2.  Supported Public Key Algorithms
+     2.1.  Algorithm Specifications
+     2.2.  Parameter Specification
+       2.2.1.  SPHINCS+-simple-SHA2
+       2.2.2.  SPHINCS+-simple-SHAKE
+   3.  Algorithm Combinations
+     3.1.  Composite KEMs
+     3.2.  Parallel Public-Key Encryption
+     3.3.  Composite Signatures
+     3.4.  Multiple Signatures
+   4.  Composite KEM schemes
+     4.1.  Building Blocks
+       4.1.1.  ECC-Based KEMs
+       4.1.2.  Kyber-KEM
+     4.2.  Composite Encryption Schemes with Kyber
+       4.2.1.  Fixed information
+       4.2.2.  Key combiner
+       4.2.3.  Encryption procedure
+       4.2.4.  Decryption procedure
+     4.3.  Packet specifications
+       4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+       4.3.2.  Key Material Packets
+   5.  Composite Signature Schemes
+     5.1.  Building blocks
+       5.1.1.  EdDSA-Based signatures
+       5.1.2.  ECDSA-Based signatures
+       5.1.3.  Dilithium signatures
+     5.2.  Composite Signature Schemes with Dilithium
+       5.2.1.  Binding hashes
+       5.2.2.  Signature Generation
+       5.2.3.  Signature Verification
+     5.3.  Packet Specifications
+       5.3.1.  Signature Packet (Tag 2)
+       5.3.2.  Key Material Packets
+   6.  SPHINCS+
+     6.1.  The SPHINCS+ Algorithms
+       6.1.1.  Binding hashes
+       6.1.2.  Signature Generation
+       6.1.3.  Signature Verification
+     6.2.  Packet specifications
+       6.2.1.  Signature Packet (Tag 2)
+       6.2.2.  Key Material Packets
+   7.  Migration Considerations
+     7.1.  Key preference
+     7.2.  Key generation strategies
+   8.  Security Considerations
+     8.1.  Key combiner
+     8.2.  Domain separation and binding
+     8.3.  SPHINCS+
+     8.4.  Binding hashes in signatures with signature algorithms
+     8.5.  Elliptic curves
+   9.  Additional considerations
+     9.1.  Performance Considerations for SPHINCS+
+   10. IANA Considerations
+   11. Contributors
+   12. References
+     12.1.  Normative References
+     12.2.  Informative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   The OpenPGP protocol supports various traditional public-key
+   algorithms based on the factoring or discrete logarithm problem.  As
+   the security of algorithms based on these mathematical problems is
+   endangered by the advent of quantum computers, there is a need to
+   extend OpenPGP by algorithms that remain secure in the presence of
+   quantum computers.
+
+   Such cryptographic algorithms are referred to as post-quantum
+   cryptography.  The algorithms defined in this extension were chosen
+   for standardization by the National Institute of Standards and
+   Technology (NIST) in mid 2022 [NISTIR-8413] as the result of the NIST
+   Post-Quantum Cryptography Standardization process initiated in 2016
+   [NIST-PQC].  Namely, these are CRYSTALS-Kyber as a Key Encapsulation
+   Mechanism (KEM), a KEM being a modern building block for public-key
+   encryption, and CRYSTALS-Dilithium as well as SPHINCS+ as signature
+   schemes.
+
+   For the two CRYSTALS-* schemes, this document follows the
+   conservative strategy to deploy post-quantum in combination with
+   traditional schemes such that the security is retained even if all
+   schemes but one in the combination are broken.  In contrast, the
+   hashed-based signature scheme SPHINCS+ is considered to be
+   sufficiently well understood with respect to its security assumptions
+   in order to be used standalone.  To this end, this document specifies
+   the following new set: SPHINCS+ standalone and CRYSTALS-* as
+   composite with ECC-based KEM and digital signature schemes.  Here,
+   the term "composite" indicates that any data structure or algorithm
+   pertaining to the combination of the two components appears as single
+   data structure or algorithm from the protocol perspective.
+
+   The document specifies the conventions for interoperability between
+   compliant OpenPGP implementations that make use of this extension and
+   the newly defined algorithms or algorithm combinations.
+
+1.1.  Conventions used in this Document
+
+1.1.1.  Terminology for Multi-Algorithm Schemes
+
+   The terminology in this document is oriented towards the definitions
+   in [draft-driscoll-pqt-hybrid-terminology].  Specifically, the terms
+   "multi-algorithm", "composite" and "non-composite" are used in
+   correspondence with the definitions therein.  The abbreviation "PQ"
+   is used for post-quantum schemes.  To denote the combination of post-
+   quantum and traditional schemes, the abbreviation "PQ/T" is used.
+   The short form "PQ(/T)" stands for PQ or PQ/T.
+
+1.2.  Post-Quantum Cryptography
+
+   This section describes the individual post-quantum cryptographic
+   schemes.  All schemes listed here are believed to provide security in
+   the presence of a cryptographically relevant quantum computer.
+   However, the mathematical problems on which the two CRYSTALS-*
+   schemes and SPHINCS+ are based, are fundamentally different, and
+   accordingly the level of trust commonly placed in them as well as
+   their performance characteristics vary.
+
+   [Note to the reader: This specification refers to the latest NIST
+   submission papers of each scheme as if it were a specification.  This
+   is a temporary solution that is owed to the fact that currently no
+   other specification is available.  The goal is to provide a
+   sufficiently precise specification of the algorithms already at the
+   draft stage of this specification, so that it is possible for
+   implementers to create interoperable implementations.  As soon as
+   standards by NIST or the IETF for the PQC schemes employed in this
+   specification are available, these will replace the references to the
+   NIST submission papers.  Furthermore, we want to point out that,
+   depending on possible changes to the schemes standardized by NIST,
+   this specification may be updated substantially as soon as
+   corresponding information becomes available.]
+
+1.2.1.  CRYSTALS-Kyber
+
+   CRYSTALS-Kyber [KYBER-Subm] is based on the hardness of solving the
+   learning-with-errors problem in module lattices (MLWE).  The scheme
+   is believed to provide security against cryptanalytic attacks by
+   classical as well as quantum computers.  This specification defines
+   CRYSTALS-Kyber only in composite combination with ECC-based
+   encryption schemes in order to provide a pre-quantum security
+   fallback.
+
+1.2.2.  CRYSTALS-Dilithium
+
+   CRYSTALS-Dilithium, defined in [DILITHIUM-Subm], is a signature
+   scheme that, like CRYSTALS-Kyber, is based on the hardness of solving
+   lattice problems in module lattices.  Accordingly, this specification
+   only defines CRYSTALS-Dilithium in composite combination with ECC-
+   based signature schemes.
+
+1.2.3.  SPHINCS+
+
+   SPHINCS+ is a stateless hash-based signature scheme.  It's security
+   relies on the hardness of finding pre-images for cryptographic hash
+   functions.  This feature is generally considered to be a high
+   security guarantee.  Therefore, this specification defines SPHINCS+
+   as a standalone signature scheme.
+
+   In deployments the performance characteristics of SPHINCS+ should be
+   taken into account.  We refer to Section 9.1 for a discussion of the
+   performance characteristics of this scheme.
+
+1.3.  Elliptic Curve Cryptography
+
+   The ECC-based encryption is defined here as a KEM.  This is in
+   contrast to [I-D.ietf-openpgp-crypto-refresh] where the ECC-based
+   encryption is defined as a public-key encryption scheme.
+
+   All elliptic curves for the use in the composite combinations are
+   taken from [I-D.ietf-openpgp-crypto-refresh].  However, as explained
+   in the following, in the case of Curve25519 encoding changes are
+   applied to the new composite schemes.
+
+1.3.1.  Curve25519 and Curve448
+
+   Curve25519 and Curve448 are defined in [RFC7748] for use in a Diffie-
+   Hellman key agreement scheme and defined in [RFC8032] for use in a
+   digital signature scheme.  For Curve25519 this specification adapts
+   the encoding of objects in native format in contrast to
+   [I-D.ietf-openpgp-crypto-refresh].
+
+1.3.2.  Generic Prime Curves
+
+   For interoperability this extension offers CRYSTALS-* in composite
+   combinations with the NIST curves P-256, P-384 defined in [SP800-186]
+   and the Brainpool curves brainpoolP256r1, brainpoolP384r1 defined in
+   [RFC5639].
+
+1.3.3.  SEC1 EC Point Wire Format
+
+   Elliptic curve points of the generic prime curves are encoded using
+   the SEC1 (uncompressed) format as the following octet string:
+
+   B = 04 || X || Y
+
+   where X and Y are coordinates of the elliptic curve point P = (X, Y),
+   and each coordinate is encoded in the big-endian format and zero-
+   padded to the adjusted underlying field size.  The adjusted
+   underlying field size is the underlying field size rounded up to the
+   nearest 8-bit boundary, as noted in the "Field size" column in
+   Table 6, Table 7, or Table 11.  This encoding is compatible with the
+   definition given in [SEC1].
+
+1.4.  Standalone and Multi-Algorithm Schemes
+
+   This section provides a categorization of the new algorithms and
+   their combinations.
+
+1.4.1.  Standalone and Composite Multi-Algorithm Schemes
+
+   This specification introduces new cryptographic schemes, which can be
+   categorized as follows:
+
+   *  PQ/T multi-algorithm public-key encryption, namely a composite
+      combination of CRYSTALS-Kyber with an ECC-based KEM,
+
+   *  PQ/T multi-algorithm digital signature, namely composite
+      combinations of CRYSTALS-Dilithium with ECC-based signature
+      schemes,
+
+   *  PQ digital signature, namely SPHINCS+ as a standalone
+      cryptographic algorithm.
+
+   For each of the composite schemes, this specifications mandates that
+   the recipient has to successfully perform the cryptographic
+   algorithms for each of the component schemes used in a cryptrographic
+   message, in order for the message to be deciphered and considered as
+   valid.  This means that all component signatures must be verified
+   successfully in order to achieve a successful verification of the
+   composite signature.  In the case of the composite public-key
+   decryption, each of the component KEM decapsulation operations must
+   succeed.
+
+1.4.2.  Non-Composite Algorithm Combinations
+
+   As the OpenPGP protocol [I-D.ietf-openpgp-crypto-refresh] allows for
+   multiple signatures to be applied to a single message, it is also
+   possible to realize non-composite combinations of signatures.
+   Furthermore, multiple OpenPGP signatures may be combined on the
+   application layer.  These latter two cases realize non-composite
+   combinations of signatures.  Section 3.4 specifies how
+   implementations should handle the verification of such combinations
+   of signatures.
+
+   Furthermore, the OpenPGP protocol also allows for parallel encryption
+   to different keys held by the same recipient.  Accordingly, if the
+   sender makes use of this feature and sends an encrypted message with
+   multiple PKESK packages for different encryption keys held by the
+   same recipient, a non-composite multi-algorithm public-key encryption
+   is realized where the recipient has to decrypt only one of the PKESK
+   packages in order to decrypt the message.  See Section 3.2 for
+   restrictions on parallel encryption mandated by this specification.
+
+2.  Supported Public Key Algorithms
+
+   This section specifies the composite Kyber + ECC and Dilithium + ECC
+   schemes as well as the standalone SPHINCS+ signature scheme.  The
+   composite schemes are fully specified via their algorithm ID.  The
+   SPHINCS+ signature schemes are fully specified by their algorithm ID
+   and an additional parameter ID.
+
+2.1.  Algorithm Specifications
+
+   For encryption, the following composite KEM schemes are specified:
+
+   +====+==================================+=============+=============+
+   | ID | Algorithm                        | Requirement | Definition  |
+   +====+==================================+=============+=============+
+   | 25 | Kyber768 + X25519                | MUST        | Section 4.2 |
+   +----+----------------------------------+-------------+-------------+
+   | 26 | Kyber1024 + X448                 | SHOULD      | Section 4.2 |
+   +----+----------------------------------+-------------+-------------+
+   | 27 | Kyber768 + ECDH-NIST-P-256       | MAY         | Section 4.2 |
+   +----+----------------------------------+-------------+-------------+
+   | 28 | Kyber1024 + ECDH-NIST-P-384      | MAY         | Section 4.2 |
+   +----+----------------------------------+-------------+-------------+
+   | 29 | Kyber768 + ECDH-brainpoolP256r1  | MAY         | Section 4.2 |
+   +----+----------------------------------+-------------+-------------+
+   | 30 | Kyber1024 + ECDH-                | MAY         | Section 4.2 |
+   |    | brainpoolP384r1                  |             |             |
+   +----+----------------------------------+-------------+-------------+
+
+                   Table 1: KEM algorithm specifications
+
+   For signatures, the following (composite) signature schemes are
+   specified:
+
+    +====+===============================+=============+=============+
+    | ID | Algorithm                     | Requirement | Definition  |
+    +====+===============================+=============+=============+
+    | 31 | Dilithium3 + Ed25519          | MUST        | Section 5.2 |
+    +----+-------------------------------+-------------+-------------+
+    | 32 | Dilithium5 + Ed448            | SHOULD      | Section 5.2 |
+    +----+-------------------------------+-------------+-------------+
+    | 33 | Dilithium3 + ECDSA-NIST-P-256 | MAY         | Section 5.2 |
+    +----+-------------------------------+-------------+-------------+
+    | 34 | Dilithium5 + ECDSA-NIST-P-384 | MAY         | Section 5.2 |
+    +----+-------------------------------+-------------+-------------+
+    | 35 | Dilithium3 + ECDSA-           | MAY         | Section 5.2 |
+    |    | brainpoolP256r1               |             |             |
+    +----+-------------------------------+-------------+-------------+
+    | 36 | Dilithium5 + ECDSA-           | MAY         | Section 5.2 |
+    |    | brainpoolP384r1               |             |             |
+    +----+-------------------------------+-------------+-------------+
+    | 37 | SPHINCS+-simple-SHA2          | SHOULD      | Section     |
+    |    |                               |             | 1.2.3       |
+    +----+-------------------------------+-------------+-------------+
+    | 38 | SPHINCS+-simple-SHAKE         | MAY         | Section     |
+    |    |                               |             | 1.2.3       |
+    +----+-------------------------------+-------------+-------------+
+
+               Table 2: Signature algorithm specifications
+
+2.2.  Parameter Specification
+
+2.2.1.  SPHINCS+-simple-SHA2
+
+   For the SPHINCS+-simple-SHA2 signature algorithm from Table 2, the
+   following parameters are specified:
+
+               +==============+===========================+
+               | Parameter ID | Parameter                 |
+               +==============+===========================+
+               |            1 | SPHINCS+-simple-SHA2-128s |
+               +--------------+---------------------------+
+               |            2 | SPHINCS+-simple-SHA2-128f |
+               +--------------+---------------------------+
+               |            3 | SPHINCS+-simple-SHA2-192s |
+               +--------------+---------------------------+
+               |            4 | SPHINCS+-simple-SHA2-192f |
+               +--------------+---------------------------+
+               |            5 | SPHINCS+-simple-SHA2-256s |
+               +--------------+---------------------------+
+               |            6 | SPHINCS+-simple-SHA2-256f |
+               +--------------+---------------------------+
+
+                  Table 3: SPHINCS+-simple-SHA2 security
+                                parameters
+
+   All security parameters inherit the requirement of SPHINCS+-simple-
+   SHA2 from Table 2.  That is, implementations SHOULD implement the
+   parameters specified in Table 3.  The values 0x00 and 0xFF are
+   reserved for future extensions.
+
+2.2.2.  SPHINCS+-simple-SHAKE
+
+   For the SPHINCS+-simple-SHAKE signature algorithm from Table 2, the
+   following parameters are specified:
+
+               +==============+============================+
+               | Parameter ID | Parameter                  |
+               +==============+============================+
+               |            1 | SPHINCS+-simple-SHAKE-128s |
+               +--------------+----------------------------+
+               |            2 | SPHINCS+-simple-SHAKE-128f |
+               +--------------+----------------------------+
+               |            3 | SPHINCS+-simple-SHAKE-192s |
+               +--------------+----------------------------+
+               |            4 | SPHINCS+-simple-SHAKE-192f |
+               +--------------+----------------------------+
+               |            5 | SPHINCS+-simple-SHAKE-256s |
+               +--------------+----------------------------+
+               |            6 | SPHINCS+-simple-SHAKE-256f |
+               +--------------+----------------------------+
+
+                  Table 4: SPHINCS+-simple-SHAKE security
+                                 parameters
+
+   All security parameters inherit the requirement of SPHINCS+-simple-
+   SHAKE from Table 2.  That is, implementations MAY implement the
+   parameters specified in Table 4.  The values 0x00 and 0xFF are
+   reserved for future extensions.
+
+3.  Algorithm Combinations
+
+3.1.  Composite KEMs
+
+   Kyber + ECC public-key encryption is meant to involve both the Kyber
+   KEM and an ECC-based KEM in an a priori non-separable manner.  This
+   is achieved via KEM combination, i.e. both key encapsulations/
+   decapsulations are performed in parallel, and the resulting key
+   shares are fed into a key combiner to produce a single shared secret
+   for message encryption.
+
+3.2.  Parallel Public-Key Encryption
+
+   As explained in Section 1.4.2, the OpenPGP protocol inherently
+   supports parallel encryption to different keys of the same recipient.
+   Implementations MUST NOT encrypt a message to a purely traditional
+   public-key encryption key of a recipient if it is encrypted to a PQ/T
+   key of the same recipient.
+
+3.3.  Composite Signatures
+
+   Dilithium + ECC signatures are meant to contain both the Dilithium
+   and the ECC signature data, and an implementation MUST validate both
+   algorithms to state that a signature is valid.
+
+3.4.  Multiple Signatures
+
+   The OpenPGP message format allows multiple signatures of a message,
+   i.e. the attachment of multiple signature packets.
+
+   An implementation MAY sign a message with a traditional key and a
+   PQ(/T) key from the same sender.  This ensures backwards
+   compatibility due to [I-D.ietf-openpgp-crypto-refresh] Section 5.2.5,
+   since a legacy implementation without PQ(/T) support can fall back on
+   the traditional signature.
+
+   Newer implementations with PQ(/T) support MAY ignore the traditional
+   signature(s) during validation.
+
+   Implementations SHOULD consider the message correctly signed if at
+   least one of the non-ignored signatures validates successfully.
+
+   [Note to the reader: The last requirement, that one valid signature
+   is sufficient to identify a message as correctly signed, is an
+   interpretation of [I-D.ietf-openpgp-crypto-refresh] Section 5.2.5.]
+
+4.  Composite KEM schemes
+
+4.1.  Building Blocks
+
+4.1.1.  ECC-Based KEMs
+
+   In this section we define the encryption, decryption, and data
+   formats for the ECDH component of the composite algorithms.
+
+   Table 5, Table 6, and Table 7 describe the ECC-KEM parameters and
+   artifact lengths.
+
+    +==============+========================+========================+
+    |              | X25519                 | X448                   |
+    +==============+========================+========================+
+    | Algorithm ID | 25                     | 26                     |
+    | reference    |                        |                        |
+    +--------------+------------------------+------------------------+
+    | Field size   | 32 octets              | 56 octets              |
+    +--------------+------------------------+------------------------+
+    | ECC-KEM      | x25519Kem              | x448Kem                |
+    |              | (Section 4.1.1.1)      | (Section 4.1.1.1)      |
+    +--------------+------------------------+------------------------+
+    | ECDH public  | 32 octets of public    | 56 octets of public    |
+    | key          | point in native format | point in native format |
+    +--------------+------------------------+------------------------+
+    | ECDH secret  | 32 octets of secret in | 56 octets of secret in |
+    | key          | native format          | native format          |
+    +--------------+------------------------+------------------------+
+    | ECDH         | 32 octets of ephemeral | 56 octets of ephemeral |
+    | ephemeral    | in native format       | in native format       |
+    +--------------+------------------------+------------------------+
+    | Key share    | 32 octets in native    | 56 octets in native    |
+    |              | format                 | format                 |
+    +--------------+------------------------+------------------------+
+
+        Table 5: Montgomery curves parameters and artifact lengths
+
+     +==============+===========================+====================+
+     |              | NIST P-256                | NIST P-384         |
+     +==============+===========================+====================+
+     | Algorithm ID | 27                        | 28                 |
+     | reference    |                           |                    |
+     +--------------+---------------------------+--------------------+
+     | Field size   | 32 octets                 | 48 octets          |
+     +--------------+---------------------------+--------------------+
+     | ECC-KEM      | ecdhKem (Section 4.1.1.2) | ecdhKem            |
+     |              |                           | (Section 4.1.1.2)  |
+     +--------------+---------------------------+--------------------+
+     | ECDH public  | 65 octets of SEC1-encoded | 97 octets of       |
+     | key          | public point              | SEC1-encoded       |
+     |              |                           | public point       |
+     +--------------+---------------------------+--------------------+
+     | ECDH secret  | 32 octets big-endian      | 48 octets big-     |
+     | key          | encoded secret scalar     | endian encoded     |
+     |              |                           | secret scalar      |
+     +--------------+---------------------------+--------------------+
+     | ECDH         | 65 octets of SEC1-encoded | 97 octets of       |
+     | ephemeral    | ephemeral point           | SEC1-encoded       |
+     |              |                           | ephemeral point    |
+     +--------------+---------------------------+--------------------+
+     | Key share    | 32 octets of X coordinate | 48 octets of X     |
+     |              | decoded from SEC1         | coordinate decoded |
+     |              | encoding                  | from SEC1 encoding |
+     +--------------+---------------------------+--------------------+
+
+            Table 6: NIST curves parameters and artifact lengths
+
+     +==============+===========================+====================+
+     |              | brainpoolP256r1           | brainpoolP384r1    |
+     +==============+===========================+====================+
+     | Algorithm ID | 29                        | 30                 |
+     | reference    |                           |                    |
+     +--------------+---------------------------+--------------------+
+     | Field size   | 32 octets                 | 48 octets          |
+     +--------------+---------------------------+--------------------+
+     | ECC-KEM      | ecdhKem (Section 4.1.1.2) | ecdhKem            |
+     |              |                           | (Section 4.1.1.2)  |
+     +--------------+---------------------------+--------------------+
+     | ECDH public  | 65 octets of SEC1-encoded | 97 octets of       |
+     | key          | public point              | SEC1-encoded       |
+     |              |                           | public point       |
+     +--------------+---------------------------+--------------------+
+     | ECDH secret  | 32 octets big-endian      | 48 octets big-     |
+     | key          | encoded secret scalar     | endian encoded     |
+     |              |                           | secret scalar      |
+     +--------------+---------------------------+--------------------+
+     | ECDH         | 65 octets of SEC1-encoded | 97 octets of       |
+     | ephemeral    | ephemeral point           | SEC1-encoded       |
+     |              |                           | ephemeral point    |
+     +--------------+---------------------------+--------------------+
+     | Key share    | 32 octets of X coordinate | 48 octets of X     |
+     |              | decoded from SEC1         | coordinate decoded |
+     |              | encoding                  | from SEC1 encoding |
+     +--------------+---------------------------+--------------------+
+
+         Table 7: Brainpool curves parameters and artifact lengths
+
+   The SEC1 format for point encoding is defined in Section 1.3.3.
+
+   The various procedures to perform the operations of an ECC-based KEM
+   are defined in the following subsections.  Specifically, each of
+   these subsections defines the instances of the following operations:
+
+   (eccCipherText, eccKeyShare) <- eccKem.encap(eccPublicKey)
+
+   and
+
+   (eccKeyShare) <- eccKem.decap(eccPrivateKey, eccCipherText)
+
+   The placeholder eccKem has to be replaced with the specific ECC-KEM
+   from the row "ECC-KEM" of Table 5, Table 6, and Table 7.
+
+4.1.1.1.  X25519-KEM and X448-KEM
+
+   The operations x25519Kem.encap() and x448Kem.encap() are defined as
+   follows:
+
+   1.  Generate an ephemeral key pair {v, V=vG} according to the
+       procedure defined in [RFC7748], that is, without any measures
+       such as masking or clamping
+
+   2.  Compute the shared point X = vR where R is the component public
+       key eccPublicKey according to [RFC7748]
+
+   3.  Set the output eccCipherText to V
+
+   4.  Set the output eccKeyShare to X in native format
+
+   The operations x25519Kem.decap() and x448Kem.decap() are defined as
+   follows:
+
+   1.  Compute the shared Point X = rV where r is the eccPrivateKey and
+       V is the eccCipherText according to [RFC7748]
+
+   2.  Set the output eccKeyShare to X in native format
+
+4.1.1.2.  ECDH-KEM
+
+   The operation ecdhKem.encap() is defined as follows:
+
+   1.  Generate an ephemeral key pair {v, V=vG} as defined in
+       [SP800-186] or [RFC5639]
+
+   2.  Compute the shared point S = vR where R is the component public
+       key eccPublicKey according to [SP800-186] or [RFC5639]
+
+   3.  Extract the X coordinate from the SEC1 encoded point S = 04 ||
+       X || Y as defined in section Section 1.3.3
+
+   4.  Set the output eccCipherText to V
+
+   5.  Set the output eccKeyShare to X
+
+   The operation ecdhKem.decap() is defined as follows:
+
+   1.  Compute the shared Point S as rV where r is the eccPrivateKey and
+       V is the eccCipherText according to [SP800-186] or [RFC5639]
+
+   2.  Extract the X coordinate from the SEC1 encoded point S = 04 ||
+       X || Y as defined in section Section 1.3.3
+
+   3.  Set the output eccKeyShare to X
+
+4.1.2.  Kyber-KEM
+
+   Kyber-KEM features the following operations:
+
+   (kyberCipherText, kyberKeyShare) <- kyberKem.encap(kyberPublicKey)
+
+   and
+
+   (kyberKeyShare) <- kyberKem.decap(kyberCipherText, kyberPrivateKey)
+
+   The above are the operations Kyber.CCAKEM.Enc() and
+   Kyber.CCAKEM.Dec() defined in [KYBER-Subm].
+
+   Kyber-KEM has the parameterization with the corresponding artifact
+   lengths in octets as given in Table 8.  All artifacts are in the
+   native format defined in [KYBER-Subm].
+
+    +===========+==============+========+========+============+=======+
+    | Algorithm | Kyber-KEM    | Public | Secret | Ciphertext | Key   |
+    |        ID |              | key    | key    |            | share |
+    | reference |              |        |        |            |       |
+    +===========+==============+========+========+============+=======+
+    |   25, 27, | kyberKem768  | 1184   | 2400   | 1088       | 32    |
+    |        29 |              |        |        |            |       |
+    +-----------+--------------+--------+--------+------------+-------+
+    |   26, 28, | kyberKem1024 | 1568   | 3186   | 1568       | 32    |
+    |        30 |              |        |        |            |       |
+    +-----------+--------------+--------+--------+------------+-------+
+
+          Table 8: Kyber-KEM parameters artifact lengths in octets
+
+   The placeholder kyberKem has to be replaced with the specific Kyber-
+   KEM from the column "Kyber-KEM" of Table 8.
+
+   The procedure to perform kyberKem.encap() is as follows:
+
+   1.  Extract the component public key kyberPublicKey that is part of
+       the recipient's composite public key
+
+   2.  Invoke (kyberCipherText, keyShare) <-
+       kyberKem.encap(kyberPublicKey)
+
+   3.  Set kyberCipherText as the Kyber ciphertext
+
+   4.  Set keyShare as the Kyber symmetric key share
+
+   The procedure to perform kyberKem.decap() is as follows:
+
+   1.  Invoke keyShare <- kyberKem.decap(kyberCipherText,
+       kyberPrivateKey)
+
+   2.  Set keyShare as the Kyber symmetric key
+
+4.2.  Composite Encryption Schemes with Kyber
+
+   Table 1 specifies the following Kyber + ECC composite public-key
+   encryption schemes:
+
+       +==============+==============+===========+=================+
+       | Algorithm ID | Kyber-KEM    | ECC-KEM   | ECDH-KEM curve  |
+       |    reference |              |           |                 |
+       +==============+==============+===========+=================+
+       |           25 | kyberKem768  | x25519Kem | X25519          |
+       +--------------+--------------+-----------+-----------------+
+       |           26 | kyberKem1024 | x448Kem   | X448            |
+       +--------------+--------------+-----------+-----------------+
+       |           27 | kyberKem768  | ecdhKem   | NIST P-256      |
+       +--------------+--------------+-----------+-----------------+
+       |           28 | kyberKem1024 | ecdhKem   | NIST P-384      |
+       +--------------+--------------+-----------+-----------------+
+       |           29 | kyberKem768  | ecdhKem   | brainpoolP256r1 |
+       +--------------+--------------+-----------+-----------------+
+       |           30 | kyberKem1024 | ecdhKem   | brainpoolP384r1 |
+       +--------------+--------------+-----------+-----------------+
+
+                    Table 9: Kyber-ECC-composite Schemes
+
+   The Kyber + ECC composite public-key encryption schemes are built
+   according to the following principal design:
+
+   *  The Kyber-KEM encapsulation algorithm is invoked to create a Kyber
+      ciphertext together with a Kyber symmetric key share.
+
+   *  The encapsulation algorithm of an ECC-based KEM, namely one out of
+      X25519-KEM, X448-KEM, or ECDH-KEM is invoked to create an ECC
+      ciphertext together with an ECC symmetric key share.
+
+   *  A Key-Encryption-Key (KEK) is computed as the output of a key
+      combiner that receives as input both of the above created
+      symmetric key shares and the protocol binding information.
+
+   *  The session key for content encryption is then wrapped as
+      described in [RFC3394] using AES-256 as algorithm and the KEK as
+      key.
+
+   *  The v5 PKESK package's algorithm specific parts are made up of the
+      Kyber ciphertext, the ECC ciphertext, and the wrapped session key
+
+4.2.1.  Fixed information
+
+   For the composite KEM schemes defined in Table 1 the following
+   procedure, justified in Section 8.2, MUST be used to derive a string
+   to use as binding between the KEK and the communication parties.
+
+   //   Input:
+   //   algID - the algorithm ID encoded as octet
+   //   publicKey - the recipient's encryption sub-key packet
+   //               serialized as octet string
+
+   fixedInfo = algID || SHA3-256(publicKey)
+
+   SHA3-256 MUST be used to hash the publicKey of the recipient.
+
+4.2.2.  Key combiner
+
+   For the composite KEM schemes defined in Table 1 the following
+   procedure MUST be used to compute the KEK that wraps a session key.
+   The construction is a one-step key derivation function compliant to
+   [SP800-56C] Section 4.
+
+   //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
+   //   Input:
+   //   domSeparation - the UTF-8 encoding of the string
+                        "OpenPGPCompositeKeyDerivationFunction"
+   //   counter - a 4 byte counter set to the value 1
+   //   eccKeyShare - the ECC key share encoded as an octet string
+   //   kyberKeyShare - the Kyber key share encoded as an octet string
+   //   fixedInfo - the fixed information octet string
+   //   oBits - the size of the output keying material in bits
+   //   customizationString - the UTF-8 encoding of the string "KDF"
+
+   encKeyShares = counter || eccKeyShare || kyberKeyShare || fixedInfo
+   MB = KMAC256(domSeparation, encKeyShares, oBits, customizationString)
+
+   The value of domSeparation is the UTF-8 encoding of the string
+   "OpenPGPCompositeKeyDerivationFunction" and MUST be the following
+   octet sequence:
+
+   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
+                    4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
+                    63 74 69 6F 6E
+
+   The value of counter MUST be set to the following octet sequence:
+
+   counter :=  00 00 00 01
+
+   The value of fixedInfo MUST be set according to Section 4.2.1.
+
+   The value of customizationString is the UTF-8 encoding of the string
+   "KDF" and MUST be set to the following octet sequence:
+
+   customizationString := 4B 44 46
+
+4.2.3.  Encryption procedure
+
+   The procedure to perform public-key encryption with a Kyber + ECC
+   composite scheme is as follows:
+
+   1.   Take the recipient's authenticated public-key packet pkComposite
+        and sessionKey as input
+
+   2.   Parse the algorithm ID from pkComposite
+
+   3.   Extract the eccPublicKey and kyberPublicKey component from the
+        algorithm specific data encoded in pkComposite with the format
+        specified in Section 4.3.2.
+
+   4.   Instantiate the ECC-KEM eccKem.encap() and the Kyber-KEM
+        kyberKem.encap() depending on the algorithm ID according to
+        Table 9
+
+   5.   Compute (eccCipherText, eccKeyShare) :=
+        eccKem.encap(eccPublicKey)
+
+   6.   Compute (kyberCipherText, kyberKeyShare) :=
+        kyberKem.encap(kyberPublicKey)
+
+   7.   Compute fixedInfo as specified in Section 4.2.1
+
+   8.   Compute KEK := multiKeyCombine(eccKeyShare, kyberKeyShare,
+        fixedInfo) as defined in Section 4.2.2
+
+   9.   Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
+        [RFC3394] that includes a 64 bit integrity check
+
+   10.  Output eccCipherText || kyberCipherText || len(C) || C as
+        specified in Section 4.3.1
+
+4.2.4.  Decryption procedure
+
+   The procedure to perform public-key decryption with a Kyber + ECC
+   composite scheme is as follows:
+
+   1.   Take the matching PKESK and own secret key packet as input
+
+   2.   From the PKESK extract the algorithm ID and the encryptedKey
+
+   3.   Check that the own and the extracted algorithm ID match
+
+   4.   Parse the eccSecretKey and kyberSecretKey from the algorithm
+        specific data of the own secret key encoded in the format
+        specified in Section 4.3.2
+
+   5.   Instantiate the ECC-KEM eccKem.decap() and the Kyber-KEM
+        kyberKem.decap() depending on the algorithm ID according to
+        Table 9
+
+   6.   Parse eccCipherText, kyberCipherText, and C from encryptedKey
+        encoded as eccCipherText || kyberCipherText || len(C) || C as
+        specified in Section 4.3.1
+
+   7.   Compute (eccKeyShare) := eccKem.decap(eccCipherText,
+        eccPrivateKey)
+
+   8.   Compute (kyberKeyShare) := kyberKem.decap(kyberCipherText,
+        kyberPrivateKey)
+
+   9.   Compute fixedInfo as specified in Section 4.2.1
+
+   10.  Compute KEK := multiKeyCombine(eccKeyShare, kyberKeyShare,
+        fixedInfo) as defined in Section 4.2.2
+
+   11.  Compute sessionKey := AESKeyUnwrap(KEK, C) with AES-256 as per
+        [RFC3394], aborting if the 64 bit integrity check fails
+
+   12.  Output sessionKey
+
+4.3.  Packet specifications
+
+4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+
+   The composite Kyber algorithms MUST be used only with v5 PKESK, as
+   defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.1.2.
+
+   The algorithm-specific v5 PKESK parameters consists of:
+
+   *  A fixed-length octet string representing an ECC ephemeral public
+      key in the format associated with the curve as specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string of the Kyber ciphertext in native
+      format, whose length depends on the algorithm ID as specified in
+      Table 8.
+
+   *  A variable-length field containing the symmetric key:
+
+      -  A one-octet size of the following field;
+
+      -  Octet string of the wrapped symmetric key as described in
+         Section 4.2.3.
+
+4.3.2.  Key Material Packets
+
+   The algorithm-specific public key is this series of values:
+
+   *  A fixed-length octet string representing an EC point public key,
+      in the point format associated with the curve specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string containing the Kyber public key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 8.
+
+   The algorithm-specific secret key is these two values:
+
+   *  A fixed-length octet string of the encoded secret scalar, whose
+      encoding and length depend on the algorithm ID as specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string containing the Kyber secret key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 8.
+
+5.  Composite Signature Schemes
+
+5.1.  Building blocks
+
+5.1.1.  EdDSA-Based signatures
+
+   To sign and verify with EdDSA the following operations are defined:
+
+   (eddsaSignature) <- eddsa.sign(eddsaPrivateKey, dataDigest)
+
+   and
+
+  (verified) <- eddsa.verify(eddsaPublicKey, eddsaSignature, dataDigest)
+
+   The public and private keys, as well as the signature MUST be encoded
+   in native format according to [RFC8032] in fixed-length octet
+   strings.  The following table describes the EdDSA parameters and
+   artifact lengths:
+
+     +==============+=========+=======+========+========+===========+
+     | Algorithm ID | Curve   | Field | Public | Secret | Signature |
+     |    reference |         | size  | key    | key    |           |
+     +==============+=========+=======+========+========+===========+
+     |           31 | Ed25519 | 32    | 32     | 32     | 64        |
+     +--------------+---------+-------+--------+--------+-----------+
+     |           32 | Ed448   | 57    | 57     | 57     | 114       |
+     +--------------+---------+-------+--------+--------+-----------+
+
+        Table 10: EdDSA parameters and artifact lengths in octets
+
+5.1.2.  ECDSA-Based signatures
+
+   To sign and verify with ECDSA the following operations are defined:
+
+   (ecdsaSignatureR, ecdsaSignatureS) <- ecdsa.sign(ecdsaPrivateKey,
+                                                    dataDigest)
+
+   and
+
+   (verified) <- ecdsa.verify(ecdsaPublicKey, ecdsaSignatureR,
+                              ecdsaSignatureS, dataDigest)
+
+   The public keys MUST be encoded in SEC1 format as defined in section
+   Section 1.3.3.  The secret key, as well as both values R and S of the
+   signature MUST each be encoded as a big-endian integer in a fixed-
+   length octet string of the specified size.
+
+   The following table describes the ECDSA parameters and artifact
+   lengths:
+
+    +=========+===============+=====+======+======+=========+=========+
+    |Algorithm|Curve          |Field|Public|Secret|Signature|Signature|
+    |       ID|               |size |key   |key   |value R  |value S  |
+    |reference|               |     |      |      |         |         |
+    +=========+===============+=====+======+======+=========+=========+
+    |       33|NIST P-256     |32   |65    |32    |32       |32       |
+    +---------+---------------+-----+------+------+---------+---------+
+    |       34|NIST P-384     |48   |97    |48    |48       |48       |
+    +---------+---------------+-----+------+------+---------+---------+
+    |       35|brainpoolP256r1|32   |65    |32    |32       |32       |
+    +---------+---------------+-----+------+------+---------+---------+
+    |       36|brainpoolP384r1|48   |97    |48    |48       |48       |
+    +---------+---------------+-----+------+------+---------+---------+
+
+         Table 11: ECDSA parameters and artifact lengths in octets
+
+5.1.3.  Dilithium signatures
+
+   The procedure for Dilithium signature generation is the function
+   Sign(sk, M) given in Figure 4 in [DILITHIUM-Subm], where sk is the
+   Dilithium private key in native format and M is the data to be
+   signed.  OpenPGP does not use the optional randomized signing given
+   as a variant in the definition of this function, i.e. rho' := H(K ||
+   mu) is used.  The signing function returns the Dilithium signature in
+   native format.  That is, to sign with Dilithium the following
+   operation is defined:
+
+   (dilithiumSignature) <- dilithium.sign(dilithiumPrivateKey,
+                                          dataDigest)
+
+   The procedure for Dilithium signature verification is the function
+   Verify(pk, M, sigma) given in Figure 4 in [DILITHIUM-Subm], where pk
+   is the Dilithium public key in native format, M is the data to be
+   signed and sigma is the Dilithium signature in native format.  That
+   is, to verify with Dilithium the following operation is defined:
+
+   (verified) <- dilithium.verify(dilithiumPublicKey, dataDigest,
+                                  dilithiumSignature)
+
+   Dilithium has the parameterization with the corresponding artifact
+   lengths in octets as given in Table 12.  All artifacts are in the
+   native format defined in [DILITHIUM-Subm].
+
+   +========================+============+========+========+===========+
+   |           Algorithm ID | Dilithium  | Public | Secret | Signature |
+   |              reference | instance   | key    | key    | value     |
+   +========================+============+========+========+===========+
+   |             31, 33, 35 | Dilithium3 | 1952   | 4000   | 3293      |
+   +------------------------+------------+--------+--------+-----------+
+   |             32, 34, 36 | Dilithium5 | 2592   | 4864   | 4595      |
+   +------------------------+------------+--------+--------+-----------+
+
+       Table 12: Dilithium parameters and artifact lengths in octets
+
+5.2.  Composite Signature Schemes with Dilithium
+
+5.2.1.  Binding hashes
+
+   Composite Dilithium + ECC signatures MUST use SHA3-256 (hash
+   algorithm ID 12) or SHA3-512 (hash algorithm ID 14) as hashing
+   algorithm.  Signatures using other hash algorithms MUST be considered
+   invalid.
+
+   An implementation MUST support SHA3-256 and SHOULD support SHA3-512,
+   in order to support the hash binding with Dilithium + ECC signatures.
+
+5.2.2.  Signature Generation
+
+   To sign a message M with Dilithium + EdDSA the following sequence of
+   operations has to be performed:
+
+   1.  Generate dataDigest according to
+       [I-D.ietf-openpgp-crypto-refresh] Section 5.2.4
+
+   2.  Create the EdDSA signature over dataDigest with eddsa.sign() from
+       Section 5.1.1
+
+   3.  Create the Dilithium signature over dataDigest with
+       dilithium.sign() from Section 5.1.3
+
+   4.  Encode the EdDSA and Dilithium signatures according to the packet
+       structure given in Section 5.3.1.
+
+   To sign a message M with Dilithium + ECDSA the following sequence of
+   operations has to be performed:
+
+   1.  Generate dataDigest according to
+       [I-D.ietf-openpgp-crypto-refresh] Section 5.2.4
+
+   2.  Create the ECDSA signature over dataDigest with ecdsa.sign() from
+       Section 5.1.2
+
+   3.  Create the Dilithium signature over dataDigest with
+       dilithium.sign() from Section 5.1.3
+
+   4.  Encode the ECDSA and Dilithium signatures according to the packet
+       structure given in Section 5.3.1.
+
+5.2.3.  Signature Verification
+
+   To verify a Dilithium + EdDSA signature the following sequence of
+   operations has to be performed:
+
+   1.  Verify the EdDSA signature with eddsa.verify() from Section 5.1.1
+
+   2.  Verify the Dilithium signature with dilithium.verify() from
+       Section 5.1.3
+
+   To verify a Dilithium + ECDSA signature the following sequence of
+   operations has to be performed:
+
+   1.  Verify the ECDSA signature with ecdsa.verify() from Section 5.1.2
+
+   2.  Verify the Dilithium signature with dilithium.verify() from
+       Section 5.1.3
+
+   As specified in Section 3.3 an implementation MUST validate both
+   signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite
+   Dilithium + ECC signature is valid.
+
+5.3.  Packet Specifications
+
+5.3.1.  Signature Packet (Tag 2)
+
+   The composite Dilithium + ECC schemes MUST be used only with v5
+   signatures, as defined in [I-D.ietf-openpgp-crypto-refresh]
+   Section 5.2.3.
+
+   The algorithm-specific v5 signature parameters for Dilithium + EdDSA
+   signatures consists of:
+
+   *  A fixed-length octet string representing the EdDSA signature in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 10.
+
+   *  A fixed-length octet string of the Dilithium signature value in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 12.
+
+   The algorithm-specific v5 signature parameters for Dilithium + ECDSA
+   signatures consists of:
+
+   *  A fixed-length octet string of the big-endian encoded ECDSA value
+      R, whose length depends on the algorithm ID as specified in
+      Table 11.
+
+   *  A fixed-length octet string of the big-endian encoded ECDSA value
+      S, whose length depends on the algorithm ID as specified in
+      Table 11.
+
+   *  A fixed-length octet string of the Dilithium signature value in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 12.
+
+5.3.2.  Key Material Packets
+
+   The composite Dilithium + ECC schemes MUST be used only with v5 keys,
+   as defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+
+   The algorithm-specific public key for Dilithium + EdDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the EdDSA public key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 10.
+
+   *  A fixed-length octet string containing the Dilithium public key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 12.
+
+   The algorithm-specific private key for Dilithium + EdDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the EdDSA secret key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 10.
+
+   *  A fixed-length octet string containing the Dilithium secret key in
+      native format, whose length depends on the algorithm ID as
+      specified in Table 12.
+
+   The algorithm-specific public key for Dilithium + ECDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the ECDSA public key in
+      SEC1 format, as specified in section Section 1.3.3 and with length
+      specified in Table 11.
+
+   *  A fixed-length octet string containing the Dilithium public key,
+      whose length depends on the algorithm ID as specified in Table 12.
+
+   The algorithm-specific private key for Dilithium + ECDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the ECDSA secret key as a
+      big-endian encoded integer, whose length depends on the algorithm
+      used as specified in Table 11.
+
+   *  A fixed-length octet string containing the Dilithium secret key,
+      whose length depends on the algorithm ID as specified in Table 12.
+
+6.  SPHINCS+
+
+6.1.  The SPHINCS+ Algorithms
+
+   The following table describes the SPHINCS+ parameters and artifact
+   lengths:
+
+   +==============+=============+============+============+===========+
+   | Parameter ID |   Parameter | SPHINCS+   | SPHINCS+   | SPHINCS+  |
+   |    reference | name suffix | public key | secret key | signature |
+   +==============+=============+============+============+===========+
+   |            1 |        128s | 32         | 64         | 7856      |
+   +--------------+-------------+------------+------------+-----------+
+   |            2 |        128f | 32         | 64         | 17088     |
+   +--------------+-------------+------------+------------+-----------+
+   |            3 |        192s | 48         | 96         | 16224     |
+   +--------------+-------------+------------+------------+-----------+
+   |            4 |        192f | 48         | 96         | 35664     |
+   +--------------+-------------+------------+------------+-----------+
+   |            5 |        256s | 64         | 128        | 29792     |
+   +--------------+-------------+------------+------------+-----------+
+   |            6 |        256f | 64         | 128        | 49856     |
+   +--------------+-------------+------------+------------+-----------+
+
+      Table 13: SPHINCS+ parameters and artifact lengths in octets.
+        The values equally apply to the parameter IDs of SPHINCS+-
+                  simple-SHA2 and SPHINCS+-simple-SHAKE.
+
+6.1.1.  Binding hashes
+
+   SPHINCS+ signature packets MUST use the associated hash as specified
+   in Table 14.  Signature packets using other hashes MUST be considered
+   invalid.
+
+   +========================+==============+==========+===============+
+   | Algorithm ID reference | Parameter ID | Hash     | Hash function |
+   |                        | reference    | function | ID reference  |
+   +========================+==============+==========+===============+
+   |                     37 | 1, 2         | SHA-256  | 8             |
+   +------------------------+--------------+----------+---------------+
+   |                     37 | 3, 4, 5, 6   | SHA-512  | 10            |
+   +------------------------+--------------+----------+---------------+
+   |                     38 | 1, 2         | SHA3-256 | 12            |
+   +------------------------+--------------+----------+---------------+
+   |                     38 | 3, 4, 5, 6   | SHA3-512 | 14            |
+   +------------------------+--------------+----------+---------------+
+
+         Table 14: Binding between SPHINCS+ and signature hashes
+
+   An implementation supporting a specific SPHINCS+ algorithm and
+   parameter MUST also support the matching hash algorithm.
+
+6.1.2.  Signature Generation
+
+   The procedure for SPHINCS+ signature generation is the function
+   spx_sign(M, SK) specified in [SPHINCS-Subm], Sec. 6.4 as Alg. 20.
+   Here, M is the dataDigest generated according to
+   [I-D.ietf-openpgp-crypto-refresh] Section 5.2.4 and SK is the
+   SPHINCS+ private key.  The global variable RANDOMIZE specified in
+   Alg. 20 is to be considered as not set, i.e. the variable opt shall
+   be initialized with PK.seed.  See also Section 8.3.
+
+   An implementation MUST set the Parameter ID in the signature equal to
+   the issuing private key Parameter ID.
+
+6.1.3.  Signature Verification
+
+   The procedure for SPHINCS+ signature verification is the function
+   spx_verify(M, SIG, PK) specified in [SPHINCS-Subm], Sec. 6.5 as Alg.
+   21.  Here, M is the dataDigest generated according to
+   [I-D.ietf-openpgp-crypto-refresh] Section 5.2.4, SIG is the
+   signature, and PK is the SPHINCS+ public key.
+
+   An implementation MUST check that the Parameter ID in the signature
+   and in the key match when verifying.
+
+6.2.  Packet specifications
+
+6.2.1.  Signature Packet (Tag 2)
+
+   The SPHINCS+ algorithms MUST be used only with v5 signatures, as
+   defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
+
+   The algorithm-specific v5 Signature parameters consists of:
+
+   *  A one-octet value specifying the SPHINCS+ parameter ID defined in
+      Table 3 and Table 4.  The values 0x00 and 0xFF are reserved for
+      future extensions.
+
+   *  A fixed-length octet string of the SPHINCS+ signature value in
+      native format, whose length depends on the parameter ID in the
+      format specified in Table 13.
+
+6.2.2.  Key Material Packets
+
+   The SPHINCS+ algorithms MUST be used only with v5 keys, as defined in
+   [I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+
+   The algorithm-specific public key is this series of values:
+
+   *  A one-octet value specifying the SPHINCS+ parameter ID defined in
+      Table 3 and Table 4.  The values 0x00 and 0xFF are reserved for
+      future extensions.
+
+   *  A fixed-length octet string containing the SPHINCS+ public key,
+      whose length depends on the parameter ID as specified in Table 13.
+
+   The algorithm-specific private key is this value:
+
+   *  A fixed-length octet string containing the SPHINCS+ secret key,
+      whose length depends on the parameter ID as specified in Table 11.
+
+7.  Migration Considerations
+
+   The post-quantum KEM algorithms defined in Table 1 and the signature
+   algorithms defined in Table 2 are a set of new public key algorithms
+   that extend the algorithm selection of
+   [I-D.ietf-openpgp-crypto-refresh].  During the transition period, the
+   post-quantum algorithms will not be supported by all clients.
+   Therefore various migration considerations must be taken into
+   account, in particular backwards compatibility to existing
+   implementations that have not yet been updated to support the post-
+   quantum algorithms.
+
+7.1.  Key preference
+
+   Implementations SHOULD prefer PQ(/T) keys when multiple options are
+   available.
+
+   For instance, if encrypting for a recipient for which both a valid
+   PQ/T and a valid ECC certificate are available, the implementation
+   SHOULD choose the PQ/T certificate.  In case a certificate has both a
+   PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey
+   SHOULD be preferred.
+
+   An implementation MAY sign with both a PQ(/T) and an ECC key using
+   multiple signatures over the same data as described in Section 3.4.
+   Signing only with PQ(/T) key material is not backwards compatible.
+
+   Note that the confidentiality of a message is not post-quantum secure
+   when encrypting to multiple recipients if at least one recipient does
+   not support PQ/T encryption schemes.  An implementation SHOULD NOT
+   abort the encryption process in this case to allow for a smooth
+   transition to post-quantum cryptography.
+
+7.2.  Key generation strategies
+
+   It is REQUIRED to generate fresh secrets when generating PQ(/T) keys.
+   Reusing key material from existing ECC keys in PQ(/T) keys does not
+   provide backwards compatibility, and the fingerprint will differ.
+
+   An OpenPGP (v5) certificate is composed of a certification-capable
+   primary key and one or more subkeys for signature, encryption, and
+   authentication.  Two migration strategies are recommended:
+
+   1.  Generate two independent certificates, one for PQ(/T)-capable
+       implementations, and one for legacy implementations.
+       Implementations not understanding PQ(/T) certificates can use the
+       legacy certificate, while PQ(/T)-capable implementations will
+       prefer the newer certificate.  This allows having an older v4 or
+       v5 ECC certificate for compatibility and a v5 PQ(/T) certificate,
+       at a greater complexity in key distribution.
+
+   2.  Attach PQ(/T) encryption and signature subkeys to an existing v5
+       ECC certificate.  Implementations understanding PQ(/T) will be
+       able to parse and use the subkeys, while PQ(/T)-incapable
+       implementations can gracefully ignore them.  This simplifies key
+       distribution, as only one certificate needs to be communicated
+       and verified, but leaves the primary key vulnerable to quantum
+       computer attacks.
+
+8.  Security Considerations
+
+8.1.  Key combiner
+
+   For the key combination in Section 4.2.2 this specification limits
+   itself to the use of KMAC.  The sponge construction used by KMAC was
+   proven to be indifferentiable from a random oracle [SPONGE].  This
+   means, that in contrast to SHA2, which uses a Merkle-Damgard
+   construction, no HMAC-based construction is required for key
+   combination.  Except for a domain separation it is sufficient to
+   simply process the concatenation of any number of key shares when
+   using a sponge-based construction like KMAC.  The construction using
+   KMAC ensures a standardized domain separation.  In this case, the
+   processed message is then the concatenation of any number of key
+   shares.
+
+   More precisely, for a given capacity c the indifferentiability proof
+   shows that assuming there are no weaknesses found in the Keccak
+   permutation, an attacker has to make an expected number of 2^(c/2)
+   calls to the permutation to tell KMAC from a random oracle.  For a
+   random oracle, a difference in only a single bit gives an unrelated,
+   uniformly random output.  Hence, to be able to distinguish a key K,
+   derived from shared keys K1 and K2 as
+
+   K = KMAC(domainSeparation, counter || K1 || K2 || fixedInfo,
+            outputBits, customization)
+
+   from a random bit string, an adversary has to know (or correctly
+   guess) both key shares K1 and K2, entirely.
+
+8.2.  Domain separation and binding
+
+   The domSeparation information defined in Section 4.2.2 provides the
+   domain separation for the key combiner construction.  This ensures
+   that the input keying material is used to generate a KEK for a
+   specific purpose or context.
+
+   The fixedInfo defined in Section 4.2.1 binds the derived KEK to the
+   chosen algorithm and communication parties.  The algorithm ID
+   identifies univocally the algorithm, the parameters for its
+   instantiation, and the length of all artifacts, including the derived
+   key.  The hash of the recipient's public key identifies the subkey
+   used to encrypt the message, binding the KEK to both the Kyber and
+   the ECC key.  Given that both algorithms allow a degree of ciphertext
+   malleability, this prevents transformations onto the ciphertext
+   without the final recipient's knowledge.
+
+   This is in line with the Recommendation for ECC in section 5.5 of
+   [SP800-56A].  Other fields included in the recommendation are not
+   relevant for the OpenPGP protocol, since the sender is not required
+   to have a key on their own, there are no pre-shared secrets, and all
+   the other parameters are univocally defined by the algorithm ID.
+
+8.3.  SPHINCS+
+
+   The original specification of SPHINCS+ [SPHINCS-Subm] prescribes an
+   optional randomized hashing.  This is not used in this specification,
+   as OpenPGP v5 signatures already provide a salted hash of the
+   appropriate size.
+
+8.4.  Binding hashes in signatures with signature algorithms
+
+   In order not to extend the attack surface, we bind the hash algorithm
+   used for message digestion to the hash algorithm used internally by
+   the signature algorithm.  Dilithium internally uses a SHAKE256
+   digest, therefore we require SHA3 in the Dilithium + ECC signature
+   packet.  In the case of SPHINCS+ the internal hash algorithm varies
+   based on the algorithm and parameter ID.
+
+8.5.  Elliptic curves
+
+   Even though the zero point, also called the point at infinity, may
+   occur as a result of arithmetic operations on points of an elliptic
+   curve, it MUST NOT appear in any ECC data structure defined in this
+   document.
+
+   Furthermore, when performing the explicitly listed multiplications in
+   Section 4.1.1.1 or Section 4.1.1.2 it is REQUIRED to perform all
+   checks, clamping, or masking mandated from the relative elliptic
+   curve specification.
+
+9.  Additional considerations
+
+9.1.  Performance Considerations for SPHINCS+
+
+   This specification introduces both Dilithium + ECC as well as
+   SPHINCS+ as PQ(/T) signature schemes.
+
+   Generally, it can be said that Dilithium + ECC provides a performance
+   in terms of execution time and space requirements that is close to
+   that of traditional ECC signature schemes.  Implementers may want to
+   offer SPHINCS+ for applications where a higher degree of trust in the
+   signature scheme is required.  However, SPHINCS+ has performance
+   characteristics in terms of execution time of the signature
+   generation as well as space requirements for the signature that can
+   be, depending on the parameter choice, far greater than those of
+   traditional or Dilithium + ECC signature schemes.
+
+   Pertaining to the execution time, the particularly costly operation
+   in SPHINCS+ is the signature generation.  In order to achieve short
+   signature generation times, one of the parameter sets with the name
+   ending in the letter "f" for "fast" should be chosen.  This comes at
+   the expense of a larger signature size.
+
+   In order to minimize the space requirements of a SPHINCS+ signature,
+   a parameter set ending in "s" for "small" should be chosen.  This
+   comes at the expense of a larger signature generation time.
+
+10.  IANA Considerations
+
+   IANA is requested to add the algorithm IDs defined in Table 1 and
+   Table 2.  Furthermore, two additional registers are needed for the
+   SPHINCS+-simple-SHA2 and SPHINCS+-simple-SHAKE parameters defined in
+   Table 3 and Table 4.
+
+11.  Contributors
+
+   Stephan Ehlen (BSI)
+   Carl-Daniel Hailfinger (BSI)
+   Andreas Huelsing (TU Eindhoven)
+   Johannes Roth (MTG AG)
+
+12.  References
+
+12.1.  Normative References
+
+   [I-D.ietf-openpgp-crypto-refresh]
+              Wouters, P., Huigens, D., Winter, J., and N. Yutaka,
+              "OpenPGP Message Format", Work in Progress, Internet-
+              Draft, draft-ietf-openpgp-crypto-refresh-07, 23 October
+              2022, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              openpgp-crypto-refresh-07>.
+
+   [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
+              (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
+              September 2002, <https://www.rfc-editor.org/rfc/rfc3394>.
+
+   [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
+              for Security", RFC 7748, DOI 10.17487/RFC7748, January
+              2016, <https://www.rfc-editor.org/rfc/rfc7748>.
+
+   [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
+              Signature Algorithm (EdDSA)", RFC 8032,
+              DOI 10.17487/RFC8032, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8032>.
+
+12.2.  Informative References
+
+   [DILITHIUM-Subm]
+              Ducas, L., Kiltz, E., Lepoint, T., Lyubashevsky, V.,
+              Schwabe, P., Seiler, G., and D. Stehle, "CRYSTALS-
+              Dilithium - Algorithm Specifications and Supporting
+              Documentation (Version 3.1)", 8 February 2021.
+
+   [draft-driscoll-pqt-hybrid-terminology]
+              Driscoll, F., "Terminology for Post-Quantum Traditional
+              Hybrid Schemes", October 2022,
+              <https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-
+              hybrid-terminology-01>.
+
+   [KYBER-Subm]
+              Avanzi, R., Bos, J., Ducas, L., Kiltz, E., Lepoint, T.,
+              Lyubashevsky, V., Schanck, J. M., Schwabe, P., Seiler, G.,
+              and D. Stehle, "CRYSTALS-Kyber (version 3.02) - Submission
+              to round 3 of the NIST post-quantum project", 4 August
+              2021.
+
+   [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
+              Cryptography Standardization", December 2016,
+              <https://csrc.nist.gov/projects/post-quantum-cryptography/
+              post-quantum-cryptography-standardization>.
+
+   [NISTIR-8413]
+              Alagic, G., Apon, D., Cooper, D., Dang, Q., Dang, T.,
+              Kelsey, J., Lichtinger, J., Miller, C., Moody, D.,
+              Peralta, R., Perlner, R., Robinson, A., Smith-Tone, D.,
+              and Y. Liu, "Status Report on the Third Round of the NIST
+              Post-Quantum Cryptography Standardization Process", NIST
+              IR 8413-upd1 , September 2022,
+              <https://doi.org/10.6028/NIST.IR.8413-upd1>.
+
+   [RFC5639]  Lochter, M. and J. Merkle, "Elliptic Curve Cryptography
+              (ECC) Brainpool Standard Curves and Curve Generation",
+              RFC 5639, DOI 10.17487/RFC5639, March 2010,
+              <https://www.rfc-editor.org/rfc/rfc5639>.
+
+   [SEC1]     Standards for Efficient Cryptography Group, "Standards for
+              Efficient Cryptography 1 (SEC 1)", May 2009,
+              <https://secg.org/sec1-v2.pdf>.
+
+   [SP800-186]
+              Chen, L., Moody, D., Regenscheid, A., and K. Randall,
+              "Recommendations for Discrete Logarithm-Based Cryptography
+              - Elliptic Curve Domain Parameters", NIST Special
+              Publication 800-186 , October 2019,
+              <https://doi.org/10.6028/NIST.SP.800-186-draft>.
+
+   [SP800-56A]
+              Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
+              Davis, "Recommendation for Pair-Wise Key-Establishment
+              Schemes Using Discrete Logarithm Cryptography", NIST
+              Special Publication 800-56A , April 2018,
+              <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
+
+   [SP800-56C]
+              Barker, E., Chen, L., and R. Davis, "Recommendation for
+              Key-Derivation Methods in Key-Establishment Schemes", NIST
+              Special Publication 800-56C , August 2020,
+              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
+
+   [SPHINCS-Subm]
+              Aumasson, J., Bernstein, D. J., Beullens, W., Dobraunig,
+              C., Eichlseder, M., Fluhrer, S., Gazdag, S., Huelsing, A.,
+              Kampanakis, P., Koelb, S., Lange, T., Lauridsen, M. M.,
+              Mendel, F., Niederhagen, R., Rechberger, C., Rijneveld,
+              J., Schwabe, P., and B. Westerbaan, "SPHINCS+ - Submission
+              to the 3rd round of the NIST post-quantum project. v3.1",
+              10 June 2021.
+
+   [SPONGE]   Bertoni, G., Daemen, J., Peters, M., and G. Assche,
+              "Cryptographic sponge functions", January 2011,
+              <https://keccak.team/files/CSF-0.1.pdf>.
+
+Acknowledgments
+
+   Thanks to Daniel Huigens and Evangelos Karatsiolis for the early
+   review and feedback on this document.
+
+Authors' Addresses
+
+   Stavros Kousidis
+   BSI
+   Germany
+   Email: stavros.kousidis@bsi.bund.de
+
+
+   Falko Strenzke
+   MTG AG
+   Germany
+   Email: falko.strenzke@mtg.de
+
+
+   Aron Wussler
+   Proton AG
+   Switzerland
+   Email: aron@wussler.it
