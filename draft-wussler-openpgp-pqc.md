@@ -113,7 +113,7 @@ informative:
     seriesinfo:
       NIST IR 8413-upd1
 
-  NIST-SP800-56C:
+  SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
     title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
     author:
@@ -127,6 +127,8 @@ informative:
         ins: R. Davis
         name: Richard Davis
     date: August 2020
+    seriesinfo:
+      NIST Special Publication 800-56C
 
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
@@ -812,7 +814,7 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
 construction is a one-step key derivation function compliant to
-{{NIST-SP800-56C}} Section 4.
+{{SP800-56C}} Section 4.
 
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
