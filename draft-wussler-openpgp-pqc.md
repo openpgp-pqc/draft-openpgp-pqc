@@ -326,7 +326,7 @@ sufficiently well understood with respect to its security assumptions in order
 to be used standalone. To this end, this document specifies the following new
 set: SPHINCS+ standalone and CRYSTALS-* as composite with ECC-based KEM and
 digital signature schemes. Here, the term "composite" indicates that any data
-structure or algorithm pertaining to the 
+structure or algorithm pertaining to the
 combination of the two components appears as single data structure or algorithm
 from the protocol perspective.
 
