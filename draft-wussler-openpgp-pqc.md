@@ -1067,7 +1067,7 @@ order to support the hash binding with Dilithium + ECC signatures.
 ### Key generation procedure {#ecc-dilithium-generation}
 
 The implementation MUST independently generate the Dilithium and the ECC
-component keys. The dilithium component is generated as specified in
+component keys. Dilithium key generation follows the specification in
 [DILITHIUM-Subm] and the artifacts are encoded in native format as
 fixed-length octet strings as defined in {{dilithium-signature}}.
 For ECC this is done following the relative specification in {{RFC7748}},
@@ -1243,7 +1243,7 @@ also support the matching hash algorithm.
 
 ### Key generation
 
-To generate a SPHINCS+ key the function `spx_keygen()` specified in
+The SPHINCS+ key generation is performed according to the function `spx_keygen()` specified in
 {{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private and public key are encoded in
 native format.
 
