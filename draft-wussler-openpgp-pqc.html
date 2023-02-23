@@ -22,7 +22,7 @@ cryptography, and SPHINCS+ as a standalone public key signature scheme.
 <meta content="draft-wussler-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.16.0
-    Python 3.10.9
+    Python 3.10.10
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -367,7 +367,7 @@ ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 100%;
+  line-height: 1;
   margin: 0 0 0 2em;
 }
 
@@ -377,9 +377,12 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
+  margin-right: 2ch;
   min-width: 8ch;
 }
 dl.dlNewline > dt {
@@ -389,6 +392,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -589,10 +595,14 @@ hr {
 .bcp14 {
   font-variant: small-caps;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--small-font-size);
 }
 .role {
   font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
 }
 
 /* info block */
@@ -1049,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 6 August 2023</td>
+<td class="center">Expires 27 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wussler-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-02" class="published">2 February 2023</time>
+<time datetime="2023-02-23" class="published">23 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-06">6 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-27">27 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1138,7 @@ cryptography, and SPHINCS+ as a standalone public key signature scheme.<a href="
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1570,7 +1580,7 @@ native format in contrast to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" c
 <a href="#section-1.3.2" class="section-number selfRef">1.3.2. </a><a href="#name-generic-prime-curves" class="section-name selfRef">Generic Prime Curves</a>
           </h4>
 <p id="section-1.3.2-1">For interoperability this extension offers CRYSTALS-* in composite combinations
-with the NIST curves P-256, P-384 defined in <span>[<a href="#NIST-SP800-186" class="cite xref">NIST-SP800-186</a>]</span> and the
+with the NIST curves P-256, P-384 defined in <span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span> and the
 Brainpool curves brainpoolP256r1, brainpoolP384r1 defined in <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span>.<a href="#section-1.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2234,10 +2244,10 @@ is the <code>eccCipherText</code> according to <span>[<a href="#RFC7748" class="
 <p id="section-4.1.1.2-1">The operation <code>ecdhKem.encap()</code> is defined as follows:<a href="#section-4.1.1.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.1.1.2-2">
 <li id="section-4.1.1.2-2.1">Generate an ephemeral key pair {<code>v</code>, <code>V=vG</code>} as defined in
-<span>[<a href="#NIST-SP800-186" class="cite xref">NIST-SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-2.1" class="pilcrow">¶</a>
+<span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-2.1" class="pilcrow">¶</a>
 </li>
               <li id="section-4.1.1.2-2.2">Compute the shared point <code>S = vR</code> where <code>R</code> is the component public key
-<code>eccPublicKey</code> according to <span>[<a href="#NIST-SP800-186" class="cite xref">NIST-SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-2.2" class="pilcrow">¶</a>
+<code>eccPublicKey</code> according to <span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-2.2" class="pilcrow">¶</a>
 </li>
               <li id="section-4.1.1.2-2.3">Extract the <code>X</code> coordinate from the SEC1 encoded point <code>S = 04 || X || Y</code>
 as defined in section <a href="#sec1-format" class="auto internal xref">Section 1.3.3</a><a href="#section-4.1.1.2-2.3" class="pilcrow">¶</a>
@@ -2250,7 +2260,7 @@ as defined in section <a href="#sec1-format" class="auto internal xref">Section 
 <p id="section-4.1.1.2-3">The operation <code>ecdhKem.decap()</code> is defined as follows:<a href="#section-4.1.1.2-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.1.1.2-4">
 <li id="section-4.1.1.2-4.1">Compute the shared Point <code>S</code> as <code>rV</code> where <code>r</code> is the <code>eccPrivateKey</code> and
-<code>V</code> is the <code>eccCipherText</code> according to <span>[<a href="#NIST-SP800-186" class="cite xref">NIST-SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-4.1" class="pilcrow">¶</a>
+<code>V</code> is the <code>eccCipherText</code> according to <span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span> or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span><a href="#section-4.1.1.2-4.1" class="pilcrow">¶</a>
 </li>
               <li id="section-4.1.1.2-4.2">Extract the <code>X</code> coordinate from the SEC1 encoded point <code>S = 04 || X || Y</code>
 as defined in section <a href="#sec1-format" class="auto internal xref">Section 1.3.3</a><a href="#section-4.1.1.2-4.2" class="pilcrow">¶</a>
@@ -3383,7 +3393,7 @@ to both the Kyber and the ECC key. Given that both algorithms allow a degree of
 ciphertext malleability, this prevents transformations onto the ciphertext
 without the final recipient's knowledge.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <p id="section-8.2-3">This is in line with the Recommendation for ECC in section 5.5 of
-<span>[<a href="#NIST-SP800-56A" class="cite xref">NIST-SP800-56A</a>]</span>. Other fields included in the recommendation are not relevant
+<span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key on
 their own, there are no pre-shared secrets, and all the other parameters are
 univocally defined by the algorithm ID.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
@@ -3527,21 +3537,13 @@ Johannes Roth (MTG AG)<a href="#section-11-1" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Post-Quantum Cryptography Standardization"</span>, <time datetime="2016-12" class="refDate">December 2016</time>, <span>&lt;<a href="https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization">https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="NIST-SP800-186">[NIST-SP800-186]</dt>
-        <dd>
-<span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Regenscheid, A.</span>, and <span class="refAuthor">K. Randall</span>, <span class="refTitle">"Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters"</span>, <time datetime="2019-10" class="refDate">October 2019</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-186-draft">https://doi.org/10.6028/NIST.SP.800-186-draft</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="NIST-SP800-56A">[NIST-SP800-56A]</dt>
-        <dd>
-<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="NIST-SP800-56C">[NIST-SP800-56C]</dt>
         <dd>
 <span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NISTIR-8413">[NISTIR-8413]</dt>
         <dd>
-<span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
+<span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413-upd1 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5639">[RFC5639]</dt>
         <dd>
@@ -3550,6 +3552,14 @@ Johannes Roth (MTG AG)<a href="#section-11-1" class="pilcrow">¶</a></p>
 <dt id="SEC1">[SEC1]</dt>
         <dd>
 <span class="refAuthor">Standards for Efficient Cryptography Group</span>, <span class="refTitle">"Standards for Efficient Cryptography 1 (SEC 1)"</span>, <time datetime="2009-05" class="refDate">May 2009</time>, <span>&lt;<a href="https://secg.org/sec1-v2.pdf">https://secg.org/sec1-v2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-186">[SP800-186]</dt>
+        <dd>
+<span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Regenscheid, A.</span>, and <span class="refAuthor">K. Randall</span>, <span class="refTitle">"Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters"</span>, <span class="seriesInfo">NIST Special Publication 800-186 </span>, <time datetime="2019-10" class="refDate">October 2019</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-186-draft">https://doi.org/10.6028/NIST.SP.800-186-draft</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-56A">[SP800-56A]</dt>
+        <dd>
+<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <span class="seriesInfo">NIST Special Publication 800-56A </span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SPHINCS-Subm">[SPHINCS-Subm]</dt>
         <dd>
