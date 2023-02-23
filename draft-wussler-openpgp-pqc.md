@@ -852,7 +852,7 @@ The implementation MUST independently generate the Kyber and the ECC component
 keys. Kyber key generation follows the specification [KYBER-Subm] and the
 artifacts are encoded in native format as fixed-length octet strings.
 For ECC this is done following the relative specification in {{RFC7748}},
-{{NIST-SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length
+{{SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length
 octet strings in the format specified in table {{tab-ecdh-cfrg-artifacts}},
 {{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
 
@@ -1071,7 +1071,7 @@ component keys. Dilithium key generation follows the specification in
 [DILITHIUM-Subm] and the artifacts are encoded in native format as
 fixed-length octet strings as defined in {{dilithium-signature}}.
 For ECC this is done following the relative specification in {{RFC7748}},
-{{NIST-SP800-186}}, or {{RFC5639}}, and encoding the artifacts as specified in
+{{SP800-186}}, or {{RFC5639}}, and encoding the artifacts as specified in
 {{eddsa-signature}} or {{ecdsa-signature}} as fixed-length octet strings.
 
 ### Signature Generation
