@@ -5,10 +5,10 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                               F. Strenzke
-Expires: 27 August 2023                                           MTG AG
+Expires: 28 August 2023                                           MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        23 February 2023
+                                                        24 February 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 August 2023.
+   This Internet-Draft will expire on 28 August 2023.
 
 Copyright Notice
 
@@ -786,13 +786,14 @@ Table of Contents
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a one-step key derivation function compliant to
-   [NIST-SP800-56C] Section 4.
+   [SP800-56C] Section 4, based on KMAC256 [SP800-185].  It is given by
+   the following algorithm.
 
    //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
    //   Input:
    //   domSeparation - the UTF-8 encoding of the string
                         "OpenPGPCompositeKeyDerivationFunction"
-   //   counter - a 4 byte counter set to the value 1
+   //   counter - a fixed 4 byte value, see below
    //   eccKeyShare - the ECC key share encoded as an octet string
    //   kyberKeyShare - the Kyber key share encoded as an octet string
    //   fixedInfo - the fixed information octet string
@@ -1535,11 +1536,6 @@ Table of Contents
               <https://csrc.nist.gov/projects/post-quantum-cryptography/
               post-quantum-cryptography-standardization>.
 
-   [NIST-SP800-56C]
-              Barker, E., Chen, L., and R. Davis, "Recommendation for
-              Key-Derivation Methods in Key-Establishment Schemes",
-              August 2020, <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
-
    [NISTIR-8413]
               Alagic, G., Apon, D., Cooper, D., Dang, Q., Dang, T.,
               Kelsey, J., Lichtinger, J., Miller, C., Moody, D.,
@@ -1558,6 +1554,14 @@ Table of Contents
               Efficient Cryptography 1 (SEC 1)", May 2009,
               <https://secg.org/sec1-v2.pdf>.
 
+   [SP800-185]
+              Kelsey, J., Chang, S., and R. Perlner, "NIST Special
+              Publication 800-185 – SHA-3 Derived Functions – cSHAKE,
+              KMAC, TupleHash and ParallelHash", NIST Special
+              Publication 800-185, n.d.,
+              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
+              NIST.SP.800-185.pdf>.
+
    [SP800-186]
               Chen, L., Moody, D., Regenscheid, A., and K. Randall,
               "Recommendations for Discrete Logarithm-Based Cryptography
@@ -1571,6 +1575,12 @@ Table of Contents
               Schemes Using Discrete Logarithm Cryptography", NIST
               Special Publication 800-56A , April 2018,
               <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
+
+   [SP800-56C]
+              Barker, E., Chen, L., and R. Davis, "Recommendation for
+              Key-Derivation Methods in Key-Establishment Schemes", NIST
+              Special Publication 800-56C, August 2020,
+              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
 
    [SPHINCS-Subm]
               Aumasson, J., Bernstein, D. J., Beullens, W., Dobraunig,
