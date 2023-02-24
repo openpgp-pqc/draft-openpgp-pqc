@@ -111,7 +111,7 @@ informative:
         name: Yi-Kai Liu
     date: September 2022
     seriesinfo:
-      NIST IR 8413-upd1
+      NIST IR 8413
 
   SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
@@ -128,7 +128,7 @@ informative:
         name: Richard Davis
     date: August 2020
     seriesinfo:
-      NIST Special Publication 800-56C
+      NIST Special Publication 800-56C Rev. 2
 
   SP800-185:
     target: https://doi.org/10.6028/NIST.SP.800-185
@@ -143,6 +143,7 @@ informative:
       -
         ins: R. Perlner
         name: Ray Perlner
+    date: December 2016
     seriesinfo:
       NIST Special Publication 800-185
 
@@ -167,7 +168,7 @@ informative:
         name: Richard Davis
     date: April 2018
     seriesinfo:
-      NIST Special Publication 800-56A
+      NIST Special Publication 800-56A Rev. 3
 
   SP800-186:
     target: https://doi.org/10.6028/NIST.SP.800-186
@@ -185,7 +186,7 @@ informative:
       -
         ins: K. Randall
         name: Karen Randall
-    date: October 2019
+    date: February 2023
     seriesinfo:
       NIST Special Publication 800-186
 
