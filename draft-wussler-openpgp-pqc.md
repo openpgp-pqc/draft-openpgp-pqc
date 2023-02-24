@@ -132,7 +132,7 @@ informative:
 
   SP800-185:
     target: https://doi.org/10.6028/NIST.SP.800-185
-    title: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash
+    title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
     author:
       -
         ins: J. Kelsey
@@ -171,7 +171,7 @@ informative:
 
   SP800-186:
     target: https://doi.org/10.6028/NIST.SP.800-186
-    title: Recommendations for Discrete Logarithm-Based Cryptography: Elliptic Curve Domain Parameters
+    title: 'Recommendations for Discrete Logarithm-Based Cryptography:  Elliptic Curve Domain Parameters'
     author:
       -
         ins: L. Chen
