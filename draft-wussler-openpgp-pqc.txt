@@ -1598,19 +1598,17 @@ Table of Contents
               <https://secg.org/sec1-v2.pdf>.
 
    [SP800-185]
-              Kelsey, J., Chang, S., and R. Perlner, "NIST Special
-              Publication 800-185 – SHA-3 Derived Functions – cSHAKE,
-              KMAC, TupleHash and ParallelHash", NIST Special
-              Publication 800-185, n.d.,
-              <https://nvlpubs.nist.gov/nistpubs/SpecialPublications/
-              NIST.SP.800-185.pdf>.
+              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
+              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
+              NIST Special Publication 800-185 , n.d.,
+              <https://doi.org/10.6028/NIST.SP.800-185>.
 
    [SP800-186]
               Chen, L., Moody, D., Regenscheid, A., and K. Randall,
-              "Recommendations for Discrete Logarithm-Based Cryptography
-              - Elliptic Curve Domain Parameters", NIST Special
-              Publication 800-186 , October 2019,
-              <https://doi.org/10.6028/NIST.SP.800-186-draft>.
+              "Recommendations for Discrete Logarithm-Based
+              Cryptography: Elliptic Curve Domain Parameters", NIST
+              Special Publication 800-186 , October 2019,
+              <https://doi.org/10.6028/NIST.SP.800-186>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
@@ -1622,7 +1620,7 @@ Table of Contents
    [SP800-56C]
               Barker, E., Chen, L., and R. Davis, "Recommendation for
               Key-Derivation Methods in Key-Establishment Schemes", NIST
-              Special Publication 800-56C, August 2020,
+              Special Publication 800-56C , August 2020,
               <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
 
    [SPHINCS-Subm]
