@@ -128,11 +128,11 @@ informative:
         name: Richard Davis
     date: August 2020
     seriesinfo:
-      NIST Special Publication: 800-56C
+      NIST Special Publication 800-56C
 
   SP800-185:
-    target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
-    title: NIST Special Publication 800-185 – SHA-3 Derived Functions – cSHAKE, KMAC, TupleHash and ParallelHash
+    target: https://doi.org/10.6028/NIST.SP.800-185
+    title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
     author:
       -
         ins: J. Kelsey
@@ -144,7 +144,7 @@ informative:
         ins: R. Perlner
         name: Ray Perlner
     seriesinfo:
-      NIST Special Publication: 800-185
+      NIST Special Publication 800-185
 
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
@@ -170,8 +170,8 @@ informative:
       NIST Special Publication 800-56A
 
   SP800-186:
-    target: https://doi.org/10.6028/NIST.SP.800-186-draft
-    title: Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters
+    target: https://doi.org/10.6028/NIST.SP.800-186
+    title: 'Recommendations for Discrete Logarithm-Based Cryptography:  Elliptic Curve Domain Parameters'
     author:
       -
         ins: L. Chen
