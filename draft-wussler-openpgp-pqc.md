@@ -130,6 +130,22 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56C
 
+  SP800-185:
+    target: https://doi.org/10.6028/NIST.SP.800-185
+    title: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash
+    author:
+      -
+        ins: J. Kelsey
+        name: John Kelsey
+      -
+        ins: S. Chang
+        name: Shu-jen Chang
+      -
+        ins: R. Perlner
+        name: Ray Perlner
+    seriesinfo:
+      NIST Special Publication 800-185
+
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
@@ -154,8 +170,8 @@ informative:
       NIST Special Publication 800-56A
 
   SP800-186:
-    target: https://doi.org/10.6028/NIST.SP.800-186-draft
-    title: Recommendations for Discrete Logarithm-Based Cryptography - Elliptic Curve Domain Parameters
+    target: https://doi.org/10.6028/NIST.SP.800-186
+    title: Recommendations for Discrete Logarithm-Based Cryptography: Elliptic Curve Domain Parameters
     author:
       -
         ins: L. Chen
@@ -419,20 +435,6 @@ For interoperability this extension offers CRYSTALS-* in composite combinations
 with the NIST curves P-256, P-384 defined in {{SP800-186}} and the
 Brainpool curves brainpoolP256r1, brainpoolP384r1 defined in {{RFC5639}}.
 
-### SEC1 EC Point Wire Format {#sec1-format}
-
-Elliptic curve points of the generic prime curves are encoded using the SEC1
-(uncompressed) format as the following octet string:
-
-    B = 04 || X || Y
-
-where `X` and `Y` are coordinates of the elliptic curve point `P = (X, Y)`, and
-each coordinate is encoded in the big-endian format and zero-padded to the
-adjusted underlying field size. The adjusted underlying field size is the
-underlying field size rounded up to the nearest 8-bit boundary, as noted in the
-"Field size" column in {{tab-ecdh-nist-artifacts}},
-{{tab-ecdh-brainpool-artifacts}}, or {{tab-ecdsa-artifacts}}. This encoding is
-compatible with the definition given in [SEC1].
 
 ## Standalone and Multi-Algorithm Schemes {#multi-algo-schemes}
 
@@ -480,6 +482,43 @@ multi-algorithm public-key encryption is realized where the recipient has to
 decrypt only one of the PKESK packages in order to decrypt the message. See
 {{no-pq-t-parallel-encryption}} for restrictions on parallel encryption
 mandated by this specification.
+
+# Preliminaries
+
+This section provides some preliminaries for the definitions in the subsequent
+sections.
+
+## Elliptic curves
+
+### SEC1 EC Point Wire Format {#sec1-format}
+
+Elliptic curve points of the generic prime curves are encoded using the SEC1
+(uncompressed) format as the following octet string:
+
+    B = 04 || X || Y
+
+where `X` and `Y` are coordinates of the elliptic curve point `P = (X, Y)`, and
+each coordinate is encoded in the big-endian format and zero-padded to the
+adjusted underlying field size. The adjusted underlying field size is the
+underlying field size rounded up to the nearest 8-bit boundary, as noted in the
+"Field size" column in {{tab-ecdh-nist-artifacts}},
+{{tab-ecdh-brainpool-artifacts}}, or {{tab-ecdsa-artifacts}}. This encoding is
+compatible with the definition given in [SEC1].
+
+### Measures to Ensure Secure Implementations
+
+The following paragraphs describe measures that ensure secure implementations
+according to existing best practices and standards defining the operations of
+Elliptic Curve Cryptography.
+
+Even though the zero point, also called the point at infinity, may occur as a
+result of arithmetic operations on points of an elliptic curve, it MUST NOT
+appear in any ECC data structure defined in this document.
+
+Furthermore, when performing the explicitly listed multiplications in
+{{x25519-x448-kem}} or {{ecdh-kem}} it is REQUIRED to perform all checks,
+clamping, or masking mandated from the relative elliptic curve specification.
+
 
 # Supported Public Key Algorithms
 
@@ -813,14 +852,15 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
-construction is a one-step key derivation function compliant to
-{{SP800-56C}} Section 4.
+construction is a one-step key derivation function compliant to {{SP800-56C}}
+Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
+algorithm.
 
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
     //   domSeparation - the UTF-8 encoding of the string
                          "OpenPGPCompositeKeyDerivationFunction"
-    //   counter - a 4 byte counter set to the value 1
+    //   counter - a fixed 4 byte value, see below
     //   eccKeyShare - the ECC key share encoded as an octet string
     //   kyberKeyShare - the Kyber key share encoded as an octet string
     //   fixedInfo - the fixed information octet string
@@ -847,6 +887,16 @@ The value of `customizationString` is the UTF-8 encoding of the string "KDF"
 and MUST be set to the following octet sequence:
 
     customizationString := 4B 44 46
+
+### Key generation procedure {#ecc-kyber-generation}
+
+The implementation MUST independently generate the Kyber and the ECC component
+keys. Kyber key generation follows the specification [KYBER-Subm] and the
+artifacts are encoded in native format as fixed-length octet strings.
+For ECC this is done following the relative specification in {{RFC7748}},
+{{SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length
+octet strings in the format specified in table {{tab-ecdh-cfrg-artifacts}},
+{{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
 
 ### Encryption procedure {#ecc-kyber-encryption}
 
@@ -1013,7 +1063,6 @@ Algorithm ID reference | Curve           | Field size | Public key | Secret key 
 35                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
 36                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
-
 ### Dilithium signatures {#dilithium-signature}
 
 The procedure for Dilithium signature generation is the function `Sign(sk, M)`
@@ -1056,6 +1105,16 @@ hash algorithms MUST be considered invalid.
 
 An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
 order to support the hash binding with Dilithium + ECC signatures.
+
+### Key generation procedure {#ecc-dilithium-generation}
+
+The implementation MUST independently generate the Dilithium and the ECC
+component keys. Dilithium key generation follows the specification in
+[DILITHIUM-Subm] and the artifacts are encoded in native format as
+fixed-length octet strings as defined in {{dilithium-signature}}.
+For ECC this is done following the relative specification in {{RFC7748}},
+{{SP800-186}}, or {{RFC5639}}, and encoding the artifacts as specified in
+{{eddsa-signature}} or {{ecdsa-signature}} as fixed-length octet strings.
 
 ### Signature Generation
 
@@ -1223,6 +1282,12 @@ Algorithm ID reference | Parameter ID reference | Hash function | Hash function 
 
 An implementation supporting a specific SPHINCS+ algorithm and parameter MUST
 also support the matching hash algorithm.
+
+### Key generation
+
+The SPHINCS+ key generation is performed according to the function `spx_keygen()` specified in
+{{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private and public key are encoded in
+native format.
 
 ### Signature Generation
 
@@ -1399,15 +1464,6 @@ algorithm. Dilithium internally uses a SHAKE256 digest, therefore we require
 SHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the
 internal hash algorithm varies based on the algorithm and parameter ID.
 
-## Elliptic curves
-
-Even though the zero point, also called the point at infinity, may occur as a
-result of arithmetic operations on points of an elliptic curve, it MUST NOT
-appear in any ECC data structure defined in this document.
-
-Furthermore, when performing the explicitly listed multiplications in
-{{x25519-x448-kem}} or {{ecdh-kem}} it is REQUIRED to perform all checks,
-clamping, or masking mandated from the relative elliptic curve specification.
 
 # Additional considerations
 
