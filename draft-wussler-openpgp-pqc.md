@@ -113,7 +113,7 @@ informative:
     seriesinfo:
       NIST IR 8413-upd1
 
-  NIST-SP800-56C:
+  SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
     title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
     author:
@@ -127,6 +127,24 @@ informative:
         ins: R. Davis
         name: Richard Davis
     date: August 2020
+    seriesinfo:
+      NIST Special Publication: 800-56C
+
+  SP800-185:
+    target: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
+    title: NIST Special Publication 800-185 – SHA-3 Derived Functions – cSHAKE, KMAC, TupleHash and ParallelHash
+    author:
+      -
+        ins: J. Kelsey
+        name: John Kelsey
+      -
+        ins: S. Chang
+        name: Shu-jen Chang
+      -
+        ins: R. Perlner
+        name: Ray Perlner
+    seriesinfo:
+      NIST Special Publication: 800-185
 
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
@@ -811,14 +829,15 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
-construction is a one-step key derivation function compliant to
-{{NIST-SP800-56C}} Section 4.
+construction is a one-step key derivation function compliant to {{SP800-56C}}
+Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
+algorithm.
 
     //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
     //   Input:
     //   domSeparation - the UTF-8 encoding of the string
                          "OpenPGPCompositeKeyDerivationFunction"
-    //   counter - a 4 byte counter set to the value 1
+    //   counter - a fixed 4 byte value, see below
     //   eccKeyShare - the ECC key share encoded as an octet string
     //   kyberKeyShare - the Kyber key share encoded as an octet string
     //   fixedInfo - the fixed information octet string
