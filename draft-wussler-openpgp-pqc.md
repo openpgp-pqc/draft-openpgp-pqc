@@ -403,10 +403,11 @@ CRYSTALS-Dilithium in composite combination with ECC-based signature schemes.
 
 ### SPHINCS+
 
-SPHINCS+ is a stateless hash-based signature scheme. It's security relies on
-the hardness of finding pre-images for cryptographic hash functions. This
-feature is generally considered to be a high security guarantee. Therefore,
-this specification defines SPHINCS+ as a standalone signature scheme.
+SPHINCS+ [SPHINCS-Subm] is a stateless hash-based signature scheme. It's
+security relies on the hardness of finding pre-images for cryptographic hash
+functions. This feature is generally considered to be a high security
+guarantee. Therefore, this specification defines SPHINCS+ as a standalone
+signature scheme.
 
 In deployments the performance characteristics of SPHINCS+ should be taken into
 account. We refer to {{performance-considerations}} for a discussion of the
