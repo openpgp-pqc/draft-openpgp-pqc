@@ -1292,10 +1292,13 @@ cryptography, and SPHINCS+ as a standalone public key signature scheme.<a href="
                     <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-key-combiner" class="internal xref">Key combiner</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-encryption-procedure" class="internal xref">Encryption procedure</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-key-generation-procedure" class="internal xref">Key generation procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.4">
-                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-decryption-procedure" class="internal xref">Decryption procedure</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-encryption-procedure" class="internal xref">Encryption procedure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.5">
+                    <p id="section-toc.1-1.5.2.2.2.5.1"><a href="#section-5.2.5" class="auto internal xref">5.2.5</a>.  <a href="#name-decryption-procedure" class="internal xref">Decryption procedure</a></p>
 </li>
                 </ul>
 </li>
@@ -1336,10 +1339,13 @@ cryptography, and SPHINCS+ as a standalone public key signature scheme.<a href="
                     <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-binding-hashes" class="internal xref">Binding hashes</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.2">
-                    <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.2.1"><a href="#section-6.2.2" class="auto internal xref">6.2.2</a>.  <a href="#name-key-generation-procedure-2" class="internal xref">Key generation procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.3">
-                    <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="auto internal xref">6.2.3</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
+                    <p id="section-toc.1-1.6.2.2.2.3.1"><a href="#section-6.2.3" class="auto internal xref">6.2.3</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.4">
+                    <p id="section-toc.1-1.6.2.2.2.4.1"><a href="#section-6.2.4" class="auto internal xref">6.2.4</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
 </li>
                 </ul>
 </li>
@@ -1366,10 +1372,13 @@ cryptography, and SPHINCS+ as a standalone public key signature scheme.<a href="
                     <p id="section-toc.1-1.7.2.1.2.1.1"><a href="#section-7.1.1" class="auto internal xref">7.1.1</a>.  <a href="#name-binding-hashes-2" class="internal xref">Binding hashes</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.2">
-                    <p id="section-toc.1-1.7.2.1.2.2.1"><a href="#section-7.1.2" class="auto internal xref">7.1.2</a>.  <a href="#name-signature-generation-2" class="internal xref">Signature Generation</a></p>
+                    <p id="section-toc.1-1.7.2.1.2.2.1"><a href="#section-7.1.2" class="auto internal xref">7.1.2</a>.  <a href="#name-key-generation" class="internal xref">Key generation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.3">
-                    <p id="section-toc.1-1.7.2.1.2.3.1"><a href="#section-7.1.3" class="auto internal xref">7.1.3</a>.  <a href="#name-signature-verification-2" class="internal xref">Signature Verification</a></p>
+                    <p id="section-toc.1-1.7.2.1.2.3.1"><a href="#section-7.1.3" class="auto internal xref">7.1.3</a>.  <a href="#name-signature-generation-2" class="internal xref">Signature Generation</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.4">
+                    <p id="section-toc.1-1.7.2.1.2.4.1"><a href="#section-7.1.4" class="auto internal xref">7.1.4</a>.  <a href="#name-signature-verification-2" class="internal xref">Signature Verification</a></p>
 </li>
                 </ul>
 </li>
@@ -2554,86 +2563,100 @@ customizationString := 4B 44 46
 </div>
 </section>
 </div>
-<div id="ecc-kyber-encryption">
+<div id="ecc-kyber-generation">
 <section id="section-5.2.3">
-          <h4 id="name-encryption-procedure">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-encryption-procedure" class="section-name selfRef">Encryption procedure</a>
+          <h4 id="name-key-generation-procedure">
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-key-generation-procedure" class="section-name selfRef">Key generation procedure</a>
           </h4>
-<p id="section-5.2.3-1">The procedure to perform public-key encryption with a Kyber + ECC composite
-scheme is as follows:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
-<li id="section-5.2.3-2.1">Take the recipient's authenticated public-key packet <code>pkComposite</code> and
-<code>sessionKey</code> as input<a href="#section-5.2.3-2.1" class="pilcrow">¶</a>
+<p id="section-5.2.3-1">The implementation MUST independently generate the Kyber and the ECC component
+keys. Kyber key generation follows the specification <span>[<a href="#KYBER-Subm" class="cite xref">KYBER-Subm</a>]</span> and the
+artifacts are encoded in native format as fixed-length octet strings.
+For ECC this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>,
+<span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span>, or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span>, and encoding the outputs as fixed-length
+octet strings in the format specified in table <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>,
+<a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a>, or <a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="ecc-kyber-encryption">
+<section id="section-5.2.4">
+          <h4 id="name-encryption-procedure">
+<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-encryption-procedure" class="section-name selfRef">Encryption procedure</a>
+          </h4>
+<p id="section-5.2.4-1">The procedure to perform public-key encryption with a Kyber + ECC composite
+scheme is as follows:<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.4-2">
+<li id="section-5.2.4-2.1">Take the recipient's authenticated public-key packet <code>pkComposite</code> and
+<code>sessionKey</code> as input<a href="#section-5.2.4-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.2">Parse the algorithm ID from <code>pkComposite</code><a href="#section-5.2.3-2.2" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.2">Parse the algorithm ID from <code>pkComposite</code><a href="#section-5.2.4-2.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.3">Extract the <code>eccPublicKey</code> and <code>kyberPublicKey</code> component from the
+            <li id="section-5.2.4-2.3">Extract the <code>eccPublicKey</code> and <code>kyberPublicKey</code> component from the
 algorithm specific data encoded in <code>pkComposite</code> with the format specified
-in <a href="#kyber-ecc-key" class="auto internal xref">Section 5.3.2</a>.<a href="#section-5.2.3-2.3" class="pilcrow">¶</a>
+in <a href="#kyber-ecc-key" class="auto internal xref">Section 5.3.2</a>.<a href="#section-5.2.4-2.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.4">Instantiate the ECC-KEM <code>eccKem.encap()</code> and the Kyber-KEM
+            <li id="section-5.2.4-2.4">Instantiate the ECC-KEM <code>eccKem.encap()</code> and the Kyber-KEM
 <code>kyberKem.encap()</code> depending on the algorithm ID according to
-<a href="#tab-kyber-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.3-2.4" class="pilcrow">¶</a>
+<a href="#tab-kyber-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.4-2.4" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.5">Compute <code>(eccCipherText, eccKeyShare) := eccKem.encap(eccPublicKey)</code><a href="#section-5.2.3-2.5" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.5">Compute <code>(eccCipherText, eccKeyShare) := eccKem.encap(eccPublicKey)</code><a href="#section-5.2.4-2.5" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.6">Compute <code>(kyberCipherText, kyberKeyShare) :=
-kyberKem.encap(kyberPublicKey)</code><a href="#section-5.2.3-2.6" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.6">Compute <code>(kyberCipherText, kyberKeyShare) :=
+kyberKem.encap(kyberPublicKey)</code><a href="#section-5.2.4-2.6" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.7">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a><a href="#section-5.2.3-2.7" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.7">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a><a href="#section-5.2.4-2.7" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.8">Compute <code>KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)</code> as
-defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a><a href="#section-5.2.3-2.8" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.8">Compute <code>KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)</code> as
+defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a><a href="#section-5.2.4-2.8" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.9">Compute <code>C := AESKeyWrap(KEK, sessionKey)</code> with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>
-that includes a 64 bit integrity check<a href="#section-5.2.3-2.9" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.9">Compute <code>C := AESKeyWrap(KEK, sessionKey)</code> with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>
+that includes a 64 bit integrity check<a href="#section-5.2.4-2.9" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.3-2.10">Output <code>eccCipherText || kyberCipherText || len(C) || C</code> as specified in
-<a href="#ecc-kyber-pkesk" class="auto internal xref">Section 5.3.1</a><a href="#section-5.2.3-2.10" class="pilcrow">¶</a>
+            <li id="section-5.2.4-2.10">Output <code>eccCipherText || kyberCipherText || len(C) || C</code> as specified in
+<a href="#ecc-kyber-pkesk" class="auto internal xref">Section 5.3.1</a><a href="#section-5.2.4-2.10" class="pilcrow">¶</a>
 </li>
           </ol>
 </section>
 </div>
 <div id="decryption-procedure">
-<section id="section-5.2.4">
+<section id="section-5.2.5">
           <h4 id="name-decryption-procedure">
-<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-decryption-procedure" class="section-name selfRef">Decryption procedure</a>
+<a href="#section-5.2.5" class="section-number selfRef">5.2.5. </a><a href="#name-decryption-procedure" class="section-name selfRef">Decryption procedure</a>
           </h4>
-<p id="section-5.2.4-1">The procedure to perform public-key decryption with a Kyber + ECC composite
-scheme is as follows:<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.4-2">
-<li id="section-5.2.4-2.1">Take the matching PKESK and own secret key packet as input<a href="#section-5.2.4-2.1" class="pilcrow">¶</a>
+<p id="section-5.2.5-1">The procedure to perform public-key decryption with a Kyber + ECC composite
+scheme is as follows:<a href="#section-5.2.5-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.5-2">
+<li id="section-5.2.5-2.1">Take the matching PKESK and own secret key packet as input<a href="#section-5.2.5-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.2">From the PKESK extract the algorithm ID and the <code>encryptedKey</code><a href="#section-5.2.4-2.2" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.2">From the PKESK extract the algorithm ID and the <code>encryptedKey</code><a href="#section-5.2.5-2.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.3">Check that the own and the extracted algorithm ID match<a href="#section-5.2.4-2.3" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.3">Check that the own and the extracted algorithm ID match<a href="#section-5.2.5-2.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.4">Parse the <code>eccSecretKey</code> and <code>kyberSecretKey</code> from the algorithm specific
+            <li id="section-5.2.5-2.4">Parse the <code>eccSecretKey</code> and <code>kyberSecretKey</code> from the algorithm specific
 data of the own secret key encoded in the format specified in
-<a href="#kyber-ecc-key" class="auto internal xref">Section 5.3.2</a><a href="#section-5.2.4-2.4" class="pilcrow">¶</a>
+<a href="#kyber-ecc-key" class="auto internal xref">Section 5.3.2</a><a href="#section-5.2.5-2.4" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.5">Instantiate the ECC-KEM <code>eccKem.decap()</code> and the Kyber-KEM
+            <li id="section-5.2.5-2.5">Instantiate the ECC-KEM <code>eccKem.decap()</code> and the Kyber-KEM
 <code>kyberKem.decap()</code> depending on the algorithm ID according to
-<a href="#tab-kyber-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.4-2.5" class="pilcrow">¶</a>
+<a href="#tab-kyber-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.5-2.5" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.6">Parse <code>eccCipherText</code>, <code>kyberCipherText</code>, and <code>C</code> from <code>encryptedKey</code>
+            <li id="section-5.2.5-2.6">Parse <code>eccCipherText</code>, <code>kyberCipherText</code>, and <code>C</code> from <code>encryptedKey</code>
 encoded as <code>eccCipherText || kyberCipherText || len(C) || C</code> as specified
-in <a href="#ecc-kyber-pkesk" class="auto internal xref">Section 5.3.1</a><a href="#section-5.2.4-2.6" class="pilcrow">¶</a>
+in <a href="#ecc-kyber-pkesk" class="auto internal xref">Section 5.3.1</a><a href="#section-5.2.5-2.6" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.7">Compute <code>(eccKeyShare) := eccKem.decap(eccCipherText, eccPrivateKey)</code><a href="#section-5.2.4-2.7" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.7">Compute <code>(eccKeyShare) := eccKem.decap(eccCipherText, eccPrivateKey)</code><a href="#section-5.2.5-2.7" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.8">Compute <code>(kyberKeyShare) := kyberKem.decap(kyberCipherText,
-kyberPrivateKey)</code><a href="#section-5.2.4-2.8" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.8">Compute <code>(kyberKeyShare) := kyberKem.decap(kyberCipherText,
+kyberPrivateKey)</code><a href="#section-5.2.5-2.8" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.9">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a><a href="#section-5.2.4-2.9" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.9">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a><a href="#section-5.2.5-2.9" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.10">Compute <code>KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)</code>
-as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a><a href="#section-5.2.4-2.10" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.10">Compute <code>KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)</code>
+as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a><a href="#section-5.2.5-2.10" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.11">Compute <code>sessionKey := AESKeyUnwrap(KEK, C)</code>  with AES-256 as per
-<span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>, aborting if the 64 bit integrity check fails<a href="#section-5.2.4-2.11" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.11">Compute <code>sessionKey := AESKeyUnwrap(KEK, C)</code>  with AES-256 as per
+<span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>, aborting if the 64 bit integrity check fails<a href="#section-5.2.5-2.11" class="pilcrow">¶</a>
 </li>
-            <li id="section-5.2.4-2.12">Output <code>sessionKey</code><a href="#section-5.2.4-2.12" class="pilcrow">¶</a>
+            <li id="section-5.2.5-2.12">Output <code>sessionKey</code><a href="#section-5.2.5-2.12" class="pilcrow">¶</a>
 </li>
           </ol>
 </section>
@@ -2666,7 +2689,7 @@ length depends on the algorithm ID as specified in <a href="#tab-kyber-artifacts
 <li class="normal" id="section-5.3.1-3.3.2.1">A one-octet size of the following field;<a href="#section-5.3.1-3.3.2.1" class="pilcrow">¶</a>
 </li>
                 <li class="normal" id="section-5.3.1-3.3.2.2">Octet string of the wrapped symmetric key as described in
-<a href="#ecc-kyber-encryption" class="auto internal xref">Section 5.2.3</a>.<a href="#section-5.3.1-3.3.2.2" class="pilcrow">¶</a>
+<a href="#ecc-kyber-encryption" class="auto internal xref">Section 5.2.4</a>.<a href="#section-5.3.1-3.3.2.2" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
@@ -2941,71 +2964,85 @@ hash algorithms MUST be considered invalid.<a href="#section-6.2.1-1" class="pil
 order to support the hash binding with Dilithium + ECC signatures.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signature-generation">
+<div id="ecc-dilithium-generation">
 <section id="section-6.2.2">
-          <h4 id="name-signature-generation">
-<a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
+          <h4 id="name-key-generation-procedure-2">
+<a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key generation procedure</a>
           </h4>
-<p id="section-6.2.2-1">To sign a message <code>M</code> with Dilithium + EdDSA the following sequence of
-operations has to be performed:<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.2.2-2">
-<li id="section-6.2.2-2.1">Generate <code>dataDigest</code> according to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>
-Section 5.2.4<a href="#section-6.2.2-2.1" class="pilcrow">¶</a>
+<p id="section-6.2.2-1">The implementation MUST independently generate the Dilithium and the ECC
+component keys. Dilithium key generation follows the specification in
+<span>[<a href="#DILITHIUM-Subm" class="cite xref">DILITHIUM-Subm</a>]</span> and the artifacts are encoded in native format as
+fixed-length octet strings as defined in <a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a>.
+For ECC this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>,
+<span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span>, or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span>, and encoding the artifacts as specified in
+<a href="#eddsa-signature" class="auto internal xref">Section 6.1.1</a> or <a href="#ecdsa-signature" class="auto internal xref">Section 6.1.2</a> as fixed-length octet strings.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signature-generation">
+<section id="section-6.2.3">
+          <h4 id="name-signature-generation">
+<a href="#section-6.2.3" class="section-number selfRef">6.2.3. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
+          </h4>
+<p id="section-6.2.3-1">To sign a message <code>M</code> with Dilithium + EdDSA the following sequence of
+operations has to be performed:<a href="#section-6.2.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.2.3-2">
+<li id="section-6.2.3-2.1">Generate <code>dataDigest</code> according to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>
+Section 5.2.4<a href="#section-6.2.3-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-2.2">Create the EdDSA signature over <code>dataDigest</code> with <code>eddsa.sign()</code> from
-<a href="#eddsa-signature" class="auto internal xref">Section 6.1.1</a><a href="#section-6.2.2-2.2" class="pilcrow">¶</a>
+            <li id="section-6.2.3-2.2">Create the EdDSA signature over <code>dataDigest</code> with <code>eddsa.sign()</code> from
+<a href="#eddsa-signature" class="auto internal xref">Section 6.1.1</a><a href="#section-6.2.3-2.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-2.3">Create the Dilithium signature over <code>dataDigest</code> with <code>dilithium.sign()</code>
-from <a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.2-2.3" class="pilcrow">¶</a>
+            <li id="section-6.2.3-2.3">Create the Dilithium signature over <code>dataDigest</code> with <code>dilithium.sign()</code>
+from <a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.3-2.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-2.4">Encode the EdDSA and Dilithium signatures according to the packet
-structure given in <a href="#ecc-dilithium-sig-packet" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.2.2-2.4" class="pilcrow">¶</a>
+            <li id="section-6.2.3-2.4">Encode the EdDSA and Dilithium signatures according to the packet
+structure given in <a href="#ecc-dilithium-sig-packet" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.2.3-2.4" class="pilcrow">¶</a>
 </li>
           </ol>
-<p id="section-6.2.2-3">To sign a message <code>M</code> with Dilithium + ECDSA the following sequence of
-operations has to be performed:<a href="#section-6.2.2-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.2.2-4">
-<li id="section-6.2.2-4.1">Generate <code>dataDigest</code> according to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>
-Section 5.2.4<a href="#section-6.2.2-4.1" class="pilcrow">¶</a>
+<p id="section-6.2.3-3">To sign a message <code>M</code> with Dilithium + ECDSA the following sequence of
+operations has to be performed:<a href="#section-6.2.3-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.2.3-4">
+<li id="section-6.2.3-4.1">Generate <code>dataDigest</code> according to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>
+Section 5.2.4<a href="#section-6.2.3-4.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-4.2">Create the ECDSA signature over <code>dataDigest</code> with <code>ecdsa.sign()</code> from
-<a href="#ecdsa-signature" class="auto internal xref">Section 6.1.2</a><a href="#section-6.2.2-4.2" class="pilcrow">¶</a>
+            <li id="section-6.2.3-4.2">Create the ECDSA signature over <code>dataDigest</code> with <code>ecdsa.sign()</code> from
+<a href="#ecdsa-signature" class="auto internal xref">Section 6.1.2</a><a href="#section-6.2.3-4.2" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-4.3">Create the Dilithium signature over <code>dataDigest</code> with <code>dilithium.sign()</code>
-from <a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.2-4.3" class="pilcrow">¶</a>
+            <li id="section-6.2.3-4.3">Create the Dilithium signature over <code>dataDigest</code> with <code>dilithium.sign()</code>
+from <a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.3-4.3" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.2-4.4">Encode the ECDSA and Dilithium signatures according to the packet
-structure given in <a href="#ecc-dilithium-sig-packet" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.2.2-4.4" class="pilcrow">¶</a>
+            <li id="section-6.2.3-4.4">Encode the ECDSA and Dilithium signatures according to the packet
+structure given in <a href="#ecc-dilithium-sig-packet" class="auto internal xref">Section 6.3.1</a>.<a href="#section-6.2.3-4.4" class="pilcrow">¶</a>
 </li>
           </ol>
 </section>
 </div>
 <div id="signature-verification">
-<section id="section-6.2.3">
+<section id="section-6.2.4">
           <h4 id="name-signature-verification">
-<a href="#section-6.2.3" class="section-number selfRef">6.2.3. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
+<a href="#section-6.2.4" class="section-number selfRef">6.2.4. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-6.2.3-1">To verify a Dilithium + EdDSA signature the following sequence of operations
-has to be performed:<a href="#section-6.2.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.2.3-2">
-<li id="section-6.2.3-2.1">Verify the EdDSA signature with <code>eddsa.verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 6.1.1</a><a href="#section-6.2.3-2.1" class="pilcrow">¶</a>
+<p id="section-6.2.4-1">To verify a Dilithium + EdDSA signature the following sequence of operations
+has to be performed:<a href="#section-6.2.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.2.4-2">
+<li id="section-6.2.4-2.1">Verify the EdDSA signature with <code>eddsa.verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 6.1.1</a><a href="#section-6.2.4-2.1" class="pilcrow">¶</a>
 </li>
-            <li id="section-6.2.3-2.2">Verify the Dilithium signature with <code>dilithium.verify()</code> from
-<a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.3-2.2" class="pilcrow">¶</a>
-</li>
-          </ol>
-<p id="section-6.2.3-3">To verify a Dilithium + ECDSA signature the following sequence of operations
-has to be performed:<a href="#section-6.2.3-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.2.3-4">
-<li id="section-6.2.3-4.1">Verify the ECDSA signature with <code>ecdsa.verify()</code> from <a href="#ecdsa-signature" class="auto internal xref">Section 6.1.2</a><a href="#section-6.2.3-4.1" class="pilcrow">¶</a>
-</li>
-            <li id="section-6.2.3-4.2">Verify the Dilithium signature with <code>dilithium.verify()</code> from
-<a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.3-4.2" class="pilcrow">¶</a>
+            <li id="section-6.2.4-2.2">Verify the Dilithium signature with <code>dilithium.verify()</code> from
+<a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.4-2.2" class="pilcrow">¶</a>
 </li>
           </ol>
-<p id="section-6.2.3-5">As specified in <a href="#composite-signatures" class="auto internal xref">Section 4.3</a> an implementation MUST validate both
+<p id="section-6.2.4-3">To verify a Dilithium + ECDSA signature the following sequence of operations
+has to be performed:<a href="#section-6.2.4-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.2.4-4">
+<li id="section-6.2.4-4.1">Verify the ECDSA signature with <code>ecdsa.verify()</code> from <a href="#ecdsa-signature" class="auto internal xref">Section 6.1.2</a><a href="#section-6.2.4-4.1" class="pilcrow">¶</a>
+</li>
+            <li id="section-6.2.4-4.2">Verify the Dilithium signature with <code>dilithium.verify()</code> from
+<a href="#dilithium-signature" class="auto internal xref">Section 6.1.3</a><a href="#section-6.2.4-4.2" class="pilcrow">¶</a>
+</li>
+          </ol>
+<p id="section-6.2.4-5">As specified in <a href="#composite-signatures" class="auto internal xref">Section 4.3</a> an implementation MUST validate both
 signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite Dilithium
-+ ECC signature is valid.<a href="#section-6.2.3-5" class="pilcrow">¶</a></p>
++ ECC signature is valid.<a href="#section-6.2.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3237,33 +3274,43 @@ invalid.<a href="#section-7.1.1-1" class="pilcrow">¶</a></p>
 also support the matching hash algorithm.<a href="#section-7.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signature-generation-1">
+<div id="key-generation">
 <section id="section-7.1.2">
-          <h4 id="name-signature-generation-2">
-<a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
+          <h4 id="name-key-generation">
+<a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
           </h4>
-<p id="section-7.1.2-1">The procedure for SPHINCS+ signature generation is the function <code>spx_sign(M,
+<p id="section-7.1.2-1">The SPHINCS+ key generation is performed according to the function <code>spx_keygen()</code> specified in
+<span>[<a href="#SPHINCS-Subm" class="cite xref">SPHINCS-Subm</a>]</span>, Sec. 6.2 as Alg. 19. The private and public key are encoded in
+native format.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="signature-generation-1">
+<section id="section-7.1.3">
+          <h4 id="name-signature-generation-2">
+<a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
+          </h4>
+<p id="section-7.1.3-1">The procedure for SPHINCS+ signature generation is the function <code>spx_sign(M,
 SK)</code> specified in <span>[<a href="#SPHINCS-Subm" class="cite xref">SPHINCS-Subm</a>]</span>, Sec. 6.4 as Alg. 20.  Here, <code>M</code> is the
 <code>dataDigest</code> generated according to <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section
 5.2.4 and <code>SK</code> is the SPHINCS+ private key. The global variable <code>RANDOMIZE</code>
 specified in Alg. 20 is to be considered as not set, i.e. the variable <code>opt</code>
-shall be initialized with <code>PK.seed</code>. See also <a href="#sphincs-sec-cons" class="auto internal xref">Section 9.3</a>.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.2-2">An implementation MUST set the Parameter ID in the signature equal to the
-issuing private key Parameter ID.<a href="#section-7.1.2-2" class="pilcrow">¶</a></p>
+shall be initialized with <code>PK.seed</code>. See also <a href="#sphincs-sec-cons" class="auto internal xref">Section 9.3</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.3-2">An implementation MUST set the Parameter ID in the signature equal to the
+issuing private key Parameter ID.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
-<section id="section-7.1.3">
+<section id="section-7.1.4">
           <h4 id="name-signature-verification-2">
-<a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
+<a href="#section-7.1.4" class="section-number selfRef">7.1.4. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-7.1.3-1">The procedure for SPHINCS+ signature verification is the function
+<p id="section-7.1.4-1">The procedure for SPHINCS+ signature verification is the function
 <code>spx_verify(M, SIG, PK)</code> specified in <span>[<a href="#SPHINCS-Subm" class="cite xref">SPHINCS-Subm</a>]</span>, Sec. 6.5 as Alg. 21.
 Here, <code>M</code> is the <code>dataDigest</code> generated according to
 <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section 5.2.4, <code>SIG</code> is the signature, and
-<code>PK</code> is the SPHINCS+ public key.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.3-2">An implementation MUST check that the Parameter ID in the signature and in the
-key match when verifying.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
+<code>PK</code> is the SPHINCS+ public key.<a href="#section-7.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.1.4-2">An implementation MUST check that the Parameter ID in the signature and in the
+key match when verifying.<a href="#section-7.1.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
