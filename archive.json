@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-16T01:21:16.197434+00:00",
+  "timestamp": "2023-02-26T01:35:01.896527+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -86,7 +86,7 @@
       "id": "I_kwDOIrmZ-85aIUrV",
       "title": "Missing key generation procedures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -95,8 +95,8 @@
       "labels": [],
       "body": "Encryption, decryption, signing and verification are described, but not how to generate keys",
       "createdAt": "2022-12-27T20:15:10Z",
-      "updatedAt": "2023-01-19T13:54:29Z",
-      "closedAt": null,
+      "updatedAt": "2023-02-23T13:00:13Z",
+      "closedAt": "2023-02-23T13:00:13Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -349,7 +349,7 @@
       "labels": [],
       "body": "# Falko's original remark\r\n\r\nIn Section 4.2.3 we have a forward reference to Section 4.3.2. I think normally in a specification one would only make backwards references to things already defined. Thus the referenced section specifying the packet structure should better be moved in front IMO.\r\n\r\n(Section 4.2.4 also has a similar forward reference)\r\n\r\n# Comment on this from Aron (from previous issue):\r\n\r\n> forward reference\r\n\r\nI personally don't have anything against forward references. I usually like even the backrefs, so that you can navigate the spec in both directions.\r\nGenerally, when implementing, I don't use the spec linearly",
       "createdAt": "2023-01-09T14:44:54Z",
-      "updatedAt": "2023-01-19T13:19:20Z",
+      "updatedAt": "2023-02-23T07:51:10Z",
       "closedAt": null,
       "comments": [
         {
@@ -358,6 +358,13 @@
           "body": "Meeting 2023-01-19: \r\n\r\n* Aron: circle reference not avoidable for data generation and their encoding\r\n* Stavros: do we have many forward references?\r\n* Aron: a couple in the context of packet formats\r\n* Falko: agreed to the circular dependency problem\r\n* All: generally we should make it without forward references\r\n* Stavros: will read through and check for forward references again",
           "createdAt": "2023-01-19T13:19:08Z",
           "updatedAt": "2023-01-19T13:19:08Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Non-local forward references:\r\n\r\n\u00a71.2.3 --> \u00a79.1\r\n\u00a71.3.3 --> Table 6, 7, 11\r\n\u00a71.4.2 --> \u00a73.2 and \u00a73.4\r\n\u00a74.2.1 --> \u00a78.2\r\n\u00a74.2.3 --> \u00a74.3.1 and \u00a74.3.2\r\n\u00a74.2.4 --> \u00a74.3.1 and \u00a74.3.2\r\n\u00a75.2.2 --> \u00a75.3.1\r\n\u00a76.1.2 --> \u00a78.3\r\n\r\nTo summarize the types of forward references:\r\n- Pointing to \"considerations\" in 8,9\r\n- From introductory section to later descriptions, i.e. \u00a71.x.y --> see above\r\n- Procedural before packet description \u00a74.2.x --> \u00a74.3.y and and \u00a75.2.x --> \u00a75.3.y\r\n",
+          "createdAt": "2023-02-23T07:50:44Z",
+          "updatedAt": "2023-02-23T07:51:10Z"
         }
       ]
     },
@@ -500,47 +507,63 @@
       "id": "I_kwDOIrmZ-85dICav",
       "title": "Fix GitHub actions: node-js upgrade to 16",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://github.blog/changelog/2022-09-22-github-actions-all-actions-will-begin-running-on-node16-instead-of-node12/",
       "createdAt": "2023-01-30T12:48:29Z",
-      "updatedAt": "2023-01-30T12:48:29Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-02-23T12:58:35Z",
+      "closedAt": "2023-02-23T12:58:34Z",
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also fixed",
+          "createdAt": "2023-02-23T12:58:34Z",
+          "updatedAt": "2023-02-23T12:58:34Z"
+        }
+      ]
     },
     {
       "number": 24,
       "id": "I_kwDOIrmZ-85dIDBc",
       "title": "Fix GitHub actions: save-state and set-output commands",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/",
       "createdAt": "2023-01-30T12:50:05Z",
-      "updatedAt": "2023-01-30T12:50:05Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-02-23T12:58:18Z",
+      "closedAt": "2023-02-23T12:58:18Z",
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Seems like this got fixed",
+          "createdAt": "2023-02-23T12:58:18Z",
+          "updatedAt": "2023-02-23T12:58:18Z"
+        }
+      ]
     },
     {
       "number": 27,
       "id": "I_kwDOIrmZ-85ehLrn",
       "title": "\"Session Key\" is unclear / inconsistent with Crypto Refresh",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/27",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The encryption/decryption of the session key is not sufficiently described and inconsistent with the Crypto Refresh.\r\n\r\nIn the Crypto Refresh for PKESKv5, we do not encrypt the session key itself, but the session key + 2 checksum bytes (for PKESK v3 also an algorithm identifier is included). The PQ/T algorithms should therefore encrypt the session key + checksum as well and it should be made explicit to the reader. I realize that the key wrap itself already has an integrity check but there is no harm in including the checksum bytes. Otherwise we explicitly have to deviate from the standard PKESK format which introduces an unnecessary special case.\r\n\r\nThen, the additional problem of AES Key Wrap (RFC3394) only accepting data with length of multiples of 8 bytes arises: With the checksum, the key has improper length. The crypto refresh already uses pkcs5/pkcs7 padding for ECDH (Section 12.5).\r\nWe can do the same or use another method, e.g., there exists RFC5649 which extends the AES Key Wrap with padding.\r\nEven if it is decided to only wrap the session key without a checksum, we should include some form of padding. This reduces the risk of future incompatibilities if (for whatever reasons) there are symmetric algorithms with key sizes that are not multiples of 64 bit.\r\n\r\nRelevant lines in the Crypto Refresh for the ECDH encryption (Section 12.5):\r\n```\r\nm = symm_alg_ID || session key || checksum || pkcs5_padding;\r\n```\r\n```\r\nCompute C = AESKeyWrap( Z, m ) as per [[RFC3394](https://www.rfc-editor.org/info/rfc3394)]\r\n```\r\n\r\n",
       "createdAt": "2023-02-15T12:15:32Z",
-      "updatedAt": "2023-02-15T15:11:05Z",
-      "closedAt": null,
+      "updatedAt": "2023-02-23T12:59:18Z",
+      "closedAt": "2023-02-23T12:59:17Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -583,6 +606,55 @@
           "body": "Very good point @falko-strenzke. I think this should be reflected on the rfc4880bis PR too, as this comment from dkg may be misleading, I got tricked by it too. The random material for key derivation could always be defined by rounding up to 8 bytes in future cipher constructions if needed.\n\nIn general I think this discussion is more relevant on the refresh if we decide to adopt this for v5 pkesk. Once we have a constraint there we gotta live with it.\n\n--\nAron Wussler\nSent with ProtonMail, OpenPGP key 0x7E6761563EFE3930\n\n-------- Original Message --------\nOn Feb 15, 2023, 09:12, Falko Strenzke wrote:\n\n> Here we don't have to consider ciphers as v5 PKESK session keys are only used in v2 SEIPD which use the session key as input to the key derivation. Thus I wouldn't see a problem without the padding.\n>\n> \u2014\n> Reply to this email directly, [view it on GitHub](https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/27#issuecomment-1431434563), or [unsubscribe](https://github.com/notifications/unsubscribe-auth/ACFR5N4PDCAZ752TINGOT73WXTP6VANCNFSM6AAAAAAU4YU5DA).\n> You are receiving this because you were mentioned.Message ID: ***@***.***>",
           "createdAt": "2023-02-15T15:11:05Z",
           "updatedAt": "2023-02-15T15:11:05Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This passed on the C-R, therefore seems clear here",
+          "createdAt": "2023-02-23T12:59:17Z",
+          "updatedAt": "2023-02-23T12:59:17Z"
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "I_kwDOIrmZ-85fKJNI",
+      "title": "Finalize Algorithm IDs at some point",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/28",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Possibly when crypto-refresh is finalized, taking into account:\r\nhttps://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/242",
+      "createdAt": "2023-02-23T09:21:33Z",
+      "updatedAt": "2023-02-23T09:23:24Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOIrmZ-85fKJQi",
+      "title": "Bump versions to v6",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/29",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "fluppe2"
+      ],
+      "labels": [],
+      "body": "Bump PKESK, Signature and Key version to v6 according to crypto-refresh",
+      "createdAt": "2023-02-23T09:21:43Z",
+      "updatedAt": "2023-02-24T12:17:17Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would propose to bump the version once draft-08 of the crypto-refresh has been published (that incorporates [!231](https://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/231). Right now the crypto-refresh it is still draft-07 and referring to v5 packets.",
+          "createdAt": "2023-02-24T12:17:17Z",
+          "updatedAt": "2023-02-24T12:17:17Z"
         }
       ]
     }
@@ -696,7 +768,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2022-12-27T20:33:28Z",
-      "updatedAt": "2023-01-04T10:47:31Z",
+      "updatedAt": "2023-02-24T07:21:02Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "86a898b9289ecbd8951db4b4ee6a168d00f8e495",
@@ -753,7 +825,7 @@
       "labels": [],
       "body": "When issuing or verifying SPHINCS+ signature, it is not specified how to handle parameter IDs",
       "createdAt": "2023-01-02T11:18:09Z",
-      "updatedAt": "2023-01-04T10:47:19Z",
+      "updatedAt": "2023-02-24T07:21:00Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "86a898b9289ecbd8951db4b4ee6a168d00f8e495",
@@ -808,7 +880,7 @@
       "labels": [],
       "body": "\u2026positeKeyDerivationFunction'",
       "createdAt": "2023-01-03T15:07:59Z",
-      "updatedAt": "2023-01-03T15:20:03Z",
+      "updatedAt": "2023-02-24T07:20:08Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "95dedf7ee6bbb455e874381ef7d7fc79019041cf",
@@ -863,7 +935,7 @@
       "labels": [],
       "body": "Address part of issue #6 ",
       "createdAt": "2023-01-03T15:23:13Z",
-      "updatedAt": "2023-01-04T10:36:33Z",
+      "updatedAt": "2023-02-24T07:20:55Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "67352990f097e4af146bfc922b83f1d1827162db",
@@ -918,7 +990,7 @@
       "labels": [],
       "body": "Most changes were previously discussed in https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/6. The respective comments are indicated by crossed out text in the issue.",
       "createdAt": "2023-01-04T07:16:33Z",
-      "updatedAt": "2023-01-09T13:06:25Z",
+      "updatedAt": "2023-02-24T07:20:54Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "67352990f097e4af146bfc922b83f1d1827162db",
@@ -1190,24 +1262,26 @@
       "id": "PR_kwDOIrmZ-85IjYjd",
       "title": "Add key generation procedures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/19",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses #3 ",
       "createdAt": "2023-01-25T23:24:02Z",
-      "updatedAt": "2023-01-31T05:01:55Z",
+      "updatedAt": "2023-02-24T07:20:04Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "baseRefOid": "a11926eeb5102517ee9623d7d7e7895347294877",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "generation-procedure",
-      "headRefOid": "9afd2d9f3cc2354dae0ad3d9788a5e6ff3e200a5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a9a8f811721eab5c2596a0ce45f3c217403534f8",
+      "closedAt": "2023-02-24T06:41:39Z",
+      "mergedAt": "2023-02-24T06:41:39Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "6e0242aafccdb031430b348273ab72412d25a193"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1315,6 +1389,19 @@
           "createdAt": "2023-01-31T05:01:55Z",
           "updatedAt": "2023-01-31T05:01:55Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OPIYt",
+          "commit": {
+            "abbreviatedOid": "a9a8f81"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T06:41:32Z",
+          "updatedAt": "2023-02-24T06:41:32Z",
+          "comments": []
         }
       ]
     },
@@ -1330,7 +1417,7 @@
       "labels": [],
       "body": "Addresses #2 ",
       "createdAt": "2023-01-25T23:33:19Z",
-      "updatedAt": "2023-01-30T10:45:47Z",
+      "updatedAt": "2023-02-24T12:11:38Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
@@ -1341,7 +1428,43 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Seems like [!222](https://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/222) is not getting into the C-R. I would therefore propose to add it to this document and in this PR \r\n\r\nWDYT @falko-strenzke, @fluppe2, and @TJ-91?",
+          "createdAt": "2023-02-23T12:39:38Z",
+          "updatedAt": "2023-02-23T12:39:38Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Perhaps it's worth waiting for rechartering and see if it fits better somewhere else (but I'm not completely opposed). My thoughts:\r\n\r\na) while it's relevant for PQC, it's also relevant for OpenPGP in general.\r\nb) concentrating on strictly necessary features for PQC might improve the chances of success / reach consensus more easily.\r\n",
+          "createdAt": "2023-02-23T14:04:24Z",
+          "updatedAt": "2023-02-23T14:04:24Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The [!222](https://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/222) feels more like a general feature request and I'm kind of opposed to blur the line between general stuff and the pqc extension that we are defining.",
+          "createdAt": "2023-02-24T06:39:39Z",
+          "updatedAt": "2023-02-24T06:39:39Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Sure, but then would it have to be a standalone RFC?",
+          "createdAt": "2023-02-24T10:11:22Z",
+          "updatedAt": "2023-02-24T10:11:22Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I dunno, in my personal opinion that would depend on the general future structure of OpenPGP if it stays a monolithic block or some potential features can be and are discussed as extensions.",
+          "createdAt": "2023-02-24T12:11:37Z",
+          "updatedAt": "2023-02-24T12:11:37Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-85L_X2Q",
@@ -1374,26 +1497,28 @@
     {
       "number": 21,
       "id": "PR_kwDOIrmZ-85Iz5FE",
-      "title": "new section 2 'preliminnaries'",
+      "title": "new section 2 'preliminaries'",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses issue #14",
       "createdAt": "2023-01-30T12:32:14Z",
-      "updatedAt": "2023-01-31T04:48:40Z",
+      "updatedAt": "2023-02-24T07:20:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue_14_new_sec_prel",
       "headRefOid": "67be3e0a4cab46c32e03c1d77a8cb44c07096a73",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-02-24T06:37:29Z",
+      "mergedAt": "2023-02-24T06:37:29Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "289abe858de2c4bd11833afa535d0562e4b3520c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1408,6 +1533,32 @@
           "createdAt": "2023-01-31T04:48:40Z",
           "updatedAt": "2023-01-31T04:48:40Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OJ08r",
+          "commit": {
+            "abbreviatedOid": "67be3e0"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-23T12:37:53Z",
+          "updatedAt": "2023-02-23T12:37:53Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OKUo0",
+          "commit": {
+            "abbreviatedOid": "67be3e0"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-23T13:38:53Z",
+          "updatedAt": "2023-02-23T13:38:53Z",
+          "comments": []
         }
       ]
     },
@@ -1416,24 +1567,26 @@
       "id": "PR_kwDOIrmZ-85Iz8kY",
       "title": "rephrased definition of 'composite'",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/22",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses issue #12.",
       "createdAt": "2023-01-30T12:41:12Z",
-      "updatedAt": "2023-02-02T10:27:14Z",
+      "updatedAt": "2023-02-24T07:20:02Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "baseRefOid": "1b38dcf303adde301180d33aa9872b0d38eaf2fa",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue12_definition_composite",
-      "headRefOid": "2488f615e10e43e71f7cac8c0da6edb509ba15e5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "7e57fb705551e0e54341b0eede7284c036467d8a",
+      "closedAt": "2023-02-23T12:37:37Z",
+      "mergedAt": "2023-02-23T12:37:37Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "a11926eeb5102517ee9623d7d7e7895347294877"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1501,6 +1654,19 @@
           "createdAt": "2023-02-02T10:27:14Z",
           "updatedAt": "2023-02-02T10:27:14Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OJzDK",
+          "commit": {
+            "abbreviatedOid": "2488f61"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-23T12:33:35Z",
+          "updatedAt": "2023-02-23T12:33:35Z",
+          "comments": []
         }
       ]
     },
@@ -1509,25 +1675,35 @@
       "id": "PR_kwDOIrmZ-85I0f5a",
       "title": "minor additions in kem-combiner section",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Since we give an explicit description of the one-step key derivation in terms of KMAC, a reference to the defintion of KMAC is also necessary in my view.",
       "createdAt": "2023-01-30T14:20:07Z",
-      "updatedAt": "2023-02-02T07:20:07Z",
+      "updatedAt": "2023-02-24T07:19:55Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
+      "baseRefOid": "1b38dcf303adde301180d33aa9872b0d38eaf2fa",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-review",
-      "headRefOid": "6217276dc7e42a1d558ab78a3069e979f17e91d6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "0f00a5e2a24a06cdd0556c58479492545b6064f3",
+      "closedAt": "2023-02-24T06:37:04Z",
+      "mergedAt": "2023-02-24T06:37:04Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "e31d2de00141de45cec5bc54af6b28063f147367"
+      },
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Rebased and resolved conflicts",
+          "createdAt": "2023-02-23T12:31:33Z",
+          "updatedAt": "2023-02-23T12:31:33Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-85MFUlq",
@@ -1741,6 +1917,32 @@
               "updatedAt": "2023-02-02T07:20:07Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OJyby",
+          "commit": {
+            "abbreviatedOid": "0f00a5e"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-23T12:31:48Z",
+          "updatedAt": "2023-02-23T12:31:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OPHTV",
+          "commit": {
+            "abbreviatedOid": "0f00a5e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T06:36:54Z",
+          "updatedAt": "2023-02-24T06:36:54Z",
+          "comments": []
         }
       ]
     },
@@ -1749,24 +1951,26 @@
       "id": "PR_kwDOIrmZ-85I4_dw",
       "title": "aligned NIST references to the crypto-refresh",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/26",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-01-31T08:23:36Z",
-      "updatedAt": "2023-02-02T00:25:39Z",
+      "updatedAt": "2023-02-24T07:19:58Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a203efa37326fcb3e9d4968d2645750ce8321adc",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "correct-nist-refs",
       "headRefOid": "94f3b7646dcdf46b8af1319bb66cdb3f4c4e8e39",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-02-23T12:23:46Z",
+      "mergedAt": "2023-02-23T12:23:45Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "1b38dcf303adde301180d33aa9872b0d38eaf2fa"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1821,6 +2025,196 @@
           "createdAt": "2023-02-02T00:25:39Z",
           "updatedAt": "2023-02-02T00:25:39Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OIOim",
+          "commit": {
+            "abbreviatedOid": "94f3b76"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-23T08:13:56Z",
+          "updatedAt": "2023-02-23T08:13:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOIrmZ-85KmqiZ",
+      "title": "Fix NIST-SP800-56C reference",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/30",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adapt SP800-56C reference to be inline with the format",
+      "createdAt": "2023-02-23T12:55:20Z",
+      "updatedAt": "2023-02-24T07:19:23Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "6e0242aafccdb031430b348273ab72412d25a193",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-nist-ref",
+      "headRefOid": "88fb82afc18843ab05dd3c2528b9fa59c3ea783e",
+      "closedAt": "2023-02-24T07:19:16Z",
+      "mergedAt": "2023-02-24T07:19:16Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "fb6e0a36688a1cb2cf135a38b447bcd01bd82780"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85OPGYN",
+          "commit": {
+            "abbreviatedOid": "a42735d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T06:31:57Z",
+          "updatedAt": "2023-02-24T06:31:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OPQvJ",
+          "commit": {
+            "abbreviatedOid": "92bc628"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T07:02:53Z",
+          "updatedAt": "2023-02-24T07:02:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOIrmZ-85Kq2d0",
+      "title": "Still some details in NIST references missing, mostly correct date in\u2026",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/31",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026formation",
+      "createdAt": "2023-02-24T07:29:59Z",
+      "updatedAt": "2023-02-24T12:09:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "fb6e0a36688a1cb2cf135a38b447bcd01bd82780",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-nist-ref-another-try",
+      "headRefOid": "d70d768e21e96e83d66ee7695513b2dd916352dc",
+      "closedAt": "2023-02-24T10:10:55Z",
+      "mergedAt": "2023-02-24T10:10:55Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "bc5b070b9d0770f9f759120222b68e5014f9b36f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85OPgWN",
+          "commit": {
+            "abbreviatedOid": "d70d768"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T07:50:28Z",
+          "updatedAt": "2023-02-24T07:50:28Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OQvJX",
+          "commit": {
+            "abbreviatedOid": "d70d768"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-24T10:10:46Z",
+          "updatedAt": "2023-02-24T10:10:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOIrmZ-85Kshrw",
+      "title": "Fixed missing SPHINCS+ reference",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/32",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Adresses Issue #18 ",
+      "createdAt": "2023-02-24T12:23:05Z",
+      "updatedAt": "2023-02-24T16:29:57Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "bc5b070b9d0770f9f759120222b68e5014f9b36f",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "18-missing-sphincs+-reference",
+      "headRefOid": "60deb6b76214f6325eed53b6f39b1af8b0efa7fb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85OSSd5",
+          "commit": {
+            "abbreviatedOid": "93adf60"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-02-24T13:21:54Z",
+          "updatedAt": "2023-02-24T13:22:16Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nSPHINCS+ [SPHINCS-Subm] is a stateless hash-based signature scheme. Its\r\n```",
+              "createdAt": "2023-02-24T13:21:54Z",
+              "updatedAt": "2023-02-24T13:22:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OSWO0",
+          "commit": {
+            "abbreviatedOid": "93adf60"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-24T13:32:26Z",
+          "updatedAt": "2023-02-24T13:32:27Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nsecurity relies on the hardness of finding preimages for cryptographic hash\r\n```",
+              "createdAt": "2023-02-24T13:32:26Z",
+              "updatedAt": "2023-02-24T13:32:27Z"
+            }
+          ]
         }
       ]
     }
