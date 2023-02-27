@@ -5,10 +5,10 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                               F. Strenzke
-Expires: 28 August 2023                                           MTG AG
+Expires: 31 August 2023                                           MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        24 February 2023
+                                                        27 February 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2023.
+   This Internet-Draft will expire on 31 August 2023.
 
 Copyright Notice
 
@@ -242,11 +242,11 @@ Table of Contents
 
 1.2.3.  SPHINCS+
 
-   SPHINCS+ is a stateless hash-based signature scheme.  It's security
-   relies on the hardness of finding pre-images for cryptographic hash
-   functions.  This feature is generally considered to be a high
-   security guarantee.  Therefore, this specification defines SPHINCS+
-   as a standalone signature scheme.
+   SPHINCS+ [SPHINCS-Subm] is a stateless hash-based signature scheme.
+   Its security relies on the hardness of finding preimages for
+   cryptographic hash functions.  This feature is generally considered
+   to be a high security guarantee.  Therefore, this specification
+   defines SPHINCS+ as a standalone signature scheme.
 
    In deployments the performance characteristics of SPHINCS+ should be
    taken into account.  We refer to Section 10.1 for a discussion of the
