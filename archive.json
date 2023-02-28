@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-26T01:35:01.896527+00:00",
+  "timestamp": "2023-02-28T01:21:07.500332+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -491,15 +491,15 @@
       "id": "I_kwDOIrmZ-85cVkcZ",
       "title": "Missing SPHINCS+ reference",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "at [1.2.3. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#section-1.2.3)[SPHINCS+](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-00.html#name-sphincs-7)",
       "createdAt": "2023-01-19T13:26:21Z",
-      "updatedAt": "2023-01-19T13:26:21Z",
-      "closedAt": null,
+      "updatedAt": "2023-02-27T12:12:30Z",
+      "closedAt": "2023-02-27T12:12:30Z",
       "comments": []
     },
     {
@@ -2156,24 +2156,26 @@
       "id": "PR_kwDOIrmZ-85Kshrw",
       "title": "Fixed missing SPHINCS+ reference",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/32",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Adresses Issue #18 ",
       "createdAt": "2023-02-24T12:23:05Z",
-      "updatedAt": "2023-02-24T16:29:57Z",
+      "updatedAt": "2023-02-27T12:12:29Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "bc5b070b9d0770f9f759120222b68e5014f9b36f",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "18-missing-sphincs+-reference",
       "headRefOid": "60deb6b76214f6325eed53b6f39b1af8b0efa7fb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-02-27T12:12:28Z",
+      "mergedAt": "2023-02-27T12:12:28Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "01c77e478849d9af083e3401519c379bdc075ecb"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2215,6 +2217,32 @@
               "updatedAt": "2023-02-24T13:32:27Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OYYS5",
+          "commit": {
+            "abbreviatedOid": "60deb6b"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-27T07:19:06Z",
+          "updatedAt": "2023-02-27T07:19:06Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85OaFBC",
+          "commit": {
+            "abbreviatedOid": "60deb6b"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-27T12:12:17Z",
+          "updatedAt": "2023-02-27T12:12:17Z",
+          "comments": []
         }
       ]
     }
