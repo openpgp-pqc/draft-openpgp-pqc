@@ -13,6 +13,8 @@ venue:
   group: WG
   type: Working Group
   mail: openpgp@ietf.org
+  arch: "https://mailarchive.ietf.org/arch/browse/openpgp/"
+  repo: "https://github.com/openpgp-pqc/draft-openpgp-pqc"
 
 author:
  -
