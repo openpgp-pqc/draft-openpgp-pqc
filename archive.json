@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-28T01:21:07.500332+00:00",
+  "timestamp": "2023-03-09T01:24:55.273800+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2245,6 +2245,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOIrmZ-85Ldboe",
+      "title": "Add repo link to draft for issue tracking",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/33",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-03-07T10:35:44Z",
+      "updatedAt": "2023-03-07T10:35:44Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "01c77e478849d9af083e3401519c379bdc075ecb",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "add-repo",
+      "headRefOid": "cf0980bdec981f9587df5e005fd42f4ce40e54a4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
