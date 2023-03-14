@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-03-09T01:24:55.273800+00:00",
+  "timestamp": "2023-03-14T01:08:03.861028+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -657,6 +657,22 @@
           "updatedAt": "2023-02-24T12:17:17Z"
         }
       ]
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOIrmZ-85goQUn",
+      "title": "Does fixedInfo in KEM Combiner need Public Key (Packet)?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/34",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently we have\r\n\r\n```\r\n//   Input:\r\n//   algID - the algorithm ID encoded as octet\r\n//   publicKey - the recipient's encryption sub-key packet\r\n//               serialized as octet string\r\n\r\nfixedInfo = algID || SHA3-256(publicKey)\r\n```\r\n\r\n1) Do we really need the sub-key **packet** here? The key material itself would be easier to implement as the raw packet is not usually passed through to the crypto operations.\r\n2) Wouldn't `fixedInfo = algID` suffice or does hashing the public key here achieve stronger security?",
+      "createdAt": "2023-03-13T10:09:27Z",
+      "updatedAt": "2023-03-13T10:09:27Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
