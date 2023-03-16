@@ -547,7 +547,7 @@ appear in any ECC data structure defined in this document.
 
 Furthermore, when performing the explicitly listed operations in
 {{x25519-kem}}, {{x448-kem}} or {{ecdh-kem}} it is REQUIRED to follow the
-security advisory mandated from the relative elliptic curve specification.
+specification and security advisory mandated from the relative elliptic curve specification.
 
 
 # Supported Public Key Algorithms
