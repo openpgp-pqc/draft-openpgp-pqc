@@ -1206,7 +1206,7 @@ consists of:
 ### Key Material Packets
 
 The composite Dilithium + ECC schemes MUST be used only with v6 keys, as
-defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.5.2.
 
 The algorithm-specific public key for Dilithium + EdDSA keys is this series of
 values:
@@ -1334,7 +1334,7 @@ The algorithm-specific v6 Signature parameters consists of:
 ### Key Material Packets
 
 The SPHINCS+ algorithms MUST be used only with v6 keys, as defined in
-[I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+[I-D.ietf-openpgp-crypto-refresh] Section 5.5.2.
 
 The algorithm-specific public key is this series of values:
 
