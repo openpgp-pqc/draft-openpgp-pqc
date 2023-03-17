@@ -536,26 +536,26 @@ For encryption, the following composite KEM schemes are specified:
 {: title="KEM algorithm specifications" #kem-alg-specs}
 ID | Algorithm                        | Requirement | Definition
 --:| -------------------------------- | ----------- | --------------------
-25 | Kyber768  + X25519               | MUST        | {{ecc-kyber}}
-26 | Kyber1024 + X448                 | SHOULD      | {{ecc-kyber}}
-27 | Kyber768  + ECDH-NIST-P-256      | MAY         | {{ecc-kyber}}
-28 | Kyber1024 + ECDH-NIST-P-384      | MAY         | {{ecc-kyber}}
-29 | Kyber768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-kyber}}
-30 | Kyber1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-kyber}}
+29 | Kyber768  + X25519               | MUST        | {{ecc-kyber}}
+30 | Kyber1024 + X448                 | SHOULD      | {{ecc-kyber}}
+31 | Kyber768  + ECDH-NIST-P-256      | MAY         | {{ecc-kyber}}
+32 | Kyber1024 + ECDH-NIST-P-384      | MAY         | {{ecc-kyber}}
+33 | Kyber768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-kyber}}
+34 | Kyber1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-kyber}}
 
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
 ID | Algorithm                          | Requirement | Definition
 --:| ---------------------------------- | ----------- | --------------------
-31 | Dilithium3 + Ed25519               | MUST        | {{ecc-dilithium}}
-32 | Dilithium5 + Ed448                 | SHOULD      | {{ecc-dilithium}}
-33 | Dilithium3 + ECDSA-NIST-P-256      | MAY         | {{ecc-dilithium}}
-34 | Dilithium5 + ECDSA-NIST-P-384      | MAY         | {{ecc-dilithium}}
-35 | Dilithium3 + ECDSA-brainpoolP256r1 | MAY         | {{ecc-dilithium}}
-36 | Dilithium5 + ECDSA-brainpoolP384r1 | MAY         | {{ecc-dilithium}}
-37 | SPHINCS+-simple-SHA2               | SHOULD      | {{sphincs}}
-38 | SPHINCS+-simple-SHAKE              | MAY         | {{sphincs}}
+35 | Dilithium3 + Ed25519               | MUST        | {{ecc-dilithium}}
+36 | Dilithium5 + Ed448                 | SHOULD      | {{ecc-dilithium}}
+37 | Dilithium3 + ECDSA-NIST-P-256      | MAY         | {{ecc-dilithium}}
+38 | Dilithium5 + ECDSA-NIST-P-384      | MAY         | {{ecc-dilithium}}
+39 | Dilithium3 + ECDSA-brainpoolP256r1 | MAY         | {{ecc-dilithium}}
+40 | Dilithium5 + ECDSA-brainpoolP384r1 | MAY         | {{ecc-dilithium}}
+41 | SPHINCS+-simple-SHA2               | SHOULD      | {{sphincs}}
+42 | SPHINCS+-simple-SHAKE              | MAY         | {{sphincs}}
 
 ## Parameter Specification
 
@@ -660,7 +660,7 @@ lengths.
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | 25                                         | 26                                         |
+| Algorithm ID reference | 29                                         | 30                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
 | ECC-KEM                | x25519Kem ({{x25519-x448-kem}})            | x448Kem ({{x25519-x448-kem}})              |
 | ECDH public key        | 32 octets of public point in native format | 56 octets of public point in native format |
@@ -671,7 +671,7 @@ lengths.
 {: title="NIST curves parameters and artifact lengths" #tab-ecdh-nist-artifacts}
 |                        | NIST P-256                                             | NIST P-384                                             |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 27                                                     | 28                                                     |
+| Algorithm ID reference | 31                                                     | 32                                                     |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
@@ -682,7 +682,7 @@ lengths.
 {: title="Brainpool curves parameters and artifact lengths" #tab-ecdh-brainpool-artifacts}
 |                        | brainpoolP256r1                                        | brainpoolP384r1                                        |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 29                                                     | 30                                                     |
+| Algorithm ID reference | 33                                                     | 34                                                     |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
@@ -777,8 +777,8 @@ format defined in [Kyber-Subm].
 {: title="Kyber-KEM parameters artifact lengths in octets" #tab-kyber-artifacts}
 Algorithm ID reference | Kyber-KEM    | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ------------ | ---------- | ---------- | ---------- | ---------
-25, 27, 29             | kyberKem768  | 1184       | 2400       | 1088       | 32
-26, 28, 30             | kyberKem1024 | 1568       | 3186       | 1568       | 32
+29, 31, 33             | kyberKem768  | 1184       | 2400       | 1088       | 32
+30, 32, 34             | kyberKem1024 | 1568       | 3186       | 1568       | 32
 
 The placeholder `kyberKem` has to be replaced with the specific Kyber-KEM from
 the column "Kyber-KEM" of {{tab-kyber-artifacts}}.
@@ -808,12 +808,12 @@ encryption schemes:
 {: title="Kyber-ECC-composite Schemes" #tab-kyber-ecc-composite}
 Algorithm ID reference | Kyber-KEM    | ECC-KEM   | ECDH-KEM curve
 ----------------------:| ------------ | --------- | --------------
-25                     | kyberKem768  | x25519Kem | X25519
-26                     | kyberKem1024 | x448Kem   | X448
-27                     | kyberKem768  | ecdhKem   | NIST P-256
-28                     | kyberKem1024 | ecdhKem   | NIST P-384
-29                     | kyberKem768  | ecdhKem   | brainpoolP256r1
-30                     | kyberKem1024 | ecdhKem   | brainpoolP384r1
+29                     | kyberKem768  | x25519Kem | X25519
+30                     | kyberKem1024 | x448Kem   | X448
+31                     | kyberKem768  | ecdhKem   | NIST P-256
+32                     | kyberKem1024 | ecdhKem   | NIST P-384
+33                     | kyberKem768  | ecdhKem   | brainpoolP256r1
+34                     | kyberKem1024 | ecdhKem   | brainpoolP384r1
 
 The Kyber + ECC composite public-key encryption schemes are built according to
 the following principal design:
@@ -1035,8 +1035,8 @@ table describes the EdDSA parameters and artifact lengths:
 {: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
 Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signature
 ----------------------:| ------- | ---------- | ---------- | ---------- | ---------
-31                     | Ed25519 | 32         | 32         | 32         | 64
-32                     | Ed448   | 57         | 57         | 57         | 114
+35                     | Ed25519 | 32         | 32         | 32         | 64
+36                     | Ed448   | 57         | 57         | 57         | 114
 
 ### ECDSA-Based signatures {#ecdsa-signature}
 
@@ -1060,10 +1060,10 @@ The following table describes the ECDSA parameters and artifact lengths:
 {: title="ECDSA parameters and artifact lengths in octets" #tab-ecdsa-artifacts}
 Algorithm ID reference | Curve           | Field size | Public key | Secret key | Signature value R | Signature value S
 ----------------------:| --------------- | ---------- | ---------- | ---------- | ----------------- | -----------------
-33                     | NIST P-256      | 32         | 65         | 32         | 32                | 32
-34                     | NIST P-384      | 48         | 97         | 48         | 48                | 48
-35                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
-36                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
+37                     | NIST P-256      | 32         | 65         | 32         | 32                | 32
+38                     | NIST P-384      | 48         | 97         | 48         | 48                | 48
+39                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
+40                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
 ### Dilithium signatures {#dilithium-signature}
 
@@ -1094,8 +1094,8 @@ format defined in [Dilithium-Subm].
 {: title="Dilithium parameters and artifact lengths in octets" #tab-dilithium-artifacts}
 Algorithm ID reference | Dilithium instance | Public key | Secret key | Signature value
 ----------------------:| ------------------ | -----------| ---------- | ---------------
-31, 33, 35             | Dilithium3         | 1952       | 4000       | 3293
-32, 34, 36             | Dilithium5         | 2592       | 4864       | 4595
+35, 37, 39             | Dilithium3         | 1952       | 4000       | 3293
+36, 38, 40             | Dilithium5         | 2592       | 4864       | 4595
 
 ## Composite Signature Schemes with Dilithium {#ecc-dilithium}
 
@@ -1277,10 +1277,10 @@ invalid.
 {: title="Binding between SPHINCS+ and signature hashes" #tab-sphincs-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
-37                     | 1, 2                   | SHA-256       | 8
-37                     | 3, 4, 5, 6             | SHA-512       | 10
-38                     | 1, 2                   | SHA3-256      | 12
-38                     | 3, 4, 5, 6             | SHA3-512      | 14
+41                     | 1, 2                   | SHA-256       | 8
+41                     | 3, 4, 5, 6             | SHA-512       | 10
+42                     | 1, 2                   | SHA3-256      | 12
+42                     | 3, 4, 5, 6             | SHA3-512      | 14
 
 An implementation supporting a specific SPHINCS+ algorithm and parameter MUST
 also support the matching hash algorithm.
