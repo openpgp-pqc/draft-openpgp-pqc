@@ -1517,7 +1517,7 @@ random function if at least one input shared secret is picked uniformly at
 random. Our construction can thus be seen as an instantiation of the IND-CCA2
 preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input
 shared secrets and ciphertexts. In the random oracle setting, the reordering
-does not disturb the arguments in {{GHP18}}.
+does not influence the arguments in {{GHP18}}.
 
 ## Domain separation and binding {#sec-fixed-info}
 
