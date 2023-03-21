@@ -746,11 +746,12 @@ row "ECC-KEM" of {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 The encapsulation and decapsulation operations of `x25519kem` are described
 using the function `X25519()` and encodings defined in [RFC7748]. The
 `eccPrivateKey` is denoted as `r`, the `eccPublicKey` as `R`, they are subject
-to the equation `R = X25519(r, 9)`.
+to the equation `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of
+the base point of Curve25519.
 
 The operation `x25519Kem.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,9)`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))`
 
  2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -771,11 +772,12 @@ The operation `x25519Kem.decap()` is defined as follows:
 The encapsulation and decapsulation operations of `x448kem` are described using
 the function `X448()` and encodings defined in [RFC7748]. The `eccPrivateKey`
 is denoted as `r`, the `eccPublicKey` as `R`, they are subject to the equation
-`R = X448(r, 5)`.
+`R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of the base point
+of Curve448.
 
 The operation `x448.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,5)`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))`
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
     `eccPublicKey`
