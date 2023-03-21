@@ -1078,7 +1078,7 @@ The algorithm-specific public key is this series of values:
  - A fixed-length octet string representing an EC point public key, in the
    point format associated with the curve specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the Kyber public key in, whose length
+ - A fixed-length octet string containing the Kyber public key, whose length
    depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
 
 The algorithm-specific secret key is these two values:
