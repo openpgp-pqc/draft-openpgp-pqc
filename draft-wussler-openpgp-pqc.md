@@ -696,7 +696,7 @@ described in [RFC7748].
 | ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH share             | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| Key share              | 32 octets                                  | 56 octets                                  |
+| Key share              | 32 octets                                  | 64 octets                                  |
 | Hash                   | SHA3-256                                   | SHA3-512                                   |
 
 {: title="NIST curves parameters and artifact lengths" #tab-ecdh-nist-artifacts}
@@ -709,8 +709,8 @@ described in [RFC7748].
 | ECDH secret key        | 32 octets big-endian encoded secret scalar             | 48 octets big-endian encoded secret scalar             |
 | ECDH ephemeral         | 65 octets of SEC1-encoded ephemeral point              | 97 octets of SEC1-encoded ephemeral point              |
 | ECDH share             | 65 octets of SEC1-encoded shared point                 | 97 octets of SEC1-encoded shared point                 |
-| Key share              | 32 octets                                              | 48 octets                                              |
-| Hash                   | SHA3-256                                               | SHA3-384                                               |
+| Key share              | 32 octets                                              | 64 octets                                              |
+| Hash                   | SHA3-256                                               | SHA3-512                                               |
 
 {: title="Brainpool curves parameters and artifact lengths" #tab-ecdh-brainpool-artifacts}
 |                        | brainpoolP256r1                                        | brainpoolP384r1                                        |
@@ -722,8 +722,8 @@ described in [RFC7748].
 | ECDH secret key        | 32 octets big-endian encoded secret scalar             | 48 octets big-endian encoded secret scalar             |
 | ECDH ephemeral         | 65 octets of SEC1-encoded ephemeral point              | 97 octets of SEC1-encoded ephemeral point              |
 | ECDH share             | 65 octets of SEC1-encoded shared point                 | 97 octets of SEC1-encoded shared point                 |
-| Key share              | 32 octets                                              | 48 octets                                              |
-| Hash                   | SHA3-256                                               | SHA3-384                                               |
+| Key share              | 32 octets                                              | 64 octets                                              |
+| Hash                   | SHA3-256                                               | SHA3-512                                               |
 
 The SEC1 format for point encoding is defined in {{sec1-format}}.
 
@@ -784,16 +784,14 @@ The operation `x448.encap()` is defined as follows:
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to the first 56 octets of `SHA3-512(X ||
-    eccCipherText)`
+ 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
 
 The operation `x448Kem.decap()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to the first 56 octets of `SHA3-512(X ||
-    eccCipherText)`
+ 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
 
 #### ECDH-KEM {#ecdh-kem}
 
@@ -950,6 +948,11 @@ algorithm.
     encData = counter || eccKemData || kyberKemData || fixedInfo
 
     MB = KMAC256(domSeparation, encData, oBits, customizationString)
+
+Note that the values `eccKeyShare` defined in {{ecc-kem}} and `kyberKeyShare`
+defined in {{kyber-kem}} already use the relative ciphertext in the
+derivation. The ciphertext is by design included again in the key combiner to
+provide a robust security proof.
 
 The value of `domSeparation` is the UTF-8 encoding of the string
 "OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:
