@@ -1511,7 +1511,7 @@ registry group at https://www.iana.org/assignments/pgp-parameters:
 
   Values defined in this document, {{sphincs-param-shake}}.
 
-Furthemore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
+Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 {{sig-alg-specs}} to the  registry `Public Key Algorithms`.
 
 # Contributors
