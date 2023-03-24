@@ -42,6 +42,8 @@ normative:
 
   RFC3394:
 
+  RFC8126:
+
   I-D.ietf-openpgp-crypto-refresh:
 
 informative:
@@ -1494,10 +1496,23 @@ expense of a larger signature generation time.
 
 # IANA Considerations
 
-IANA is requested to add the algorithm IDs defined in {{kem-alg-specs}} and
-{{sig-alg-specs}}. Furthermore, two additional registers are needed for the
-SPHINCS+-simple-SHA2 and SPHINCS+-simple-SHAKE parameters defined in
-{{sphincs-param-sha2}} and {{sphincs-param-shake}}.
+IANA will add the following registries to the `Pretty Good Privacy (PGP)`
+registry group at https://www.iana.org/assignments/pgp-parameters:
+
+- Registry name: `SPHINCS+-simple-SHA2 parameters`
+
+  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+  Values defined in this document, {{sphincs-param-sha2}}.
+
+- Registry name: `SPHINCS+-simple-SHAKE parameters`
+
+  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+  Values defined in this document, {{sphincs-param-shake}}.
+
+Furthemore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
+{{sig-alg-specs}} to the  registry `Public Key Algorithms`.
 
 # Contributors
 
