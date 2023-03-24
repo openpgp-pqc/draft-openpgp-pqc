@@ -836,7 +836,7 @@ the following principal design:
  - The session key for content encryption is then wrapped as described in
    {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
- - The v5 PKESK package's algorithm specific parts are made up of the Kyber
+ - The v6 PKESK package's algorithm specific parts are made up of the Kyber
    ciphertext, the ECC ciphertext, and the wrapped session key
 
 ### Fixed information {#kem-fixed-info}
@@ -980,10 +980,10 @@ scheme is as follows:
 
 ### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-kyber-pkesk}
 
-The composite Kyber algorithms MUST be used only with v5 PKESK, as defined in
+The composite Kyber algorithms MUST be used only with v6 PKESK, as defined in
 [I-D.ietf-openpgp-crypto-refresh] Section 5.1.2.
 
-The algorithm-specific v5 PKESK parameters consists of:
+The algorithm-specific v6 PKESK parameters consists of:
 
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
@@ -1180,10 +1180,10 @@ signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite Dilithium
 
 ### Signature Packet (Tag 2) {#ecc-dilithium-sig-packet}
 
-The composite Dilithium + ECC schemes MUST be used only with v5 signatures, as
+The composite Dilithium + ECC schemes MUST be used only with v6 signatures, as
 defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
 
-The algorithm-specific v5 signature parameters for Dilithium + EdDSA signatures
+The algorithm-specific v6 signature parameters for Dilithium + EdDSA signatures
 consists of:
 
  - A fixed-length octet string representing the EdDSA signature in native
@@ -1194,7 +1194,7 @@ consists of:
    format, whose length depends on the algorithm ID as specified in
    {{tab-dilithium-artifacts}}.
 
-The algorithm-specific v5 signature parameters for Dilithium + ECDSA signatures
+The algorithm-specific v6 signature parameters for Dilithium + ECDSA signatures
 consists of:
 
  - A fixed-length octet string of the big-endian encoded ECDSA value `R`, whose
@@ -1209,8 +1209,8 @@ consists of:
 
 ### Key Material Packets
 
-The composite Dilithium + ECC schemes MUST be used only with v5 keys, as
-defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+The composite Dilithium + ECC schemes MUST be used only with v6 keys, as
+defined in [I-D.ietf-openpgp-crypto-refresh].
 
 The algorithm-specific public key for Dilithium + EdDSA keys is this series of
 values:
@@ -1322,10 +1322,10 @@ key match when verifying.
 
 ###  Signature Packet (Tag 2)
 
-The SPHINCS+ algorithms MUST be used only with v5 signatures, as defined in
+The SPHINCS+ algorithms MUST be used only with v6 signatures, as defined in
 [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
 
-The algorithm-specific v5 Signature parameters consists of:
+The algorithm-specific v6 Signature parameters consists of:
 
  - A one-octet value specifying the SPHINCS+ parameter ID defined in
    {{sphincs-param-sha2}} and {{sphincs-param-shake}}. The values `0x00` and
@@ -1337,8 +1337,8 @@ The algorithm-specific v5 Signature parameters consists of:
 
 ### Key Material Packets
 
-The SPHINCS+ algorithms MUST be used only with v5 keys, as defined in
-[I-D.ietf-openpgp-crypto-refresh] Section 5.2.2.
+The SPHINCS+ algorithms MUST be used only with v6 keys, as defined in
+[I-D.ietf-openpgp-crypto-refresh].
 
 The algorithm-specific public key is this series of values:
 
@@ -1389,7 +1389,7 @@ It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing
 key material from existing ECC keys in PQ(/T) keys does not provide backwards
 compatibility, and the fingerprint will differ.
 
-An OpenPGP (v5) certificate is composed of a certification-capable primary key
+An OpenPGP (v6) certificate is composed of a certification-capable primary key
 and one or more subkeys for signature, encryption, and authentication.
 Two migration strategies are recommended:
 
@@ -1397,10 +1397,10 @@ Two migration strategies are recommended:
 implementations, and one for legacy implementations. Implementations not
 understanding PQ(/T) certificates can use the legacy certificate, while
 PQ(/T)-capable implementations will prefer the newer certificate. This allows
-having an older v4 or v5 ECC certificate for compatibility and a v5 PQ(/T)
+having an older v4 or v6 ECC certificate for compatibility and a v6 PQ(/T)
 certificate, at a greater complexity in key distribution.
 
-2. Attach PQ(/T) encryption and signature subkeys to an existing v5 ECC
+2. Attach PQ(/T) encryption and signature subkeys to an existing v6 ECC
 certificate. Implementations understanding PQ(/T) will be able to parse and use
 the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
 This simplifies key distribution, as only one certificate needs to be
@@ -1459,7 +1459,7 @@ univocally defined by the algorithm ID.
 ## SPHINCS+ {#sphincs-sec-cons}
 
 The original specification of SPHINCS+ {{SPHINCS-Subm}} prescribes an optional
-randomized hashing. This is not used in this specification, as OpenPGP v5
+randomized hashing. This is not used in this specification, as OpenPGP v6
 signatures already provide a salted hash of the appropriate size.
 
 ## Binding hashes in signatures with signature algorithms
