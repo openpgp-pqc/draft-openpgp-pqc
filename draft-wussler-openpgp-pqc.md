@@ -832,8 +832,8 @@ the following principal design:
  - The session key for content encryption is then wrapped as described in
    {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
- - The v6 PKESK package's algorithm specific parts are made up of the Kyber
-   ciphertext, the ECC ciphertext, and the wrapped session key
+ - The PKESK package's algorithm-specific parts are made up of the Kyber
+   ciphertext, the ECC ciphertext, and the wrapped session key.
 
 ### Fixed information {#kem-fixed-info}
 
@@ -976,10 +976,9 @@ scheme is as follows:
 
 ### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-kyber-pkesk}
 
-The composite Kyber algorithms MUST be used only with v6 PKESK, as defined in
-[I-D.ietf-openpgp-crypto-refresh] Section 5.1.2.
+The algorithm-specific fields consists of:
 
-The algorithm-specific v6 PKESK parameters consists of:
+ - The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).
 
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
@@ -987,12 +986,17 @@ The algorithm-specific v6 PKESK parameters consists of:
  - A fixed-length octet string of the Kyber ciphertext in native format, whose
    length depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
 
- - A variable-length field containing the symmetric key:
+ - A variable-length field containing the wrapped session key:
 
    - A one-octet size of the following field;
 
-   - Octet string of the wrapped symmetric key as described in
+   - The wrapped session key represented as an octet string, i.e.,
+     the output of the encryption procedure described in
      {{ecc-kyber-encryption}}.
+
+Note that unlike ECDH, no checksum or padding are appended to the session key before key wrapping.
+Further note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
+Instead, it is prepended to the encrypted session key in plaintext.
 
 ### Key Material Packets {#kyber-ecc-key}
 
