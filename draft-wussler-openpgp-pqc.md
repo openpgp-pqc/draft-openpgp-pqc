@@ -926,7 +926,7 @@ SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
 procedure MUST be used to compute the KEK that wraps a session key. The
 construction is a one-step key derivation function compliant to {{SP800-56C}}
-Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
+Section 4, based on SHA3-256 {{SP800-185}}. It is given by the following
 algorithm.
 
     //   multiKeyCombine(eccKeyShare, eccCipherText,
@@ -951,7 +951,7 @@ algorithm.
     kyberKemData = kyberKeyShare || kyberCipherText
     encData = counter || eccKemData || kyberKemData || fixedInfo
 
-    MB = KMAC256(domSeparation, encData, oBits, customizationString)
+    MB = SHA3-256(encData || domSeparation)
 
 Note that the values `eccKeyShare` defined in {{ecc-kem}} and `kyberKeyShare`
 defined in {{kyber-kem}} already use the relative ciphertext in the
@@ -970,11 +970,6 @@ The value of `counter` MUST be set to the following octet sequence:
     counter :=  00 00 00 01
 
 The value of `fixedInfo` MUST be set according to {{kem-fixed-info}}.
-
-The value of `customizationString` is the UTF-8 encoding of the string "KDF"
-and MUST be set to the following octet sequence:
-
-    customizationString := 4B 44 46
 
 ### Key generation procedure {#ecc-kyber-generation}
 
@@ -1494,25 +1489,24 @@ Diffie-Hellman intractability assumptions [CS03].
 ## Key combiner {#sec-key-combiner}
 
 For the key combination in {{kem-key-combiner}} this specification limits
-itself to the use of KMAC. The sponge construction used by KMAC was proven to
+itself to the use of SHA3. The sponge construction used by SHA3 was proven to
 be indifferentiable from a random oracle {{BDPA08}}. This means, that in
 contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based
 construction is required for key combination. Except for a domain separation it
 is sufficient to simply process the concatenation of any number of key shares
-when using a sponge-based construction like KMAC. The construction using KMAC
+when using a sponge-based construction like SHA3. The construction using SHA3
 ensures a standardized domain separation. In this case, the processed message
 is then the concatenation of any number of key shares.
 
 More precisely, for a given capacity `c` the indifferentiability proof shows
 that assuming there are no weaknesses found in the Keccak permutation, an
 attacker has to make an expected number of `2^(c/2)` calls to the permutation
-to tell KMAC from a random oracle. For a random oracle, a difference in only a
+to tell SHA3 from a random oracle. For a random oracle, a difference in only a
 single bit gives an unrelated, uniformly random output. Hence, to be able to
 distinguish a key `K`, derived from shared keys `K1` and `K2` (and ciphertexts
 `C1` and `C2`) as
-
-    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-             outputBits, customization)
+    
+    K = SHA3(counter || K1 || C1 || K2 || C2 || fixedInfo || domainSeparation)
 
 from a random bit string, an adversary has to know (or correctly guess) both
 key shares `K1` and `K2`, entirely.
