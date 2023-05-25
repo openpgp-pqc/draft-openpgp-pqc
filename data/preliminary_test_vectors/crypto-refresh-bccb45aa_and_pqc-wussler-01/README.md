@@ -1,5 +1,5 @@
 These are preliminary test vectors for public-key encrypted packets using kyber768-x25519.
-dilithium3-ed25519 signatures are also contained since the primary key is used.
+dilithium3-ed25519 signatures are also contained since it's the primary key that is used for key signatures etc.
 This corresponds to the crypto refresh version at commit bccb45aa and draft-wussler-openpgp-pqc-01.
 There might be issues with the v6 format, e.g., missing subpackets/features but otherwise this should be correct data and be parsable / decryptable.
 
