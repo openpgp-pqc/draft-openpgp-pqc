@@ -541,7 +541,7 @@ compatible with the definition given in [SEC1].
 
 ### Measures to Ensure Secure Implementations
 
-The following describes measures that ensure secure implementations
+In the following measures are described that ensure secure implementations
 according to existing best practices and standards defining the operations of
 Elliptic Curve Cryptography.
 
