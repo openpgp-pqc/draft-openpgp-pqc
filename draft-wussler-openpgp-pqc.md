@@ -13,6 +13,8 @@ venue:
   group: WG
   type: Working Group
   mail: openpgp@ietf.org
+  arch: "https://mailarchive.ietf.org/arch/browse/openpgp/"
+  repo: "https://github.com/openpgp-pqc/draft-openpgp-pqc"
 
 author:
  -
@@ -41,6 +43,8 @@ normative:
   RFC8032:
 
   RFC3394:
+
+  RFC8126:
 
   I-D.ietf-openpgp-crypto-refresh:
 
@@ -190,24 +194,6 @@ informative:
     seriesinfo:
       NIST Special Publication 800-186
 
-  SPONGE:
-    target: https://keccak.team/files/CSF-0.1.pdf
-    title: Cryptographic sponge functions
-    author:
-      -
-        ins: G. Bertoni
-        name: Guido Bertoni
-      -
-        ins: J. Daemen
-        name: Joan Daemen
-      -
-        ins: M. Peters
-        name: Michael Peters
-      -
-        ins: G. Assche
-        name: Gilles van Assche
-    date: January 2011
-
   SEC1:
     target: https://secg.org/sec1-v2.pdf
     title: "Standards for Efficient Cryptography 1 (SEC 1)"
@@ -301,12 +287,58 @@ informative:
       date: 2021-06-10
 
   draft-driscoll-pqt-hybrid-terminology:
-    target: https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-hybrid-terminology-01
+    target: https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-hybrid-terminology
     title: Terminology for Post-Quantum Traditional Hybrid Schemes
     author:
       -
         ins: F. Driscoll
-    date: October 2022
+        name: Florence Driscoll
+    date: March 2023
+
+  GHP18:
+    target: https://doi.org/10.1007/978-3-319-76578-5_7
+    title: KEM Combiners
+    date: 2018
+    author:
+      -
+        ins: F. Giacon
+        name: Federico Giacon
+      -
+        ins: F. Heuer
+        name: Felix Heuer
+      -
+        ins: B. Poettering
+        name: Bertram Poettering
+
+  BDPA08:
+    target: https://doi.org/10.1007/978-3-540-78967-3_11
+    title: On the Indifferentiability of the Sponge Construction
+    author:
+      -
+        ins: G. Bertoni
+        name: Guido Bertoni
+      -
+        ins: J. Daemen
+        name: Joan Daemen
+      -
+        ins: M. Peters
+        name: Michael Peters
+      -
+        ins: G. Assche
+        name: Gilles van Assche
+    date: 2008
+
+  CS03:
+    target: https://doi.org/10.1137/S0097539702403773
+    title: Design and Analysis of Practical Public-Key Encryption Schemes Secure against Adaptive Chosen Ciphertext Attack
+    author:
+      -
+        ins: R. Cramer
+        name: Ronald Cramer
+      -
+        ins: V. Shoup
+        name: Victor Shoup
+    date: 2003
 
 --- abstract
 
@@ -428,8 +460,8 @@ schemes.
 
 Curve25519 and Curve448 are defined in [RFC7748] for use in a Diffie-Hellman
 key agreement scheme and defined in [RFC8032] for use in a digital signature
-scheme. For Curve25519 this specification adapts the encoding of objects in
-native format in contrast to [I-D.ietf-openpgp-crypto-refresh].
+scheme. For Curve25519 this specification adapts the encoding of objects as
+defined in [RFC7748] in contrast to [I-D.ietf-openpgp-crypto-refresh].
 
 ### Generic Prime Curves
 
@@ -517,9 +549,9 @@ Even though the zero point, also called the point at infinity, may occur as a
 result of arithmetic operations on points of an elliptic curve, it MUST NOT
 appear in any ECC data structure defined in this document.
 
-Furthermore, when performing the explicitly listed multiplications in
-{{x25519-x448-kem}} or {{ecdh-kem}} it is REQUIRED to perform all checks,
-clamping, or masking mandated from the relative elliptic curve specification.
+Furthermore, when performing the explicitly listed operations in
+{{x25519-kem}}, {{x448-kem}} or {{ecdh-kem}} it is REQUIRED to follow the
+specification and security advisory mandated from the relative elliptic curve specification.
 
 
 # Supported Public Key Algorithms
@@ -536,26 +568,26 @@ For encryption, the following composite KEM schemes are specified:
 {: title="KEM algorithm specifications" #kem-alg-specs}
 ID | Algorithm                        | Requirement | Definition
 --:| -------------------------------- | ----------- | --------------------
-25 | Kyber768  + X25519               | MUST        | {{ecc-kyber}}
-26 | Kyber1024 + X448                 | SHOULD      | {{ecc-kyber}}
-27 | Kyber768  + ECDH-NIST-P-256      | MAY         | {{ecc-kyber}}
-28 | Kyber1024 + ECDH-NIST-P-384      | MAY         | {{ecc-kyber}}
-29 | Kyber768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-kyber}}
-30 | Kyber1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-kyber}}
+29 | Kyber768  + X25519               | MUST        | {{ecc-kyber}}
+30 | Kyber1024 + X448                 | SHOULD      | {{ecc-kyber}}
+31 | Kyber768  + ECDH-NIST-P-256      | MAY         | {{ecc-kyber}}
+32 | Kyber1024 + ECDH-NIST-P-384      | MAY         | {{ecc-kyber}}
+33 | Kyber768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-kyber}}
+34 | Kyber1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-kyber}}
 
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
 ID | Algorithm                          | Requirement | Definition
 --:| ---------------------------------- | ----------- | --------------------
-31 | Dilithium3 + Ed25519               | MUST        | {{ecc-dilithium}}
-32 | Dilithium5 + Ed448                 | SHOULD      | {{ecc-dilithium}}
-33 | Dilithium3 + ECDSA-NIST-P-256      | MAY         | {{ecc-dilithium}}
-34 | Dilithium5 + ECDSA-NIST-P-384      | MAY         | {{ecc-dilithium}}
-35 | Dilithium3 + ECDSA-brainpoolP256r1 | MAY         | {{ecc-dilithium}}
-36 | Dilithium5 + ECDSA-brainpoolP384r1 | MAY         | {{ecc-dilithium}}
-37 | SPHINCS+-simple-SHA2               | SHOULD      | {{sphincs}}
-38 | SPHINCS+-simple-SHAKE              | MAY         | {{sphincs}}
+35 | Dilithium3 + Ed25519               | MUST        | {{ecc-dilithium}}
+36 | Dilithium5 + Ed448                 | SHOULD      | {{ecc-dilithium}}
+37 | Dilithium3 + ECDSA-NIST-P-256      | MAY         | {{ecc-dilithium}}
+38 | Dilithium5 + ECDSA-NIST-P-384      | MAY         | {{ecc-dilithium}}
+39 | Dilithium3 + ECDSA-brainpoolP256r1 | MAY         | {{ecc-dilithium}}
+40 | Dilithium5 + ECDSA-brainpoolP384r1 | MAY         | {{ecc-dilithium}}
+41 | SPHINCS+-simple-SHA2               | SHOULD      | {{sphincs}}
+42 | SPHINCS+-simple-SHAKE              | MAY         | {{sphincs}}
 
 ## Parameter Specification
 
@@ -655,40 +687,47 @@ ECDH component of the composite algorithms.
 
 {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 {{tab-ecdh-brainpool-artifacts}} describe the ECC-KEM parameters and artifact
-lengths.
+lengths. The artefacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings
+described in [RFC7748].
 
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | 25                                         | 26                                         |
+| Algorithm ID reference | 29                                         | 30                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
-| ECC-KEM                | x25519Kem ({{x25519-x448-kem}})            | x448Kem ({{x25519-x448-kem}})              |
-| ECDH public key        | 32 octets of public point in native format | 56 octets of public point in native format |
-| ECDH secret key        | 32 octets of secret in native format       | 56 octets of secret in native format       |
-| ECDH ephemeral         | 32 octets of ephemeral in native format    | 56 octets of ephemeral in native format    |
-| Key share              | 32 octets in native format                 | 56 octets in native format                 |
+| ECC-KEM                | x25519Kem ({{x25519-kem}})                 | x448Kem ({{x448-kem}})                     |
+| ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+| ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+| ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+| ECDH share             | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+| Key share              | 32 octets                                  | 64 octets                                  |
+| Hash                   | SHA3-256                                   | SHA3-512                                   |
 
 {: title="NIST curves parameters and artifact lengths" #tab-ecdh-nist-artifacts}
 |                        | NIST P-256                                             | NIST P-384                                             |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 27                                                     | 28                                                     |
+| Algorithm ID reference | 31                                                     | 32                                                     |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
 | ECDH secret key        | 32 octets big-endian encoded secret scalar             | 48 octets big-endian encoded secret scalar             |
 | ECDH ephemeral         | 65 octets of SEC1-encoded ephemeral point              | 97 octets of SEC1-encoded ephemeral point              |
-| Key share              | 32 octets of `X` coordinate decoded from SEC1 encoding | 48 octets of `X` coordinate decoded from SEC1 encoding |
+| ECDH share             | 65 octets of SEC1-encoded shared point                 | 97 octets of SEC1-encoded shared point                 |
+| Key share              | 32 octets                                              | 64 octets                                              |
+| Hash                   | SHA3-256                                               | SHA3-512                                               |
 
 {: title="Brainpool curves parameters and artifact lengths" #tab-ecdh-brainpool-artifacts}
 |                        | brainpoolP256r1                                        | brainpoolP384r1                                        |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 29                                                     | 30                                                     |
+| Algorithm ID reference | 33                                                     | 34                                                     |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
 | ECDH secret key        | 32 octets big-endian encoded secret scalar             | 48 octets big-endian encoded secret scalar             |
 | ECDH ephemeral         | 65 octets of SEC1-encoded ephemeral point              | 97 octets of SEC1-encoded ephemeral point              |
-| Key share              | 32 octets of `X` coordinate decoded from SEC1 encoding | 48 octets of `X` coordinate decoded from SEC1 encoding |
+| ECDH share             | 65 octets of SEC1-encoded shared point                 | 97 octets of SEC1-encoded shared point                 |
+| Key share              | 32 octets                                              | 64 octets                                              |
+| Hash                   | SHA3-256                                               | SHA3-512                                               |
 
 The SEC1 format for point encoding is defined in {{sec1-format}}.
 
@@ -706,29 +745,57 @@ The placeholder `eccKem` has to be replaced with the specific ECC-KEM from the
 row "ECC-KEM" of {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 {{tab-ecdh-brainpool-artifacts}}.
 
-#### X25519-KEM and X448-KEM {#x25519-x448-kem}
+#### X25519-KEM {#x25519-kem}
 
-The operations `x25519Kem.encap()` and `x448Kem.encap()` are defined as
-follows:
+The encapsulation and decapsulation operations of `x25519kem` are described
+using the function `X25519()` and encodings defined in [RFC7748]. The
+`eccPrivateKey` is denoted as `r`, the `eccPublicKey` as `R`, they are subject
+to the equation `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of
+the base point of Curve25519.
 
- 1. Generate an ephemeral key pair {`v`, `V=vG`} according to
-    the procedure defined in [RFC7748], that is, without any
-    measures such as masking or clamping
+The operation `x25519Kem.encap()` is defined as follows:
 
- 2. Compute the shared point `X = vR` where `R` is the component public key
-    `eccPublicKey` according to [RFC7748]
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))`
+
+ 2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
+    `eccPublicKey`
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `X` in native format
+ 4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
 
-The operations `x25519Kem.decap()` and `x448Kem.decap()` are defined as
-follows:
+The operation `x25519Kem.decap()` is defined as follows:
 
- 1. Compute the shared Point `X = rV` where `r` is the `eccPrivateKey` and `V`
-    is the `eccCipherText` according to [RFC7748]
+ 1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the
+    `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to `X` in native format
+ 2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
+
+#### X448-KEM {#x448-kem}
+
+The encapsulation and decapsulation operations of `x448kem` are described using
+the function `X448()` and encodings defined in [RFC7748]. The `eccPrivateKey`
+is denoted as `r`, the `eccPublicKey` as `R`, they are subject to the equation
+`R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of the base point
+of Curve448.
+
+The operation `x448.encap()` is defined as follows:
+
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))`
+
+ 2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
+    `eccPublicKey`
+
+ 3. Set the output `eccCipherText` to `V`
+
+ 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
+
+The operation `x448Kem.decap()` is defined as follows:
+
+ 1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
+    `eccPrivateKey` and `V` is the `eccCipherText`
+
+ 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
 
 #### ECDH-KEM {#ecdh-kem}
 
@@ -737,25 +804,29 @@ The operation `ecdhKem.encap()` is defined as follows:
  1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
     {{SP800-186}} or {{RFC5639}}
 
- 2. Compute the shared point `S = vR` where `R` is the component public key
-    `eccPublicKey` according to {{SP800-186}} or {{RFC5639}}
+ 2. Compute the shared point `S = vR`, where `R` is the component public key
+    `eccPublicKey`, according to {{SP800-186}} or {{RFC5639}}
 
  3. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
 
- 4. Set the output `eccCipherText` to `V`
+ 4. Set the output `eccCipherText` to the SEC1 encoding of `V`
 
- 5. Set the output `eccKeyShare` to `X`
+ 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+    chosen according to {{tab-ecdh-nist-artifacts}} or
+    {{tab-ecdh-brainpool-artifacts}}
 
 The operation `ecdhKem.decap()` is defined as follows:
 
- 1. Compute the shared Point `S` as `rV` where `r` is the `eccPrivateKey` and
-    `V` is the `eccCipherText` according to {{SP800-186}} or {{RFC5639}}
+ 1. Compute the shared Point `S` as `rV`, where `r` is the `eccPrivateKey` and
+    `V` is the `eccCipherText`, according to {{SP800-186}} or {{RFC5639}}
 
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
 
- 3. Set the output `eccKeyShare` to `X`
+ 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+    chosen according to {{tab-ecdh-nist-artifacts}} or
+    {{tab-ecdh-brainpool-artifacts}}
 
 ### Kyber-KEM {#kyber-kem}
 
@@ -771,14 +842,14 @@ The above are the operations Kyber.CCAKEM.Enc() and Kyber.CCAKEM.Dec() defined
 in [Kyber-Subm].
 
 Kyber-KEM has the parameterization with the corresponding artifact lengths in
-octets as given in {{tab-kyber-artifacts}}. All artifacts are in the native
-format defined in [Kyber-Subm].
+octets as given in {{tab-kyber-artifacts}}. All artifacts are encoded as
+defined in [Kyber-Subm].
 
 {: title="Kyber-KEM parameters artifact lengths in octets" #tab-kyber-artifacts}
 Algorithm ID reference | Kyber-KEM    | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ------------ | ---------- | ---------- | ---------- | ---------
-25, 27, 29             | kyberKem768  | 1184       | 2400       | 1088       | 32
-26, 28, 30             | kyberKem1024 | 1568       | 3186       | 1568       | 32
+29, 31, 33             | kyberKem768  | 1184       | 2400       | 1088       | 32
+30, 32, 34             | kyberKem1024 | 1568       | 3186       | 1568       | 32
 
 The placeholder `kyberKem` has to be replaced with the specific Kyber-KEM from
 the column "Kyber-KEM" of {{tab-kyber-artifacts}}.
@@ -808,12 +879,12 @@ encryption schemes:
 {: title="Kyber-ECC-composite Schemes" #tab-kyber-ecc-composite}
 Algorithm ID reference | Kyber-KEM    | ECC-KEM   | ECDH-KEM curve
 ----------------------:| ------------ | --------- | --------------
-25                     | kyberKem768  | x25519Kem | X25519
-26                     | kyberKem1024 | x448Kem   | X448
-27                     | kyberKem768  | ecdhKem   | NIST P-256
-28                     | kyberKem1024 | ecdhKem   | NIST P-384
-29                     | kyberKem768  | ecdhKem   | brainpoolP256r1
-30                     | kyberKem1024 | ecdhKem   | brainpoolP384r1
+29                     | kyberKem768  | x25519Kem | X25519
+30                     | kyberKem1024 | x448Kem   | X448
+31                     | kyberKem768  | ecdhKem   | NIST P-256
+32                     | kyberKem1024 | ecdhKem   | NIST P-384
+33                     | kyberKem768  | ecdhKem   | brainpoolP256r1
+34                     | kyberKem1024 | ecdhKem   | brainpoolP384r1
 
 The Kyber + ECC composite public-key encryption schemes are built according to
 the following principal design:
@@ -842,7 +913,7 @@ procedure, justified in {{sec-fixed-info}}, MUST be used to derive a string to
 use as binding between the KEK and the communication parties.
 
     //   Input:
-    //   algID - the algorithm ID encoded as octet
+    //   algID     - the algorithm ID encoded as octet
     //   publicKey - the recipient's encryption sub-key packet
     //               serialized as octet string
 
@@ -858,19 +929,34 @@ construction is a one-step key derivation function compliant to {{SP800-56C}}
 Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
 algorithm.
 
-    //   multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)
+    //   multiKeyCombine(eccKeyShare, eccCipherText,
+    //                   kyberKeyShare, kyberCipherText,
+    //                   fixedInfo, oBits)
+    //
     //   Input:
-    //   domSeparation - the UTF-8 encoding of the string
-                         "OpenPGPCompositeKeyDerivationFunction"
-    //   counter - a fixed 4 byte value, see below
-    //   eccKeyShare - the ECC key share encoded as an octet string
-    //   kyberKeyShare - the Kyber key share encoded as an octet string
-    //   fixedInfo - the fixed information octet string
-    //   oBits - the size of the output keying material in bits
+    //   eccKeyShare     - the ECC key share encoded as an octet string
+    //   eccCipherText   - the ECC ciphertext encoded as an octet string
+    //   kyberKeyShare   - the Kyber key share encoded as an octet string
+    //   kyberCipherText - the Kyber ciphertext encoded as an octet string
+    //   fixedInfo       - the fixed information octet string
+    //   oBits           - the size of the output keying material in bits
+    //
+    //   Constants:
+    //   domSeparation       - the UTF-8 encoding of the string
+    //                         "OpenPGPCompositeKeyDerivationFunction"
+    //   counter             - the fixed 4 byte value 0x00000001
     //   customizationString - the UTF-8 encoding of the string "KDF"
 
-    encKeyShares = counter || eccKeyShare || kyberKeyShare || fixedInfo
-    MB = KMAC256(domSeparation, encKeyShares, oBits, customizationString)
+    eccKemData = eccKeyShare || eccCipherText
+    kyberKemData = kyberKeyShare || kyberCipherText
+    encData = counter || eccKemData || kyberKemData || fixedInfo
+
+    MB = KMAC256(domSeparation, encData, oBits, customizationString)
+
+Note that the values `eccKeyShare` defined in {{ecc-kem}} and `kyberKeyShare`
+defined in {{kyber-kem}} already use the relative ciphertext in the
+derivation. The ciphertext is by design included again in the key combiner to
+provide a robust security proof.
 
 The value of `domSeparation` is the UTF-8 encoding of the string
 "OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:
@@ -894,10 +980,10 @@ and MUST be set to the following octet sequence:
 
 The implementation MUST independently generate the Kyber and the ECC component
 keys. Kyber key generation follows the specification [KYBER-Subm] and the
-artifacts are encoded in native format as fixed-length octet strings.
-For ECC this is done following the relative specification in {{RFC7748}},
-{{SP800-186}}, or {{RFC5639}}, and encoding the outputs as fixed-length
-octet strings in the format specified in table {{tab-ecdh-cfrg-artifacts}},
+artifacts are encoded as fixed-length octet strings. For ECC this is done
+following the relative specification in {{RFC7748}}, {{SP800-186}}, or
+{{RFC5639}}, and encoding the outputs as fixed-length octet strings in the
+format specified in table {{tab-ecdh-cfrg-artifacts}},
 {{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
 
 ### Encryption procedure {#ecc-kyber-encryption}
@@ -925,7 +1011,7 @@ scheme is as follows:
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 8. Compute `KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)` as
+ 8. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, kyberKeyShare, kyberCipherText, fixedInfo, oBits=256)` as
     defined in {{kem-key-combiner}}
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}}
@@ -964,7 +1050,7 @@ scheme is as follows:
 
  9. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 10. Compute `KEK := multiKeyCombine(eccKeyShare, kyberKeyShare, fixedInfo)`
+ 10. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, kyberKeyShare, kyberCipherText, fixedInfo, oBits=256)`
      as defined in {{kem-key-combiner}}
 
  11. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per
@@ -983,8 +1069,8 @@ The algorithm-specific fields consists of:
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
 
- - A fixed-length octet string of the Kyber ciphertext in native format, whose
-   length depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
+ - A fixed-length octet string of the Kyber ciphertext, whose length depends on
+   the algorithm ID as specified in {{tab-kyber-artifacts}}.
 
  - A variable-length field containing the wrapped session key:
 
@@ -1005,18 +1091,16 @@ The algorithm-specific public key is this series of values:
  - A fixed-length octet string representing an EC point public key, in the
    point format associated with the curve specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the Kyber public key in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-kyber-artifacts}}.
+ - A fixed-length octet string containing the Kyber public key, whose length
+   depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
 
 The algorithm-specific secret key is these two values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and
    length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the Kyber secret key in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-kyber-artifacts}}.
+ - A fixed-length octet string containing the Kyber secret key, whose length
+   depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
 
 # Composite Signature Schemes
 
@@ -1032,15 +1116,15 @@ and
 
     (verified) <- eddsa.verify(eddsaPublicKey, eddsaSignature, dataDigest)
 
-The public and private keys, as well as the signature MUST be encoded in native
-format according to [RFC8032] in fixed-length octet strings. The following
-table describes the EdDSA parameters and artifact lengths:
+The public and private keys, as well as the signature MUST be encoded according
+to [RFC8032] as fixed-length octet strings. The following table describes the
+EdDSA parameters and artifact lengths:
 
 {: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
 Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signature
 ----------------------:| ------- | ---------- | ---------- | ---------- | ---------
-31                     | Ed25519 | 32         | 32         | 32         | 64
-32                     | Ed448   | 57         | 57         | 57         | 114
+35                     | Ed25519 | 32         | 32         | 32         | 64
+36                     | Ed448   | 57         | 57         | 57         | 114
 
 ### ECDSA-Based signatures {#ecdsa-signature}
 
@@ -1064,42 +1148,41 @@ The following table describes the ECDSA parameters and artifact lengths:
 {: title="ECDSA parameters and artifact lengths in octets" #tab-ecdsa-artifacts}
 Algorithm ID reference | Curve           | Field size | Public key | Secret key | Signature value R | Signature value S
 ----------------------:| --------------- | ---------- | ---------- | ---------- | ----------------- | -----------------
-33                     | NIST P-256      | 32         | 65         | 32         | 32                | 32
-34                     | NIST P-384      | 48         | 97         | 48         | 48                | 48
-35                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
-36                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
+37                     | NIST P-256      | 32         | 65         | 32         | 32                | 32
+38                     | NIST P-384      | 48         | 97         | 48         | 48                | 48
+39                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
+40                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
 ### Dilithium signatures {#dilithium-signature}
 
 The procedure for Dilithium signature generation is the function `Sign(sk, M)`
 given in Figure 4 in [DILITHIUM-Subm], where `sk` is the Dilithium private key
-in native format and `M` is the data to be signed. OpenPGP does not use the
-optional randomized signing given as a variant in the definition of this
-function, i.e. `rho' := H(K || mu)` is used. The signing function returns the
-Dilithium signature in native format. That is, to sign with Dilithium the
-following operation is defined:
+and `M` is the data to be signed. OpenPGP does not use the optional randomized
+signing given as a variant in the definition of this function, i.e. `rho' :=
+H(K || mu)` is used. The signing function returns the Dilithium signature. That
+is, to sign with Dilithium the following operation is defined:
 
     (dilithiumSignature) <- dilithium.sign(dilithiumPrivateKey,
                                            dataDigest)
 
 The procedure for Dilithium signature verification is the function `Verify(pk,
 M, sigma)` given in Figure 4 in [DILITHIUM-Subm], where `pk` is the Dilithium
-public key in native format, `M` is the data to be signed and `sigma` is the
-Dilithium signature in native format. That is, to verify with Dilithium the
-following operation is defined:
+public key, `M` is the data to be signed and `sigma` is the Dilithium
+signature. That is, to verify with Dilithium the following operation is
+defined:
 
     (verified) <- dilithium.verify(dilithiumPublicKey, dataDigest,
                                    dilithiumSignature)
 
 Dilithium has the parameterization with the corresponding artifact lengths in
-octets as given in {{tab-dilithium-artifacts}}. All artifacts are in the native
-format defined in [Dilithium-Subm].
+octets as given in {{tab-dilithium-artifacts}}. All artifacts are encoded as
+defined in [Dilithium-Subm].
 
 {: title="Dilithium parameters and artifact lengths in octets" #tab-dilithium-artifacts}
 Algorithm ID reference | Dilithium instance | Public key | Secret key | Signature value
 ----------------------:| ------------------ | -----------| ---------- | ---------------
-31, 33, 35             | Dilithium3         | 1952       | 4000       | 3293
-32, 34, 36             | Dilithium5         | 2592       | 4864       | 4595
+35, 37, 39             | Dilithium3         | 1952       | 4000       | 3293
+36, 38, 40             | Dilithium5         | 2592       | 4864       | 4595
 
 ## Composite Signature Schemes with Dilithium {#ecc-dilithium}
 
@@ -1116,11 +1199,11 @@ order to support the hash binding with Dilithium + ECC signatures.
 
 The implementation MUST independently generate the Dilithium and the ECC
 component keys. Dilithium key generation follows the specification in
-[DILITHIUM-Subm] and the artifacts are encoded in native format as
-fixed-length octet strings as defined in {{dilithium-signature}}.
-For ECC this is done following the relative specification in {{RFC7748}},
-{{SP800-186}}, or {{RFC5639}}, and encoding the artifacts as specified in
-{{eddsa-signature}} or {{ecdsa-signature}} as fixed-length octet strings.
+[DILITHIUM-Subm] and the artifacts are encoded as fixed-length octet strings as
+defined in {{dilithium-signature}}. For ECC this is done following the relative
+specification in {{RFC7748}}, {{SP800-186}}, or {{RFC5639}}, and encoding the
+artifacts as specified in {{eddsa-signature}} or {{ecdsa-signature}} as
+fixed-length octet strings.
 
 ### Signature Generation
 
@@ -1186,13 +1269,11 @@ defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
 The algorithm-specific v6 signature parameters for Dilithium + EdDSA signatures
 consists of:
 
- - A fixed-length octet string representing the EdDSA signature in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-eddsa-artifacts}}.
+ - A fixed-length octet string representing the EdDSA signature, whose length
+   depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string of the Dilithium signature value in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string of the Dilithium signature value, whose length
+   depends on the algorithm ID as specified in {{tab-dilithium-artifacts}}.
 
 The algorithm-specific v6 signature parameters for Dilithium + ECDSA signatures
 consists of:
@@ -1203,9 +1284,8 @@ consists of:
  - A fixed-length octet string of the big-endian encoded ECDSA value `S`, whose
    length depends on the algorithm ID as specified in {{tab-ecdsa-artifacts}}.
 
- - A fixed-length octet string of the Dilithium signature value in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string of the Dilithium signature value, whose length
+   depends on the algorithm ID as specified in {{tab-dilithium-artifacts}}.
 
 ### Key Material Packets
 
@@ -1215,23 +1295,21 @@ defined in [I-D.ietf-openpgp-crypto-refresh].
 The algorithm-specific public key for Dilithium + EdDSA keys is this series of
 values:
 
- - A fixed-length octet string representing the EdDSA public key in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-eddsa-artifacts}}.
+ - A fixed-length octet string representing the EdDSA public key, whose length
+   depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium public key in native
-   format, whose length depends on the algorithm ID as specified in
+ - A fixed-length octet string containing the Dilithium public key, whose
+   length depends on the algorithm ID as specified in
    {{tab-dilithium-artifacts}}.
 
 The algorithm-specific private key for Dilithium + EdDSA keys is this series of
 values:
 
- - A fixed-length octet string representing the EdDSA secret key in native
-   format, whose length depends on the algorithm ID as specified in
-   {{tab-eddsa-artifacts}}.
+ - A fixed-length octet string representing the EdDSA secret key, whose length
+   depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium secret key in native
-   format, whose length depends on the algorithm ID as specified in
+ - A fixed-length octet string containing the Dilithium secret key, whose
+   length depends on the algorithm ID as specified in
    {{tab-dilithium-artifacts}}.
 
 The algorithm-specific public key for Dilithium + ECDSA keys is this
@@ -1281,19 +1359,19 @@ invalid.
 {: title="Binding between SPHINCS+ and signature hashes" #tab-sphincs-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
-37                     | 1, 2                   | SHA-256       | 8
-37                     | 3, 4, 5, 6             | SHA-512       | 10
-38                     | 1, 2                   | SHA3-256      | 12
-38                     | 3, 4, 5, 6             | SHA3-512      | 14
+41                     | 1, 2                   | SHA-256       | 8
+41                     | 3, 4, 5, 6             | SHA-512       | 10
+42                     | 1, 2                   | SHA3-256      | 12
+42                     | 3, 4, 5, 6             | SHA3-512      | 14
 
 An implementation supporting a specific SPHINCS+ algorithm and parameter MUST
 also support the matching hash algorithm.
 
 ### Key generation
 
-The SPHINCS+ key generation is performed according to the function `spx_keygen()` specified in
-{{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private and public key are encoded in
-native format.
+The SPHINCS+ key generation is performed according to the function
+`spx_keygen()` specified in {{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private
+and public key are encoded as defined in {{SPHINCS-Subm}}.
 
 ### Signature Generation
 
@@ -1331,8 +1409,8 @@ The algorithm-specific v6 Signature parameters consists of:
    {{sphincs-param-sha2}} and {{sphincs-param-shake}}. The values `0x00` and
    `0xFF` are reserved for future extensions.
 
- - A fixed-length octet string of the SPHINCS+ signature value in native
-   format, whose length depends on the parameter ID in the format specified in
+ - A fixed-length octet string of the SPHINCS+ signature value, whose length
+   depends on the parameter ID in the format specified in
    {{sphincs-artifact-lengths}}.
 
 ### Key Material Packets
@@ -1409,11 +1487,19 @@ computer attacks.
 
 # Security Considerations
 
+## Hashing in ECC-KEM
+
+Our construction of the ECC-KEMs, in particular the final hashing step in
+encapsulation and decapsulation that produces the `eccKeyShare`, is standard
+and known as hashed ElGamal key encapsulation, a hashed variant of ElGamal
+encryption. It ensures IND-CCA2 security in the random oracle model under some
+Diffie-Hellman intractability assumptions [CS03].
+
 ## Key combiner {#sec-key-combiner}
 
 For the key combination in {{kem-key-combiner}} this specification limits
 itself to the use of KMAC. The sponge construction used by KMAC was proven to
-be indifferentiable from a random oracle {{SPONGE}}. This means, that in
+be indifferentiable from a random oracle {{BDPA08}}. This means, that in
 contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based
 construction is required for key combination. Except for a domain separation it
 is sufficient to simply process the concatenation of any number of key shares
@@ -1421,18 +1507,30 @@ when using a sponge-based construction like KMAC. The construction using KMAC
 ensures a standardized domain separation. In this case, the processed message
 is then the concatenation of any number of key shares.
 
-More precisely, for a given capacity `c` the indifferentiability proof shows that
-assuming there are no weaknesses found in the Keccak permutation, an attacker
-has to make an expected number of `2^(c/2)` calls to the permutation to tell
-KMAC from a random oracle. For a random oracle, a difference in only a single
-bit gives an unrelated, uniformly random output. Hence, to be able to
-distinguish a key `K`, derived from shared keys `K1` and `K2` as
+More precisely, for a given capacity `c` the indifferentiability proof shows
+that assuming there are no weaknesses found in the Keccak permutation, an
+attacker has to make an expected number of `2^(c/2)` calls to the permutation
+to tell KMAC from a random oracle. For a random oracle, a difference in only a
+single bit gives an unrelated, uniformly random output. Hence, to be able to
+distinguish a key `K`, derived from shared keys `K1` and `K2` (and ciphertexts
+`C1` and `C2`) as
 
-    K = KMAC(domainSeparation, counter || K1 || K2 || fixedInfo,
+    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
              outputBits, customization)
 
 from a random bit string, an adversary has to know (or correctly guess) both
 key shares `K1` and `K2`, entirely.
+
+The proposed construction in {{kem-key-combiner}} preserves IND-CCA2 of any of
+its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as
+long as at least one of the ingredient KEMs is. Indeed, the above stated
+indifferentiability from a random oracle qualifies Keccak as a split-key
+pseudorandom function as defined in {{GHP18}}. That is, Keccak behaves like a
+random function if at least one input shared secret is picked uniformly at
+random. Our construction can thus be seen as an instantiation of the IND-CCA2
+preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input
+shared secrets and ciphertexts. In the random oracle setting, the reordering
+does not influence the arguments in {{GHP18}}.
 
 ## Domain separation and binding {#sec-fixed-info}
 
@@ -1498,10 +1596,23 @@ expense of a larger signature generation time.
 
 # IANA Considerations
 
-IANA is requested to add the algorithm IDs defined in {{kem-alg-specs}} and
-{{sig-alg-specs}}. Furthermore, two additional registers are needed for the
-SPHINCS+-simple-SHA2 and SPHINCS+-simple-SHAKE parameters defined in
-{{sphincs-param-sha2}} and {{sphincs-param-shake}}.
+IANA will add the following registries to the `Pretty Good Privacy (PGP)`
+registry group at https://www.iana.org/assignments/pgp-parameters:
+
+- Registry name: `SPHINCS+-simple-SHA2 parameters`
+
+  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+  Values defined in this document, {{sphincs-param-sha2}}.
+
+- Registry name: `SPHINCS+-simple-SHAKE parameters`
+
+  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+  Values defined in this document, {{sphincs-param-shake}}.
+
+Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
+{{sig-alg-specs}} to the  registry `Public Key Algorithms`.
 
 # Contributors
 
