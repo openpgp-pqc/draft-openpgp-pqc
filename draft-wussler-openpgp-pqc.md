@@ -1485,11 +1485,13 @@ computer attacks.
 
 ## Hashing in ECC-KEM
 
-Our construction of the ECC-KEMs, in particular the final hashing step in
-encapsulation and decapsulation that produces the `eccKeyShare`, is standard
-and known as hashed ElGamal key encapsulation, a hashed variant of ElGamal
-encryption. It ensures IND-CCA2 security in the random oracle model under some
-Diffie-Hellman intractability assumptions [CS03].
+Our construction of the ECC-KEMs, in particular the inclusion of
+`eccCipherText` in the final hashing step in encapsulation and decapsulation
+that produces the `eccKeyShare`, is standard and known as hashed ElGamal key
+encapsulation, a hashed variant of ElGamal encryption. It ensures IND-CCA2
+security in the random oracle model under some Diffie-Hellman intractability
+assumptions [CS03]. The additional inclusion of `eccPublicKey` follows the
+security advice in Section 6.1 of {{RFC7748}}.
 
 ## Key combiner {#sec-key-combiner}
 
