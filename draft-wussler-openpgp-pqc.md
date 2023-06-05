@@ -762,14 +762,14 @@ The operation `x25519Kem.encap()` is defined as follows:
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
+ 4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
 The operation `x25519Kem.decap()` is defined as follows:
 
  1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
+ 2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
 #### X448-KEM {#x448-kem}
 
@@ -788,14 +788,14 @@ The operation `x448.encap()` is defined as follows:
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
+ 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
 The operation `x448Kem.decap()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
+ 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
 #### ECDH-KEM {#ecdh-kem}
 
@@ -812,7 +812,7 @@ The operation `ecdhKem.encap()` is defined as follows:
 
  4. Set the output `eccCipherText` to the SEC1 encoding of `V`
 
- 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+ 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
@@ -824,7 +824,7 @@ The operation `ecdhKem.decap()` is defined as follows:
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
 
- 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+ 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
