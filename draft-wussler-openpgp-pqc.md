@@ -489,7 +489,7 @@ categorized as follows:
  - PQ digital signature, namely SPHINCS+ as a standalone cryptographic
    algorithm.
 
-For each of the composite schemes, this specifications mandates that the
+For each of the composite schemes, this specification mandates that the
 recipient has to successfully perform the cryptographic algorithms for each of
 the component schemes used in a cryptrographic message, in order for the
 message to be deciphered and considered as valid. This means that all component
@@ -541,7 +541,7 @@ compatible with the definition given in [SEC1].
 
 ### Measures to Ensure Secure Implementations
 
-The following paragraphs describe measures that ensure secure implementations
+In the following measures are described that ensure secure implementations
 according to existing best practices and standards defining the operations of
 Elliptic Curve Cryptography.
 
@@ -551,7 +551,7 @@ appear in any ECC data structure defined in this document.
 
 Furthermore, when performing the explicitly listed operations in
 {{x25519-kem}}, {{x448-kem}} or {{ecdh-kem}} it is REQUIRED to follow the
-specification and security advisory mandated from the relative elliptic curve specification.
+specification and security advisory mandated from the respective elliptic curve specification.
 
 
 # Supported Public Key Algorithms
@@ -645,8 +645,8 @@ single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently
 supports parallel encryption to different keys of the same recipient.
-Implementations MUST NOT encrypt a message to a purely traditional public-key
-encryption key of a recipient if it is encrypted to a PQ/T key of the same
+Implementations MUST NOT encrypt a message with a purely traditional public-key
+encryption key of a recipient if it is encrypted with a PQ/T key of the same
 recipient.
 
 ## Composite Signatures
@@ -755,7 +755,8 @@ the base point of Curve25519.
 
 The operation `x25519Kem.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v`
+    is a random scalar
 
  2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -781,7 +782,8 @@ of Curve448.
 
 The operation `x448.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
+    is a random scalar
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -802,7 +804,7 @@ The operation `x448Kem.decap()` is defined as follows:
 The operation `ecdhKem.encap()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
-    {{SP800-186}} or {{RFC5639}}
+    {{SP800-186}} or {{RFC5639}} where `v` is a random scalar
 
  2. Compute the shared point `S = vR`, where `R` is the component public key
     `eccPublicKey`, according to {{SP800-186}} or {{RFC5639}}
