@@ -1019,8 +1019,7 @@ scheme is as follows:
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}}
     that includes a 64 bit integrity check
 
- 10. Output `eccCipherText || kyberCipherText || len(C) || C` as specified in
-     {{ecc-kyber-pkesk}}
+ 10. Output `eccCipherText || kyberCipherText || len(C) || C`
 
 ### Decryption procedure
 
