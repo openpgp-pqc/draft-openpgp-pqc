@@ -489,7 +489,7 @@ categorized as follows:
  - PQ digital signature, namely SPHINCS+ as a standalone cryptographic
    algorithm.
 
-For each of the composite schemes, this specifications mandates that the
+For each of the composite schemes, this specification mandates that the
 recipient has to successfully perform the cryptographic algorithms for each of
 the component schemes used in a cryptrographic message, in order for the
 message to be deciphered and considered as valid. This means that all component
@@ -541,7 +541,7 @@ compatible with the definition given in [SEC1].
 
 ### Measures to Ensure Secure Implementations
 
-The following paragraphs describe measures that ensure secure implementations
+In the following measures are described that ensure secure implementations
 according to existing best practices and standards defining the operations of
 Elliptic Curve Cryptography.
 
@@ -551,7 +551,7 @@ appear in any ECC data structure defined in this document.
 
 Furthermore, when performing the explicitly listed operations in
 {{x25519-kem}}, {{x448-kem}} or {{ecdh-kem}} it is REQUIRED to follow the
-specification and security advisory mandated from the relative elliptic curve specification.
+specification and security advisory mandated from the respective elliptic curve specification.
 
 
 # Supported Public Key Algorithms
@@ -645,8 +645,8 @@ single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently
 supports parallel encryption to different keys of the same recipient.
-Implementations MUST NOT encrypt a message to a purely traditional public-key
-encryption key of a recipient if it is encrypted to a PQ/T key of the same
+Implementations MUST NOT encrypt a message with a purely traditional public-key
+encryption key of a recipient if it is encrypted with a PQ/T key of the same
 recipient.
 
 ## Composite Signatures
@@ -755,21 +755,22 @@ the base point of Curve25519.
 
 The operation `x25519Kem.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v`
+    is a random scalar
 
  2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
     `eccPublicKey`
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
+ 4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
 The operation `x25519Kem.decap()` is defined as follows:
 
  1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText)`
+ 2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
 #### X448-KEM {#x448-kem}
 
@@ -781,28 +782,29 @@ of Curve448.
 
 The operation `x448.encap()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))`
+ 1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
+    is a random scalar
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
     `eccPublicKey`
 
  3. Set the output `eccCipherText` to `V`
 
- 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
+ 4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
 The operation `x448Kem.decap()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
 
- 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText)`
+ 2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
 #### ECDH-KEM {#ecdh-kem}
 
 The operation `ecdhKem.encap()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
-    {{SP800-186}} or {{RFC5639}}
+    {{SP800-186}} or {{RFC5639}} where `v` is a random scalar
 
  2. Compute the shared point `S = vR`, where `R` is the component public key
     `eccPublicKey`, according to {{SP800-186}} or {{RFC5639}}
@@ -812,7 +814,7 @@ The operation `ecdhKem.encap()` is defined as follows:
 
  4. Set the output `eccCipherText` to the SEC1 encoding of `V`
 
- 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+ 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
@@ -824,7 +826,7 @@ The operation `ecdhKem.decap()` is defined as follows:
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
 
- 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText)`, with `Hash`
+ 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
@@ -1489,11 +1491,13 @@ computer attacks.
 
 ## Hashing in ECC-KEM
 
-Our construction of the ECC-KEMs, in particular the final hashing step in
-encapsulation and decapsulation that produces the `eccKeyShare`, is standard
-and known as hashed ElGamal key encapsulation, a hashed variant of ElGamal
-encryption. It ensures IND-CCA2 security in the random oracle model under some
-Diffie-Hellman intractability assumptions [CS03].
+Our construction of the ECC-KEMs, in particular the inclusion of
+`eccCipherText` in the final hashing step in encapsulation and decapsulation
+that produces the `eccKeyShare`, is standard and known as hashed ElGamal key
+encapsulation, a hashed variant of ElGamal encryption. It ensures IND-CCA2
+security in the random oracle model under some Diffie-Hellman intractability
+assumptions [CS03]. The additional inclusion of `eccPublicKey` follows the
+security advice in Section 6.1 of {{RFC7748}}.
 
 ## Key combiner {#sec-key-combiner}
 
