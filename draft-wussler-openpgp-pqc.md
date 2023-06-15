@@ -1066,13 +1066,13 @@ scheme is as follows:
 
 The algorithm-specific fields consists of:
 
- - The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).
-
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
 
  - A fixed-length octet string of the Kyber ciphertext, whose length depends on
    the algorithm ID as specified in {{tab-kyber-artifacts}}.
+
+ - The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).
 
  - A variable-length field containing the wrapped session key:
 
@@ -1082,9 +1082,9 @@ The algorithm-specific fields consists of:
      the output of the encryption procedure described in
      {{ecc-kyber-encryption}}.
 
-Note that unlike ECDH, no checksum or padding are appended to the session key before key wrapping.
-Further note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
+Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
 Instead, it is prepended to the encrypted session key in plaintext.
+In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
 
 ### Key Material Packets {#kyber-ecc-key}
 
