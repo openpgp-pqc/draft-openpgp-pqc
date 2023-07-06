@@ -1553,7 +1553,7 @@ without the final recipient's knowledge.
 
 This is in line with the Recommendation for ECC in section 5.5 of
 [SP800-56A]. Other fields included in the recommendation are not relevant
-for the OpenPGP protocol, since the sender is not required to have a key on
+for the OpenPGP protocol, since the sender is not required to have a key of
 their own, there are no pre-shared secrets, and all the other parameters are
 univocally defined by the algorithm ID.
 
