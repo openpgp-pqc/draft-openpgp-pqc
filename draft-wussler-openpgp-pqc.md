@@ -1559,9 +1559,15 @@ using a KEM-combiner:
 
     K = H(K1, C1, K2, C2), C = (C1, C2)
 
-We do not have to add PK1 and PK2 to H to preserve multi-user security, because
-to break security the adversary has to distinguish a set of challenge keys K*_u
-from random, one per user or public key.
+Our aim is to preserve multi-user security. A common approach to this is to add
+the public key into the key derivation for K. However, it turns out that this is
+not necessary here. To break security of the combined scheme in the multi-user
+setting, the adversary has to distinguish a set of challenge keys
+
+  K*_u = H(K1*_u, C1*_u, K2*_u, C2*_u)
+
+for users u in some set from random, also given ciphertexts `C*_u = (C1*_u,
+C2*_u)`.
 For each of these K* it holds that if the adversary never makes a query
 
     H(K1*_u, C1*_u, K2*_u, C2*_u)
