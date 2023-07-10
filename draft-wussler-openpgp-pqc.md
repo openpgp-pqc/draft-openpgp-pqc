@@ -916,10 +916,8 @@ use as binding between the KEK and the communication parties.
 
     //   Input:
     //   algID     - the algorithm ID encoded as octet
-    //   publicKey - the recipient's encryption sub-key packet
-    //               serialized as octet string
 
-    fixedInfo = algID || SHA3-256(publicKey)
+    fixedInfo = algID
 
 SHA3-256 MUST be used to hash the `publicKey` of the recipient.
 
@@ -1545,17 +1543,51 @@ context.
 The `fixedInfo` defined in {{kem-fixed-info}} binds the derived KEK to the
 chosen algorithm and communication parties. The algorithm ID identifies
 univocally the algorithm, the parameters for its instantiation, and the length
-of all artifacts, including the derived key. The hash of the recipient's
-public key identifies the subkey used to encrypt the message, binding the KEK
-to both the Kyber and the ECC key. Given that both algorithms allow a degree of
-ciphertext malleability, this prevents transformations onto the ciphertext
-without the final recipient's knowledge.
+of all artifacts, including the derived key.
 
 This is in line with the Recommendation for ECC in section 5.5 of
 [SP800-56A]. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key of
 their own, there are no pre-shared secrets, and all the other parameters are
 univocally defined by the algorithm ID.
+
+Furthermore, we do not require the recipients public key into the key combiner
+as the public key material is already included in the component key derivation
+functions.
+Given two KEMs which we assume to be multi-user secure, we combine their outputs
+using a KEM-combiner:
+
+    K = H(K1, C1, K2, C2), C = (C1, C2)
+
+Our aim is to preserve multi-user security. A common approach to this is to add
+the public key into the key derivation for K. However, it turns out that this is
+not necessary here. To break security of the combined scheme in the multi-user
+setting, the adversary has to distinguish a set of challenge keys
+
+  K*_u = H(K1*_u, C1*_u, K2*_u, C2*_u)
+
+for users u in some set from random, also given ciphertexts `C*_u = (C1*_u,
+C2*_u)`.
+For each of these K* it holds that if the adversary never makes a query
+
+    H(K1*_u, C1*_u, K2*_u, C2*_u)
+
+they have a zero advantage over guessing.
+
+The only multi-user advantage that the adversary could gain therefore consists
+of queries to H that are meaningful for two different users u1 != u2 and their
+associated public keys.
+This is only the case if
+
+    (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
+
+as the ciphertext values decide for which challenge the query is meaningful.
+This means that a ciphertext collision is needed between challenges.
+Assuming that the randomness used in the generation of the two challenges is
+uncorrelated, this is negligible.
+
+In consequence, the ciphertexts already work sufficiently well as
+domain-separator.
 
 ## SPHINCS+ {#sphincs-sec-cons}
 
