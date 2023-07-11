@@ -919,8 +919,6 @@ use as binding between the KEK and the communication parties.
 
     fixedInfo = algID
 
-SHA3-256 MUST be used to hash the `publicKey` of the recipient.
-
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following
