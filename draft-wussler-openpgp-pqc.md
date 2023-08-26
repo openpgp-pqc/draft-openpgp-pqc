@@ -226,6 +226,27 @@ informative:
           ins: D. Stehle
       date: 2021-08-04
 
+  FIPS-203:
+      target: https://doi.org/10.6028/NIST.FIPS.203.ipd
+      title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2023
+
+  FIPS-204:
+      target: https://doi.org/10.6028/NIST.FIPS.204.ipd
+      title: Module-Lattice-Based Digital Signature Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2023
+
+  FIPS-205:
+      target: https://doi.org/10.6028/NIST.FIPS.205.ipd
+      title: Stateless Hash-Based Digital Signature Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2023
+
   DILITHIUM-Subm:
       title: CRYSTALS-Dilithium - Algorithm Specifications and Supporting Documentation (Version 3.1)
       author:
@@ -346,9 +367,10 @@ This document defines a post-quantum public-key algorithm extension for the
 OpenPGP protocol. Given the generally assumed threat of a cryptographically
 relevant quantum computer, this extension provides a basis for long-term secure
 OpenPGP signatures and ciphertexts. Specifically, it defines composite
-public-key encryption based on CRYSTALS-Kyber, composite public-key signatures
-based on CRYSTALS-Dilithium, both in combination with elliptic curve
-cryptography, and SPHINCS+ as a standalone public key signature scheme.
+public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite
+public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
+combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
+as a standalone public key signature scheme.
 
 --- middle
 
@@ -365,21 +387,21 @@ The algorithms defined in this extension were chosen for standardization by the
 National Institute of Standards and Technology (NIST) in mid 2022
 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography
 Standardization process initiated in 2016 {{NIST-PQC}}. Namely, these are
-CRYSTALS-Kyber as a Key Encapsulation Mechanism (KEM), a KEM being a modern
-building block for public-key encryption, and CRYSTALS-Dilithium as well as
-SPHINCS+ as signature schemes.
+ML-KEM (formerly CRYSTALS-Kyber) as a Key Encapsulation Mechanism (KEM), a KEM
+being a modern building block for public-key encryption, and ML-DSA (formerly
+CRYSTALS-Dilithium) as well as SLH-DSA (formerly SPHINCS+) as signature
+schemes.
 
-For the two CRYSTALS-* schemes, this document follows the conservative strategy
-to deploy post-quantum in combination with traditional schemes such that the
+For the two ML-* schemes, this document follows the conservative strategy to
+deploy post-quantum in combination with traditional schemes such that the
 security is retained even if all schemes but one in the combination are broken.
-In contrast, the hashed-based signature scheme SPHINCS+ is considered to be
+In contrast, the hashed-based signature scheme SLH-DSA is considered to be
 sufficiently well understood with respect to its security assumptions in order
 to be used standalone. To this end, this document specifies the following new
-set: SPHINCS+ standalone and CRYSTALS-* as composite with ECC-based KEM and
-digital signature schemes. Here, the term "composite" indicates that any data
-structure or algorithm pertaining to the
-combination of the two components appears as single data structure or algorithm
-from the protocol perspective.
+set: SLH-DSA standalone and ML-* as composite with ECC-based KEM and digital
+signature schemes. Here, the term "composite" indicates that any data structure
+or algorithm pertaining to the combination of the two components appears as
+single data structure or algorithm from the protocol perspective.
 
 The document specifies the conventions for interoperability between compliant
 OpenPGP implementations that make use of this extension and the newly defined
@@ -401,47 +423,33 @@ abbreviation "PQ/T" is used. The short form "PQ(/T)" stands for PQ or PQ/T.
 This section describes the individual post-quantum cryptographic schemes. All
 schemes listed here are believed to provide security in the presence of a
 cryptographically relevant quantum computer. However, the mathematical problems
-on which the two CRYSTALS-* schemes and SPHINCS+ are based, are fundamentally
+on which the two ML-* schemes and SLH-DSA are based, are fundamentally
 different, and accordingly the level of trust commonly placed in them as well
 as their performance characteristics vary.
 
-\[Note to the reader: This specification refers to the latest NIST submission
-papers of each scheme as if it were a specification. This is a temporary
-solution that is owed to the fact that currently no other specification is
-available. The goal is to provide a sufficiently precise specification of the
-algorithms already at the draft stage of this specification, so that it is
-possible for implementers to create interoperable implementations. As soon as
-standards by NIST or the IETF for the PQC schemes employed in this
-specification are available, these will replace the references to the NIST
-submission papers. Furthermore, we want to point out that, depending on
-possible changes to the schemes standardized by NIST, this specification may be
-updated substantially as soon as corresponding information becomes available.\]
+### ML-KEM {#mlkem-intro}
 
-### CRYSTALS-Kyber {#kyber-intro}
+ML-KEM [FIPS-203] is based on the hardness of solving the learning-with-errors
+problem in module lattices (MLWE). The scheme is believed to provide security
+against cryptanalytic attacks by classical as well as quantum computers. This
+specification defines ML-KEM only in composite combination with ECC-based
+encryption schemes in order to provide a pre-quantum security fallback.
 
-CRYSTALS-Kyber [Kyber-Subm] is based on the hardness of solving the
-learning-with-errors problem in module lattices (MLWE). The scheme is believed
-to provide security against cryptanalytic attacks by classical as well as
-quantum computers. This specification defines CRYSTALS-Kyber only in composite
-combination with ECC-based encryption schemes in order to provide a pre-quantum
-security fallback.
+### ML-DSA {#mldsa-intro}
 
-### CRYSTALS-Dilithium {#dilithium-intro}
+ML-DSA [FIPS-204] is a signature scheme that, like ML-KEM, is based on the
+hardness of solving lattice problems in module lattices. Accordingly, this
+specification only defines ML-DSA in composite combination with ECC-based
+signature schemes.
 
-CRYSTALS-Dilithium, defined in [DILITHIUM-Subm], is a signature scheme that,
-like CRYSTALS-Kyber, is based on the hardness of solving lattice problems in
-module lattices. Accordingly, this specification only defines
-CRYSTALS-Dilithium in composite combination with ECC-based signature schemes.
+### SLH-DSA
 
-### SPHINCS+
+SLH-DSA [FIPS-205] is a stateless hash-based signature scheme. Its security
+relies on the hardness of finding preimages for cryptographic hash functions.
+This feature is generally considered to be a high security guarantee.
+Therefore, this specification defines SLH-DSA as a standalone signature scheme.
 
-SPHINCS+ [SPHINCS-Subm] is a stateless hash-based signature scheme. Its
-security relies on the hardness of finding preimages for cryptographic hash
-functions. This feature is generally considered to be a high security
-guarantee. Therefore, this specification defines SPHINCS+ as a standalone
-signature scheme.
-
-In deployments the performance characteristics of SPHINCS+ should be taken into
+In deployments the performance characteristics of SLH-DSA should be taken into
 account. We refer to {{performance-considerations}} for a discussion of the
 performance characteristics of this scheme.
 
@@ -481,12 +489,12 @@ This specification introduces new cryptographic schemes, which can be
 categorized as follows:
 
  - PQ/T multi-algorithm public-key encryption, namely a composite combination
-   of CRYSTALS-Kyber with an ECC-based KEM,
+   of ML-KEM with an ECC-based KEM,
 
  - PQ/T multi-algorithm digital signature, namely composite combinations of
-   CRYSTALS-Dilithium with ECC-based signature schemes,
+   ML-DSA with ECC-based signature schemes,
 
- - PQ digital signature, namely SPHINCS+ as a standalone cryptographic
+ - PQ digital signature, namely SLH-DSA as a standalone cryptographic
    algorithm.
 
 For each of the composite schemes, this specification mandates that the
@@ -551,14 +559,15 @@ appear in any ECC data structure defined in this document.
 
 Furthermore, when performing the explicitly listed operations in
 {{x25519-kem}}, {{x448-kem}} or {{ecdh-kem}} it is REQUIRED to follow the
-specification and security advisory mandated from the respective elliptic curve specification.
+specification and security advisory mandated from the respective elliptic curve
+specification.
 
 
 # Supported Public Key Algorithms
 
-This section specifies the composite Kyber + ECC and Dilithium + ECC schemes as
-well as the standalone SPHINCS+ signature scheme. The composite schemes are
-fully specified via their algorithm ID. The SPHINCS+ signature schemes are
+This section specifies the composite ML-KEM + ECC and ML-DSA + ECC schemes as
+well as the standalone SLH-DSA signature scheme. The composite schemes are
+fully specified via their algorithm ID. The SLH-DSA signature schemes are
 fully specified by their algorithm ID and an additional parameter ID.
 
 ## Algorithm Specifications
@@ -566,69 +575,69 @@ fully specified by their algorithm ID and an additional parameter ID.
 For encryption, the following composite KEM schemes are specified:
 
 {: title="KEM algorithm specifications" #kem-alg-specs}
-ID | Algorithm                        | Requirement | Definition
---:| -------------------------------- | ----------- | --------------------
-29 | Kyber768  + X25519               | MUST        | {{ecc-kyber}}
-30 | Kyber1024 + X448                 | SHOULD      | {{ecc-kyber}}
-31 | Kyber768  + ECDH-NIST-P-256      | MAY         | {{ecc-kyber}}
-32 | Kyber1024 + ECDH-NIST-P-384      | MAY         | {{ecc-kyber}}
-33 | Kyber768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-kyber}}
-34 | Kyber1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-kyber}}
+ID | Algorithm                          | Requirement | Definition
+--:| ---------------------------------- | ----------- | --------------------
+29 | ML-KEM-768  + X25519               | MUST        | {{ecc-mlkem}}
+30 | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
+31 | ML-KEM-768  + ECDH-NIST-P-256      | MAY         | {{ecc-mlkem}}
+32 | ML-KEM-1024 + ECDH-NIST-P-384      | MAY         | {{ecc-mlkem}}
+33 | ML-KEM-768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-mlkem}}
+34 | ML-KEM-1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-mlkem}}
 
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
 ID | Algorithm                          | Requirement | Definition
 --:| ---------------------------------- | ----------- | --------------------
-35 | Dilithium3 + Ed25519               | MUST        | {{ecc-dilithium}}
-36 | Dilithium5 + Ed448                 | SHOULD      | {{ecc-dilithium}}
-37 | Dilithium3 + ECDSA-NIST-P-256      | MAY         | {{ecc-dilithium}}
-38 | Dilithium5 + ECDSA-NIST-P-384      | MAY         | {{ecc-dilithium}}
-39 | Dilithium3 + ECDSA-brainpoolP256r1 | MAY         | {{ecc-dilithium}}
-40 | Dilithium5 + ECDSA-brainpoolP384r1 | MAY         | {{ecc-dilithium}}
-41 | SPHINCS+-simple-SHA2               | SHOULD      | {{sphincs}}
-42 | SPHINCS+-simple-SHAKE              | MAY         | {{sphincs}}
+35 | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
+36 | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
+37 | ML-DSA-65 + ECDSA-NIST-P-256       | MAY         | {{ecc-mldsa}}
+38 | ML-DSA-87 + ECDSA-NIST-P-384       | MAY         | {{ecc-mldsa}}
+39 | ML-DSA-65 + ECDSA-brainpoolP256r1  | MAY         | {{ecc-mldsa}}
+40 | ML-DSA-87 + ECDSA-brainpoolP384r1  | MAY         | {{ecc-mldsa}}
+41 | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
+42 | SLH-DSA-SHAKE                      | MAY         | {{slhdsa}}
 
 ## Parameter Specification
 
-### SPHINCS+-simple-SHA2
+### SLH-DSA-SHA2
 
-For the SPHINCS+-simple-SHA2 signature algorithm from {{sig-alg-specs}}, the
-following parameters are specified:
+For the SLH-DSA-SHA2 signature algorithm from {{sig-alg-specs}}, the following
+parameters are specified:
 
-{: title="SPHINCS+-simple-SHA2 security parameters" #sphincs-param-sha2}
+{: title="SLH-DSA-SHA2 security parameters" #slhdsa-param-sha2}
 Parameter ID | Parameter
 ------------:| -------------------------
-1            | SPHINCS+-simple-SHA2-128s
-2            | SPHINCS+-simple-SHA2-128f
-3            | SPHINCS+-simple-SHA2-192s
-4            | SPHINCS+-simple-SHA2-192f
-5            | SPHINCS+-simple-SHA2-256s
-6            | SPHINCS+-simple-SHA2-256f
+1            | SLH-DSA-SHA2-128s
+2            | SLH-DSA-SHA2-128f
+3            | SLH-DSA-SHA2-192s
+4            | SLH-DSA-SHA2-192f
+5            | SLH-DSA-SHA2-256s
+6            | SLH-DSA-SHA2-256f
 
-All security parameters inherit the requirement of SPHINCS+-simple-SHA2 from
+All security parameters inherit the requirement of SLH-DSA-SHA2 from
 {{sig-alg-specs}}. That is, implementations SHOULD implement the parameters
-specified in {{sphincs-param-sha2}}. The values `0x00` and `0xFF` are reserved
+specified in {{slhdsa-param-sha2}}. The values `0x00` and `0xFF` are reserved
 for future extensions.
 
-### SPHINCS+-simple-SHAKE
+### SLH-DSA-SHAKE
 
-For the SPHINCS+-simple-SHAKE signature algorithm from {{sig-alg-specs}}, the
+For the SLH-DSA-SHAKE signature algorithm from {{sig-alg-specs}}, the
 following parameters are specified:
 
-{: title="SPHINCS+-simple-SHAKE security parameters" #sphincs-param-shake}
+{: title="SLH-DSA-SHAKE security parameters" #slhdsa-param-shake}
 Parameter ID | Parameter
 ------------:| --------------------------
-1            | SPHINCS+-simple-SHAKE-128s
-2            | SPHINCS+-simple-SHAKE-128f
-3            | SPHINCS+-simple-SHAKE-192s
-4            | SPHINCS+-simple-SHAKE-192f
-5            | SPHINCS+-simple-SHAKE-256s
-6            | SPHINCS+-simple-SHAKE-256f
+1            | SLH-DSA-SHAKE-128s
+2            | SLH-DSA-SHAKE-128f
+3            | SLH-DSA-SHAKE-192s
+4            | SLH-DSA-SHAKE-192f
+5            | SLH-DSA-SHAKE-256s
+6            | SLH-DSA-SHAKE-256f
 
-All security parameters inherit the requirement of SPHINCS+-simple-SHAKE from
+All security parameters inherit the requirement of SLH-DSA-SHAKE from
 {{sig-alg-specs}}. That is, implementations MAY implement the parameters
-specified in {{sphincs-param-shake}}. The values `0x00` and `0xFF` are reserved
+specified in {{slhdsa-param-shake}}. The values `0x00` and `0xFF` are reserved
 for future extensions.
 
 # Algorithm Combinations
@@ -873,7 +882,7 @@ The procedure to perform `kyberKem.decap()` is as follows:
 
  2. Set `keyShare` as the Kyber symmetric key
 
-## Composite Encryption Schemes with Kyber {#ecc-kyber}
+## Composite Encryption Schemes with Kyber {#ecc-mlkem}
 
 {{kem-alg-specs}} specifies the following Kyber + ECC composite public-key
 encryption schemes:
@@ -974,17 +983,17 @@ and MUST be set to the following octet sequence:
 
     customizationString := 4B 44 46
 
-### Key generation procedure {#ecc-kyber-generation}
+### Key generation procedure {#ecc-mlkem-generation}
 
 The implementation MUST independently generate the Kyber and the ECC component
-keys. Kyber key generation follows the specification [KYBER-Subm] and the
+keys. Kyber key generation follows the specification [FIPS-203] and the
 artifacts are encoded as fixed-length octet strings. For ECC this is done
 following the relative specification in {{RFC7748}}, {{SP800-186}}, or
 {{RFC5639}}, and encoding the outputs as fixed-length octet strings in the
 format specified in table {{tab-ecdh-cfrg-artifacts}},
 {{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
 
-### Encryption procedure {#ecc-kyber-encryption}
+### Encryption procedure {#ecc-mlkem-encryption}
 
 The procedure to perform public-key encryption with a Kyber + ECC composite
 scheme is as follows:
@@ -1038,7 +1047,7 @@ scheme is as follows:
 
  6. Parse `eccCipherText`, `kyberCipherText`, and `C` from `encryptedKey`
     encoded as `eccCipherText || kyberCipherText || len(C) || C` as specified
-    in {{ecc-kyber-pkesk}}
+    in {{ecc-mlkem-pkesk}}
 
  7. Compute `(eccKeyShare) := eccKem.decap(eccCipherText, eccPrivateKey)`
 
@@ -1057,7 +1066,7 @@ scheme is as follows:
 
 ## Packet specifications
 
-### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-kyber-pkesk}
+### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-mlkem-pkesk}
 
 The algorithm-specific fields consists of:
 
@@ -1075,7 +1084,7 @@ The algorithm-specific fields consists of:
 
    - The wrapped session key represented as an octet string, i.e.,
      the output of the encryption procedure described in
-     {{ecc-kyber-encryption}}.
+     {{ecc-mlkem-encryption}}.
 
 Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
 Instead, it is prepended to the encrypted session key in plaintext.
@@ -1173,7 +1182,7 @@ defined:
 
 Dilithium has the parameterization with the corresponding artifact lengths in
 octets as given in {{tab-dilithium-artifacts}}. All artifacts are encoded as
-defined in [Dilithium-Subm].
+defined in [FIPS-204].
 
 {: title="Dilithium parameters and artifact lengths in octets" #tab-dilithium-artifacts}
 Algorithm ID reference | Dilithium instance | Public key | Secret key | Signature value
@@ -1181,7 +1190,7 @@ Algorithm ID reference | Dilithium instance | Public key | Secret key | Signatur
 35, 37, 39             | Dilithium3         | 1952       | 4000       | 3293
 36, 38, 40             | Dilithium5         | 2592       | 4864       | 4595
 
-## Composite Signature Schemes with Dilithium {#ecc-dilithium}
+## Composite Signature Schemes with Dilithium {#ecc-mldsa}
 
 ### Binding hashes
 
@@ -1192,7 +1201,7 @@ hash algorithms MUST be considered invalid.
 An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
 order to support the hash binding with Dilithium + ECC signatures.
 
-### Key generation procedure {#ecc-dilithium-generation}
+### Key generation procedure {#ecc-mldsa-generation}
 
 The implementation MUST independently generate the Dilithium and the ECC
 component keys. Dilithium key generation follows the specification in
@@ -1217,7 +1226,7 @@ operations has to be performed:
     from {{dilithium-signature}}
 
  4. Encode the EdDSA and Dilithium signatures according to the packet
-    structure given in {{ecc-dilithium-sig-packet}}.
+    structure given in {{ecc-mldsa-sig-packet}}.
 
 To sign a message `M` with Dilithium + ECDSA the following sequence of
 operations has to be performed:
@@ -1232,7 +1241,7 @@ operations has to be performed:
     from {{dilithium-signature}}
 
  4. Encode the ECDSA and Dilithium signatures according to the packet
-    structure given in {{ecc-dilithium-sig-packet}}.
+    structure given in {{ecc-mldsa-sig-packet}}.
 
 ### Signature Verification
 
@@ -1258,7 +1267,7 @@ signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite Dilithium
 
 ## Packet Specifications
 
-### Signature Packet (Tag 2) {#ecc-dilithium-sig-packet}
+### Signature Packet (Tag 2) {#ecc-mldsa-sig-packet}
 
 The composite Dilithium + ECC schemes MUST be used only with v6 signatures, as
 defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
@@ -1333,11 +1342,11 @@ values:
 
 # SPHINCS+
 
-## The SPHINCS+ Algorithms {#algo-sphincs}
+## The SPHINCS+ Algorithms {#slhdsa}
 
 The following table describes the SPHINCS+ parameters and artifact lengths:
 
-{: title="SPHINCS+ parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SPHINCS+-simple-SHA2 and SPHINCS+-simple-SHAKE." #sphincs-artifact-lengths}
+{: title="SPHINCS+ parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SLH-DSA-SHA2 and SLH-DSA-SHAKE." #slhdsa-artifact-lengths}
 Parameter ID reference | Parameter name suffix | SPHINCS+ public key | SPHINCS+ secret key | SPHINCS+ signature
 ----------------------:| ---------------------:| ------------------- | ------------------- | ------------------
 1                      | 128s                  | 32                  | 64                  | 7856
@@ -1350,10 +1359,10 @@ Parameter ID reference | Parameter name suffix | SPHINCS+ public key | SPHINCS+ 
 ### Binding hashes
 
 SPHINCS+ signature packets MUST use the associated hash as specified in
-{{tab-sphincs-hash}}. Signature packets using other hashes MUST be considered
+{{tab-slhdsa-hash}}. Signature packets using other hashes MUST be considered
 invalid.
 
-{: title="Binding between SPHINCS+ and signature hashes" #tab-sphincs-hash}
+{: title="Binding between SPHINCS+ and signature hashes" #tab-slhdsa-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
 41                     | 1, 2                   | SHA-256       | 8
@@ -1377,7 +1386,7 @@ SK)` specified in {{SPHINCS-Subm}}, Sec. 6.4 as Alg. 20.  Here, `M` is the
 `dataDigest` generated according to {{I-D.ietf-openpgp-crypto-refresh}} Section
 5.2.4 and `SK` is the SPHINCS+ private key. The global variable `RANDOMIZE`
 specified in Alg. 20 is to be considered as not set, i.e. the variable `opt`
-shall be initialized with `PK.seed`. See also {{sphincs-sec-cons}}.
+shall be initialized with `PK.seed`. See also {{slhdsa-sec-cons}}.
 
 An implementation MUST set the Parameter ID in the signature equal to the
 issuing private key Parameter ID.
@@ -1403,12 +1412,12 @@ The SPHINCS+ algorithms MUST be used only with v6 signatures, as defined in
 The algorithm-specific v6 Signature parameters consists of:
 
  - A one-octet value specifying the SPHINCS+ parameter ID defined in
-   {{sphincs-param-sha2}} and {{sphincs-param-shake}}. The values `0x00` and
+   {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
    `0xFF` are reserved for future extensions.
 
  - A fixed-length octet string of the SPHINCS+ signature value, whose length
    depends on the parameter ID in the format specified in
-   {{sphincs-artifact-lengths}}.
+   {{slhdsa-artifact-lengths}}.
 
 ### Key Material Packets
 
@@ -1418,11 +1427,11 @@ The SPHINCS+ algorithms MUST be used only with v6 keys, as defined in
 The algorithm-specific public key is this series of values:
 
  - A one-octet value specifying the SPHINCS+ parameter ID defined in
-   {{sphincs-param-sha2}} and {{sphincs-param-shake}}. The values `0x00` and
+   {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
    `0xFF` are reserved for future extensions.
 
  - A fixed-length octet string containing the SPHINCS+ public key, whose length
-   depends on the parameter ID as specified in {{sphincs-artifact-lengths}}.
+   depends on the parameter ID as specified in {{slhdsa-artifact-lengths}}.
 
 The algorithm-specific private key is this value:
 
@@ -1587,7 +1596,7 @@ uncorrelated, this is negligible.
 In consequence, the ciphertexts already work sufficiently well as
 domain-separator.
 
-## SPHINCS+ {#sphincs-sec-cons}
+## SPHINCS+ {#slhdsa-sec-cons}
 
 The original specification of SPHINCS+ {{SPHINCS-Subm}} prescribes an optional
 randomized hashing. This is not used in this specification, as OpenPGP v6
@@ -1632,17 +1641,17 @@ expense of a larger signature generation time.
 IANA will add the following registries to the `Pretty Good Privacy (PGP)`
 registry group at https://www.iana.org/assignments/pgp-parameters:
 
-- Registry name: `SPHINCS+-simple-SHA2 parameters`
+- Registry name: `SLH-DSA-SHA2 parameters`
 
   Registration procedure: SPECIFICATION REQUIRED [RFC8126]
 
-  Values defined in this document, {{sphincs-param-sha2}}.
+  Values defined in this document, {{slhdsa-param-sha2}}.
 
-- Registry name: `SPHINCS+-simple-SHAKE parameters`
+- Registry name: `SLH-DSA-SHAKE parameters`
 
   Registration procedure: SPECIFICATION REQUIRED [RFC8126]
 
-  Values defined in this document, {{sphincs-param-shake}}.
+  Values defined in this document, {{slhdsa-param-shake}}.
 
 Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 {{sig-alg-specs}} to the  registry `Public Key Algorithms`.
