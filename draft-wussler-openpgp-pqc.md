@@ -222,25 +222,6 @@ informative:
         - org: National Institute of Standards and Technology
       date: August 2023
 
-  DILITHIUM-Subm:
-      title: CRYSTALS-Dilithium - Algorithm Specifications and Supporting Documentation (Version 3.1)
-      author:
-        -
-          ins: L. Ducas
-        -
-          ins: E. Kiltz
-        -
-          ins: T. Lepoint
-        -
-          ins: V. Lyubashevsky
-        -
-          ins: P. Schwabe
-        -
-          ins: G. Seiler
-        -
-          ins: D. Stehle
-      date: 2021-02-08
-
   SPHINCS-Subm:
       title: SPHINCS+ - Submission to the 3rd round of the NIST post-quantum project. v3.1
       author:
@@ -963,11 +944,12 @@ and MUST be set to the following octet sequence:
 
 The implementation MUST independently generate the ML-KEM and the ECC component
 keys. ML-KEM key generation follows the specification [FIPS-203] and the
-artifacts are encoded as fixed-length octet strings. For ECC this is done
-following the relative specification in {{RFC7748}}, {{SP800-186}}, or
-{{RFC5639}}, and encoding the outputs as fixed-length octet strings in the
-format specified in {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}},
-or {{tab-ecdh-brainpool-artifacts}}.
+artifacts are encoded as fixed-length octet strings as defined in
+{{mlkem-ops}}. For ECC this is done following the relative specification in
+{{RFC7748}}, {{SP800-186}}, or {{RFC5639}}, and encoding the outputs as
+fixed-length octet strings in the format specified in
+{{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, or
+{{tab-ecdh-brainpool-artifacts}}.
 
 ### Encryption procedure {#ecc-mlkem-encryption}
 
@@ -1089,11 +1071,11 @@ The algorithm-specific secret key is these two values:
 
 To sign and verify with EdDSA the following operations are defined:
 
-    (eddsaSignature) <- eddsa.sign(eddsaPrivateKey, dataDigest)
+    (eddsaSignature) <- EdDSA.Sign(eddsaPrivateKey, dataDigest)
 
 and
 
-    (verified) <- eddsa.verify(eddsaPublicKey, eddsaSignature, dataDigest)
+    (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
 
 The public and private keys, as well as the signature MUST be encoded according
 to [RFC8032] as fixed-length octet strings. The following table describes the
@@ -1109,12 +1091,12 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 
 To sign and verify with ECDSA the following operations are defined:
 
-    (ecdsaSignatureR, ecdsaSignatureS) <- ecdsa.sign(ecdsaPrivateKey,
+    (ecdsaSignatureR, ecdsaSignatureS) <- ECDSA.Sign(ecdsaPrivateKey,
                                                      dataDigest)
 
 and
 
-    (verified) <- ecdsa.verify(ecdsaPublicKey, ecdsaSignatureR,
+    (verified) <- ECDSA.Verify(ecdsaPublicKey, ecdsaSignatureR,
                                ecdsaSignatureS, dataDigest)
 
 The public keys MUST be encoded in SEC1 format as defined in section
@@ -1132,129 +1114,121 @@ Algorithm ID reference | Curve           | Field size | Public key | Secret key 
 39                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
 40                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
-### Dilithium signatures {#dilithium-signature}
+### ML-DSA signatures {#mldsa-signature}
 
-The procedure for Dilithium signature generation is the function `Sign(sk, M)`
-given in Figure 4 in [DILITHIUM-Subm], where `sk` is the Dilithium private key
-and `M` is the data to be signed. OpenPGP does not use the optional randomized
-signing given as a variant in the definition of this function, i.e. `rho' :=
-H(K || mu)` is used. The signing function returns the Dilithium signature. That
-is, to sign with Dilithium the following operation is defined:
-
-    (dilithiumSignature) <- dilithium.sign(dilithiumPrivateKey,
-                                           dataDigest)
-
-The procedure for Dilithium signature verification is the function `Verify(pk,
-M, sigma)` given in Figure 4 in [DILITHIUM-Subm], where `pk` is the Dilithium
-public key, `M` is the data to be signed and `sigma` is the Dilithium
-signature. That is, to verify with Dilithium the following operation is
+For ML-DSA signature generation the default hedged version of ML-DSA.Sign given
+in [FIPS-204] is used. That is, to sign with ML-DSA the following operation is
 defined:
 
-    (verified) <- dilithium.verify(dilithiumPublicKey, dataDigest,
-                                   dilithiumSignature)
+    (mldsaSignature) <- ML-DSA.Sign(mldsaPrivateKey, dataDigest)
 
-Dilithium has the parameterization with the corresponding artifact lengths in
-octets as given in {{tab-dilithium-artifacts}}. All artifacts are encoded as
+For ML-DSA signature verification the algorithm ML-DSA.Verify given in
+[FIPS-204] is used.  That is, to verify with ML-DSA the following operation is
+defined:
+
+    (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
+
+ML-DSA has the parameterization with the corresponding artifact lengths in
+octets as given in {{tab-mldsa-artifacts}}. All artifacts are encoded as
 defined in [FIPS-204].
 
-{: title="Dilithium parameters and artifact lengths in octets" #tab-dilithium-artifacts}
-Algorithm ID reference | Dilithium instance | Public key | Secret key | Signature value
-----------------------:| ------------------ | -----------| ---------- | ---------------
-35, 37, 39             | Dilithium3         | 1952       | 4000       | 3293
-36, 38, 40             | Dilithium5         | 2592       | 4864       | 4595
+{: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
+Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
+----------------------:| --------- | -----------| ---------- | ---------------
+35, 37, 39             | ML-DSA-65 | 1952       | 4000       | 3293
+36, 38, 40             | ML-DSA-87 | 2592       | 4864       | 4595
 
-## Composite Signature Schemes with Dilithium {#ecc-mldsa}
+## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
-### Binding hashes
+### Signature data digest {#sig-data-digest}
 
-Composite Dilithium + ECC signatures MUST use SHA3-256 (hash algorithm ID 12)
-or SHA3-512 (hash algorithm ID 14) as hashing algorithm. Signatures using other
-hash algorithms MUST be considered invalid.
+Composite ML-DSA + ECC signatures MUST use SHA3-256 (hash algorithm ID 12) or
+SHA3-512 (hash algorithm ID 14) for the digest of signature data according to
+{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Signatures using other hash
+algorithms MUST be considered invalid.
 
 An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
-order to support the hash binding with Dilithium + ECC signatures.
+order to support the hash binding with ML-DSA + ECC signatures.
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
-The implementation MUST independently generate the Dilithium and the ECC
-component keys. Dilithium key generation follows the specification in
-[DILITHIUM-Subm] and the artifacts are encoded as fixed-length octet strings as
-defined in {{dilithium-signature}}. For ECC this is done following the relative
+The implementation MUST independently generate the ML-DSA and the ECC
+component keys. ML-DSA key generation follows the specification
+[FIPS-204] and the artifacts are encoded as fixed-length octet strings as
+defined in {{mldsa-signature}}. For ECC this is done following the relative
 specification in {{RFC7748}}, {{SP800-186}}, or {{RFC5639}}, and encoding the
 artifacts as specified in {{eddsa-signature}} or {{ecdsa-signature}} as
 fixed-length octet strings.
 
 ### Signature Generation
 
-To sign a message `M` with Dilithium + EdDSA the following sequence of
+To sign a message `M` with ML-DSA + EdDSA the following sequence of
 operations has to be performed:
 
  1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}
     Section 5.2.4
 
- 2. Create the EdDSA signature over `dataDigest` with `eddsa.sign()` from
+ 2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from
     {{eddsa-signature}}
 
- 3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
-    from {{dilithium-signature}}
+ 3. Create the ML-DSA signature over `dataDigest` with `ML-DSA.Sign()` from
+    {{mldsa-signature}}
 
- 4. Encode the EdDSA and Dilithium signatures according to the packet
-    structure given in {{ecc-mldsa-sig-packet}}.
+ 4. Encode the EdDSA and ML-DSA signatures according to the packet structure
+    given in {{ecc-mldsa-sig-packet}}.
 
-To sign a message `M` with Dilithium + ECDSA the following sequence of
+To sign a message `M` with ML-DSA + ECDSA the following sequence of
 operations has to be performed:
 
  1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}
     Section 5.2.4
 
- 2. Create the ECDSA signature over `dataDigest` with `ecdsa.sign()` from
+ 2. Create the ECDSA signature over `dataDigest` with `ECDSA.Sign()` from
     {{ecdsa-signature}}
 
- 3. Create the Dilithium signature over `dataDigest` with `dilithium.sign()`
-    from {{dilithium-signature}}
+ 3. Create the ML-DSA signature over `dataDigest` with `ML-DSA.Sign()` from
+    {{mldsa-signature}}
 
- 4. Encode the ECDSA and Dilithium signatures according to the packet
-    structure given in {{ecc-mldsa-sig-packet}}.
+ 4. Encode the ECDSA and ML-DSA signatures according to the packet structure
+    given in {{ecc-mldsa-sig-packet}}.
 
 ### Signature Verification
 
-To verify a Dilithium + EdDSA signature the following sequence of operations
+To verify a ML-DSA + EdDSA signature the following sequence of operations
 has to be performed:
 
- 1. Verify the EdDSA signature with `eddsa.verify()` from {{eddsa-signature}}
+ 1. Verify the EdDSA signature with `EdDSA.Verify()` from {{eddsa-signature}}
 
- 2. Verify the Dilithium signature with `dilithium.verify()` from
-    {{dilithium-signature}}
+ 2. Verify the ML-DSA signature with `ML-DSA.Verify()` from {{mldsa-signature}}
 
-To verify a Dilithium + ECDSA signature the following sequence of operations
-has to be performed:
+To verify a ML-DSA + ECDSA signature the following sequence of operations has
+to be performed:
 
- 1. Verify the ECDSA signature with `ecdsa.verify()` from {{ecdsa-signature}}
+ 1. Verify the ECDSA signature with `ECDSA.Verify()` from {{ecdsa-signature}}
 
- 2. Verify the Dilithium signature with `dilithium.verify()` from
-    {{dilithium-signature}}
+ 2. Verify the ML-DSA signature with `ML-DSA.Verify()` from {{mldsa-signature}}
 
 As specified in {{composite-signatures}} an implementation MUST validate both
-signatures, i.e. EdDSA/ECDSA and Dilithium, to state that a composite Dilithium
-+ ECC signature is valid.
+signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite ML-DSA + ECC
+signature is valid.
 
 ## Packet Specifications
 
 ### Signature Packet (Tag 2) {#ecc-mldsa-sig-packet}
 
-The composite Dilithium + ECC schemes MUST be used only with v6 signatures, as
-defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
+The composite ML-DSA + ECC schemes MUST be used only with v6 signatures, as
+defined in [I-D.ietf-openpgp-crypto-refresh].
 
-The algorithm-specific v6 signature parameters for Dilithium + EdDSA signatures
+The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures
 consists of:
 
  - A fixed-length octet string representing the EdDSA signature, whose length
    depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string of the Dilithium signature value, whose length
-   depends on the algorithm ID as specified in {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string of the ML-DSA signature value, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific v6 signature parameters for Dilithium + ECDSA signatures
+The algorithm-specific v6 signature parameters for ML-DSA + ECDSA signatures
 consists of:
 
  - A fixed-length octet string of the big-endian encoded ECDSA value `R`, whose
@@ -1263,55 +1237,51 @@ consists of:
  - A fixed-length octet string of the big-endian encoded ECDSA value `S`, whose
    length depends on the algorithm ID as specified in {{tab-ecdsa-artifacts}}.
 
- - A fixed-length octet string of the Dilithium signature value, whose length
-   depends on the algorithm ID as specified in {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string of the ML-DSA signature value, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
 ### Key Material Packets
 
-The composite Dilithium + ECC schemes MUST be used only with v6 keys, as
-defined in [I-D.ietf-openpgp-crypto-refresh].
+The composite ML-DSA + ECC schemes MUST be used only with v6 keys, as defined
+in [I-D.ietf-openpgp-crypto-refresh].
 
-The algorithm-specific public key for Dilithium + EdDSA keys is this series of
+The algorithm-specific public key for ML-DSA + EdDSA keys is this series of
 values:
 
  - A fixed-length octet string representing the EdDSA public key, whose length
    depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium public key, whose
-   length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string containing the ML-DSA public key, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific private key for Dilithium + EdDSA keys is this series of
+The algorithm-specific private key for ML-DSA + EdDSA keys is this series of
 values:
 
  - A fixed-length octet string representing the EdDSA secret key, whose length
    depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium secret key, whose
-   length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string containing the ML-DSA secret key, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific public key for Dilithium + ECDSA keys is this
-series of values:
+The algorithm-specific public key for ML-DSA + ECDSA keys is this series of
+values:
 
  - A fixed-length octet string representing the ECDSA public key in SEC1
    format, as specified in section {{sec1-format}} and with length specified in
    {{tab-ecdsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium public key, whose
-   length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string containing the ML-DSA public key, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific private key for Dilithium + ECDSA keys is this series of
+The algorithm-specific private key for ML-DSA + ECDSA keys is this series of
 values:
 
  - A fixed-length octet string representing the ECDSA secret key as a
    big-endian encoded integer, whose length depends on the algorithm used as
    specified in {{tab-ecdsa-artifacts}}.
 
- - A fixed-length octet string containing the Dilithium secret key, whose
-   length depends on the algorithm ID as specified in
-   {{tab-dilithium-artifacts}}.
+ - A fixed-length octet string containing the ML-DSA secret key, whose length
+   depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
 # SPHINCS+
 
@@ -1578,10 +1548,14 @@ signatures already provide a salted hash of the appropriate size.
 ## Binding hashes in signatures with signature algorithms
 
 In order not to extend the attack surface, we bind the hash algorithm used for
-message digestion to the hash algorithm used internally by the signature
-algorithm. Dilithium internally uses a SHAKE256 digest, therefore we require
-SHA3 in the Dilithium + ECC signature packet. In the case of SPHINCS+ the
-internal hash algorithm varies based on the algorithm and parameter ID.
+signature data digestion to the hash algorithm used internally by the signature
+algorithm.
+
+ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
+ML-DSA + ECC signature packet, see {{sig-data-digest}}.
+
+In the case of SLH-DSA the internal hash algorithm varies based on the
+algorithm and parameter ID.
 
 
 # Additional considerations
