@@ -201,31 +201,6 @@ informative:
       - org: Standards for Efficient Cryptography Group
     date: May 2009
 
-  KYBER-Subm:
-      title: CRYSTALS-Kyber (version 3.02) - Submission to round 3 of the NIST post-quantum project
-      author:
-        -
-          ins: R. Avanzi
-        -
-          ins: J. Bos
-        -
-          ins: L. Ducas
-        -
-          ins: E. Kiltz
-        -
-          ins: T. Lepoint
-        -
-          ins: V. Lyubashevsky
-        -
-          ins: J. M. Schanck
-        -
-          ins: P. Schwabe
-        -
-          ins: G. Seiler
-        -
-          ins: D. Stehle
-      date: 2021-08-04
-
   FIPS-203:
       target: https://doi.org/10.6028/NIST.FIPS.203.ipd
       title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
@@ -644,7 +619,7 @@ for future extensions.
 
 ## Composite KEMs
 
-Kyber + ECC public-key encryption is meant to involve both the Kyber KEM and an
+ML-KEM + ECC public-key encryption is meant to involve both the ML-KEM and an
 ECC-based KEM in an a priori non-separable manner. This is achieved via KEM
 combination, i.e. both key encapsulations/decapsulations are performed in
 parallel, and the resulting key shares are fed into a key combiner to produce a
@@ -660,7 +635,7 @@ recipient.
 
 ## Composite Signatures
 
-Dilithium + ECC signatures are meant to contain both the Dilithium and the ECC
+ML-DSA + ECC signatures are meant to contain both the ML-DSA and the ECC
 signature data, and an implementation MUST validate both algorithms to state
 that a signature is valid.
 
@@ -744,14 +719,14 @@ The various procedures to perform the operations of an ECC-based KEM are
 defined in the following subsections. Specifically, each of these subsections
 defines the instances of the following operations:
 
-    (eccCipherText, eccKeyShare) <- eccKem.encap(eccPublicKey)
+    (eccCipherText, eccKeyShare) <- ECC-KEM.Encaps(eccPublicKey)
 
 and
 
-    (eccKeyShare) <- eccKem.decap(eccPrivateKey, eccCipherText)
+    (eccKeyShare) <- ECC-KEM.Decaps(eccPrivateKey, eccCipherText)
 
-The placeholder `eccKem` has to be replaced with the specific ECC-KEM from the
-row "ECC-KEM" of {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
+To instantiate ECC-KEM, one must select a parameter set from
+{{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, or
 {{tab-ecdh-brainpool-artifacts}}.
 
 #### X25519-KEM {#x25519-kem}
@@ -762,7 +737,7 @@ using the function `X25519()` and encodings defined in [RFC7748]. The
 to the equation `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of
 the base point of Curve25519.
 
-The operation `x25519Kem.encap()` is defined as follows:
+The operation `x25519Kem.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v`
     is a random scalar
@@ -774,7 +749,7 @@ The operation `x25519Kem.encap()` is defined as follows:
 
  4. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
-The operation `x25519Kem.decap()` is defined as follows:
+The operation `x25519Kem.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
@@ -789,7 +764,7 @@ is denoted as `r`, the `eccPublicKey` as `R`, they are subject to the equation
 `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of the base point
 of Curve448.
 
-The operation `x448.encap()` is defined as follows:
+The operation `x448.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
     is a random scalar
@@ -801,7 +776,7 @@ The operation `x448.encap()` is defined as follows:
 
  4. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
-The operation `x448Kem.decap()` is defined as follows:
+The operation `x448Kem.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
     `eccPrivateKey` and `V` is the `eccCipherText`
@@ -810,7 +785,7 @@ The operation `x448Kem.decap()` is defined as follows:
 
 #### ECDH-KEM {#ecdh-kem}
 
-The operation `ecdhKem.encap()` is defined as follows:
+The operation `ecdhKem.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
     {{SP800-186}} or {{RFC5639}} where `v` is a random scalar
@@ -827,7 +802,7 @@ The operation `ecdhKem.encap()` is defined as follows:
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
-The operation `ecdhKem.decap()` is defined as follows:
+The operation `ecdhKem.Decaps()` is defined as follows:
 
  1. Compute the shared Point `S` as `rV`, where `r` is the `eccPrivateKey` and
     `V` is the `eccCipherText`, according to {{SP800-186}} or {{RFC5639}}
@@ -839,69 +814,70 @@ The operation `ecdhKem.decap()` is defined as follows:
     chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
-### Kyber-KEM {#kyber-kem}
+### ML-KEM {#mlkem-ops}
 
-Kyber-KEM features the following operations:
+ML-KEM features the following operations:
 
-    (kyberCipherText, kyberKeyShare) <- kyberKem.encap(kyberPublicKey)
+    (mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemEncapsKey)
 
 and
 
-    (kyberKeyShare) <- kyberKem.decap(kyberCipherText, kyberPrivateKey)
+    (mlkemKeyShare) <- ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)
 
-The above are the operations Kyber.CCAKEM.Enc() and Kyber.CCAKEM.Dec() defined
-in [Kyber-Subm].
+The above are the operations ML-KEM.Encaps() and ML-KEM.Decaps() defined in
+[FIPS-203]. Note that `mlkemEncapsKey` is public and `mlkemDecapsKey` is
+private keying material.
 
-Kyber-KEM has the parameterization with the corresponding artifact lengths in
-octets as given in {{tab-kyber-artifacts}}. All artifacts are encoded as
-defined in [Kyber-Subm].
+ML-KEM has the parameterization with the corresponding artifact lengths in
+octets as given in {{tab-mlkem-artifacts}}. All artifacts are encoded as
+defined in [FIPS-203].
 
-{: title="Kyber-KEM parameters artifact lengths in octets" #tab-kyber-artifacts}
-Algorithm ID reference | Kyber-KEM    | Public key | Secret key | Ciphertext | Key share
+{: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
+Algorithm ID reference | ML-KEM       | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ------------ | ---------- | ---------- | ---------- | ---------
-29, 31, 33             | kyberKem768  | 1184       | 2400       | 1088       | 32
-30, 32, 34             | kyberKem1024 | 1568       | 3186       | 1568       | 32
+29, 31, 33             | ML-KEM-768   | 1184       | 2400       | 1088       | 32
+30, 32, 34             | ML-KEM-1024  | 1568       | 3168       | 1568       | 32
 
-The placeholder `kyberKem` has to be replaced with the specific Kyber-KEM from
-the column "Kyber-KEM" of {{tab-kyber-artifacts}}.
+To instantiate ML-KEM, one must select a parameter set from the column
+"ML-KEM" of {{tab-mlkem-artifacts}}.
 
-The procedure to perform `kyberKem.encap()` is as follows:
+The procedure to perform `ML-KEM.Encaps()` is as follows:
 
- 1. Extract the component public key `kyberPublicKey` that is part of the
+ 1. Extract the encapsulation key `mlkemEncapsKey` that is part of the
     recipient's composite public key
 
- 2. Invoke `(kyberCipherText, keyShare) <- kyberKem.encap(kyberPublicKey)`
+ 2. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemEncapsKey)`
 
- 3. Set `kyberCipherText` as the Kyber ciphertext
+ 3. Set `mlkemCipherText` as the ML-KEM ciphertext
 
- 4. Set `keyShare` as the Kyber symmetric key share
+ 4. Set `mlkemKeyShare` as the ML-KEM symmetric key share
 
-The procedure to perform `kyberKem.decap()` is as follows:
+The procedure to perform `ML-KEM.Decaps()` is as follows:
 
- 1. Invoke `keyShare <-  kyberKem.decap(kyberCipherText, kyberPrivateKey)`
+ 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)`
 
- 2. Set `keyShare` as the Kyber symmetric key
+ 2. Set `mlkemKeyShare` as the ML-KEM symmetric key share
 
-## Composite Encryption Schemes with Kyber {#ecc-mlkem}
+## Composite Encryption Schemes with ML-KEM {#ecc-mlkem}
 
-{{kem-alg-specs}} specifies the following Kyber + ECC composite public-key
+{{kem-alg-specs}} specifies the following ML-KEM + ECC composite public-key
 encryption schemes:
 
-{: title="Kyber-ECC-composite Schemes" #tab-kyber-ecc-composite}
-Algorithm ID reference | Kyber-KEM    | ECC-KEM   | ECDH-KEM curve
+{: title="ML-KEM + ECC composite schemes" #tab-mlkem-ecc-composite}
+Algorithm ID reference | ML-KEM       | ECC-KEM   | ECC-KEM curve
 ----------------------:| ------------ | --------- | --------------
-29                     | kyberKem768  | x25519Kem | X25519
-30                     | kyberKem1024 | x448Kem   | X448
-31                     | kyberKem768  | ecdhKem   | NIST P-256
-32                     | kyberKem1024 | ecdhKem   | NIST P-384
-33                     | kyberKem768  | ecdhKem   | brainpoolP256r1
-34                     | kyberKem1024 | ecdhKem   | brainpoolP384r1
+29                     | ML-KEM-768   | x25519Kem | Curve25519
+30                     | ML-KEM-1024  | x448Kem   | Curve448
+31                     | ML-KEM-768   | ecdhKem   | NIST P-256
+32                     | ML-KEM-1024  | ecdhKem   | NIST P-384
+33                     | ML-KEM-768   | ecdhKem   | brainpoolP256r1
+34                     | ML-KEM-1024  | ecdhKem   | brainpoolP384r1
 
-The Kyber + ECC composite public-key encryption schemes are built according to
+The ML-KEM + ECC composite public-key encryption schemes are built according to
 the following principal design:
 
- - The Kyber-KEM encapsulation algorithm is invoked to create a Kyber
-   ciphertext together with a Kyber symmetric key share.
+ - The ML-KEM encapsulation algorithm is invoked to create a ML-KEM ciphertext
+   together with a ML-KEM symmetric key share.
 
  - The encapsulation algorithm of an ECC-based KEM, namely one out of
    X25519-KEM, X448-KEM, or ECDH-KEM is invoked to create an ECC ciphertext
@@ -914,7 +890,7 @@ the following principal design:
  - The session key for content encryption is then wrapped as described in
    {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
- - The PKESK package's algorithm-specific parts are made up of the Kyber
+ - The PKESK package's algorithm-specific parts are made up of the ML-KEM
    ciphertext, the ECC ciphertext, and the wrapped session key.
 
 ### Fixed information {#kem-fixed-info}
@@ -937,14 +913,14 @@ Section 4, based on KMAC256 {{SP800-185}}. It is given by the following
 algorithm.
 
     //   multiKeyCombine(eccKeyShare, eccCipherText,
-    //                   kyberKeyShare, kyberCipherText,
+    //                   mlkemKeyShare, mlkemCipherText,
     //                   fixedInfo, oBits)
     //
     //   Input:
     //   eccKeyShare     - the ECC key share encoded as an octet string
     //   eccCipherText   - the ECC ciphertext encoded as an octet string
-    //   kyberKeyShare   - the Kyber key share encoded as an octet string
-    //   kyberCipherText - the Kyber ciphertext encoded as an octet string
+    //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
+    //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
     //   fixedInfo       - the fixed information octet string
     //   oBits           - the size of the output keying material in bits
     //
@@ -955,13 +931,13 @@ algorithm.
     //   customizationString - the UTF-8 encoding of the string "KDF"
 
     eccKemData = eccKeyShare || eccCipherText
-    kyberKemData = kyberKeyShare || kyberCipherText
-    encData = counter || eccKemData || kyberKemData || fixedInfo
+    mlkemKemData = mlkemKeyShare || mlkemCipherText
+    encData = counter || eccKemData || mlkemKemData || fixedInfo
 
     MB = KMAC256(domSeparation, encData, oBits, customizationString)
 
-Note that the values `eccKeyShare` defined in {{ecc-kem}} and `kyberKeyShare`
-defined in {{kyber-kem}} already use the relative ciphertext in the
+Note that the values `eccKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare`
+defined in {{mlkem-ops}} already use the relative ciphertext in the
 derivation. The ciphertext is by design included again in the key combiner to
 provide a robust security proof.
 
@@ -985,50 +961,48 @@ and MUST be set to the following octet sequence:
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
-The implementation MUST independently generate the Kyber and the ECC component
-keys. Kyber key generation follows the specification [FIPS-203] and the
+The implementation MUST independently generate the ML-KEM and the ECC component
+keys. ML-KEM key generation follows the specification [FIPS-203] and the
 artifacts are encoded as fixed-length octet strings. For ECC this is done
 following the relative specification in {{RFC7748}}, {{SP800-186}}, or
 {{RFC5639}}, and encoding the outputs as fixed-length octet strings in the
-format specified in table {{tab-ecdh-cfrg-artifacts}},
-{{tab-ecdh-nist-artifacts}}, or {{tab-ecdh-brainpool-artifacts}}.
+format specified in {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}},
+or {{tab-ecdh-brainpool-artifacts}}.
 
 ### Encryption procedure {#ecc-mlkem-encryption}
 
-The procedure to perform public-key encryption with a Kyber + ECC composite
+The procedure to perform public-key encryption with a ML-KEM + ECC composite
 scheme is as follows:
 
  1. Take the recipient's authenticated public-key packet `pkComposite` and
-    `sessionKey` as input
+   `sessionKey` as input
 
  2. Parse the algorithm ID from `pkComposite`
 
- 3. Extract the `eccPublicKey` and `kyberPublicKey` component from the
-    algorithm specific data encoded in `pkComposite` with the format specified
-    in {{kyber-ecc-key}}.
+ 3. Extract the `eccPublicKey` and `mlkemEncapsKey` component from the
+    algorithm specific data encoded in `pkComposite` with the format specified in
+    {{mlkem-ecc-key}}.
 
- 4. Instantiate the ECC-KEM `eccKem.encap()` and the Kyber-KEM
-    `kyberKem.encap()` depending on the algorithm ID according to
-    {{tab-kyber-ecc-composite}}
+ 4. Instantiate the ECC-KEM and the ML-KEM depending on the algorithm ID
+    according to {{tab-mlkem-ecc-composite}}
 
- 5. Compute `(eccCipherText, eccKeyShare) := eccKem.encap(eccPublicKey)`
+ 5. Compute `(eccCipherText, eccKeyShare) := ECC-KEM.Encaps(eccPublicKey)`
 
- 6. Compute `(kyberCipherText, kyberKeyShare) :=
-    kyberKem.encap(kyberPublicKey)`
+ 6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemEncapsKey)`
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 8. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, kyberKeyShare, kyberCipherText, fixedInfo, oBits=256)` as
+ 8. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as
     defined in {{kem-key-combiner}}
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}}
     that includes a 64 bit integrity check
 
- 10. Output `eccCipherText || kyberCipherText || len(C) || C`
+ 10. Output `eccCipherText || mlkemCipherText || len(C) || C`
 
 ### Decryption procedure
 
-The procedure to perform public-key decryption with a Kyber + ECC composite
+The procedure to perform public-key decryption with a ML-KEM + ECC composite
 scheme is as follows:
 
  1. Take the matching PKESK and own secret key packet as input
@@ -1037,27 +1011,25 @@ scheme is as follows:
 
  3. Check that the own and the extracted algorithm ID match
 
- 4. Parse the `eccSecretKey` and `kyberSecretKey` from the algorithm specific
+ 4. Parse the `eccSecretKey` and `mlkemDecapsKey` from the algorithm specific
     data of the own secret key encoded in the format specified in
-    {{kyber-ecc-key}}
+    {{mlkem-ecc-key}}
 
- 5. Instantiate the ECC-KEM `eccKem.decap()` and the Kyber-KEM
-    `kyberKem.decap()` depending on the algorithm ID according to
-    {{tab-kyber-ecc-composite}}
+ 5. Instantiate the ECC-KEM and the ML-KEM depending on the algorithm ID
+    according to {{tab-mlkem-ecc-composite}}
 
- 6. Parse `eccCipherText`, `kyberCipherText`, and `C` from `encryptedKey`
-    encoded as `eccCipherText || kyberCipherText || len(C) || C` as specified
+ 6. Parse `eccCipherText`, `mlkemCipherText`, and `C` from `encryptedKey`
+    encoded as `eccCipherText || mlkemCipherText || len(C) || C` as specified
     in {{ecc-mlkem-pkesk}}
 
- 7. Compute `(eccKeyShare) := eccKem.decap(eccCipherText, eccPrivateKey)`
+ 7. Compute `(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccPrivateKey)`
 
- 8. Compute `(kyberKeyShare) := kyberKem.decap(kyberCipherText,
-    kyberPrivateKey)`
+ 8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)`
 
  9. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 10. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, kyberKeyShare, kyberCipherText, fixedInfo, oBits=256)`
-     as defined in {{kem-key-combiner}}
+ 10. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, mlkemKeyShare,
+     mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
 
  11. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per
      {{RFC3394}}, aborting if the 64 bit integrity check fails
@@ -1073,40 +1045,41 @@ The algorithm-specific fields consists of:
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
 
- - A fixed-length octet string of the Kyber ciphertext, whose length depends on
-   the algorithm ID as specified in {{tab-kyber-artifacts}}.
+ - A fixed-length octet string of the ML-KEM ciphertext, whose length depends
+   on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
- - The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).
+ - The one-octet algorithm identifier, if it is passed (in the case of a v3
+   PKESK packet).
 
  - A variable-length field containing the wrapped session key:
 
    - A one-octet size of the following field;
 
-   - The wrapped session key represented as an octet string, i.e.,
-     the output of the encryption procedure described in
-     {{ecc-mlkem-encryption}}.
+   - The wrapped session key represented as an octet string, i.e., the output
+     of the encryption procedure described in {{ecc-mlkem-encryption}}.
 
-Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
-Instead, it is prepended to the encrypted session key in plaintext.
-In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
+Note that unlike most public-key algorithms, in the case of a v3 PKESK packet,
+the symmetric algorithm identifier is not encrypted.  Instead, it is prepended
+to the encrypted session key in plaintext.  In this case, the symmetric
+algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
 
-### Key Material Packets {#kyber-ecc-key}
+### Key Material Packets {#mlkem-ecc-key}
 
 The algorithm-specific public key is this series of values:
 
  - A fixed-length octet string representing an EC point public key, in the
    point format associated with the curve specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the Kyber public key, whose length
-   depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
+ - A fixed-length octet string containing the ML-KEM encapsulation key, whose
+   length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
 The algorithm-specific secret key is these two values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and
    length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the Kyber secret key, whose length
-   depends on the algorithm ID as specified in {{tab-kyber-artifacts}}.
+ - A fixed-length octet string containing the ML-KEM decapsulation key, whose
+   length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
 # Composite Signature Schemes
 
