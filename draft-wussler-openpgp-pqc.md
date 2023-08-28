@@ -773,10 +773,10 @@ octets as given in {{tab-mlkem-artifacts}}. All artifacts are encoded as
 defined in [FIPS-203].
 
 {: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
-Algorithm ID reference | ML-KEM       | Public key | Secret key | Ciphertext | Key share
-----------------------:| ------------ | ---------- | ---------- | ---------- | ---------
-29, 31, 33             | ML-KEM-768   | 1184       | 2400       | 1088       | 32
-30, 32, 34             | ML-KEM-1024  | 1568       | 3168       | 1568       | 32
+Algorithm ID reference | ML-KEM                    | Public key | Secret key | Ciphertext | Key share
+----------------------:| ------------------------- | ---------- | ---------- | ---------- | ---------
+29, 31, 33             | ML&#x2011;KEM&#x2011;768  | 1184       | 2400       | 1088       | 32
+30, 32, 34             | ML&#x2011;KEM&#x2011;1024 | 1568       | 3168       | 1568       | 32
 
 To instantiate ML-KEM, one must select a parameter set from the column
 "ML-KEM" of {{tab-mlkem-artifacts}}.
@@ -1092,10 +1092,10 @@ octets as given in {{tab-mldsa-artifacts}}. All artifacts are encoded as
 defined in [FIPS-204].
 
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
-Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
-----------------------:| --------- | -----------| ---------- | ---------------
-35, 37, 39             | ML-DSA-65 | 1952       | 4000       | 3293
-36, 38, 40             | ML-DSA-87 | 2592       | 4864       | 4595
+Algorithm ID reference | ML-DSA                  | Public key | Secret key | Signature value
+----------------------:| ----------------------- | -----------| ---------- | ---------------
+35, 37, 39             | ML&#x2011;DSA&#x2011;65 | 1952       | 4000       | 3293
+36, 38, 40             | ML&#x2011;DSA&#x2011;87 | 2592       | 4864       | 4595
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
