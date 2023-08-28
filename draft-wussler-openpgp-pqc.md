@@ -310,13 +310,13 @@ schemes.
 For the two ML-* schemes, this document follows the conservative strategy to
 deploy post-quantum in combination with traditional schemes such that the
 security is retained even if all schemes but one in the combination are broken.
-In contrast, the hashed-based signature scheme SLH-DSA is considered to be
-sufficiently well understood with respect to its security assumptions in order
-to be used standalone. To this end, this document specifies the following new
-set: SLH-DSA standalone and ML-* as composite with ECC-based KEM and digital
-signature schemes. Here, the term "composite" indicates that any data structure
-or algorithm pertaining to the combination of the two components appears as
-single data structure or algorithm from the protocol perspective.
+In contrast, the stateless hash-based signature scheme SLH-DSA is considered to
+be sufficiently well understood with respect to its security assumptions in
+order to be used standalone. To this end, this document specifies the following
+new set: SLH-DSA standalone and ML-* as composite with ECC-based KEM and
+digital signature schemes. Here, the term "composite" indicates that any data
+structure or algorithm pertaining to the combination of the two components
+appears as single data structure or algorithm from the protocol perspective.
 
 The document specifies the conventions for interoperability between compliant
 OpenPGP implementations that make use of this extension and the newly defined
@@ -870,9 +870,9 @@ algorithm.
     //   counter             - the fixed 4 byte value 0x00000001
     //   customizationString - the UTF-8 encoding of the string "KDF"
 
-    eccKemData = eccKeyShare || eccCipherText
-    mlkemKemData = mlkemKeyShare || mlkemCipherText
-    encData = counter || eccKemData || mlkemKemData || fixedInfo
+    eccData = eccKeyShare || eccCipherText
+    mlkemData = mlkemKeyShare || mlkemCipherText
+    encData = counter || eccData || mlkemData || fixedInfo
 
     MB = KMAC256(domSeparation, encData, oBits, customizationString)
 
@@ -952,7 +952,7 @@ scheme is as follows:
 
  3. Check that the own and the extracted algorithm ID match
 
- 4. Parse the `eccSecretKey` and `mlkemDecapsKey` from the algorithm specific
+ 4. Parse the `eccPrivateKey` and `mlkemDecapsKey` from the algorithm specific
     data of the own secret key encoded in the format specified in
     {{mlkem-ecc-key}}
 
@@ -1101,10 +1101,11 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 ### Signature data digest {#sig-data-digest}
 
-Composite ML-DSA + ECC signatures MUST use SHA3-256 (hash algorithm ID 12) or
-SHA3-512 (hash algorithm ID 14) for the digest of signature data according to
-{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Signatures using other hash
-algorithms MUST be considered invalid.
+Signature data is digested prior to signing operations, see
+{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Composite ML-DSA + ECC
+signatures MUST use SHA3-256 (hash algorithm ID 12) or SHA3-512 (hash algorithm
+ID 14) for the signature data digest. Signatures using other hash algorithms
+MUST be considered invalid.
 
 In accordance with the requirements on ML-DSA + ECC signature schemes specified
 in {{sig-alg-specs}}, an implementation MUST support SHA3-256 and SHOULD support
@@ -1261,10 +1262,11 @@ Parameter ID reference | Parameter name suffix | SLH-DSA public key | SLH-DSA se
 
 ### Signature Data Digest
 
-SLH-DSA signatures MUST use the associated hash as specified in
-{{tab-slhdsa-hash}} for the digest of signature data according to
-{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Signatures using other hash
-algorithms MUST be considered invalid.
+Signature data is digested prior to signing operations, see
+{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. SLH-DSA signatures MUST use
+the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the
+signature data digest. Signatures using other hash algorithms MUST be
+considered invalid.
 
 An implementation supporting a specific SLH-DSA algorithm and parameter MUST
 also support the matching hash algorithm.
@@ -1527,7 +1529,7 @@ where a higher degree of trust in the signature scheme is required. However,
 SLH-DSA has performance characteristics in terms of execution time of the
 signature generation as well as space requirements for the signature that can
 be, depending on the parameter choice, far greater than those of traditional or
-Dilithium + ECC signature schemes.
+ML-DSA + ECC signature schemes.
 
 Pertaining to the execution time, the particularly costly operation in SLH-DSA
 is the signature generation. In order to achieve short signature generation
@@ -1536,7 +1538,7 @@ times, one of the parameter sets with the name ending in the letter "f" for
 
 In order to minimize the space requirements of a SLH-DSA signature, a parameter
 set ending in "s" for "small" should be chosen. This comes at the expense of a
-larger signature generation time.
+longer signature generation time.
 
 # IANA Considerations
 
