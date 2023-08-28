@@ -222,47 +222,6 @@ informative:
         - org: National Institute of Standards and Technology
       date: August 2023
 
-  SPHINCS-Subm:
-      title: SPHINCS+ - Submission to the 3rd round of the NIST post-quantum project. v3.1
-      author:
-        -
-          ins: J. Aumasson
-        -
-          ins: D. J. Bernstein
-        -
-          ins: W. Beullens
-        -
-          ins: C. Dobraunig
-        -
-          ins: M. Eichlseder
-        -
-          ins: S. Fluhrer
-        -
-          ins: S. Gazdag
-        -
-          ins: A. Huelsing
-        -
-          ins: P. Kampanakis
-        -
-          ins: S. Koelb
-        -
-          ins: T. Lange
-        -
-          ins: M. M. Lauridsen
-        -
-          ins: F. Mendel
-        -
-          ins: R. Niederhagen
-        -
-          ins: C. Rechberger
-        -
-          ins: J. Rijneveld
-        -
-          ins: P. Schwabe
-        -
-          ins: B. Westerbaan
-      date: 2021-06-10
-
   draft-driscoll-pqt-hybrid-terminology:
     target: https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-hybrid-terminology
     title: Terminology for Post-Quantum Traditional Hybrid Schemes
@@ -805,7 +764,7 @@ and
 
     (mlkemKeyShare) <- ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)
 
-The above are the operations ML-KEM.Encaps() and ML-KEM.Decaps() defined in
+The above are the operations `ML-KEM.Encaps` and `ML-KEM.Decaps` defined in
 [FIPS-203]. Note that `mlkemEncapsKey` is public and `mlkemDecapsKey` is
 private keying material.
 
@@ -1116,9 +1075,9 @@ Algorithm ID reference | Curve           | Field size | Public key | Secret key 
 
 ### ML-DSA signatures {#mldsa-signature}
 
-For ML-DSA signature generation the default hedged version of ML-DSA.Sign given
-in [FIPS-204] is used. That is, to sign with ML-DSA the following operation is
-defined:
+For ML-DSA signature generation the default hedged version of `ML-DSA.Sign`
+given in [FIPS-204] is used. That is, to sign with ML-DSA the following
+operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaPrivateKey, dataDigest)
 
@@ -1147,8 +1106,9 @@ SHA3-512 (hash algorithm ID 14) for the digest of signature data according to
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Signatures using other hash
 algorithms MUST be considered invalid.
 
-An implementation MUST support SHA3-256 and SHOULD support SHA3-512, in
-order to support the hash binding with ML-DSA + ECC signatures.
+In accordance with the requirements on ML-DSA + ECC signature schemes specified
+in {{sig-alg-specs}}, an implementation MUST support SHA3-256 and SHOULD support
+SHA3-512.
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
@@ -1283,29 +1243,33 @@ values:
  - A fixed-length octet string containing the ML-DSA secret key, whose length
    depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-# SPHINCS+
+# SLH-DSA
 
-## The SPHINCS+ Algorithms {#slhdsa}
+## The SLH-DSA Algorithms {#slhdsa}
 
-The following table describes the SPHINCS+ parameters and artifact lengths:
+The following table describes the SLH-DSA parameters and artifact lengths:
 
-{: title="SPHINCS+ parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SLH-DSA-SHA2 and SLH-DSA-SHAKE." #slhdsa-artifact-lengths}
-Parameter ID reference | Parameter name suffix | SPHINCS+ public key | SPHINCS+ secret key | SPHINCS+ signature
-----------------------:| ---------------------:| ------------------- | ------------------- | ------------------
-1                      | 128s                  | 32                  | 64                  | 7856
-2                      | 128f                  | 32                  | 64                  | 17088
-3                      | 192s                  | 48                  | 96                  | 16224
-4                      | 192f                  | 48                  | 96                  | 35664
-5                      | 256s                  | 64                  | 128                 | 29792
-6                      | 256f                  | 64                  | 128                 | 49856
+{: title="SLH-DSA parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SLH-DSA-SHA2 and SLH-DSA-SHAKE." #slhdsa-artifact-lengths}
+Parameter ID reference | Parameter name suffix | SLH-DSA public key | SLH-DSA secret key | SLH-DSA signature
+----------------------:| ---------------------:| ------------------ | ------------------ | ------------------
+1                      | 128s                  | 32                 | 64                 | 7856
+2                      | 128f                  | 32                 | 64                 | 17088
+3                      | 192s                  | 48                 | 96                 | 16224
+4                      | 192f                  | 48                 | 96                 | 35664
+5                      | 256s                  | 64                 | 128                | 29792
+6                      | 256f                  | 64                 | 128                | 49856
 
-### Binding hashes
+### Signature Data Digest
 
-SPHINCS+ signature packets MUST use the associated hash as specified in
-{{tab-slhdsa-hash}}. Signature packets using other hashes MUST be considered
-invalid.
+SLH-DSA signatures MUST use the associated hash as specified in
+{{tab-slhdsa-hash}} for the digest of signature data according to
+{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Signatures using other hash
+algorithms MUST be considered invalid.
 
-{: title="Binding between SPHINCS+ and signature hashes" #tab-slhdsa-hash}
+An implementation supporting a specific SLH-DSA algorithm and parameter MUST
+also support the matching hash algorithm.
+
+{: title="Binding between SLH-DSA and signature data digest" #tab-slhdsa-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
 41                     | 1, 2                   | SHA-256       | 8
@@ -1313,34 +1277,25 @@ Algorithm ID reference | Parameter ID reference | Hash function | Hash function 
 42                     | 1, 2                   | SHA3-256      | 12
 42                     | 3, 4, 5, 6             | SHA3-512      | 14
 
-An implementation supporting a specific SPHINCS+ algorithm and parameter MUST
-also support the matching hash algorithm.
-
 ### Key generation
 
-The SPHINCS+ key generation is performed according to the function
-`spx_keygen()` specified in {{SPHINCS-Subm}}, Sec. 6.2 as Alg. 19. The private
-and public key are encoded as defined in {{SPHINCS-Subm}}.
+SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as
+specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet
+strings as defined in {{slhdsa}}.
 
 ### Signature Generation
 
-The procedure for SPHINCS+ signature generation is the function `spx_sign(M,
-SK)` specified in {{SPHINCS-Subm}}, Sec. 6.4 as Alg. 20.  Here, `M` is the
-`dataDigest` generated according to {{I-D.ietf-openpgp-crypto-refresh}} Section
-5.2.4 and `SK` is the SPHINCS+ private key. The global variable `RANDOMIZE`
-specified in Alg. 20 is to be considered as not set, i.e. the variable `opt`
-shall be initialized with `PK.seed`. See also {{slhdsa-sec-cons}}.
+SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as
+specified in {{FIPS-205}}. The variable `opt_rand` is set to `PK.seed`. See
+also {{slhdsa-sec-cons}}.
 
 An implementation MUST set the Parameter ID in the signature equal to the
 issuing private key Parameter ID.
 
 ### Signature Verification
 
-The procedure for SPHINCS+ signature verification is the function
-`spx_verify(M, SIG, PK)` specified in {{SPHINCS-Subm}}, Sec. 6.5 as Alg. 21.
-Here, `M` is the `dataDigest` generated according to
-{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4, `SIG` is the signature, and
-`PK` is the SPHINCS+ public key.
+SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify`
+as specified in {{FIPS-205}}.
 
 An implementation MUST check that the Parameter ID in the signature and in the
 key match when verifying.
@@ -1349,36 +1304,36 @@ key match when verifying.
 
 ###  Signature Packet (Tag 2)
 
-The SPHINCS+ algorithms MUST be used only with v6 signatures, as defined in
+The SLH-DSA scheme MUST be used only with v6 signatures, as defined in
 [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
 
 The algorithm-specific v6 Signature parameters consists of:
 
- - A one-octet value specifying the SPHINCS+ parameter ID defined in
+ - A one-octet value specifying the SLH-DSA parameter ID defined in
    {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
    `0xFF` are reserved for future extensions.
 
- - A fixed-length octet string of the SPHINCS+ signature value, whose length
+ - A fixed-length octet string of the SLH-DSA signature value, whose length
    depends on the parameter ID in the format specified in
    {{slhdsa-artifact-lengths}}.
 
 ### Key Material Packets
 
-The SPHINCS+ algorithms MUST be used only with v6 keys, as defined in
+The SLH-DSA scheme MUST be used only with v6 keys, as defined in
 [I-D.ietf-openpgp-crypto-refresh].
 
 The algorithm-specific public key is this series of values:
 
- - A one-octet value specifying the SPHINCS+ parameter ID defined in
+ - A one-octet value specifying the SLH-DSA parameter ID defined in
    {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
    `0xFF` are reserved for future extensions.
 
- - A fixed-length octet string containing the SPHINCS+ public key, whose length
+ - A fixed-length octet string containing the SLH-DSA public key, whose length
    depends on the parameter ID as specified in {{slhdsa-artifact-lengths}}.
 
 The algorithm-specific private key is this value:
 
- - A fixed-length octet string containing the SPHINCS+ secret key, whose length
+ - A fixed-length octet string containing the SLH-DSA secret key, whose length
    depends on the parameter ID as specified in {{tab-ecdsa-artifacts}}.
 
 # Migration Considerations
@@ -1517,8 +1472,8 @@ setting, the adversary has to distinguish a set of challenge keys
   K*_u = H(K1*_u, C1*_u, K2*_u, C2*_u)
 
 for users u in some set from random, also given ciphertexts `C*_u = (C1*_u,
-C2*_u)`.
-For each of these K* it holds that if the adversary never makes a query
+C2*_u)`. For each of these K* it holds that if the adversary never makes a
+query
 
     H(K1*_u, C1*_u, K2*_u, C2*_u)
 
@@ -1526,24 +1481,24 @@ they have a zero advantage over guessing.
 
 The only multi-user advantage that the adversary could gain therefore consists
 of queries to H that are meaningful for two different users u1 != u2 and their
-associated public keys.
-This is only the case if
+associated public keys. This is only the case if
 
     (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
 
 as the ciphertext values decide for which challenge the query is meaningful.
-This means that a ciphertext collision is needed between challenges.
-Assuming that the randomness used in the generation of the two challenges is
+This means that a ciphertext collision is needed between challenges. Assuming
+that the randomness used in the generation of the two challenges is
 uncorrelated, this is negligible.
 
 In consequence, the ciphertexts already work sufficiently well as
 domain-separator.
 
-## SPHINCS+ {#slhdsa-sec-cons}
+## SLH-DSA Message Randomizer {#slhdsa-sec-cons}
 
-The original specification of SPHINCS+ {{SPHINCS-Subm}} prescribes an optional
-randomized hashing. This is not used in this specification, as OpenPGP v6
-signatures already provide a salted hash of the appropriate size.
+The specification of SLH-DSA {{FIPS-205}} prescribes an optional
+non-deterministic message randomizer. This is not used in this specification,
+as OpenPGP v6 signatures already provide a salted signature data digest of the
+appropriate size.
 
 ## Binding hashes in signatures with signature algorithms
 
@@ -1560,28 +1515,28 @@ algorithm and parameter ID.
 
 # Additional considerations
 
-## Performance Considerations for SPHINCS+ {#performance-considerations}
+## Performance Considerations for SLH-DSA {#performance-considerations}
 
-This specification introduces both Dilithium + ECC as well as SPHINCS+ as
-PQ(/T) signature schemes.
+This specification introduces both ML-DSA + ECC as well as SLH-DSA as PQ(/T)
+signature schemes.
 
-Generally, it can be said that Dilithium + ECC provides a performance in terms
-of execution time and space requirements that is close to that of traditional
-ECC signature schemes. Implementers may want to offer SPHINCS+ for applications
+Generally, it can be said that ML-DSA + ECC provides a performance in terms of
+execution time and space requirements that is close to that of traditional ECC
+signature schemes. Implementers may want to offer SLH-DSA for applications
 where a higher degree of trust in the signature scheme is required. However,
-SPHINCS+ has performance characteristics in terms of execution time of the
+SLH-DSA has performance characteristics in terms of execution time of the
 signature generation as well as space requirements for the signature that can
 be, depending on the parameter choice, far greater than those of traditional or
 Dilithium + ECC signature schemes.
 
-Pertaining to the execution time, the particularly costly operation in SPHINCS+
+Pertaining to the execution time, the particularly costly operation in SLH-DSA
 is the signature generation. In order to achieve short signature generation
 times, one of the parameter sets with the name ending in the letter "f" for
 "fast" should be chosen. This comes at the expense of a larger signature size.
 
-In order to minimize the space requirements of a SPHINCS+ signature, a
-parameter set ending in "s" for "small" should be chosen. This comes at the
-expense of a larger signature generation time.
+In order to minimize the space requirements of a SLH-DSA signature, a parameter
+set ending in "s" for "small" should be chosen. This comes at the expense of a
+larger signature generation time.
 
 # IANA Considerations
 
