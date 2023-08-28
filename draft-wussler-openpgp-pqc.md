@@ -1099,17 +1099,22 @@ Algorithm ID reference | ML-DSA                  | Public key | Secret key | Sig
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
-### Signature data digest {#sig-data-digest}
+### Signature data digest {#mldsa-sig-data-digest}
 
 Signature data is digested prior to signing operations, see
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Composite ML-DSA + ECC
-signatures MUST use SHA3-256 (hash algorithm ID 12) or SHA3-512 (hash algorithm
-ID 14) for the signature data digest. Signatures using other hash algorithms
-MUST be considered invalid.
+signatures MUST use the associated hash algorithm as specified in
+{{tab-mldsa-hash}} for the signature data digest. Signatures using other hash
+algorithms MUST be considered invalid.
 
-In accordance with the requirements on ML-DSA + ECC signature schemes specified
-in {{sig-alg-specs}}, an implementation MUST support SHA3-256 and SHOULD support
-SHA3-512.
+An implementation supporting a specific ML-DSA + ECC algorithm MUST also
+support the matching hash algorithm.
+
+{: title="Binding between ML-DSA and signature data digest" #tab-mldsa-hash}
+Algorithm ID reference | Hash function | Hash function ID reference
+----------------------:| ------------- | --------------------------
+35, 37, 39             | SHA3-256      | 12
+36, 38, 40             | SHA3-512      | 14
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
@@ -1260,7 +1265,7 @@ Parameter ID reference | Parameter name suffix | SLH-DSA public key | SLH-DSA se
 5                      | 256s                  | 64                 | 128                | 29792
 6                      | 256f                  | 64                 | 128                | 49856
 
-### Signature Data Digest
+### Signature Data Digest {#slhdsa-sig-data-digest}
 
 Signature data is digested prior to signing operations, see
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. SLH-DSA signatures MUST use
@@ -1509,10 +1514,10 @@ signature data digestion to the hash algorithm used internally by the signature
 algorithm.
 
 ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
-ML-DSA + ECC signature packet, see {{sig-data-digest}}.
+ML-DSA + ECC signature packet, see {{mldsa-sig-data-digest}}.
 
 In the case of SLH-DSA the internal hash algorithm varies based on the
-algorithm and parameter ID.
+algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
 
 
 # Additional considerations
