@@ -778,7 +778,7 @@ Algorithm ID reference | ML-KEM                    | Public key | Secret key | C
 29, 31, 33             | ML&#x2011;KEM&#x2011;768  | 1184       | 2400       | 1088       | 32
 30, 32, 34             | ML&#x2011;KEM&#x2011;1024 | 1568       | 3168       | 1568       | 32
 
-To instantiate ML-KEM, one must select a parameter set from the column
+To instantiate `ML-KEM`, one must select a parameter set from the column
 "ML-KEM" of {{tab-mlkem-artifacts}}.
 
 The procedure to perform `ML-KEM.Encaps()` is as follows:
