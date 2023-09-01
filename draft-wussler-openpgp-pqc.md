@@ -1092,10 +1092,10 @@ octets as given in {{tab-mldsa-artifacts}}. All artifacts are encoded as
 defined in [FIPS-204].
 
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
-Algorithm ID reference | ML-DSA                  | Public key | Secret key | Signature value
-----------------------:| ----------------------- | -----------| ---------- | ---------------
-35, 37, 39             | ML&#x2011;DSA&#x2011;65 | 1952       | 4000       | 3293
-36, 38, 40             | ML&#x2011;DSA&#x2011;87 | 2592       | 4864       | 4595
+Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
+----------------------:| --------- | -----------| ---------- | ---------------
+35, 37, 39             | ML-DSA-65 | 1952       | 4000       | 3293
+36, 38, 40             | ML-DSA-87 | 2592       | 4864       | 4595
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
