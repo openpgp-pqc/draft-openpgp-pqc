@@ -1101,7 +1101,7 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 ### Signature data digest {#mldsa-sig-data-digest}
 
-Signature data is digested prior to signing operations, see
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Composite ML-DSA + ECC
 signatures MUST use the associated hash algorithm as specified in
 {{tab-mldsa-hash}} for the signature data digest. Signatures using other hash
