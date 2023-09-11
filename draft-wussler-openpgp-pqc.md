@@ -663,7 +663,7 @@ defines the instances of the following operations:
 
 and
 
-    (eccKeyShare) <- ECC-KEM.Decaps(eccPrivateKey, eccCipherText)
+    (eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText)
 
 To instantiate `ECC-KEM`, one must select a parameter set from
 {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, or
@@ -673,7 +673,7 @@ To instantiate `ECC-KEM`, one must select a parameter set from
 
 The encapsulation and decapsulation operations of `x25519kem` are described
 using the function `X25519()` and encodings defined in [RFC7748]. The
-`eccPrivateKey` is denoted as `r`, the `eccPublicKey` as `R`, they are subject
+`eccSecretKey` is denoted as `r`, the `eccPublicKey` as `R`, they are subject
 to the equation `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of
 the base point of Curve25519.
 
@@ -692,14 +692,14 @@ The operation `x25519Kem.Encaps()` is defined as follows:
 The operation `x25519Kem.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the
-    `eccPrivateKey` and `V` is the `eccCipherText`
+    `eccSecretKey` and `V` is the `eccCipherText`
 
  2. Set the output `eccKeyShare` to `SHA3-256(X || eccCipherText || eccPublicKey)`
 
 #### X448-KEM {#x448-kem}
 
 The encapsulation and decapsulation operations of `x448kem` are described using
-the function `X448()` and encodings defined in [RFC7748]. The `eccPrivateKey`
+the function `X448()` and encodings defined in [RFC7748]. The `eccSecretKey`
 is denoted as `r`, the `eccPublicKey` as `R`, they are subject to the equation
 `R = X25519(r, U(P))`. Here, `U(P)` denotes the u-coordinate of the base point
 of Curve448.
@@ -719,7 +719,7 @@ The operation `x448.Encaps()` is defined as follows:
 The operation `x448Kem.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the
-    `eccPrivateKey` and `V` is the `eccCipherText`
+    `eccSecretKey` and `V` is the `eccCipherText`
 
  2. Set the output `eccKeyShare` to `SHA3-512(X || eccCipherText || eccPublicKey)`
 
@@ -744,7 +744,7 @@ The operation `ecdhKem.Encaps()` is defined as follows:
 
 The operation `ecdhKem.Decaps()` is defined as follows:
 
- 1. Compute the shared Point `S` as `rV`, where `r` is the `eccPrivateKey` and
+ 1. Compute the shared Point `S` as `rV`, where `r` is the `eccSecretKey` and
     `V` is the `eccCipherText`, according to {{SP800-186}} or {{RFC5639}}
 
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
@@ -758,15 +758,15 @@ The operation `ecdhKem.Decaps()` is defined as follows:
 
 ML-KEM features the following operations:
 
-    (mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemEncapsKey)
+    (mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)
 
 and
 
-    (mlkemKeyShare) <- ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)
+    (mlkemKeyShare) <- ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)
 
 The above are the operations `ML-KEM.Encaps` and `ML-KEM.Decaps` defined in
-[FIPS-203]. Note that `mlkemEncapsKey` is public and `mlkemDecapsKey` is
-private keying material.
+[FIPS-203]. Note that `mlkemPublicKey` is the encapsulation and
+`mlkemSecretKey` is the decapsulation key.
 
 ML-KEM has the parameterization with the corresponding artifact lengths in
 octets as given in {{tab-mlkem-artifacts}}. All artifacts are encoded as
@@ -783,10 +783,10 @@ To instantiate `ML-KEM`, one must select a parameter set from the column
 
 The procedure to perform `ML-KEM.Encaps()` is as follows:
 
- 1. Extract the encapsulation key `mlkemEncapsKey` that is part of the
+ 1. Extract the encapsulation key `mlkemPublicKey` that is part of the
     recipient's composite public key
 
- 2. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemEncapsKey)`
+ 2. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`
 
  3. Set `mlkemCipherText` as the ML-KEM ciphertext
 
@@ -794,7 +794,7 @@ The procedure to perform `ML-KEM.Encaps()` is as follows:
 
 The procedure to perform `ML-KEM.Decaps()` is as follows:
 
- 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)`
+ 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
  2. Set `mlkemKeyShare` as the ML-KEM symmetric key share
 
@@ -920,7 +920,7 @@ scheme is as follows:
 
  2. Parse the algorithm ID from `pkComposite`
 
- 3. Extract the `eccPublicKey` and `mlkemEncapsKey` component from the
+ 3. Extract the `eccPublicKey` and `mlkemPublicKey` component from the
     algorithm specific data encoded in `pkComposite` with the format specified in
     {{mlkem-ecc-key}}.
 
@@ -929,7 +929,7 @@ scheme is as follows:
 
  5. Compute `(eccCipherText, eccKeyShare) := ECC-KEM.Encaps(eccPublicKey)`
 
- 6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemEncapsKey)`
+ 6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)`
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
@@ -952,7 +952,7 @@ scheme is as follows:
 
  3. Check that the own and the extracted algorithm ID match
 
- 4. Parse the `eccPrivateKey` and `mlkemDecapsKey` from the algorithm specific
+ 4. Parse the `eccSecretKey` and `mlkemSecretKey` from the algorithm specific
     data of the own secret key encoded in the format specified in
     {{mlkem-ecc-key}}
 
@@ -963,9 +963,9 @@ scheme is as follows:
     encoded as `eccCipherText || mlkemCipherText || len(C) || C` as specified
     in {{ecc-mlkem-pkesk}}
 
- 7. Compute `(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccPrivateKey)`
+ 7. Compute `(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccSecretKey)`
 
- 8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemDecapsKey)`
+ 8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
  9. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
@@ -1030,7 +1030,7 @@ The algorithm-specific secret key is these two values:
 
 To sign and verify with EdDSA the following operations are defined:
 
-    (eddsaSignature) <- EdDSA.Sign(eddsaPrivateKey, dataDigest)
+    (eddsaSignature) <- EdDSA.Sign(eddsaSecretKey, dataDigest)
 
 and
 
@@ -1050,7 +1050,7 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 
 To sign and verify with ECDSA the following operations are defined:
 
-    (ecdsaSignatureR, ecdsaSignatureS) <- ECDSA.Sign(ecdsaPrivateKey,
+    (ecdsaSignatureR, ecdsaSignatureS) <- ECDSA.Sign(ecdsaSecretKey,
                                                      dataDigest)
 
 and
@@ -1079,7 +1079,7 @@ For ML-DSA signature generation the default hedged version of `ML-DSA.Sign`
 given in [FIPS-204] is used. That is, to sign with ML-DSA the following
 operation is defined:
 
-    (mldsaSignature) <- ML-DSA.Sign(mldsaPrivateKey, dataDigest)
+    (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
 For ML-DSA signature verification the algorithm ML-DSA.Verify given in
 [FIPS-204] is used.  That is, to verify with ML-DSA the following operation is
