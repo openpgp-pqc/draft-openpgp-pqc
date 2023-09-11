@@ -652,7 +652,7 @@ recipient.
 ## Composite Signatures
 
 Dilithium + ECC signatures contain both the Dilithium and the ECC
-signature bytes and an implementation MUST successfully validate the signatures of both algorithms to conclude
+signatures  and an implementation MUST successfully validate both signatures to conclude
 that a signature is valid.
 
 ## Multiple Signatures {#multiple-signatures}
