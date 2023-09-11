@@ -353,7 +353,7 @@ encryption schemes in order to provide a pre-quantum security fallback.
 ### ML-DSA {#mldsa-intro}
 
 ML-DSA [FIPS-204] is a signature scheme that, like ML-KEM, is based on the
-hardness of solving lattice problems in module lattices. Accordingly, this
+hardness of solving the Learning With Errors problem and a variant of the Short Integer Solution problem in module lattices (MLWE and SelfTargetMSIS). Accordingly, this
 specification only defines ML-DSA in composite combination with ECC-based
 signature schemes.
 
