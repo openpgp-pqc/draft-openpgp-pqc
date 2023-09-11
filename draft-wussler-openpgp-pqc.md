@@ -635,7 +635,7 @@ for future extensions.
 
 ## Composite KEMs
 
-Kyber + ECC public-key encryption is meant to involve both the Kyber KEM and an
+Kyber + ECC public-key encryption involves both the Kyber KEM and an
 ECC-based KEM in an a priori non-separable manner. This is achieved via KEM
 combination, i.e. both key encapsulations/decapsulations are performed in
 parallel, and the resulting key shares are fed into a key combiner to produce a
@@ -651,8 +651,8 @@ recipient.
 
 ## Composite Signatures
 
-Dilithium + ECC signatures are meant to contain both the Dilithium and the ECC
-signature data, and an implementation MUST validate both algorithms to state
+Dilithium + ECC signatures contain both the Dilithium and the ECC
+signature bytes and an implementation MUST successfully validate the signatures of both algorithms to conclude
 that a signature is valid.
 
 ## Multiple Signatures {#multiple-signatures}
