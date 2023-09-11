@@ -1267,7 +1267,7 @@ Parameter ID reference | Parameter name suffix | SLH-DSA public key | SLH-DSA se
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
-Signature data is digested prior to signing operations, see
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see
 {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. SLH-DSA signatures MUST use
 the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the
 signature data digest. Signatures using other hash algorithms MUST be
