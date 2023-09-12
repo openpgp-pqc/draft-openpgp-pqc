@@ -1046,7 +1046,7 @@ and
 
     (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
 
-The public and private keys, as well as the signature MUST be encoded according
+The public and secret key, as well as the signature MUST be encoded according
 to [RFC8032] as fixed-length octet strings. The following table describes the
 EdDSA parameters and artifact lengths:
 
@@ -1230,7 +1230,7 @@ values:
  - A fixed-length octet string containing the ML-DSA public key, whose length
    depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific private key for ML-DSA + EdDSA keys is this series of
+The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of
 values:
 
  - A fixed-length octet string representing the EdDSA secret key, whose length
@@ -1249,7 +1249,7 @@ values:
  - A fixed-length octet string containing the ML-DSA public key, whose length
    depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific private key for ML-DSA + ECDSA keys is this series of
+The algorithm-specific secret key for ML-DSA + ECDSA keys is this series of
 values:
 
  - A fixed-length octet string representing the ECDSA secret key as a
@@ -1307,7 +1307,7 @@ specified in {{FIPS-205}}. The variable `opt_rand` is set to `PK.seed`. See
 also {{slhdsa-sec-cons}}.
 
 An implementation MUST set the Parameter ID in the signature equal to the
-issuing private key Parameter ID.
+issuing secret key Parameter ID.
 
 ### Signature Verification
 
@@ -1348,7 +1348,7 @@ The algorithm-specific public key is this series of values:
  - A fixed-length octet string containing the SLH-DSA public key, whose length
    depends on the parameter ID as specified in {{slhdsa-artifact-lengths}}.
 
-The algorithm-specific private key is this value:
+The algorithm-specific secret key is this value:
 
  - A fixed-length octet string containing the SLH-DSA secret key, whose length
    depends on the parameter ID as specified in {{tab-ecdsa-artifacts}}.
