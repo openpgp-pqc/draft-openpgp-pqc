@@ -569,7 +569,7 @@ for future extensions.
 
 ## Composite KEMs
 
-ML-KEM + ECC public-key encryption is meant to involve both the ML-KEM and an
+The ML-KEM + ECC public-key encryption involves both the ML-KEM and an
 ECC-based KEM in an a priori non-separable manner. This is achieved via KEM
 combination, i.e. both key encapsulations/decapsulations are performed in
 parallel, and the resulting key shares are fed into a key combiner to produce a
@@ -585,9 +585,9 @@ recipient.
 
 ## Composite Signatures
 
-ML-DSA + ECC signatures are meant to contain both the ML-DSA and the ECC
-signature data, and an implementation MUST validate both algorithms to state
-that a signature is valid.
+The ML-DSA + ECC signature consists of independent ML-DSA and ECC signatures,
+and an implementation MUST successfully validate both signatures to state that
+the ML-DSA + ECC signature is valid.
 
 ## Multiple Signatures {#multiple-signatures}
 
