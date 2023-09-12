@@ -1539,7 +1539,8 @@ This specification introduces both ML-DSA + ECC as well as SLH-DSA as PQ(/T)
 signature schemes.
 
 Generally, it can be said that ML-DSA + ECC provides a performance in terms of
-execution time and space requirements that is close to that of traditional ECC
+execution time requirements that is close to that of traditional ECC signature schemes.
+Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like EC-based or even RSA
 signature schemes. Implementers may want to offer SLH-DSA for applications
 where a higher degree of trust in the signature scheme is required. However,
 SLH-DSA has performance characteristics in terms of execution time of the
