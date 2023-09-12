@@ -1092,7 +1092,7 @@ operation is defined:
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
 For ML-DSA signature verification the algorithm ML-DSA.Verify given in
-[FIPS-204] is used.  That is, to verify with ML-DSA the following operation is
+[FIPS-204] is used. That is, to verify with ML-DSA the following operation is
 defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
