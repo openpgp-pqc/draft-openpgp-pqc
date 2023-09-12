@@ -342,6 +342,16 @@ on which the two ML-* schemes and SLH-DSA are based, are fundamentally
 different, and accordingly the level of trust commonly placed in them as well
 as their performance characteristics vary.
 
+\[Note to the reader: This specification refers to the NIST PQC draft standards
+FIPS 203, FIPS 204, and FIPS 205 as if they were a final specification. This is
+a temporary solution until the final versions of these documents are available.
+The goal is to provide a sufficiently precise specification of the algorithms
+already at the draft stage of this specification, so that it is possible for
+implementers to create interoperable implementations. Furthermore, we want to
+point out that, depending on possible future changes to the draft standards by
+NIST, this specification may be updated as soon as corresponding information
+becomes available.\]
+
 ### ML-KEM {#mlkem-intro}
 
 ML-KEM [FIPS-203] is based on the hardness of solving the learning-with-errors
