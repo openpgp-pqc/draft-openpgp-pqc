@@ -1544,7 +1544,7 @@ signature schemes. Implementers may want to offer SLH-DSA for applications
 where a higher degree of trust in the signature scheme is required. However,
 SLH-DSA has performance characteristics in terms of execution time of the
 signature generation as well as space requirements for the signature that can
-be, depending on the parameter choice, far greater than those of traditional or
+even greater than those of
 ML-DSA + ECC signature schemes.
 
 Pertaining to the execution time, the particularly costly operation in SLH-DSA
