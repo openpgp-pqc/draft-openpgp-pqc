@@ -313,7 +313,7 @@ security is retained even if all schemes but one in the combination are broken.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to
 be sufficiently well understood with respect to its security assumptions in
 order to be used standalone. To this end, this document specifies the following
-new set: SLH-DSA standalone and ML-* as composite with ECC-based KEM and
+new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and
 digital signature schemes. Here, the term "composite" indicates that any data
 structure or algorithm pertaining to the combination of the two components
 appears as single data structure or algorithm from the protocol perspective.
