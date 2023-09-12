@@ -1530,6 +1530,11 @@ ML-DSA + ECC signature packet, see {{mldsa-sig-data-digest}}.
 In the case of SLH-DSA the internal hash algorithm varies based on the
 algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
 
+Note that in the specification we bind security level 3 signature algorithms to
+security level 2 hash algorithms. This is done on purpose, since by salting the
+data digest, the hardness assumption is not collision resistance but
+second-preimage resistance, therefore this limitation does not constitute a
+security bottleneck.
 
 # Additional considerations
 
