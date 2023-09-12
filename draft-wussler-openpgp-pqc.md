@@ -1029,7 +1029,7 @@ The algorithm-specific secret key is these two values:
  - A fixed-length octet string of the encoded secret scalar, whose encoding and
    length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the ML-KEM decapsulation key, whose
+ - A fixed-length octet string containing the ML-KEM secret key, whose
    length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
 # Composite Signature Schemes
