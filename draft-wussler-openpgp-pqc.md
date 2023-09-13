@@ -1530,11 +1530,11 @@ ML-DSA + ECC signature packet, see {{mldsa-sig-data-digest}}.
 In the case of SLH-DSA the internal hash algorithm varies based on the
 algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
 
-Note that in the specification we bind NIST security category 2 hash functions to
-the signature algorithms that fall into NIST security category 3. This is done on purpose, since by the random salt that is prepended to the
-data digest, the hardness assumption is not collision resistance but
-second-preimage resistance, therefore this limitation does not constitute a
-security bottleneck.
+Note that in the specification we bind NIST security category 2 hash functions
+to the signature algorithms that fall into NIST security category 3. This is
+done on purpose: because of the random salt that is prepended to the data
+digest, the hardness assumption is not collision resistance but second-preimage
+resistance, therefore this limitation does not constitute a security bottleneck.
 
 # Additional considerations
 
