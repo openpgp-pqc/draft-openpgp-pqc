@@ -1525,9 +1525,6 @@ signature data digestion to the hash algorithm used internally by the signature
 algorithm.
 
 ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
-ML-DSA + ECC signature packet, see {{mldsa-sig-data-digest}}.
-
-ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
 ML-DSA + ECC signature packet, see {{mldsa-sig-data-digest}}. Note that we bind
 a NIST security category 2 hash function to a signature algorithm that falls
 into NIST security category 3. This does not constitute a security bottleneck:
