@@ -1583,6 +1583,32 @@ registry group at https://www.iana.org/assignments/pgp-parameters:
 Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 {{sig-alg-specs}} to the  registry `Public Key Algorithms`.
 
+# Changelog
+
+## draft-wussler-openpgp-pqc-01
+
+- Shifted the algorithm IDs by 4 to align with the crypto-refresh.
+- Renamed v5 packets into v6 to align with the crypto-refresh.
+- Defined IND-CCA2 security for KDF and key combination.
+- Added explicit key generation procedures.
+- Changed the key combination KMAC salt.
+- Mandated Parameter ID check in SPHINCS+ signature verification.
+- Fixed key share size for Kyber-768.
+- Added "Preliminaries" section.
+- Fixed IANA considerations.
+
+## draft-wussler-openpgp-pqc-02
+
+- Added the public key in the ECC key derivation function.
+- Removed public key hash from key combiner.
+- Allowed v3 PKESKs with PQ algorithms, limiting them to AES symmetric ciphers
+  for encryption with SEIPDv1, in line with the crypto-refresh.
+
+## draft-wussler-openpgp-pqc-03
+
+- Replaced round 3 submission with NIST PQC Draft Standards FIPS 203, 204, 205.
+- Added consideration about security level for hashes.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
