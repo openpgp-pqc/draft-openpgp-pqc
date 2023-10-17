@@ -749,8 +749,8 @@ The operation `ecdhKem.Encaps()` is defined as follows:
 
  4. Set the output `eccCipherText` to the SEC1 encoding of `V`
 
- 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
-    chosen according to {{tab-ecdh-nist-artifacts}} or
+ 5. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`,
+    with `Hash` chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
 The operation `ecdhKem.Decaps()` is defined as follows:
@@ -761,8 +761,8 @@ The operation `ecdhKem.Decaps()` is defined as follows:
  2. Extract the `X` coordinate from the SEC1 encoded point `S = 04 || X || Y`
     as defined in section {{sec1-format}}
 
- 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`, with `Hash`
-    chosen according to {{tab-ecdh-nist-artifacts}} or
+ 3. Set the output `eccKeyShare` to `Hash(X || eccCipherText || eccPublicKey)`,
+    with `Hash` chosen according to {{tab-ecdh-nist-artifacts}} or
     {{tab-ecdh-brainpool-artifacts}}
 
 ### ML-KEM {#mlkem-ops}
@@ -932,8 +932,8 @@ scheme is as follows:
  2. Parse the algorithm ID from `pkComposite`
 
  3. Extract the `eccPublicKey` and `mlkemPublicKey` component from the
-    algorithm specific data encoded in `pkComposite` with the format specified in
-    {{mlkem-ecc-key}}.
+    algorithm specific data encoded in `pkComposite` with the format specified
+    in {{mlkem-ecc-key}}.
 
  4. Instantiate the ECC-KEM and the ML-KEM depending on the algorithm ID
     according to {{tab-mlkem-ecc-composite}}
@@ -944,8 +944,8 @@ scheme is as follows:
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 8. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as
-    defined in {{kem-key-combiner}}
+ 8. Compute `KEK := multiKeyCombine(eccKeyShare, eccCipherText, mlkemKeyShare,
+    mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}}
     that includes a 64 bit integrity check
@@ -1112,9 +1112,9 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 ### Signature data digest {#mldsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see
-{{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Composite ML-DSA + ECC
-signatures MUST use the associated hash algorithm as specified in
+Signature data (i.e. the data to be signed) is digested prior to signing
+operations, see {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. Composite
+ML-DSA + ECC signatures MUST use the associated hash algorithm as specified in
 {{tab-mldsa-hash}} for the signature data digest. Signatures using other hash
 algorithms MUST be considered invalid.
 
@@ -1543,8 +1543,10 @@ This specification introduces both ML-DSA + ECC as well as SLH-DSA as PQ(/T)
 signature schemes.
 
 Generally, it can be said that ML-DSA + ECC provides a performance in terms of
-execution time requirements that is close to that of traditional ECC signature schemes.
-Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like EC-based or even RSA
+execution time requirements that is close to that of traditional ECC signature
+schemes.
+Regarding the size of signatures and public keys, though, ML-DSA has far greater
+requirements than traditional schemes like EC-based or even RSA
 signature schemes. Implementers may want to offer SLH-DSA for applications
 where a higher degree of trust in the signature scheme is required. However,
 SLH-DSA has performance characteristics in terms of execution time of the
