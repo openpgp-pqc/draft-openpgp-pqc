@@ -1602,7 +1602,7 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 - Added the ephemeral and public key in the ECC key derivation function.
 - Removed public key hash from key combiner.
 - Allowed v3 PKESKs and v4 keys with PQ algorithms, limiting them to AES
-  symmetric ciphers
+  symmetric ciphers.
   for encryption with SEIPDv1, in line with the crypto-refresh.
 
 ## draft-wussler-openpgp-pqc-03
