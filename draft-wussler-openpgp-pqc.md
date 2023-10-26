@@ -1619,6 +1619,59 @@ Johannes Roth (MTG AG)
 
 --- back
 
+# Test vectors
+
+To help implementing this specification a set of non-normative examples follow here.
+
+## Sample v6 PQC Certificate (Transferable Public Key) {#v6-pqc-cert-pub}
+
+Here is a Transferable Public Key consisting of:
+
+- A v6 ML-DSA-65 + Ed25519 Public-Key packet
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-768 + X25519 Public-Subkey packet
+- A v6 subkey binding signature
+
+The primary key has the fingerprint `DF62813F892AAAE1462DC311547064D4B40B68AE0481207FB134CBE08047C4EE`.
+
+The subkey has the fingerprint `1280ABF04D59E1C794C16B03A3478CEC7BC607616FCFE48418CB72C0B4D1F560`.
+
+{: sourcecode-name="v6-pqc-sample-cert-pub.key"}
+~~~ application/pgp-keys
+{::include data/v6-pqc-sample-cert-pub.key}
+~~~
+
+The corresponding Transferable Secret Key can be found in {{v6-pqc-cert-priv}}.
+
+## Sample v6 PQC Secret Key (Transferable Secret Key) {#v6-pqc-cert-priv}
+
+Here is a Transferable Secret Key consisting of:
+
+- A v6 ML-DSA-65 + Ed25519 Secret-Key packet
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-768 + X25519 Secret-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-pqc-sample-cert-priv.key"}
+~~~ application/pgp-keys
+{::include data/v6-pqc-sample-cert-priv.key}
+~~~
+
+The corresponding Transferable Public Key can be found in {{v6-pqc-cert-pub}}.
+
+## Sample v6 PQC PKESK packet + v2 SEIPD packet
+
+Here is a v6 PKESK packet, followed by a v2 SEIPD packet.
+
+{: sourcecode-name="v2-seipd-v6-pkesk-pqc-sample.pgp"}
+~~~
+{::include data/v2-seipd-v6-pkesk-pqc-sample.pgp}
+~~~
+
+The corresponding Transferable Public Key can be found in {{v6-pqc-cert-pub}}.
+
 # Acknowledgments
 {:numbered="false"}
 
