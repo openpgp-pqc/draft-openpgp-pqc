@@ -693,7 +693,7 @@ defines the instances of the following operations:
 
 and
 
-    (eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText)
+    (eccKeyShare) <- ECC-KEM.Decaps(eccPublicKey, eccSecretKey, eccCipherText)
 
 To instantiate `ECC-KEM`, one must select a parameter set from
 {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, or
