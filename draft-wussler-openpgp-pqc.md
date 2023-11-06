@@ -222,6 +222,72 @@ informative:
         - org: National Institute of Standards and Technology
       date: August 2023
 
+  Dilithium-round3-65:
+    target: https://pq-crystals.org/dilithium/data/dilithium-specification-round3-20210208.pdf
+    title: CRYSTALS-Dilithium Algorithm Specifications and Supporting Documentation (Version 3.1)
+    author:
+      -
+        ins: S. Bai
+        name: Shi Bai
+      -
+        ins: L. Ducas
+        name: Léo Ducas
+      -
+        ins: E. Kiltz
+        name: Eike Kiltz
+      -
+        ins: T. Lepoint
+        name: Tancrède Lepoint
+      -
+        ins: V. Lyubashevsky
+        name: Vadim Lyubashevsky
+      -
+        ins: P. Schwabe
+        name: Peter Schwabe
+      -
+        ins: G. Seiler
+        name: Gregor Seiler
+      -
+        ins: D. Stehlé
+        name: Damien Stehlé
+    date: February 2021
+
+  Kyber-round3:
+    target: https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
+    title: CRYSTALS-Kyber Algorithm Specifications And Supporting Documentation (version 3.02)
+    author:
+      -
+        ins: R. Avanzi
+        name: Roberto Avanzi
+      -
+        ins: J. Bos
+        name: Joppe Bos
+      -
+        ins: L. Ducas
+        name: Léo Ducas
+      -
+        ins: E. Kiltz
+        name: Eike Kiltz
+      -
+        ins: T. Lepoint
+        name: Tancrède Lepoint
+      -
+        ins: V. Lyubashevsky
+        name: Vadim Lyubashevsky
+      -
+        ins: J. M. Schanck
+        name: John M. Schanck
+      -
+        ins: P. Schwabe
+        name: Peter Schwabe
+      -
+        ins: G. Seiler
+        name: Gregor Seiler
+      -
+        ins: D. Stehlé
+        name: Damien Stehlé
+    date: August 2021
+
   draft-driscoll-pqt-hybrid-terminology:
     target: https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-hybrid-terminology
     title: Terminology for Post-Quantum Traditional Hybrid Schemes
@@ -1623,14 +1689,21 @@ Johannes Roth (MTG AG)
 
 To help implementing this specification a set of non-normative examples follow here.
 
+**NOTE**:
+The test vectors have been produced using the following algorithmic specifications:
+[Dilithium-round3-65] for ML-DSA-65
+and [Kyber-round3] for ML-KEM-768.
+For the final version of this document,
+the test vectors will be updated to the official NIST specification.
+
 ## Sample v6 PQC Certificate (Transferable Public Key) {#v6-pqc-cert-pub}
 
 Here is a Transferable Public Key consisting of:
 
-- A v6 ML-DSA-65 + Ed25519 Public-Key packet
+- A v6 ML-DSA-65 [Dilithium-round3-65] + Ed25519 Public-Key packet
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Public-Subkey packet
+- A v6 ML-KEM-768 [Kyber-round3] + X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `DF62813F892AAAE1462DC311547064D4B40B68AE0481207FB134CBE08047C4EE`.
@@ -1648,10 +1721,10 @@ The corresponding Transferable Secret Key can be found in {{v6-pqc-cert-priv}}.
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 ML-DSA-65 + Ed25519 Secret-Key packet
+- A v6 ML-DSA-65 [Dilithium-round3-65] + Ed25519 Secret-Key packet
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Secret-Subkey packet
+- A v6 ML-KEM-768 [Kyber-round3] + X25519 Secret-Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-pqc-sample-cert-priv.key"}
