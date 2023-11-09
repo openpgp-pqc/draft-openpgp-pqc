@@ -431,7 +431,7 @@ categorized as follows:
 
 For each of the composite schemes, this specification mandates that the
 recipient has to successfully perform the cryptographic algorithms for each of
-the component schemes used in a cryptrographic message, in order for the
+the component schemes used in a cryptographic message, in order for the
 message to be deciphered and considered as valid. This means that all component
 signatures must be verified successfully in order to achieve a successful
 verification of the composite signature. In the case of the composite
@@ -628,7 +628,7 @@ ECDH component of the composite algorithms.
 
 {{tab-ecdh-cfrg-artifacts}}, {{tab-ecdh-nist-artifacts}}, and
 {{tab-ecdh-brainpool-artifacts}} describe the ECC-KEM parameters and artifact
-lengths. The artefacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings
+lengths. The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings
 described in [RFC7748].
 
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
@@ -785,7 +785,7 @@ The above are the operations `ML-KEM.Encaps` and `ML-KEM.Decaps` defined in
 [FIPS-203]. Note that `mlkemPublicKey` is the encapsulation and
 `mlkemSecretKey` is the decapsulation key.
 
-ML-KEM has the parameterization with the corresponding artifact lengths in
+ML-KEM has the parametrization with the corresponding artifact lengths in
 octets as given in {{tab-mlkem-artifacts}}. All artifacts are encoded as
 defined in [FIPS-203].
 
@@ -1104,7 +1104,7 @@ defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
 
-ML-DSA has the parameterization with the corresponding artifact lengths in
+ML-DSA has the parametrization with the corresponding artifact lengths in
 octets as given in {{tab-mldsa-artifacts}}. All artifacts are encoded as
 defined in [FIPS-204].
 
@@ -1471,14 +1471,14 @@ context.
 
 The `fixedInfo` defined in {{kem-fixed-info}} binds the derived KEK to the
 chosen algorithm and communication parties. The algorithm ID identifies
-univocally the algorithm, the parameters for its instantiation, and the length
+unequivocally the algorithm, the parameters for its instantiation, and the length
 of all artifacts, including the derived key.
 
 This is in line with the Recommendation for ECC in section 5.5 of
 [SP800-56A]. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key of
 their own, there are no pre-shared secrets, and all the other parameters are
-univocally defined by the algorithm ID.
+unequivocally defined by the algorithm ID.
 
 Furthermore, we do not require the recipients public key into the key combiner
 as the public key material is already included in the component key derivation
