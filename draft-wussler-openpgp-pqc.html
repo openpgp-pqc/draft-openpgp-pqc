@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Post-Quantum Cryptography in OpenPGP</title>
 <meta content="Stavros Kousidis" name="author">
+<meta content="Johannes Roth" name="author">
 <meta content="Falko Strenzke" name="author">
 <meta content="Aron Wussler" name="author">
 <meta content="
@@ -29,13 +30,13 @@ as a standalone public key signature scheme.
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.11.0
+    platformdirs 4.0.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.8
+    wcwidth 0.2.10
 -->
 <link href="draft-wussler-openpgp-pqc.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1034,11 +1035,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">October 2023</td>
+<td class="right">November 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 21 April 2024</td>
+<td class="center">Expires 25 May 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,17 +1052,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wussler-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-19" class="published">19 October 2023</time>
+<time datetime="2023-11-22" class="published">22 November 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-21">21 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-05-25">25 May 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">S. Kousidis</div>
 <div class="org">BSI</div>
+</div>
+<div class="author">
+      <div class="author-name">J. Roth</div>
+<div class="org">MTG AG</div>
 </div>
 <div class="author">
       <div class="author-name">F. Strenzke</div>
@@ -1120,7 +1125,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 May 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -4046,6 +4051,15 @@ feedback on this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:stavros.kousidis@bsi.bund.de" class="email">stavros.kousidis@bsi.bund.de</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Johannes Roth</span></div>
+<div dir="auto" class="left"><span class="org">MTG AG</span></div>
+<div dir="auto" class="left"><span class="country-name">Germany</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:johannes.roth@mtg.de" class="email">johannes.roth@mtg.de</a>
 </div>
 </address>
 <address class="vcard">

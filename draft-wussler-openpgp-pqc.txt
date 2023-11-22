@@ -4,11 +4,12 @@
 
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
-Intended status: Informational                               F. Strenzke
-Expires: 21 April 2024                                            MTG AG
+Intended status: Informational                                   J. Roth
+Expires: 25 May 2024                                         F. Strenzke
+                                                                  MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         19 October 2023
+                                                        22 November 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -56,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 April 2024.
+   This Internet-Draft will expire on 25 May 2024.
 
 Copyright Notice
 
@@ -1830,6 +1831,12 @@ Authors' Addresses
    BSI
    Germany
    Email: stavros.kousidis@bsi.bund.de
+
+
+   Johannes Roth
+   MTG AG
+   Germany
+   Email: johannes.roth@mtg.de
 
 
    Falko Strenzke
