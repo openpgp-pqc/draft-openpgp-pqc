@@ -24,8 +24,8 @@ author:
     country: Germany
     email: stavros.kousidis@bsi.bund.de
  -
-    ins: J. Roth 
-    name: Johannes Roth 
+    ins: J. Roth
+    name: Johannes Roth
     org: MTG AG
     country: Germany
     email: johannes.roth@mtg.de
