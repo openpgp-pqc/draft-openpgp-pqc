@@ -24,6 +24,12 @@ author:
     country: Germany
     email: stavros.kousidis@bsi.bund.de
  -
+    ins: J. Roth
+    name: Johannes Roth
+    org: MTG AG
+    country: Germany
+    email: johannes.roth@mtg.de
+ -
     ins: F. Strenzke
     name: Falko Strenzke
     org: MTG AG
