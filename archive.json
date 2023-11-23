@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-21T01:06:39.585143+00:00",
+  "timestamp": "2023-11-23T01:04:55.748147+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -6379,6 +6379,34 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOIrmZ-85gHbnH",
+      "title": "added johannes as author",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/73",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-11-22T10:49:51Z",
+      "updatedAt": "2023-11-22T11:00:29Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "add-jrh-as-author",
+      "headRefOid": "cf88cc0f307a5f5c67bc76173fbff8ced4c378d5",
+      "closedAt": "2023-11-22T11:00:29Z",
+      "mergedAt": "2023-11-22T11:00:29Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "6653ace97ea2b5ad951f9165e39793bd71a60b55"
+      },
       "comments": [],
       "reviews": []
     }
