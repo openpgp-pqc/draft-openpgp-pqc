@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-30T01:05:22.612522+00:00",
+  "timestamp": "2023-12-03T01:08:59.789115+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1450,6 +1450,30 @@
           "body": "Seems to me that it should rather be a SHOULD NOT as you have already identified an exception to the rule.",
           "createdAt": "2023-11-09T09:09:29Z",
           "updatedAt": "2023-11-09T09:09:29Z"
+        }
+      ]
+    },
+    {
+      "number": 74,
+      "id": "I_kwDOIrmZ-854UOet",
+      "title": "Mandatory AES for v3 PKESK: AES is not a MUST in RFC4880",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/74",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently our draft states (slightly revised text in my working branch) for ML-KEM cmposite encryption:\r\n\r\n> Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted. Instead, it is prepended to the encrypted session key in plaintext. In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).\r\n\r\nBut this isn't possible with RFC 4880 to which we aim to be compatible here, as there AES-128 is only a SHOULD. The only MUST symmetric algorithm there is TripleDES. So either we require at the same time with introducing PQC that AES-128 becomes a MUST, which seems a bit strange to me, or we have to keep the symmetric algorithm flexible, which would make the most sense in my opinion.\r\n\r\nFrom a practical perspective requiring AES-128 as MUST is most likely realistic. But from a formal perspective it means that a sending client conforming to RFC 4880 and sending an encrypted mail to multiple recipients, some supporting ML-KEM, some not, could come into the conflict of having to use AES-128 for the PQC supporting recipients and TripleDES for the legacy clients. Actually the similar but even bigger problem can happen to a client supporting the crypto-refresh and sending to mutiple clients, since the crypto-refresh even completely forbids TripleDES.\r\n\r\nSo should we simply assume that clients today all support AES-128?\r\n\r\n@TJ-91 @wussler @fluppe2\r\n\r\n\r\n",
+      "createdAt": "2023-11-30T12:28:45Z",
+      "updatedAt": "2023-12-01T08:58:58Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Perhaps a short recap of how it came to the quoted text helps to evaluate the issue:\r\n\r\n* When introducing X25519/X448 in the Crypto Refresh, there was an error such that the algorithm identifier byte caused v3 PKESKs and X25519/X448 to be incompatible due to a wrong length for AES Key Wrap ([rfc4880bis issue 157](https://gitlab.com/openpgp-wg/rfc4880bis/-/issues/157)).\r\n* One proposal was to keep the identifier encrypted and use padding, the other was, to take it out of the encryption. The second approach was chosen.\r\n* Afterwards, the symmetric algorithm identifier has been restricted to AES due to cross-mode attack concerns (see [rfc4880bis MR 276](https://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/276)).\r\n* For consistency with the Crypto Refresh, the PQC draft adopted this solution (https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/42)\r\n\r\nI think you raise a very valid point and this would have been a good argument against the chosen approach in the Crypto Refresh.\r\nThe two options I see now:\r\n\r\n* Stay consistent with the Crypto Refresh and assume AES is always supported and add some text to address this issue.\r\n* Encrypt the algorithm identifier and add padding, remove the binding to AES.\r\n\r\n> So should we simply assume that clients today all support AES-128?\r\n\r\nI think it's a reasonable assumption but it would be better to have something to back up this claim and justify the decision.\r\nI have no clear preference for any approach at the moment.\r\n",
+          "createdAt": "2023-12-01T08:58:57Z",
+          "updatedAt": "2023-12-01T08:58:57Z"
         }
       ]
     }
