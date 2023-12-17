@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-14T01:05:01.103233+00:00",
+  "timestamp": "2023-12-17T01:10:11.033189+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -6392,7 +6392,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-11-09T09:03:09Z",
-      "updatedAt": "2023-12-12T13:43:52Z",
+      "updatedAt": "2023-12-14T08:03:16Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
@@ -6417,6 +6417,66 @@
           "createdAt": "2023-12-12T13:43:52Z",
           "updatedAt": "2023-12-12T13:43:52Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85qK5bG",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-14T08:00:22Z",
+          "updatedAt": "2023-12-14T08:00:22Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I disagree here: \"cryptanalytic\" or \"cryptanalytis\" are the commonly used term with a hits on Google while for \"cryptoanalytic\" I don't see any results on Google.",
+              "createdAt": "2023-12-14T08:00:22Z",
+              "updatedAt": "2023-12-14T08:01:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85qK5pE",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-14T08:00:58Z",
+          "updatedAt": "2023-12-14T08:00:59Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I think both words mean the same but I am fine with changing it.",
+              "createdAt": "2023-12-14T08:00:58Z",
+              "updatedAt": "2023-12-14T08:00:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85qK6dr",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-14T08:03:15Z",
+          "updatedAt": "2023-12-14T08:03:16Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "I am not sure whether we have commited to BE or AE. In BE, \"artefact\" would be appropriate: https://grammarist.com/spelling/artefact-artifact/",
+              "createdAt": "2023-12-14T08:03:15Z",
+              "updatedAt": "2023-12-14T08:03:16Z"
+            }
+          ]
         }
       ]
     },
