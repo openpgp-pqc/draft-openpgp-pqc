@@ -697,7 +697,7 @@ the base point of Curve25519.
 The operation `x25519Kem.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v`
-    is a random scalar
+    is a randomly generated octet string with a length of 32 octets
 
  2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -724,7 +724,7 @@ of Curve448.
 The operation `x448.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
-    is a random scalar
+    is a randomly generated octet string with a length 56 octets
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -884,7 +884,7 @@ algorithm.
     //   Constants:
     //   domSeparation       - the UTF-8 encoding of the string
     //                         "OpenPGPCompositeKeyDerivationFunction"
-    //   counter             - the fixed 4 byte value 0x00000001
+    //   counter             - the 4 byte value 00 00 00 01
     //   customizationString - the UTF-8 encoding of the string "KDF"
 
     eccData = eccKeyShare || eccCipherText
@@ -892,6 +892,9 @@ algorithm.
     encData = counter || eccData || mlkemData || fixedInfo
 
     MB = KMAC256(domSeparation, encData, oBits, customizationString)
+
+Here, the inputs to KMAC256 have the meaning key, main input data, requested
+output length, and optional customization string in that order.
 
 Note that the values `eccKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare`
 defined in {{mlkem-ops}} already use the relative ciphertext in the
@@ -956,7 +959,10 @@ scheme is as follows:
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}}
     that includes a 64 bit integrity check
 
- 10. Output `eccCipherText || mlkemCipherText || len(C) || C`
+ 10. Output the algorithm specific part of the PKESK as
+     `eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C`, where
+     both `symAlgId` and `len(C)` are single octet fields and `symAlgId`
+     denotes the symmetric algorithm used and is present only for v3 PKESK
 
 ### Decryption procedure
 
@@ -965,7 +971,8 @@ scheme is as follows:
 
  1. Take the matching PKESK and own secret key packet as input
 
- 2. From the PKESK extract the algorithm ID and the `encryptedKey`
+ 2. From the PKESK extract the algorithm ID and the `encryptedKey`, i.e. the
+    wrapped session key
 
  3. Check that the own and the extracted algorithm ID match
 
@@ -977,8 +984,9 @@ scheme is as follows:
     according to {{tab-mlkem-ecc-composite}}
 
  6. Parse `eccCipherText`, `mlkemCipherText`, and `C` from `encryptedKey`
-    encoded as `eccCipherText || mlkemCipherText || len(C) || C` as specified
-    in {{ecc-mlkem-pkesk}}
+    encoded as `eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C` as specified
+    in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3
+    PKESK.
 
  7. Compute `(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccSecretKey)`
 
@@ -1006,8 +1014,7 @@ The algorithm-specific fields consists of:
  - A fixed-length octet string of the ML-KEM ciphertext, whose length depends
    on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
- - The one-octet algorithm identifier, if it is passed (in the case of a v3
-   PKESK packet).
+ - Only in the case of a v3 PKESK packet: a one-octet symmetric algorithm identifier.
 
  - A variable-length field containing the wrapped session key:
 
@@ -1016,10 +1023,12 @@ The algorithm-specific fields consists of:
    - The wrapped session key represented as an octet string, i.e., the output
      of the encryption procedure described in {{ecc-mlkem-encryption}}.
 
-Note that unlike most public-key algorithms, in the case of a v3 PKESK packet,
-the symmetric algorithm identifier is not encrypted.  Instead, it is prepended
-to the encrypted session key in plaintext.  In this case, the symmetric
-algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
+Note that unlike most public-key algorithms, for the ML-KEM composite schemes,
+in the case of a v3 PKESK packet, the symmetric algorithm identifier is not
+encrypted.  Instead, it is prepended to the encrypted session key in plaintext.
+In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256
+(algorithm ID 7, 8 or 9).
+
 
 ### Key Material Packets {#mlkem-ecc-key}
 
