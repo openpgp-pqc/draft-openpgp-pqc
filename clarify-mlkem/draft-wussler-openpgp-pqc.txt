@@ -5,10 +5,10 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                               F. Strenzke
-Expires: 6 May 2024                                               MTG AG
+Expires: 23 June 2024                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         3 November 2023
+                                                        21 December 2023
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2024.
+   This Internet-Draft will expire on 23 June 2024.
 
 Copyright Notice
 
@@ -657,7 +657,7 @@ Table of Contents
 
    and
 
-(eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText, eccPublicKey)
+   (eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText)
 
    To instantiate ECC-KEM, one must select a parameter set from Table 5,
    Table 6, or Table 7.
@@ -673,7 +673,8 @@ Table of Contents
    The operation x25519Kem.Encaps() is defined as follows:
 
    1.  Generate an ephemeral key pair {v, V} via V = X25519(v,U(P))
-       where v is a random scalar
+       where v is a randomly generated octet string with a length of 32
+       octets
 
    2.  Compute the shared coordinate X = X25519(v, R) where R is the
        public key eccPublicKey
@@ -702,7 +703,7 @@ Table of Contents
    The operation x448.Encaps() is defined as follows:
 
    1.  Generate an ephemeral key pair {v, V} via V = X448(v,U(P)) where
-       v is a random scalar
+       v is a randomly generated octet string with a length 56 octets
 
    2.  Compute the shared coordinate X = X448(v, R) where R is the
        public key eccPublicKey
@@ -883,7 +884,7 @@ Table of Contents
  //   Constants:
  //   domSeparation       - the UTF-8 encoding of the string
  //                         "OpenPGPCompositeKeyDerivationFunction"
- //   counter             - the fixed 4 byte value 0x00000001
+ //   counter             - the 4 byte value 00 00 00 01
  //   customizationString - the UTF-8 encoding of the string "KDF"
 
  eccData = eccKeyShare || eccCipherText
@@ -891,6 +892,10 @@ Table of Contents
  encData = counter || eccData || mlkemData || fixedInfo
 
  MB = KMAC256(domSeparation, encData, oBits, customizationString)
+
+   Here, the inputs to KMAC256 have the meaning key, main input data,
+   requested output length, and optional customization string in that
+   order.
 
    Note that the values eccKeyShare defined in Section 5.1.1 and
    mlkemKeyShare defined in Section 5.1.2 already use the relative
@@ -958,7 +963,11 @@ Table of Contents
    9.   Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
         [RFC3394] that includes a 64 bit integrity check
 
-   10.  Output eccCipherText || mlkemCipherText || len(C) || C
+   10.  Output the algorithm specific part of the PKESK as
+        eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C,
+        where both symAlgId and len(C) are single octet fields and
+        symAlgId denotes the symmetric algorithm used and is present
+        only for v3 PKESK
 
 5.2.5.  Decryption procedure
 
@@ -967,7 +976,8 @@ Table of Contents
 
    1.   Take the matching PKESK and own secret key packet as input
 
-   2.   From the PKESK extract the algorithm ID and the encryptedKey
+   2.   From the PKESK extract the algorithm ID and the encryptedKey,
+        i.e. the wrapped session key
 
    3.   Check that the own and the extracted algorithm ID match
 
@@ -979,11 +989,12 @@ Table of Contents
         algorithm ID according to Table 9
 
    6.   Parse eccCipherText, mlkemCipherText, and C from encryptedKey
-        encoded as eccCipherText || mlkemCipherText || len(C) || C as
-        specified in Section 5.3.1
+        encoded as eccCipherText || mlkemCipherText (|| symAlgId) ||
+        len(C) || C as specified in Section 5.3.1, where symAlgId is
+        present only in the case of a v3 PKESK.
 
    7.   Compute (eccKeyShare) := ECC-KEM.Decaps(eccCipherText,
-        eccSecretKey, eccPublicKey)
+        eccSecretKey)
 
    8.   Compute (mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
@@ -1012,8 +1023,8 @@ Table of Contents
    *  A fixed-length octet string of the ML-KEM ciphertext, whose length
       depends on the algorithm ID as specified in Table 8.
 
-   *  The one-octet algorithm identifier, if it is passed (in the case
-      of a v3 PKESK packet).
+   *  Only in the case of a v3 PKESK packet: a one-octet symmetric
+      algorithm identifier.
 
    *  A variable-length field containing the wrapped session key:
 
@@ -1023,11 +1034,12 @@ Table of Contents
          the output of the encryption procedure described in
          Section 5.2.4.
 
-   Note that unlike most public-key algorithms, in the case of a v3
-   PKESK packet, the symmetric algorithm identifier is not encrypted.
-   Instead, it is prepended to the encrypted session key in plaintext.
-   In this case, the symmetric algorithm used MUST be AES-128, AES-192
-   or AES-256 (algorithm ID 7, 8 or 9).
+   Note that unlike most public-key algorithms, for the ML-KEM composite
+   schemes, in the case of a v3 PKESK packet, the symmetric algorithm
+   identifier is not encrypted.  Instead, it is prepended to the
+   encrypted session key in plaintext.  In this case, the symmetric
+   algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8
+   or 9).
 
 5.3.2.  Key Material Packets
 

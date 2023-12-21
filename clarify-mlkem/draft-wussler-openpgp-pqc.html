@@ -18,24 +18,24 @@ public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
 combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
 as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.18.2" name="generator">
+<meta content="xml2rfc 3.19.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-wussler-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.2
+  xml2rfc 3.19.0
     Python 3.11.6
-    ConfigArgParse 1.5.3
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.11.0
+    platformdirs 4.1.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.9
+    wcwidth 0.2.12
 -->
 <link href="draft-wussler-openpgp-pqc.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1034,11 +1034,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">November 2023</td>
+<td class="right">December 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 6 May 2024</td>
+<td class="center">Expires 23 June 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,12 +1051,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wussler-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-11-03" class="published">3 November 2023</time>
+<time datetime="2023-12-21" class="published">21 December 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-05-06">6 May 2024</time></dd>
+<dd class="expires"><time datetime="2024-06-23">23 June 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1120,7 +1120,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 May 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2292,7 +2292,7 @@ defines the instances of the following operations:<a href="#section-5.1.1-7" cla
 <p id="section-5.1.1-9">and<a href="#section-5.1.1-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.1-10">
 <pre>
-(eccKeyShare) &lt;- ECC-KEM.Decaps(eccSecretKey, eccCipherText, eccPublicKey)
+(eccKeyShare) &lt;- ECC-KEM.Decaps(eccSecretKey, eccCipherText)
 </pre><a href="#section-5.1.1-10" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1.1-11">To instantiate <code>ECC-KEM</code>, one must select a parameter set from
@@ -2312,7 +2312,7 @@ the base point of Curve25519.<a href="#section-5.1.1.1-1" class="pilcrow">¶</a>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.1.1-3">
 <li id="section-5.1.1.1-3.1">
                 <p id="section-5.1.1.1-3.1.1">Generate an ephemeral key pair {<code>v</code>, <code>V</code>} via <code>V = X25519(v,U(P))</code> where <code>v</code>
-is a random scalar<a href="#section-5.1.1.1-3.1.1" class="pilcrow">¶</a></p>
+is a randomly generated octet string with a length of 32 octets<a href="#section-5.1.1.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.1-3.2">
                 <p id="section-5.1.1.1-3.2.1">Compute the shared coordinate <code>X = X25519(v, R)</code> where <code>R</code> is the public key
@@ -2351,7 +2351,7 @@ of Curve448.<a href="#section-5.1.1.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.1.2-3">
 <li id="section-5.1.1.2-3.1">
                 <p id="section-5.1.1.2-3.1.1">Generate an ephemeral key pair {<code>v</code>, <code>V</code>} via <code>V = X448(v,U(P))</code> where <code>v</code>
-is a random scalar<a href="#section-5.1.1.2-3.1.1" class="pilcrow">¶</a></p>
+is a randomly generated octet string with a length 56 octets<a href="#section-5.1.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.2-3.2">
                 <p id="section-5.1.1.2-3.2.1">Compute the shared coordinate <code>X = X448(v, R)</code> where <code>R</code> is the public key
@@ -2646,7 +2646,7 @@ algorithm.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
 //   Constants:
 //   domSeparation       - the UTF-8 encoding of the string
 //                         "OpenPGPCompositeKeyDerivationFunction"
-//   counter             - the fixed 4 byte value 0x00000001
+//   counter             - the 4 byte value 00 00 00 01
 //   customizationString - the UTF-8 encoding of the string "KDF"
 
 eccData = eccKeyShare || eccCipherText
@@ -2656,32 +2656,34 @@ encData = counter || eccData || mlkemData || fixedInfo
 MB = KMAC256(domSeparation, encData, oBits, customizationString)
 </pre><a href="#section-5.2.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2.2-3">Note that the values <code>eccKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 5.1.1</a> and <code>mlkemKeyShare</code>
+<p id="section-5.2.2-3">Here, the inputs to KMAC256 have the meaning key, main input data, requested
+output length, and optional customization string in that order.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-4">Note that the values <code>eccKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 5.1.1</a> and <code>mlkemKeyShare</code>
 defined in <a href="#mlkem-ops" class="auto internal xref">Section 5.1.2</a> already use the relative ciphertext in the
 derivation. The ciphertext is by design included again in the key combiner to
-provide a robust security proof.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-4">The value of <code>domSeparation</code> is the UTF-8 encoding of the string
-"OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2.2-5">
+provide a robust security proof.<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-5">The value of <code>domSeparation</code> is the UTF-8 encoding of the string
+"OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2.2-6">
 <pre>
 domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
                  4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
                  63 74 69 6F 6E
-</pre><a href="#section-5.2.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2.2-6">The value of <code>counter</code> MUST be set to the following octet sequence:<a href="#section-5.2.2-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2.2-7">
+<p id="section-5.2.2-7">The value of <code>counter</code> MUST be set to the following octet sequence:<a href="#section-5.2.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2.2-8">
 <pre>
 counter :=  00 00 00 01
-</pre><a href="#section-5.2.2-7" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.2-8" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2.2-8">The value of <code>fixedInfo</code> MUST be set according to <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a>.<a href="#section-5.2.2-8" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-9">The value of <code>customizationString</code> is the UTF-8 encoding of the string "KDF"
-and MUST be set to the following octet sequence:<a href="#section-5.2.2-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2.2-10">
+<p id="section-5.2.2-9">The value of <code>fixedInfo</code> MUST be set according to <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a>.<a href="#section-5.2.2-9" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-10">The value of <code>customizationString</code> is the UTF-8 encoding of the string "KDF"
+and MUST be set to the following octet sequence:<a href="#section-5.2.2-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2.2-11">
 <pre>
 customizationString := 4B 44 46
-</pre><a href="#section-5.2.2-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.2.2-11" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2742,7 +2744,10 @@ mlkemCipherText, fixedInfo, oBits=256)</code> as defined in <a href="#kem-key-co
 that includes a 64 bit integrity check<a href="#section-5.2.4-2.9.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.4-2.10">
-              <p id="section-5.2.4-2.10.1">Output <code>eccCipherText || mlkemCipherText || len(C) || C</code><a href="#section-5.2.4-2.10.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.4-2.10.1">Output the algorithm specific part of the PKESK as
+<code>eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C</code>, where
+both <code>symAlgId</code> and <code>len(C)</code> are single octet fields and <code>symAlgId</code>
+denotes the symmetric algorithm used and is present only for v3 PKESK<a href="#section-5.2.4-2.10.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -2759,7 +2764,8 @@ scheme is as follows:<a href="#section-5.2.5-1" class="pilcrow">¶</a></p>
               <p id="section-5.2.5-2.1.1">Take the matching PKESK and own secret key packet as input<a href="#section-5.2.5-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.5-2.2">
-              <p id="section-5.2.5-2.2.1">From the PKESK extract the algorithm ID and the <code>encryptedKey</code><a href="#section-5.2.5-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.5-2.2.1">From the PKESK extract the algorithm ID and the <code>encryptedKey</code>, i.e. the
+wrapped session key<a href="#section-5.2.5-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.5-2.3">
               <p id="section-5.2.5-2.3.1">Check that the own and the extracted algorithm ID match<a href="#section-5.2.5-2.3.1" class="pilcrow">¶</a></p>
@@ -2775,12 +2781,12 @@ according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table
 </li>
             <li id="section-5.2.5-2.6">
               <p id="section-5.2.5-2.6.1">Parse <code>eccCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code>
-encoded as <code>eccCipherText || mlkemCipherText || len(C) || C</code> as specified
-in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a><a href="#section-5.2.5-2.6.1" class="pilcrow">¶</a></p>
+encoded as <code>eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C</code> as specified
+in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a>, where <code>symAlgId</code> is present only in the case of a v3
+PKESK.<a href="#section-5.2.5-2.6.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.5-2.7">
-              <p id="section-5.2.5-2.7.1">Compute <code>(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccSecretKey,
-eccPublicKey)</code><a href="#section-5.2.5-2.7.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.5-2.7.1">Compute <code>(eccKeyShare) := ECC-KEM.Decaps(eccCipherText, eccSecretKey)</code><a href="#section-5.2.5-2.7.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.5-2.8">
               <p id="section-5.2.5-2.8.1">Compute <code>(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)</code><a href="#section-5.2.5-2.8.1" class="pilcrow">¶</a></p>
@@ -2825,8 +2831,7 @@ format associated with the curve as specified in <a href="#ecc-kem" class="auto 
 on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-2.3">
-              <p id="section-5.3.1-2.3.1">The one-octet algorithm identifier, if it is passed (in the case of a v3
-PKESK packet).<a href="#section-5.3.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.1-2.3.1">Only in the case of a v3 PKESK packet: a one-octet symmetric algorithm identifier.<a href="#section-5.3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-2.4">
               <p id="section-5.3.1-2.4.1">A variable-length field containing the wrapped session key:<a href="#section-5.3.1-2.4.1" class="pilcrow">¶</a></p>
@@ -2841,10 +2846,11 @@ of the encryption procedure described in <a href="#ecc-mlkem-encryption" class="
               </ul>
 </li>
           </ul>
-<p id="section-5.3.1-3">Note that unlike most public-key algorithms, in the case of a v3 PKESK packet,
-the symmetric algorithm identifier is not encrypted.  Instead, it is prepended
-to the encrypted session key in plaintext.  In this case, the symmetric
-algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">Note that unlike most public-key algorithms, for the ML-KEM composite schemes,
+in the case of a v3 PKESK packet, the symmetric algorithm identifier is not
+encrypted.  Instead, it is prepended to the encrypted session key in plaintext.
+In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256
+(algorithm ID 7, 8 or 9).<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="mlkem-ecc-key">
