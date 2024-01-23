@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-21T01:11:44.462870+00:00",
+  "timestamp": "2024-01-23T01:08:01.384831+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1483,6 +1483,22 @@
           "updatedAt": "2024-01-20T13:01:58Z"
         }
       ]
+    },
+    {
+      "number": 75,
+      "id": "I_kwDOIrmZ-8580jFN",
+      "title": "remove whitespaces in algorithm names",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/75",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I would prefer to replace \"ML-KEM-768 + X25519\" by \"ML-KEM-768+X25519\". In UIs it will most likely be presented without spaces in order to make it clearly appear as a single identifier.",
+      "createdAt": "2024-01-22T15:17:41Z",
+      "updatedAt": "2024-01-22T15:17:41Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
