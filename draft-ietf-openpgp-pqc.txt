@@ -5,15 +5,15 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 25 May 2024                                         F. Strenzke
+Expires: 2 August 2024                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        22 November 2023
+                                                         30 January 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
-                    draft-wussler-openpgp-pqc-latest
+                     draft-ietf-openpgp-pqc-latest
 
 Abstract
 
@@ -32,7 +32,7 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    Status information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-wussler-openpgp-pqc/.
+   https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc/.
 
    Discussion of this document takes place on the WG Working Group
    mailing list (mailto:openpgp@ietf.org), which is archived at
@@ -57,11 +57,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2024.
+   This Internet-Draft will expire on 2 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -153,6 +153,8 @@ Table of Contents
      12.1.  draft-wussler-openpgp-pqc-01
      12.2.  draft-wussler-openpgp-pqc-02
      12.3.  draft-wussler-openpgp-pqc-03
+     12.4.  draft-wussler-openpgp-pqc-04
+     12.5.  draft-ietf-openpgp-pqc-00
    13. Contributors
    14. References
      14.1.  Normative References
@@ -1703,12 +1705,19 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
    *  Added consideration about security level for hashes.
 
+12.4.  draft-wussler-openpgp-pqc-04
+
+   *  Added Johannes Roth as author
+
+12.5.  draft-ietf-openpgp-pqc-00
+
+   *  Renamed draft
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
    Carl-Daniel Hailfinger (BSI)
    Andreas Huelsing (TU Eindhoven)
-   Johannes Roth (MTG AG)
 
 14.  References
 
@@ -1717,9 +1726,9 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    [I-D.ietf-openpgp-crypto-refresh]
               Wouters, P., Huigens, D., Winter, J., and N. Yutaka,
               "OpenPGP", Work in Progress, Internet-Draft, draft-ietf-
-              openpgp-crypto-refresh-12, 17 October 2023,
+              openpgp-crypto-refresh-13, 4 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-
-              crypto-refresh-12>.
+              crypto-refresh-13>.
 
    [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
               (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
