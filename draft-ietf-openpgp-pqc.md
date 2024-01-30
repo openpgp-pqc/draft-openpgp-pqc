@@ -3,7 +3,7 @@ title: "Post-Quantum Cryptography in OpenPGP"
 abbrev: "PQC in OpenPGP"
 category: info
 
-docname: draft-wussler-openpgp-pqc-latest
+docname: draft-ietf-openpgp-pqc-latest
 submissiontype: IETF
 v: 3
 area: sec
@@ -1616,12 +1616,19 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 - Replaced round 3 submission with NIST PQC Draft Standards FIPS 203, 204, 205.
 - Added consideration about security level for hashes.
 
+## draft-wussler-openpgp-pqc-04
+
+- Added Johannes Roth as author
+
+## draft-ietf-openpgp-pqc-00
+
+- Renamed draft
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
 Carl-Daniel Hailfinger (BSI)<br>
-Andreas Huelsing (TU Eindhoven)<br>
-Johannes Roth (MTG AG)
+Andreas Huelsing (TU Eindhoven)
 
 --- back
 
