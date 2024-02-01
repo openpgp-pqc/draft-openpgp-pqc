@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-30T01:01:49.062282+00:00",
+  "timestamp": "2024-02-01T01:05:18.246429+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1497,6 +1497,54 @@
       "body": "I would prefer to replace \"ML-KEM-768 + X25519\" by \"ML-KEM-768+X25519\". In UIs it will most likely be presented without spaces in order to make it clearly appear as a single identifier.",
       "createdAt": "2024-01-22T15:17:41Z",
       "updatedAt": "2024-01-22T15:17:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 76,
+      "id": "I_kwDOIrmZ-859mYzg",
+      "title": "Please add sntrup761 and mceliece6688128",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/76",
+      "state": "OPEN",
+      "author": "jas4711",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I suggest to add sntrup761 and mceliece6688128 to the document.\r\n\r\nIncluding some rationale also posted to the mailing list:\r\n\r\nThe argument would be that sntrup761 is a reasonable alternative for lattice-based kyber, and mceliece is a conservative fallback if lattices fails.\r\n\r\nI believe that for some deployments, the currently chosen algorithms won't be relevant, in the same way that NIST would consider some algorithms not relevant for their deployment.  Fortunately NIST reconsider, so we now have Curve25519 in NIST too, and having others lead the way may have helped that happen.\r\n\r\nPlenty of arguments can be made comparing any two crypto algorithms. While it is easy today to see what went wrong in the design of MD4, RC4, DES; I don't believe we yet can easily tell what the bad parts of current PQ algorithms are (except for the recently broken ones, but that doesn't give us enough of patterns to look for) including the mentioned algorithms.  Classic McEliece is the only one with longer track record, but even that has not been widely deployed on the Internet.\r\n\r\nHard coding deployments of protocols to one mandatory crypto algorithm makes the ecosystem vulnerable if a weakness if found in that algorithm. Compare how long it took to migrate from RC4 in TLS.  I believe the modern design approach is to not have crypto negotiation built into protocols but rather roll protocol version to upgrade all protocol semantics, and have one hard coded crypto algorithm and no in-protocol negotiation.  That's not feasible for legacy PGP as far as I can tell.\r\n\r\nThis all leads me to believe that it is better to mandate at least two different PQ-safe algorithms so that we get two variants deployed and get better testing of algorithm negotiation.  The algorithms to select is a subjective choice, and I suggest we pick variants that cater to different communities.\r\n",
+      "createdAt": "2024-01-30T08:19:57Z",
+      "updatedAt": "2024-01-30T08:19:57Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 77,
+      "id": "I_kwDOIrmZ-8591Aod",
+      "title": "clarify x25519 wire format",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/77",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "draft-ietf-openpgp-pqc-00 currently says:\r\n\r\n> For Curve25519 this specification adapts the encoding of objects as defined in [[RFC7748](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#RFC7748)] in contrast to [[I-D.ietf-openpgp-crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#I-D.ietf-openpgp-crypto-refresh)].\r\n\r\nWhat does this sentence mean?  is \"adapt\" supposed to mean \"adopt\"?  In this context, adapt typically means \"modifies to fit\", while \"adopt\" typically means \"embraces as specified\".  the crypto-refresh draft itself uses RFC 7748 for X25519: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6  There is of course Curve25519Legacy (https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.5.5.6.1.1) but that is deprecated and not the recommended approach.",
+      "createdAt": "2024-01-31T22:02:37Z",
+      "updatedAt": "2024-01-31T22:02:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 79,
+      "id": "I_kwDOIrmZ-8591KJf",
+      "title": "github repo metadata says \"draft-wussler-openpgp-pqc\", should say \"draft-ietf-openpgp-pqc\"",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/79",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-31T22:25:00Z",
+      "updatedAt": "2024-01-31T22:25:00Z",
       "closedAt": null,
       "comments": []
     }
@@ -6415,7 +6463,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-11-09T09:03:09Z",
-      "updatedAt": "2023-12-14T08:03:16Z",
+      "updatedAt": "2024-01-31T22:15:37Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
@@ -6500,6 +6548,66 @@
               "updatedAt": "2023-12-14T08:03:16Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85ukAok",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "dkg",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-31T22:03:43Z",
+          "updatedAt": "2024-01-31T22:03:43Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "agree with @falko-strenzke here, i tend to think cryptanalytic is the preferred form.",
+              "createdAt": "2024-01-31T22:03:43Z",
+              "updatedAt": "2024-01-31T22:03:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85ukBQi",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "dkg",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-31T22:05:13Z",
+          "updatedAt": "2024-01-31T22:05:13Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "agree with @teythoon's  proposed change here.  As a native en_US speaker with a decent vocabulary, unequivocally is a much more common and well-understood word choice.  i can parse \"univocally\" and figure out what it means (\"with one voice\") but it's not anything that i'm used to reading.",
+              "createdAt": "2024-01-31T22:05:13Z",
+              "updatedAt": "2024-01-31T22:05:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85ukG5s",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "dkg",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-31T22:15:37Z",
+          "updatedAt": "2024-01-31T22:15:37Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "i'm native en_US, so i prefer \"artifact\" over \"artefact\".  From a quick'n'dirty review of a corpus of IETF documents, \"artifact\" seems to be roughly 10\u00d7 as frequent as \"artefact\".  The document also uses \"artifact\" in several other places.  it should at least be internally consistent, and this one change to \"artifact\" looks like the easiest way to do that.",
+              "createdAt": "2024-01-31T22:15:37Z",
+              "updatedAt": "2024-01-31T22:15:38Z"
+            }
+          ]
         }
       ]
     },
@@ -6529,6 +6637,40 @@
         "oid": "6653ace97ea2b5ad951f9165e39793bd71a60b55"
       },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 78,
+      "id": "PR_kwDOIrmZ-85ln7Nk",
+      "title": "README: point to WG draft, not draft-wussler",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/78",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-31T22:23:43Z",
+      "updatedAt": "2024-01-31T22:24:26Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "25b8386acf63fad5afdd9fd5f7193ea89961a052",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "fix-readme",
+      "headRefOid": "ffaa4fd0c9f2a82c9f1f80d6e04cb09bf4030e9f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "NONE",
+          "body": "probably worth having some more cleanup on the editor's copy stuff as well, but i don't understand that setup well enough to offer a specific edit.",
+          "createdAt": "2024-01-31T22:24:03Z",
+          "updatedAt": "2024-01-31T22:24:26Z"
+        }
+      ],
       "reviews": []
     }
   ]
