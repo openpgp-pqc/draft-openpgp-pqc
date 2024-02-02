@@ -2,7 +2,7 @@
 
 This is the working area for the individual Internet-Draft, "Post-Quantum Cryptography in OpenPGP".
 
-* [Editor's Copy](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-wussler-pqc-openpgp.html)
+* [Editor's Copy](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-ietf-openpgp-pqc.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc)
 * [Compare Editor's Copy to Individual Draft](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-wussler-openpgp-pqc.diff)
