@@ -5,7 +5,7 @@ This is the working area for the individual Internet-Draft, "Post-Quantum Crypto
 * [Editor's Copy](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-ietf-openpgp-pqc.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc)
-* [Compare Editor's Copy to Individual Draft](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-wussler-openpgp-pqc.diff)
+* [Compare Editor's Copy to Individual Draft](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-ietf-openpgp-pqc.diff)
 
 
 ## Contributing
