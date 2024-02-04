@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-01T01:05:18.246429+00:00",
+  "timestamp": "2024-02-04T01:06:03.460552+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -937,7 +937,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/45",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "```\r\n### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-kyber-pkesk}\r\n\r\nThe composite Kyber algorithms MUST be used only with v6 PKESK, as defined in\r\n[I-D.ietf-openpgp-crypto-refresh] Section 5.1.2.\r\n\r\nThe algorithm-specific v6 PKESK parameters consists of:\r\n\r\n - A fixed-length octet string representing an ECC ephemeral public key in the\r\n   format associated with the curve as specified in {{ecc-kem}}.\r\n\r\n - A fixed-length octet string of the Kyber ciphertext, whose length depends on\r\n   the algorithm ID as specified in {{tab-kyber-artifacts}}.\r\n\r\n - A variable-length field containing the symmetric key:\r\n\r\n   - A one-octet size of the following field;\r\n\r\n   - Octet string of the wrapped symmetric key as described in\r\n     {{ecc-kyber-encryption}}.\r\n```\r\n\r\nI think the octet count for the encrypted symmetric key is not necessary here: the algorithm-specific ciphertext is the last field in the PKESK packet anyway, and if you don't understand the composite PK algorithm you have no chance to parse the ciphertext anyway.",
@@ -954,7 +954,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I agree that it is good practice, that is why I made sure every variable-length field has a length-prefix.  It is just in this case I don't see any benefit at all.\r\n\r\nWhen parsing a PKESK I see two cases: either you know the combined pk algorithm, or you don't.\r\n\r\nIf you know the pk algorithm, you know how long the ecc public key is, you know how long the kyber ciphertext is, then you find the octet count field which tells you the number of octets left in the PKESK packet, but that information is fully redundant.\r\n\r\nIf you don't know the pk algorithm, you don't know the ecc public key length, you don't know the kyber ciphertext length, you cannot find the octet count field, the whole algorithm-specific part of the PKESK packet is opaque to you.\r\n\r\nSo it doesn't help with parsing if you know the pk algorithm, and it doesn't help if you don't.  The only thing it adds is a chance to be wrong, so there is now a new way in which PKESK packets can be malformed.",
           "createdAt": "2023-05-10T09:33:25Z",
           "updatedAt": "2023-05-10T09:33:25Z"
@@ -975,7 +975,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/46",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
         "postponed"
@@ -994,7 +994,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I don't understand.  The authors of the document are indeed using HMAC, albeit with an expansion step before, and they are doing HMAC twice, once with key 1 as key input and key 2 as data, the second time with the inputs swapped for symmetry, then xoring the HMAC outputs.\r\n\r\nIn contrast, this document simply does `KMAC(key1 || key2)`.  I don't understand why that should be a dual-PRF whereas `HKDF(key1 || key2)` should not be one.\r\n\r\nPlease unconfuse me.\r\n\r\nThe reason I'm bringing this up is that KMAC seems not to be widely available in cryptographic libraries.  A quick survey of the five cryptographic libraries that Sequoia can use paints a bleak picture:\r\n\r\n- Nettle: not implemented\r\n- OpenSSL: implemented in some versions, but not available in the bindings\r\n- Botan: implementation in progress\r\n- Rust: planned\r\n- CNG: only in very new versions (starting with Windows 11 Preview Build 25324)\r\n\r\nIn contrast, HKDF (and HMAC) is available in all libraries in all versions we support.",
           "createdAt": "2023-05-17T07:19:23Z",
           "updatedAt": "2023-05-17T07:19:23Z"
@@ -1008,7 +1008,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I see the statement \"HMAC is generally not a dual-PRF.\" in the slides, but I don't see the assertion that KMAC should be one.",
           "createdAt": "2023-05-17T07:41:52Z",
           "updatedAt": "2023-05-17T07:41:52Z"
@@ -1043,7 +1043,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Yeah, the SHA3-based combiners seem to be easier to implement on top of existing primitives.",
           "createdAt": "2023-05-17T08:35:58Z",
           "updatedAt": "2023-05-17T08:35:58Z"
@@ -1071,7 +1071,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Finally Nettle offers [shake256 with context](https://docs.rs/nettle-sys/latest/nettle_sys/fn.nettle_sha3_256_shake.html), and rust offers [sha3::CShake256Core](https://docs.rs/sha3/latest/sha3/struct.CShake256Core.html) upon which KMAC can be built as [we did in golang](https://github.com/ProtonMail/go-crypto/blob/3d33cfd85858654533d5ab2728c4048dadccc87b/internal/kmac/kmac.go). OpenSSL seems indeed not to offer the bindings, and I hope to be wrong, but seems like CNG [does not even offer SHA3](https://learn.microsoft.com/en-us/windows/win32/seccng/cng-algorithm-identifiers).\r\n\r\nThat is good to hear, I didn't realize that, and indeed that seems like something we could steal^Wadapt.  I'm sure the OpenSSL bindings can be easily extended.  CNG gets Keccak-based constructions \"soon\", but it will be quite some time until people can rely on that being available.  But in the mean time, we will augment CNG with algorithms from RustCrypto, as we do for other algorithms (notably, Ed25519... wtf CNG...)\r\n\r\nhttps://blogs.windows.com/windows-insider/2023/03/23/announcing-windows-11-insider-preview-build-25324/\r\n\r\nI guess that addresses my concern.",
           "createdAt": "2023-05-19T16:44:18Z",
           "updatedAt": "2023-05-19T16:44:18Z"
@@ -1335,7 +1335,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/67",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Curerntly, the spec states:\r\n\r\n> [4.2. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-4.2)[Parallel Public-Key Encryption](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-parallel-public-key-encrypt)\r\n>\r\n> As explained in [Section 1.4.2](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#non-composite-multi-alg), the OpenPGP protocol inherently supports parallel encryption to different keys of the same recipient. Implementations MUST NOT encrypt a message with a purely traditional public-key encryption key of a recipient if it is encrypted with a PQ/T key of the same recipient.\r\n\r\nIt is not quite clear to me what that means, and how implementations should enforce that restriction.  To be clear, I get the intention and I think it is a valid concern.\r\n\r\n- Does that mean that if there is an OpenPGP certificate that has both a T and a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with the same user ID (or aliasing user ID, whatever that exactly means), where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with different, non-aliasing user IDs, but the implementation or application knows somehow that the certificates belong to the same recipient, where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?",
@@ -1351,7 +1351,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/68",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 5.1.2 about ML-KEM starts with\r\n\r\n> 1. Extract the encapsulation key mlkemPublicKey that is part of the recipient's composite public key\r\n\r\nbut in the description of X*-KEM and ECDH-KEM, the recipients pubic key appears out of nowhere.  I think this should be made consistent, one way or the other.",
@@ -1375,7 +1375,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/69",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 5.2.2 Key Combiner has:\r\n\r\n> MB = KMAC256(domSeparation, encData, oBits, customizationString)\r\n\r\nBut MB is not motivated, nor used ever again.",
@@ -1391,7 +1391,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/70",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Currently:\r\n\r\n> [6.2.4. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-6.2.4)[Signature Verification](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-signature-verification)\r\n>\r\n> ...\r\n> As specified in [Section 4.3](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#composite-signatures) an implementation MUST validate both signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite ML-DSA + ECC signature is valid.\r\n\r\nBut the signature verification primitives introduced in section 6 looks like\r\n\r\n> (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)\r\n\r\nSo, \"validate both signatures\" could be understood to do that operation, and it doesn't explicitly say that the result must be `true` (assuming `verified` is a boolean).  This may be overly nitpicky, but I think that making explicit that both must verify successfully, or even stating how the two results are combined would be short and sweet.",
@@ -1415,7 +1415,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/71",
       "state": "OPEN",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "> [8.2. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-8.2)[Key generation strategies](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-key-generation-strategies)\r\n>\r\n>It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility, and the fingerprint will differ.\r\n\r\nForbidding this seems strong and doesn't seem to be motivated in the section.  And, I can actually imagine a use case for reusing existing ECC key material: Imagine I have a smart card that holds my ECC keys for my existing v6 cert, and I want to create a PQ cert in addition to that.  Reusing the ECC key material seems convenient and adds security over having the ECC keys being softkeys, as in the mid term there won't be PQ-capable smart cards.  If I'm not allowed to reuse the ECC key, I'd have to use a second smart card, which is more expensive and unwieldy, hindering adoption of composite algorithms.",
@@ -1432,7 +1432,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "See [5.2.4. ](https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-12.html#section-5.2.4)[Computing Signatures](https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-12.html#name-computing-signatures): https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-12.html#section-5.2.4-9.2.2.3.1\r\n\r\n> Once the data body is hashed, then a trailer is hashed. This trailer depends on the version of the signature.\r\n>\r\n> [...]\r\n>\r\n> A v4 or v6 signature hashes the packet body starting from its first field, the version number, through the end of the hashed subpacket data and a final extra trailer. Thus, the hashed fields are:\r\n>\r\n> - An octet indicating the signature version (0x04 for v4, 0x06 for v6),\r\n> - The signature type,\r\n> - The public-key algorithm,\r\n> - The hash algorithm,\r\n> [...]\r\n\r\nAnother concern with this MUST NOT is that it doesn't seem actionable.  How is an implementation that is asked to generate a PQ/T key to know whether or not the key has been used before?",
           "createdAt": "2023-11-09T08:24:39Z",
           "updatedAt": "2023-11-09T08:24:39Z"
@@ -1446,7 +1446,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Seems to me that it should rather be a SHOULD NOT as you have already identified an exception to the rule.",
           "createdAt": "2023-11-09T09:09:29Z",
           "updatedAt": "2023-11-09T09:09:29Z"
@@ -1523,7 +1523,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/77",
       "state": "OPEN",
       "author": "dkg",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "draft-ietf-openpgp-pqc-00 currently says:\r\n\r\n> For Curve25519 this specification adapts the encoding of objects as defined in [[RFC7748](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#RFC7748)] in contrast to [[I-D.ietf-openpgp-crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#I-D.ietf-openpgp-crypto-refresh)].\r\n\r\nWhat does this sentence mean?  is \"adapt\" supposed to mean \"adopt\"?  In this context, adapt typically means \"modifies to fit\", while \"adopt\" typically means \"embraces as specified\".  the crypto-refresh draft itself uses RFC 7748 for X25519: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6  There is of course Curve25519Legacy (https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.5.5.6.1.1) but that is deprecated and not the recommended approach.",
@@ -1539,7 +1539,7 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/79",
       "state": "OPEN",
       "author": "dkg",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
@@ -6267,14 +6267,14 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Hey :) I have some patches that you can use as a starting point.  Unfortunately at the time we did the experiments, I didn't notice that you merged the work into RNP upstream, so I started with https://github.com/falko-strenzke/rnp branch v6_pqc_2306.  Hope it will still be useful.",
           "createdAt": "2023-11-07T09:56:37Z",
           "updatedAt": "2023-11-07T09:56:37Z"
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I pushed my work here: https://github.com/teythoon/rnp/commits/justus/hackhack",
           "createdAt": "2023-11-07T10:06:03Z",
           "updatedAt": "2023-11-07T10:06:03Z"
@@ -6288,7 +6288,7 @@
         },
         {
           "author": "teythoon",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I also added the stock RNP with crypto-refresh enabled, using the stock Botan to our v6 test suite: https://tests.sequoia-pgp.org/v6.html",
           "createdAt": "2023-11-07T10:28:16Z",
           "updatedAt": "2023-11-07T10:28:16Z"
@@ -6456,25 +6456,35 @@
       "id": "PR_kwDOIrmZ-85fAm5g",
       "title": "Fix typos.",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/72",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "teythoon",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-11-09T09:03:09Z",
-      "updatedAt": "2024-01-31T22:15:37Z",
+      "updatedAt": "2024-02-02T02:42:45Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
+      "baseRefOid": "25b8386acf63fad5afdd9fd5f7193ea89961a052",
       "headRepository": "teythoon/draft-openpgp-pqc",
       "headRefName": "justus/typos",
-      "headRefOid": "e15ad221641a721c9b1557e0bfd0214acb77d175",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "431a4b28363643ba89aae21e674524c47b5ed2ef",
+      "closedAt": "2024-02-02T02:42:45Z",
+      "mergedAt": "2024-02-02T02:42:45Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "36a438263eb329e616771771472cdce99b3952b9"
+      },
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@teythoon Could you please still remove the conflicts with the main branch \u2013 probably it' s the renaming of the file.",
+          "createdAt": "2024-02-01T15:07:03Z",
+          "updatedAt": "2024-02-01T15:07:03Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-85p8pti",
@@ -6555,7 +6565,7 @@
             "abbreviatedOid": "e15ad22"
           },
           "author": "dkg",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-01-31T22:03:43Z",
@@ -6575,7 +6585,7 @@
             "abbreviatedOid": "e15ad22"
           },
           "author": "dkg",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-01-31T22:05:13Z",
@@ -6595,7 +6605,7 @@
             "abbreviatedOid": "e15ad22"
           },
           "author": "dkg",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-01-31T22:15:37Z",
@@ -6608,6 +6618,59 @@
               "updatedAt": "2024-01-31T22:15:38Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85umf-X",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-01T06:06:51Z",
+          "updatedAt": "2024-02-01T06:06:51Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "OK, great, thanks for these insights, DKG. Once the topmost change regarding \"cryptanalytic\" has been reverted, I will hit \"approve\".",
+              "createdAt": "2024-02-01T06:06:51Z",
+              "updatedAt": "2024-02-01T06:06:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85uq5Np",
+          "commit": {
+            "abbreviatedOid": "e15ad22"
+          },
+          "author": "teythoon",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-01T15:03:54Z",
+          "updatedAt": "2024-02-01T15:03:54Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Reverted.",
+              "createdAt": "2024-02-01T15:03:54Z",
+              "updatedAt": "2024-02-01T15:03:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85uq51R",
+          "commit": {
+            "abbreviatedOid": "99009fb"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "@teythoon Thanks for these corrections.",
+          "createdAt": "2024-02-01T15:05:00Z",
+          "updatedAt": "2024-02-01T15:05:00Z",
+          "comments": []
         }
       ]
     },
@@ -6644,34 +6707,110 @@
       "id": "PR_kwDOIrmZ-85ln7Nk",
       "title": "README: point to WG draft, not draft-wussler",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/78",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-01-31T22:23:43Z",
-      "updatedAt": "2024-01-31T22:24:26Z",
+      "updatedAt": "2024-02-02T03:09:37Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "25b8386acf63fad5afdd9fd5f7193ea89961a052",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "fix-readme",
-      "headRefOid": "ffaa4fd0c9f2a82c9f1f80d6e04cb09bf4030e9f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "de7e0228f0967b9cda2d315d75224392e8bbbd3c",
+      "closedAt": "2024-02-02T03:09:36Z",
+      "mergedAt": "2024-02-02T03:09:36Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "b047507ad73e25bef7d7914eba2b648cbb62d6cc"
+      },
       "comments": [
         {
           "author": "dkg",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "probably worth having some more cleanup on the editor's copy stuff as well, but i don't understand that setup well enough to offer a specific edit.",
           "createdAt": "2024-01-31T22:24:03Z",
           "updatedAt": "2024-01-31T22:24:26Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> probably worth having some more cleanup on the editor's copy stuff as well, but i don't understand that setup well enough to offer a specific edit.\r\n\r\njust did it (tried cleaned up links in the browser first) ",
+          "createdAt": "2024-02-02T03:07:43Z",
+          "updatedAt": "2024-02-02T03:07:43Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85umdOj",
+          "commit": {
+            "abbreviatedOid": "ffaa4fd"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-01T06:02:18Z",
+          "updatedAt": "2024-02-01T06:02:18Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85uwYlh",
+          "commit": {
+            "abbreviatedOid": "ffaa4fd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-02T03:03:01Z",
+          "updatedAt": "2024-02-02T03:03:01Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\n* [Editor's Copy](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-ietf-openpgp-pqc.html)\r\n```",
+              "createdAt": "2024-02-02T03:03:01Z",
+              "updatedAt": "2024-02-02T03:03:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85uwYun",
+          "commit": {
+            "abbreviatedOid": "ffaa4fd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-02T03:03:23Z",
+          "updatedAt": "2024-02-02T03:03:23Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\n* [Compare Editor's Copy to Individual Draft](https://openpgp-pqc.github.io/draft-openpgp-pqc/#go.draft-ietf-openpgp-pqc.diff)\r\n```",
+              "createdAt": "2024-02-02T03:03:23Z",
+              "updatedAt": "2024-02-02T03:03:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85uwajy",
+          "commit": {
+            "abbreviatedOid": "de7e022"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Applied further cleanups",
+          "createdAt": "2024-02-02T03:09:24Z",
+          "updatedAt": "2024-02-02T03:09:24Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
