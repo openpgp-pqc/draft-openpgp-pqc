@@ -402,8 +402,8 @@ schemes.
 
 Curve25519 and Curve448 are defined in [RFC7748] for use in a Diffie-Hellman
 key agreement scheme and defined in [RFC8032] for use in a digital signature
-scheme. For Curve25519 this specification adapts the encoding of objects as
-defined in [RFC7748] in contrast to [I-D.ietf-openpgp-crypto-refresh].
+scheme. For Curve25519 this specification adopts the encoding of objects as
+defined in [RFC7748].
 
 ### Generic Prime Curves
 
