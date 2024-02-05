@@ -303,15 +303,17 @@ based on these mathematical problems is endangered by the advent of quantum
 computers, there is a need to extend OpenPGP by algorithms that remain secure
 in the presence of quantum computers.
 
-Such cryptographic algorithms are referred to as post-quantum cryptography.
-The algorithms defined in this extension were chosen for standardization by the
+Such cryptographic algorithms are referred to as post-quantum cryptography.  The
+algorithms defined in this extension were chosen for standardization by the
 National Institute of Standards and Technology (NIST) in mid 2022
 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography
-Standardization process initiated in 2016 {{NIST-PQC}}. Namely, these are
-ML-KEM (formerly CRYSTALS-Kyber) as a Key Encapsulation Mechanism (KEM), a KEM
-being a modern building block for public-key encryption, and ML-DSA (formerly
-CRYSTALS-Dilithium) as well as SLH-DSA (formerly SPHINCS+) as signature
-schemes.
+Standardization process initiated in 2016 {{NIST-PQC}}. Namely, these are ML-KEM
+("Module Lattice Key Encapsulation Mechanism", submitted to the NIST process as
+"CRYSTALS-Kyber") as a Key Encapsulation Mechanism (KEM), a KEM being a modern
+building block for public-key encryption, and ML-DSA ("Module Lattice Digital
+Signature Algorithm", submitted to the NIST process as "CRYSTALS-Dilithium") as
+well as SLH-DSA ("Stateless Hash Digital Signature Algorithm", submitted to the NIST process as
+"SPHINCS+") as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to
 deploy post-quantum in combination with traditional schemes such that the
@@ -744,8 +746,9 @@ The operation `x448Kem.Decaps()` is defined as follows:
 
 The operation `ecdhKem.Encaps()` is defined as follows:
 
- 1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in
-    {{SP800-186}} or {{RFC5639}} where `v` is a random scalar
+ 1. Generate an ephemeral key pair {`v`, `V=vG`} as defined in {{SP800-186}} or
+    {{RFC5639}} where `v` is a random scalar with `0 < v < n`, `n` being the
+    base point order of the elliptic curve domain parameters
 
  2. Compute the shared point `S = vR`, where `R` is the component public key
     `eccPublicKey`, according to {{SP800-186}} or {{RFC5639}}
@@ -962,7 +965,7 @@ scheme is as follows:
  10. Output the algorithm specific part of the PKESK as
      `eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C`, where
      both `symAlgId` and `len(C)` are single octet fields and `symAlgId`
-     denotes the symmetric algorithm used and is present only for v3 PKESK
+     denotes the symmetric algorithm used and is present only for a v3 PKESK
 
 ### Decryption procedure
 
