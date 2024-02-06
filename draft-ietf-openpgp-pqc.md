@@ -896,8 +896,9 @@ algorithm.
 
     MB = KMAC256(domSeparation, encData, oBits, customizationString)
 
-Here, the inputs to KMAC256 have the meaning key, main input data, requested
-output length, and optional customization string in that order.
+Here, the parameters to KMAC256 appear in the order as specified in
+{{SP800-186}}, Section 4, i.e., the key `K`, main input data `X`, requested
+output length `L`, and optional customization string `S` in that order.
 
 Note that the values `eccKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare`
 defined in {{mlkem-ops}} already use the relative ciphertext in the
