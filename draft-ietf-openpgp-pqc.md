@@ -1395,7 +1395,7 @@ It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing
 key material from existing ECC keys in PQ(/T) keys does not provide backwards
 compatibility, and the fingerprint will differ.
 
-An OpenPGP (v6) certificate is composed of a certification-capable primary key
+An OpenPGP certificate is composed of a certification-capable primary key
 and one or more subkeys for signature, encryption, and authentication.
 Two migration strategies are recommended:
 
@@ -1403,11 +1403,12 @@ Two migration strategies are recommended:
 implementations, and one for legacy implementations. Implementations not
 understanding PQ(/T) certificates can use the legacy certificate, while
 PQ(/T)-capable implementations will prefer the newer certificate. This allows
-having an older v4 or v6 ECC certificate for compatibility and a v6 PQ(/T)
+having an older v4 or v6 certificate for compatibility and a v6 PQ(/T)
 certificate, at a greater complexity in key distribution.
 
-2. Attach PQ(/T) encryption and signature subkeys to an existing v6 ECC
-certificate. Implementations understanding PQ(/T) will be able to parse and use
+2. Attach PQ(/T) encryption subkeys to an existing traditional OpenPGP certificate.
+In the case of a v6 certificate, also PQ(/T) signature keys may be attached.
+Implementations understanding PQ(/T) will be able to parse and use
 the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
 This simplifies key distribution, as only one certificate needs to be
 communicated and verified, but leaves the primary key vulnerable to quantum
