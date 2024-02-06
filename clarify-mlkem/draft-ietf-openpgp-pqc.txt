@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 8 August 2024                                       F. Strenzke
+Expires: 9 August 2024                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         5 February 2024
+                                                         6 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2024.
+   This Internet-Draft will expire on 9 August 2024.
 
 Copyright Notice
 
@@ -900,9 +900,9 @@ Table of Contents
 
  MB = KMAC256(domSeparation, encData, oBits, customizationString)
 
-   Here, the inputs to KMAC256 have the meaning key, main input data,
-   requested output length, and optional customization string in that
-   order.
+   Here, the parameters to KMAC256 appear in the order as specified in
+   [SP800-186], Section 4, i.e., the key K, main input data X, requested
+   output length L, and optional customization string S in that order.
 
    Note that the values eccKeyShare defined in Section 5.1.1 and
    mlkemKeyShare defined in Section 5.1.2 already use the relative
