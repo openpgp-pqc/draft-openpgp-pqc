@@ -303,17 +303,14 @@ based on these mathematical problems is endangered by the advent of quantum
 computers, there is a need to extend OpenPGP by algorithms that remain secure
 in the presence of quantum computers.
 
-Such cryptographic algorithms are referred to as post-quantum cryptography.  The
-algorithms defined in this extension were chosen for standardization by the
+Such cryptographic algorithms are referred to as post-quantum cryptography.
+The algorithms defined in this extension were chosen for standardization by the
 National Institute of Standards and Technology (NIST) in mid 2022
 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography
 Standardization process initiated in 2016 {{NIST-PQC}}. Namely, these are ML-KEM
-("Module Lattice Key Encapsulation Mechanism", submitted to the NIST process as
-"CRYSTALS-Kyber") as a Key Encapsulation Mechanism (KEM), a KEM being a modern
-building block for public-key encryption, and ML-DSA ("Module Lattice Digital
-Signature Algorithm", submitted to the NIST process as "CRYSTALS-Dilithium") as
-well as SLH-DSA ("Stateless Hash Digital Signature Algorithm", submitted to the NIST process as
-"SPHINCS+") as signature schemes.
+{{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern
+building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as
+SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to
 deploy post-quantum in combination with traditional schemes such that the
@@ -726,7 +723,7 @@ of Curve448.
 The operation `x448.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
-    is a randomly generated octet string with a length 56 octets
+    is a randomly generated octet string with a length of 56 octets
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
     `eccPublicKey`
@@ -966,7 +963,7 @@ scheme is as follows:
  10. Output the algorithm specific part of the PKESK as
      `eccCipherText || mlkemCipherText (|| symAlgId) || len(C) || C`, where
      both `symAlgId` and `len(C)` are single octet fields and `symAlgId`
-     denotes the symmetric algorithm used and is present only for a v3 PKESK
+     denotes the symmetric algorithm ID used and is present only for a v3 PKESK
 
 ### Decryption procedure
 
@@ -975,7 +972,7 @@ scheme is as follows:
 
  1. Take the matching PKESK and own secret key packet as input
 
- 2. From the PKESK extract the algorithm ID and the `encryptedKey`, i.e. the
+ 2. From the PKESK extract the algorithm ID and the `encryptedKey`, i.e., the
     wrapped session key
 
  3. Check that the own and the extracted algorithm ID match
@@ -1010,7 +1007,8 @@ scheme is as follows:
 
 ### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-mlkem-pkesk}
 
-The algorithm-specific fields consists of:
+The algorithm-specific fields consists of the output
+     of the encryption procedure described in {{ecc-mlkem-encryption}}:
 
  - A fixed-length octet string representing an ECC ephemeral public key in the
    format associated with the curve as specified in {{ecc-kem}}.
@@ -1020,18 +1018,17 @@ The algorithm-specific fields consists of:
 
  - Only in the case of a v3 PKESK packet: a one-octet symmetric algorithm identifier.
 
- - A variable-length field containing the wrapped session key:
+ - The one-octet size of the following field;
 
-   - A one-octet size of the following field;
+ - The wrapped session key represented as an octet string.
 
-   - The wrapped session key represented as an octet string, i.e., the output
-     of the encryption procedure described in {{ecc-mlkem-encryption}}.
-
-Note that unlike most public-key algorithms, for the ML-KEM composite schemes,
-in the case of a v3 PKESK packet, the symmetric algorithm identifier is not
-encrypted.  Instead, it is prepended to the encrypted session key in plaintext.
-In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256
-(algorithm ID 7, 8 or 9).
+Note that like in the case of the algorithms X25519 and X448 specified in
+{{I-D.ietf-openpgp-crypto-refresh}}, for the ML-KEM composite schemes, in the
+case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
+Instead, it is placed in plaintext after the `mlkemCipherText` and before the
+length octet preceding the wrapped session key.  In the case of v3 PKESK packets
+for ML-KEM composite schemes, the symmetric algorithm used MUST be AES-128,
+AES-192 or AES-256 (algorithm ID 7, 8 or 9).
 
 
 ### Key Material Packets {#mlkem-ecc-key}
