@@ -1030,6 +1030,10 @@ length octet preceding the wrapped session key.  In the case of v3 PKESK packets
 for ML-KEM composite schemes, the symmetric algorithm used MUST be AES-128,
 AES-192 or AES-256 (algorithm ID 7, 8 or 9).
 
+In the case of a v3 PKESK, a receiving implementation MUST check if the length of
+the unwrapped symmetric key matches the symmetric algorithm identifier, and abort
+if this is not the case.
+
 
 ### Key Material Packets {#mlkem-ecc-key}
 
