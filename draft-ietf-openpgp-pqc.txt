@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 5 August 2024                                       F. Strenzke
+Expires: 9 August 2024                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         2 February 2024
+                                                         6 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 August 2024.
+   This Internet-Draft will expire on 9 August 2024.
 
 Copyright Notice
 
@@ -1460,8 +1460,8 @@ Table of Contents
    Reusing key material from existing ECC keys in PQ(/T) keys does not
    provide backwards compatibility, and the fingerprint will differ.
 
-   An OpenPGP (v6) certificate is composed of a certification-capable
-   primary key and one or more subkeys for signature, encryption, and
+   An OpenPGP certificate is composed of a certification-capable primary
+   key and one or more subkeys for signature, encryption, and
    authentication.  Two migration strategies are recommended:
 
    1.  Generate two independent certificates, one for PQ(/T)-capable
@@ -1469,16 +1469,17 @@ Table of Contents
        Implementations not understanding PQ(/T) certificates can use the
        legacy certificate, while PQ(/T)-capable implementations will
        prefer the newer certificate.  This allows having an older v4 or
-       v6 ECC certificate for compatibility and a v6 PQ(/T) certificate,
-       at a greater complexity in key distribution.
+       v6 certificate for compatibility and a v6 PQ(/T) certificate, at
+       a greater complexity in key distribution.
 
-   2.  Attach PQ(/T) encryption and signature subkeys to an existing v6
-       ECC certificate.  Implementations understanding PQ(/T) will be
-       able to parse and use the subkeys, while PQ(/T)-incapable
-       implementations can gracefully ignore them.  This simplifies key
-       distribution, as only one certificate needs to be communicated
-       and verified, but leaves the primary key vulnerable to quantum
-       computer attacks.
+   2.  Attach PQ(/T) encryption subkeys to an existing traditional
+       OpenPGP certificate.  In the case of a v6 certificate, also
+       PQ(/T) signature keys may be attached.  Implementations
+       understanding PQ(/T) will be able to parse and use the subkeys,
+       while PQ(/T)-incapable implementations can gracefully ignore
+       them.  This simplifies key distribution, as only one certificate
+       needs to be communicated and verified, but leaves the primary key
+       vulnerable to quantum computer attacks.
 
 9.  Security Considerations
 
