@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-04T01:06:03.460552+00:00",
+  "timestamp": "2024-02-06T01:01:38.160336+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1465,7 +1465,7 @@
       "labels": [],
       "body": "Currently our draft states (slightly revised text in my working branch) for ML-KEM cmposite encryption:\r\n\r\n> Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted. Instead, it is prepended to the encrypted session key in plaintext. In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).\r\n\r\nBut this isn't possible with RFC 4880 to which we aim to be compatible here, as there AES-128 is only a SHOULD. The only MUST symmetric algorithm there is TripleDES. So either we require at the same time with introducing PQC that AES-128 becomes a MUST, which seems a bit strange to me, or we have to keep the symmetric algorithm flexible, which would make the most sense in my opinion.\r\n\r\nFrom a practical perspective requiring AES-128 as MUST is most likely realistic. But from a formal perspective it means that a sending client conforming to RFC 4880 and sending an encrypted mail to multiple recipients, some supporting ML-KEM, some not, could come into the conflict of having to use AES-128 for the PQC supporting recipients and TripleDES for the legacy clients. Actually the similar but even bigger problem can happen to a client supporting the crypto-refresh and sending to mutiple clients, since the crypto-refresh even completely forbids TripleDES.\r\n\r\nSo should we simply assume that clients today all support AES-128?\r\n\r\n@TJ-91 @wussler @fluppe2\r\n\r\n\r\n",
       "createdAt": "2023-11-30T12:28:45Z",
-      "updatedAt": "2024-01-20T13:01:59Z",
+      "updatedAt": "2024-02-05T20:35:41Z",
       "closedAt": null,
       "comments": [
         {
@@ -1481,6 +1481,13 @@
           "body": "> Stay consistent with the Crypto Refresh and assume AES is always supported and add some text to address this issue.\r\n\r\nThis is my preferred approach. We use AES Key Wrap, and makes no sense to extend the attack surface by adding TripleDES support (or any other algorithm).\r\n\r\nNote that we can just make AES mandatory in this draft, and I would have no issue doing so. Implementing the latest PQC algos to then use CAST5 feels very silly.",
           "createdAt": "2024-01-20T13:01:58Z",
           "updatedAt": "2024-01-20T13:01:58Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree with @wussler that just mandating AES here is the only thing that makes sense.  This is a weird backward-compatible thing, even bothering with the deprecated PKESKv3/SEIPDv1 approach; it doesn't need to be backward-compatible with every possible historical wart of OpenPGP.\r\n\r\nIf anyone is aware of an OpenPGP implementation that has any sort of vaguely active maintenance but cannot do AES, please point to it.",
+          "createdAt": "2024-02-05T20:35:21Z",
+          "updatedAt": "2024-02-05T20:35:41Z"
         }
       ]
     },
@@ -1528,9 +1535,17 @@
       "labels": [],
       "body": "draft-ietf-openpgp-pqc-00 currently says:\r\n\r\n> For Curve25519 this specification adapts the encoding of objects as defined in [[RFC7748](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#RFC7748)] in contrast to [[I-D.ietf-openpgp-crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#I-D.ietf-openpgp-crypto-refresh)].\r\n\r\nWhat does this sentence mean?  is \"adapt\" supposed to mean \"adopt\"?  In this context, adapt typically means \"modifies to fit\", while \"adopt\" typically means \"embraces as specified\".  the crypto-refresh draft itself uses RFC 7748 for X25519: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6  There is of course Curve25519Legacy (https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.5.5.6.1.1) but that is deprecated and not the recommended approach.",
       "createdAt": "2024-01-31T22:02:37Z",
-      "updatedAt": "2024-01-31T22:02:37Z",
+      "updatedAt": "2024-02-05T16:26:26Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think you are entirely right. I am quite sure the text you are referring to was written before the crypto-refresh received the new X25519. I integrated my proposed fix in my recent PR https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80. Please check if that fixes the issue.",
+          "createdAt": "2024-02-05T16:26:25Z",
+          "updatedAt": "2024-02-05T16:26:25Z"
+        }
+      ]
     },
     {
       "number": 79,
@@ -6811,6 +6826,147 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 80,
+      "id": "PR_kwDOIrmZ-85mCajB",
+      "title": "Clarifications mostly to KEM specification",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "These are all mere clarifications. \r\n\r\nNote that X25519 is defined not with a scalar input, but with [an octet string as input](https://datatracker.ietf.org/doc/html/rfc7748#section-6.1).\r\n\r\n\"the fixed 4 byte value 0x00000001\" did specify a number, not a sequence of bytes. The endianess of the encoding would still have to be given here.\r\n\r\nThe remaining changes should be obvious.",
+      "createdAt": "2024-02-05T15:19:29Z",
+      "updatedAt": "2024-02-05T20:30:45Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b047507ad73e25bef7d7914eba2b648cbb62d6cc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "clarify-mlkem",
+      "headRefOid": "5e1521fb6764acab0898bcf407d6b4a96fa62a14",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85vEIXw",
+          "commit": {
+            "abbreviatedOid": "5e1521f"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-05T17:08:54Z",
+          "updatedAt": "2024-02-05T17:33:18Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "It should be made more clear that this is meant as a mapping between the KMAC terminology `KMAC256(K, X, L, S)` and the inputs that we pass in the combiner. I think explicitly naming the parameters `K, X, L, S` and referencing to Section 4.2 and 4.3 in SP800-185 will make it more clear.\r\n\r\nImplementers will face the additional challenge of mapping these values to the MAC API of their chosen crypto library which can be unintuitive. For example, the nonce/iv will be the `customizationString`. It's probably out of scope for this document, but I'd not be surprised if this confuses some people. So my question is: Can or should we add some hints in the document?",
+              "createdAt": "2024-02-05T17:08:54Z",
+              "updatedAt": "2024-02-05T17:33:18Z"
+            },
+            {
+              "originalPosition": 93,
+              "body": "\"symmetric algorithm\" should be \"symmetric algorithm **id**\"",
+              "createdAt": "2024-02-05T17:19:28Z",
+              "updatedAt": "2024-02-05T17:33:18Z"
+            },
+            {
+              "originalPosition": 91,
+              "body": "I have a comment that does not diretly relate to your change but in Section 5.3.1  it says:\r\n\r\n> The wrapped session key represented as an octet string, i.e., the output of the encryption procedure described in Section 5.2.4.\r\n\r\nThis does not match and assumes that 5.2.4 only outputs `C`. Perhaps you can fix it in this PR. Otherwsie we can make a separate issue for this.",
+              "createdAt": "2024-02-05T17:23:27Z",
+              "updatedAt": "2024-02-05T17:33:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vFkdW",
+          "commit": {
+            "abbreviatedOid": "5e1521f"
+          },
+          "author": "dkg",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "This looks like an overall improvement in the draft.  I've left a series of nit-picking comments that could improve it further though.  Thanks for working on it, @falko-strenzke !",
+          "createdAt": "2024-02-05T20:08:53Z",
+          "updatedAt": "2024-02-05T20:30:45Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "this seems to just be a textual reflow.  is there a reason to include it in this change?",
+              "createdAt": "2024-02-05T20:08:54Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "for X25519, it says \"with a length *of* 32 octets\".  This omits the \"of\".  maybe align them?",
+              "createdAt": "2024-02-05T20:09:44Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "It's not clear to me why \"submitted to the NIST process as\u2026\" needs to be here for any of these three schemes, particularly in the introduction.  This is historical data at this point, right?  and the schemes as submitted don't necessarily match the schemes as standardized or used here.\r\n\r\nIf the goal is that someone searching an archive of IETF documents for \"Dilithium\", etc can find this draft, maybe just create a \"historical notes\" appendix or something.  otherwise, i think just dropping the \"submitted to the NIST process as \u2026\" texts would also be fine.",
+              "createdAt": "2024-02-05T20:12:37Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 102,
+              "body": "nit-pick: comma after \"i.e.\" ",
+              "createdAt": "2024-02-05T20:14:08Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 137,
+              "body": "Is \"unlike most\" really what we want to say here?  It's also true for the crypto-refresh's recommended X25519 and X448 public-key algorithms.  Maybe it's better to refer to the similiarity rather than to the difference?",
+              "createdAt": "2024-02-05T20:20:16Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 139,
+              "body": "is \"prepended\" the right way to say this?  it is prepended to `len(C)||C`, but it is after `eccCipherText||mlkemCipherText`.",
+              "createdAt": "2024-02-05T20:22:01Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            },
+            {
+              "originalPosition": 141,
+              "body": "Should we justify this?\r\n\r\nI note that in crypto-refresh-13, the same concern is not explicitly justified in the text, but in commit 3eea8ee71215a2e1be24a3d45ac928aa098720a4 @twiss justifies it with:\r\n\r\n> Since the symmetric algorithm ID is not encrypted nor authenticated in v3 PKESKs, mandate that AES is used, to prevent a (remote) risk of cross-algorithm attacks.",
+              "createdAt": "2024-02-05T20:29:51Z",
+              "updatedAt": "2024-02-05T20:30:45Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "id": "PR_kwDOIrmZ-85mDh_i",
+      "title": "remove the binding between v6 and PQC encryption keys in the \u2026",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/81",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026Key Generation Strategies.\r\n\r\nThe text still referred to the state of the document when it was mandated to use v6 with PQC. This is now relaxed for encryption subkeys. ",
+      "createdAt": "2024-02-05T17:53:57Z",
+      "updatedAt": "2024-02-05T17:59:47Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b047507ad73e25bef7d7914eba2b648cbb62d6cc",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "remove-pqc-v6-binding-in-keygen-strategies",
+      "headRefOid": "24bec3e2c6e8b1c80408e8e90b908f661b716bca",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
