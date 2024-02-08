@@ -1660,23 +1660,23 @@ longer signature generation time.
 
 # IANA Considerations
 
-IANA will add the following registries to the `Pretty Good Privacy (PGP)`
-registry group at https://www.iana.org/assignments/pgp-parameters:
+IANA is requested to add the following registries to the `OpenPGP`
+registry group at https://www.iana.org/assignments/openpgp/openpgp.xhtml:
 
-- Registry name: `SLH-DSA-SHA2 parameters`
-
-  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
-
-  Values defined in this document, {{slhdsa-param-sha2}}.
-
-- Registry name: `SLH-DSA-SHAKE parameters`
+- Registry name: `OpenPGP SLH-DSA-SHA2 parameters`
 
   Registration procedure: SPECIFICATION REQUIRED [RFC8126]
 
-  Values defined in this document, {{slhdsa-param-shake}}.
+  The registry contains the values defined in {{slhdsa-param-sha2}} in this document.
 
-Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
-{{sig-alg-specs}} to the  registry `Public Key Algorithms`.
+- Registry name: `OpenPGP SLH-DSA-SHAKE parameters`
+
+  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+  The registry contains the values defined in {{slhdsa-param-shake}} in this document.
+
+Furthermore, IANA is requested to add the algorithm IDs defined in {{kem-alg-specs}} and
+{{sig-alg-specs}} to the existing registry `OpenPGP Public Key Algorithms`.
 
 # Changelog
 
