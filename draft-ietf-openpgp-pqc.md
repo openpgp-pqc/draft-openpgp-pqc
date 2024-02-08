@@ -509,26 +509,39 @@ For encryption, the following composite KEM schemes are specified:
 {: title="KEM algorithm specifications" #kem-alg-specs}
 ID | Algorithm                          | Requirement | Definition
 --:| ---------------------------------- | ----------- | --------------------
-29 | ML-KEM-768  + X25519               | MUST        | {{ecc-mlkem}}
-30 | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
-31 | ML-KEM-768  + ECDH-NIST-P-256      | MAY         | {{ecc-mlkem}}
-32 | ML-KEM-1024 + ECDH-NIST-P-384      | MAY         | {{ecc-mlkem}}
-33 | ML-KEM-768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-mlkem}}
-34 | ML-KEM-1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-mlkem}}
+TBD (100 for testing) | ML-KEM-768  + X25519               | MUST        | {{ecc-mlkem}}
+TBD (101 for testing) | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
+TBD (105 for testing) | ML-KEM-768  + ECDH-NIST-P-256      | MAY         | {{ecc-mlkem}}
+TBD (106 for testing) | ML-KEM-1024 + ECDH-NIST-P-384      | MAY         | {{ecc-mlkem}}
+TBD (107 for testing) | ML-KEM-768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-mlkem}}
+TBD (108 for testing) | ML-KEM-1024 + ECDH-brainpoolP384r1 | MAY         | {{ecc-mlkem}}
 
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
 ID | Algorithm                          | Requirement | Definition
 --:| ---------------------------------- | ----------- | --------------------
-35 | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
-36 | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
-37 | ML-DSA-65 + ECDSA-NIST-P-256       | MAY         | {{ecc-mldsa}}
-38 | ML-DSA-87 + ECDSA-NIST-P-384       | MAY         | {{ecc-mldsa}}
-39 | ML-DSA-65 + ECDSA-brainpoolP256r1  | MAY         | {{ecc-mldsa}}
-40 | ML-DSA-87 + ECDSA-brainpoolP384r1  | MAY         | {{ecc-mldsa}}
-41 | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
-42 | SLH-DSA-SHAKE                      | MAY         | {{slhdsa}}
+TBD (102 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
+TBD (103 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
+TBD (107 for testing) | ML-DSA-65 + ECDSA-NIST-P-256       | MAY         | {{ecc-mldsa}}
+TBD (108 for testing) | ML-DSA-87 + ECDSA-NIST-P-384       | MAY         | {{ecc-mldsa}}
+TBD (105 for testing) | ML-DSA-65 + ECDSA-brainpoolP256r1  | MAY         | {{ecc-mldsa}}
+TBD (106 for testing) | ML-DSA-87 + ECDSA-brainpoolP384r1  | MAY         | {{ecc-mldsa}}
+TBD (104 for testing) | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
+TBD (109 for testing | SLH-DSA-SHAKE                      | MAY         | {{slhdsa}}
+
+### Experimental Codepoints for Interop Testing
+
+\[ Note: this section to be removed before publication \]
+
+These experimental/testing codepoints overlap because there are only 11 codepoints reserved for experimentation and there are more than 11 public key algorithms in the draft.
+The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
+
+An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
+
+This draft will not be sent to IANA without every listed algorithm having a distinct, non-experimental codepoint.
+While using experimental codepoints during development, algorithms tentatively indicated as MUST/SHOULD have unique (non-overlapping) codepoints.
+Algorithms tentatively indicated as MAY might overlap with one another, but have been selected so that it's possible to build an all-NIST or all-BSI test vector for testing.
 
 ## Parameter Specification
 
@@ -634,7 +647,7 @@ described in [RFC7748].
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | 29                                         | 30                                         |
+| Algorithm ID reference | TBD (100 for testing)                      | TBD (101 for testing)                      |
 | Field size             | 32 octets                                  | 56 octets                                  |
 | ECC-KEM                | x25519Kem ({{x25519-kem}})                 | x448Kem ({{x448-kem}})                     |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -647,7 +660,7 @@ described in [RFC7748].
 {: title="NIST curves parameters and artifact lengths" #tab-ecdh-nist-artifacts}
 |                        | NIST P-256                                             | NIST P-384                                             |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 31                                                     | 32                                                     |
+| Algorithm ID reference | TBD (105 for testing)                                  | TBD (106 for testing)                                  |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
@@ -660,7 +673,7 @@ described in [RFC7748].
 {: title="Brainpool curves parameters and artifact lengths" #tab-ecdh-brainpool-artifacts}
 |                        | brainpoolP256r1                                        | brainpoolP384r1                                        |
 |------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| Algorithm ID reference | 33                                                     | 34                                                     |
+| Algorithm ID reference | TBD (107 for testing)                                  | TBD (108 for testing)                                  |
 | Field size             | 32 octets                                              | 48 octets                                              |
 | ECC-KEM                | ecdhKem ({{ecdh-kem}})                                 | ecdhKem ({{ecdh-kem}})                                 |
 | ECDH public key        | 65 octets of SEC1-encoded public point                 | 97 octets of SEC1-encoded public point                 |
@@ -792,8 +805,8 @@ defined in [FIPS-203].
 {: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
 Algorithm ID reference | ML-KEM      | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ----------- | ---------- | ---------- | ---------- | ---------
-29, 31, 33             | ML-KEM-768  | 1184       | 2400       | 1088       | 32
-30, 32, 34             | ML-KEM-1024 | 1568       | 3168       | 1568       | 32
+TBD (100, 105, 107 for testing) | ML-KEM-768  | 1184       | 2400       | 1088       | 32
+TBD (101, 106, 108 for testing) | ML-KEM-1024 | 1568       | 3168       | 1568       | 32
 
 To instantiate `ML-KEM`, one must select a parameter set from the column
 "ML-KEM" of {{tab-mlkem-artifacts}}.
@@ -823,12 +836,12 @@ encryption schemes:
 {: title="ML-KEM + ECC composite schemes" #tab-mlkem-ecc-composite}
 Algorithm ID reference | ML-KEM       | ECC-KEM   | ECC-KEM curve
 ----------------------:| ------------ | --------- | --------------
-29                     | ML-KEM-768   | x25519Kem | Curve25519
-30                     | ML-KEM-1024  | x448Kem   | Curve448
-31                     | ML-KEM-768   | ecdhKem   | NIST P-256
-32                     | ML-KEM-1024  | ecdhKem   | NIST P-384
-33                     | ML-KEM-768   | ecdhKem   | brainpoolP256r1
-34                     | ML-KEM-1024  | ecdhKem   | brainpoolP384r1
+TBD (100 for testing)  | ML-KEM-768   | x25519Kem | Curve25519
+TBD (101 for testing)  | ML-KEM-1024  | x448Kem   | Curve448
+TBD (105 for testing)  | ML-KEM-768   | ecdhKem   | NIST P-256
+TBD (106 for testing)  | ML-KEM-1024  | ecdhKem   | NIST P-384
+TBD (107 for testing)  | ML-KEM-768   | ecdhKem   | brainpoolP256r1
+TBD (108 for testing)  | ML-KEM-1024  | ecdhKem   | brainpoolP384r1
 
 The ML-KEM + ECC composite public-key encryption schemes are built according to
 the following principal design:
@@ -1060,8 +1073,8 @@ EdDSA parameters and artifact lengths:
 {: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
 Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signature
 ----------------------:| ------- | ---------- | ---------- | ---------- | ---------
-35                     | Ed25519 | 32         | 32         | 32         | 64
-36                     | Ed448   | 57         | 57         | 57         | 114
+TBD (102 for testing)  | Ed25519 | 32         | 32         | 32         | 64
+TBD (103 for testing)  | Ed448   | 57         | 57         | 57         | 114
 
 ### ECDSA-Based signatures {#ecdsa-signature}
 
@@ -1085,10 +1098,10 @@ The following table describes the ECDSA parameters and artifact lengths:
 {: title="ECDSA parameters and artifact lengths in octets" #tab-ecdsa-artifacts}
 Algorithm ID reference | Curve           | Field size | Public key | Secret key | Signature value R | Signature value S
 ----------------------:| --------------- | ---------- | ---------- | ---------- | ----------------- | -----------------
-37                     | NIST P-256      | 32         | 65         | 32         | 32                | 32
-38                     | NIST P-384      | 48         | 97         | 48         | 48                | 48
-39                     | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
-40                     | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
+TBD (107 for testing)  | NIST P-256      | 32         | 65         | 32         | 32                | 32
+TBD (108 for testing)  | NIST P-384      | 48         | 97         | 48         | 48                | 48
+TBD (105 for testing)  | brainpoolP256r1 | 32         | 65         | 32         | 32                | 32
+TBD (106 for testing)  | brainpoolP384r1 | 48         | 97         | 48         | 48                | 48
 
 ### ML-DSA signatures {#mldsa-signature}
 
@@ -1111,8 +1124,8 @@ defined in [FIPS-204].
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
 Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ----------------------:| --------- | -----------| ---------- | ---------------
-35, 37, 39             | ML-DSA-65 | 1952       | 4000       | 3293
-36, 38, 40             | ML-DSA-87 | 2592       | 4864       | 4595
+TBD (102, 105, 107 for testing) | ML-DSA-65 | 1952       | 4000       | 3293
+TBD (103, 106, 108 for testing) | ML-DSA-87 | 2592       | 4864       | 4595
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
@@ -1130,8 +1143,8 @@ support the matching hash algorithm.
 {: title="Binding between ML-DSA and signature data digest" #tab-mldsa-hash}
 Algorithm ID reference | Hash function | Hash function ID reference
 ----------------------:| ------------- | --------------------------
-35, 37, 39             | SHA3-256      | 12
-36, 38, 40             | SHA3-512      | 14
+TBD (102, 105, 107 for testing) | SHA3-256      | 12
+TBD (103, 106, 108 for testing) | SHA3-512      | 14
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
@@ -1296,10 +1309,10 @@ also support the matching hash algorithm.
 {: title="Binding between SLH-DSA and signature data digest" #tab-slhdsa-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
-41                     | 1, 2                   | SHA-256       | 8
-41                     | 3, 4, 5, 6             | SHA-512       | 10
-42                     | 1, 2                   | SHA3-256      | 12
-42                     | 3, 4, 5, 6             | SHA3-512      | 14
+TBD (104 for testing)  | 1, 2                   | SHA-256       | 8
+TBD (104 for testing)  | 3, 4, 5, 6             | SHA-512       | 10
+TBD (109 for testing)  | 1, 2                   | SHA3-256      | 12
+TBD (109 for testing)  | 3, 4, 5, 6             | SHA3-512      | 14
 
 ### Key generation
 
