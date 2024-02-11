@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-08T01:00:45.409103+00:00",
+  "timestamp": "2024-02-11T01:06:16.126740+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1470,7 +1470,7 @@
       "labels": [],
       "body": "Currently our draft states (slightly revised text in my working branch) for ML-KEM cmposite encryption:\r\n\r\n> Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted. Instead, it is prepended to the encrypted session key in plaintext. In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).\r\n\r\nBut this isn't possible with RFC 4880 to which we aim to be compatible here, as there AES-128 is only a SHOULD. The only MUST symmetric algorithm there is TripleDES. So either we require at the same time with introducing PQC that AES-128 becomes a MUST, which seems a bit strange to me, or we have to keep the symmetric algorithm flexible, which would make the most sense in my opinion.\r\n\r\nFrom a practical perspective requiring AES-128 as MUST is most likely realistic. But from a formal perspective it means that a sending client conforming to RFC 4880 and sending an encrypted mail to multiple recipients, some supporting ML-KEM, some not, could come into the conflict of having to use AES-128 for the PQC supporting recipients and TripleDES for the legacy clients. Actually the similar but even bigger problem can happen to a client supporting the crypto-refresh and sending to mutiple clients, since the crypto-refresh even completely forbids TripleDES.\r\n\r\nSo should we simply assume that clients today all support AES-128?\r\n\r\n@TJ-91 @wussler @fluppe2\r\n\r\n\r\n",
       "createdAt": "2023-11-30T12:28:45Z",
-      "updatedAt": "2024-02-07T16:59:50Z",
+      "updatedAt": "2024-02-09T14:40:19Z",
       "closedAt": null,
       "comments": [
         {
@@ -1598,6 +1598,41 @@
           "body": "I think it might be simplest to say that, for keys like this:\n\n- the implicit list at the end of SEIPDv1 preferences is `AES-256`, `AES-128`.\n\n- the implicit list at the end of SEIPDv2 preferences is `AES-256+OCB`, `AES-128+OCB`.\n\n",
           "createdAt": "2024-02-07T16:59:49Z",
           "updatedAt": "2024-02-07T16:59:49Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think that's a good suggestion that effectivly promotes the use of `AES-256` by extending existing mechanisms.\r\n\r\nWhat do the others think?",
+          "createdAt": "2024-02-08T07:35:14Z",
+          "updatedAt": "2024-02-08T07:35:14Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree this to be a good solution, and our first chance of reporting a substantiating change to the list",
+          "createdAt": "2024-02-08T10:48:50Z",
+          "updatedAt": "2024-02-08T10:48:50Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On Wed 2024-02-07 09:00:01 -0800, dkg wrote:\n> - the implicit list at the end of SEIPDv1 preferences is `AES-256`, `AES-128`.\n\nAfter sleeping on it, i think the above change might be the only thing\nneeded, since it relates to the PKESKv3 silliness.\n\n> - the implicit list at the end of SEIPDv2 preferences is `AES-256+OCB`, `AES-128+OCB`.\n\nThis one doesn't seem strictly necessary (PKESKv6's KDF folds in the\nalgorithm ID, so there's no risk of cross-algorithm key mis/re-use).\n\nIf we want to include it, we should include it by making an explicit\n\"needed for post-quantum\" argument.\n",
+          "createdAt": "2024-02-08T18:14:11Z",
+          "updatedAt": "2024-02-08T18:14:11Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@dkg I think now you're confusing things but that's because this thread is about two different topics.\r\n\r\n1. The initial issue regarding PKESKv3 and AES vs TripleDES as MTI algorithm is settled and we simply follow the Crypto Refresh in this regard. We bind the symmetric algorithm identifier to AES, and assume that any implementation supports at least `AES-128` (already `MUST` in the Crypto Refresh). The AES restriction makes sure that no cross-algorithm attacks are possible.\r\n2. The second topic in this thread is that we also want to promote the use of `AES-256` since it matches the security of the PQC stuff better than `AES-128` and using `AES-256` is simply good practice and recommended (as Stavros points out). Your proposal to add `AES-256` / `AES-256+OCB` to the preferences of PQC keys does exactly that, but plays no role in the cross-algorithm-attack concerns.\r\n\r\nI hope I got it right since things got a bit confusing.\r\n\r\n> If we want to include it, we should include it by making an explicit\r\n> \"needed for post-quantum\" argument.\r\n\r\nWe can't really say it's \"needed\". It isn't, and the proposal doesn't guarantee that we use `AES-256` in all cases. But I think we have good reasons and no real drawbacks.",
+          "createdAt": "2024-02-09T10:50:09Z",
+          "updatedAt": "2024-02-09T10:50:09Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 thanks for the clarification, i think you're right that i got a bit confused by the overlapping topics.\r\n\r\nAnd whether it's \"needed\" or not, it does make sense that if the asymmetric operation embeds the use of AES256 keywrap, it ought to have implied support for AES256 as a symmetric cipher.",
+          "createdAt": "2024-02-09T14:40:18Z",
+          "updatedAt": "2024-02-09T14:40:18Z"
         }
       ]
     },
@@ -1685,9 +1720,17 @@
       "labels": [],
       "body": "draft-ietf-openpgp-crypto-refresh provided a significant update to the IANA registries relevant to OpenPGP.\r\n\r\nPlease go through the draft and ensure that any IANA requests are aligned with the tables [as currently described](https://www.iana.org/assignments/openpgp/openpgp.xhtml).\r\n\r\n",
       "createdAt": "2024-02-07T17:45:42Z",
-      "updatedAt": "2024-02-07T17:45:42Z",
+      "updatedAt": "2024-02-08T16:07:59Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "addressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/85",
+          "createdAt": "2024-02-08T16:07:58Z",
+          "updatedAt": "2024-02-08T16:07:58Z"
+        }
+      ]
     },
     {
       "number": 83,
@@ -1701,9 +1744,38 @@
       "labels": [],
       "body": "The draft currently stakes out claims for codepoints in the active range of asymmetric keys, though the values are still in flux.  That seems dangerous.\r\n\r\nIf we want concrete values for interoperability testing, feel free to use experimental codepoints (100-110) while the draft is still in flux.\r\n\r\nWe'll stabilize on formal codepoints later in the process once we know what we're getting into.",
       "createdAt": "2024-02-07T17:47:00Z",
-      "updatedAt": "2024-02-07T17:47:00Z",
+      "updatedAt": "2024-02-09T14:37:17Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I am not entirely sure how to understand this proposal, as the draft currently defines 6 KEM algos and 8 signature algos, so a total of 14 altogether which is more than fits into the range 100-110. To be closest to the current proposal would thus be to use 100 - 113.\r\n\r\nThe \u2013 possibly more consistent \u2013 alternative would be to start from 111 in order to spare the anyway insufficient range of experimental code points entirely.",
+          "createdAt": "2024-02-08T07:48:29Z",
+          "updatedAt": "2024-02-08T07:48:29Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please see #86 for one possible way to use experimental codepoints while the draft is still in flux",
+          "createdAt": "2024-02-08T19:40:01Z",
+          "updatedAt": "2024-02-08T19:40:01Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I like the clever approach to divide between NIST / Brainpool curves. I'd still prefer not to have an overlap since it makes interop testing more tedious and error-prone. Also, it introduces the overhead to keep separate branches up to date.",
+          "createdAt": "2024-02-09T11:13:54Z",
+          "updatedAt": "2024-02-09T11:13:54Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 i like your suggestion to just leave the MAY algorithms explicitly `TBD` and only use experimental codepoints for the SHOULD and MUST algorithms.  Would you prepare a pull request with that?",
+          "createdAt": "2024-02-09T14:37:15Z",
+          "updatedAt": "2024-02-09T14:37:15Z"
+        }
+      ]
     },
     {
       "number": 84,
@@ -7618,6 +7690,114 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 85,
+      "id": "PR_kwDOIrmZ-85mYpFx",
+      "title": "correction of IANA registry names",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/85",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
+      "createdAt": "2024-02-08T14:40:14Z",
+      "updatedAt": "2024-02-08T19:11:43Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-iana-table-names",
+      "headRefOid": "4531b32c3c1e46e9dfa7871bbcf3af2758e6bf74",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks @falko-strenzke!\r\n\r\nI would personally add a new section to the changelog and document this fix there, it makes reviewing changes much easier, and I'd like to take it more seriously.",
+          "createdAt": "2024-02-08T19:11:42Z",
+          "updatedAt": "2024-02-08T19:11:42Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85vhZld",
+          "commit": {
+            "abbreviatedOid": "4531b32"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks for writing this up, @falko-strenzke !  i think it needs more work to be clearer to IANA",
+          "createdAt": "2024-02-08T18:57:19Z",
+          "updatedAt": "2024-02-08T19:02:14Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "this sees like it belongs in a separate commit",
+              "createdAt": "2024-02-08T18:57:19Z",
+              "updatedAt": "2024-02-08T19:02:14Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "i would drop the trailing `/openpgp.xhtml` -- or maybe drop the whole URL, since we want the updates to happen to the registry itself, not just the html variant.",
+              "createdAt": "2024-02-08T19:00:25Z",
+              "updatedAt": "2024-02-08T19:02:14Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "the \"OpenPGP Public Key Algorithms\" table has the following columns:\r\n\r\nID, Algorithm, Public Key Format, Secret Key Format, Signature Format, PKESK Format, Reference\r\n\r\nThe tables linked here don't tell IANA how to populate all the columns.",
+              "createdAt": "2024-02-08T19:01:45Z",
+              "updatedAt": "2024-02-08T19:02:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 86,
+      "id": "PR_kwDOIrmZ-85mavlL",
+      "title": "use experimental codepoints for now, during interop testing",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/86",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes: #83",
+      "createdAt": "2024-02-08T19:38:49Z",
+      "updatedAt": "2024-02-09T14:34:45Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "avoid-codepoint-squatting",
+      "headRefOid": "c5d906a33900a88ece05425a92ff7cc7e870ccfd",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is one proposal for how to use experimental codepoints.",
+          "createdAt": "2024-02-08T19:39:28Z",
+          "updatedAt": "2024-02-08T19:39:28Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 suggests on list simply not assigning codepoints to the MAY algorithms, rather than having overlap.  This also seems fine to me.",
+          "createdAt": "2024-02-09T14:34:43Z",
+          "updatedAt": "2024-02-09T14:34:43Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
