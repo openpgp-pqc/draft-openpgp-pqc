@@ -1143,8 +1143,8 @@ support the matching hash algorithm.
 {: title="Binding between ML-DSA and signature data digest" #tab-mldsa-hash}
 Algorithm ID reference | Hash function | Hash function ID reference
 ----------------------:| ------------- | --------------------------
-TBD                    | SHA3-256      | 12
-TBD                    | SHA3-512      | 14
+TBD (ML-DSA-65 IDs)    | SHA3-256      | 12
+TBD (ML-DSA-87 IDs)    | SHA3-512      | 14
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
