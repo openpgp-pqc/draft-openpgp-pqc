@@ -94,6 +94,7 @@ Table of Contents
        2.1.2.  Measures to Ensure Secure Implementations
    3.  Supported Public Key Algorithms
      3.1.  Algorithm Specifications
+       3.1.1.  Experimental Codepoints for Interop Testing
      3.2.  Parameter Specification
        3.2.1.  SLH-DSA-SHA2
        3.2.2.  SLH-DSA-SHAKE
@@ -387,52 +388,78 @@ Table of Contents
 
    For encryption, the following composite KEM schemes are specified:
 
-    +====+===============================+=============+=============+
-    | ID | Algorithm                     | Requirement | Definition  |
-    +====+===============================+=============+=============+
-    | 29 | ML-KEM-768 + X25519           | MUST        | Section 5.2 |
-    +----+-------------------------------+-------------+-------------+
-    | 30 | ML-KEM-1024 + X448            | SHOULD      | Section 5.2 |
-    +----+-------------------------------+-------------+-------------+
-    | 31 | ML-KEM-768 + ECDH-NIST-P-256  | MAY         | Section 5.2 |
-    +----+-------------------------------+-------------+-------------+
-    | 32 | ML-KEM-1024 + ECDH-NIST-P-384 | MAY         | Section 5.2 |
-    +----+-------------------------------+-------------+-------------+
-    | 33 | ML-KEM-768 + ECDH-            | MAY         | Section 5.2 |
-    |    | brainpoolP256r1               |             |             |
-    +----+-------------------------------+-------------+-------------+
-    | 34 | ML-KEM-1024 + ECDH-           | MAY         | Section 5.2 |
-    |    | brainpoolP384r1               |             |             |
-    +----+-------------------------------+-------------+-------------+
+    +==============+======================+=============+============+
+    |           ID | Algorithm            | Requirement | Definition |
+    +==============+======================+=============+============+
+    | TBD (105 for | ML-KEM-768 + X25519  | MUST        | Section    |
+    |     testing) |                      |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
+    | TBD (106 for | ML-KEM-1024 + X448   | SHOULD      | Section    |
+    |     testing) |                      |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
+    |          TBD | ML-KEM-768 + ECDH-   | MAY         | Section    |
+    |              | NIST-P-256           |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
+    |          TBD | ML-KEM-1024 + ECDH-  | MAY         | Section    |
+    |              | NIST-P-384           |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
+    |          TBD | ML-KEM-768 + ECDH-   | MAY         | Section    |
+    |              | brainpoolP256r1      |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
+    |          TBD | ML-KEM-1024 + ECDH-  | MAY         | Section    |
+    |              | brainpoolP384r1      |             | 5.2        |
+    +--------------+----------------------+-------------+------------+
 
                   Table 1: KEM algorithm specifications
 
    For signatures, the following (composite) signature schemes are
    specified:
 
-     +====+==============================+=============+=============+
-     | ID | Algorithm                    | Requirement | Definition  |
-     +====+==============================+=============+=============+
-     | 35 | ML-DSA-65 + Ed25519          | MUST        | Section 6.2 |
-     +----+------------------------------+-------------+-------------+
-     | 36 | ML-DSA-87 + Ed448            | SHOULD      | Section 6.2 |
-     +----+------------------------------+-------------+-------------+
-     | 37 | ML-DSA-65 + ECDSA-NIST-P-256 | MAY         | Section 6.2 |
-     +----+------------------------------+-------------+-------------+
-     | 38 | ML-DSA-87 + ECDSA-NIST-P-384 | MAY         | Section 6.2 |
-     +----+------------------------------+-------------+-------------+
-     | 39 | ML-DSA-65 + ECDSA-           | MAY         | Section 6.2 |
-     |    | brainpoolP256r1              |             |             |
-     +----+------------------------------+-------------+-------------+
-     | 40 | ML-DSA-87 + ECDSA-           | MAY         | Section 6.2 |
-     |    | brainpoolP384r1              |             |             |
-     +----+------------------------------+-------------+-------------+
-     | 41 | SLH-DSA-SHA2                 | SHOULD      | Section 7.1 |
-     +----+------------------------------+-------------+-------------+
-     | 42 | SLH-DSA-SHAKE                | MAY         | Section 7.1 |
-     +----+------------------------------+-------------+-------------+
+    +==============+=======================+=============+============+
+    |           ID | Algorithm             | Requirement | Definition |
+    +==============+=======================+=============+============+
+    | TBD (107 for | ML-DSA-65 + Ed25519   | MUST        | Section    |
+    |     testing) |                       |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    | TBD (108 for | ML-DSA-87 + Ed448     | SHOULD      | Section    |
+    |     testing) |                       |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    |          TBD | ML-DSA-65 + ECDSA-    | MAY         | Section    |
+    |              | NIST-P-256            |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    |          TBD | ML-DSA-87 + ECDSA-    | MAY         | Section    |
+    |              | NIST-P-384            |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    |          TBD | ML-DSA-65 + ECDSA-    | MAY         | Section    |
+    |              | brainpoolP256r1       |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    |          TBD | ML-DSA-87 + ECDSA-    | MAY         | Section    |
+    |              | brainpoolP384r1       |             | 6.2        |
+    +--------------+-----------------------+-------------+------------+
+    | TBD (109 for | SLH-DSA-SHA2          | SHOULD      | Section    |
+    |     testing) |                       |             | 7.1        |
+    +--------------+-----------------------+-------------+------------+
+    |          TBD | SLH-DSA-SHAKE         | MAY         | Section    |
+    |              |                       |             | 7.1        |
+    +--------------+-----------------------+-------------+------------+
 
                 Table 2: Signature algorithm specifications
+
+3.1.1.  Experimental Codepoints for Interop Testing
+
+   [ Note: this section to be removed before publication ]
+
+   Algorithms indicated as MAY are not assigned a codepoint in the
+   current state of the draft since there are not enough private/
+   experimental code points available to cover all newly introduced
+   public-key algorithm identifiers.
+
+   The use of private/experimental codepoints during development are
+   intended to be used in non-released software only, for
+   experimentation and interop testing purposes only.  An OpenPGP
+   implementation MUST NOT produce a formal release using these
+   experimental codepoints.  This draft will not be sent to IANA without
+   every listed algorithm having a non-experimental codepoint.
 
 3.2.  Parameter Specification
 
@@ -553,102 +580,102 @@ Table of Contents
    artifact lengths.  The artifacts in Table 5 follow the encodings
    described in [RFC7748].
 
-     +========================+===================+==================+
-     |                        | X25519            | X448             |
-     +========================+===================+==================+
-     | Algorithm ID reference | 29                | 30               |
-     +------------------------+-------------------+------------------+
-     | Field size             | 32 octets         | 56 octets        |
-     +------------------------+-------------------+------------------+
-     | ECC-KEM                | x25519Kem         | x448Kem (Section |
-     |                        | (Section 5.1.1.1) | 5.1.1.2)         |
-     +------------------------+-------------------+------------------+
-     | ECDH public key        | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH secret key        | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH ephemeral         | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH share             | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | Key share              | 32 octets         | 64 octets        |
-     +------------------------+-------------------+------------------+
-     | Hash                   | SHA3-256          | SHA3-512         |
-     +------------------------+-------------------+------------------+
+   +========================+=======================+==================+
+   |                        | X25519                | X448             |
+   +========================+=======================+==================+
+   | Algorithm ID reference | TBD (105 for          | TBD (106 for     |
+   |                        | testing)              | testing)         |
+   +------------------------+-----------------------+------------------+
+   | Field size             | 32 octets             | 56 octets        |
+   +------------------------+-----------------------+------------------+
+   | ECC-KEM                | x25519Kem             | x448Kem (Section |
+   |                        | (Section 5.1.1.1)     | 5.1.1.2)         |
+   +------------------------+-----------------------+------------------+
+   | ECDH public key        | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH secret key        | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH ephemeral         | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH share             | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | Key share              | 32 octets             | 64 octets        |
+   +------------------------+-----------------------+------------------+
+   | Hash                   | SHA3-256              | SHA3-512         |
+   +------------------------+-----------------------+------------------+
 
          Table 5: Montgomery curves parameters and artifact lengths
 
-      +==============+===========================+==================+
-      |              | NIST P-256                | NIST P-384       |
-      +==============+===========================+==================+
-      | Algorithm ID | 31                        | 32               |
-      | reference    |                           |                  |
-      +--------------+---------------------------+------------------+
-      | Field size   | 32 octets                 | 48 octets        |
-      +--------------+---------------------------+------------------+
-      | ECC-KEM      | ecdhKem (Section 5.1.1.3) | ecdhKem (Section |
-      |              |                           | 5.1.1.3)         |
-      +--------------+---------------------------+------------------+
-      | ECDH public  | 65 octets of SEC1-encoded | 97 octets of     |
-      | key          | public point              | SEC1-encoded     |
-      |              |                           | public point     |
-      +--------------+---------------------------+------------------+
-      | ECDH secret  | 32 octets big-endian      | 48 octets big-   |
-      | key          | encoded secret scalar     | endian encoded   |
-      |              |                           | secret scalar    |
-      +--------------+---------------------------+------------------+
-      | ECDH         | 65 octets of SEC1-encoded | 97 octets of     |
-      | ephemeral    | ephemeral point           | SEC1-encoded     |
-      |              |                           | ephemeral point  |
-      +--------------+---------------------------+------------------+
-      | ECDH share   | 65 octets of SEC1-encoded | 97 octets of     |
-      |              | shared point              | SEC1-encoded     |
-      |              |                           | shared point     |
-      +--------------+---------------------------+------------------+
-      | Key share    | 32 octets                 | 64 octets        |
-      +--------------+---------------------------+------------------+
-      | Hash         | SHA3-256                  | SHA3-512         |
-      +--------------+---------------------------+------------------+
+     +==============+===========================+====================+
+     |              | NIST P-256                | NIST P-384         |
+     +==============+===========================+====================+
+     | Algorithm ID | TBD (ML-KEM-768 + ECDH-   | TBD (ML-KEM-1024 + |
+     | reference    | NIST-P-256)               | ECDH-NIST-P-384)   |
+     +--------------+---------------------------+--------------------+
+     | Field size   | 32 octets                 | 48 octets          |
+     +--------------+---------------------------+--------------------+
+     | ECC-KEM      | ecdhKem (Section 5.1.1.3) | ecdhKem            |
+     |              |                           | (Section 5.1.1.3)  |
+     +--------------+---------------------------+--------------------+
+     | ECDH public  | 65 octets of SEC1-encoded | 97 octets of       |
+     | key          | public point              | SEC1-encoded       |
+     |              |                           | public point       |
+     +--------------+---------------------------+--------------------+
+     | ECDH secret  | 32 octets big-endian      | 48 octets big-     |
+     | key          | encoded secret scalar     | endian encoded     |
+     |              |                           | secret scalar      |
+     +--------------+---------------------------+--------------------+
+     | ECDH         | 65 octets of SEC1-encoded | 97 octets of       |
+     | ephemeral    | ephemeral point           | SEC1-encoded       |
+     |              |                           | ephemeral point    |
+     +--------------+---------------------------+--------------------+
+     | ECDH share   | 65 octets of SEC1-encoded | 97 octets of       |
+     |              | shared point              | SEC1-encoded       |
+     |              |                           | shared point       |
+     +--------------+---------------------------+--------------------+
+     | Key share    | 32 octets                 | 64 octets          |
+     +--------------+---------------------------+--------------------+
+     | Hash         | SHA3-256                  | SHA3-512           |
+     +--------------+---------------------------+--------------------+
 
             Table 6: NIST curves parameters and artifact lengths
 
-      +==============+===========================+==================+
-      |              | brainpoolP256r1           | brainpoolP384r1  |
-      +==============+===========================+==================+
-      | Algorithm ID | 33                        | 34               |
-      | reference    |                           |                  |
-      +--------------+---------------------------+------------------+
-      | Field size   | 32 octets                 | 48 octets        |
-      +--------------+---------------------------+------------------+
-      | ECC-KEM      | ecdhKem (Section 5.1.1.3) | ecdhKem (Section |
-      |              |                           | 5.1.1.3)         |
-      +--------------+---------------------------+------------------+
-      | ECDH public  | 65 octets of SEC1-encoded | 97 octets of     |
-      | key          | public point              | SEC1-encoded     |
-      |              |                           | public point     |
-      +--------------+---------------------------+------------------+
-      | ECDH secret  | 32 octets big-endian      | 48 octets big-   |
-      | key          | encoded secret scalar     | endian encoded   |
-      |              |                           | secret scalar    |
-      +--------------+---------------------------+------------------+
-      | ECDH         | 65 octets of SEC1-encoded | 97 octets of     |
-      | ephemeral    | ephemeral point           | SEC1-encoded     |
-      |              |                           | ephemeral point  |
-      +--------------+---------------------------+------------------+
-      | ECDH share   | 65 octets of SEC1-encoded | 97 octets of     |
-      |              | shared point              | SEC1-encoded     |
-      |              |                           | shared point     |
-      +--------------+---------------------------+------------------+
-      | Key share    | 32 octets                 | 64 octets        |
-      +--------------+---------------------------+------------------+
-      | Hash         | SHA3-256                  | SHA3-512         |
-      +--------------+---------------------------+------------------+
+   +==============+===========================+=======================+
+   |              | brainpoolP256r1           | brainpoolP384r1       |
+   +==============+===========================+=======================+
+   | Algorithm ID | TBD (ML-KEM-768 + ECDH-   | TBD (ML-KEM-1024 +    |
+   | reference    | brainpoolP256r1)          | ECDH-brainpoolP384r1) |
+   +--------------+---------------------------+-----------------------+
+   | Field size   | 32 octets                 | 48 octets             |
+   +--------------+---------------------------+-----------------------+
+   | ECC-KEM      | ecdhKem (Section 5.1.1.3) | ecdhKem               |
+   |              |                           | (Section 5.1.1.3)     |
+   +--------------+---------------------------+-----------------------+
+   | ECDH public  | 65 octets of SEC1-encoded | 97 octets of          |
+   | key          | public point              | SEC1-encoded public   |
+   |              |                           | point                 |
+   +--------------+---------------------------+-----------------------+
+   | ECDH secret  | 32 octets big-endian      | 48 octets big-endian  |
+   | key          | encoded secret scalar     | encoded secret scalar |
+   +--------------+---------------------------+-----------------------+
+   | ECDH         | 65 octets of SEC1-encoded | 97 octets of          |
+   | ephemeral    | ephemeral point           | SEC1-encoded          |
+   |              |                           | ephemeral point       |
+   +--------------+---------------------------+-----------------------+
+   | ECDH share   | 65 octets of SEC1-encoded | 97 octets of          |
+   |              | shared point              | SEC1-encoded shared   |
+   |              |                           | point                 |
+   +--------------+---------------------------+-----------------------+
+   | Key share    | 32 octets                 | 64 octets             |
+   +--------------+---------------------------+-----------------------+
+   | Hash         | SHA3-256                  | SHA3-512              |
+   +--------------+---------------------------+-----------------------+
 
-         Table 7: Brainpool curves parameters and artifact lengths
+        Table 7: Brainpool curves parameters and artifact lengths
 
    The SEC1 format for point encoding is defined in Section 2.1.1.
 
@@ -775,11 +802,9 @@ Table of Contents
    |           ID |             | key    | key    |            | share |
    |    reference |             |        |        |            |       |
    +==============+=============+========+========+============+=======+
-   |      29, 31, | ML-KEM-768  | 1184   | 2400   | 1088       | 32    |
-   |           33 |             |        |        |            |       |
+   |          TBD | ML-KEM-768  | 1184   | 2400   | 1088       | 32    |
    +--------------+-------------+--------+--------+------------+-------+
-   |      30, 32, | ML-KEM-1024 | 1568   | 3168   | 1568       | 32    |
-   |           34 |             |        |        |            |       |
+   |          TBD | ML-KEM-1024 | 1568   | 3168   | 1568       | 32    |
    +--------------+-------------+--------+--------+------------+-------+
 
            Table 8: ML-KEM parameters artifact lengths in octets
@@ -811,22 +836,25 @@ Table of Contents
    Table 1 specifies the following ML-KEM + ECC composite public-key
    encryption schemes:
 
-       +==============+=============+===========+=================+
-       | Algorithm ID | ML-KEM      | ECC-KEM   | ECC-KEM curve   |
-       |    reference |             |           |                 |
-       +==============+=============+===========+=================+
-       |           29 | ML-KEM-768  | x25519Kem | Curve25519      |
-       +--------------+-------------+-----------+-----------------+
-       |           30 | ML-KEM-1024 | x448Kem   | Curve448        |
-       +--------------+-------------+-----------+-----------------+
-       |           31 | ML-KEM-768  | ecdhKem   | NIST P-256      |
-       +--------------+-------------+-----------+-----------------+
-       |           32 | ML-KEM-1024 | ecdhKem   | NIST P-384      |
-       +--------------+-------------+-----------+-----------------+
-       |           33 | ML-KEM-768  | ecdhKem   | brainpoolP256r1 |
-       +--------------+-------------+-----------+-----------------+
-       |           34 | ML-KEM-1024 | ecdhKem   | brainpoolP384r1 |
-       +--------------+-------------+-----------+-----------------+
+   +========================+=============+=========+=================+
+   | Algorithm ID reference | ML-KEM      |ECC-KEM  | ECC-KEM curve   |
+   +========================+=============+=========+=================+
+   |  TBD (105 for testing) | ML-KEM-768  |x25519Kem| Curve25519      |
+   +------------------------+-------------+---------+-----------------+
+   |  TBD (106 for testing) | ML-KEM-1024 |x448Kem  | Curve448        |
+   +------------------------+-------------+---------+-----------------+
+   |      TBD (ML-KEM-768 + | ML-KEM-768  |ecdhKem  | NIST P-256      |
+   |       ECDH-NIST-P-256) |             |         |                 |
+   +------------------------+-------------+---------+-----------------+
+   |     TBD (ML-KEM-1024 + | ML-KEM-1024 |ecdhKem  | NIST P-384      |
+   |       ECDH-NIST-P-384) |             |         |                 |
+   +------------------------+-------------+---------+-----------------+
+   |      TBD (ML-KEM-768 + | ML-KEM-768  |ecdhKem  | brainpoolP256r1 |
+   |  ECDH-brainpoolP256r1) |             |         |                 |
+   +------------------------+-------------+---------+-----------------+
+   |     TBD (ML-KEM-1024 + | ML-KEM-1024 |ecdhKem  | brainpoolP384r1 |
+   |  ECDH-brainpoolP384r1) |             |         |                 |
+   +------------------------+-------------+---------+-----------------+
 
                  Table 9: ML-KEM + ECC composite schemes
 
@@ -1074,9 +1102,11 @@ Table of Contents
      | Algorithm ID | Curve   | Field | Public | Secret | Signature |
      |    reference |         | size  | key    | key    |           |
      +==============+=========+=======+========+========+===========+
-     |           35 | Ed25519 | 32    | 32     | 32     | 64        |
+     | TBD (107 for | Ed25519 | 32    | 32     | 32     | 64        |
+     |     testing) |         |       |        |        |           |
      +--------------+---------+-------+--------+--------+-----------+
-     |           36 | Ed448   | 57    | 57     | 57     | 114       |
+     | TBD (108 for | Ed448   | 57    | 57     | 57     | 114       |
+     |     testing) |         |       |        |        |           |
      +--------------+---------+-------+--------+--------+-----------+
 
         Table 10: EdDSA parameters and artifact lengths in octets
@@ -1101,19 +1131,26 @@ Table of Contents
    The following table describes the ECDSA parameters and artifact
    lengths:
 
-    +=========+===============+=====+======+======+=========+=========+
-    |Algorithm|Curve          |Field|Public|Secret|Signature|Signature|
-    |       ID|               |size |key   |key   |value R  |value S  |
-    |reference|               |     |      |      |         |         |
-    +=========+===============+=====+======+======+=========+=========+
-    |       37|NIST P-256     |32   |65    |32    |32       |32       |
-    +---------+---------------+-----+------+------+---------+---------+
-    |       38|NIST P-384     |48   |97    |48    |48       |48       |
-    +---------+---------------+-----+------+------+---------+---------+
-    |       39|brainpoolP256r1|32   |65    |32    |32       |32       |
-    +---------+---------------+-----+------+------+---------+---------+
-    |       40|brainpoolP384r1|48   |97    |48    |48       |48       |
-    +---------+---------------+-----+------+------+---------+---------+
+   +================+===============+=====+======+======+=========+=========+
+   |    Algorithm ID|Curve          |Field|Public|Secret|Signature|Signature|
+   |       reference|               |size |key   |key   |value R  |value S  |
+   +================+===============+=====+======+======+=========+=========+
+   |TBD (ML-DSA-65 +|NIST P-256     |32   |65    |32    |32       |32       |
+   |     ECDSA-NIST-|               |     |      |      |         |         |
+   |          P-256)|               |     |      |      |         |         |
+   +----------------+---------------+-----+------+------+---------+---------+
+   |TBD (ML-DSA-87 +|NIST P-384     |48   |97    |48    |48       |48       |
+   |     ECDSA-NIST-|               |     |      |      |         |         |
+   |          P-384)|               |     |      |      |         |         |
+   +----------------+---------------+-----+------+------+---------+---------+
+   |TBD (ML-DSA-65 +|brainpoolP256r1|32   |65    |32    |32       |32       |
+   |          ECDSA-|               |     |      |      |         |         |
+   |brainpoolP256r1)|               |     |      |      |         |         |
+   +----------------+---------------+-----+------+------+---------+---------+
+   |TBD (ML-DSA-87 +|brainpoolP384r1|48   |97    |48    |48       |48       |
+   |          ECDSA-|               |     |      |      |         |         |
+   |brainpoolP384r1)|               |     |      |      |         |         |
+   +----------------+---------------+-----+------+------+---------+---------+
 
          Table 11: ECDSA parameters and artifact lengths in octets
 
@@ -1139,9 +1176,9 @@ Table of Contents
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |             35, 37, 39 | ML-DSA-65 | 1952   | 4000   | 3293      |
+   |                    TBD | ML-DSA-65 | 1952   | 4000   | 3293      |
    +------------------------+-----------+--------+--------+-----------+
-   |             36, 38, 40 | ML-DSA-87 | 2592   | 4864   | 4595      |
+   |                    TBD | ML-DSA-87 | 2592   | 4864   | 4595      |
    +------------------------+-----------+--------+--------+-----------+
 
         Table 12: ML-DSA parameters and artifact lengths in octets
@@ -1164,9 +1201,9 @@ Table of Contents
         | Algorithm ID reference | Hash function | Hash function |
         |                        |               | ID reference  |
         +========================+===============+===============+
-        |             35, 37, 39 | SHA3-256      | 12            |
+        |    TBD (ML-DSA-65 IDs) | SHA3-256      | 12            |
         +------------------------+---------------+---------------+
-        |             36, 38, 40 | SHA3-512      | 14            |
+        |    TBD (ML-DSA-87 IDs) | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
         Table 13: Binding between ML-DSA and signature data digest
@@ -1351,13 +1388,13 @@ Table of Contents
    | Algorithm ID reference | Parameter ID | Hash     | Hash function |
    |                        | reference    | function | ID reference  |
    +========================+==============+==========+===============+
-   |                     41 | 1, 2         | SHA-256  | 8             |
+   |  TBD (109 for testing) | 1, 2         | SHA-256  | 8             |
    +------------------------+--------------+----------+---------------+
-   |                     41 | 3, 4, 5, 6   | SHA-512  | 10            |
+   |  TBD (109 for testing) | 3, 4, 5, 6   | SHA-512  | 10            |
    +------------------------+--------------+----------+---------------+
-   |                     42 | 1, 2         | SHA3-256 | 12            |
+   |    TBD (SLH-DSA-SHAKE) | 1, 2         | SHA3-256 | 12            |
    +------------------------+--------------+----------+---------------+
-   |                     42 | 3, 4, 5, 6   | SHA3-512 | 14            |
+   |    TBD (SLH-DSA-SHAKE) | 3, 4, 5, 6   | SHA3-512 | 14            |
    +------------------------+--------------+----------+---------------+
 
        Table 15: Binding between SLH-DSA and signature data digest
