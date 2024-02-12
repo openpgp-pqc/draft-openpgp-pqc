@@ -1675,7 +1675,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |      Key|      Key|   Format|             |         |
    |   |         |   Format|   Format|         |             |         |
    +===+=========+=========+=========+=========+=============+=========+
-   |105|ML-      |32 octets|32 octets|      N/A|    32 octets|  Section|
+   |TBD|ML-      |32 octets|32 octets|      N/A|    32 octets|  Section|
    |   |KEM-768 +|   X25519|   X25519|         |          ECC|      5.2|
    |   |X25519   |   public|   secret|         |  ciphertext,|         |
    |   |         |      key|      key|         |  1088 octets|         |
@@ -1694,7 +1694,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |         |         |         |     (Section|         |
    |   |         |         |         |         |       5.3.1)|         |
    +---+---------+---------+---------+---------+-------------+---------+
-   |106|ML-      |56 octets|56 octets|      N/A|    56 octets|  Section|
+   |TBD|ML-      |56 octets|56 octets|      N/A|    56 octets|  Section|
    |   |KEM-1024 |     X448|     X448|         |          ECC|      5.2|
    |   |+ X448   |   public|   secret|         |  ciphertext,|         |
    |   |         |      key|      key|         |  1568 octets|         |
@@ -1713,7 +1713,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |         |         |         |     (Section|         |
    |   |         |         |         |         |       5.3.1)|         |
    +---+---------+---------+---------+---------+-------------+---------+
-   |107|ML-DSA-65|32 octets|32 octets|64 octets|          N/A|  Section|
+   |TBD|ML-DSA-65|32 octets|32 octets|64 octets|          N/A|  Section|
    |   |+ Ed25519|  Ed25519|  Ed25519|  Ed25519|             |      6.2|
    |   |         |   public|   secret|signature|             |         |
    |   |         |      key|      key|   (Table|             |         |
@@ -1726,7 +1726,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |   (Table|      12)|         |             |         |
    |   |         |      12)|         |         |             |         |
    +---+---------+---------+---------+---------+-------------+---------+
-   |108|ML-DSA-87|57 octets|57 octets|      114|          N/A|  Section|
+   |TBD|ML-DSA-87|57 octets|57 octets|      114|          N/A|  Section|
    |   |+ Ed448  |    Ed448|    Ed448|   octets|             |      6.2|
    |   |         |   public|   secret|  Ed25519|             |         |
    |   |         |      key|      key|signature|             |         |
@@ -1739,7 +1739,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |   (Table|      12)|      12)|             |         |
    |   |         |      12)|         |         |             |         |
    +---+---------+---------+---------+---------+-------------+---------+
-   |109|SLH-DSA- |  1 octet|      per|  1 octet|          N/A|  Section|
+   |TBD|SLH-DSA- |  1 octet|      per|  1 octet|          N/A|  Section|
    |   |SHA2     |parameter|parameter|parameter|             |      7.1|
    |   |         |  ID, per|   fixed-|  ID, per|             |         |
    |   |         |parameter|   length|parameter|             |         |
