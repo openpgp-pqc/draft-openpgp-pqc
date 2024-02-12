@@ -1675,7 +1675,7 @@ registry group at https://www.iana.org/assignments/openpgp:
 
   The registry contains the values defined in {{slhdsa-param-shake}} in this document.
 
-Furthermore, IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. The bracketed fields for IDs 105 and 106 denote fields the presence of which is conditional.
+Furthermore, IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.
 
 
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
