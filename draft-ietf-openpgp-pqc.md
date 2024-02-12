@@ -1374,6 +1374,26 @@ The algorithm-specific secret key is this value:
  - A fixed-length octet string containing the SLH-DSA secret key, whose length
    depends on the parameter ID as specified in {{tab-ecdsa-artifacts}}.
 
+# Notes on Algorithms
+
+## Symmetric Algorithms for SEIPD Packets
+
+Implementations MUST implement `AES-256`.
+A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
+`AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
+A v6 certificate that contains a PQ(/T) key SHOULD include
+`AES-256` with `OCB` mode in the "Preferred AEAD Ciphersuites" subpacket.
+
+Since `AES-256` is mandatory to implement, if `AES-256` is not explicitly in the list
+of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket,
+and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+If `AES-128` is also implictly added to the list, it is added after `AES-256`.
+
+Since `OCB` is mandatory to implement, if `AES-256` and `OCB` is not explicitly in the list
+of the "Preferred AEAD Ciphersuites" subpacket,
+and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+If `AES-128` and `OCB` is also implictly added to the list, it is added after `AES-256` and `OCB`.
+
 # Migration Considerations
 
 The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature
@@ -1555,6 +1575,16 @@ second-preimage resistance.
 
 In the case of SLH-DSA the internal hash algorithm varies based on the
 algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
+
+## Symmetric Encryption Algorithm for SEIPD Packets
+
+This specification mandates support for `AES-256` for two reasons.
+First, `AES-KeyWrap` with `AES-256` is already part of the composite KEM construction.
+Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
+
+An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet,
+or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet,
+if all recipients indicate support for it (explicitly or implicitly).
 
 # Additional considerations
 
