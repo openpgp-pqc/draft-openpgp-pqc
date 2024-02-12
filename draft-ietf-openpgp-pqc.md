@@ -509,8 +509,8 @@ For encryption, the following composite KEM schemes are specified:
 {: title="KEM algorithm specifications" #kem-alg-specs}
 ID                    | Algorithm                          | Requirement | Definition
 ---------------------:| ---------------------------------- | ----------- | --------------------
-TBD (100 for testing) | ML-KEM-768  + X25519               | MUST        | {{ecc-mlkem}}
-TBD (101 for testing) | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
+TBD (105 for testing) | ML-KEM-768  + X25519               | MUST        | {{ecc-mlkem}}
+TBD (106 for testing) | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
 TBD                   | ML-KEM-768  + ECDH-NIST-P-256      | MAY         | {{ecc-mlkem}}
 TBD                   | ML-KEM-1024 + ECDH-NIST-P-384      | MAY         | {{ecc-mlkem}}
 TBD                   | ML-KEM-768  + ECDH-brainpoolP256r1 | MAY         | {{ecc-mlkem}}
@@ -521,13 +521,13 @@ For signatures, the following (composite) signature schemes are specified:
 {: title="Signature algorithm specifications" #sig-alg-specs}
 ID                    | Algorithm                          | Requirement | Definition
 ---------------------:| ---------------------------------- | ----------- | --------------------
-TBD (102 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
-TBD (103 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
+TBD (107 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
+TBD (108 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
 TBD                   | ML-DSA-65 + ECDSA-NIST-P-256       | MAY         | {{ecc-mldsa}}
 TBD                   | ML-DSA-87 + ECDSA-NIST-P-384       | MAY         | {{ecc-mldsa}}
 TBD                   | ML-DSA-65 + ECDSA-brainpoolP256r1  | MAY         | {{ecc-mldsa}}
 TBD                   | ML-DSA-87 + ECDSA-brainpoolP384r1  | MAY         | {{ecc-mldsa}}
-TBD (104 for testing) | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
+TBD (109 for testing) | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
 TBD                   | SLH-DSA-SHAKE                      | MAY         | {{slhdsa}}
 
 ### Experimental Codepoints for Interop Testing
@@ -647,7 +647,7 @@ described in [RFC7748].
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | TBD (100 for testing)                      | TBD (101 for testing)                      |
+| Algorithm ID reference | TBD (105 for testing)                      | TBD (106 for testing)                      |
 | Field size             | 32 octets                                  | 56 octets                                  |
 | ECC-KEM                | x25519Kem ({{x25519-kem}})                 | x448Kem ({{x448-kem}})                     |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -836,8 +836,8 @@ encryption schemes:
 {: title="ML-KEM + ECC composite schemes" #tab-mlkem-ecc-composite}
 Algorithm ID reference                   | ML-KEM       | ECC-KEM   | ECC-KEM curve
 ----------------------------------------:| ------------ | --------- | --------------
-TBD (100 for testing)                    | ML-KEM-768   | x25519Kem | Curve25519
-TBD (101 for testing)                    | ML-KEM-1024  | x448Kem   | Curve448
+TBD (105 for testing)                    | ML-KEM-768   | x25519Kem | Curve25519
+TBD (106 for testing)                    | ML-KEM-1024  | x448Kem   | Curve448
 TBD (ML-KEM-768 + ECDH-NIST-P-256)       | ML-KEM-768   | ecdhKem   | NIST P-256
 TBD (ML-KEM-1024 + ECDH-NIST-P-384)      | ML-KEM-1024  | ecdhKem   | NIST P-384
 TBD (ML-KEM-768 + ECDH-brainpoolP256r1)  | ML-KEM-768   | ecdhKem   | brainpoolP256r1
@@ -1073,8 +1073,8 @@ EdDSA parameters and artifact lengths:
 {: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
 Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signature
 ----------------------:| ------- | ---------- | ---------- | ---------- | ---------
-TBD (102 for testing)  | Ed25519 | 32         | 32         | 32         | 64
-TBD (103 for testing)  | Ed448   | 57         | 57         | 57         | 114
+TBD (107 for testing)  | Ed25519 | 32         | 32         | 32         | 64
+TBD (108 for testing)  | Ed448   | 57         | 57         | 57         | 114
 
 ### ECDSA-Based signatures {#ecdsa-signature}
 
@@ -1309,8 +1309,8 @@ also support the matching hash algorithm.
 {: title="Binding between SLH-DSA and signature data digest" #tab-slhdsa-hash}
 Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
 ----------------------:| ---------------------- | ------------- | --------------------------
-TBD (104 for testing)  | 1, 2                   | SHA-256       | 8
-TBD (104 for testing)  | 3, 4, 5, 6             | SHA-512       | 10
+TBD (109 for testing)  | 1, 2                   | SHA-256       | 8
+TBD (109 for testing)  | 3, 4, 5, 6             | SHA-512       | 10
 TBD (SLH-DSA-SHAKE)    | 1, 2                   | SHA3-256      | 12
 TBD (SLH-DSA-SHAKE)    | 3, 4, 5, 6             | SHA3-512      | 14
 
