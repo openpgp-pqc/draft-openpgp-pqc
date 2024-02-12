@@ -698,8 +698,8 @@ The operation `x25519Kem.Encaps()` is defined as follows:
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v`
     is a randomly generated octet string with a length of 32 octets
 
- 2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
-    `eccPublicKey`, i.e. the recipient's public key
+ 2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the recipient's public key
+    `eccPublicKey`
 
  3. Set the output `eccCipherText` to `V`
 
@@ -725,8 +725,8 @@ The operation `x448.Encaps()` is defined as follows:
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v`
     is a randomly generated octet string with a length of 56 octets
 
- 2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
-    `eccPublicKey`, i.e. the recipient's public key
+ 2. Compute the shared coordinate `X = X448(v, R)` where `R` is the recipient's public key
+    `eccPublicKey`
 
  3. Set the output `eccCipherText` to `V`
 
