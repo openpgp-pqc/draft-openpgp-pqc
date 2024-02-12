@@ -391,10 +391,10 @@ Table of Contents
     +==============+======================+=============+============+
     |           ID | Algorithm            | Requirement | Definition |
     +==============+======================+=============+============+
-    | TBD (100 for | ML-KEM-768 + X25519  | MUST        | Section    |
+    | TBD (105 for | ML-KEM-768 + X25519  | MUST        | Section    |
     |     testing) |                      |             | 5.2        |
     +--------------+----------------------+-------------+------------+
-    | TBD (101 for | ML-KEM-1024 + X448   | SHOULD      | Section    |
+    | TBD (106 for | ML-KEM-1024 + X448   | SHOULD      | Section    |
     |     testing) |                      |             | 5.2        |
     +--------------+----------------------+-------------+------------+
     |          TBD | ML-KEM-768 + ECDH-   | MAY         | Section    |
@@ -418,10 +418,10 @@ Table of Contents
     +==============+=======================+=============+============+
     |           ID | Algorithm             | Requirement | Definition |
     +==============+=======================+=============+============+
-    | TBD (102 for | ML-DSA-65 + Ed25519   | MUST        | Section    |
+    | TBD (107 for | ML-DSA-65 + Ed25519   | MUST        | Section    |
     |     testing) |                       |             | 6.2        |
     +--------------+-----------------------+-------------+------------+
-    | TBD (103 for | ML-DSA-87 + Ed448     | SHOULD      | Section    |
+    | TBD (108 for | ML-DSA-87 + Ed448     | SHOULD      | Section    |
     |     testing) |                       |             | 6.2        |
     +--------------+-----------------------+-------------+------------+
     |          TBD | ML-DSA-65 + ECDSA-    | MAY         | Section    |
@@ -436,7 +436,7 @@ Table of Contents
     |          TBD | ML-DSA-87 + ECDSA-    | MAY         | Section    |
     |              | brainpoolP384r1       |             | 6.2        |
     +--------------+-----------------------+-------------+------------+
-    | TBD (104 for | SLH-DSA-SHA2          | SHOULD      | Section    |
+    | TBD (109 for | SLH-DSA-SHA2          | SHOULD      | Section    |
     |     testing) |                       |             | 7.1        |
     +--------------+-----------------------+-------------+------------+
     |          TBD | SLH-DSA-SHAKE         | MAY         | Section    |
@@ -583,7 +583,7 @@ Table of Contents
    +========================+=======================+==================+
    |                        | X25519                | X448             |
    +========================+=======================+==================+
-   | Algorithm ID reference | TBD (100 for          | TBD (101 for     |
+   | Algorithm ID reference | TBD (105 for          | TBD (106 for     |
    |                        | testing)              | testing)         |
    +------------------------+-----------------------+------------------+
    | Field size             | 32 octets             | 56 octets        |
@@ -839,9 +839,9 @@ Table of Contents
    +========================+=============+=========+=================+
    | Algorithm ID reference | ML-KEM      |ECC-KEM  | ECC-KEM curve   |
    +========================+=============+=========+=================+
-   |  TBD (100 for testing) | ML-KEM-768  |x25519Kem| Curve25519      |
+   |  TBD (105 for testing) | ML-KEM-768  |x25519Kem| Curve25519      |
    +------------------------+-------------+---------+-----------------+
-   |  TBD (101 for testing) | ML-KEM-1024 |x448Kem  | Curve448        |
+   |  TBD (106 for testing) | ML-KEM-1024 |x448Kem  | Curve448        |
    +------------------------+-------------+---------+-----------------+
    |      TBD (ML-KEM-768 + | ML-KEM-768  |ecdhKem  | NIST P-256      |
    |       ECDH-NIST-P-256) |             |         |                 |
@@ -1102,10 +1102,10 @@ Table of Contents
      | Algorithm ID | Curve   | Field | Public | Secret | Signature |
      |    reference |         | size  | key    | key    |           |
      +==============+=========+=======+========+========+===========+
-     | TBD (102 for | Ed25519 | 32    | 32     | 32     | 64        |
+     | TBD (107 for | Ed25519 | 32    | 32     | 32     | 64        |
      |     testing) |         |       |        |        |           |
      +--------------+---------+-------+--------+--------+-----------+
-     | TBD (103 for | Ed448   | 57    | 57     | 57     | 114       |
+     | TBD (108 for | Ed448   | 57    | 57     | 57     | 114       |
      |     testing) |         |       |        |        |           |
      +--------------+---------+-------+--------+--------+-----------+
 
@@ -1388,9 +1388,9 @@ Table of Contents
    | Algorithm ID reference | Parameter ID | Hash     | Hash function |
    |                        | reference    | function | ID reference  |
    +========================+==============+==========+===============+
-   |  TBD (104 for testing) | 1, 2         | SHA-256  | 8             |
+   |  TBD (109 for testing) | 1, 2         | SHA-256  | 8             |
    +------------------------+--------------+----------+---------------+
-   |  TBD (104 for testing) | 3, 4, 5, 6   | SHA-512  | 10            |
+   |  TBD (109 for testing) | 3, 4, 5, 6   | SHA-512  | 10            |
    +------------------------+--------------+----------+---------------+
    |    TBD (SLH-DSA-SHAKE) | 1, 2         | SHA3-256 | 12            |
    +------------------------+--------------+----------+---------------+
