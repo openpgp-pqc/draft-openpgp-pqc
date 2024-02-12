@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 9 August 2024                                       F. Strenzke
+Expires: 15 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         6 February 2024
+                                                        12 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2024.
+   This Internet-Draft will expire on 15 August 2024.
 
 Copyright Notice
 
@@ -1456,9 +1456,9 @@ Table of Contents
 
 8.2.  Key generation strategies
 
-   It is REQUIRED to generate fresh secrets when generating PQ(/T) keys.
-   Reusing key material from existing ECC keys in PQ(/T) keys does not
-   provide backwards compatibility, and the fingerprint will differ.
+   It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
+   keys.  Note that reusing key material from existing ECC keys in
+   PQ(/T) keys does not provide backwards compatibility.
 
    An OpenPGP certificate is composed of a certification-capable primary
    key and one or more subkeys for signature, encryption, and
