@@ -2325,8 +2325,8 @@ the base point of Curve25519.<a href="#section-5.1.1.1-1" class="pilcrow">¶</a>
 is a randomly generated octet string with a length of 32 octets<a href="#section-5.1.1.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.1-3.2">
-                <p id="section-5.1.1.1-3.2.1">Compute the shared coordinate <code>X = X25519(v, R)</code> where <code>R</code> is the public key
-<code>eccPublicKey</code>, i.e. the recipient's public key<a href="#section-5.1.1.1-3.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.1.1.1-3.2.1">Compute the shared coordinate <code>X = X25519(v, R)</code> where <code>R</code> is the recipient's public key
+<code>eccPublicKey</code><a href="#section-5.1.1.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.1-3.3">
                 <p id="section-5.1.1.1-3.3.1">Set the output <code>eccCipherText</code> to <code>V</code><a href="#section-5.1.1.1-3.3.1" class="pilcrow">¶</a></p>
@@ -2364,8 +2364,8 @@ of Curve448.<a href="#section-5.1.1.2-1" class="pilcrow">¶</a></p>
 is a randomly generated octet string with a length of 56 octets<a href="#section-5.1.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.2-3.2">
-                <p id="section-5.1.1.2-3.2.1">Compute the shared coordinate <code>X = X448(v, R)</code> where <code>R</code> is the public key
-<code>eccPublicKey</code>, i.e. the recipient's public key<a href="#section-5.1.1.2-3.2.1" class="pilcrow">¶</a></p>
+                <p id="section-5.1.1.2-3.2.1">Compute the shared coordinate <code>X = X448(v, R)</code> where <code>R</code> is the recipient's public key
+<code>eccPublicKey</code><a href="#section-5.1.1.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-5.1.1.2-3.3">
                 <p id="section-5.1.1.2-3.3.1">Set the output <code>eccCipherText</code> to <code>V</code><a href="#section-5.1.1.2-3.3.1" class="pilcrow">¶</a></p>
@@ -3612,7 +3612,7 @@ cryptography.<a href="#section-8.1-4" class="pilcrow">¶</a></p>
 <p id="section-8.2-1">It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing
 key material from existing ECC keys in PQ(/T) keys does not provide backwards
 compatibility, and the fingerprint will differ.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">An OpenPGP (v6) certificate is composed of a certification-capable primary key
+<p id="section-8.2-2">An OpenPGP certificate is composed of a certification-capable primary key
 and one or more subkeys for signature, encryption, and authentication.
 Two migration strategies are recommended:<a href="#section-8.2-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-8.2-3">
@@ -3621,12 +3621,13 @@ Two migration strategies are recommended:<a href="#section-8.2-2" class="pilcrow
 implementations, and one for legacy implementations. Implementations not
 understanding PQ(/T) certificates can use the legacy certificate, while
 PQ(/T)-capable implementations will prefer the newer certificate. This allows
-having an older v4 or v6 ECC certificate for compatibility and a v6 PQ(/T)
+having an older v4 or v6 certificate for compatibility and a v6 PQ(/T)
 certificate, at a greater complexity in key distribution.<a href="#section-8.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-8.2-3.2">
-            <p id="section-8.2-3.2.1">Attach PQ(/T) encryption and signature subkeys to an existing v6 ECC
-certificate. Implementations understanding PQ(/T) will be able to parse and use
+            <p id="section-8.2-3.2.1">Attach PQ(/T) encryption subkeys to an existing traditional OpenPGP certificate.
+In the case of a v6 certificate, also PQ(/T) signature keys may be attached.
+Implementations understanding PQ(/T) will be able to parse and use
 the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
 This simplifies key distribution, as only one certificate needs to be
 communicated and verified, but leaves the primary key vulnerable to quantum
