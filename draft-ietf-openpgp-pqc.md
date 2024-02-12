@@ -1391,9 +1391,9 @@ cryptography.
 
 ## Key generation strategies
 
-It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing
-key material from existing ECC keys in PQ(/T) keys does not provide backwards
-compatibility, and the fingerprint will differ.
+It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys. Note
+that reusing key material from existing ECC keys in PQ(/T) keys does not provide
+backwards compatibility.
 
 An OpenPGP certificate is composed of a certification-capable primary key
 and one or more subkeys for signature, encryption, and authentication.
