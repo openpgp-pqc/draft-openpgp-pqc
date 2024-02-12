@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 9 August 2024                                       F. Strenzke
+Expires: 15 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         6 February 2024
+                                                        12 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2024.
+   This Internet-Draft will expire on 15 August 2024.
 
 Copyright Notice
 
@@ -678,7 +678,7 @@ Table of Contents
        octets
 
    2.  Compute the shared coordinate X = X25519(v, R) where R is the
-       public key eccPublicKey
+       public key eccPublicKey, i.e. the recipient's public key
 
    3.  Set the output eccCipherText to V
 
@@ -707,7 +707,7 @@ Table of Contents
        v is a randomly generated octet string with a length of 56 octets
 
    2.  Compute the shared coordinate X = X448(v, R) where R is the
-       public key eccPublicKey
+       public key eccPublicKey, i.e. the recipient's public key
 
    3.  Set the output eccCipherText to V
 
@@ -790,15 +790,13 @@ Table of Contents
 
    The procedure to perform ML-KEM.Encaps() is as follows:
 
-   1.  Extract the encapsulation key mlkemPublicKey that is part of the
-       recipient's composite public key
+   1.  Invoke (mlkemCipherText, mlkemKeyShare) <- ML-
+       KEM.Encaps(mlkemPublicKey), where mlkemPublicKey is the
+       recipient's public key
 
-   2.  Invoke (mlkemCipherText, mlkemKeyShare) <- ML-
-       KEM.Encaps(mlkemPublicKey)
+   2.  Set mlkemCipherText as the ML-KEM ciphertext
 
-   3.  Set mlkemCipherText as the ML-KEM ciphertext
-
-   4.  Set mlkemKeyShare as the ML-KEM symmetric key share
+   3.  Set mlkemKeyShare as the ML-KEM symmetric key share
 
    The procedure to perform ML-KEM.Decaps() is as follows:
 
@@ -1247,8 +1245,8 @@ Table of Contents
        Section 6.1.3
 
    As specified in Section 4.3 an implementation MUST validate both
-   signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite
-   ML-DSA + ECC signature is valid.
+   signatures, i.e. EdDSA/ECDSA and ML-DSA, successfully to state that a
+   composite ML-DSA + ECC signature is valid.
 
 6.3.  Packet Specifications
 
