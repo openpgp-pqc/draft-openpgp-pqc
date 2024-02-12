@@ -1661,7 +1661,7 @@ longer signature generation time.
 # IANA Considerations
 
 IANA is requested to add the following registries to the `OpenPGP`
-registry group at https://www.iana.org/assignments/openpgp/openpgp.xhtml:
+registry group at https://www.iana.org/assignments/openpgp:
 
 - Registry name: `OpenPGP SLH-DSA-SHA2 parameters`
 
@@ -1675,8 +1675,17 @@ registry group at https://www.iana.org/assignments/openpgp/openpgp.xhtml:
 
   The registry contains the values defined in {{slhdsa-param-shake}} in this document.
 
-Furthermore, IANA is requested to add the algorithm IDs defined in {{kem-alg-specs}} and
-{{sig-alg-specs}} to the existing registry `OpenPGP Public Key Algorithms`.
+Furthermore, IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. The bracketed fields for IDs 105 and 106 denote fields the presence of which is conditional.
+
+
+{: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
+ID     | Algorithm           | Public Key Format                                                                                                  | Secret Key Format                                                                                                  | Signature Format                                                                                                  | PKESK Format                                                                                                                                                                                    | Reference
+---  : | -----               | ---------:                                                                                                         | --------:                                                                                                          | --------:                                                                                                         | -----:                                                                                                                                                                                          | -----:
+105    | ML-KEM-768 + X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                               | 32 octets ECC ciphertext, 1088 octets ML-KEM ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
+106    | ML-KEM-1024 + X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM public key ({{tab-mlkem-artifacts}})  | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM secret-key ({{tab-mlkem-artifacts}})   | N/A                                                                                                               | 56 octets ECC ciphertext, 1568 octets ML-KEM ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
+107    | ML-DSA-65 + Ed25519 | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}}) | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4000  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})    | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                             | {{ecc-mldsa}}
+108    | ML-DSA-87 + Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})  | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4864 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})       | 114 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                             | {{ecc-mldsa}}
+109    | SLH-DSA-SHA2        | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                        | per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                                              | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                       | N/A                                                                                                                                                                                             | {{slhdsa}}
 
 # Changelog
 
@@ -1715,6 +1724,7 @@ Furthermore, IANA is requested to add the algorithm IDs defined in {{kem-alg-spe
 
 ## draft-ietf-openpgp-pqc-01
 
+<<<<<<< HEAD
 - Mandated `AES-256` as mandatory to implement.
 - Added `AES-256` / `AES-128` with `OCB`
   implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
@@ -1723,6 +1733,7 @@ Furthermore, IANA is requested to add the algorithm IDs defined in {{kem-alg-spe
   in order to align with X25519 and X448.
 - Fixed ML-DSA private key size
 - Added test vectors
+- correction and completion of IANA instructions
 
 # Contributors
 
