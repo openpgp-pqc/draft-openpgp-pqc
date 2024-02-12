@@ -699,7 +699,7 @@ The operation `x25519Kem.Encaps()` is defined as follows:
     is a randomly generated octet string with a length of 32 octets
 
  2. Compute the shared coordinate `X = X25519(v, R)` where `R` is the public key
-    `eccPublicKey`
+    `eccPublicKey`, i.e. the recipient's public key
 
  3. Set the output `eccCipherText` to `V`
 
@@ -726,7 +726,7 @@ The operation `x448.Encaps()` is defined as follows:
     is a randomly generated octet string with a length of 56 octets
 
  2. Compute the shared coordinate `X = X448(v, R)` where `R` is the public key
-    `eccPublicKey`
+    `eccPublicKey`, i.e. the recipient's public key
 
  3. Set the output `eccCipherText` to `V`
 
@@ -800,14 +800,11 @@ To instantiate `ML-KEM`, one must select a parameter set from the column
 
 The procedure to perform `ML-KEM.Encaps()` is as follows:
 
- 1. Extract the encapsulation key `mlkemPublicKey` that is part of the
-    recipient's composite public key
+ 1. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`, where `mlkemPublicKey` is the recipient's public key
 
- 2. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`
+ 2. Set `mlkemCipherText` as the ML-KEM ciphertext
 
- 3. Set `mlkemCipherText` as the ML-KEM ciphertext
-
- 4. Set `mlkemKeyShare` as the ML-KEM symmetric key share
+ 3. Set `mlkemKeyShare` as the ML-KEM symmetric key share
 
 The procedure to perform `ML-KEM.Decaps()` is as follows:
 
@@ -1206,7 +1203,7 @@ to be performed:
  2. Verify the ML-DSA signature with `ML-DSA.Verify()` from {{mldsa-signature}}
 
 As specified in {{composite-signatures}} an implementation MUST validate both
-signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite ML-DSA + ECC
+signatures, i.e. EdDSA/ECDSA and ML-DSA, successfully to state that a composite ML-DSA + ECC
 signature is valid.
 
 ## Packet Specifications
