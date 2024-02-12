@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 11 August 2024                                      F. Strenzke
+Expires: 15 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         8 February 2024
+                                                        12 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 August 2024.
+   This Internet-Draft will expire on 15 August 2024.
 
 Copyright Notice
 
@@ -155,6 +155,7 @@ Table of Contents
      12.3.  draft-wussler-openpgp-pqc-03
      12.4.  draft-wussler-openpgp-pqc-04
      12.5.  draft-ietf-openpgp-pqc-00
+     12.6.  draft-ietf-openpgp-pqc-01
    13. Contributors
    14. References
      14.1.  Normative References
@@ -1648,8 +1649,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 11.  IANA Considerations
 
    IANA is requested to add the following registries to the OpenPGP
-   registry group at https://www.iana.org/assignments/openpgp/
-   openpgp.xhtml:
+   registry group at https://www.iana.org/assignments/openpgp:
 
    *  Registry name: OpenPGP SLH-DSA-SHA2 parameters
 
@@ -1666,8 +1666,92 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
       document.
 
    Furthermore, IANA is requested to add the algorithm IDs defined in
-   Table 1 and Table 2 to the existing registry OpenPGP Public Key
-   Algorithms.
+   Table 16 to the existing registry OpenPGP Public Key Algorithms.  The
+   bracketed fields for IDs 105 and 106 denote fields the presence of
+   which is conditional.
+
+   +===+=========+=========+=========+=========+=============+=========+
+   |ID |Algorithm|   Public|   Secret|Signature| PKESK Format|Reference|
+   |   |         |      Key|      Key|   Format|             |         |
+   |   |         |   Format|   Format|         |             |         |
+   +===+=========+=========+=========+=========+=============+=========+
+   |105|ML-      |32 octets|32 octets|      N/A|    32 octets|  Section|
+   |   |KEM-768 +|   X25519|   X25519|         |          ECC|      5.2|
+   |   |X25519   |   public|   secret|         |  ciphertext,|         |
+   |   |         |      key|      key|         |  1088 octets|         |
+   |   |         |   (Table|   (Table|         |       ML-KEM|         |
+   |   |         | 5), 1184| 5), 2400|         |   ciphertext|         |
+   |   |         |   octets|   octets|         |   [, 1 octet|         |
+   |   |         |   ML-KEM|   ML-KEM|         | algorithm ID|         |
+   |   |         |   public|  secret-|         |   in case of|         |
+   |   |         |      key|      key|         | v3 PKESK], 1|         |
+   |   |         |(Table 8)|(Table 8)|         | octet length|         |
+   |   |         |         |         |         |     field of|         |
+   |   |         |         |         |         |   value n, n|         |
+   |   |         |         |         |         |       octets|         |
+   |   |         |         |         |         |      wrapped|         |
+   |   |         |         |         |         |  session key|         |
+   |   |         |         |         |         |     (Section|         |
+   |   |         |         |         |         |       5.3.1)|         |
+   +---+---------+---------+---------+---------+-------------+---------+
+   |106|ML-      |56 octets|56 octets|      N/A|    56 octets|  Section|
+   |   |KEM-1024 |     X448|     X448|         |          ECC|      5.2|
+   |   |+ X448   |   public|   secret|         |  ciphertext,|         |
+   |   |         |      key|      key|         |  1568 octets|         |
+   |   |         |   (Table|   (Table|         |       ML-KEM|         |
+   |   |         | 5), 1568| 5), 3168|         |   ciphertext|         |
+   |   |         |   octets|   octets|         |   [, 1 octet|         |
+   |   |         |   ML-KEM|   ML-KEM|         | algorithm ID|         |
+   |   |         |   public|  secret-|         |   in case of|         |
+   |   |         |      key|      key|         | v3 PKESK], 1|         |
+   |   |         |(Table 8)|(Table 8)|         | octet length|         |
+   |   |         |         |         |         |     field of|         |
+   |   |         |         |         |         |   value n, n|         |
+   |   |         |         |         |         |       octets|         |
+   |   |         |         |         |         |      wrapped|         |
+   |   |         |         |         |         |  session key|         |
+   |   |         |         |         |         |     (Section|         |
+   |   |         |         |         |         |       5.3.1)|         |
+   +---+---------+---------+---------+---------+-------------+---------+
+   |107|ML-DSA-65|32 octets|32 octets|64 octets|          N/A|  Section|
+   |   |+ Ed25519|  Ed25519|  Ed25519|  Ed25519|             |      6.2|
+   |   |         |   public|   secret|signature|             |         |
+   |   |         |      key|      key|   (Table|             |         |
+   |   |         |   (Table|   (Table|10), 3293|             |         |
+   |   |         |10), 1952|10), 4000|   octets|             |         |
+   |   |         |   octets|   octets|ML-DSA-65|             |         |
+   |   |         |ML-DSA-65|ML-DSA-65|signature|             |         |
+   |   |         |   public|   secret|   (Table|             |         |
+   |   |         |      key|   (Table|      12)|             |         |
+   |   |         |   (Table|      12)|         |             |         |
+   |   |         |      12)|         |         |             |         |
+   +---+---------+---------+---------+---------+-------------+---------+
+   |108|ML-DSA-87|57 octets|57 octets|      114|          N/A|  Section|
+   |   |+ Ed448  |    Ed448|    Ed448|   octets|             |      6.2|
+   |   |         |   public|   secret|  Ed25519|             |         |
+   |   |         |      key|      key|signature|             |         |
+   |   |         |   (Table|   (Table|   (Table|             |         |
+   |   |         |10), 2592|10), 4864|10), 4595|             |         |
+   |   |         |   octets|   octets|   octets|             |         |
+   |   |         |ML-DSA-87|ML-DSA-87|ML-DSA-87|             |         |
+   |   |         |   public|   secret|signature|             |         |
+   |   |         |      key|   (Table|   (Table|             |         |
+   |   |         |   (Table|      12)|      12)|             |         |
+   |   |         |      12)|         |         |             |         |
+   +---+---------+---------+---------+---------+-------------+---------+
+   |109|SLH-DSA- |  1 octet|      per|  1 octet|          N/A|  Section|
+   |   |SHA2     |parameter|parameter|parameter|             |      7.1|
+   |   |         |  ID, per|   fixed-|  ID, per|             |         |
+   |   |         |parameter|   length|parameter|             |         |
+   |   |         |   fixed-|    octet|   fixed-|             |         |
+   |   |         |   length|   string|   length|             |         |
+   |   |         |    octet|   (Table|    octet|             |         |
+   |   |         |   string|      14)|   string|             |         |
+   |   |         |   (Table|         |   (Table|             |         |
+   |   |         |      14)|         |      14)|             |         |
+   +---+---------+---------+---------+---------+-------------+---------+
+
+    Table 16: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1716,6 +1800,10 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 12.5.  draft-ietf-openpgp-pqc-00
 
    *  Renamed draft
+
+12.6.  draft-ietf-openpgp-pqc-01
+
+   *  correction and completion of IANA instructions
 
 13.  Contributors
 
