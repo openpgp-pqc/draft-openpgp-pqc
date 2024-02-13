@@ -1751,6 +1751,17 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |   (Table|         |   (Table|            |         |
    |   |         |      14)|         |      14)|            |         |
    +---+---------+---------+---------+---------+------------+---------+
+   |TBD|SLH-DSA- |  1 octet|      per|  1 octet|         N/A|  Section|
+   |   |SHAKE    |parameter|parameter|parameter|            |      7.1|
+   |   |         |  ID, per|   fixed-|  ID, per|            |         |
+   |   |         |parameter|   length|parameter|            |         |
+   |   |         |   fixed-|    octet|   fixed-|            |         |
+   |   |         |   length|   string|   length|            |         |
+   |   |         |    octet|   (Table|    octet|            |         |
+   |   |         |   string|      14)|   string|            |         |
+   |   |         |   (Table|         |   (Table|            |         |
+   |   |         |      14)|         |      14)|            |         |
+   +---+---------+---------+---------+---------+------------+---------+
 
    Table 16: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
