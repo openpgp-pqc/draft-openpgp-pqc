@@ -1379,6 +1379,10 @@ The algorithm-specific secret key is this value:
 ## Symmetric Algorithms for SEIPD Packets
 
 Implementations MUST implement `AES-256`.
+An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet,
+or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet,
+if all recipients indicate support for it (explicitly or implicitly).
+
 A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
 `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
 A v6 certificate that contains a PQ(/T) key SHOULD include
@@ -1576,15 +1580,17 @@ second-preimage resistance.
 In the case of SLH-DSA the internal hash algorithm varies based on the
 algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
 
-## Symmetric Encryption Algorithm for SEIPD Packets
+## Symmetric Algorithms for SEIPD Packets
 
 This specification mandates support for `AES-256` for two reasons.
 First, `AES-KeyWrap` with `AES-256` is already part of the composite KEM construction.
 Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
 
-An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet,
-or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet,
-if all recipients indicate support for it (explicitly or implicitly).
+For the same reasons, this specification further recommends the use of `AES-256`
+if it is supported by all recipients, regardless of what the implementation
+would otherwise choose based on the recipients' preferences.
+This recommendation gives a clear and easy rule by which to use `AES-256`.
+Implementations may also make more nuanced decisions.
 
 # Additional considerations
 
