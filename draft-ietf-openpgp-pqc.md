@@ -1676,6 +1676,12 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 
 - Renamed draft
 
+## draft-ietf-openpgp-pqc-01
+
+- Mandated `AES-256` as mandatory to implement.
+- Added `AES-256` / (`AES-128`, `OCB`) implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
+- Added a recommendation to use `AES-256` when possible.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
