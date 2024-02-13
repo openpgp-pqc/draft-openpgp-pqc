@@ -1655,9 +1655,9 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    For the same reasons, this specification further recommends the use
    of AES-256 if it is supported by all recipients, regardless of what
    the implementation would otherwise choose based on the recipients'
-   preferences.  This recommendation gives a clear and easy rule by
-   which to use AES-256.  Implementations may also make more nuanced
-   decisions.
+   preferences.  This recommendation should be understood as a clear and
+   simple rule for the selection of AES-256 for encryption.
+   Implementations may also make more nuanced decisions.
 
 11.  Additional considerations
 
