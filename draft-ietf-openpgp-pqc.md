@@ -1589,7 +1589,8 @@ Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
 For the same reasons, this specification further recommends the use of `AES-256`
 if it is supported by all recipients, regardless of what the implementation
 would otherwise choose based on the recipients' preferences.
-This recommendation gives a clear and easy rule by which to use `AES-256`.
+This recommendation should be understood as a clear and simple rule
+for the selection of `AES-256` for encryption.
 Implementations may also make more nuanced decisions.
 
 # Additional considerations
