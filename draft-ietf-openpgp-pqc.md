@@ -1386,17 +1386,20 @@ if all recipients indicate support for it (explicitly or implicitly).
 A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
 `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
 A v6 certificate that contains a PQ(/T) key SHOULD include
-`AES-256` with `OCB` mode in the "Preferred AEAD Ciphersuites" subpacket.
+the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
-Since `AES-256` is mandatory to implement, if `AES-256` is not explicitly in the list
+If `AES-256` is not explicitly in the list
 of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket,
 and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+This is justified since `AES-256` is mandatory to implement.
 If `AES-128` is also implictly added to the list, it is added after `AES-256`.
 
-Since `OCB` is mandatory to implement, if `AES-256` and `OCB` is not explicitly in the list
+If the pair `AES-256` with `OCB` is not explicitly in the list
 of the "Preferred AEAD Ciphersuites" subpacket,
 and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
-If `AES-128` and `OCB` is also implictly added to the list, it is added after `AES-256` and `OCB`.
+This is justified since `AES-256` and `OCB` are mandatory to implement.
+If the pair `AES-128` with `OCB` is also implictly added to the list,
+it is added after the pair `AES-256` with `OCB`.
 
 # Migration Considerations
 
@@ -1679,7 +1682,8 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 ## draft-ietf-openpgp-pqc-01
 
 - Mandated `AES-256` as mandatory to implement.
-- Added `AES-256` / (`AES-128`, `OCB`) implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
+- Added `AES-256` / `AES-128` with `OCB`
+  implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
 - Added a recommendation to use `AES-256` when possible.
 
 # Contributors
