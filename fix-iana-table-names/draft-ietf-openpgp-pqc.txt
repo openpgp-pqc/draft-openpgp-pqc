@@ -1729,7 +1729,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    +---+---------+---------+---------+---------+------------+---------+
    |TBD|ML-DSA-87|57 octets|57 octets|      114|         N/A|  Section|
    |   |+ Ed448  |    Ed448|    Ed448|   octets|            |      6.2|
-   |   |         |   public|   secret|  Ed25519|            |         |
+   |   |         |   public|   secret|    Ed448|            |         |
    |   |         |      key|      key|signature|            |         |
    |   |         |   (Table|   (Table|   (Table|            |         |
    |   |         |10), 2592|10), 4864|10), 4595|            |         |
