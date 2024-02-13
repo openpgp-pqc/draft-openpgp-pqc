@@ -1696,17 +1696,17 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    |   |         |         |         |         |      5.3.1)|         |
    +---+---------+---------+---------+---------+------------+---------+
    |TBD|ML-      |56 octets|56 octets|      N/A|   56 octets|  Section|
-   |   |KEM-1024 |     X448|     X448|         |         ECC|      5.2|
+   |   |KEM-1024 |     X448|     X448|         |        X448|      5.2|
    |   |+ X448   |   public|   secret|         | ciphertext,|         |
    |   |         |      key|      key|         | 1568 octets|         |
-   |   |         |   (Table|   (Table|         |      ML-KEM|         |
+   |   |         |   (Table|   (Table|         | ML-KEM-1024|         |
    |   |         | 5), 1568| 5), 3168|         |  ciphertext|         |
    |   |         |   octets|   octets|         |  [, 1 octet|         |
-   |   |         |   ML-KEM|   ML-KEM|         |algorithm ID|         |
-   |   |         |   public|  secret-|         |  in case of|         |
-   |   |         |      key|      key|         |v3 PKESK], 1|         |
-   |   |         |(Table 8)|(Table 8)|         |octet length|         |
-   |   |         |         |         |         |    field of|         |
+   |   |         |      ML-|      ML-|         |algorithm ID|         |
+   |   |         | KEM-1024| KEM-1024|         |  in case of|         |
+   |   |         |   public|  secret-|         |v3 PKESK], 1|         |
+   |   |         |      key|      key|         |octet length|         |
+   |   |         |(Table 8)|(Table 8)|         |    field of|         |
    |   |         |         |         |         |  value n, n|         |
    |   |         |         |         |         |      octets|         |
    |   |         |         |         |         |     wrapped|         |
