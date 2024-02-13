@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 15 August 2024                                      F. Strenzke
+Expires: 16 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        12 February 2024
+                                                        13 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 August 2024.
+   This Internet-Draft will expire on 16 August 2024.
 
 Copyright Notice
 
@@ -687,7 +687,7 @@ Table of Contents
 
    and
 
-   (eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText)
+(eccKeyShare) <- ECC-KEM.Decaps(eccSecretKey, eccCipherText, eccPublicKey)
 
    To instantiate ECC-KEM, one must select a parameter set from Table 5,
    Table 6, or Table 7.
@@ -1014,7 +1014,7 @@ Table of Contents
         specified in Section 5.3.1
 
    7.   Compute (eccKeyShare) := ECC-KEM.Decaps(eccCipherText,
-        eccSecretKey)
+        eccSecretKey, eccPublicKey)
 
    8.   Compute (mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
