@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-11T01:06:16.126740+00:00",
+  "timestamp": "2024-02-13T01:02:06.824045+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -62,6 +62,11 @@
       "name": "administrative",
       "description": "Make the drafting/editing process run more smoothly",
       "color": "F3D4AB"
+    },
+    {
+      "name": "editorial",
+      "description": "minor editorial changes, will not be noted in weekly mailing list summary",
+      "color": "BFD4F2"
     }
   ],
   "issues": [
@@ -514,7 +519,7 @@
       "labels": [],
       "body": "In view of\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/pqc/rX2AcijHUbdiijehEaZS5PmpulQ/\r\n\r\naddress (how?) the following\r\n\r\n>> I think it would also benefit from a intro section that summarizes OpenPGP Crypto functions. ... Even references to the proper RFCs for more info would be beneficial.\r\n\r\n> This RFC is designed to be an addition to the crypto-refresh (what the WG is working on right now), and is directly based on it. I think you're right about the references, and it could be very beneficial to add more links to it, with specific references to the sections.\r\n",
       "createdAt": "2023-01-13T07:19:20Z",
-      "updatedAt": "2023-06-05T13:33:46Z",
+      "updatedAt": "2024-02-12T15:26:52Z",
       "closedAt": null,
       "comments": [
         {
@@ -537,6 +542,20 @@
           "body": "Meeting 2023-06-05:\r\n* AW has it still on his list, will make these cosmetic changes",
           "createdAt": "2023-06-05T11:17:07Z",
           "updatedAt": "2023-06-05T11:17:07Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler @TJ-91 Can anyone say what is the status of this? I am not entirely certain anymore, what we had in mind here.",
+          "createdAt": "2024-02-12T14:52:46Z",
+          "updatedAt": "2024-02-12T14:52:46Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Still TODO",
+          "createdAt": "2024-02-12T15:26:51Z",
+          "updatedAt": "2024-02-12T15:26:51Z"
         }
       ]
     },
@@ -554,7 +573,7 @@
       ],
       "body": "Such that our proposal for KEM combination automatically docks to the discussion of this draft?",
       "createdAt": "2023-01-13T07:34:54Z",
-      "updatedAt": "2023-06-05T11:15:32Z",
+      "updatedAt": "2024-02-12T15:25:45Z",
       "closedAt": null,
       "comments": [
         {
@@ -577,6 +596,20 @@
           "body": "Meeting 2023-06-05:\r\n\r\n  * AW: cannot point there currently as construction is still different\r\n  *     Wait for my PR there to be merged then can point to it\r\n",
           "createdAt": "2023-06-05T11:15:32Z",
           "updatedAt": "2023-06-05T11:15:32Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler What about the status of this? Can we / should we add the pointer here now? Or can we close this anyway?",
+          "createdAt": "2024-02-12T14:50:23Z",
+          "updatedAt": "2024-02-12T14:50:23Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Adoption call is ongoing right now, let's see what's the outcome next week",
+          "createdAt": "2024-02-12T15:25:43Z",
+          "updatedAt": "2024-02-12T15:25:43Z"
         }
       ]
     },
@@ -715,15 +748,15 @@
       "id": "I_kwDOIrmZ-85fKJNI",
       "title": "Finalize Algorithm IDs at some point",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/28",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Possibly when crypto-refresh is finalized, taking into account:\r\nhttps://gitlab.com/openpgp-wg/rfc4880bis/-/merge_requests/242",
       "createdAt": "2023-02-23T09:21:33Z",
-      "updatedAt": "2023-03-17T08:26:48Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-12T11:50:13Z",
+      "closedAt": "2024-02-12T11:50:13Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -731,6 +764,13 @@
           "body": "I aligned this to the cr-08 in #37",
           "createdAt": "2023-03-17T08:26:47Z",
           "updatedAt": "2023-03-17T08:26:47Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think we can close this since the whole topic of preliminary algorithm IDs has come up and will be reflected by the draft text anyway.",
+          "createdAt": "2024-02-12T11:50:13Z",
+          "updatedAt": "2024-02-12T11:50:13Z"
         }
       ]
     },
@@ -940,15 +980,15 @@
       "id": "I_kwDOIrmZ-85lcKGB",
       "title": "PKESK wire format concern",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/45",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "```\r\n### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-kyber-pkesk}\r\n\r\nThe composite Kyber algorithms MUST be used only with v6 PKESK, as defined in\r\n[I-D.ietf-openpgp-crypto-refresh] Section 5.1.2.\r\n\r\nThe algorithm-specific v6 PKESK parameters consists of:\r\n\r\n - A fixed-length octet string representing an ECC ephemeral public key in the\r\n   format associated with the curve as specified in {{ecc-kem}}.\r\n\r\n - A fixed-length octet string of the Kyber ciphertext, whose length depends on\r\n   the algorithm ID as specified in {{tab-kyber-artifacts}}.\r\n\r\n - A variable-length field containing the symmetric key:\r\n\r\n   - A one-octet size of the following field;\r\n\r\n   - Octet string of the wrapped symmetric key as described in\r\n     {{ecc-kyber-encryption}}.\r\n```\r\n\r\nI think the octet count for the encrypted symmetric key is not necessary here: the algorithm-specific ciphertext is the last field in the PKESK packet anyway, and if you don't understand the composite PK algorithm you have no chance to parse the ciphertext anyway.",
       "createdAt": "2023-05-09T11:15:14Z",
-      "updatedAt": "2023-06-05T10:42:54Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-12T15:17:28Z",
+      "closedAt": "2024-02-12T15:17:28Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -970,6 +1010,20 @@
           "body": "While there are other packets using the remainder of the packet length to encode data (compressed, literal data, user ID) I would rather be consistent with the X25519, X448, and ECDH algorithm specific data.\r\n\r\nIn case some extra data is added after the algorithm-specific data in a future version this might need to customize the algorithm-specific data based on the PKESK version, that is not great. I would try to keep the algorithm-specific data self-defined.",
           "createdAt": "2023-06-05T10:42:47Z",
           "updatedAt": "2023-06-05T10:42:47Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree with Aron here. Similarly to Aron's argument for future PKESK versions, this makes experimental implementations also more robust during the draft-stage, where wire format changes are likely to change the length of the packet and are then detectable.\r\n\r\n@teythoon Are you OK with closing this issue? Otherwise, do you have further arguments?",
+          "createdAt": "2024-02-12T14:42:20Z",
+          "updatedAt": "2024-02-12T14:42:20Z"
+        },
+        {
+          "author": "teythoon",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> While there are other packets using the remainder of the packet length to encode data (compressed, literal data, user ID) I would rather be consistent with the X25519, X448, and ECDH algorithm specific data.\r\n\r\nFair, though somewhat depressingly the octet count in the X25519, X448, and ECDH algorithm-specific data is likewise superfluous and doesn't help with parsing (because if you don't know the PK algorithm, you cannot find the octet count, because it comes after the ephemeral key that you don't know the length of).\r\n\r\nI retract my concern.",
+          "createdAt": "2024-02-12T15:17:28Z",
+          "updatedAt": "2024-02-12T15:17:28Z"
         }
       ]
     },
@@ -978,7 +1032,7 @@
       "id": "I_kwDOIrmZ-85lcPEh",
       "title": "SHA-3 vs KMAC for KDF",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/46",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -987,8 +1041,8 @@
       ],
       "body": "Are there specific reasons for preferring KMAC over HKDF as key combiner?  Seeing that v6 OpenPGP now uses HKDF everywhere, it seems tempting to also use it as combiner to reduce the number of required algorithms, no?",
       "createdAt": "2023-05-09T11:27:07Z",
-      "updatedAt": "2023-06-05T10:03:24Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-12T14:45:27Z",
+      "closedAt": "2024-02-12T14:45:26Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1094,6 +1148,20 @@
           "body": "Hey @teythoon and @falko-strenzke, @wussler, sorry for being _very_ late at the party.\r\n\r\nI am not going to wade into the theoreticals -- that's what Falko, Aron, and Stavros are for ;) -- but we already faced criticism that \r\n\r\n```\r\nKDF(counter || k_1 || ... || k_n || fixedInfo, outputBits)\r\nwhere\r\nk_i = H(ss_i || ct_i)\r\n```\r\nis too many invocations of `H`, and thus as a consolation to performance, we also offer\r\n```\r\nk_i = ss_i || ct_i\r\n```\r\nwhen safe.\r\n\r\nGiven this, I cannot imagine that the construction from [2022/065] will be well received given that involves the expander\r\n\r\n```\r\nF(k) = H(0||k1)||H(1||k1)||...||H(j||k1)||H(0||k2)||H(1||k2)||...||H(j||k2)||H(0||Kn)||H(1||Kn)||...||H(j||kn)\r\n```\r\nwhich I believe calls `H()` 3x for each block of input.\r\n\r\nSo I think the debate comes down to how much the dual-PRF property matters in practice. Based on discussions, I get the feeling that the answer is \"not enough to be worth doing\".",
           "createdAt": "2023-06-04T22:23:37Z",
           "updatedAt": "2023-06-04T22:25:20Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "So far we have not seen any further requests regarding this change. @teythoon: I think you also now have implementations available, right? Can we close this issue?",
+          "createdAt": "2024-02-12T14:37:13Z",
+          "updatedAt": "2024-02-12T14:37:13Z"
+        },
+        {
+          "author": "teythoon",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Finally Nettle offers [shake256 with context](https://docs.rs/nettle-sys/latest/nettle_sys/fn.nettle_sha3_256_shake.html)\r\n\r\nFTR, that is a misunderstanding.  The context in the function signature is the context object for the Shake operation, not the context in the cryptographic context sense.\r\n\r\nNevertheless, I am convinced that KMAC will be the least of our problems algorithm-wise, and we'll depend on Botan which has KMAC for the PQ algorithms in the short-term anyway.  So yeah, my concern is sufficiently addressed, thanks for bearing with me.",
+          "createdAt": "2024-02-12T14:45:27Z",
+          "updatedAt": "2024-02-12T14:45:27Z"
         }
       ]
     },
@@ -1361,7 +1429,7 @@
       "labels": [],
       "body": "Section 5.1.2 about ML-KEM starts with\r\n\r\n> 1. Extract the encapsulation key mlkemPublicKey that is part of the recipient's composite public key\r\n\r\nbut in the description of X*-KEM and ECDH-KEM, the recipients pubic key appears out of nowhere.  I think this should be made consistent, one way or the other.",
       "createdAt": "2023-11-08T12:45:16Z",
-      "updatedAt": "2023-11-08T13:16:57Z",
+      "updatedAt": "2024-02-12T12:10:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -1370,6 +1438,13 @@
           "body": "I agree. Since 5.1. is about the building blocks (for composites), there should not be details of the composite key format. How the public keys are extracted is already part of 5.2.4 (where it belongs)",
           "createdAt": "2023-11-08T13:16:57Z",
           "updatedAt": "2023-11-08T13:16:57Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Now addressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80",
+          "createdAt": "2024-02-12T12:10:43Z",
+          "updatedAt": "2024-02-12T12:10:43Z"
         }
       ]
     },
@@ -1397,11 +1472,13 @@
       "state": "OPEN",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [],
       "body": "Currently:\r\n\r\n> [6.2.4. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-6.2.4)[Signature Verification](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-signature-verification)\r\n>\r\n> ...\r\n> As specified in [Section 4.3](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#composite-signatures) an implementation MUST validate both signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite ML-DSA + ECC signature is valid.\r\n\r\nBut the signature verification primitives introduced in section 6 looks like\r\n\r\n> (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)\r\n\r\nSo, \"validate both signatures\" could be understood to do that operation, and it doesn't explicitly say that the result must be `true` (assuming `verified` is a boolean).  This may be overly nitpicky, but I think that making explicit that both must verify successfully, or even stating how the two results are combined would be short and sweet.",
       "createdAt": "2023-11-08T14:34:57Z",
-      "updatedAt": "2023-11-09T07:27:44Z",
+      "updatedAt": "2024-02-12T12:40:13Z",
       "closedAt": null,
       "comments": [
         {
@@ -1410,6 +1487,20 @@
           "body": "In section [6.2.4. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-6.2.4)[Signature Verification](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-signature-verification) it is stated that for the composite scheme, both signatures have to be validated. But I think that passage could be still a bit clearer by saying \"In order to classify a composite signature as correctly validated, both component signatures must be verified successfully.\"  \r\n\r\n@teythoon Will this address your concern?",
           "createdAt": "2023-11-09T07:27:19Z",
           "updatedAt": "2023-11-09T07:27:44Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Now addressed by https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80/commits/3622d630b7fc411e0865eb42367c2114f55176d9.\r\n\r\n@teythoon will this suffice from your point of view? Can we close this issue once the PR is merged?",
+          "createdAt": "2024-02-12T12:25:15Z",
+          "updatedAt": "2024-02-12T12:25:15Z"
+        },
+        {
+          "author": "teythoon",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, thanks!",
+          "createdAt": "2024-02-12T12:40:12Z",
+          "updatedAt": "2024-02-12T12:40:12Z"
         }
       ]
     },
@@ -1418,15 +1509,15 @@
       "id": "I_kwDOIrmZ-852Pqvn",
       "title": "Key generation strategies forbids reuse of ECC keys",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/71",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "> [8.2. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-8.2)[Key generation strategies](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-key-generation-strategies)\r\n>\r\n>It is REQUIRED to generate fresh secrets when generating PQ(/T) keys. Reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility, and the fingerprint will differ.\r\n\r\nForbidding this seems strong and doesn't seem to be motivated in the section.  And, I can actually imagine a use case for reusing existing ECC key material: Imagine I have a smart card that holds my ECC keys for my existing v6 cert, and I want to create a PQ cert in addition to that.  Reusing the ECC key material seems convenient and adds security over having the ECC keys being softkeys, as in the mid term there won't be PQ-capable smart cards.  If I'm not allowed to reuse the ECC key, I'd have to use a second smart card, which is more expensive and unwieldy, hindering adoption of composite algorithms.",
       "createdAt": "2023-11-08T15:06:09Z",
-      "updatedAt": "2023-11-09T09:09:29Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-12T13:06:04Z",
+      "closedAt": "2024-02-12T13:06:04Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1455,6 +1546,34 @@
           "body": "Seems to me that it should rather be a SHOULD NOT as you have already identified an exception to the rule.",
           "createdAt": "2023-11-09T09:09:29Z",
           "updatedAt": "2023-11-09T09:09:29Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@TJ-91 @fluppe2 @wussler  Considering the points above it seems reasonable to weaken or remove the prohibition of reuse of the EC keys. The hashing of the algorithm ID ensures that stripping a s signature is impossible. Thus I cannot really see any danger in this. And @teythoon points out a convincing use case for key reuse. I there are no further arguments against this step I will make PR for the change.",
+          "createdAt": "2024-02-12T11:56:18Z",
+          "updatedAt": "2024-02-12T11:56:18Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Another concern with this MUST NOT is that it doesn't seem actionable. How is an implementation that is asked to generate a PQ/T key to know whether or not the key has been used before?\r\n\r\nI think this is actionable on the key generation level, and it boils down to \"make fresh keys\". If an implementation just takes the components and assembles them into an OpenPGP key, then it could argue this check is not in scope.\r\n\r\nGenerally I would be okay with lowering this to a SHOULD NOT, even though in this thread we had a look only at signatures. For KEM the domain separation is the context when deriving the shared secret.",
+          "createdAt": "2024-02-12T12:09:34Z",
+          "updatedAt": "2024-02-12T12:09:34Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Now covered in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/88",
+          "createdAt": "2024-02-12T12:35:48Z",
+          "updatedAt": "2024-02-12T12:35:48Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Merged #88",
+          "createdAt": "2024-02-12T13:06:04Z",
+          "updatedAt": "2024-02-12T13:06:04Z"
         }
       ]
     },
@@ -1470,7 +1589,7 @@
       "labels": [],
       "body": "Currently our draft states (slightly revised text in my working branch) for ML-KEM cmposite encryption:\r\n\r\n> Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted. Instead, it is prepended to the encrypted session key in plaintext. In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).\r\n\r\nBut this isn't possible with RFC 4880 to which we aim to be compatible here, as there AES-128 is only a SHOULD. The only MUST symmetric algorithm there is TripleDES. So either we require at the same time with introducing PQC that AES-128 becomes a MUST, which seems a bit strange to me, or we have to keep the symmetric algorithm flexible, which would make the most sense in my opinion.\r\n\r\nFrom a practical perspective requiring AES-128 as MUST is most likely realistic. But from a formal perspective it means that a sending client conforming to RFC 4880 and sending an encrypted mail to multiple recipients, some supporting ML-KEM, some not, could come into the conflict of having to use AES-128 for the PQC supporting recipients and TripleDES for the legacy clients. Actually the similar but even bigger problem can happen to a client supporting the crypto-refresh and sending to mutiple clients, since the crypto-refresh even completely forbids TripleDES.\r\n\r\nSo should we simply assume that clients today all support AES-128?\r\n\r\n@TJ-91 @wussler @fluppe2\r\n\r\n\r\n",
       "createdAt": "2023-11-30T12:28:45Z",
-      "updatedAt": "2024-02-09T14:40:19Z",
+      "updatedAt": "2024-02-12T17:27:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -1633,6 +1752,13 @@
           "body": "@TJ-91 thanks for the clarification, i think you're right that i got a bit confused by the overlapping topics.\r\n\r\nAnd whether it's \"needed\" or not, it does make sense that if the asymmetric operation embeds the use of AES256 keywrap, it ought to have implied support for AES256 as a symmetric cipher.",
           "createdAt": "2024-02-09T14:40:18Z",
           "updatedAt": "2024-02-09T14:40:18Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In #90 I propose text for this change",
+          "createdAt": "2024-02-12T17:27:33Z",
+          "updatedAt": "2024-02-12T17:27:33Z"
         }
       ]
     },
@@ -1737,15 +1863,15 @@
       "id": "I_kwDOIrmZ-85-kvDT",
       "title": "Please avoid squatting on codepoints",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/83",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The draft currently stakes out claims for codepoints in the active range of asymmetric keys, though the values are still in flux.  That seems dangerous.\r\n\r\nIf we want concrete values for interoperability testing, feel free to use experimental codepoints (100-110) while the draft is still in flux.\r\n\r\nWe'll stabilize on formal codepoints later in the process once we know what we're getting into.",
       "createdAt": "2024-02-07T17:47:00Z",
-      "updatedAt": "2024-02-09T14:37:17Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-12T14:03:27Z",
+      "closedAt": "2024-02-12T14:03:27Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1774,6 +1900,13 @@
           "body": "@TJ-91 i like your suggestion to just leave the MAY algorithms explicitly `TBD` and only use experimental codepoints for the SHOULD and MUST algorithms.  Would you prepare a pull request with that?",
           "createdAt": "2024-02-09T14:37:15Z",
           "updatedAt": "2024-02-09T14:37:15Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See #87 ",
+          "createdAt": "2024-02-12T09:03:03Z",
+          "updatedAt": "2024-02-12T09:03:03Z"
         }
       ]
     },
@@ -1793,7 +1926,7 @@
       ],
       "body": "We want a weekly summary of github activity to go to the [openpgp@ietf.org mailing list](https://www.ietf.org/mailman/listinfo/openpgp).  I'll work on setting this up.",
       "createdAt": "2024-02-07T18:00:02Z",
-      "updatedAt": "2024-02-07T18:02:37Z",
+      "updatedAt": "2024-02-12T15:51:18Z",
       "closedAt": null,
       "comments": []
     }
@@ -7073,13 +7206,13 @@
       "labels": [],
       "body": "These are all mere clarifications. \r\n\r\nNote that X25519 is defined not with a scalar input, but with [an octet string as input](https://datatracker.ietf.org/doc/html/rfc7748#section-6.1).\r\n\r\n\"the fixed 4 byte value 0x00000001\" did specify a number, not a sequence of bytes. The endianess of the encoding would still have to be given here.\r\n\r\nThe remaining changes should be obvious.",
       "createdAt": "2024-02-05T15:19:29Z",
-      "updatedAt": "2024-02-06T11:48:01Z",
+      "updatedAt": "2024-02-12T14:39:38Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "b047507ad73e25bef7d7914eba2b648cbb62d6cc",
+      "baseRefOid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "clarify-mlkem",
-      "headRefOid": "ea875b4867fccef09d168c962e23b8e4699dfd45",
+      "headRefOid": "67a473408b5393f2851f6f83a1a2f940f032cbac",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -7553,6 +7686,99 @@
               "updatedAt": "2024-02-06T11:48:02Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxRC2",
+          "commit": {
+            "abbreviatedOid": "3622d63"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T12:59:09Z",
+          "updatedAt": "2024-02-12T12:59:09Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "\"public key\" is doubled in that sentence now, I would write  \"where `R` is the recipient's public key `eccPublicKey`\" or similar.",
+              "createdAt": "2024-02-12T12:59:09Z",
+              "updatedAt": "2024-02-12T12:59:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxRM3",
+          "commit": {
+            "abbreviatedOid": "3622d63"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T12:59:33Z",
+          "updatedAt": "2024-02-12T12:59:33Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "\"public key\" doubled as above",
+              "createdAt": "2024-02-12T12:59:33Z",
+              "updatedAt": "2024-02-12T12:59:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vyAne",
+          "commit": {
+            "abbreviatedOid": "3622d63"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T14:34:17Z",
+          "updatedAt": "2024-02-12T14:34:18Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "OK, fixed",
+              "createdAt": "2024-02-12T14:34:17Z",
+              "updatedAt": "2024-02-12T14:34:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vyAs9",
+          "commit": {
+            "abbreviatedOid": "3622d63"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T14:34:27Z",
+          "updatedAt": "2024-02-12T14:34:28Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "OK, fixed",
+              "createdAt": "2024-02-12T14:34:28Z",
+              "updatedAt": "2024-02-12T14:34:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vyDdu",
+          "commit": {
+            "abbreviatedOid": "67a4734"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T14:39:38Z",
+          "updatedAt": "2024-02-12T14:39:38Z",
+          "comments": []
         }
       ]
     },
@@ -7703,13 +7929,13 @@
       "labels": [],
       "body": "fixes https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
       "createdAt": "2024-02-08T14:40:14Z",
-      "updatedAt": "2024-02-08T19:11:43Z",
+      "updatedAt": "2024-02-12T15:36:29Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-iana-table-names",
-      "headRefOid": "4531b32c3c1e46e9dfa7871bbcf3af2758e6bf74",
+      "headRefOid": "0eebefaf477ee41f38b53264b356527df7c3a38c",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -7721,6 +7947,27 @@
           "body": "Thanks @falko-strenzke!\r\n\r\nI would personally add a new section to the changelog and document this fix there, it makes reviewing changes much easier, and I'd like to take it more seriously.",
           "createdAt": "2024-02-08T19:11:42Z",
           "updatedAt": "2024-02-08T19:11:42Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Thanks @falko-strenzke!\r\n> \r\n> I would personally add a new section to the changelog and document this fix there, it makes reviewing changes much easier, and I'd like to take it more seriously.\r\n\r\nDone.",
+          "createdAt": "2024-02-12T14:04:32Z",
+          "updatedAt": "2024-02-12T14:04:32Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I wouldn't put the temporary IDs in the table, rather `TBD`",
+          "createdAt": "2024-02-12T14:08:50Z",
+          "updatedAt": "2024-02-12T14:08:50Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I wouldn't put the temporary IDs in the table, rather `TBD`\r\n\r\nMakes sense, clearly. Done.",
+          "createdAt": "2024-02-12T14:13:38Z",
+          "updatedAt": "2024-02-12T14:13:38Z"
         }
       ],
       "reviews": [
@@ -7755,6 +8002,106 @@
               "updatedAt": "2024-02-08T19:02:14Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxw4-",
+          "commit": {
+            "abbreviatedOid": "4531b32"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T14:03:51Z",
+          "updatedAt": "2024-02-12T14:03:52Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Fixed now.",
+              "createdAt": "2024-02-12T14:03:51Z",
+              "updatedAt": "2024-02-12T14:03:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxw9u",
+          "commit": {
+            "abbreviatedOid": "4531b32"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T14:04:01Z",
+          "updatedAt": "2024-02-12T14:04:01Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "> i would drop the trailing `/openpgp.xhtml`\r\n\r\nFixed now.",
+              "createdAt": "2024-02-12T14:04:01Z",
+              "updatedAt": "2024-02-12T14:04:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxxFj",
+          "commit": {
+            "abbreviatedOid": "4531b32"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T14:04:16Z",
+          "updatedAt": "2024-02-12T14:04:16Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Added a table with all the information.",
+              "createdAt": "2024-02-12T14:04:16Z",
+              "updatedAt": "2024-02-12T14:04:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vybvt",
+          "commit": {
+            "abbreviatedOid": "4c67c37"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T15:24:04Z",
+          "updatedAt": "2024-02-12T15:24:18Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nFurthermore, IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. Brackets denote fields the presence of which is conditional.\r\n```",
+              "createdAt": "2024-02-12T15:24:04Z",
+              "updatedAt": "2024-02-12T15:24:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vyi5H",
+          "commit": {
+            "abbreviatedOid": "4c67c37"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-12T15:36:28Z",
+          "updatedAt": "2024-02-12T15:36:29Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "I corrected the sentence in yet another way.",
+              "createdAt": "2024-02-12T15:36:28Z",
+              "updatedAt": "2024-02-12T15:36:29Z"
+            }
+          ]
         }
       ]
     },
@@ -7763,21 +8110,21 @@
       "id": "PR_kwDOIrmZ-85mavlL",
       "title": "use experimental codepoints for now, during interop testing",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/86",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes: #83",
       "createdAt": "2024-02-08T19:38:49Z",
-      "updatedAt": "2024-02-09T14:34:45Z",
+      "updatedAt": "2024-02-12T14:07:26Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "avoid-codepoint-squatting",
       "headRefOid": "c5d906a33900a88ece05425a92ff7cc7e870ccfd",
-      "closedAt": null,
+      "closedAt": "2024-02-12T14:07:25Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -7795,8 +8142,275 @@
           "body": "@TJ-91 suggests on list simply not assigning codepoints to the MAY algorithms, rather than having overlap.  This also seems fine to me.",
           "createdAt": "2024-02-09T14:34:43Z",
           "updatedAt": "2024-02-09T14:34:43Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closing in favor of #87 ",
+          "createdAt": "2024-02-12T14:07:25Z",
+          "updatedAt": "2024-02-12T14:07:25Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 87,
+      "id": "PR_kwDOIrmZ-85mnCtB",
+      "title": "assign experimental/private codepoints; leave out MAY algorithms",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/87",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #83. this is an alternative to PR #86.\r\n\r\nI only assign IDs to \"MUST\" and \"SHOULD\" algorithms.\r\nIn cases where a referenced ID is not assigned, I write `TBD (Full Algorithm Name)` to keep the reference in tact.\r\n\r\nIn cases where there are multiple IDs listed and the IDs are only there for convenience and the meaning of the table is still clear, I only write \"TBD\" to keep the draft more readable. For example in `Table 12: ML-DSA parameters and artifact lengths in octets`.",
+      "createdAt": "2024-02-12T08:46:42Z",
+      "updatedAt": "2024-02-12T16:16:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-83-codepoints-alternative",
+      "headRefOid": "71c179f4575930dc3065a6aa87892be503064133",
+      "closedAt": "2024-02-12T14:03:26Z",
+      "mergedAt": "2024-02-12T14:03:26Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We still have codepoints left, so we can just use the next one for SHAKE if it comes to that. I'd be fine with both options.",
+          "createdAt": "2024-02-12T11:02:03Z",
+          "updatedAt": "2024-02-12T11:02:03Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> We still have codepoints left, so we can just use the next one for SHAKE if it comes to that. I'd be fine with both options.\r\n\r\nYes, I think we can worry about that later.",
+          "createdAt": "2024-02-12T11:48:25Z",
+          "updatedAt": "2024-02-12T11:48:25Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "May sound silly, but what about using 105-109 instead? Most experimental algos I know of are already using 100-102 and this could be a source of conflict",
+          "createdAt": "2024-02-12T12:12:29Z",
+          "updatedAt": "2024-02-12T12:12:29Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> May sound silly, but what about using 105-109 instead? Most experimental algos I know of are already using 100-102 and this could be a source of conflict\r\n\r\nThen that makes sense I think. Clearly, none of these solutions are robust \u2013 as soon as anyone else arrives at the same solution there will be a conflict...",
+          "createdAt": "2024-02-12T12:21:14Z",
+          "updatedAt": "2024-02-12T12:21:14Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I changed it to 105-109. I'm not sure if it's really relevant but I also don't have any problem with the IDs starting at 105.",
+          "createdAt": "2024-02-12T13:10:32Z",
+          "updatedAt": "2024-02-12T13:10:32Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for this, @TJ-91 !  I think this is the right way forward.",
+          "createdAt": "2024-02-12T16:16:24Z",
+          "updatedAt": "2024-02-12T16:16:24Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85vwd-q",
+          "commit": {
+            "abbreviatedOid": "b3590d2"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks for coming up with the solution @TJ-91 and @dkg and this PR. The only thing that I am a bit concerned about right now is that I anticipate that we will rather prioritise SLH-DSA-SHAKE over -SHA2, and thus the meaning of that code point will change again, potentially causing problems during interop testing if one implementation misses to adopt that change. So maybe we wait a bit with the assignment of any code points for SLH-DSA right now?",
+          "createdAt": "2024-02-12T10:53:08Z",
+          "updatedAt": "2024-02-12T10:53:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vw0Cs",
+          "commit": {
+            "abbreviatedOid": "b3590d2"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T11:48:39Z",
+          "updatedAt": "2024-02-12T11:48:39Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxak2",
+          "commit": {
+            "abbreviatedOid": "71c179f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T13:21:53Z",
+          "updatedAt": "2024-02-12T13:21:53Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxk44",
+          "commit": {
+            "abbreviatedOid": "71c179f"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thank you!",
+          "createdAt": "2024-02-12T13:43:11Z",
+          "updatedAt": "2024-02-12T13:43:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 88,
+      "id": "PR_kwDOIrmZ-85moY9g",
+      "title": "relax EC-key reuse to SHOULD",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/88",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Note: mentioning fingerprints here doesn't seem reasonable as the two algorithms in question are clearly different ones",
+      "createdAt": "2024-02-12T12:35:25Z",
+      "updatedAt": "2024-02-12T13:05:31Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "relax-key-reuse-restriction",
+      "headRefOid": "46d90f147ee6d4b5f2d85ff5027ec076fa7c61c2",
+      "closedAt": "2024-02-12T13:05:31Z",
+      "mergedAt": "2024-02-12T13:05:31Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "d8b3d5142f2131898a5de5cab658bd66ab27c6e2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85vxNgQ",
+          "commit": {
+            "abbreviatedOid": "46d90f1"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Sounds good to me, note that the fingerprints comment was intended to be obvious. IMO good to remove",
+          "createdAt": "2024-02-12T12:50:28Z",
+          "updatedAt": "2024-02-12T12:50:28Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vxTFI",
+          "commit": {
+            "abbreviatedOid": "46d90f1"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T13:04:11Z",
+          "updatedAt": "2024-02-12T13:04:11Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 89,
+      "id": "PR_kwDOIrmZ-85mo-xq",
+      "title": "fix .gitignore for .xml for new draft file name",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/89",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-12T14:09:41Z",
+      "updatedAt": "2024-02-12T15:26:53Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-ignore-xml",
+      "headRefOid": "eea4301acb312f39055b3cb55b07447f8eab0c33",
+      "closedAt": "2024-02-12T15:26:45Z",
+      "mergedAt": "2024-02-12T15:26:45Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "86a468c8636263c7623d7b681a646e444debdee4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85vx034",
+          "commit": {
+            "abbreviatedOid": "eea4301"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T14:11:51Z",
+          "updatedAt": "2024-02-12T14:11:51Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85vyaoX",
+          "commit": {
+            "abbreviatedOid": "eea4301"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-12T15:22:00Z",
+          "updatedAt": "2024-02-12T15:22:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 90,
+      "id": "PR_kwDOIrmZ-85mqTm3",
+      "title": "mandate AES-256 support and promote its use",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/90",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Here is my proposal to include `AES-256` as a mandatory-to-implement algorithm and to promote its use as discussed in #74.\r\nI tried to consider all cases and find the best balance between forcing (and migrating to) AES-256 and interoperability with the older specs (RFC4880, Crypto Refresh).\r\n\r\nCases to consider are:\r\n\r\n* Encrypting to a v4 certificate with a PQ/T encryption subkey\r\n* Encrypting to a v4 certificate with only traditional keys\r\n* Encrypting to a v6 certificate with any PQ(/T) key.\r\n* Encrypting to a v6 certificate without any PQ(/T) key.\r\n* Encrypting to certificates that explicitly indicate AES-128 or AES-256 support\r\n* Encrypting to certificates that do not indicate AES-128 or AES-256 support\r\n* Encrypting to any combination of the cases above\r\n\r\nAnother important aspect: If all involved parties use PQ(/T) keys, then AES-256 will be supported (and hopefully favored) by every party. To further push AES-256, I have added the following sentence to the security considerations:\r\n\r\n> An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` and `OCB` in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).\r\n\r\nThe reason is that when carelessly implementing the specification, an implementation might otherwise choose to take the simple way of always encrypting via AES-128, even if every recipient uses the \"Level 5\" PQ algorithms. \r\n\r\n---\r\n\r\nPlease also comment on:\r\n\r\n* The place where the text is added and the names of the sections\r\n* Is there a better place to state `Implementations MUST implement AES-256`?\r\n\r\n---\r\n\r\nIf we want to ask for opinions on the mailing list, the argument is: `AES-256` is the obvious choice and this will result in everyone using PQ(/T) + `AES-256` in the long run. We are committed to `AES-256` anyway by the KEM construction.",
+      "createdAt": "2024-02-12T17:25:08Z",
+      "updatedAt": "2024-02-12T17:33:57Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "86a468c8636263c7623d7b681a646e444debdee4",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-74-aes256-mandatory",
+      "headRefOid": "ead5b91ad62499814dfce8bd2167ddbe02eaa8b9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
