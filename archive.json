@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-13T01:02:06.824045+00:00",
+  "timestamp": "2024-02-15T01:01:53.902935+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -480,13 +480,11 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [
-        "wussler"
-      ],
+      "assignees": [],
       "labels": [],
       "body": "# Falko's original remark\r\n\r\nIn Section 4.1.2 we state\r\n\r\n> Extract the component public key kyberPublicKey that is part of the recipient's composite public key\r\n\r\nThis seems inconsistent in wording with the descriptions for the EC-KEMs, where no mentioning of the extraction of the component public key from the composite key is made. IMO it should be mentioned in for each scheme or for none.\r\n\r\n# Aron's comment on this (from previous issue)\r\n\r\n> In Section 4.1.2\r\n>This seems inconsistent in wording with the descriptions for the EC-KEMs, \r\n\r\nIn the ECC sections we mention \r\n```...where R is the component public key eccPublicKey...```\r\nI would consider removing point (1) from 4.1.2 and rewrite\r\n``` \r\n2. Invoke (kyberCipherText, keyShare) <- kyberKem.encap(kyberPublicKey) \r\n   where kyberPublicKey is extracted from recipient's composite public key\r\n```\r\n",
       "createdAt": "2023-01-09T14:50:58Z",
-      "updatedAt": "2023-06-05T13:33:59Z",
+      "updatedAt": "2024-02-13T12:35:11Z",
       "closedAt": null,
       "comments": [
         {
@@ -502,6 +500,13 @@
           "body": "Meeting 2023-06-05:\r\n* AW will work on this",
           "createdAt": "2023-06-05T11:17:58Z",
           "updatedAt": "2023-06-05T11:17:58Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "will be fixed by #80 ",
+          "createdAt": "2024-02-13T12:34:48Z",
+          "updatedAt": "2024-02-13T12:34:48Z"
         }
       ]
     },
@@ -1409,13 +1414,32 @@
       "state": "OPEN",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
-      "labels": [],
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [
+        "postponed"
+      ],
       "body": "Curerntly, the spec states:\r\n\r\n> [4.2. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-4.2)[Parallel Public-Key Encryption](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-parallel-public-key-encrypt)\r\n>\r\n> As explained in [Section 1.4.2](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#non-composite-multi-alg), the OpenPGP protocol inherently supports parallel encryption to different keys of the same recipient. Implementations MUST NOT encrypt a message with a purely traditional public-key encryption key of a recipient if it is encrypted with a PQ/T key of the same recipient.\r\n\r\nIt is not quite clear to me what that means, and how implementations should enforce that restriction.  To be clear, I get the intention and I think it is a valid concern.\r\n\r\n- Does that mean that if there is an OpenPGP certificate that has both a T and a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with the same user ID (or aliasing user ID, whatever that exactly means), where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with different, non-aliasing user IDs, but the implementation or application knows somehow that the certificates belong to the same recipient, where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?",
       "createdAt": "2023-11-08T12:08:15Z",
-      "updatedAt": "2023-11-08T12:08:15Z",
+      "updatedAt": "2024-02-13T09:29:22Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We tried to tackle this in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/20, but so far without success. We'll bring this to the list once we're clear on the larger topics",
+          "createdAt": "2024-02-13T09:27:59Z",
+          "updatedAt": "2024-02-13T09:27:59Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also duplicate of https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/2",
+          "createdAt": "2024-02-13T09:29:21Z",
+          "updatedAt": "2024-02-13T09:29:21Z"
+        }
+      ]
     },
     {
       "number": 68,
@@ -1460,9 +1484,17 @@
       "labels": [],
       "body": "Section 5.2.2 Key Combiner has:\r\n\r\n> MB = KMAC256(domSeparation, encData, oBits, customizationString)\r\n\r\nBut MB is not motivated, nor used ever again.",
       "createdAt": "2023-11-08T12:49:45Z",
-      "updatedAt": "2023-11-08T12:49:45Z",
+      "updatedAt": "2024-02-13T12:41:57Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Will be fixed by #80.",
+          "createdAt": "2024-02-13T12:41:56Z",
+          "updatedAt": "2024-02-13T12:41:56Z"
+        }
+      ]
     },
     {
       "number": 70,
@@ -1929,6 +1961,51 @@
       "updatedAt": "2024-02-12T15:51:18Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 91,
+      "id": "I_kwDOIrmZ-85_GIpY",
+      "title": "binding signature hash for PQC encryption v4 keys",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/91",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Kai Engert kindly pointed out that Werner Koch had mentioned (on the LibrePGP list?) that with v4 PQC keys SHA-1 binding signatures would still be allowed. I currently don't see a problem with this, as I don't see how collission attacks against key binding signatures could be possible. The attacker would have to be able to supply one public key for which he has a collision and have that be signed by the victim.\r\n\r\nStill, we might want to mandate that at least SHA-256 must be used in the binding signatures. Any opinions @wussler @fluppe2 @TJ-91 ?",
+      "createdAt": "2024-02-13T13:22:08Z",
+      "updatedAt": "2024-02-13T21:00:07Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "kaie",
+          "authorAssociation": "NONE",
+          "body": "Werner had mentioned it in this message:\r\nhttps://lists.gnupg.org/pipermail/librepgp-discuss/2024/000045.html\r\n",
+          "createdAt": "2024-02-13T13:27:21Z",
+          "updatedAt": "2024-02-13T13:27:21Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For v4 fingerprints (that seems to be what Werner is talking about?) we will not be able to do anything. For other purposes, I think the Crypto Refresh already forbids SHA-1 for most things, see https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-13#section-9.5",
+          "createdAt": "2024-02-13T13:41:42Z",
+          "updatedAt": "2024-02-13T13:42:01Z"
+        },
+        {
+          "author": "kaie",
+          "authorAssociation": "NONE",
+          "body": "Couldn't your draft include a statement like this?\r\n\"Applications that support PQC encryption keys defined in this document MUST ensure that the binding signature for the PQC subkey uses a SHA-256 signature or a stronger has. PQC encryption subkeys that use SHA-1 for the binding signature MUST be ignored.\"",
+          "createdAt": "2024-02-13T13:50:23Z",
+          "updatedAt": "2024-02-13T13:50:45Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On Tue 2024-02-13 05:22:20 -0800, Falko Strenzke wrote:\n> I don't see how collission attacks against key binding signatures\n> could be possible. The attacker would have to be able to supply one\n> public key for which he has a collision and have that be signed by the\n> victim.\n\nWhat about a scenario where an attacker offers the user a\ndecryption-capable subkey (e.g. by providing them with a smartcard)?\n\nEven if we don't think this could ever be a plausible scenario, there is\na higher-level, simpler story that is useful to be able to tell, and it\ngoes like this:\n\n- SHA-1 is never used in modern OpenPGP\n\nCarving out random corner exceptions for one nuanced case or another\njust weakens that story and makes it more challenging to offer clarity\nfor implementers and analysts.\n",
+          "createdAt": "2024-02-13T21:00:06Z",
+          "updatedAt": "2024-02-13T21:00:06Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -6683,24 +6760,26 @@
       "id": "PR_kwDOIrmZ-85ecc_a",
       "title": "Add missing parameter to ECC-KEM",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/66",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The `eccPublicKey` parameter is also used into the KDF, therefore required for the decaps",
       "createdAt": "2023-11-02T15:07:42Z",
-      "updatedAt": "2023-11-06T09:25:17Z",
+      "updatedAt": "2024-02-13T09:54:32Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
+      "baseRefOid": "86a468c8636263c7623d7b681a646e444debdee4",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-ecc-kem",
-      "headRefOid": "cff3fbb8ff82f071027fba471c03de8ce8a0171e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "71c5d6808830f284c45163bd0b3b330bd76bf499",
+      "closedAt": "2024-02-13T09:54:32Z",
+      "mergedAt": "2024-02-13T09:54:32Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "28c1e0fda2d2055057f0ffcc19c8a8832ccda52b"
+      },
       "comments": [
         {
           "author": "wussler",
@@ -6830,6 +6909,32 @@
               "updatedAt": "2023-11-06T06:51:45Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v5p1I",
+          "commit": {
+            "abbreviatedOid": "cff3fbb"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Yes, lets go for option 1, I think that is a good way forward.",
+          "createdAt": "2024-02-13T09:48:59Z",
+          "updatedAt": "2024-02-13T09:48:59Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v5qHB",
+          "commit": {
+            "abbreviatedOid": "cff3fbb"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-13T09:49:19Z",
+          "updatedAt": "2024-02-13T09:49:19Z",
+          "comments": []
         }
       ]
     },
@@ -7206,18 +7311,47 @@
       "labels": [],
       "body": "These are all mere clarifications. \r\n\r\nNote that X25519 is defined not with a scalar input, but with [an octet string as input](https://datatracker.ietf.org/doc/html/rfc7748#section-6.1).\r\n\r\n\"the fixed 4 byte value 0x00000001\" did specify a number, not a sequence of bytes. The endianess of the encoding would still have to be given here.\r\n\r\nThe remaining changes should be obvious.",
       "createdAt": "2024-02-05T15:19:29Z",
-      "updatedAt": "2024-02-12T14:39:38Z",
+      "updatedAt": "2024-02-13T12:52:58Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "clarify-mlkem",
-      "headRefOid": "67a473408b5393f2851f6f83a1a2f940f032cbac",
+      "headRefOid": "21e32270e260b6b0c063fcba44c4243e71a601a1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "fixes #69",
+          "createdAt": "2024-02-13T12:42:38Z",
+          "updatedAt": "2024-02-13T12:42:38Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "fixes #70 ",
+          "createdAt": "2024-02-13T12:44:33Z",
+          "updatedAt": "2024-02-13T12:44:33Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "fixes #68 ",
+          "createdAt": "2024-02-13T12:47:28Z",
+          "updatedAt": "2024-02-13T12:47:28Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "fixes #15 \r\n\r\n@wussler Could you also review at least the last commit renaming \"MB = KMAC(...\" as I made this change after @fluppe2 and @TJ-91 had approved?",
+          "createdAt": "2024-02-13T12:52:57Z",
+          "updatedAt": "2024-02-13T12:52:57Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-85vEIXw",
@@ -7779,6 +7913,19 @@
           "createdAt": "2024-02-12T14:39:38Z",
           "updatedAt": "2024-02-12T14:39:38Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6ngz",
+          "commit": {
+            "abbreviatedOid": "67a4734"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-13T11:00:02Z",
+          "updatedAt": "2024-02-13T11:00:02Z",
+          "comments": []
         }
       ]
     },
@@ -7929,13 +8076,13 @@
       "labels": [],
       "body": "fixes https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
       "createdAt": "2024-02-08T14:40:14Z",
-      "updatedAt": "2024-02-12T15:36:29Z",
+      "updatedAt": "2024-02-13T12:48:27Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-iana-table-names",
-      "headRefOid": "0eebefaf477ee41f38b53264b356527df7c3a38c",
+      "headRefOid": "07f5d1770aac54120d92c3b13e41b1c6df4d8bcf",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -8102,6 +8249,192 @@
               "updatedAt": "2024-02-12T15:36:29Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6brb",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:43:19Z",
+          "updatedAt": "2024-02-13T10:43:19Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "```suggestion\r\nTBD    | ML-KEM-768 + X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                               | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \\[, 1 octet algorithm ID in case of v3 PKESK\\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}\r\n```",
+              "createdAt": "2024-02-13T10:43:19Z",
+              "updatedAt": "2024-02-13T10:45:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6cDZ",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:44:07Z",
+          "updatedAt": "2024-02-13T10:44:08Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "Complete reference to ML-KEM parameter set like you did it for ML-DSA.",
+              "createdAt": "2024-02-13T10:44:07Z",
+              "updatedAt": "2024-02-13T10:44:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6ckE",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:45:07Z",
+          "updatedAt": "2024-02-13T10:45:08Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\nTBD    | ML-KEM-1024 + X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}})  | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})   | N/A                                                                                                               | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \\[, 1 octet algorithm ID in case of v3 PKESK\\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}\r\n```",
+              "createdAt": "2024-02-13T10:45:07Z",
+              "updatedAt": "2024-02-13T10:45:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6cob",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:45:17Z",
+          "updatedAt": "2024-02-13T10:45:17Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "As above",
+              "createdAt": "2024-02-13T10:45:17Z",
+              "updatedAt": "2024-02-13T10:45:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6dLg",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:46:26Z",
+          "updatedAt": "2024-02-13T10:46:26Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\nTBD    | ML-DSA-87 + Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})  | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4864 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})       | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                             | {{ecc-mldsa}}\r\n```",
+              "createdAt": "2024-02-13T10:46:26Z",
+              "updatedAt": "2024-02-13T10:46:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6dPK",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:46:34Z",
+          "updatedAt": "2024-02-13T10:46:34Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "Typo",
+              "createdAt": "2024-02-13T10:46:34Z",
+              "updatedAt": "2024-02-13T10:46:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6edO",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:48:06Z",
+          "updatedAt": "2024-02-13T10:48:06Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "Is SLH-DSA-SHAKE missing in the table?",
+              "createdAt": "2024-02-13T10:48:06Z",
+              "updatedAt": "2024-02-13T10:48:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6fDf",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Went over the IANA table and left some suggestions and comments. Didn't check the numbers though :-)",
+          "createdAt": "2024-02-13T10:49:05Z",
+          "updatedAt": "2024-02-13T10:49:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v7VpM",
+          "commit": {
+            "abbreviatedOid": "0eebefa"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T12:31:47Z",
+          "updatedAt": "2024-02-13T12:31:47Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "Yes, indeed. Now added.",
+              "createdAt": "2024-02-13T12:31:47Z",
+              "updatedAt": "2024-02-13T12:31:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v7dQZ",
+          "commit": {
+            "abbreviatedOid": "07f5d17"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-13T12:48:27Z",
+          "updatedAt": "2024-02-13T12:48:27Z",
+          "comments": []
         }
       ]
     },
@@ -8399,19 +8732,240 @@
       "labels": [],
       "body": "Here is my proposal to include `AES-256` as a mandatory-to-implement algorithm and to promote its use as discussed in #74.\r\nI tried to consider all cases and find the best balance between forcing (and migrating to) AES-256 and interoperability with the older specs (RFC4880, Crypto Refresh).\r\n\r\nCases to consider are:\r\n\r\n* Encrypting to a v4 certificate with a PQ/T encryption subkey\r\n* Encrypting to a v4 certificate with only traditional keys\r\n* Encrypting to a v6 certificate with any PQ(/T) key.\r\n* Encrypting to a v6 certificate without any PQ(/T) key.\r\n* Encrypting to certificates that explicitly indicate AES-128 or AES-256 support\r\n* Encrypting to certificates that do not indicate AES-128 or AES-256 support\r\n* Encrypting to any combination of the cases above\r\n\r\nAnother important aspect: If all involved parties use PQ(/T) keys, then AES-256 will be supported (and hopefully favored) by every party. To further push AES-256, I have added the following sentence to the security considerations:\r\n\r\n> An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` and `OCB` in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).\r\n\r\nThe reason is that when carelessly implementing the specification, an implementation might otherwise choose to take the simple way of always encrypting via AES-128, even if every recipient uses the \"Level 5\" PQ algorithms. \r\n\r\n---\r\n\r\nPlease also comment on:\r\n\r\n* The place where the text is added and the names of the sections\r\n* Is there a better place to state `Implementations MUST implement AES-256`?\r\n\r\n---\r\n\r\nIf we want to ask for opinions on the mailing list, the argument is: `AES-256` is the obvious choice and this will result in everyone using PQ(/T) + `AES-256` in the long run. We are committed to `AES-256` anyway by the KEM construction.",
       "createdAt": "2024-02-12T17:25:08Z",
-      "updatedAt": "2024-02-12T17:33:57Z",
+      "updatedAt": "2024-02-13T14:27:25Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "86a468c8636263c7623d7b681a646e444debdee4",
+      "baseRefOid": "28c1e0fda2d2055057f0ffcc19c8a8832ccda52b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-74-aes256-mandatory",
-      "headRefOid": "ead5b91ad62499814dfce8bd2167ddbe02eaa8b9",
+      "headRefOid": "443ff10d63530c364e16d31d43c9e38b2601a175",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "* I moved the `SHOULD` from the security considerations\r\n* I added some text to justify the \"SHOULD use AES-256\" thing. Is it sufficient?\r\n* I adjusted the titles of the two sections to match\r\n",
+          "createdAt": "2024-02-13T10:49:44Z",
+          "updatedAt": "2024-02-13T10:49:44Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Please add a note in the changelog :)",
+          "createdAt": "2024-02-13T12:46:47Z",
+          "updatedAt": "2024-02-13T12:46:47Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I rebased, added a changelog for the next version, and addressed Falko's comments",
+          "createdAt": "2024-02-13T14:22:29Z",
+          "updatedAt": "2024-02-13T14:22:29Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85v4bUA",
+          "commit": {
+            "abbreviatedOid": "ead5b91"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T07:54:45Z",
+          "updatedAt": "2024-02-13T07:54:45Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "I am not sure about making normative specifications in the security considerations. I think the \"SHOULD\" better appear in the normative part.",
+              "createdAt": "2024-02-13T07:54:45Z",
+              "updatedAt": "2024-02-13T07:54:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v5hZx",
+          "commit": {
+            "abbreviatedOid": "ead5b91"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T09:39:55Z",
+          "updatedAt": "2024-02-13T09:39:55Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "@TJ-91 : We should move lines 1571-1573 to the above section \"Symmetric Algorithms for SEIPD Packets\", immediately behind \"Implementations MUST implement AES-256\". I think this intgerates then seamless into the rest of the text.",
+              "createdAt": "2024-02-13T09:39:55Z",
+              "updatedAt": "2024-02-13T10:38:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6d3Q",
+          "commit": {
+            "abbreviatedOid": "ead5b91"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:47:38Z",
+          "updatedAt": "2024-02-13T10:47:38Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "done",
+              "createdAt": "2024-02-13T10:47:38Z",
+              "updatedAt": "2024-02-13T10:47:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6h7s",
+          "commit": {
+            "abbreviatedOid": "d288bb9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T10:53:53Z",
+          "updatedAt": "2024-02-13T10:53:53Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "Do you mean the ones in section \"Symmetric Algorithms for SEIPD Packets\"?\r\n\r\nIf yes, I would make it plural (\"clear and easy rules\") and add a link to that section.",
+              "createdAt": "2024-02-13T10:53:53Z",
+              "updatedAt": "2024-02-13T10:53:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v6tyy",
+          "commit": {
+            "abbreviatedOid": "d288bb9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T11:12:21Z",
+          "updatedAt": "2024-02-13T11:12:21Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "I rephrased it and hopefully it's a bit more clear. I only intend to contextualize the \"An implementation SHOULD use `AES-256` in the case ...\" statement.",
+              "createdAt": "2024-02-13T11:12:21Z",
+              "updatedAt": "2024-02-13T11:12:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v7MsR",
+          "commit": {
+            "abbreviatedOid": "0424ab3"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Good for me.\r\n@TJ-91 : Thank you for the effort and this very nice guidance towards AES-256.",
+          "createdAt": "2024-02-13T12:12:23Z",
+          "updatedAt": "2024-02-13T12:12:23Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v7ziO",
+          "commit": {
+            "abbreviatedOid": "0424ab3"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-02-13T13:32:35Z",
+          "updatedAt": "2024-02-13T14:00:47Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "In a specification, providing the reason for mandating something is usually not given. I agree, that it might make sense here, but in that case, it should come after the specification. For instance let the sentence begin with \"If  `AES-256` is not ...\" and then append the sentence: \"This is justified since AES-256 is mandatory ...\".",
+              "createdAt": "2024-02-13T13:32:35Z",
+              "updatedAt": "2024-02-13T14:00:47Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\nSince `OCB` is mandatory to implement, if the pair (`AES-256`,  `OCB`) is not explicitly in the list\r\n```\r\n\r\nAlso same comment regarding giving reason after spec. as above.",
+              "createdAt": "2024-02-13T13:53:05Z",
+              "updatedAt": "2024-02-13T14:00:47Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\nIf the pair (`AES-128`, `OCB`) is also implictly added to the list, it is added after the pair (`AES-256`, `OCB`).\r\n```",
+              "createdAt": "2024-02-13T13:55:55Z",
+              "updatedAt": "2024-02-13T14:00:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v8LJX",
+          "commit": {
+            "abbreviatedOid": "0424ab3"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T14:08:21Z",
+          "updatedAt": "2024-02-13T14:08:21Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "In this case I took the Crypto Refresh as a blueprint (which took RFC4880 as a blueprint). However, I agree that it's better to simply state the fact before giving a reason and will rephrase it",
+              "createdAt": "2024-02-13T14:08:21Z",
+              "updatedAt": "2024-02-13T14:08:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v8VWu",
+          "commit": {
+            "abbreviatedOid": "0424ab3"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-13T14:24:11Z",
+          "updatedAt": "2024-02-13T14:24:11Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "I wrote it as \"the pair AES-256 with OCB\" since I think it looks less odd. The Crypto Refresh also writes it like this (minus \"the pair\"). I think it's clear enough and definitely better than \"and\"",
+              "createdAt": "2024-02-13T14:24:11Z",
+              "updatedAt": "2024-02-13T14:24:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85v8XOL",
+          "commit": {
+            "abbreviatedOid": "443ff10"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "OK, great :+1: ",
+          "createdAt": "2024-02-13T14:27:25Z",
+          "updatedAt": "2024-02-13T14:27:25Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
