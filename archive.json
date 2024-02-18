@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-15T01:01:53.902935+00:00",
+  "timestamp": "2024-02-18T01:05:20.350963+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1974,7 +1974,7 @@
       "labels": [],
       "body": "Kai Engert kindly pointed out that Werner Koch had mentioned (on the LibrePGP list?) that with v4 PQC keys SHA-1 binding signatures would still be allowed. I currently don't see a problem with this, as I don't see how collission attacks against key binding signatures could be possible. The attacker would have to be able to supply one public key for which he has a collision and have that be signed by the victim.\r\n\r\nStill, we might want to mandate that at least SHA-256 must be used in the binding signatures. Any opinions @wussler @fluppe2 @TJ-91 ?",
       "createdAt": "2024-02-13T13:22:08Z",
-      "updatedAt": "2024-02-13T21:00:07Z",
+      "updatedAt": "2024-02-16T10:54:47Z",
       "closedAt": null,
       "comments": [
         {
@@ -2004,6 +2004,69 @@
           "body": "On Tue 2024-02-13 05:22:20 -0800, Falko Strenzke wrote:\n> I don't see how collission attacks against key binding signatures\n> could be possible. The attacker would have to be able to supply one\n> public key for which he has a collision and have that be signed by the\n> victim.\n\nWhat about a scenario where an attacker offers the user a\ndecryption-capable subkey (e.g. by providing them with a smartcard)?\n\nEven if we don't think this could ever be a plausible scenario, there is\na higher-level, simpler story that is useful to be able to tell, and it\ngoes like this:\n\n- SHA-1 is never used in modern OpenPGP\n\nCarving out random corner exceptions for one nuanced case or another\njust weakens that story and makes it more challenging to offer clarity\nfor implementers and analysts.\n",
           "createdAt": "2024-02-13T21:00:06Z",
           "updatedAt": "2024-02-13T21:00:06Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> SHA-1 is never used in modern OpenPGP\r\n\r\nI think that is too ambiguous. Is v4 + PQC \"modern\"? For v6 it's clear and a trivial statement. For v4 we have the ambiguity: You can implement the old standard or the crypto refresh. The Crypto Refresh forbids SHA-1 with the exception where it's really needed (fingerprint, v1 SEIPD). The Crypto Refresh explicitly mentions signatures:\r\n\r\n> Implementations MUST NOT generate signatures with MD5, SHA-1, or RIPEMD-160.\r\n\r\nSo, we can add all sorts of statements that the Crypto Refresh already makes but I think this will bloat the PQC spec. We can either clarify that implementations should/must follow the Crypto Refresh's v4 specification, or we can add some broad statements about deprecated hash and symmetric encryption algorithms. Personally, I would like to go with the first option. Some further clarification can be provided in the security considerations, if needed.\r\n\r\nWould that be a satisfactory solution to this issue?",
+          "createdAt": "2024-02-15T10:32:04Z",
+          "updatedAt": "2024-02-15T10:33:00Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On Thu 2024-02-15 02:32:16 -0800, Johannes Roth wrote:\n>> SHA-1 is never used in modern OpenPGP\n>\n> I think that is too ambiguous.\n\nThat's exactly my point.  It's already too ambiguous.  please don't make\nit more ambiguous.\n\n> Is v4 + PQC \"modern\"?\n\nIf by \"v4 + PQC\" you mean \"following only the guidance in RFC 4880, but\nwith a post-quantum algorithm\", this combination on its face is not\nmodern.  v4 was defined in RFC 4880 in 2007, over 16 years ago.  Even at\nthat time, it was known (via Wang et al.)  that SHA-1 was not everything\nit was hoped it would be.\n\n> For v4 we have the ambiguity: You can implement the old standard or\n> the crypto refresh.\n\nWhere the crypto-refresh offers clarification for packets initially\ndefined in RFC 4880, the PQC draft should absolutely follow it.  It's\n2024, and there is absolutely no reason to accommodate an implementation\nthat is capable of understanding ML-KEM, ML-DSA, or SLH-DSA, but still\ndecides to publish and rely on SHA-1 for its signatures.\n\n> So, we can add all sorts of statements that the Crypto Refresh already\n> makes but I think this will bloat the PQC spec.\n\nI don't think it's much of a bloat to say something simple like:\n\n    Subkey binding signatures over algorithms described in this document\n    and primary key binding signatures made by algorithms described in\n    this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.\n    A receiving implementation MUST be treated such a signature as\n    invalid.\n",
+          "createdAt": "2024-02-15T13:58:48Z",
+          "updatedAt": "2024-02-15T13:58:48Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I don't think it's much of a bloat to say something simple like: Subkey binding signatures over algorithms described in this document and primary key binding signatures made by algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`. A receiving implementation MUST be treated such a signature as invalid.\r\n\r\nIn principle I agree, that this text makes sense. But if we should find more and more requirements from the crypto-refresh that we need to duplicate, I would prefer to find another way of expressing the same thing. We could then for instance say that for v4/PQC, the v4 imlementation MUST be subject to the specifications made in the crypto-refresh vor v4.",
+          "createdAt": "2024-02-15T14:13:21Z",
+          "updatedAt": "2024-02-15T14:13:51Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Another requirement would be to forbid encryption via TripleDES, CAST5, IDEA.\r\n\r\nIf it's only those two cases (hashes and symmetric encryption), I'm fine with it, otherwise I would also prefer to simply mandate the Crypto Refresh's v4 spec. Or is there a reason to adopt only a few selected requirements from the crypto refresh?",
+          "createdAt": "2024-02-15T14:38:41Z",
+          "updatedAt": "2024-02-15T14:38:41Z"
+        },
+        {
+          "author": "kaie",
+          "authorAssociation": "NONE",
+          "body": "Just thinking out loud, if the RFC for PQC was self-contained, and didn't depend on the crypto-refresh document, then maybe some implementations would be willing to adopt and implement the PQC document, even if they aren't ready for the crypto-refresh specification. By adding a reference to the crypto-refresh document, it could be considered a hint that the RFC for PQC cannot be implemented independently.",
+          "createdAt": "2024-02-15T14:49:06Z",
+          "updatedAt": "2024-02-15T14:49:06Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We do have to reference somehow the OpenPGP spec, and I don't think it's a good idea to reference RFC4880, since the upcoming RFC obsoletes it",
+          "createdAt": "2024-02-15T15:03:42Z",
+          "updatedAt": "2024-02-15T15:03:42Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@kaie That sounds reasonable. I think the most constructive way forward would be to look at the differences between the Crypto Refresh and RFC 4880 (+Camellia/ECC) and solely concentrate on v4. Then we can see if we need all of it, or only some of it.\r\n\r\nJust a note: this all only affects v4 certificates with a PQ/T encryption subkey. PQ(/T) signatures are only allowed for v6 currently.\r\n\r\nWhen skimming through https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-13#name-upgrade-guidance-adapting-i I think nothing really hurts too much for an implementation willing to implement PQC.\r\n\r\n* avoiding RSA weak keys / DSA / ElGamal is a good step that you want to take when you upgrade to PQC.\r\n* implementing X25519/Ed25519 as MTI seems easy enough if you implement the PQC MTI algorithms (that also require X25519/Ed25519 and AES KeyWrap). Edit: Is this really MTI for v4? Seems strange.\r\n* avoiding the deprecated digest and symmetric encryption algorithms is also reasonable.\r\n* avoiding SED packets seems reasonable.\r\n* avoiding v3 also seems reasonable.\r\n* other stuff about S2K etc. can probably be ignored if an implementation wishes to. I do not see how it relates to PQC at all. Obviously, it'd be best to follow the new spec, though. \r\n\r\nPlease tell me if I've missed something big. \r\nI see three options:\r\n\r\n1. Mandating to follow the Crypto Refresh's v4 spec.\r\n2. Decide on a \"minimal set of additions to RFC 4880(+Camellia/ECC)\" that we deem necessary for PQC.\r\n3. Make no restrictions at all and just let implementations add a new public-key algorithm.\r\n\r\nI think 1) is the easiest solution but would be willing to go with 2) if we see a clear reason that this could speed up the adoption of PQC encryption. I don't really see it, though. As for option 3) I guess we have ruled that out already.",
+          "createdAt": "2024-02-15T15:59:49Z",
+          "updatedAt": "2024-02-15T16:17:19Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On Thu 2024-02-15 06:13:32 -0800, Falko Strenzke wrote:\n> for v4/PQC, the v4 imlementation MUST be subject to the specifications made in the crypto-refresh vor v4.\n\nRemember that \"v4\" only refers to keys and signatures, and not to\nencryption.  But i think we need to talk about encryption as well.\n\nThe draft will likely avoid referring to RFC 4880 entirely and only\nrefer to the RFC that the crypto-refresh becomes.\n\nWe have then, i think, two options:\n\n- merely say nothing, and let the crypto-refresh speak by implication,\n  or\n\n- explicitly call out the same constraints, while referring to the\n  appropriate sections in the crypto-refresh.\n\nI lean toward the latter, because we are already coupling classical\nsymmetric algorithms with the PQC algorithms in this draft\n(e.g. SLH-DSA), and i don't think it's \"bloat\" to add a sentence or two\nas explicit clarification.\n",
+          "createdAt": "2024-02-15T16:35:00Z",
+          "updatedAt": "2024-02-15T16:35:00Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> explicitly call out the same constraints, while referring to the\r\n>   appropriate sections in the crypto-refresh.\r\n\r\nI think nobody is against adding a sentence or two for clarification, even if it's duplicated from the Crypto Refresh.\r\nWhat do we do with \"avoiding SED\" or \"avoiding v3\" or changes to \"S2K\"? Do we add that to the PQC document? Why or why not?\r\nCan we agree on a set of statements that we need to duplicate while not introducing ambiguitiy by leaving out only some?",
+          "createdAt": "2024-02-16T10:54:45Z",
+          "updatedAt": "2024-02-16T10:54:45Z"
         }
       ]
     }
@@ -7311,7 +7374,7 @@
       "labels": [],
       "body": "These are all mere clarifications. \r\n\r\nNote that X25519 is defined not with a scalar input, but with [an octet string as input](https://datatracker.ietf.org/doc/html/rfc7748#section-6.1).\r\n\r\n\"the fixed 4 byte value 0x00000001\" did specify a number, not a sequence of bytes. The endianess of the encoding would still have to be given here.\r\n\r\nThe remaining changes should be obvious.",
       "createdAt": "2024-02-05T15:19:29Z",
-      "updatedAt": "2024-02-13T12:52:58Z",
+      "updatedAt": "2024-02-15T15:18:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3",
@@ -7925,6 +7988,19 @@
           "body": "",
           "createdAt": "2024-02-13T11:00:02Z",
           "updatedAt": "2024-02-13T11:00:02Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wPUVj",
+          "commit": {
+            "abbreviatedOid": "21e3227"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "The whole PR looks good to me. Thanks!",
+          "createdAt": "2024-02-15T15:18:57Z",
+          "updatedAt": "2024-02-15T15:18:57Z",
           "comments": []
         }
       ]
@@ -8732,7 +8808,7 @@
       "labels": [],
       "body": "Here is my proposal to include `AES-256` as a mandatory-to-implement algorithm and to promote its use as discussed in #74.\r\nI tried to consider all cases and find the best balance between forcing (and migrating to) AES-256 and interoperability with the older specs (RFC4880, Crypto Refresh).\r\n\r\nCases to consider are:\r\n\r\n* Encrypting to a v4 certificate with a PQ/T encryption subkey\r\n* Encrypting to a v4 certificate with only traditional keys\r\n* Encrypting to a v6 certificate with any PQ(/T) key.\r\n* Encrypting to a v6 certificate without any PQ(/T) key.\r\n* Encrypting to certificates that explicitly indicate AES-128 or AES-256 support\r\n* Encrypting to certificates that do not indicate AES-128 or AES-256 support\r\n* Encrypting to any combination of the cases above\r\n\r\nAnother important aspect: If all involved parties use PQ(/T) keys, then AES-256 will be supported (and hopefully favored) by every party. To further push AES-256, I have added the following sentence to the security considerations:\r\n\r\n> An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` and `OCB` in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).\r\n\r\nThe reason is that when carelessly implementing the specification, an implementation might otherwise choose to take the simple way of always encrypting via AES-128, even if every recipient uses the \"Level 5\" PQ algorithms. \r\n\r\n---\r\n\r\nPlease also comment on:\r\n\r\n* The place where the text is added and the names of the sections\r\n* Is there a better place to state `Implementations MUST implement AES-256`?\r\n\r\n---\r\n\r\nIf we want to ask for opinions on the mailing list, the argument is: `AES-256` is the obvious choice and this will result in everyone using PQ(/T) + `AES-256` in the long run. We are committed to `AES-256` anyway by the KEM construction.",
       "createdAt": "2024-02-12T17:25:08Z",
-      "updatedAt": "2024-02-13T14:27:25Z",
+      "updatedAt": "2024-02-15T15:15:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "28c1e0fda2d2055057f0ffcc19c8a8832ccda52b",
@@ -8963,6 +9039,19 @@
           "body": "OK, great :+1: ",
           "createdAt": "2024-02-13T14:27:25Z",
           "updatedAt": "2024-02-13T14:27:25Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wPSj2",
+          "commit": {
+            "abbreviatedOid": "443ff10"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-15T15:15:52Z",
+          "updatedAt": "2024-02-15T15:15:52Z",
           "comments": []
         }
       ]
