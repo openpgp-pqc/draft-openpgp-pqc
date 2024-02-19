@@ -1443,6 +1443,40 @@ computer attacks.
 
 # Security Considerations
 
+## Security of Composite Signatures against Signature Stripping Attacks
+
+When multiple signatures are applied to a message, the question of the protocol's
+resistance against signature stripping attacks naturally arises. In a signature
+stripping attack, an adversary removes one or more of the transmitted signatures
+such that only a subset of the signatures originally applied by the sender remain
+in the message that reaches the recipient.  Such an attack potentially downgrades
+the strength of the signatures but it clearly does not have any impact on the
+protocol's security. This is the case since per definition of the attack the
+attacker does not change the message.  For that to be possible, the signature
+algorithm itself would have to be vulnerable at the time of the attack, which is
+of course an independent matter, and certainly would imply attacks that are
+stronger and completely independent of a signature stripping vulnerability.
+
+However, signature stripping attacks may affect the security goal of availability. In case a
+recipient enforces a policy of only accepting messages signed with an algorithm
+deemed to be secure at the time of message receipt, signature stripping can lead
+to the situation where at some later point in time the stored message cannot be
+successfully verified any more due to the remaining signatures not being
+trustworthy any more. At the same time, the signature that was stripped off in
+the attack may still be considered verifiable.
+
+In any case, the composite signatures specified in this draft are not subject to
+a signature stripping vulnerability. This is due to the fact that in any OpenPGP
+signature, the hashed meta data includes the signature algorithm ID, as specified
+in {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4. As a consequence, a
+composite signature taken out of the specific context of the composite algorithm
+is not a valid signature for any message. Furthermore, it is also not possible to
+craft a new signature for a message that was signed twice with a composite
+algorithm by interchanging (i.e., remixing) the component signatures, which would
+classify as a weak existential forgery. This is due to the fact that each v6
+signatures also includes a random salt at the start of the hashed meta data, as
+also specified in the aforementioned reference.
+
 ## Hashing in ECC-KEM
 
 Our construction of the ECC-KEMs, in particular the inclusion of
