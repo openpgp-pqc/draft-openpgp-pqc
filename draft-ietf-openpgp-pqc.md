@@ -1451,14 +1451,14 @@ stripping attack, an adversary removes one or more of the transmitted signatures
 such that only a subset of the signatures originally applied by the sender remain
 in the message that reaches the recipient. The recipient then may accept the
 signed message and suffer from an unverifiable stored message at a later point in
-time when the trust in the signature scheme of remaining signature is not given
-any more whereas the stripped signature would still be verifiable. It should be
-noted that the composite signature schemes specified in this draft are not
-subject to a signature stripping vulnerability. This is due to the fact that in
-any OpenPGP signature, the hashed meta data includes the signature algorithm ID,
-as specified in {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.  As a
-consequence, a composite signature taken out of the specific context of the
-composite algorithm is not a valid signature for any message.
+time when the trust in the signature scheme of the remaining signature is not
+given any more whereas the stripped-off component signature would still be
+verifiable.  It should be noted that the composite signature schemes specified in
+this draft are not subject to a signature stripping vulnerability. This is due to
+the fact that in any OpenPGP signature, the hashed meta data includes the
+signature algorithm ID, as specified in {{I-D.ietf-openpgp-crypto-refresh}},
+Section 5.2.4.  As a consequence, a composite signature taken out of the specific
+context of the composite algorithm is not a valid signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that
 was signed twice with a composite algorithm by interchanging (i.e., remixing) the
