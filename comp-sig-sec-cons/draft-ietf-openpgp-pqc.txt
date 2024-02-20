@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 22 August 2024                                      F. Strenzke
+Expires: 23 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        19 February 2024
+                                                        20 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2024.
+   This Internet-Draft will expire on 23 August 2024.
 
 Copyright Notice
 
@@ -1543,17 +1543,14 @@ Table of Contents
    naturally arises.  In a signature stripping attack, an adversary
    removes one or more of the transmitted signatures such that only a
    subset of the signatures originally applied by the sender remain in
-   the message that reaches the recipient.  The recipient then may
-   accept the signed message and suffer from an unverifiable stored
-   message at a later point in time when the trust in the signature
-   scheme of the remaining signature is not given any more whereas the
-   stripped-off component signature would still be verifiable.  It
+   the message that reaches the recipient.  This amounts to a downgrade
+   attack that potentially reduces the value of the signature.  It
    should be noted that the composite signature schemes specified in
    this draft are not subject to a signature stripping vulnerability.
    This is due to the fact that in any OpenPGP signature, the hashed
    meta data includes the signature algorithm ID, as specified in
    [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As a consequence,
-   a composite signature taken out of the specific context of the
+   a component signature taken out of the context of a specific
    composite algorithm is not a valid signature for any message.
 
    Furthermore, it is also not possible to craft a new signature for a
