@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-18T01:05:20.350963+00:00",
+  "timestamp": "2024-02-20T01:00:37.024314+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1947,7 +1947,7 @@
       "id": "I_kwDOIrmZ-85-k1Og",
       "title": "mail weekly github summary to mailing list",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/84",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -1958,9 +1958,17 @@
       ],
       "body": "We want a weekly summary of github activity to go to the [openpgp@ietf.org mailing list](https://www.ietf.org/mailman/listinfo/openpgp).  I'll work on setting this up.",
       "createdAt": "2024-02-07T18:00:02Z",
-      "updatedAt": "2024-02-12T15:51:18Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-02-19T17:45:45Z",
+      "closedAt": "2024-02-19T17:45:44Z",
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is now done.  First message went out yesterday: https://mailarchive.ietf.org/arch/msg/openpgp/ahQNeRkwEPqpgANokKX8Jh8F4x0",
+          "createdAt": "2024-02-19T17:45:44Z",
+          "updatedAt": "2024-02-19T17:45:44Z"
+        }
+      ]
     },
     {
       "number": 91,
@@ -7367,24 +7375,26 @@
       "id": "PR_kwDOIrmZ-85mCajB",
       "title": "Clarifications mostly to KEM specification",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "These are all mere clarifications. \r\n\r\nNote that X25519 is defined not with a scalar input, but with [an octet string as input](https://datatracker.ietf.org/doc/html/rfc7748#section-6.1).\r\n\r\n\"the fixed 4 byte value 0x00000001\" did specify a number, not a sequence of bytes. The endianess of the encoding would still have to be given here.\r\n\r\nThe remaining changes should be obvious.",
       "createdAt": "2024-02-05T15:19:29Z",
-      "updatedAt": "2024-02-15T15:18:57Z",
+      "updatedAt": "2024-02-19T05:16:44Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "19fe56218a7d4796b6cdbfdb8e64a85826b89de3",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "clarify-mlkem",
       "headRefOid": "21e32270e260b6b0c063fcba44c4243e71a601a1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-02-19T05:16:44Z",
+      "mergedAt": "2024-02-19T05:16:44Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "f69fdffb35ed26b43c2355461c3ef1709a06c307"
+      },
       "comments": [
         {
           "author": "falko-strenzke",
@@ -9053,6 +9063,234 @@
           "createdAt": "2024-02-15T15:15:52Z",
           "updatedAt": "2024-02-15T15:15:52Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 92,
+      "id": "PR_kwDOIrmZ-85nQj6E",
+      "title": "Added an analysis of the composite signatures in the security considerations.",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/92",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-19T08:40:07Z",
+      "updatedAt": "2024-02-19T15:22:39Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "comp-sig-sec-cons",
+      "headRefOid": "5673a0e1296c786de18038ef599a5356fe427fb0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree with the arguments that you make but I think we can omit some of the things you are explaining.\r\nI think the second paragraph is useful to have in mind as a protocol designer but it may not be this specification's job to explain this to the implementer. Also, the first paragraph could stop after the first two sentences which explain what the attack is.\r\nThat would keep it a bit more concise and to the point, i.e., we state what the attack is and why the attack does not apply to this construction.\r\n\r\nAs for explaining the resistance against the described weak existential forgery attack, I would either add this to a new section, or make the section title more general.",
+          "createdAt": "2024-02-19T10:17:18Z",
+          "updatedAt": "2024-02-19T10:17:18Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I agree with the arguments that you make but I think we can omit some of the things you are explaining. I think the second paragraph is useful to have in mind as a protocol designer but it may not be this specification's job to explain this to the implementer. Also, the first paragraph could stop after the first two sentences which explain what the attack is. That would keep it a bit more concise and to the point, i.e., we state what the attack is and why the attack does not apply to this construction.\r\n\r\nOK, makes sense. I reduced the text significantly.\r\n\r\n> \r\n> As for explaining the resistance against the described weak existential forgery attack, I would either add this to a new section, or make the section title more general.\r\n\r\nYes, I generalized the title.\r\n",
+          "createdAt": "2024-02-19T11:20:06Z",
+          "updatedAt": "2024-02-19T11:20:06Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85wjCII",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T11:51:03Z",
+          "updatedAt": "2024-02-19T12:08:26Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "> whereas the stripped signature\r\n\r\noriginal / non-stripped",
+              "createdAt": "2024-02-19T11:51:04Z",
+              "updatedAt": "2024-02-19T12:08:26Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "1. There also is the case that the receiver cannot verify the stripped signature at all (for example he only accepts PQ signatures but the attacker stripped the PQ signature and only an ECDSA signature remains).\r\n2. In your scenario, there actually is the possibility that you can still be sure that the signature is valid if you are sure that it's been securely stored on your device since before the \"cut-off date\". The Crypto Refresh already opens up this possibility for signatures made with sha1/md5/ripemd so that's not a far stretch.\r\n\r\nTherefore, I would keep it more general here. For example: \"This reduces the options of the recipient to verify the message and might lead to verification failures, even when the original, non-stripped signature would have been verifiable.\"",
+              "createdAt": "2024-02-19T12:07:35Z",
+              "updatedAt": "2024-02-19T12:08:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wjM-s",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T12:16:17Z",
+          "updatedAt": "2024-02-19T12:16:17Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "\"stripped signature\" is meant to refer to that component signature, that is removed. Probably I should introduce the word \"component\" here to make that clear.",
+              "createdAt": "2024-02-19T12:16:17Z",
+              "updatedAt": "2024-02-19T12:16:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wjPIs",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T12:21:03Z",
+          "updatedAt": "2024-02-19T12:21:04Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "> 1. There also is the case that the receiver cannot verify the stripped signature at all (for example he only accepts PQ signatures but the attacker stripped the PQ signature and only an ECDSA signature remains).\r\n> \r\n\r\nI don't think the goal is here to provide a full treatment of all cases. This is not a scientific treatment, but an example what can go wrong. In any case, if the recipient cannot verify any signature, that is the case that should not lead to a later availability problem, because it is detected at the time of message reception. The attacker can always also just strip off all signatures to achieve that situation. So this case is trivial and out of scope.\r\n\r\n>     2. In your scenario, there actually is the possibility that you can still be sure that the signature is valid if you are sure that it's been securely stored on your device since before the \"cut-off date\". The Crypto Refresh already opens up this possibility for signatures made with sha1/md5/ripemd so that's not a far stretch.\r\n\r\nIf the message is known to have not been altered, then no signature verification is needed at all. Then you simply reduce the signature packet to the information about the signer. The signature verification with an untrusted algorithm is worthless in any case.\r\n\r\n> \r\n> \r\n> Therefore, I would keep it more general here. For example: \"This reduces the options of the recipient to verify the message and might lead to verification failures, even when the original, non-stripped signature would have been verifiable.\"\r\n\r\n",
+              "createdAt": "2024-02-19T12:21:04Z",
+              "updatedAt": "2024-02-19T12:21:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wjXca",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T12:37:28Z",
+          "updatedAt": "2024-02-19T12:37:28Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "An example of what @TJ-91 mentions is caching the verification status upon receiving\r\n\r\n> Therefore, I would keep it more general here. For example: \"This reduces the options of the recipient to verify the message and might lead to verification failures, even when the original, non-stripped signature would have been verifiable.\"\r\n\r\nI think this suggestion is good",
+              "createdAt": "2024-02-19T12:37:28Z",
+              "updatedAt": "2024-02-19T12:38:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wjgdU",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T12:56:05Z",
+          "updatedAt": "2024-02-19T12:56:06Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "> I don't think the goal is here to provide a full treatment of all cases\r\n\r\nYes I agree. I still think a general statement has more weight here and the example is not motivated by a realistic attack scenario. Perhaps you can make it more clear that this is an example of what can happen. To me it currently reads like the continuation of the description of a stripping attack.\r\n\r\n> If the message is known to have not been altered, then no signature verification is needed at all. \r\n\r\nIt is, if you simply store the signed message. You verified it when you received it but you didn't write down \"this was a valid signature at the time of receiving it\". Then you need to re-verify the signature in order to come to the same conclusion now.\r\n\r\n> The signature verification with an untrusted algorithm is worthless in any case.\r\n\r\nThat's not true. For verification you can follow different models and one model is to accept signatures as long as they are valid at the time of creation. As long as you are sure that the signature really has been created at the time and is valid at that time, it will work.\r\n\r\n@wussler yes that would be one example \r\n\r\n@falko-strenzke Anyway it's just a tangential topic and I'm fine if you keep it as it is.",
+              "createdAt": "2024-02-19T12:56:06Z",
+              "updatedAt": "2024-02-19T12:56:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wkAdw",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T14:01:45Z",
+          "updatedAt": "2024-02-19T14:01:46Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "My idea here is the description signature stripping as a cryptographic attack. What you @TJ-91 and @wussler are suggesting is application specific settings which require quite some eloboration of what is stored and how. I do not see any gain in that, especially because this is the case (i.e. signature stripping has happened) which is __not__ applicable to OpenPGP. Your proposed approach will either require elaboration of the purely hypothetical (since entirely unnecessary for OpenPGP) features of the application with respect to stored information or will blur the description if the elaboration is omitted.",
+              "createdAt": "2024-02-19T14:01:46Z",
+              "updatedAt": "2024-02-19T14:01:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wkJ_M",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T14:19:31Z",
+          "updatedAt": "2024-02-19T14:19:31Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "I didn't intend to suggest describing any of that. I only suggest to change from an example to a more general description like this:\r\n\r\n> Therefore, I would keep it more general here. For example: \"This reduces the options of the recipient to verify the message and might lead to verification failures, even when the original, non-stripped signature would have been verifiable.\"\r\n\r\nThe rest is only justification why I prefer a general statement. There is no need to describe how to verify stored messages. I fear we are confused by the discussion so let's just stop it and you decide whether you want to leave the example in its current form or provide the more general description that I suggest.",
+              "createdAt": "2024-02-19T14:19:31Z",
+              "updatedAt": "2024-02-19T14:19:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wkT59",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T14:38:00Z",
+          "updatedAt": "2024-02-19T14:38:01Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "> Therefore, I would keep it more general here. For example: \"This reduces the options of the recipient to verify the message and might lead to verification failures, even when the original, non-stripped signature would have been verifiable.\"\r\n\r\nI fear this will be confusing because in our scenario, there are no \"options\" for the recipient regarding which signature(s) to verify, since we are specifying a composite scheme. If you think it is necessary to include more information, then it should fit to our type of composite signatures.",
+              "createdAt": "2024-02-19T14:38:00Z",
+              "updatedAt": "2024-02-19T14:38:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wkvgw",
+          "commit": {
+            "abbreviatedOid": "5673a0e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-19T15:22:39Z",
+          "updatedAt": "2024-02-19T15:22:39Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "Let me summarize/paraphrise your text regarding stripping attacks:\r\n\r\n1. Description of the general problem of stripping attacks when there are multiple signatures\r\n2. Description of what a stripping attack is\r\n3. Example (recipient stores message, cant verify later)\r\n4. Explanation why the composite scheme is not vulnerable\r\n\r\nI only propose to replace \"3\". At this point, you do not talk about composite signatures but about the general principle of what could happen with multiple signatures if there are no mitigations for stripping.\r\n\r\nTo clarify, the structure would then be:\r\n\r\n1. as above\r\n2. as above\r\n3. general statement how the stripping affects the verifier\r\n4. as above\r\n\r\nI hope it's clear now",
+              "createdAt": "2024-02-19T15:22:39Z",
+              "updatedAt": "2024-02-19T15:22:40Z"
+            }
+          ]
         }
       ]
     }
