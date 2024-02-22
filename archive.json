@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-20T01:00:37.024314+00:00",
+  "timestamp": "2024-02-22T01:00:52.124826+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1958,7 +1958,7 @@
       ],
       "body": "We want a weekly summary of github activity to go to the [openpgp@ietf.org mailing list](https://www.ietf.org/mailman/listinfo/openpgp).  I'll work on setting this up.",
       "createdAt": "2024-02-07T18:00:02Z",
-      "updatedAt": "2024-02-19T17:45:45Z",
+      "updatedAt": "2024-02-20T05:48:25Z",
       "closedAt": "2024-02-19T17:45:44Z",
       "comments": [
         {
@@ -1967,6 +1967,13 @@
           "body": "This is now done.  First message went out yesterday: https://mailarchive.ietf.org/arch/msg/openpgp/ahQNeRkwEPqpgANokKX8Jh8F4x0",
           "createdAt": "2024-02-19T17:45:44Z",
           "updatedAt": "2024-02-19T17:45:44Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Great, thank you!",
+          "createdAt": "2024-02-20T05:48:25Z",
+          "updatedAt": "2024-02-20T05:48:25Z"
         }
       ]
     },
@@ -6716,7 +6723,7 @@
       "id": "PR_kwDOIrmZ-85d3rKt",
       "title": "add sample PQC certificate + PKESK/SEIPD msg",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/65",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -6727,14 +6734,14 @@
       "labels": [],
       "body": "I added a PQC certificate (public and private) and a v6 PKESK + v2 SEIPD message encrypted to that certificate. The two MUST algorithms are used, i.e., ML-DSA-65 + Ed25519 and ML-KEM-768 + X25519.\r\nFor the format and description and I oriented myself at the Crypto Refresh.\r\n\r\n[The RNP main branch at commit 6a15c33](https://github.com/rnpgp/rnp/commit/6a15c3305c446f0b5fe812893b881f8342ffebe2) has been used to produce the data.\r\n\r\nTo begin with, this test vector should be enough. Signatures are also covered since the key packets are signed. It would be good to parse and decrypt this with some other implementation as soon as one is available.\r\n\r\nIn the future we might want to add some in-depth dissection of interesting intermediate values as for example [A.8. Sample X25519-AEAD-OCB encryption and decryption](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-crypto-refresh-12#name-sample-x25519-aead-ocb-encr) section of the Crypto Refresh.",
       "createdAt": "2023-10-26T13:30:39Z",
-      "updatedAt": "2023-11-07T10:28:17Z",
+      "updatedAt": "2024-02-20T09:45:16Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5a432bee93d4f882ac52d7949c30cb0960a7b113",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "add_pqc_sample_cert",
       "headRefOid": "c5cdb2326b5321d51bd6a9aaf609880030b0605b",
-      "closedAt": null,
+      "closedAt": "2024-02-20T09:45:15Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -6822,6 +6829,13 @@
           "body": "I also added the stock RNP with crypto-refresh enabled, using the stock Botan to our v6 test suite: https://tests.sequoia-pgp.org/v6.html",
           "createdAt": "2023-11-07T10:28:16Z",
           "updatedAt": "2023-11-07T10:28:16Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing this since it's outdated. Thanks for the feedback everyone, this has been helpful and I hope to submit new test vectors soon.",
+          "createdAt": "2024-02-20T09:45:15Z",
+          "updatedAt": "2024-02-20T09:45:15Z"
         }
       ],
       "reviews": []
@@ -9078,13 +9092,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-02-19T08:40:07Z",
-      "updatedAt": "2024-02-19T15:22:39Z",
+      "updatedAt": "2024-02-20T11:45:18Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "comp-sig-sec-cons",
-      "headRefOid": "5673a0e1296c786de18038ef599a5356fe427fb0",
+      "headRefOid": "11b8920770869914bc841eae09cb205ee03f53b1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -9291,6 +9305,59 @@
               "updatedAt": "2024-02-19T15:22:40Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wqcJe",
+          "commit": {
+            "abbreviatedOid": "5673a0e"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-20T11:20:03Z",
+          "updatedAt": "2024-02-20T11:20:03Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "I now generalized the description of the attack.",
+              "createdAt": "2024-02-20T11:20:03Z",
+              "updatedAt": "2024-02-20T11:20:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wqn2o",
+          "commit": {
+            "abbreviatedOid": "0df18ba"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-20T11:45:02Z",
+          "updatedAt": "2024-02-20T11:45:02Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "looks good to me thanks!",
+              "createdAt": "2024-02-20T11:45:02Z",
+              "updatedAt": "2024-02-20T11:45:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85wqn9f",
+          "commit": {
+            "abbreviatedOid": "11b8920"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-20T11:45:18Z",
+          "updatedAt": "2024-02-20T11:45:18Z",
+          "comments": []
         }
       ]
     }
