@@ -1029,9 +1029,9 @@ The algorithm-specific fields consists of the output
  - A fixed-length octet string of the ML-KEM ciphertext, whose length depends
    on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
- - Only in the case of a v3 PKESK packet: a one-octet symmetric algorithm identifier.
+ - A one-octet size of the following fields.
 
- - The one-octet size of the following field;
+ - Only in the case of a v3 PKESK packet: a one-octet symmetric algorithm identifier.
 
  - The wrapped session key represented as an octet string.
 
