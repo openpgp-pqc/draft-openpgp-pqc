@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T01:00:52.124826+00:00",
+  "timestamp": "2024-02-25T01:05:19.726005+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -9360,6 +9360,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 93,
+      "id": "PR_kwDOIrmZ-85ny71w",
+      "title": "Align PKESK v3 ciphertext format with crypto-refresh's X25519 and X448",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/93",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In [\u00a75.1.6 of the crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6), the order of fields in the ciphertext object is:\r\n\r\n- 32 octets representing an ephemeral X25519 public key.\r\n- A one-octet size of the following fields.\r\n- The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).\r\n- The encrypted session key.\r\n\r\nThis change aligns the PQC wire format with the crypto-refresh wire format by swapping the length octet with the optional v3 PKESK algorithm identifier.\r\n\r\nThis has no impact on the v6 PKESK wire format, since the algorithm identifier field isn't present.\r\n\r\nIt is easier for implementers if they don't have to tweak these things between algorithms.",
+      "createdAt": "2024-02-23T21:30:54Z",
+      "updatedAt": "2024-02-23T22:14:19Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "align-ciphertext-fields-with-c-r",
+      "headRefOid": "17dbbbf7a7fb3d0ea0c772a358d6191899c643b6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
