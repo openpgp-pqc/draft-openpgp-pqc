@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 22 August 2024                                      F. Strenzke
+Expires: 29 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        19 February 2024
+                                                        26 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2024.
+   This Internet-Draft will expire on 29 August 2024.
 
 Copyright Notice
 
@@ -138,28 +138,32 @@ Table of Contents
      7.2.  Packet specifications
        7.2.1.  Signature Packet (Tag 2)
        7.2.2.  Key Material Packets
-   8.  Migration Considerations
-     8.1.  Key preference
-     8.2.  Key generation strategies
-   9.  Security Considerations
-     9.1.  Hashing in ECC-KEM
-     9.2.  Key combiner
-     9.3.  Domain separation and binding
-     9.4.  SLH-DSA Message Randomizer
-     9.5.  Binding hashes in signatures with signature algorithms
-   10. Additional considerations
-     10.1.  Performance Considerations for SLH-DSA
-   11. IANA Considerations
-   12. Changelog
-     12.1.  draft-wussler-openpgp-pqc-01
-     12.2.  draft-wussler-openpgp-pqc-02
-     12.3.  draft-wussler-openpgp-pqc-03
-     12.4.  draft-wussler-openpgp-pqc-04
-     12.5.  draft-ietf-openpgp-pqc-00
-   13. Contributors
-   14. References
-     14.1.  Normative References
-     14.2.  Informative References
+   8.  Notes on Algorithms
+     8.1.  Symmetric Algorithms for SEIPD Packets
+   9.  Migration Considerations
+     9.1.  Key preference
+     9.2.  Key generation strategies
+   10. Security Considerations
+     10.1.  Hashing in ECC-KEM
+     10.2.  Key combiner
+     10.3.  Domain separation and binding
+     10.4.  SLH-DSA Message Randomizer
+     10.5.  Binding hashes in signatures with signature algorithms
+     10.6.  Symmetric Algorithms for SEIPD Packets
+   11. Additional considerations
+     11.1.  Performance Considerations for SLH-DSA
+   12. IANA Considerations
+   13. Changelog
+     13.1.  draft-wussler-openpgp-pqc-01
+     13.2.  draft-wussler-openpgp-pqc-02
+     13.3.  draft-wussler-openpgp-pqc-03
+     13.4.  draft-wussler-openpgp-pqc-04
+     13.5.  draft-ietf-openpgp-pqc-00
+     13.6.  draft-ietf-openpgp-pqc-01
+   14. Contributors
+   15. References
+     15.1.  Normative References
+     15.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -259,7 +263,7 @@ Table of Contents
    defines SLH-DSA as a standalone signature scheme.
 
    In deployments the performance characteristics of SLH-DSA should be
-   taken into account.  We refer to Section 10.1 for a discussion of the
+   taken into account.  We refer to Section 11.1 for a discussion of the
    performance characteristics of this scheme.
 
 1.3.  Elliptic Curve Cryptography
@@ -882,7 +886,7 @@ Table of Contents
 5.2.1.  Fixed information
 
    For the composite KEM schemes defined in Table 1 the following
-   procedure, justified in Section 9.3, MUST be used to derive a string
+   procedure, justified in Section 10.3, MUST be used to derive a string
    to use as binding between the KEK and the communication parties.
 
    //   Input:
@@ -1424,7 +1428,7 @@ Table of Contents
 
    SLH-DSA signature generation is performed via the algorithm SLH-
    DSA.Sign as specified in [FIPS-205].  The variable opt_rand is set to
-   PK.seed.  See also Section 9.4.
+   PK.seed.  See also Section 10.4.
 
    An implementation MUST set the Parameter ID in the signature equal to
    the issuing secret key Parameter ID.
@@ -1473,7 +1477,34 @@ Table of Contents
    *  A fixed-length octet string containing the SLH-DSA secret key,
       whose length depends on the parameter ID as specified in Table 11.
 
-8.  Migration Considerations
+8.  Notes on Algorithms
+
+8.1.  Symmetric Algorithms for SEIPD Packets
+
+   Implementations MUST implement AES-256.  An implementation SHOULD use
+   AES-256 in the case of a v1 SEIPD packet, or AES-256 with any
+   available AEAD mode in the case of a v2 SEIPD packet, if all
+   recipients indicate support for it (explicitly or implicitly).
+
+   A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
+   AES-256 in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
+   A v6 certificate that contains a PQ(/T) key SHOULD include the pair
+   AES-256 with OCB in the "Preferred AEAD Ciphersuites" subpacket.
+
+   If AES-256 is not explicitly in the list of the "Preferred Symmetric
+   Ciphers for v1 SEIPD" subpacket, and if the certificate contains a
+   PQ/T key, it is implicitly at the end of the list.  This is justified
+   since AES-256 is mandatory to implement.  If AES-128 is also
+   implictly added to the list, it is added after AES-256.
+
+   If the pair AES-256 with OCB is not explicitly in the list of the
+   "Preferred AEAD Ciphersuites" subpacket, and if the certificate
+   contains a PQ/T key, it is implicitly at the end of the list.  This
+   is justified since AES-256 and OCB are mandatory to implement.  If
+   the pair AES-128 with OCB is also implictly added to the list, it is
+   added after the pair AES-256 with OCB.
+
+9.  Migration Considerations
 
    The post-quantum KEM algorithms defined in Table 1 and the signature
    algorithms defined in Table 2 are a set of new public key algorithms
@@ -1485,7 +1516,7 @@ Table of Contents
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
-8.1.  Key preference
+9.1.  Key preference
 
    Implementations SHOULD prefer PQ(/T) keys when multiple options are
    available.
@@ -1506,7 +1537,7 @@ Table of Contents
    abort the encryption process in this case to allow for a smooth
    transition to post-quantum cryptography.
 
-8.2.  Key generation strategies
+9.2.  Key generation strategies
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
@@ -1533,9 +1564,9 @@ Table of Contents
        needs to be communicated and verified, but leaves the primary key
        vulnerable to quantum computer attacks.
 
-9.  Security Considerations
+10.  Security Considerations
 
-9.1.  Hashing in ECC-KEM
+10.1.  Hashing in ECC-KEM
 
    Our construction of the ECC-KEMs, in particular the inclusion of
    eccCipherText in the final hashing step in encapsulation and
@@ -1546,7 +1577,7 @@ Table of Contents
    additional inclusion of eccPublicKey follows the security advice in
    Section 6.1 of [RFC7748].
 
-9.2.  Key combiner
+10.2.  Key combiner
 
    For the key combination in Section 5.2.2 this specification limits
    itself to the use of KMAC.  The sponge construction used by KMAC was
@@ -1586,7 +1617,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    input shared secrets and ciphertexts.  In the random oracle setting,
    the reordering does not influence the arguments in [GHP18].
 
-9.3.  Domain separation and binding
+10.3.  Domain separation and binding
 
    The domSeparation information defined in Section 5.2.2 provides the
    domain separation for the key combiner construction.  This ensures
@@ -1643,14 +1674,14 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    In consequence, the ciphertexts already work sufficiently well as
    domain-separator.
 
-9.4.  SLH-DSA Message Randomizer
+10.4.  SLH-DSA Message Randomizer
 
    The specification of SLH-DSA [FIPS-205] prescribes an optional non-
    deterministic message randomizer.  This is not used in this
    specification, as OpenPGP v6 signatures already provide a salted
    signature data digest of the appropriate size.
 
-9.5.  Binding hashes in signatures with signature algorithms
+10.5.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1668,9 +1699,23 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    In the case of SLH-DSA the internal hash algorithm varies based on
    the algorithm and parameter ID, see Section 7.1.1.
 
-10.  Additional considerations
+10.6.  Symmetric Algorithms for SEIPD Packets
 
-10.1.  Performance Considerations for SLH-DSA
+   This specification mandates support for AES-256 for two reasons.
+   First, AES-KeyWrap with AES-256 is already part of the composite KEM
+   construction.  Second, some of the PQ(/T) algorithms target the
+   security level of AES-256.
+
+   For the same reasons, this specification further recommends the use
+   of AES-256 if it is supported by all recipients, regardless of what
+   the implementation would otherwise choose based on the recipients'
+   preferences.  This recommendation should be understood as a clear and
+   simple rule for the selection of AES-256 for encryption.
+   Implementations may also make more nuanced decisions.
+
+11.  Additional considerations
+
+11.1.  Performance Considerations for SLH-DSA
 
    This specification introduces both ML-DSA + ECC as well as SLH-DSA as
    PQ(/T) signature schemes.
@@ -1697,7 +1742,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    parameter set ending in "s" for "small" should be chosen.  This comes
    at the expense of a longer signature generation time.
 
-11.  IANA Considerations
+12.  IANA Considerations
 
    IANA will add the following registries to the Pretty Good Privacy
    (PGP) registry group at https://www.iana.org/assignments/pgp-
@@ -1718,9 +1763,9 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    Furthermore IANA will add the algorithm IDs defined in Table 1 and
    Table 2 to the registry Public Key Algorithms.
 
-12.  Changelog
+13.  Changelog
 
-12.1.  draft-wussler-openpgp-pqc-01
+13.1.  draft-wussler-openpgp-pqc-01
 
    *  Shifted the algorithm IDs by 4 to align with the crypto-refresh.
 
@@ -1740,7 +1785,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
    *  Fixed IANA considerations.
 
-12.2.  draft-wussler-openpgp-pqc-02
+13.2.  draft-wussler-openpgp-pqc-02
 
    *  Added the ephemeral and public key in the ECC key derivation
       function.
@@ -1751,30 +1796,39 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
       AES symmetric ciphers. for encryption with SEIPDv1, in line with
       the crypto-refresh.
 
-12.3.  draft-wussler-openpgp-pqc-03
+13.3.  draft-wussler-openpgp-pqc-03
 
    *  Replaced round 3 submission with NIST PQC Draft Standards FIPS
       203, 204, 205.
 
    *  Added consideration about security level for hashes.
 
-12.4.  draft-wussler-openpgp-pqc-04
+13.4.  draft-wussler-openpgp-pqc-04
 
    *  Added Johannes Roth as author
 
-12.5.  draft-ietf-openpgp-pqc-00
+13.5.  draft-ietf-openpgp-pqc-00
 
    *  Renamed draft
 
-13.  Contributors
+13.6.  draft-ietf-openpgp-pqc-01
+
+   *  Mandated AES-256 as mandatory to implement.
+
+   *  Added AES-256 / AES-128 with OCB implicitly to v1/v2 SEIPD
+      preferences of "PQ(/T) certificates".
+
+   *  Added a recommendation to use AES-256 when possible.
+
+14.  Contributors
 
    Stephan Ehlen (BSI)
    Carl-Daniel Hailfinger (BSI)
    Andreas Huelsing (TU Eindhoven)
 
-14.  References
+15.  References
 
-14.1.  Normative References
+15.1.  Normative References
 
    [I-D.ietf-openpgp-crypto-refresh]
               Wouters, P., Huigens, D., Winter, J., and N. Yutaka,
@@ -1801,7 +1855,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/rfc/rfc8126>.
 
-14.2.  Informative References
+15.2.  Informative References
 
    [BDPA08]   Bertoni, G., Daemen, J., Peters, M., and G. Assche, "On
               the Indifferentiability of the Sponge Construction", 2008,
