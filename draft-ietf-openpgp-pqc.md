@@ -1387,6 +1387,33 @@ The algorithm-specific secret key is this value:
  - A fixed-length octet string containing the SLH-DSA secret key, whose length
    depends on the parameter ID as specified in {{tab-ecdsa-artifacts}}.
 
+# Notes on Algorithms
+
+## Symmetric Algorithms for SEIPD Packets
+
+Implementations MUST implement `AES-256`.
+An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet,
+or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet,
+if all recipients indicate support for it (explicitly or implicitly).
+
+A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
+`AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
+A v6 certificate that contains a PQ(/T) key SHOULD include
+the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
+
+If `AES-256` is not explicitly in the list
+of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket,
+and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+This is justified since `AES-256` is mandatory to implement.
+If `AES-128` is also implictly added to the list, it is added after `AES-256`.
+
+If the pair `AES-256` with `OCB` is not explicitly in the list
+of the "Preferred AEAD Ciphersuites" subpacket,
+and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+This is justified since `AES-256` and `OCB` are mandatory to implement.
+If the pair `AES-128` with `OCB` is also implictly added to the list,
+it is added after the pair `AES-256` with `OCB`.
+
 # Migration Considerations
 
 The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature
@@ -1569,6 +1596,19 @@ second-preimage resistance.
 In the case of SLH-DSA the internal hash algorithm varies based on the
 algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
 
+## Symmetric Algorithms for SEIPD Packets
+
+This specification mandates support for `AES-256` for two reasons.
+First, `AES-KeyWrap` with `AES-256` is already part of the composite KEM construction.
+Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
+
+For the same reasons, this specification further recommends the use of `AES-256`
+if it is supported by all recipients, regardless of what the implementation
+would otherwise choose based on the recipients' preferences.
+This recommendation should be understood as a clear and simple rule
+for the selection of `AES-256` for encryption.
+Implementations may also make more nuanced decisions.
+
 # Additional considerations
 
 ## Performance Considerations for SLH-DSA {#performance-considerations}
@@ -1651,6 +1691,13 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 ## draft-ietf-openpgp-pqc-00
 
 - Renamed draft
+
+## draft-ietf-openpgp-pqc-01
+
+- Mandated `AES-256` as mandatory to implement.
+- Added `AES-256` / `AES-128` with `OCB`
+  implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
+- Added a recommendation to use `AES-256` when possible.
 
 # Contributors
 
