@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 29 August 2024                                      F. Strenzke
+Expires: 30 August 2024                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        26 February 2024
+                                                        27 February 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 August 2024.
+   This Internet-Draft will expire on 30 August 2024.
 
 Copyright Notice
 
@@ -1059,10 +1059,10 @@ Table of Contents
    *  A fixed-length octet string of the ML-KEM ciphertext, whose length
       depends on the algorithm ID as specified in Table 8.
 
+   *  A one-octet size of the following fields.
+
    *  Only in the case of a v3 PKESK packet: a one-octet symmetric
       algorithm identifier.
-
-   *  The one-octet size of the following field;
 
    *  The wrapped session key represented as an octet string.
 
