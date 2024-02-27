@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-25T01:05:19.726005+00:00",
+  "timestamp": "2024-02-27T01:00:49.491117+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -8825,24 +8825,26 @@
       "id": "PR_kwDOIrmZ-85mqTm3",
       "title": "mandate AES-256 support and promote its use",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/90",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Here is my proposal to include `AES-256` as a mandatory-to-implement algorithm and to promote its use as discussed in #74.\r\nI tried to consider all cases and find the best balance between forcing (and migrating to) AES-256 and interoperability with the older specs (RFC4880, Crypto Refresh).\r\n\r\nCases to consider are:\r\n\r\n* Encrypting to a v4 certificate with a PQ/T encryption subkey\r\n* Encrypting to a v4 certificate with only traditional keys\r\n* Encrypting to a v6 certificate with any PQ(/T) key.\r\n* Encrypting to a v6 certificate without any PQ(/T) key.\r\n* Encrypting to certificates that explicitly indicate AES-128 or AES-256 support\r\n* Encrypting to certificates that do not indicate AES-128 or AES-256 support\r\n* Encrypting to any combination of the cases above\r\n\r\nAnother important aspect: If all involved parties use PQ(/T) keys, then AES-256 will be supported (and hopefully favored) by every party. To further push AES-256, I have added the following sentence to the security considerations:\r\n\r\n> An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` and `OCB` in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).\r\n\r\nThe reason is that when carelessly implementing the specification, an implementation might otherwise choose to take the simple way of always encrypting via AES-128, even if every recipient uses the \"Level 5\" PQ algorithms. \r\n\r\n---\r\n\r\nPlease also comment on:\r\n\r\n* The place where the text is added and the names of the sections\r\n* Is there a better place to state `Implementations MUST implement AES-256`?\r\n\r\n---\r\n\r\nIf we want to ask for opinions on the mailing list, the argument is: `AES-256` is the obvious choice and this will result in everyone using PQ(/T) + `AES-256` in the long run. We are committed to `AES-256` anyway by the KEM construction.",
       "createdAt": "2024-02-12T17:25:08Z",
-      "updatedAt": "2024-02-15T15:15:53Z",
+      "updatedAt": "2024-02-26T09:25:15Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "28c1e0fda2d2055057f0ffcc19c8a8832ccda52b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-74-aes256-mandatory",
       "headRefOid": "443ff10d63530c364e16d31d43c9e38b2601a175",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-02-26T09:25:15Z",
+      "mergedAt": "2024-02-26T09:25:15Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "d78d69680fd2a3bb06a8e38d0d3b8c367107fb1a"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -9373,7 +9375,7 @@
       "labels": [],
       "body": "In [\u00a75.1.6 of the crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6), the order of fields in the ciphertext object is:\r\n\r\n- 32 octets representing an ephemeral X25519 public key.\r\n- A one-octet size of the following fields.\r\n- The one-octet algorithm identifier, if it was passed (in the case of a v3 PKESK packet).\r\n- The encrypted session key.\r\n\r\nThis change aligns the PQC wire format with the crypto-refresh wire format by swapping the length octet with the optional v3 PKESK algorithm identifier.\r\n\r\nThis has no impact on the v6 PKESK wire format, since the algorithm identifier field isn't present.\r\n\r\nIt is easier for implementers if they don't have to tweak these things between algorithms.",
       "createdAt": "2024-02-23T21:30:54Z",
-      "updatedAt": "2024-02-23T22:14:19Z",
+      "updatedAt": "2024-02-26T19:34:18Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
@@ -9384,8 +9386,71 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "In my view, what the crypto-refresh does here does not make much sense. The size field is clearly there for the wrapped session key (isn't it?). Why then group the algorithm ID together with the wrapped session key?\r\n\r\nYet I am not opposed to aligning with the crypto refresh here, but first I would like to hear what others have to say to this.",
+          "createdAt": "2024-02-26T06:33:49Z",
+          "updatedAt": "2024-02-26T06:33:49Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm not sure what's \"logical\" about either way.  if we want to argue logic, we can just say \"until the end of the packet\" and then we don't need a length octet at all.  i believe the idea is that it's just there for \"safety\" purposes, or for ease in parsing.  If we're going to make it for ease in parsing, it really should not diverge from other packets which have the same behavior.",
+          "createdAt": "2024-02-26T14:33:20Z",
+          "updatedAt": "2024-02-26T14:33:20Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler What do you think?",
+          "createdAt": "2024-02-26T14:34:36Z",
+          "updatedAt": "2024-02-26T14:34:36Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "fwiw, with the size octet before the algorithm ID octet, you can tell whether the extra algorithm ID octet is supposed to be there based on whether the size octet mod 8 is congruent to 1.  with the other way around, you can't tell from the contents of the packet whether that's the case.\r\n\r\nWhether that's a smart way to parse such a packet is a separate question, i guess -- you'd like that to align with the version number explicitly more than anything else.",
+          "createdAt": "2024-02-26T14:42:09Z",
+          "updatedAt": "2024-02-26T14:42:09Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> fwiw, with the size octet before the algorithm ID octet, you can tell whether the extra algorithm ID octet is supposed to be there based on whether the size octet mod 8 is congruent to 1. with the other way around, you can't tell from the contents of the packet whether that's the case.\r\n\r\nUnderstood, its trivial math. But to me it still makes, at least per se, no sense to put a length field which says \"this is the length of the next two subsequent fields. Use the following formulas to calculate the lengths of the individual fields ...\". That is not how protocol specs are usually built. But as I wrote, I also see the argument of aligning with the c-r and will not argue against it. But I first want to hear Aron's opinion, him being an actual stakeholder and having the experience (among the editors, I mean).\r\n",
+          "createdAt": "2024-02-26T14:51:10Z",
+          "updatedAt": "2024-02-26T16:05:48Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85xRBoT",
+          "commit": {
+            "abbreviatedOid": "17dbbbf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I agree with Falko that what we currently have is more logical. However, aligning with X448/X25519 makes sense too so I'm approving it. I don't think it's a real issue either way.",
+          "createdAt": "2024-02-26T08:56:46Z",
+          "updatedAt": "2024-02-26T08:56:46Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85xW6G2",
+          "commit": {
+            "abbreviatedOid": "17dbbbf"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "I think we should align with the C-R. Both choices seem to be quite arbitrary to me, and I would not rely on the modulo-8 to determine whether there should be an extra byte anyway",
+          "createdAt": "2024-02-26T19:34:18Z",
+          "updatedAt": "2024-02-26T19:34:18Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
