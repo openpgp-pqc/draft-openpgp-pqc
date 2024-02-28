@@ -1820,6 +1820,8 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
    *  Added a recommendation to use AES-256 when possible.
 
+   *  Fixed ML-DSA private key size
+
 14.  Contributors
 
    Stephan Ehlen (BSI)
