@@ -1138,8 +1138,8 @@ defined in [FIPS-204].
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
 Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ----------------------:| --------- | -----------| ---------- | ---------------
-TBD                    | ML-DSA-65 | 1952       | 4000       | 3293
-TBD                    | ML-DSA-87 | 2592       | 4864       | 4595
+TBD                    | ML-DSA-65 | 1952       | 4032       | 3293
+TBD                    | ML-DSA-87 | 2592       | 4896       | 4595
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
@@ -1721,6 +1721,7 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 - Added a recommendation to use `AES-256` when possible.
 - Swapped the optional v3 PKESK algorithm identifier with length octet
   in order to align with X25519 and X448.
+- Fixed ML-DSA private key size
 
 # Contributors
 
