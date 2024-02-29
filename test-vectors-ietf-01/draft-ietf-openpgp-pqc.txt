@@ -168,7 +168,7 @@ Table of Contents
      A.1.  Sample v6 PQC Subkey Artifacts
      A.2.  Sample v6 PQC Key Artifacts
      A.3.  V4 PQC Subkey Artifacts
-   Appendix B.  Acknowledgments
+   Acknowledgments
    Authors' Addresses
 
 1.  Introduction
@@ -3237,7 +3237,7 @@ A.3.  V4 PQC Subkey Artifacts
    g4noS2Z6PHvv5yPqB7WIhw8C
    -----END PGP MESSAGE-----
 
-Appendix B.  Acknowledgments
+Acknowledgments
 
    Thanks to Daniel Huigens and Evangelos Karatsiolis for the early
    review and feedback on this document.
