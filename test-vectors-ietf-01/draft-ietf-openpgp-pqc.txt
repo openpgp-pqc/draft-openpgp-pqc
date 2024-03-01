@@ -1945,7 +1945,8 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 Appendix A.  Test Vectors
 
    To help implementing this specification a set of non-normative
-   examples follow here.
+   examples follow here.  The test vectors are implemented using the
+   Initial Public Draft (IPD) variant of the schemes.
 
 A.1.  Sample v6 PQC Subkey Artifacts
 
