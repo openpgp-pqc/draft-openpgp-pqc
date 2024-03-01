@@ -1946,7 +1946,7 @@ Appendix A.  Test Vectors
 
    To help implementing this specification a set of non-normative
    examples follow here.  The test vectors are implemented using the
-   Initial Public Draft (IPD) variant of the schemes.
+   Initial Public Draft (IPD) variant of the ML-DSA and ML-KEM schemes.
 
 A.1.  Sample v6 PQC Subkey Artifacts
 
