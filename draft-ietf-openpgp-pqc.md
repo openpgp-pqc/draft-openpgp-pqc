@@ -1735,15 +1735,17 @@ Andreas Huelsing (TU Eindhoven)
 # Test Vectors
 
 To help implementing this specification a set of non-normative examples follow here.
+The test vectors are implemented using the Initial Public Draft (IPD) variant of the ML-DSA and ML-KEM schemes.
 
 ## Sample v6 PQC Subkey Artifacts
 
 Here is a Private Key consisting of:
 
 - A v6 Ed25519 Private-Key packet
+- A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Private-Subkey packet
+- A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `8b37ab96122997c0116b4003d3f9279048a6ec4a0e34e12672552a9c9854c8e4`.
@@ -1758,9 +1760,10 @@ The subkey has the fingerprint `79c81854d936baa25df3394353d32d03770a63b8fe0200a9
 Here is the corresponding Public Key consisting of:
 
 - A v6 Ed25519 Public-Key packet
+- A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Public-Subkey packet
+- A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-eddsa-sample-pk.asc"}
@@ -1790,10 +1793,11 @@ The hex-encoded session key is `8e8847264f88a193f9b213372f2f7b8a392ed2bb111c6dc7
 
 Here is a Private Key consisting of:
 
-- A v6 ML-DSA-67 + Ed25519 Private-Key packet
+- A v6 ML-DSA-ipd-65 + Ed25519 Private-Key packet
+- A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Private-Subkey packet
+- A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `73dc334850357ab38e9a2092533d7c11a5b90f067fd3b8d8ea13e5544851458f`.
@@ -1807,10 +1811,11 @@ The subkey has the fingerprint `763fc767192051ff12ab55e1af3b680ee42e04bf95264fe0
 
 Here is the corresponding Public Key consisting of:
 
-- A v6 ML-DSA-67 + Ed25519 Public-Key packet
+- A v6 ML-DSA-ipd-65 + Ed25519 Public-Key packet
+- A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768 + X25519 Public-Subkey packet
+- A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-mldsa-sample-pk.asc"}
@@ -1844,7 +1849,7 @@ Here is a Private Key consisting of:
 - A v4 Ed25519 Private-Key packet
 - A User ID packet
 - A v4 positive certification self-signature
-- A v4 ML-KEM-768 + X25519 Private-Subkey packet
+- A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
 - A v4 subkey binding signature
 
 The primary key has the fingerprint `f9a0bc4d86c90113272d809277ca82cda8eec0a6`.
@@ -1861,7 +1866,7 @@ Here is the corresponding Public Key consisting of:
 - A v4 Ed25519 Public-Key packet
 - A User ID packet
 - A v4 positive certification self-signature
-- A v4 ML-KEM-768 + X25519 Public-Subkey packet
+- A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
 - A v4 subkey binding signature
 
 {: sourcecode-name="v4-eddsa-sample-pk.asc"}
