@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-29T01:00:44.225064+00:00",
+  "timestamp": "2024-03-03T01:04:32.387533+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -8176,7 +8176,7 @@
       "labels": [],
       "body": "fixes https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
       "createdAt": "2024-02-08T14:40:14Z",
-      "updatedAt": "2024-02-13T12:48:27Z",
+      "updatedAt": "2024-03-01T09:53:37Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
@@ -8215,6 +8215,13 @@
           "body": "> I wouldn't put the temporary IDs in the table, rather `TBD`\r\n\r\nMakes sense, clearly. Done.",
           "createdAt": "2024-02-12T14:13:38Z",
           "updatedAt": "2024-02-12T14:13:38Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@dkg can we merge this one?",
+          "createdAt": "2024-03-01T09:52:43Z",
+          "updatedAt": "2024-03-01T09:52:43Z"
         }
       ],
       "reviews": [
@@ -9094,7 +9101,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-02-19T08:40:07Z",
-      "updatedAt": "2024-02-20T11:45:18Z",
+      "updatedAt": "2024-03-01T10:27:32Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
@@ -9360,6 +9367,32 @@
           "createdAt": "2024-02-20T11:45:18Z",
           "updatedAt": "2024-02-20T11:45:18Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85x41c1",
+          "commit": {
+            "abbreviatedOid": "11b8920"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-01T09:46:09Z",
+          "updatedAt": "2024-03-01T09:46:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85x5L6k",
+          "commit": {
+            "abbreviatedOid": "11b8920"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-01T10:27:32Z",
+          "updatedAt": "2024-03-01T10:27:32Z",
+          "comments": []
         }
       ]
     },
@@ -9479,7 +9512,7 @@
       "labels": [],
       "body": "adds a changelog entry for PR #93 ",
       "createdAt": "2024-02-28T15:36:20Z",
-      "updatedAt": "2024-02-28T15:36:20Z",
+      "updatedAt": "2024-03-01T09:23:10Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
@@ -9491,7 +9524,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85x4psP",
+          "commit": {
+            "abbreviatedOid": "dcda26a"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-01T09:23:10Z",
+          "updatedAt": "2024-03-01T09:23:10Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 95,
@@ -9505,7 +9552,7 @@
       "labels": [],
       "body": "https://csrc.nist.gov/files/pubs/fips/204/ipd/docs/fips-204-initial-public-comments-2023.pdf\r\n\r\nBased on the comment from Lauren Brandt on page 11, they got the sizes wrong in the IPD",
       "createdAt": "2024-02-28T19:53:19Z",
-      "updatedAt": "2024-02-28T20:06:20Z",
+      "updatedAt": "2024-03-01T09:23:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
@@ -9517,7 +9564,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85x4qCd",
+          "commit": {
+            "abbreviatedOid": "94e55c2"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-01T09:23:57Z",
+          "updatedAt": "2024-03-01T09:23:57Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 96,
@@ -9531,19 +9592,150 @@
       "labels": [],
       "body": "Add test vectors for \r\n- V6 Ed25519 key with X25519+ML-KEM-786 encryption subkey\r\n- V4 Ed25519 key with X25519+ML-KEM-786 encryption subkey",
       "createdAt": "2024-02-28T20:13:05Z",
-      "updatedAt": "2024-02-28T20:30:02Z",
+      "updatedAt": "2024-03-01T16:31:21Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-ietf-01",
-      "headRefOid": "848ab2b16b54a91f91450ad45c05c2dbb64bbbf0",
+      "headRefOid": "357cab5a85bd5aab63286ef742ba32d8252fe08d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for providing the test vectors!\r\n\r\n1. I think it'd be good to make separate files instead of putting it into the main file directly. See for example #65.\r\n2. Adding the public key might be useful as well.\r\n3. Your v6 key doesn't have the SEIPDv2 Feature Flag and I think therefore the encrypted message is a PKESKv3+SEIPDv1 message. It should include the SEIPDv2 flag and create a PKESKv6+SEIPDv2 message.\r\n4. Also, the symmetric and AEAD algo preferences should include AES 256 (which we recommend in the draft).\r\n5. Intermediate Values would be good, too.\r\n6. You should also remove the checksums of the ASCII armor. We can decide to leave it for the v4 keys / PKESKv3+SEIPDv1, I'm not sure about that.\r\n\r\nIf you don't have the time to fix points 3 and 4, I can provide the v6 key + v6 PKESK/v2 SEIPD as well, just let me know.\r\n\r\nintermediate values that I currently print for the encrypted message to the v4 key:\r\n\r\n```\r\n[LOG] KMAC256 domSeparation: 4f70656e504750436f6d706f736974654b657944657269766174696f6e46756e6374696f6e\r\n[LOG] KMAC256 customizationString: 4b4446\r\n[LOG] KMAC256 encData: \r\n[LOG]  - counter: 00000001\r\n[LOG]  - eccKeyShare: e0a9be0a0c0180ec7359fce38a2a73144d759337d8d79f3baf67d358e0644c39\r\n[LOG]  - eccCipherText: 16844f4dee0c8ca335e50193ce078f7d634bc4a4b96ed3fdf63bf30419380f3d\r\n[LOG]  - kyberKeyShare: fdfef7b8ef1323ba5ab948c2605f47bf6eec3f9765d224c024228ad7ebdc10b6\r\n[LOG]  - kyberCipherText: 3168f4452a32b61340f4b258efbe3d665ba7c65f3deb0b37b487efcbb173319d3fea43c462f00365bcbd930a6f5fa21adc33402a586225f5ccee859768f510feb6569cb9be7849e19a45ea13cd95cf79df9a5ee1de4e4b409a3a7f8dcb5f6f9ebaa1c3321771a5f7cc0f520d90004dd53b73b61fdecd0dbfe54a1bfd8bf14f89513869814e5f60b9af7114dd96a3870cc5ee57c4b632f10529fa41f943e11d3e65bd1d816edd8035c451002ecb66c7dc4cda8460280f38419515c5c06641e9076c5897918a4655a670a9aff7a03a935b6b50bea0ee7128569305c1af20d8acfaa671238275b3a5c96c561d14da9a0bc1cb4df9d5d9c45534fea66f4360392999d6f44e80693de6c2f2ccbf5875959912cb92f50f7be2069202ffd5e84d30f56f10009149c5791af898becdba36bba87c93105d9dc16f1011719fbebce4d55e5fa40bbc7e2db40e4b8800c8ddd175f052c6b28f1f62c1608ec271dd69525feed009d2e9f92c0d3ea7a1f102c70be42e4b3f084986c966b13427c055500fcfc4b88377fc8f184ae23b515a10f43e963730b087ddbba0265613cd09b6279f4d4fd2a79bef4f5d22a7cbfe4654d3a97f015f58b82b2b9f32e18e437cad055611272e9c16caa578f72e2e8c9116a7749df4d482c3ea08ce2f57c0776e8f524fed3f90667dc40f9b96e7de90e7e907a62bf59e383825127bc492bdc02e75238ee4526929a68d04af4e03531ff585f5f13a68ad55c9b30dea3c0b0549b229f9e9a73d50f8582c7c93472edda3f7007dde67c533525012360c1f74df36f249a2372461a0133c4e734466a073452aef5a8eb2bdb8166b30c8d3d2d21b443fa85a2378875b5856b3c95594cb89664629a56bd0f24204df2b488f711f1f7ff156a9a7da2bd2d37f5c14dfe089f4fe098efd1afae7fe3a025f2f916ae07296364c5b81f2f77281451cae06e82c765e8e75b25153b6f8f6c486d6c4d8f339b1404b08b2b9535c50a619bbd9bc2ec24d9cc598a1b24f7c2fcd5b865f33f720cdc1e8b4b90d9faeef86a69fba70a7c169dd1e5dc0bd2bc585c0aa6caee7836aedd4f1a1bd814a92169032f705616bfc5a8267566054a5d5de18b416a7a4652146b943f62491521549521b70140c2a8699c4ffa2a2243a62e373bd32ad517b7622bc08d1fcf7ae6963f363d493a946469edf654385b1f56949c3d158f1f53c422bd6196ee29f186837f4f5a2bd56c7688a74ae8e7ba64706d283ca9cbd7f0b5a9b448ec93df50c576ade9a294573d69db8733d9c60cc6b3bf5ae367c565b4c3ea2cf9d057ae25819f1f1f1a8473d094f6de992e09849d0170576db7da737c9ded030c5f02784626b25427f30e6dafb7dae8631588b0694ee8eeeaf66a4d4ad1eaaa3779005b84300d0469b0968c70ef897698120d575812438cc853cba9ff2c5948e35d40954ab72df5123a4f942f520b207438c4d3a6cc7a9e8494bba0e8ba27c27ca39da51b4a088a1b52e81f51cde3896d5feb1389372b411d31cafe2a0ed265b3072deac8dcd\r\n[LOG]  - fixedInfo: 69\r\n[LOG] KMAC256 Output: ed4e6e2c8d995420735c58eee861c4e68e83efc4d3ae180e79176c89ebf3e27e\r\n[LOG] Session Key: 3d0d4978d67436238d5713fab95ff6ccae07ce3d0a7cade0e71fab96e5b066b5\r\n```",
+          "createdAt": "2024-02-29T10:02:44Z",
+          "updatedAt": "2024-02-29T10:04:27Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "1. Okay\r\n2. Will fix\r\n3. Good catch, will also fix\r\n4. I'll add it, but I also like the implicit version\r\n5. Will add as well\r\n6. Only for V6, V4 technically requires them (the whole point is backwards compat)",
+          "createdAt": "2024-02-29T10:22:38Z",
+          "updatedAt": "2024-02-29T10:22:38Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I ended up removing the checksum everywhere, they are test vectors anyway",
+          "createdAt": "2024-02-29T18:29:08Z",
+          "updatedAt": "2024-02-29T18:29:08Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, this looks good to me! I can process all the non-ML-DSA keys and messages and get the same intermediate outputs. ML-DSA I can't process since I don't have it.\r\n\r\nJust a few minor things:\r\n\r\n1. A newline at the end of the test vector files would help. RNP doesn't like it otherwise\r\n2. I'd replace `ML-KEM-768` by `ML-KEM-ipd-768` and also write a note at the beginning of the section that the test vectors use `ML-KEM-ipd` and not the final standard.\r\n3. Same for ML-DSA.\r\n4. Typo: `ML-DSA-67` does not exist :)",
+          "createdAt": "2024-03-01T08:42:03Z",
+          "updatedAt": "2024-03-01T08:42:03Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "can i discourage you from using references to Golang in the user ID?  it makes the test vector seem implementation-specific, and the goal of a test vector is promoting cross-implementation interoperability.  (not the end of the world if it slips into some version of the draft, but it'd be better to avoid it)",
+          "createdAt": "2024-03-01T14:24:32Z",
+          "updatedAt": "2024-03-01T14:27:09Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let me review the purpose of the v4 EdDSALegacy+PQ/T test vector (`test-vectors/v4-eddsa-sample*`):\r\n\r\n- Some implementations cannot parse v6 or crypto-refresh Ed25519, and we want those implementations to be able to encrypt to this key.\r\n- An implementation that cannot parse v6 will surely also not be able to parse or encrypt to the ML-KEM-768+X25519 \r\n- We offer the PQ/T encryption-capable subkey so that implementations which *can* encrypt to PQ/T can do it.\r\n\r\nIn summary, this test vector represents a \"compromise key\" that is supposed to interoperate with legacy implementations, while *also* being usable by fully up-to-date implementations in 2024 that encrypt with the best-known mechanisms.\r\n\r\nIf that's the goal, then i draw the following conclusions:\r\n\r\n- the \"compromise key\" should advertise SEIPDv2.  Legacy implementations don't need to encrypt using SEIPDv2, but there is no reason to not advertise it for use by up-to-date implementations.  It should also include a \"Preferred AEAD Ciphersuites\" subpacket.\r\n- the \"compromise key\" should also have an ECDH encryption-capable subkey, presumably using Curve25519Legacy, so that legacy implementations can encrypt to it.  I recommend having this second encryption-capable subkey with a creation timestamp and subkey binding signature with earlier timestamps than the PQ/T encryption-capable subkey.\r\n- The ASCII-armored representation of the \"compromise key\" should include the deprecated checksum.\r\n\r\nTest vectors have a way of setting defacto standards, and it would be great to start off with something as close to what we think implementations should be generating as possible.\r\n\r\nHaving the \"compromise key\" test vector be as plausible as possible will also help us to evaluate whether it actually serves the \"compromise\" purpose or not, by testing using it with legacy implementations (similar to [the interop test suite's \"Mock PQ Subkey\" test](https://tests.sequoia-pgp.org/#Mock_PQ_subkey)).\r\n\r\nIt's possible that my three requests above aren't the only things needed to make a good \"compromise key\".   Can you update this test vector to be as close as possible to what you think would be a plausible \"compromise key\"?",
+          "createdAt": "2024-03-01T14:43:29Z",
+          "updatedAt": "2024-03-01T14:46:04Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> An implementation that cannot parse v6 will surely also not be able to parse or encrypt to the ML-KEM-768+X25519\r\n\r\nThat's not exactly true. There is the possibility to leave out v6 keys, v6 PKESK and v2 SEIPD entirely (parsing and generating), but to include PQ/T encryption.\r\n\r\n> In summary, this test vector represents a \"compromise key\" that is supposed to interoperate with legacy implementations, while _also_ being usable by fully up-to-date implementations in 2024 that encrypt with the best-known mechanisms.\r\n\r\nThat's exactly the point, yes.\r\n\r\n> the \"compromise key\" should also have an ECDH encryption-capable subkey, presumably using Curve25519Legacy, so that legacy implementations can encrypt to it.  I recommend having this second encryption-capable subkey with a creation timestamp and subkey binding signature with earlier timestamps than the PQ/T encryption-capable subkey.\r\n\r\nAgreed. Our intent was to add an ECDH subkey, good that you noticed that it's missing here. The timestamp thing is an interesting idea. We should add this to the migration considerations (if we think it's useful, might as well not have an impact at all).\r\n\r\n> The ASCII-armored representation of the \"compromise key\" should include the deprecated checksum.\r\n\r\nI agree.",
+          "createdAt": "2024-03-01T15:44:14Z",
+          "updatedAt": "2024-03-01T15:50:52Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 wrote:\r\n> There is the possibility to leave out v6 keys, v6 PKESK and v2 SEIPD entirely (parsing and generating), but to include PQ/T encryption.\r\n\r\nSure, but i think the goal should be interoperating with actual legacy software, not interoperating with an implementer practicing deliberate avoidance.  There is no way to interoperate with an implementer who is trying to not interoperate, so there is no point in targeting them.  And the v6 key and sig formats, and v2 SEIPD are now stable, well-specified, and simple to implement compared with anything like ML-KEM.",
+          "createdAt": "2024-03-01T16:28:36Z",
+          "updatedAt": "2024-03-01T16:31:21Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-85x3D1Z",
+          "commit": {
+            "abbreviatedOid": "c1a9ab5"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-01T03:32:37Z",
+          "updatedAt": "2024-03-01T03:32:37Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "v6 certificates need a direct key self-sig on the primary key (see [crypto-refresh \u00a710.1.1](https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#name-openpgp-v6-certificate-stru))",
+              "createdAt": "2024-03-01T03:32:37Z",
+              "updatedAt": "2024-03-01T03:32:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85x4Wpm",
+          "commit": {
+            "abbreviatedOid": "c1a9ab5"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-01T08:42:54Z",
+          "updatedAt": "2024-03-01T08:42:54Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "The test vectors seem to have it, so just the description is missing",
+              "createdAt": "2024-03-01T08:42:54Z",
+              "updatedAt": "2024-03-01T08:42:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85x4YtV",
+          "commit": {
+            "abbreviatedOid": "c1a9ab5"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-01T08:47:42Z",
+          "updatedAt": "2024-03-01T08:47:42Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "Right, missed this in the description. I will push now a commit to fix",
+              "createdAt": "2024-03-01T08:47:42Z",
+              "updatedAt": "2024-03-01T08:47:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85x4k7r",
+          "commit": {
+            "abbreviatedOid": "357cab5"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-01T09:13:10Z",
+          "updatedAt": "2024-03-01T09:13:10Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
