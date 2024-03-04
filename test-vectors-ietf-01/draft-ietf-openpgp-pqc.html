@@ -19,12 +19,12 @@ public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
 combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
 as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.19.4" name="generator">
+<meta content="xml2rfc 3.20.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.4
-    Python 3.11.6
+  xml2rfc 3.20.0
+    Python 3.11.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
@@ -1039,7 +1039,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 2 September 2024</td>
+<td class="center">Expires 5 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-01" class="published">1 March 2024</time>
+<time datetime="2024-03-04" class="published">4 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-02">2 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-05">5 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1410,22 +1410,25 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-hashing-in-ecc-kem" class="internal xref">Hashing in ECC-KEM</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-hashing-in-ecc-kem" class="internal xref">Hashing in ECC-KEM</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
-                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
+                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
-                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.6">
-                <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+                <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.7">
+                <p id="section-toc.1-1.10.2.7.1"><a href="#section-10.7" class="auto internal xref">10.7</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
             </ul>
 </li>
@@ -1484,10 +1487,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
                 <p id="section-toc.1-1.16.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-sample-v6-pqc-subkey-artifa" class="internal xref">Sample v6 PQC Subkey Artifacts</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.2">
-                <p id="section-toc.1-1.16.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-sample-v6-pqc-key-artifacts" class="internal xref">Sample v6 PQC Key Artifacts</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.3">
-                <p id="section-toc.1-1.16.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-v4-pqc-subkey-artifacts" class="internal xref">V4 PQC Subkey Artifacts</a></p>
+                <p id="section-toc.1-1.16.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-v4-pqc-subkey-artifacts" class="internal xref">V4 PQC Subkey Artifacts</a></p>
 </li>
             </ul>
 </li>
@@ -2661,7 +2661,7 @@ ciphertext, the ECC ciphertext, and the wrapped session key.<a href="#section-5.
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-fixed-information" class="section-name selfRef">Fixed information</a>
           </h4>
 <p id="section-5.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following
-procedure, justified in <a href="#sec-fixed-info" class="auto internal xref">Section 10.3</a>, MUST be used to derive a string to
+procedure, justified in <a href="#sec-fixed-info" class="auto internal xref">Section 10.4</a>, MUST be used to derive a string to
 use as binding between the KEK and the communication parties.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2.1-2">
 <pre>
@@ -3139,14 +3139,14 @@ defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a 
                 <td class="text-right" rowspan="1" colspan="1">TBD</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-DSA-65</td>
                 <td class="text-left" rowspan="1" colspan="1">1952</td>
-                <td class="text-left" rowspan="1" colspan="1">4000</td>
+                <td class="text-left" rowspan="1" colspan="1">4032</td>
                 <td class="text-left" rowspan="1" colspan="1">3293</td>
               </tr>
               <tr>
                 <td class="text-right" rowspan="1" colspan="1">TBD</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-DSA-87</td>
                 <td class="text-left" rowspan="1" colspan="1">2592</td>
-                <td class="text-left" rowspan="1" colspan="1">4864</td>
+                <td class="text-left" rowspan="1" colspan="1">4896</td>
                 <td class="text-left" rowspan="1" colspan="1">4595</td>
               </tr>
             </tbody>
@@ -3545,7 +3545,7 @@ strings as defined in <a href="#slhdsa" class="auto internal xref">Section 7.1</
           </h4>
 <p id="section-7.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as
 specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>. The variable <code>opt_rand</code> is set to <code>PK.seed</code>. See
-also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 10.4</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 10.5</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.3-2">An implementation MUST set the Parameter ID in the signature equal to the
 issuing secret key Parameter ID.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
@@ -3726,26 +3726,50 @@ computer attacks.<a href="#section-9.2-3.2.1" class="pilcrow">¶</a></p>
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<div id="hashing-in-ecc-kem">
+<div id="security-aspects-of-composite-signatures">
 <section id="section-10.1">
-        <h3 id="name-hashing-in-ecc-kem">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-hashing-in-ecc-kem" class="section-name selfRef">Hashing in ECC-KEM</a>
+        <h3 id="name-security-aspects-of-composi">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-security-aspects-of-composi" class="section-name selfRef">Security Aspects of Composite Signatures</a>
         </h3>
-<p id="section-10.1-1">Our construction of the ECC-KEMs, in particular the inclusion of
+<p id="section-10.1-1">When multiple signatures are applied to a message, the question of the protocol's
+resistance against signature stripping attacks naturally arises. In a signature
+stripping attack, an adversary removes one or more of the transmitted signatures
+such that only a subset of the signatures originally applied by the sender remain
+in the message that reaches the recipient. This amounts to a downgrade attack
+that potentially reduces the value of the signature. It should be noted that the
+composite signature schemes specified in this draft are not subject to a
+signature stripping vulnerability. This is due to the fact that in any OpenPGP
+signature, the hashed meta data includes the signature algorithm ID, as specified
+in <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>, Section 5.2.4. As a consequence, a
+component signature taken out of the context of a specific composite algorithm is
+not a valid signature for any message.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">Furthermore, it is also not possible to craft a new signature for a message that
+was signed twice with a composite algorithm by interchanging (i.e., remixing) the
+component signatures, which would classify as a weak existential forgery. This is
+due to the fact that each v6 signatures also includes a random salt at the start
+of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="hashing-in-ecc-kem">
+<section id="section-10.2">
+        <h3 id="name-hashing-in-ecc-kem">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-hashing-in-ecc-kem" class="section-name selfRef">Hashing in ECC-KEM</a>
+        </h3>
+<p id="section-10.2-1">Our construction of the ECC-KEMs, in particular the inclusion of
 <code>eccCipherText</code> in the final hashing step in encapsulation and decapsulation
 that produces the <code>eccKeyShare</code>, is standard and known as hashed ElGamal key
 encapsulation, a hashed variant of ElGamal encryption. It ensures IND-CCA2
 security in the random oracle model under some Diffie-Hellman intractability
 assumptions <span>[<a href="#CS03" class="cite xref">CS03</a>]</span>. The additional inclusion of <code>eccPublicKey</code> follows the
-security advice in Section 6.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+security advice in Section 6.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-key-combiner">
-<section id="section-10.2">
+<section id="section-10.3">
         <h3 id="name-key-combiner-2">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
+<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-10.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> this specification limits
+<p id="section-10.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> this specification limits
 itself to the use of KMAC. The sponge construction used by KMAC was proven to
 be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>. This means, that in
 contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based
@@ -3753,23 +3777,23 @@ construction is required for key combination. Except for a domain separation it
 is sufficient to simply process the concatenation of any number of key shares
 when using a sponge-based construction like KMAC. The construction using KMAC
 ensures a standardized domain separation. In this case, the processed message
-is then the concatenation of any number of key shares.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
-<p id="section-10.2-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows
+is then the concatenation of any number of key shares.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+<p id="section-10.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows
 that assuming there are no weaknesses found in the Keccak permutation, an
 attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation
 to tell KMAC from a random oracle. For a random oracle, a difference in only a
 single bit gives an unrelated, uniformly random output. Hence, to be able to
 distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (and ciphertexts
-<code>C1</code> and <code>C2</code>) as<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.2-3">
+<code>C1</code> and <code>C2</code>) as<a href="#section-10.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.3-3">
 <pre>
 K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
          outputBits, customization)
-</pre><a href="#section-10.2-3" class="pilcrow">¶</a>
+</pre><a href="#section-10.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-10.2-4">from a random bit string, an adversary has to know (or correctly guess) both
-key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-10.2-4" class="pilcrow">¶</a></p>
-<p id="section-10.2-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> preserves IND-CCA2 of any of
+<p id="section-10.3-4">from a random bit string, an adversary has to know (or correctly guess) both
+key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-10.3-4" class="pilcrow">¶</a></p>
+<p id="section-10.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> preserves IND-CCA2 of any of
 its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as
 long as at least one of the ingredient KEMs is. Indeed, the above stated
 indifferentiability from a random oracle qualifies Keccak as a split-key
@@ -3778,111 +3802,111 @@ random function if at least one input shared secret is picked uniformly at
 random. Our construction can thus be seen as an instantiation of the IND-CCA2
 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input
 shared secrets and ciphertexts. In the random oracle setting, the reordering
-does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-10.2-5" class="pilcrow">¶</a></p>
+does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-10.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-fixed-info">
-<section id="section-10.3">
+<section id="section-10.4">
         <h3 id="name-domain-separation-and-bindi">
-<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
+<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
         </h3>
-<p id="section-10.3-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> provides the
+<p id="section-10.4-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> provides the
 domain separation for the key combiner construction. This ensures that the
 input keying material is used to generate a KEK for a specific purpose or
-context.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
-<p id="section-10.3-2">The <code>fixedInfo</code> defined in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a> binds the derived KEK to the
+context.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+<p id="section-10.4-2">The <code>fixedInfo</code> defined in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a> binds the derived KEK to the
 chosen algorithm and communication parties. The algorithm ID identifies
 unequivocally the algorithm, the parameters for its instantiation, and the length
-of all artifacts, including the derived key.<a href="#section-10.3-2" class="pilcrow">¶</a></p>
-<p id="section-10.3-3">This is in line with the Recommendation for ECC in section 5.5 of
+of all artifacts, including the derived key.<a href="#section-10.4-2" class="pilcrow">¶</a></p>
+<p id="section-10.4-3">This is in line with the Recommendation for ECC in section 5.5 of
 <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key of
 their own, there are no pre-shared secrets, and all the other parameters are
-unequivocally defined by the algorithm ID.<a href="#section-10.3-3" class="pilcrow">¶</a></p>
-<p id="section-10.3-4">Furthermore, we do not require the recipients public key into the key combiner
+unequivocally defined by the algorithm ID.<a href="#section-10.4-3" class="pilcrow">¶</a></p>
+<p id="section-10.4-4">Furthermore, we do not require the recipients public key into the key combiner
 as the public key material is already included in the component key derivation
 functions.
 Given two KEMs which we assume to be multi-user secure, we combine their outputs
-using a KEM-combiner:<a href="#section-10.3-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-5">
+using a KEM-combiner:<a href="#section-10.4-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-5">
 <pre>
 K = H(K1, C1, K2, C2), C = (C1, C2)
-</pre><a href="#section-10.3-5" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-5" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-6">Our aim is to preserve multi-user security. A common approach to this is to add
+<p id="section-10.4-6">Our aim is to preserve multi-user security. A common approach to this is to add
 the public key into the key derivation for K. However, it turns out that this is
 not necessary here. To break security of the combined scheme in the multi-user
-setting, the adversary has to distinguish a set of challenge keys<a href="#section-10.3-6" class="pilcrow">¶</a></p>
-<p id="section-10.3-7">K<em>_u = H(K1</em>_u, C1<em>_u, K2</em>_u, C2*_u)<a href="#section-10.3-7" class="pilcrow">¶</a></p>
-<p id="section-10.3-8">for users u in some set from random, also given ciphertexts <code>C*_u = (C1*_u,
+setting, the adversary has to distinguish a set of challenge keys<a href="#section-10.4-6" class="pilcrow">¶</a></p>
+<p id="section-10.4-7">K<em>_u = H(K1</em>_u, C1<em>_u, K2</em>_u, C2*_u)<a href="#section-10.4-7" class="pilcrow">¶</a></p>
+<p id="section-10.4-8">for users u in some set from random, also given ciphertexts <code>C*_u = (C1*_u,
 C2*_u)</code>. For each of these K* it holds that if the adversary never makes a
-query<a href="#section-10.3-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-9">
+query<a href="#section-10.4-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-9">
 <pre>
 H(K1*_u, C1*_u, K2*_u, C2*_u)
-</pre><a href="#section-10.3-9" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-9" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-10">they have a zero advantage over guessing.<a href="#section-10.3-10" class="pilcrow">¶</a></p>
-<p id="section-10.3-11">The only multi-user advantage that the adversary could gain therefore consists
+<p id="section-10.4-10">they have a zero advantage over guessing.<a href="#section-10.4-10" class="pilcrow">¶</a></p>
+<p id="section-10.4-11">The only multi-user advantage that the adversary could gain therefore consists
 of queries to H that are meaningful for two different users u1 != u2 and their
-associated public keys. This is only the case if<a href="#section-10.3-11" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-12">
+associated public keys. This is only the case if<a href="#section-10.4-11" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-12">
 <pre>
 (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
-</pre><a href="#section-10.3-12" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-12" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-13">as the ciphertext values decide for which challenge the query is meaningful.
+<p id="section-10.4-13">as the ciphertext values decide for which challenge the query is meaningful.
 This means that a ciphertext collision is needed between challenges. Assuming
 that the randomness used in the generation of the two challenges is
-uncorrelated, this is negligible.<a href="#section-10.3-13" class="pilcrow">¶</a></p>
-<p id="section-10.3-14">In consequence, the ciphertexts already work sufficiently well as
-domain-separator.<a href="#section-10.3-14" class="pilcrow">¶</a></p>
+uncorrelated, this is negligible.<a href="#section-10.4-13" class="pilcrow">¶</a></p>
+<p id="section-10.4-14">In consequence, the ciphertexts already work sufficiently well as
+domain-separator.<a href="#section-10.4-14" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="slhdsa-sec-cons">
-<section id="section-10.4">
+<section id="section-10.5">
         <h3 id="name-slh-dsa-message-randomizer">
-<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
+<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
         </h3>
-<p id="section-10.4-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
+<p id="section-10.5-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
 non-deterministic message randomizer. This is not used in this specification,
 as OpenPGP v6 signatures already provide a salted signature data digest of the
-appropriate size.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+appropriate size.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-10.5">
+<section id="section-10.6">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-10.6" class="section-number selfRef">10.6. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-10.5-1">In order not to extend the attack surface, we bind the hash algorithm used for
+<p id="section-10.6-1">In order not to extend the attack surface, we bind the hash algorithm used for
 signature data digestion to the hash algorithm used internally by the signature
-algorithm.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
-<p id="section-10.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
+algorithm.<a href="#section-10.6-1" class="pilcrow">¶</a></p>
+<p id="section-10.6-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
 ML-DSA + ECC signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 6.2.1</a>. Note that we bind
 a NIST security category 2 hash function to a signature algorithm that falls
 into NIST security category 3. This does not constitute a security bottleneck:
 because of the unpredictable random salt that is prepended to the digested data
 in v6 signatures, the hardness assumption is not collision resistance but
-second-preimage resistance.<a href="#section-10.5-2" class="pilcrow">¶</a></p>
-<p id="section-10.5-3">In the case of SLH-DSA the internal hash algorithm varies based on the
-algorithm and parameter ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.5-3" class="pilcrow">¶</a></p>
+second-preimage resistance.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
+<p id="section-10.6-3">In the case of SLH-DSA the internal hash algorithm varies based on the
+algorithm and parameter ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-10.6">
+<section id="section-10.7">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-10.6" class="section-number selfRef">10.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-10.7" class="section-number selfRef">10.7. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-10.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-10.7-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-10.6-1" class="pilcrow">¶</a></p>
-<p id="section-10.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code>
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-10.7-1" class="pilcrow">¶</a></p>
+<p id="section-10.7-2">For the same reasons, this specification further recommends the use of <code>AES-256</code>
 if it is supported by all recipients, regardless of what the implementation
 would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule
 for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-10.7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -4065,7 +4089,14 @@ implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".<a href="#section
             <p id="section-13.6-1.3.1">Added a recommendation to use <code>AES-256</code> when possible.<a href="#section-13.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-13.6-1.4">
-            <p id="section-13.6-1.4.1">Added test vectors<a href="#section-13.6-1.4.1" class="pilcrow">¶</a></p>
+            <p id="section-13.6-1.4.1">Swapped the optional v3 PKESK algorithm identifier with length octet
+in order to align with X25519 and X448.<a href="#section-13.6-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.6-1.5">
+            <p id="section-13.6-1.5.1">Fixed ML-DSA private key size<a href="#section-13.6-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.6-1.6">
+            <p id="section-13.6-1.6.1">Added test vectors<a href="#section-13.6-1.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -4218,108 +4249,102 @@ The test vectors are implemented using the Initial Public Draft (IPD) variant of
             <p id="appendix-A.1-2.6.1">A v6 subkey binding signature<a href="#appendix-A.1-2.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-3">The primary key has the fingerprint <code>8b37ab96122997c0116b4003d3f9279048a6ec4a0e34e12672552a9c9854c8e4</code>.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-4">The subkey has the fingerprint <code>79c81854d936baa25df3394353d32d03770a63b8fe0200a950d224ded64a3acb</code>.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-3">The primary key has the fingerprint <code>52343242345254050219ceff286e9c8e479ec88757f95354388984a02d7d0b59</code>.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-4">The subkey has the fingerprint <code>263e34b69938e753dc67ca8ee37652795135e0e16e48887103c11d7307df40ed</code>.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
 <div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.1-5">
 <pre>
 -----BEGIN PGP PRIVATE KEY BLOCK-----
 
-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
-AdcL
+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
+/d8lkIgM
 -----END PGP PRIVATE KEY BLOCK-----
 </pre><a href="#appendix-A.1-5" class="pilcrow">¶</a>
 </div>
@@ -4348,51 +4373,48 @@ AdcL
 <pre>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-3ULdVQuZM1UhAdcL
+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
 -----END PGP PUBLIC KEY BLOCK-----
 </pre><a href="#appendix-A.1-8" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.1-9">Here is an unsigned message <code>testing</code> encrypted to this key:<a href="#appendix-A.1-9" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-9">Here is an unsigned message "Testing\n" encrypted to this key:<a href="#appendix-A.1-9" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.1-10.1">
             <p id="appendix-A.1-10.1.1">A v6 PKESK<a href="#appendix-A.1-10.1.1" class="pilcrow">¶</a></p>
@@ -4401,1147 +4423,338 @@ qRx2ycKgFuhM+hlWZJsP84xy6UiG4/LlQ5TX94MghSvpVtkSOYM3WXDvtX6R
             <p id="appendix-A.1-10.2.1">A v2 SEIPD<a href="#appendix-A.1-10.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-11">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>ee1d3a5ce29138118ee3297fc725a7d4159c09896598be94614e983cf9330830</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-12">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>a43cf620ea0f6f2b8aec95dcb44d07488e5ab9018b3ddbb2fd180a8b3f24603f</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-13">The hex-encoded KMAC256 output is <code>e232751eff5605c6d641da5696beffa23b07e85b3dba6c006ca65c565654b808</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-14">The hex-encoded session key is <code>8e8847264f88a193f9b213372f2f7b8a392ed2bb111c6dc7b4fa4c1c5ee44c17</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-11">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>4ec7dc0874ce4a3c257fec94f27f2d3c589764a5fbaf27a4b52836df53c86868</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-12">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>9a84cb01b6be6eecd16737fb558b5ca35899403076c7e9f0ee350195e7fbf6c4</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-13">The hex-encoded KMAC256 output is <code>15a0f1eed1fb2a50a22f21e82dbce13ae91c45e3b76a9d2c61246c354a05f781</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-14">The hex-encoded session key is <code>08f49fd5340b026e7ec751d82cea83a4b92d4837e785bfb66af71387f84156d0</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.1-15">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
-wcPtBiEGecgYVNk2uqJd8zlDU9MtA3cKY7j+AgCpUNIk3tZKOstptyBaiFkT
-0Zm4ElUjRakC3LRwWhgOupWfJD4vSYZsyl2YuQxBuI0Ou20+2GJ9CcIMf/83
-YdKrEjKO0Af/5JyOf0ljMTCUIlkD1JKR+wbMxaEUr9KDAHNeZtiBdU2GxY1h
-LuwCOfE+mn/6l5NbWHBKWLsJCt93R4cofVVDtbwHto14R85MJsGcKl0j2wlE
-KAUCdKKzlHTCBeXU0mJADlD+evulKt62m5+/5GMZx/CS+q6tkLlWGF/5Ju0w
-bkeRS4klwCegXWosFBJ0OFumjOcEF23JJzhvpnPe1udtTydRSFdQ7fxtiEgy
-mR4fgClVMgb3TkYNjvvqRcipHTO3lUxbiu2wTRnhIEYf9e2WR5OdTH80orgj
-J/dzl3rD9UW684ywjyYXFobRloBVj1fdwnFph0Fgzs5G5n23oqbRbV/Xf/gK
-s6NrwFmak3Rz14jIIsYQrOyKydEYQEPao4eaLxc8KuR2GwCBcH/ADY8eBv4e
-qu31pOG1K4dT8WDc6HBGXZfe3q1MrE3NQqyOB11EWyLdkEPlB4mwatOhcct2
-kQScw8inEsfyrlVOBNoFYbPWjvKes6c2Ych8DlTYDQoBM+1gQzIE7jXRK3IE
-5RgjG74XuKRvY4E93co9+vAIGBJltME9I3ZFYxoJmwROqcNelFDDUvvbeB4x
-/RkXtP9l6xMOyttqcKhHMiSzRB8q7VrFLWJ01+0ektkMN4IMbNK1MhSQCGGG
-tzxGEN+ypKEYHJvT8uWiUBTzlmw1cG27JaGT1UWTLsDDPBMBUzu/n3dYAth5
-MUa0QreEVfPiR89OhUYAmZ+s7gYo+5BpRiXANaGKdHFkFW3qQx9o3qZ3qs7S
-xkxZipkWVF1Tzp2x6gyTGb1tbA6rjY5DJ/ZYUtD423FMzD7AKBQTYBP9Up/m
-Pe3PpivAoJ+Vqq7JR/kPILlaoXuWkgED7HYAdpVK6B3c3BULJD222cJI7TQE
-lmkEEg85/Z4m3GTXiAWU5Bbd1L0kcoIVfJ2XHwDESNuURR98B3dSU/KHhfWb
-IEAZ7LYWAyeLf/3ZsXgTU+pWhdjA6syVwyVUIM7hsb0fZwhhypTUj4mArtJB
-JhABKbFuIPx9Bu04dqeli1Ag9c9drAoTIPy4aN+7agGR9Gh0DIu6HEuYf6wD
-OnwnWOPbq8irRbY8oVAUsCeHEs8I1atcGKPdCglOkkefFXK6CTIcnsMt/gq0
-DjLntLKMyIIBsBPkwfGTknIXOl4k5d8glrPTZtsJc7cWUrfSGE6uvJMV4+xQ
-1cJGzVAEzt8vf/qAsp5X4jYGSKSZR88VosmQhfr0U7948CHIkwaEWk7uSyut
-Uamf0L8R5z9J9uJ3Ix2ygb2Q/ZCi5slztyIM4Q5ZpiYFTqq7dTTboAOhEeNy
-4tdWFfOWzJQrFAPx8JDMHdzKzeGOuZOLeR/ixEdGr5P0qbWnwdd2rHXglRIm
-RnaDNWvA+XBX+LjyC6H5HMhNGQRdty8n3i99x1ky6lLZMSgF2e0NqNNyUKQv
-82bs/fCWlhurQbnCAowfp75cdW+4EIjVfZpVQctS0lMCCQIMBd7GNaS5Ocse
-LaILY3nJ1FBy0aPcziSlzPE1qXe5lskH5m2Te8vmJgTzPYaxjHvLsUuiG/6a
-LNiQlerbHIxos6byDYK+EboFhMx5JmFJOQ==
+wcPtBiEGJj40tpk451PcZ8qO43ZSeVE14OFuSIhxA8EdcwffQO1pU4rRGXPhivmf
+yaE7whd94FIPayIJxbUXuq6Ei6VifzlPu9BoxvQYZa/u+exaOVT2MLxbCAceHYMw
+zSuUa0BoiugafZWAnVrn4ji+mI+298c93Ij83yUjkzvBsKyJuhesTevSpJAnjiMt
+m9Mmwzc8Y9tB4N/Am8jR3p8UYLH+2aH9FyT6VdqsETYiPFcz5jZqkag7bAB88KUg
+heJAHU/FgHXtz013tnPyQPtuVHeJrP8jcd3IENJh9CfSg9rkhAoW72GiSGYPm+Im
+I7faHJ8LMCx4Sbur9rWsZM5Gl+sG2MyjM3SrykAfL8W6s5o3LVw+06h5XnmsLUFE
+8nZf99LBm/5aUzkdmq1G8hgLY+dVhTAm1DZxbNz5nDbtCsuIbJ2knS2yqxlQV8qx
+5eikfWlW29TfREHJf4von2xR668vYwOibA5sTa3utBpNk2YNalZ61p9MxPW54PvO
++EIRYVTlwhSbETanOBms+yDq0NLooO+OQerT3WA1VzeT7j5rzaQM0ULAK6x/KqKt
+ARZmAIufbPktMfX26tczv5sKb5rx1MJexNUhnxvn/xGDkAvbf8HrU3BpxbqPPX6/
+MWGpggb08U8YQU8qLCMzfPaFajTfyyhOKnoh5MBLNVDzbWyqKLzLGQTXl13WSvxQ
+ib2U0YoGZtVmshmiVijCu4x1aX4A02sYKrzeYP2WpAl1sEynKz1tkWZQKS3Jt+RP
+Y702QtUrRWWul23cBsqy0uKcQ+Zk/rCh5qyQ9mZtx8EmathdnHpi0qZLAH4wEYTA
+HScy59zUR5CoYnJNBDNyRyEuh/B/pkTGEisLb+i1F9M0WhrgfgYSldEzUCZ7KJUD
+Bt/d50OM+M8kmkYYBmiyWBfNqMMckJHhjFAp8kd0V0FP7lVwPGywK2hGKQBF+ylh
+9O3qq1knDkjyCLNIoi7kJkl5KEOq1qLfwRnqfTbivGnhMdWh658WX7Q5QCUZf6vT
++aH2SXA+HNd4VAQguWbnmRNmjW33PTdte25T36qHQ6jlCdyG4VZU8f1yuqzhbHPx
+FwAaChb/B6l5SIxK8zupbT3K5NDsSrD0wBV52P377GGVF1z1wI/+0ftNTxu/mgx5
+aDjNyxUpupVsqWnws7a/6ixMUqyYAI8TlVWj2vBXgIg9gvt+yp/X7iMD3V4v3z/P
+c8o2nH1c9uB6bXJx4HrtenjkDA4uQ89NH35yBII5OviL4NWTmMArWSN5scBOYOMJ
+KxGDvFCkgcGjE5x6srj0gzntFg3TcYQiC4+onS485xTQlud53Z7Vc4JnSn7F2j9P
+AJX5s+yUgT+ob7SYvYigbp30Oe5fg0NVZzH1fJ3eTJheClb+87vjrZS4X1tVU0MG
+LNCdjF20Jff31fZu16mxin+hUZVyfVRlSycfVJU7qXzZftTpr3rsNZiLlY7z7BRe
+1lXSx7uZFCfhyu96hyIPxMuaBIX7OHkduinurQ58Vj92fAe/8f5jviRVqtKwZ9Ao
+lZfjSn8k/CgDxzFu2gWpbhWJ4GKvoXgmWDESk4o07UGqDbhm0YO5MDM0uoAmsGae
+0lQCCQIMTzhupJq1yZ3vljrXBYF37QuWDi/MAvL54hMis5UXrTAh0+FobZAXCoO0
+epU7H8CIs4ZCelIyD1W+K/kv3/E3Z65WQzDOYOhXSCAOqcpjiPc=
 -----END PGP MESSAGE-----
 </pre><a href="#appendix-A.1-15" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="sample-v6-pqc-key-artifacts">
+<div id="v4-pqc-subkey-artifacts">
 <section id="appendix-A.2">
-        <h3 id="name-sample-v6-pqc-key-artifacts">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-sample-v6-pqc-key-artifacts" class="section-name selfRef">Sample v6 PQC Key Artifacts</a>
+        <h3 id="name-v4-pqc-subkey-artifacts">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-v4-pqc-subkey-artifacts" class="section-name selfRef">V4 PQC Subkey Artifacts</a>
         </h3>
 <p id="appendix-A.2-1">Here is a Private Key consisting of:<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A.2-2.1">
-            <p id="appendix-A.2-2.1.1">A v6 ML-DSA-ipd-65 + Ed25519 Private-Key packet<a href="#appendix-A.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.1.1">A v4 Ed25519 Private-Key packet<a href="#appendix-A.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.2">
-            <p id="appendix-A.2-2.2.1">A v6 direct key self-signature<a href="#appendix-A.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.2.1">A User ID packet<a href="#appendix-A.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.3">
-            <p id="appendix-A.2-2.3.1">A User ID packet<a href="#appendix-A.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.3.1">A v4 positive certification self-signature<a href="#appendix-A.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.4">
-            <p id="appendix-A.2-2.4.1">A v6 positive certification self-signature<a href="#appendix-A.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.4.1">A v4 ECDH (Curve25519) Private-Subkey packet<a href="#appendix-A.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.5">
-            <p id="appendix-A.2-2.5.1">A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet<a href="#appendix-A.2-2.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.5.1">A v4 subkey binding signature<a href="#appendix-A.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.2-2.6">
-            <p id="appendix-A.2-2.6.1">A v6 subkey binding signature<a href="#appendix-A.2-2.6.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.2-2.6.1">A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet<a href="#appendix-A.2-2.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.2-2.7">
+            <p id="appendix-A.2-2.7.1">A v4 subkey binding signature<a href="#appendix-A.2-2.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-3">The primary key has the fingerprint <code>73dc334850357ab38e9a2092533d7c11a5b90f067fd3b8d8ea13e5544851458f</code>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-4">The subkey has the fingerprint <code>763fc767192051ff12ab55e1af3b680ee42e04bf95264fe018644b9bd40f3b99</code>.<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.2-5">
+<p id="appendix-A.2-3">The primary key has the fingerprint <code>b2e9b532d55bd6287ec79e17c62adc0ddd1edd73</code>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-4">The ECDH subkey has the fingerprint <code>95bed3c63f295e7b980b6a2b93b3233faf28c9d2</code>.<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-5">The ML-KEM-ipd-768 + X25519 subkey has the fingerprint <code>bd67d98388813e88bf3490f3e440cfbaffd6f357</code>.<a href="#appendix-A.2-5" class="pilcrow">¶</a></p>
+<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.2-6">
 <pre>
 -----BEGIN PGP PRIVATE KEY BLOCK-----
 
-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
+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
+0O22blDNAr/tDA==
+=q5En
 -----END PGP PRIVATE KEY BLOCK-----
-</pre><a href="#appendix-A.2-5" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-6" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.2-6">Here is the corresponding Public Key consisting of:<a href="#appendix-A.2-6" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-7">Here is the corresponding Public Key consisting of:<a href="#appendix-A.2-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-A.2-7.1">
-            <p id="appendix-A.2-7.1.1">A v6 ML-DSA-ipd-65 + Ed25519 Public-Key packet<a href="#appendix-A.2-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-A.2-8.1">
+            <p id="appendix-A.2-8.1.1">A v4 Ed25519 Public-Key packet<a href="#appendix-A.2-8.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-7.2">
-            <p id="appendix-A.2-7.2.1">A v6 direct key self-signature<a href="#appendix-A.2-7.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-8.2">
+            <p id="appendix-A.2-8.2.1">A User ID packet<a href="#appendix-A.2-8.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-7.3">
-            <p id="appendix-A.2-7.3.1">A User ID packet<a href="#appendix-A.2-7.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-8.3">
+            <p id="appendix-A.2-8.3.1">A v4 positive certification self-signature<a href="#appendix-A.2-8.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-7.4">
-            <p id="appendix-A.2-7.4.1">A v6 positive certification self-signature<a href="#appendix-A.2-7.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-8.4">
+            <p id="appendix-A.2-8.4.1">A v4 ECDH (Curve25519) Public-Subkey packet<a href="#appendix-A.2-8.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-7.5">
-            <p id="appendix-A.2-7.5.1">A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet<a href="#appendix-A.2-7.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-8.5">
+            <p id="appendix-A.2-8.5.1">A v4 subkey binding signature<a href="#appendix-A.2-8.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-7.6">
-            <p id="appendix-A.2-7.6.1">A v6 subkey binding signature<a href="#appendix-A.2-7.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-8.6">
+            <p id="appendix-A.2-8.6.1">A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet<a href="#appendix-A.2-8.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.2-8.7">
+            <p id="appendix-A.2-8.7.1">A v4 subkey binding signature<a href="#appendix-A.2-8.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.2-8">
+<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-9">
 <pre>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-k+aKz6D/L73YOuk0U+g4p3H74H7iuHl8i5kPHTVsbZSipt/yCmXh7AEZmLgn
-Kjl/4f49RKe90vwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw0RFRshzS5Hb2xh
-bmcgR29waGVyIChUZXN0IEtleSkgPG5vLXJlcGx5QGdvbGFuZy5jb20+wszI
-BhNrCgAAACwFAlHQxoAioQZz3DNIUDV6s46aIJJTPXwRpbkPBn/TuNjqE+VU
-SFFFjwIZAQAAAACJeCCxGitgn+uUF18sQmNOhcwiKUSzXYKtze3YaaPjPt5z
-gaNdsw2FF7K2iHZw+esGpMiOtPtEjLsXhjDerf7HXRmr2VYEuFmtGYxhn4EC
-ZLqhvPAm0QOgNLtZSS+gM0Yw6QGA6vTeL5fC50MHxjqwjdPfxuAE6x/Y17PN
-d6mzD5OnqBCZn1ZkjQqgVvv9Oe7L6QY0fR3xU3VIfQ+eXlntytqQKxZwWuNp
-gBaJaAbZaRGSTutlkGgKYNoNN8qKXFOlqm2aZ5YJEWOVFVzXnK99E6i0vXY4
-k8FEb1ZxrIg6Cvf6+Rl5daPQq2ZX3j6GtjmlxelNTOQSBs2Y/KfxzqOM2BbL
-0WUT/DXjlRXoyF4/yBpjRR5AJVOVU12Qiuqm+02diSw4rscSYgh/1urQZyFe
-1ZCbsXtV3LJT57mIneNm9kfJq9rzL5596fAZBO3lHB7g1qTpU4472FI8Lhyy
-zOieqdiX4qjGM1yOfuza58wi2N6yNmOkgKMsgos0cmgKLF486q01xmpivUOL
-prZ9u1uuu+1bUm8yd+sO/NKwkUM9OIrN19iut0roepvRsL8+doq1TGSR1Iwx
-bSlNSaawJIrHa8OB1BifnK/e0ls4GdfOZx3qVh3BVPfW5CWHzm+QB+QRS5W3
-p85KNW3kx/jU5f7TNtkqxWOfpi42UYutOR3v47SmDnlSf4jVFjDpDs5P1CfY
-BApwYBPVLdlRsIYyQkDeI5J3hOJvW5QY4+I2JGC48C0rt5J8/UIFR0NxCXMy
-wfUZ19UgKKZqCxAgAfAyEr4nl0Mrko0UMHAch01ZE0JU3K3GpFxYIqJAB+UM
-IVt77wCfUrWD30//dJCZt13w4zacTfjcs6zSz4NSrg3z7JcwLLxznvbacls3
-QsEHf7jg7YqdCO9apmoWRBGM9fn01wFokrT5/aC7pvQLeEidVMefFTpv1RbX
-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
-/QAAAAAAAAAACw4UHyYv
+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
+=dPFW
 -----END PGP PUBLIC KEY BLOCK-----
-</pre><a href="#appendix-A.2-8" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-9" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.2-9">Here is an unsigned message <code>testing</code> encrypted to this key:<a href="#appendix-A.2-9" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-10">Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:<a href="#appendix-A.2-10" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-A.2-10.1">
-            <p id="appendix-A.2-10.1.1">A v6 PKESK<a href="#appendix-A.2-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-A.2-11.1">
+            <p id="appendix-A.2-11.1.1">A v3 PKESK<a href="#appendix-A.2-11.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.2-10.2">
-            <p id="appendix-A.2-10.2.1">A v2 SEIPD<a href="#appendix-A.2-10.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-11.2">
+            <p id="appendix-A.2-11.2.1">A v1 SEIPD<a href="#appendix-A.2-11.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-11">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>4525f97519f91c57730dd21f3532266aa820069d50b9e5948ec8ee694307780b</code>.<a href="#appendix-A.2-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-12">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>453f530182ec2ca18bd53be2b56ba7a41b54a2322d26d1f449e910efd26c95f0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-13">The hex-encoded KMAC256 output is <code>fc7c97cb0fa8a2f6450f84af4b6130491a111ae3e9991304ef4ac71d48741631</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-14">The hex-encoded session key is <code>c873cf7313536e61211cfc991bef28138ff4f7d1c6e7a353fa30c35961f09fc1</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-15">
+<p id="appendix-A.2-12">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>ba6634c5bab5756868dac8282054b0b30916d764e1f15841222392e5545a67c7</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-13">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>a6b263da0e367b39c2d44bf4c3f66015f410ee4fa674ddbba8d50cde2fc4094a</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-14">The hex-encoded KMAC256 output is <code>504bc329627af248947117936bee9e87230d327d5c5f5b4db593c4b58b2d0339</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-15">The hex-encoded session key is <code>b639d5feaae6c8eabcf04182322d576298193cfa9555d869cf911ffbbc5e52e7</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
+<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-16">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
-wcPtBiEGecgYVNk2uqJd8zlDU9MtA3cKY7j+AgCpUNIk3tZKOstptyBaiFkT
-0Zm4ElUjRakC3LRwWhgOupWfJD4vSYZsyl2YuQxBuI0Ou20+2GJ9CcIMf/83
-YdKrEjKO0Af/5JyOf0ljMTCUIlkD1JKR+wbMxaEUr9KDAHNeZtiBdU2GxY1h
-LuwCOfE+mn/6l5NbWHBKWLsJCt93R4cofVVDtbwHto14R85MJsGcKl0j2wlE
-KAUCdKKzlHTCBeXU0mJADlD+evulKt62m5+/5GMZx/CS+q6tkLlWGF/5Ju0w
-bkeRS4klwCegXWosFBJ0OFumjOcEF23JJzhvpnPe1udtTydRSFdQ7fxtiEgy
-mR4fgClVMgb3TkYNjvvqRcipHTO3lUxbiu2wTRnhIEYf9e2WR5OdTH80orgj
-J/dzl3rD9UW684ywjyYXFobRloBVj1fdwnFph0Fgzs5G5n23oqbRbV/Xf/gK
-s6NrwFmak3Rz14jIIsYQrOyKydEYQEPao4eaLxc8KuR2GwCBcH/ADY8eBv4e
-qu31pOG1K4dT8WDc6HBGXZfe3q1MrE3NQqyOB11EWyLdkEPlB4mwatOhcct2
-kQScw8inEsfyrlVOBNoFYbPWjvKes6c2Ych8DlTYDQoBM+1gQzIE7jXRK3IE
-5RgjG74XuKRvY4E93co9+vAIGBJltME9I3ZFYxoJmwROqcNelFDDUvvbeB4x
-/RkXtP9l6xMOyttqcKhHMiSzRB8q7VrFLWJ01+0ektkMN4IMbNK1MhSQCGGG
-tzxGEN+ypKEYHJvT8uWiUBTzlmw1cG27JaGT1UWTLsDDPBMBUzu/n3dYAth5
-MUa0QreEVfPiR89OhUYAmZ+s7gYo+5BpRiXANaGKdHFkFW3qQx9o3qZ3qs7S
-xkxZipkWVF1Tzp2x6gyTGb1tbA6rjY5DJ/ZYUtD423FMzD7AKBQTYBP9Up/m
-Pe3PpivAoJ+Vqq7JR/kPILlaoXuWkgED7HYAdpVK6B3c3BULJD222cJI7TQE
-lmkEEg85/Z4m3GTXiAWU5Bbd1L0kcoIVfJ2XHwDESNuURR98B3dSU/KHhfWb
-IEAZ7LYWAyeLf/3ZsXgTU+pWhdjA6syVwyVUIM7hsb0fZwhhypTUj4mArtJB
-JhABKbFuIPx9Bu04dqeli1Ag9c9drAoTIPy4aN+7agGR9Gh0DIu6HEuYf6wD
-OnwnWOPbq8irRbY8oVAUsCeHEs8I1atcGKPdCglOkkefFXK6CTIcnsMt/gq0
-DjLntLKMyIIBsBPkwfGTknIXOl4k5d8glrPTZtsJc7cWUrfSGE6uvJMV4+xQ
-1cJGzVAEzt8vf/qAsp5X4jYGSKSZR88VosmQhfr0U7948CHIkwaEWk7uSyut
-Uamf0L8R5z9J9uJ3Ix2ygb2Q/ZCi5slztyIM4Q5ZpiYFTqq7dTTboAOhEeNy
-4tdWFfOWzJQrFAPx8JDMHdzKzeGOuZOLeR/ixEdGr5P0qbWnwdd2rHXglRIm
-RnaDNWvA+XBX+LjyC6H5HMhNGQRdty8n3i99x1ky6lLZMSgF2e0NqNNyUKQv
-82bs/fCWlhurQbnCAowfp75cdW+4EIjVfZpVQctS0lMCCQIMBd7GNaS5Ocse
-LaILY3nJ1FBy0aPcziSlzPE1qXe5lskH5m2Te8vmJgTzPYaxjHvLsUuiG/6a
-LNiQlerbHIxos6byDYK+EboFhMx5JmFJOQ==
+wcPUA+RAz7r/1vNXafOEf/qo/UCjgP5MHXsUdzusv+Xtwa/q5/gtvWSKENMEm/ef
+mwvHzlOW3jyHPr3wNkiRGNmZdEgHlRUxOF67AKfUqX1/H+RawlXrnu2O/7xDfn09
+1DOeYQYsG+VQe5eDfPOh6EAqvhglNG29enkwukjQuWJ0U2+SywRlh0J49oG0lZZi
+tEonE6BX+dKo7JFAAW27I4+I15zamWCm7C2qXtcjlMq+68U6isstfJYBgCFoJLRV
+9ME/JlwVQ/3OA4eagh1Ysw/s0Kbl8dWc/U+pUVINfLFnZbr8UnRx5QVjo47HzV9y
+IPQcl1ETnrQqg4jH5cUB0wVB/OGSHEH1l1q7OwO4TBx9seRKza3wzHgXQyQn4jJn
+WxG4Uf0rWwa/dbXpoGdxye7Di0HhFJBp4aPaPEm9RwmeD06HPGyurgQS2heW+ICR
+X9q6HjxKmbIToWau7sEUZQh1isRD923zmZO1Cceiefwvv8RDErBaYRRfhoDHnwlf
+haUkGDH55GC/mFgMUst7XjYLTpjTtM32bHHVoYyx3edk3V4C32dRP4geZRlq8MKb
+3eNvTyZHPBXVeVjB2XVenMkju2qQvjAvr7xkJk5QvqRGZ3qy5JKPHjupPKMKR6Wv
+90WtP9OPf6geE4K8g8dc4yqhqEf84IpWfwyUjglPwc8G7QURyc14INSgnVKQ8nzJ
+26Y0YSuBG599cwnBXIv7TLOsrmpcR+3O/OiqztEXwBSFalWqC6SScWr51+K4RHpi
+0Dg3GYOdeu9V12ofWhh5eoXiQxiThsDc0cYD2LwwITb/sXJW6jisvTSQSszuDJsg
+w4LJGVIgk94GwBeYCa4w+YbFD/6bC+nd9hze5iWyAt4jx2XuYWHvI95wUvRal4Y6
+LcYKShZslef/9sZlrJ3O+oM8Tc+xjr7w860cw9bHBaRA3oZfDwVLRbJ63bh6dzLS
+8Vj4UL0NiK9AlokOTlYTatKj2tkLaD6snZ5QaS916NniwvBiSozyCWKFPvKbIA5t
+Fy7bWMk70wd7FJ5rOYsRvWOodcxxfYHLyOYCRikP5sOgelHJfIcqZZM/iMyKrUl5
+QXTe5SUMFKuAAWkv1nFgJqaBGkkYUN+aL6um4ogKJKxBArhUXtz5jp1zLQe6w7Pf
+XtJ3rtnLMNIGbaJjN6jlSqB1lF88ljU6yL8lsfNfGuq6eLsNz1QD9sFoZyNKGVF8
+uGcX8KH07hyNCOPbn4jMZqnLfcEwT971KNeW0NNNLaVIjiYtYrEInYpnGP1fW0G7
+4ic4/CGZ0Jsti39rTPdz76n14EV5+HGGNtO92nXr7HhRvlvehZO+pPN2pPvAOQgp
+378jEDnhdcFIUnWjaSN4HLjxN9X3tWosa9stVatcOB5n01+QAqdstgbARXiYhzZI
+QOy5bk7GzM/xaD+4iMlsMgmhdvI3EuMrvzRHx95YvU+tc8UBhVtMpcxgp5tiPtw7
+wEFyPWYqTA6c+YGTZFzHNhqJ+DqLTlKP6+uYet4pCY6YLcu4z0JMG60Q4/MnuF2u
+7pjPG7aRNGwr2/JFeaumSFbs5SrDPwDSOQGz9bQ6fbfGNm9Iw/Gq4EYrNx0raEVt
+E1FD8+nRXcS1PribkWlu/qNd0yM+tXMXlryR6wAV3R4p9Q==
+=h3Km
 -----END PGP MESSAGE-----
-</pre><a href="#appendix-A.2-15" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-16" class="pilcrow">¶</a>
 </div>
-</section>
-</div>
-<div id="v4-pqc-subkey-artifacts">
-<section id="appendix-A.3">
-        <h3 id="name-v4-pqc-subkey-artifacts">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-v4-pqc-subkey-artifacts" class="section-name selfRef">V4 PQC Subkey Artifacts</a>
-        </h3>
-<p id="appendix-A.3-1">Here is a Private Key consisting of:<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-17">Here is an SEIPDv2 unsigned message <code>testing</code> encrypted to this key:<a href="#appendix-A.2-17" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-A.3-2.1">
-            <p id="appendix-A.3-2.1.1">A v4 Ed25519 Private-Key packet<a href="#appendix-A.3-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-A.2-18.1">
+            <p id="appendix-A.2-18.1.1">A v6 PKESK<a href="#appendix-A.2-18.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A.3-2.2">
-            <p id="appendix-A.3-2.2.1">A User ID packet<a href="#appendix-A.3-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-2.3">
-            <p id="appendix-A.3-2.3.1">A v4 positive certification self-signature<a href="#appendix-A.3-2.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-2.4">
-            <p id="appendix-A.3-2.4.1">A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet<a href="#appendix-A.3-2.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-2.5">
-            <p id="appendix-A.3-2.5.1">A v4 subkey binding signature<a href="#appendix-A.3-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-A.2-18.2">
+            <p id="appendix-A.2-18.2.1">A v2 SEIPD<a href="#appendix-A.2-18.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.3-3">The primary key has the fingerprint <code>f9a0bc4d86c90113272d809277ca82cda8eec0a6</code>.<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-4">The subkey has the fingerprint <code>1ce8600829187b20a3290d7e6f60c9bbc2248819</code>.<a href="#appendix-A.3-4" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.3-5">
-<pre>
------BEGIN PGP PRIVATE KEY BLOCK-----
-
-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
-LkS/yPnP/13IRZzAXo0L
------END PGP PRIVATE KEY BLOCK-----
-</pre><a href="#appendix-A.3-5" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.3-6">Here is the corresponding Public Key consisting of:<a href="#appendix-A.3-6" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.3-7.1">
-            <p id="appendix-A.3-7.1.1">A v4 Ed25519 Public-Key packet<a href="#appendix-A.3-7.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-7.2">
-            <p id="appendix-A.3-7.2.1">A User ID packet<a href="#appendix-A.3-7.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-7.3">
-            <p id="appendix-A.3-7.3.1">A v4 positive certification self-signature<a href="#appendix-A.3-7.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-7.4">
-            <p id="appendix-A.3-7.4.1">A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet<a href="#appendix-A.3-7.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-7.5">
-            <p id="appendix-A.3-7.5.1">A v4 subkey binding signature<a href="#appendix-A.3-7.5.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.3-8">
-<pre>
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-MrTULkS/yPnP/13IRZzAXo0L
------END PGP PUBLIC KEY BLOCK-----
-</pre><a href="#appendix-A.3-8" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.3-9">Here is an unsigned message <code>testing</code> encrypted to this key:<a href="#appendix-A.3-9" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.3-10.1">
-            <p id="appendix-A.3-10.1.1">A v3 PKESK<a href="#appendix-A.3-10.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-10.2">
-            <p id="appendix-A.3-10.2.1">A v1 SEIPD<a href="#appendix-A.3-10.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.3-11">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>16abac7796a7950d37fed095b103ebac5d2c8012a0984eaa50ddbe4d7659dc91</code>.<a href="#appendix-A.3-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-12">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>82d754e40856b15394597bc717a77fc1465369cb4b4df8c807ff6813852c6f2f</code>.<a href="#appendix-A.3-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-13">The hex-encoded KMAC256 output is <code>65fecfa55bc7eec8dc16765ca9245f0893bb09308f2c8f44634cc1508eb2bc7e</code>.<a href="#appendix-A.3-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-14">The hex-encoded session key is <code>7e410de300a8ecd6f1b91dc422e0a7fb6147e591744fc58952d3e8f0f980e66e</code>.<a href="#appendix-A.3-14" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.3-15">
+<p id="appendix-A.2-19">The hex-encoded KMAC <code>eccKeyShare</code> input is <code>50a74bfb94dc7677bc02f278eb4e7d5d2f1b04e34a2b5c7b8da0579f3e1e0825</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-20">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>161911216c93a5b7936f9a8876c446b0767c904c94786bfc79bcc505b45f5075</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-21">The hex-encoded KMAC256 output is <code>ee4dacbc4efac509ad5f79640d5963af038baf512d55974c46ac71db6c1ed579</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-22">The hex-encoded session key is <code>27e3c564fa7b8adb7ee1cfede3ee2cda79dd8f1a6d029ebeb7f3880c752185f6</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
+<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-23">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
-wcPUA29gybvCJIgZacUREKgEWHD5pfTHB20Xe5FONAiHX7CAauBvaubuZeVq
-0JhV/ln7VvPCuuY0smfv+oHupG27KmMLq28JRbAt8LW+8qfkjse/3DdM3DnL
-AtJEuen3MiZEWLWE4kIFLij+kl6dsoflJqniCsSnBsA7jSL1vwhDFhT47Uc5
-ysfIpd5ZvjMw7/C4daRnCijtDuqmyuo4asjM49SMpnX5qMdnYA+fLJLDjwff
-E7UYlAtywXgAsqKk5dwdnbRfIpq8KU2TK1Y/4G5DqMBrPdHFuSlVTT5qz7Tb
-iKbKDR+EOndPJFb6nSfhp0vs4qf3uGasEXjRuFc5EMeBHfOVKGT4WixtLNc2
-dskd7LJKQK86alng2rvsvPwTutpBTnUc6ZEqItAdj0KlVffwqKmXyr8W+8bK
-0/5RaKLH+mb88PvT4o2nfi8DuxaQwXn+yj1bVYoCnZONiLGM5nkByllWoGog
-s+tgXjJqIXPS0ANZJGBP1EIFCtbC2xA04Q9VN01l2zxH9bN0x/imonasQNFH
-576i4LLDlVgQFJM5tajagv/V9KEnidWV8szTG6olKHGVRHxUNFWHItaNji+v
-p6R5X1wgOrwZXZOfvCdKfeRVlfeVDk9yq2TbAVRDqH6vTdVnYaJvy0TTcCez
-gaDmDbSA7JcJQnuSnMZLoUYrnrQ5JVi6v6XYijWAAY8N9i3vd4DhgqG/w3Uo
-g7J2eVJ2RDJj+FXYv1A8hBNo665C13QvbaYm3DaFL4aXlqxPM2QQO1FgyoAo
-9Sstooef5sLWgfD58S4mDqSthVqbPmyGRqvAZGFZ+6WF7qr0VIhc0BW/nF72
-GlOCPG7S0UghsudwSRda52PEC2p7hK3J9HKJcLGEwrmJcUfyzkCCa/OuJ7sD
-0UGr+vV6r0cEXsCaAuQxdoEGoWxdcYSG1uSTXW0piM2Fow9TWA8B+olouc0P
-57VRphuarS2RCNQxpJb7GU8cPh3BRgIonxQPl57F639/U2Jpf0vTWQBBKEM4
-JASh1JoKACV8+fqgY0LFLAoIQiPHpiLH/lmZ7xuVpiQ2fwwEkujpbnbb7IJH
-U20aVYAS6oDV6hIoEYj3HRDI5cp0GnojNJTCW/cF/saewtHE7Ozdz4SpXtQl
-wRTiticnbS9C5JhGfm92I4kbS0FeLekTFti5yj5tzQB7HkM0GrILk5+KQXzo
-jFE7WbXmSy3cHxjcveesF8gmZ5DLPCjK7eDGAJQwDYI8MuXXBGLoxkfwt6MF
-ay2iMOrGnlMrQVNW5QVFAWtMlwxhHpXYvH+IVD1+i1Pxio/x2Cb2uIn6Cv/w
-WcuY19ZqZG7AQPSYcS/mzGeS30EYHTHOEk+V8f7kt+ewhEiGz+sKurT2RfqK
-XPSqA6XmOrrdlj8VCdb8qMUuoUFd34s2fN7WjbG+m8L9i1CZ7jWBqryWbp9c
-tTlSicxDEn+jK63P6zlMn+dBM81V5qX+dpyqc11xVr+kWfZTLwZX+NO3g8oc
-aGoBuih44+ApCReHoPwveTcUn8VT3F0XTKOKClGMJs0T1SG5/q3F0mbDey87
-GYfvBoHSOAGxSpJuhkyyzDkYmUrTG37WludgBpqvQ4JMmpOOhaDWhYqP3BW3
-g4noS2Z6PHvv5yPqB7WIhw8C
+wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dp/h3ny6MDFKIjw8Jva/pK0mlJJMbX
+RtJ2+idWKUL4/Evq2JBL2pky3VeCkhJIAnKdMXBvuucpNC4xVhCREpPquOsQcJE1
+IyR5kdk0uOw/7T5i7i9zb3N8Mn4jObYNxem0PbD44xYfF4BcNZqWPhLSwdFp+uti
+FDVcsAtaruQQnwcb0tE9KUxMHsH2QxuG6Xnm+a1v3fds/rp/DqrR1vTcwbeUBej9
+AcrWhRI+KrE80WtMqqB0nvj74Jsx7xrYKyDqi7C50PG1LwTfFmO1kuIOGwEVh3AL
+f9vesNee8+QWqJHMuSaqTsndts7Pq2EQ1fzdsrhYvseFEuiITj6OHnvmERjhkVRt
+M36v3cA8GmcKI2YLa+fNvyagjgkoUycjNopK94/KQk8DY4JnKEbMHJ1BvUQ6mXkZ
+ZeQXEt9gBHMZvTPE4ZPKSR14tki9YbjCvGcklEx1BEhONMo+03C07H/AHMtk5Ia1
+BFDF3dRkOhyXLfJCNKhJL4Sq7Z07CqKYCCzEq6WgKQUlWmiJzEtZKmh61LX3FaVU
+A8+iK56QBvYyFUv/T9mGIBvF6qM+1l9BUSDim81EEN3FVKuo5QJ+tEbuKOrDWMTQ
+klx3iEmGFeW8/N0gxTMpDKQRqDbkhdwFoM1c1L61NeCfDvTiWWVQQg00Z/n38gGC
+S4MC8szKWPPlmtPYsXbyITMLpErgbIfr3IPfwRkm1RWVPQ/T7dm0Iz8ufeVTAqv+
+4+WgeILpQbFf/PmKHlZJnyj+munVaLaV9ed8g/0ncfZ0Vn9sMzGXifAjJ7vT8t/2
+ojSqc1AQuhoNguI3xFUCaUEzmWzOl3ONZhgDr4WTJdvfW/8IHn2y0Kkn5buqLAO5
+LOvrksFgkuy3N21OzgI+H5SeCqOGt5NKgyMAUGKEa5a6ApG/DSecXJ38yr4hTG6k
+IGxfd9dlezcdByrohFsRHC93XUSlTnxTqdYmuhK8x4me6QblJFEJhoDTr3lrKTQE
+gXC5ncdTLKLLINnZgFRc0oFABKGATf/708nt/vkuhyNroCY2NxGKoem3M8P5radp
+vKJ7qRi+ePBmxwPhb5mWVf7G5y509GgVhKUFUWCzvyoyp1HLtekARKrxBAElXo4D
+RINA468O/Sx9rWDFFkaShsXqQEhe06C3IhoG6vqagdB82LYcisCWEAKd/hZE99Ub
+EWawnQor/jrHhGNQId1nZEwpEE2/cndU3Np0mhoGF/kkjyGah8wxjFRZhX2b+w3M
+jmyFyOFGog6SDK1dK6+Vdki3fJFvBCx/uLmuLiNQo2MYeG3B4W30jNDlkxZ2DA14
+1zPXL8S3t54ZCtqiqDO63SNW18o2SB9AJpmSYYF34LO29VJnWIK5/94tIsfwHbAg
+P/JdfRmSXkUYDTwJcYR1SOp8IIWwhmybnYctHS/n1q+WnzMj0jJIe4SI9ifoJg6n
++ntRfsqR1B3fcTAKN0XK6pnNy+pJ1BCVDOYDz5RGsAa61wJdVK/mXEg7VyjMlf0t
+EnPzSfwfotMPoZs9n+MuK/BO0AX8DqzY8SluBALG6Eu5OV+A0lQCCQIMeNuKCuzH
+CoYERR8ds1jE9m+xLEGK7i1+zr5FSdzGowHh4xMo95Zk5JUubl5rYvcYbHgVVKKE
+9mwM7/4Q5mXZ2xvsBftkujgamZM2UN9UYSA=
 -----END PGP MESSAGE-----
-</pre><a href="#appendix-A.3-15" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-23" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
