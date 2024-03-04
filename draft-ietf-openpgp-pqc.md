@@ -1725,7 +1725,6 @@ TBD    | SLH-DSA-SHAKE       | 1 octet parameter ID, per parameter fixed-length 
 
 ## draft-ietf-openpgp-pqc-01
 
-<<<<<<< HEAD
 - Mandated `AES-256` as mandatory to implement.
 - Added `AES-256` / `AES-128` with `OCB`
   implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
