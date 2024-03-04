@@ -1735,6 +1735,9 @@ TBD    | SLH-DSA-SHAKE       | 1 octet parameter ID, per parameter fixed-length 
 - Added test vectors
 - correction and completion of IANA instructions
 
+## draft-ietf-openpgp-pqc-02
+- Removed git rebase artifact
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
