@@ -161,6 +161,7 @@ Table of Contents
      13.4.  draft-wussler-openpgp-pqc-04
      13.5.  draft-ietf-openpgp-pqc-00
      13.6.  draft-ietf-openpgp-pqc-01
+     13.7.  draft-ietf-openpgp-pqc-02
    14. Contributors
    15. References
      15.1.  Normative References
@@ -1954,6 +1955,10 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    *  Added test vectors
 
    *  correction and completion of IANA instructions
+
+13.7.  draft-ietf-openpgp-pqc-02
+
+   *  Removed git rebase artifact
 
 14.  Contributors
 
