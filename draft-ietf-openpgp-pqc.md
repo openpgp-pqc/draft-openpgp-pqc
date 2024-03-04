@@ -1698,6 +1698,8 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 - Added `AES-256` / `AES-128` with `OCB`
   implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
 - Added a recommendation to use `AES-256` when possible.
+- Swapped the optional v3 PKESK algorithm identifier with length octet
+  in order to align with X25519 and X448.
 
 # Contributors
 
