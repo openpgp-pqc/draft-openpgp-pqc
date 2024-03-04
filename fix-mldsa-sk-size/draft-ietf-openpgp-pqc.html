@@ -19,12 +19,12 @@ public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
 combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
 as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.19.4" name="generator">
+<meta content="xml2rfc 3.20.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.4
-    Python 3.11.6
+  xml2rfc 3.20.0
+    Python 3.11.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
@@ -1035,11 +1035,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">February 2024</td>
+<td class="right">March 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 31 August 2024</td>
+<td class="center">Expires 5 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-28" class="published">28 February 2024</time>
+<time datetime="2024-03-04" class="published">4 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-31">31 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-05">5 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1410,22 +1410,25 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-hashing-in-ecc-kem" class="internal xref">Hashing in ECC-KEM</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-hashing-in-ecc-kem" class="internal xref">Hashing in ECC-KEM</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
-                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
+                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
-                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.6">
-                <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+                <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.7">
+                <p id="section-toc.1-1.10.2.7.1"><a href="#section-10.7" class="auto internal xref">10.7</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
             </ul>
 </li>
@@ -2647,7 +2650,7 @@ ciphertext, the ECC ciphertext, and the wrapped session key.<a href="#section-5.
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-fixed-information" class="section-name selfRef">Fixed information</a>
           </h4>
 <p id="section-5.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following
-procedure, justified in <a href="#sec-fixed-info" class="auto internal xref">Section 10.3</a>, MUST be used to derive a string to
+procedure, justified in <a href="#sec-fixed-info" class="auto internal xref">Section 10.4</a>, MUST be used to derive a string to
 use as binding between the KEK and the communication parties.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2.1-2">
 <pre>
@@ -3531,7 +3534,7 @@ strings as defined in <a href="#slhdsa" class="auto internal xref">Section 7.1</
           </h4>
 <p id="section-7.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as
 specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>. The variable <code>opt_rand</code> is set to <code>PK.seed</code>. See
-also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 10.4</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
+also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 10.5</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.3-2">An implementation MUST set the Parameter ID in the signature equal to the
 issuing secret key Parameter ID.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
@@ -3712,26 +3715,50 @@ computer attacks.<a href="#section-9.2-3.2.1" class="pilcrow">¶</a></p>
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<div id="hashing-in-ecc-kem">
+<div id="security-aspects-of-composite-signatures">
 <section id="section-10.1">
-        <h3 id="name-hashing-in-ecc-kem">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-hashing-in-ecc-kem" class="section-name selfRef">Hashing in ECC-KEM</a>
+        <h3 id="name-security-aspects-of-composi">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-security-aspects-of-composi" class="section-name selfRef">Security Aspects of Composite Signatures</a>
         </h3>
-<p id="section-10.1-1">Our construction of the ECC-KEMs, in particular the inclusion of
+<p id="section-10.1-1">When multiple signatures are applied to a message, the question of the protocol's
+resistance against signature stripping attacks naturally arises. In a signature
+stripping attack, an adversary removes one or more of the transmitted signatures
+such that only a subset of the signatures originally applied by the sender remain
+in the message that reaches the recipient. This amounts to a downgrade attack
+that potentially reduces the value of the signature. It should be noted that the
+composite signature schemes specified in this draft are not subject to a
+signature stripping vulnerability. This is due to the fact that in any OpenPGP
+signature, the hashed meta data includes the signature algorithm ID, as specified
+in <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>, Section 5.2.4. As a consequence, a
+component signature taken out of the context of a specific composite algorithm is
+not a valid signature for any message.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">Furthermore, it is also not possible to craft a new signature for a message that
+was signed twice with a composite algorithm by interchanging (i.e., remixing) the
+component signatures, which would classify as a weak existential forgery. This is
+due to the fact that each v6 signatures also includes a random salt at the start
+of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="hashing-in-ecc-kem">
+<section id="section-10.2">
+        <h3 id="name-hashing-in-ecc-kem">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-hashing-in-ecc-kem" class="section-name selfRef">Hashing in ECC-KEM</a>
+        </h3>
+<p id="section-10.2-1">Our construction of the ECC-KEMs, in particular the inclusion of
 <code>eccCipherText</code> in the final hashing step in encapsulation and decapsulation
 that produces the <code>eccKeyShare</code>, is standard and known as hashed ElGamal key
 encapsulation, a hashed variant of ElGamal encryption. It ensures IND-CCA2
 security in the random oracle model under some Diffie-Hellman intractability
 assumptions <span>[<a href="#CS03" class="cite xref">CS03</a>]</span>. The additional inclusion of <code>eccPublicKey</code> follows the
-security advice in Section 6.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+security advice in Section 6.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-key-combiner">
-<section id="section-10.2">
+<section id="section-10.3">
         <h3 id="name-key-combiner-2">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
+<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-10.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> this specification limits
+<p id="section-10.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> this specification limits
 itself to the use of KMAC. The sponge construction used by KMAC was proven to
 be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>. This means, that in
 contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based
@@ -3739,23 +3766,23 @@ construction is required for key combination. Except for a domain separation it
 is sufficient to simply process the concatenation of any number of key shares
 when using a sponge-based construction like KMAC. The construction using KMAC
 ensures a standardized domain separation. In this case, the processed message
-is then the concatenation of any number of key shares.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
-<p id="section-10.2-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows
+is then the concatenation of any number of key shares.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+<p id="section-10.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows
 that assuming there are no weaknesses found in the Keccak permutation, an
 attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation
 to tell KMAC from a random oracle. For a random oracle, a difference in only a
 single bit gives an unrelated, uniformly random output. Hence, to be able to
 distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (and ciphertexts
-<code>C1</code> and <code>C2</code>) as<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.2-3">
+<code>C1</code> and <code>C2</code>) as<a href="#section-10.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.3-3">
 <pre>
 K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
          outputBits, customization)
-</pre><a href="#section-10.2-3" class="pilcrow">¶</a>
+</pre><a href="#section-10.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-10.2-4">from a random bit string, an adversary has to know (or correctly guess) both
-key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-10.2-4" class="pilcrow">¶</a></p>
-<p id="section-10.2-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> preserves IND-CCA2 of any of
+<p id="section-10.3-4">from a random bit string, an adversary has to know (or correctly guess) both
+key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-10.3-4" class="pilcrow">¶</a></p>
+<p id="section-10.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> preserves IND-CCA2 of any of
 its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as
 long as at least one of the ingredient KEMs is. Indeed, the above stated
 indifferentiability from a random oracle qualifies Keccak as a split-key
@@ -3764,111 +3791,111 @@ random function if at least one input shared secret is picked uniformly at
 random. Our construction can thus be seen as an instantiation of the IND-CCA2
 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input
 shared secrets and ciphertexts. In the random oracle setting, the reordering
-does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-10.2-5" class="pilcrow">¶</a></p>
+does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-10.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-fixed-info">
-<section id="section-10.3">
+<section id="section-10.4">
         <h3 id="name-domain-separation-and-bindi">
-<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
+<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
         </h3>
-<p id="section-10.3-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> provides the
+<p id="section-10.4-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 5.2.2</a> provides the
 domain separation for the key combiner construction. This ensures that the
 input keying material is used to generate a KEK for a specific purpose or
-context.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
-<p id="section-10.3-2">The <code>fixedInfo</code> defined in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a> binds the derived KEK to the
+context.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+<p id="section-10.4-2">The <code>fixedInfo</code> defined in <a href="#kem-fixed-info" class="auto internal xref">Section 5.2.1</a> binds the derived KEK to the
 chosen algorithm and communication parties. The algorithm ID identifies
 unequivocally the algorithm, the parameters for its instantiation, and the length
-of all artifacts, including the derived key.<a href="#section-10.3-2" class="pilcrow">¶</a></p>
-<p id="section-10.3-3">This is in line with the Recommendation for ECC in section 5.5 of
+of all artifacts, including the derived key.<a href="#section-10.4-2" class="pilcrow">¶</a></p>
+<p id="section-10.4-3">This is in line with the Recommendation for ECC in section 5.5 of
 <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>. Other fields included in the recommendation are not relevant
 for the OpenPGP protocol, since the sender is not required to have a key of
 their own, there are no pre-shared secrets, and all the other parameters are
-unequivocally defined by the algorithm ID.<a href="#section-10.3-3" class="pilcrow">¶</a></p>
-<p id="section-10.3-4">Furthermore, we do not require the recipients public key into the key combiner
+unequivocally defined by the algorithm ID.<a href="#section-10.4-3" class="pilcrow">¶</a></p>
+<p id="section-10.4-4">Furthermore, we do not require the recipients public key into the key combiner
 as the public key material is already included in the component key derivation
 functions.
 Given two KEMs which we assume to be multi-user secure, we combine their outputs
-using a KEM-combiner:<a href="#section-10.3-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-5">
+using a KEM-combiner:<a href="#section-10.4-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-5">
 <pre>
 K = H(K1, C1, K2, C2), C = (C1, C2)
-</pre><a href="#section-10.3-5" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-5" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-6">Our aim is to preserve multi-user security. A common approach to this is to add
+<p id="section-10.4-6">Our aim is to preserve multi-user security. A common approach to this is to add
 the public key into the key derivation for K. However, it turns out that this is
 not necessary here. To break security of the combined scheme in the multi-user
-setting, the adversary has to distinguish a set of challenge keys<a href="#section-10.3-6" class="pilcrow">¶</a></p>
-<p id="section-10.3-7">K<em>_u = H(K1</em>_u, C1<em>_u, K2</em>_u, C2*_u)<a href="#section-10.3-7" class="pilcrow">¶</a></p>
-<p id="section-10.3-8">for users u in some set from random, also given ciphertexts <code>C*_u = (C1*_u,
+setting, the adversary has to distinguish a set of challenge keys<a href="#section-10.4-6" class="pilcrow">¶</a></p>
+<p id="section-10.4-7">K<em>_u = H(K1</em>_u, C1<em>_u, K2</em>_u, C2*_u)<a href="#section-10.4-7" class="pilcrow">¶</a></p>
+<p id="section-10.4-8">for users u in some set from random, also given ciphertexts <code>C*_u = (C1*_u,
 C2*_u)</code>. For each of these K* it holds that if the adversary never makes a
-query<a href="#section-10.3-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-9">
+query<a href="#section-10.4-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-9">
 <pre>
 H(K1*_u, C1*_u, K2*_u, C2*_u)
-</pre><a href="#section-10.3-9" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-9" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-10">they have a zero advantage over guessing.<a href="#section-10.3-10" class="pilcrow">¶</a></p>
-<p id="section-10.3-11">The only multi-user advantage that the adversary could gain therefore consists
+<p id="section-10.4-10">they have a zero advantage over guessing.<a href="#section-10.4-10" class="pilcrow">¶</a></p>
+<p id="section-10.4-11">The only multi-user advantage that the adversary could gain therefore consists
 of queries to H that are meaningful for two different users u1 != u2 and their
-associated public keys. This is only the case if<a href="#section-10.3-11" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-10.3-12">
+associated public keys. This is only the case if<a href="#section-10.4-11" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-10.4-12">
 <pre>
 (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
-</pre><a href="#section-10.3-12" class="pilcrow">¶</a>
+</pre><a href="#section-10.4-12" class="pilcrow">¶</a>
 </div>
-<p id="section-10.3-13">as the ciphertext values decide for which challenge the query is meaningful.
+<p id="section-10.4-13">as the ciphertext values decide for which challenge the query is meaningful.
 This means that a ciphertext collision is needed between challenges. Assuming
 that the randomness used in the generation of the two challenges is
-uncorrelated, this is negligible.<a href="#section-10.3-13" class="pilcrow">¶</a></p>
-<p id="section-10.3-14">In consequence, the ciphertexts already work sufficiently well as
-domain-separator.<a href="#section-10.3-14" class="pilcrow">¶</a></p>
+uncorrelated, this is negligible.<a href="#section-10.4-13" class="pilcrow">¶</a></p>
+<p id="section-10.4-14">In consequence, the ciphertexts already work sufficiently well as
+domain-separator.<a href="#section-10.4-14" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="slhdsa-sec-cons">
-<section id="section-10.4">
+<section id="section-10.5">
         <h3 id="name-slh-dsa-message-randomizer">
-<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
+<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
         </h3>
-<p id="section-10.4-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
+<p id="section-10.5-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
 non-deterministic message randomizer. This is not used in this specification,
 as OpenPGP v6 signatures already provide a salted signature data digest of the
-appropriate size.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+appropriate size.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-10.5">
+<section id="section-10.6">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-10.6" class="section-number selfRef">10.6. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-10.5-1">In order not to extend the attack surface, we bind the hash algorithm used for
+<p id="section-10.6-1">In order not to extend the attack surface, we bind the hash algorithm used for
 signature data digestion to the hash algorithm used internally by the signature
-algorithm.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
-<p id="section-10.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
+algorithm.<a href="#section-10.6-1" class="pilcrow">¶</a></p>
+<p id="section-10.6-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the
 ML-DSA + ECC signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 6.2.1</a>. Note that we bind
 a NIST security category 2 hash function to a signature algorithm that falls
 into NIST security category 3. This does not constitute a security bottleneck:
 because of the unpredictable random salt that is prepended to the digested data
 in v6 signatures, the hardness assumption is not collision resistance but
-second-preimage resistance.<a href="#section-10.5-2" class="pilcrow">¶</a></p>
-<p id="section-10.5-3">In the case of SLH-DSA the internal hash algorithm varies based on the
-algorithm and parameter ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.5-3" class="pilcrow">¶</a></p>
+second-preimage resistance.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
+<p id="section-10.6-3">In the case of SLH-DSA the internal hash algorithm varies based on the
+algorithm and parameter ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-10.6">
+<section id="section-10.7">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-10.6" class="section-number selfRef">10.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-10.7" class="section-number selfRef">10.7. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-10.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-10.7-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-10.6-1" class="pilcrow">¶</a></p>
-<p id="section-10.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code>
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-10.7-1" class="pilcrow">¶</a></p>
+<p id="section-10.7-2">For the same reasons, this specification further recommends the use of <code>AES-256</code>
 if it is supported by all recipients, regardless of what the implementation
 would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule
 for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-10.7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -4051,7 +4078,11 @@ implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".<a href="#section
             <p id="section-13.6-1.3.1">Added a recommendation to use <code>AES-256</code> when possible.<a href="#section-13.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-13.6-1.4">
-            <p id="section-13.6-1.4.1">Fixed ML-DSA private key size<a href="#section-13.6-1.4.1" class="pilcrow">¶</a></p>
+            <p id="section-13.6-1.4.1">Swapped the optional v3 PKESK algorithm identifier with length octet
+in order to align with X25519 and X448.<a href="#section-13.6-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.6-1.5">
+            <p id="section-13.6-1.5.1">Fixed ML-DSA private key size<a href="#section-13.6-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
