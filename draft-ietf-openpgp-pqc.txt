@@ -1772,24 +1772,122 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
 12.  IANA Considerations
 
-   IANA will add the following registries to the Pretty Good Privacy
-   (PGP) registry group at https://www.iana.org/assignments/pgp-
-   parameters:
+   IANA is requested to add the following registries to the OpenPGP
+   registry group at https://www.iana.org/assignments/openpgp:
 
-   *  Registry name: SLH-DSA-SHA2 parameters
-
-      Registration procedure: SPECIFICATION REQUIRED [RFC8126]
-
-      Values defined in this document, Table 3.
-
-   *  Registry name: SLH-DSA-SHAKE parameters
+   *  Registry name: OpenPGP SLH-DSA-SHA2 parameters
 
       Registration procedure: SPECIFICATION REQUIRED [RFC8126]
 
-      Values defined in this document, Table 4.
+      The registry contains the values defined in Table 3 in this
+      document.
 
-   Furthermore IANA will add the algorithm IDs defined in Table 1 and
-   Table 2 to the registry Public Key Algorithms.
+   *  Registry name: OpenPGP SLH-DSA-SHAKE parameters
+
+      Registration procedure: SPECIFICATION REQUIRED [RFC8126]
+
+      The registry contains the values defined in Table 4 in this
+      document.
+
+   Furthermore, IANA is requested to add the algorithm IDs defined in
+   Table 16 to the existing registry OpenPGP Public Key Algorithms.  The
+   field specifications enclosed in brackets for the ML-KEM + ECDH
+   composite algorithms denote fields that are only conditionally
+   contained in the data structure.
+
+   +===+=========+=========+=========+=========+============+=========+
+   |ID |Algorithm|   Public|   Secret|Signature|PKESK Format|Reference|
+   |   |         |      Key|      Key|   Format|            |         |
+   |   |         |   Format|   Format|         |            |         |
+   +===+=========+=========+=========+=========+============+=========+
+   |TBD|ML-      |32 octets|32 octets|      N/A|   32 octets|  Section|
+   |   |KEM-768 +|   X25519|   X25519|         |      X25519|      5.2|
+   |   |X25519   |   public|   secret|         | ciphertext,|         |
+   |   |         |      key|      key|         | 1088 octets|         |
+   |   |         |   (Table|   (Table|         |  ML-KEM-768|         |
+   |   |         | 5), 1184| 5), 2400|         |  ciphertext|         |
+   |   |         |   octets|   octets|         |  [, 1 octet|         |
+   |   |         |      ML-|      ML-|         |algorithm ID|         |
+   |   |         |  KEM-768|  KEM-768|         |  in case of|         |
+   |   |         |   public|  secret-|         |v3 PKESK], 1|         |
+   |   |         |      key|      key|         |octet length|         |
+   |   |         |(Table 8)|(Table 8)|         |    field of|         |
+   |   |         |         |         |         |  value n, n|         |
+   |   |         |         |         |         |      octets|         |
+   |   |         |         |         |         |     wrapped|         |
+   |   |         |         |         |         | session key|         |
+   |   |         |         |         |         |    (Section|         |
+   |   |         |         |         |         |      5.3.1)|         |
+   +---+---------+---------+---------+---------+------------+---------+
+   |TBD|ML-      |56 octets|56 octets|      N/A|   56 octets|  Section|
+   |   |KEM-1024 |     X448|     X448|         |        X448|      5.2|
+   |   |+ X448   |   public|   secret|         | ciphertext,|         |
+   |   |         |      key|      key|         | 1568 octets|         |
+   |   |         |   (Table|   (Table|         | ML-KEM-1024|         |
+   |   |         | 5), 1568| 5), 3168|         |  ciphertext|         |
+   |   |         |   octets|   octets|         |  [, 1 octet|         |
+   |   |         |      ML-|      ML-|         |algorithm ID|         |
+   |   |         | KEM-1024| KEM-1024|         |  in case of|         |
+   |   |         |   public|  secret-|         |v3 PKESK], 1|         |
+   |   |         |      key|      key|         |octet length|         |
+   |   |         |(Table 8)|(Table 8)|         |    field of|         |
+   |   |         |         |         |         |  value n, n|         |
+   |   |         |         |         |         |      octets|         |
+   |   |         |         |         |         |     wrapped|         |
+   |   |         |         |         |         | session key|         |
+   |   |         |         |         |         |    (Section|         |
+   |   |         |         |         |         |      5.3.1)|         |
+   +---+---------+---------+---------+---------+------------+---------+
+   |TBD|ML-DSA-65|32 octets|32 octets|64 octets|         N/A|  Section|
+   |   |+ Ed25519|  Ed25519|  Ed25519|  Ed25519|            |      6.2|
+   |   |         |   public|   secret|signature|            |         |
+   |   |         |      key|      key|   (Table|            |         |
+   |   |         |   (Table|   (Table|10), 3293|            |         |
+   |   |         |10), 1952|10), 4032|   octets|            |         |
+   |   |         |   octets|   octets|ML-DSA-65|            |         |
+   |   |         |ML-DSA-65|ML-DSA-65|signature|            |         |
+   |   |         |   public|   secret|   (Table|            |         |
+   |   |         |      key|   (Table|      12)|            |         |
+   |   |         |   (Table|      12)|         |            |         |
+   |   |         |      12)|         |         |            |         |
+   +---+---------+---------+---------+---------+------------+---------+
+   |TBD|ML-DSA-87|57 octets|57 octets|      114|         N/A|  Section|
+   |   |+ Ed448  |    Ed448|    Ed448|   octets|            |      6.2|
+   |   |         |   public|   secret|    Ed448|            |         |
+   |   |         |      key|      key|signature|            |         |
+   |   |         |   (Table|   (Table|   (Table|            |         |
+   |   |         |10), 2592|10), 4896|10), 4595|            |         |
+   |   |         |   octets|   octets|   octets|            |         |
+   |   |         |ML-DSA-87|ML-DSA-87|ML-DSA-87|            |         |
+   |   |         |   public|   secret|signature|            |         |
+   |   |         |      key|   (Table|   (Table|            |         |
+   |   |         |   (Table|      12)|      12)|            |         |
+   |   |         |      12)|         |         |            |         |
+   +---+---------+---------+---------+---------+------------+---------+
+   |TBD|SLH-DSA- |  1 octet|      per|  1 octet|         N/A|  Section|
+   |   |SHA2     |parameter|parameter|parameter|            |      7.1|
+   |   |         |  ID, per|   fixed-|  ID, per|            |         |
+   |   |         |parameter|   length|parameter|            |         |
+   |   |         |   fixed-|    octet|   fixed-|            |         |
+   |   |         |   length|   string|   length|            |         |
+   |   |         |    octet|   (Table|    octet|            |         |
+   |   |         |   string|      14)|   string|            |         |
+   |   |         |   (Table|         |   (Table|            |         |
+   |   |         |      14)|         |      14)|            |         |
+   +---+---------+---------+---------+---------+------------+---------+
+   |TBD|SLH-DSA- |  1 octet|      per|  1 octet|         N/A|  Section|
+   |   |SHAKE    |parameter|parameter|parameter|            |      7.1|
+   |   |         |  ID, per|   fixed-|  ID, per|            |         |
+   |   |         |parameter|   length|parameter|            |         |
+   |   |         |   fixed-|    octet|   fixed-|            |         |
+   |   |         |   length|   string|   length|            |         |
+   |   |         |    octet|   (Table|    octet|            |         |
+   |   |         |   string|      14)|   string|            |         |
+   |   |         |   (Table|         |   (Table|            |         |
+   |   |         |      14)|         |      14)|            |         |
+   +---+---------+---------+---------+---------+------------+---------+
+
+   Table 16: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 13.  Changelog
 
@@ -1841,19 +1939,13 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
 13.6.  draft-ietf-openpgp-pqc-01
 
-   *  Mandated AES-256 as mandatory to implement.
-
-   *  Added AES-256 / AES-128 with OCB implicitly to v1/v2 SEIPD
-      preferences of "PQ(/T) certificates".
-
-   *  Added a recommendation to use AES-256 when possible.
-
-   *  Swapped the optional v3 PKESK algorithm identifier with length
-      octet in order to align with X25519 and X448.
-
-   *  Fixed ML-DSA private key size
-
-   *  Added test vectors
+   <<<<<<< HEAD - Mandated AES-256 as mandatory to implement. - Added
+   AES-256 / AES-128 with OCB implicitly to v1/v2 SEIPD preferences of
+   "PQ(/T) certificates". - Added a recommendation to use AES-256 when
+   possible. - Swapped the optional v3 PKESK algorithm identifier with
+   length octet in order to align with X25519 and X448. - Fixed ML-DSA
+   private key size - Added test vectors - correction and completion of
+   IANA instructions
 
 14.  Contributors
 

@@ -3950,26 +3950,112 @@ longer signature generation time.<a href="#section-11.1-4" class="pilcrow">¶</a
       <h2 id="name-iana-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">IANA will add the following registries to the <code>Pretty Good Privacy (PGP)</code>
-registry group at https://www.iana.org/assignments/pgp-parameters:<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">IANA is requested to add the following registries to the <code>OpenPGP</code>
+registry group at https://www.iana.org/assignments/openpgp:<a href="#section-12-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-12-2.1">
-          <p id="section-12-2.1.1">Registry name: <code>SLH-DSA-SHA2 parameters</code><a href="#section-12-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-12-2.1.1">Registry name: <code>OpenPGP SLH-DSA-SHA2 parameters</code><a href="#section-12-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-12-2.1.2">
 Registration procedure: SPECIFICATION REQUIRED <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span><a href="#section-12-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-12-2.1.3">
-Values defined in this document, <a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a>.<a href="#section-12-2.1.3" class="pilcrow">¶</a></p>
+The registry contains the values defined in <a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a> in this document.<a href="#section-12-2.1.3" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-12-2.2">
-          <p id="section-12-2.2.1">Registry name: <code>SLH-DSA-SHAKE parameters</code><a href="#section-12-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-12-2.2.1">Registry name: <code>OpenPGP SLH-DSA-SHAKE parameters</code><a href="#section-12-2.2.1" class="pilcrow">¶</a></p>
 <p id="section-12-2.2.2">
 Registration procedure: SPECIFICATION REQUIRED <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span><a href="#section-12-2.2.2" class="pilcrow">¶</a></p>
 <p id="section-12-2.2.3">
-Values defined in this document, <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a>.<a href="#section-12-2.2.3" class="pilcrow">¶</a></p>
+The registry contains the values defined in <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a> in this document.<a href="#section-12-2.2.3" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-12-3">Furthermore IANA will add the algorithm IDs defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> and
-<a href="#sig-alg-specs" class="auto internal xref">Table 2</a> to the  registry <code>Public Key Algorithms</code>.<a href="#section-12-3" class="pilcrow">¶</a></p>
+<p id="section-12-3">Furthermore, IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 16</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-12-3" class="pilcrow">¶</a></p>
+<span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
+<table class="center" id="table-16">
+        <caption>
+<a href="#table-16" class="selfRef">Table 16</a>:
+<a href="#name-iana-updates-for-registry-o" class="selfRef">IANA updates for registry 'OpenPGP Public Key Algorithms'</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">ID</th>
+            <th class="text-left" rowspan="1" colspan="1">Algorithm</th>
+            <th class="text-right" rowspan="1" colspan="1">Public Key Format</th>
+            <th class="text-right" rowspan="1" colspan="1">Secret Key Format</th>
+            <th class="text-right" rowspan="1" colspan="1">Signature Format</th>
+            <th class="text-right" rowspan="1" colspan="1">PKESK Format</th>
+            <th class="text-right" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768 + X25519</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 2400 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mlkem" class="auto internal xref">Section 5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024 + X448</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 3168 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mlkem" class="auto internal xref">Section 5.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-DSA-65 + Ed25519</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4032  octets ML-DSA-65 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets Ed25519 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 3293 octets ML-DSA-65 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mldsa" class="auto internal xref">Section 6.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-DSA-87 + Ed448</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4896 octets ML-DSA-87 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">114 octets Ed448 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4595 octets ML-DSA-87 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mldsa" class="auto internal xref">Section 6.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2</td>
+            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE</td>
+            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
 </section>
 </div>
 <div id="changelog">
@@ -4077,28 +4163,16 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         <h3 id="name-draft-ietf-openpgp-pqc-01">
 <a href="#section-13.6" class="section-number selfRef">13.6. </a><a href="#name-draft-ietf-openpgp-pqc-01" class="section-name selfRef">draft-ietf-openpgp-pqc-01</a>
         </h3>
-<ul class="normal">
-<li class="normal" id="section-13.6-1.1">
-            <p id="section-13.6-1.1.1">Mandated <code>AES-256</code> as mandatory to implement.<a href="#section-13.6-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-13.6-1.2">
-            <p id="section-13.6-1.2.1">Added <code>AES-256</code> / <code>AES-128</code> with <code>OCB</code>
-implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".<a href="#section-13.6-1.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-13.6-1.3">
-            <p id="section-13.6-1.3.1">Added a recommendation to use <code>AES-256</code> when possible.<a href="#section-13.6-1.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-13.6-1.4">
-            <p id="section-13.6-1.4.1">Swapped the optional v3 PKESK algorithm identifier with length octet
-in order to align with X25519 and X448.<a href="#section-13.6-1.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-13.6-1.5">
-            <p id="section-13.6-1.5.1">Fixed ML-DSA private key size<a href="#section-13.6-1.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-13.6-1.6">
-            <p id="section-13.6-1.6.1">Added test vectors<a href="#section-13.6-1.6.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-13.6-1">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+- Mandated <code>AES-256</code> as mandatory to implement.
+- Added <code>AES-256</code> / <code>AES-128</code> with <code>OCB</code>
+  implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
+- Added a recommendation to use <code>AES-256</code> when possible.
+- Swapped the optional v3 PKESK algorithm identifier with length octet
+  in order to align with X25519 and X448.
+- Fixed ML-DSA private key size
+- Added test vectors
+- correction and completion of IANA instructions<a href="#section-13.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
