@@ -144,12 +144,13 @@ Table of Contents
      9.1.  Key preference
      9.2.  Key generation strategies
    10. Security Considerations
-     10.1.  Hashing in ECC-KEM
-     10.2.  Key combiner
-     10.3.  Domain separation and binding
-     10.4.  SLH-DSA Message Randomizer
-     10.5.  Binding hashes in signatures with signature algorithms
-     10.6.  Symmetric Algorithms for SEIPD Packets
+     10.1.  Security Aspects of Composite Signatures
+     10.2.  Hashing in ECC-KEM
+     10.3.  Key combiner
+     10.4.  Domain separation and binding
+     10.5.  SLH-DSA Message Randomizer
+     10.6.  Binding hashes in signatures with signature algorithms
+     10.7.  Symmetric Algorithms for SEIPD Packets
    11. Additional considerations
      11.1.  Performance Considerations for SLH-DSA
    12. IANA Considerations
@@ -886,7 +887,7 @@ Table of Contents
 5.2.1.  Fixed information
 
    For the composite KEM schemes defined in Table 1 the following
-   procedure, justified in Section 10.3, MUST be used to derive a string
+   procedure, justified in Section 10.4, MUST be used to derive a string
    to use as binding between the KEK and the communication parties.
 
    //   Input:
@@ -1428,7 +1429,7 @@ Table of Contents
 
    SLH-DSA signature generation is performed via the algorithm SLH-
    DSA.Sign as specified in [FIPS-205].  The variable opt_rand is set to
-   PK.seed.  See also Section 10.4.
+   PK.seed.  See also Section 10.5.
 
    An implementation MUST set the Parameter ID in the signature equal to
    the issuing secret key Parameter ID.
@@ -1566,7 +1567,31 @@ Table of Contents
 
 10.  Security Considerations
 
-10.1.  Hashing in ECC-KEM
+10.1.  Security Aspects of Composite Signatures
+
+   When multiple signatures are applied to a message, the question of
+   the protocol's resistance against signature stripping attacks
+   naturally arises.  In a signature stripping attack, an adversary
+   removes one or more of the transmitted signatures such that only a
+   subset of the signatures originally applied by the sender remain in
+   the message that reaches the recipient.  This amounts to a downgrade
+   attack that potentially reduces the value of the signature.  It
+   should be noted that the composite signature schemes specified in
+   this draft are not subject to a signature stripping vulnerability.
+   This is due to the fact that in any OpenPGP signature, the hashed
+   meta data includes the signature algorithm ID, as specified in
+   [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As a consequence,
+   a component signature taken out of the context of a specific
+   composite algorithm is not a valid signature for any message.
+
+   Furthermore, it is also not possible to craft a new signature for a
+   message that was signed twice with a composite algorithm by
+   interchanging (i.e., remixing) the component signatures, which would
+   classify as a weak existential forgery.  This is due to the fact that
+   each v6 signatures also includes a random salt at the start of the
+   hashed meta data, as also specified in the aforementioned reference.
+
+10.2.  Hashing in ECC-KEM
 
    Our construction of the ECC-KEMs, in particular the inclusion of
    eccCipherText in the final hashing step in encapsulation and
@@ -1577,7 +1602,7 @@ Table of Contents
    additional inclusion of eccPublicKey follows the security advice in
    Section 6.1 of [RFC7748].
 
-10.2.  Key combiner
+10.3.  Key combiner
 
    For the key combination in Section 5.2.2 this specification limits
    itself to the use of KMAC.  The sponge construction used by KMAC was
@@ -1617,7 +1642,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    input shared secrets and ciphertexts.  In the random oracle setting,
    the reordering does not influence the arguments in [GHP18].
 
-10.3.  Domain separation and binding
+10.4.  Domain separation and binding
 
    The domSeparation information defined in Section 5.2.2 provides the
    domain separation for the key combiner construction.  This ensures
@@ -1674,14 +1699,14 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    In consequence, the ciphertexts already work sufficiently well as
    domain-separator.
 
-10.4.  SLH-DSA Message Randomizer
+10.5.  SLH-DSA Message Randomizer
 
    The specification of SLH-DSA [FIPS-205] prescribes an optional non-
    deterministic message randomizer.  This is not used in this
    specification, as OpenPGP v6 signatures already provide a salted
    signature data digest of the appropriate size.
 
-10.5.  Binding hashes in signatures with signature algorithms
+10.6.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1699,7 +1724,7 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
    In the case of SLH-DSA the internal hash algorithm varies based on
    the algorithm and parameter ID, see Section 7.1.1.
 
-10.6.  Symmetric Algorithms for SEIPD Packets
+10.7.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
