@@ -1196,9 +1196,9 @@ Table of Contents
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |                    TBD | ML-DSA-65 | 1952   | 4000   | 3293      |
+   |                    TBD | ML-DSA-65 | 1952   | 4032   | 3293      |
    +------------------------+-----------+--------+--------+-----------+
-   |                    TBD | ML-DSA-87 | 2592   | 4864   | 4595      |
+   |                    TBD | ML-DSA-87 | 2592   | 4896   | 4595      |
    +------------------------+-----------+--------+--------+-----------+
 
         Table 12: ML-DSA parameters and artifact lengths in octets
@@ -1847,6 +1847,8 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 
    *  Swapped the optional v3 PKESK algorithm identifier with length
       octet in order to align with X25519 and X448.
+
+   *  Fixed ML-DSA private key size
 
 14.  Contributors
 
