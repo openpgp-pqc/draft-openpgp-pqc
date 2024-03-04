@@ -1722,6 +1722,7 @@ Furthermore IANA will add the algorithm IDs defined in {{kem-alg-specs}} and
 - Swapped the optional v3 PKESK algorithm identifier with length octet
   in order to align with X25519 and X448.
 - Fixed ML-DSA private key size
+- Added test vectors
 
 # Contributors
 
@@ -1730,6 +1731,137 @@ Carl-Daniel Hailfinger (BSI)<br>
 Andreas Huelsing (TU Eindhoven)
 
 --- back
+
+# Test Vectors
+
+To help implementing this specification a set of non-normative examples follow here.
+The test vectors are implemented using the Initial Public Draft (IPD) variant of the ML-DSA and ML-KEM schemes.
+
+## Sample v6 PQC Subkey Artifacts
+
+Here is a Private Key consisting of:
+
+- A v6 Ed25519 Private-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+- A v6 subkey binding signature
+
+The primary key has the fingerprint `52343242345254050219ceff286e9c8e479ec88757f95354388984a02d7d0b59`.
+
+The subkey has the fingerprint `263e34b69938e753dc67ca8ee37652795135e0e16e48887103c11d7307df40ed`.
+
+{: sourcecode-name="v6-eddsa-sample-sk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-eddsa-sample-sk.asc}
+~~~
+
+Here is the corresponding Public Key consisting of:
+
+- A v6 Ed25519 Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-eddsa-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-eddsa-sample-pk.asc}
+~~~
+
+Here is an unsigned message "Testing\n" encrypted to this key:
+
+- A v6 PKESK
+- A v2 SEIPD
+
+The hex-encoded KMAC `eccKeyShare` input is `4ec7dc0874ce4a3c257fec94f27f2d3c589764a5fbaf27a4b52836df53c86868`.
+
+The hex-encoded KMAC `mlkemKeyShare` input is `9a84cb01b6be6eecd16737fb558b5ca35899403076c7e9f0ee350195e7fbf6c4`.
+
+The hex-encoded KMAC256 output is `15a0f1eed1fb2a50a22f21e82dbce13ae91c45e3b76a9d2c61246c354a05f781`.
+
+The hex-encoded session key is `08f49fd5340b026e7ec751d82cea83a4b92d4837e785bfb66af71387f84156d0`.
+
+{: sourcecode-name="v6-eddsa-sample-message.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-eddsa-sample-message.asc}
+~~~
+
+## V4 PQC Subkey Artifacts
+
+Here is a Private Key consisting of:
+
+- A v4 Ed25519 Private-Key packet
+- A User ID packet
+- A v4 positive certification self-signature
+- A v4 ECDH (Curve25519) Private-Subkey packet
+- A v4 subkey binding signature
+- A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+- A v4 subkey binding signature
+
+The primary key has the fingerprint `b2e9b532d55bd6287ec79e17c62adc0ddd1edd73`.
+
+The ECDH subkey has the fingerprint `95bed3c63f295e7b980b6a2b93b3233faf28c9d2`.
+
+The ML-KEM-ipd-768 + X25519 subkey has the fingerprint `bd67d98388813e88bf3490f3e440cfbaffd6f357`.
+
+{: sourcecode-name="v4-eddsa-sample-sk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v4-eddsa-sample-sk.asc}
+~~~
+
+Here is the corresponding Public Key consisting of:
+
+- A v4 Ed25519 Public-Key packet
+- A User ID packet
+- A v4 positive certification self-signature
+- A v4 ECDH (Curve25519) Public-Subkey packet
+- A v4 subkey binding signature
+- A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+- A v4 subkey binding signature
+
+{: sourcecode-name="v4-eddsa-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v4-eddsa-sample-pk.asc}
+~~~
+
+Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
+
+- A v3 PKESK
+- A v1 SEIPD
+
+The hex-encoded KMAC `eccKeyShare` input is `ba6634c5bab5756868dac8282054b0b30916d764e1f15841222392e5545a67c7`.
+
+The hex-encoded KMAC `mlkemKeyShare` input is `a6b263da0e367b39c2d44bf4c3f66015f410ee4fa674ddbba8d50cde2fc4094a`.
+
+The hex-encoded KMAC256 output is `504bc329627af248947117936bee9e87230d327d5c5f5b4db593c4b58b2d0339`.
+
+The hex-encoded session key is `b639d5feaae6c8eabcf04182322d576298193cfa9555d869cf911ffbbc5e52e7`.
+
+{: sourcecode-name="v4-eddsa-sample-message-v1.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v4-eddsa-sample-message-v1.asc}
+~~~
+
+Here is an SEIPDv2 unsigned message `testing` encrypted to this key:
+
+- A v6 PKESK
+- A v2 SEIPD
+
+The hex-encoded KMAC `eccKeyShare` input is `50a74bfb94dc7677bc02f278eb4e7d5d2f1b04e34a2b5c7b8da0579f3e1e0825`.
+
+The hex-encoded KMAC `mlkemKeyShare` input is `161911216c93a5b7936f9a8876c446b0767c904c94786bfc79bcc505b45f5075`.
+
+The hex-encoded KMAC256 output is `ee4dacbc4efac509ad5f79640d5963af038baf512d55974c46ac71db6c1ed579`.
+
+The hex-encoded session key is `27e3c564fa7b8adb7ee1cfede3ee2cda79dd8f1a6d029ebeb7f3880c752185f6`.
+
+{: sourcecode-name="v4-eddsa-sample-message-v2.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v4-eddsa-sample-message-v2.asc}
+~~~
 
 # Acknowledgments
 {:numbered="false"}
