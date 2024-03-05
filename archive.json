@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-03T01:04:32.387533+00:00",
+  "timestamp": "2024-03-05T01:01:00.634993+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -298,15 +298,15 @@
       "id": "I_kwDOIrmZ-85ai-Ez",
       "title": "Test data",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/10",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add some verified test data to the RFC for:\r\n- ECC + Kyber keys\r\n- Dilithium + Kyber keys\r\n- SPHINCS + Kyber keys\r\n\r\n+ relative messages and signatures",
       "createdAt": "2023-01-04T14:55:07Z",
-      "updatedAt": "2023-06-05T13:34:28Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-04T20:59:57Z",
+      "closedAt": "2024-03-04T20:59:57Z",
       "comments": [
         {
           "author": "wussler",
@@ -349,6 +349,13 @@
           "body": "Thanks for the hint! I was not aware of this.",
           "createdAt": "2023-04-26T11:08:23Z",
           "updatedAt": "2023-04-26T11:08:23Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Test data has been added to the draft, and will be updated there as we change the draft",
+          "createdAt": "2024-03-04T20:59:57Z",
+          "updatedAt": "2024-03-04T20:59:57Z"
         }
       ]
     },
@@ -1862,24 +1869,32 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-01-31T22:25:00Z",
-      "updatedAt": "2024-01-31T22:25:00Z",
+      "updatedAt": "2024-03-04T21:00:59Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this should be fixed in all places",
+          "createdAt": "2024-03-04T21:00:57Z",
+          "updatedAt": "2024-03-04T21:00:57Z"
+        }
+      ]
     },
     {
       "number": 82,
       "id": "I_kwDOIrmZ-85-kukC",
       "title": "IANA protocol tables references need updating",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "draft-ietf-openpgp-crypto-refresh provided a significant update to the IANA registries relevant to OpenPGP.\r\n\r\nPlease go through the draft and ensure that any IANA requests are aligned with the tables [as currently described](https://www.iana.org/assignments/openpgp/openpgp.xhtml).\r\n\r\n",
       "createdAt": "2024-02-07T17:45:42Z",
-      "updatedAt": "2024-02-08T16:07:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-04T20:58:27Z",
+      "closedAt": "2024-03-04T20:58:27Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -8169,24 +8184,26 @@
       "id": "PR_kwDOIrmZ-85mYpFx",
       "title": "correction of IANA registry names",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/85",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "fixes https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/82",
       "createdAt": "2024-02-08T14:40:14Z",
-      "updatedAt": "2024-03-01T09:53:37Z",
+      "updatedAt": "2024-03-04T20:58:26Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "9fc798566d242ffabd8be2683b7d78a8ad572f20",
+      "baseRefOid": "cd6cea1557013f5e8da4f4f60d5c123c4a8aa4ee",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-iana-table-names",
-      "headRefOid": "07f5d1770aac54120d92c3b13e41b1c6df4d8bcf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "2298e197c7540a3e1cf5e117012a2a4d0e9d5566",
+      "closedAt": "2024-03-04T20:58:26Z",
+      "mergedAt": "2024-03-04T20:58:26Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "57c59e5fbebefd7c2c6c248a42d6f87c5841f64a"
+      },
       "comments": [
         {
           "author": "wussler",
@@ -8222,6 +8239,13 @@
           "body": "@dkg can we merge this one?",
           "createdAt": "2024-03-01T09:52:43Z",
           "updatedAt": "2024-03-01T09:52:43Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Merging since it's the cut-off for draft submission. If any further change is required, it will be addressed in revision 02",
+          "createdAt": "2024-03-04T20:58:15Z",
+          "updatedAt": "2024-03-04T20:58:15Z"
         }
       ],
       "reviews": [
@@ -9094,24 +9118,26 @@
       "id": "PR_kwDOIrmZ-85nQj6E",
       "title": "Added an analysis of the composite signatures in the security considerations.",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/92",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-02-19T08:40:07Z",
-      "updatedAt": "2024-03-01T10:27:32Z",
+      "updatedAt": "2024-03-04T07:38:02Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f69fdffb35ed26b43c2355461c3ef1709a06c307",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "comp-sig-sec-cons",
       "headRefOid": "11b8920770869914bc841eae09cb205ee03f53b1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-04T07:38:02Z",
+      "mergedAt": "2024-03-04T07:38:02Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "2a2b032ed6e05b53238211064095c30737430d29"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -9505,24 +9531,26 @@
       "id": "PR_kwDOIrmZ-85oL_DA",
       "title": "add entry in changelog for wireformat change in v3 PKESK",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/94",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "adds a changelog entry for PR #93 ",
       "createdAt": "2024-02-28T15:36:20Z",
-      "updatedAt": "2024-03-01T09:23:10Z",
+      "updatedAt": "2024-03-04T07:36:09Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "changelog-align-ciphertext-fields-with-c-r",
       "headRefOid": "dcda26a8c417ca9f1c79926ecb33927309e39ccf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-04T07:36:09Z",
+      "mergedAt": "2024-03-04T07:36:09Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "e697cbf936fa0293e3743c258604c75c469f7163"
+      },
       "comments": [],
       "reviews": [
         {
@@ -9537,6 +9565,19 @@
           "createdAt": "2024-03-01T09:23:10Z",
           "updatedAt": "2024-03-01T09:23:10Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85yDmGo",
+          "commit": {
+            "abbreviatedOid": "dcda26a"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-04T07:35:57Z",
+          "updatedAt": "2024-03-04T07:35:57Z",
+          "comments": []
         }
       ]
     },
@@ -9545,24 +9586,26 @@
       "id": "PR_kwDOIrmZ-85oNqpM",
       "title": "Fix ML-DSA private key size",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/95",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://csrc.nist.gov/files/pubs/fips/204/ipd/docs/fips-204-initial-public-comments-2023.pdf\r\n\r\nBased on the comment from Lauren Brandt on page 11, they got the sizes wrong in the IPD",
       "createdAt": "2024-02-28T19:53:19Z",
-      "updatedAt": "2024-03-01T09:23:57Z",
+      "updatedAt": "2024-03-04T09:51:04Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
+      "baseRefOid": "2a2b032ed6e05b53238211064095c30737430d29",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-mldsa-sk-size",
-      "headRefOid": "94e55c2af088ae6b6aa8d2fc07bc680ae21460f0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "ad70f72e0c44089764e4ab5c3e61b47997f92bc4",
+      "closedAt": "2024-03-04T09:51:03Z",
+      "mergedAt": "2024-03-04T09:51:03Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "11bed523ab82647db7556d23c8269ec5fa87942a"
+      },
       "comments": [],
       "reviews": [
         {
@@ -9577,6 +9620,19 @@
           "createdAt": "2024-03-01T09:23:57Z",
           "updatedAt": "2024-03-01T09:23:57Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85yDp43",
+          "commit": {
+            "abbreviatedOid": "94e55c2"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-04T07:46:45Z",
+          "updatedAt": "2024-03-04T07:46:45Z",
+          "comments": []
         }
       ]
     },
@@ -9585,24 +9641,26 @@
       "id": "PR_kwDOIrmZ-85oN1nq",
       "title": "Add test vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/96",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add test vectors for \r\n- V6 Ed25519 key with X25519+ML-KEM-786 encryption subkey\r\n- V4 Ed25519 key with X25519+ML-KEM-786 encryption subkey",
       "createdAt": "2024-02-28T20:13:05Z",
-      "updatedAt": "2024-03-01T16:31:21Z",
+      "updatedAt": "2024-03-04T20:52:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "cb1fd4f22a3c40f918bfbada23aa13c5240eff24",
+      "baseRefOid": "11bed523ab82647db7556d23c8269ec5fa87942a",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-ietf-01",
-      "headRefOid": "357cab5a85bd5aab63286ef742ba32d8252fe08d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c513de96e58765c912529da8f1807705194be134",
+      "closedAt": "2024-03-04T20:52:57Z",
+      "mergedAt": "2024-03-04T20:52:57Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "cd6cea1557013f5e8da4f4f60d5c123c4a8aa4ee"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -9659,6 +9717,27 @@
           "body": "@TJ-91 wrote:\r\n> There is the possibility to leave out v6 keys, v6 PKESK and v2 SEIPD entirely (parsing and generating), but to include PQ/T encryption.\r\n\r\nSure, but i think the goal should be interoperating with actual legacy software, not interoperating with an implementer practicing deliberate avoidance.  There is no way to interoperate with an implementer who is trying to not interoperate, so there is no point in targeting them.  And the v6 key and sig formats, and v2 SEIPD are now stable, well-specified, and simple to implement compared with anything like ML-KEM.",
           "createdAt": "2024-03-01T16:28:36Z",
           "updatedAt": "2024-03-01T16:31:21Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Okay, I'll do the following changes to the vectors:\r\n- Change the UserIDs\r\n- Add the SEIPD flags to the v4 key \r\n- Add both a SEIPDv1 and a SEIPDv2 encrypted message to the v4 key\r\n- Add an ECDH subkey to the v4 key\r\n- Add the CRC24 on the v4 armored key\r\n\r\nRegarding\r\n\r\n> I recommend having this second encryption-capable subkey with a creation timestamp and subkey binding signature with earlier timestamps than the PQ/T encryption-capable subkey.\r\n\r\nNote that in the spec we explicitly state\r\n\r\n> Implementations SHOULD prefer PQ(/T) keys when multiple options are available.\r\n\r\nNot setting an earlier date can also be a test for this case.",
+          "createdAt": "2024-03-04T09:28:38Z",
+          "updatedAt": "2024-03-04T09:28:38Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@dkg\r\n\r\n> there is no way to interoperate with an implementer who is trying to not interoperate, so there is no point in targeting them.\r\n\r\nI'm not sure whether it's helpful to frame it like this. Trying to not interoperate is not the same as waiting until everything plays out (see e.g. Kai Engerts views on this). Anyway, I think it'll not make much difference: If a legacy implementation is interoperable, then also a \"v4-PQC-only\" implementation can manage to be interoperable.\r\n\r\n@wussler \r\n\r\n> Note that in the spec we explicitly state\r\n>> Implementations SHOULD prefer PQ(/T) keys when multiple options are available.\r\n\r\nGood point. Anyway, I think we shouldn't rush the timestamp thing. Let's properly discuss this, it's not crucial for the test vectors now.",
+          "createdAt": "2024-03-04T09:44:07Z",
+          "updatedAt": "2024-03-04T09:44:07Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I ended up doing:\r\n- Changed the UserIDs to `PQC user (Test Key) <pqc-test-key@example.com>`\r\n- Added the SEIPD flags to the v4 key\r\n- Added both a SEIPDv1 and a SEIPDv2 encrypted message to the v4 key\r\n- Added an ECDH subkey to the v4 key with the _same creation date_\r\n- Added the CRC24 on the v4 armored key and SEIPDv1 message\r\n\r\n@TJ-91 PR should be ready and rebased on main. Can you please check if the artifacts are correct on your side?\r\n\r\n@dkg do you see any further issue with the keys?\r\n\r\n@falko-strenzke @fluppe2 as agreed I removed the (unverified) vectors for ML-DSA.\r\n",
+          "createdAt": "2024-03-04T13:31:32Z",
+          "updatedAt": "2024-03-04T13:31:32Z"
         }
       ],
       "reviews": [
@@ -9734,8 +9813,90 @@
           "createdAt": "2024-03-01T09:13:10Z",
           "updatedAt": "2024-03-01T09:13:10Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85yHOks",
+          "commit": {
+            "abbreviatedOid": "c513de9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I can import and decrypt the test vectors. The subpackets look good to me and I checked some of the intermediate output, which also looks good to me \ud83d\udc4d ",
+          "createdAt": "2024-03-04T14:43:10Z",
+          "updatedAt": "2024-03-04T14:43:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85yIEkC",
+          "commit": {
+            "abbreviatedOid": "c513de9"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-04T16:08:35Z",
+          "updatedAt": "2024-03-04T16:08:35Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 97,
+      "id": "PR_kwDOIrmZ-85oo6ui",
+      "title": "Remove rebase artifact",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/97",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-04T21:09:26Z",
+      "updatedAt": "2024-03-04T21:11:32Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "57c59e5fbebefd7c2c6c248a42d6f87c5841f64a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-rebase-artifact",
+      "headRefOid": "eb340e1d1a9cc806ac7e43fa67ef715cba433d44",
+      "closedAt": "2024-03-04T21:11:32Z",
+      "mergedAt": "2024-03-04T21:11:32Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "2369ab5234bfcdc8b9cdee0c8de225452dbd2717"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 98,
+      "id": "PR_kwDOIrmZ-85oo8UY",
+      "title": "Release version 02",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/98",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-04T21:13:32Z",
+      "updatedAt": "2024-03-04T21:15:52Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "2369ab5234bfcdc8b9cdee0c8de225452dbd2717",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "release-version-02",
+      "headRefOid": "ce7059441369072c051a50f9241d85be6114fb4d",
+      "closedAt": "2024-03-04T21:15:52Z",
+      "mergedAt": "2024-03-04T21:15:52Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "b8238c015dcd7a97778518db88376ea366bb51df"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
