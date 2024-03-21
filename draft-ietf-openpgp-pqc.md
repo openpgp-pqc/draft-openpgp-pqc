@@ -290,7 +290,7 @@ relevant quantum computer, this extension provides a basis for long-term secure
 OpenPGP signatures and ciphertexts. Specifically, it defines composite
 public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite
 public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
-combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
+combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+)
 as a standalone public key signature scheme.
 
 --- middle
@@ -310,15 +310,15 @@ National Institute of Standards and Technology (NIST) in mid 2022
 Standardization process initiated in 2016 {{NIST-PQC}}. Namely, these are ML-KEM
 {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern
 building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as
-SLH-DSA {{FIPS-205}} as signature schemes.
+SLH-DSA-SHAKE {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to
 deploy post-quantum in combination with traditional schemes such that the
 security is retained even if all schemes but one in the combination are broken.
-In contrast, the stateless hash-based signature scheme SLH-DSA is considered to
+In contrast, the stateless hash-based signature scheme SLH-DSA-SHAKE is considered to
 be sufficiently well understood with respect to its security assumptions in
 order to be used standalone. To this end, this document specifies the following
-new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and
+new set: SLH-DSA-SHAKE standalone and the two ML-* as composite with ECC-based KEM and
 digital signature schemes. Here, the term "composite" indicates that any data
 structure or algorithm pertaining to the combination of the two components
 appears as single data structure or algorithm from the protocol perspective.
@@ -343,7 +343,7 @@ abbreviation "PQ/T" is used. The short form "PQ(/T)" stands for PQ or PQ/T.
 This section describes the individual post-quantum cryptographic schemes. All
 schemes listed here are believed to provide security in the presence of a
 cryptographically relevant quantum computer. However, the mathematical problems
-on which the two ML-* schemes and SLH-DSA are based, are fundamentally
+on which the two ML-* schemes and SLH-DSA-SHAKE are based, are fundamentally
 different, and accordingly the level of trust commonly placed in them as well
 as their performance characteristics vary.
 
@@ -373,14 +373,14 @@ Integer Solution problem in module lattices (MLWE and SelfTargetMSIS).
 Accordingly, this specification only defines ML-DSA in composite combination
 with ECC-based signature schemes.
 
-### SLH-DSA
+### SLH-DSA-SHAKE
 
-SLH-DSA [FIPS-205] is a stateless hash-based signature scheme. Its security
+SLH-DSA-SHAKE [FIPS-205] is a stateless hash-based signature scheme. Its security
 relies on the hardness of finding preimages for cryptographic hash functions.
 This feature is generally considered to be a high security guarantee.
-Therefore, this specification defines SLH-DSA as a standalone signature scheme.
+Therefore, this specification defines SLH-DSA-SHAKE as a standalone signature scheme.
 
-In deployments the performance characteristics of SLH-DSA should be taken into
+In deployments the performance characteristics of SLH-DSA-SHAKE should be taken into
 account. We refer to {{performance-considerations}} for a discussion of the
 performance characteristics of this scheme.
 
@@ -425,7 +425,7 @@ categorized as follows:
  - PQ/T multi-algorithm digital signature, namely composite combinations of
    ML-DSA with ECC-based signature schemes,
 
- - PQ digital signature, namely SLH-DSA as a standalone cryptographic
+ - PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic
    algorithm.
 
 For each of the composite schemes, this specification mandates that the
@@ -497,9 +497,8 @@ specification.
 # Supported Public Key Algorithms
 
 This section specifies the composite ML-KEM + ECC and ML-DSA + ECC schemes as
-well as the standalone SLH-DSA signature scheme. The composite schemes are
-fully specified via their algorithm ID. The SLH-DSA signature schemes are
-fully specified by their algorithm ID and an additional parameter ID.
+well as the standalone SLH-DSA-SHAKE signature scheme. All of these schemes are
+fully specified via their algorithm ID, i.e., they are not parametrized.
 
 ## Algorithm Specifications
 
@@ -526,8 +525,9 @@ TBD                   | ML-DSA-65 + ECDSA-NIST-P-256       | MAY         | {{ecc
 TBD                   | ML-DSA-87 + ECDSA-NIST-P-384       | MAY         | {{ecc-mldsa}}
 TBD                   | ML-DSA-65 + ECDSA-brainpoolP256r1  | MAY         | {{ecc-mldsa}}
 TBD                   | ML-DSA-87 + ECDSA-brainpoolP384r1  | MAY         | {{ecc-mldsa}}
-TBD (109 for testing) | SLH-DSA-SHA2                       | SHOULD      | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE                      | MAY         | {{slhdsa}}
+TBD (109 for testing) | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
 
 ### Experimental Codepoints for Interop Testing
 
@@ -540,49 +540,6 @@ to cover all newly introduced public-key algorithm identifiers.
 The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
 An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
 This draft will not be sent to IANA without every listed algorithm having a non-experimental codepoint.
-
-
-## Parameter Specification
-
-### SLH-DSA-SHA2
-
-For the SLH-DSA-SHA2 signature algorithm from {{sig-alg-specs}}, the following
-parameters are specified:
-
-{: title="SLH-DSA-SHA2 security parameters" #slhdsa-param-sha2}
-Parameter ID | Parameter
-------------:| -------------------------
-1            | SLH-DSA-SHA2-128s
-2            | SLH-DSA-SHA2-128f
-3            | SLH-DSA-SHA2-192s
-4            | SLH-DSA-SHA2-192f
-5            | SLH-DSA-SHA2-256s
-6            | SLH-DSA-SHA2-256f
-
-All security parameters inherit the requirement of SLH-DSA-SHA2 from
-{{sig-alg-specs}}. That is, implementations SHOULD implement the parameters
-specified in {{slhdsa-param-sha2}}. The values `0x00` and `0xFF` are reserved
-for future extensions.
-
-### SLH-DSA-SHAKE
-
-For the SLH-DSA-SHAKE signature algorithm from {{sig-alg-specs}}, the
-following parameters are specified:
-
-{: title="SLH-DSA-SHAKE security parameters" #slhdsa-param-shake}
-Parameter ID | Parameter
-------------:| --------------------------
-1            | SLH-DSA-SHAKE-128s
-2            | SLH-DSA-SHAKE-128f
-3            | SLH-DSA-SHAKE-192s
-4            | SLH-DSA-SHAKE-192f
-5            | SLH-DSA-SHAKE-256s
-6            | SLH-DSA-SHAKE-256f
-
-All security parameters inherit the requirement of SLH-DSA-SHAKE from
-{{sig-alg-specs}}. That is, implementations MAY implement the parameters
-specified in {{slhdsa-param-shake}}. The values `0x00` and `0xFF` are reserved
-for future extensions.
 
 # Algorithm Combinations
 
@@ -1293,99 +1250,81 @@ values:
  - A fixed-length octet string containing the ML-DSA secret key, whose length
    depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-# SLH-DSA
+# SLH-DSA-SHAKE
 
-## The SLH-DSA Algorithms {#slhdsa}
+## The SLH-DSA-SHAKE Algorithms {#slhdsa}
 
-The following table describes the SLH-DSA parameters and artifact lengths:
+The following table lists the group of algorithm code points for the SLH-DSA-SHAKE signature scheme and the corresponding artifact lengths. This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points".
 
-{: title="SLH-DSA parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SLH-DSA-SHA2 and SLH-DSA-SHAKE." #slhdsa-artifact-lengths}
-Parameter ID reference | Parameter name suffix | SLH-DSA public key | SLH-DSA secret key | SLH-DSA signature
-----------------------:| ---------------------:| ------------------ | ------------------ | ------------------
-1                      | 128s                  | 32                 | 64                 | 7856
-2                      | 128f                  | 32                 | 64                 | 17088
-3                      | 192s                  | 48                 | 96                 | 16224
-4                      | 192f                  | 48                 | 96                 | 35664
-5                      | 256s                  | 64                 | 128                | 29792
-6                      | 256f                  | 64                 | 128                | 49856
+{: title="SLH-DSA-SHAKE algorithm code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
+Algorithm ID reference   |  SLH-DSA-SHAKE public key | SLH-DSA-SHAKE secret key | SLH-DSA-SHAKE signature
+----------------------:  |  ------------------ | ------------------ | ------------------
+TBD (SLH-DSA-SHAKE-128s) |  32                 | 64                 | 7856
+TBD (SLH-DSA-SHAKE-128f) |  32                 | 64                 | 17088
+TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
 Signature data (i.e. the data to be signed) is digested prior to signing
-operations, see {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. SLH-DSA
+operations, see {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4. SLH-DSA-SHAKE
 signatures MUST use the associated hash algorithm as specified in
 {{tab-slhdsa-hash}} for the signature data digest. Signatures using other hash
 algorithms MUST be considered invalid.
 
-An implementation supporting a specific SLH-DSA algorithm and parameter MUST
+An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST
 also support the matching hash algorithm.
 
-{: title="Binding between SLH-DSA and signature data digest" #tab-slhdsa-hash}
-Algorithm ID reference | Parameter ID reference | Hash function | Hash function ID reference
-----------------------:| ---------------------- | ------------- | --------------------------
-TBD (109 for testing)  | 1, 2                   | SHA-256       | 8
-TBD (109 for testing)  | 3, 4, 5, 6             | SHA-512       | 10
-TBD (SLH-DSA-SHAKE)    | 1, 2                   | SHA3-256      | 12
-TBD (SLH-DSA-SHAKE)    | 3, 4, 5, 6             | SHA3-512      | 14
+{: title="Binding between SLH-DSA-SHAKE algorithm code points and signature data hash algorithms" #tab-slhdsa-hash}
+Algorithm ID reference   |  Hash function | Hash function ID reference
+----------------------:  |  ------------- | --------------------------
+TBD (SLH-DSA-SHAKE-128s) |  SHA3-256      | 12
+TBD (SLH-DSA-SHAKE-128f) |  SHA3-256      | 12
+TBD (SLH-DSA-SHAKE-256s) |  SHA3-512      | 14
 
 ### Key generation
 
-SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as
+SLH-DSA-SHAKE key generation is performed via the algorithm `SLH-DSA.KeyGen` as
 specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet
 strings as defined in {{slhdsa}}.
 
 ### Signature Generation
 
-SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as
+SLH-DSA-SHAKE signature generation is performed via the algorithm `SLH-DSA.Sign` as
 specified in {{FIPS-205}}. The variable `opt_rand` is set to `PK.seed`. See
 also {{slhdsa-sec-cons}}.
 
-An implementation MUST set the Parameter ID in the signature equal to the
-issuing secret key Parameter ID.
-
 ### Signature Verification
 
-SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify`
+SLH-DSA-SHAKE signature verification is performed via the algorithm `SLH-DSA.Verify`
 as specified in {{FIPS-205}}.
-
-An implementation MUST check that the Parameter ID in the signature and in the
-key match when verifying.
 
 ## Packet specifications
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA scheme MUST be used only with v6 signatures, as defined in
+The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in
 [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
 
-The algorithm-specific v6 Signature parameters consists of:
+The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:
 
- - A one-octet value specifying the SLH-DSA parameter ID defined in
-   {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
-   `0xFF` are reserved for future extensions.
-
- - A fixed-length octet string of the SLH-DSA signature value, whose length
-   depends on the parameter ID in the format specified in
+ - A fixed-length octet string of the SLH-DSA-SHAKE signature value, whose length
+   depends on the algorithm ID in the format specified in
    {{slhdsa-artifact-lengths}}.
 
 ### Key Material Packets
 
-The SLH-DSA scheme MUST be used only with v6 keys, as defined in
+The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in
 [I-D.ietf-openpgp-crypto-refresh].
 
-The algorithm-specific public key is this series of values:
+The algorithm-specific part of the public key consists of:
 
- - A one-octet value specifying the SLH-DSA parameter ID defined in
-   {{slhdsa-param-sha2}} and {{slhdsa-param-shake}}. The values `0x00` and
-   `0xFF` are reserved for future extensions.
+ - A fixed-length octet string containing the SLH-DSA-SHAKE public key, whose length
+   depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
 
- - A fixed-length octet string containing the SLH-DSA public key, whose length
-   depends on the parameter ID as specified in {{slhdsa-artifact-lengths}}.
+The algorithm-specific part of the secret key consists of:
 
-The algorithm-specific secret key is this value:
-
- - A fixed-length octet string containing the SLH-DSA secret key, whose length
-   depends on the parameter ID as specified in {{tab-ecdsa-artifacts}}.
+ - A fixed-length octet string containing the SLH-DSA-SHAKE secret key, whose length
+   depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
 
 # Notes on Algorithms
 
@@ -1593,9 +1532,9 @@ uncorrelated, this is negligible.
 In consequence, the ciphertexts already work sufficiently well as
 domain-separator.
 
-## SLH-DSA Message Randomizer {#slhdsa-sec-cons}
+## SLH-DSA-SHAKE Message Randomizer {#slhdsa-sec-cons}
 
-The specification of SLH-DSA {{FIPS-205}} prescribes an optional
+The specification of SLH-DSA-SHAKE {{FIPS-205}} prescribes an optional
 non-deterministic message randomizer. This is not used in this specification,
 as OpenPGP v6 signatures already provide a salted signature data digest of the
 appropriate size.
@@ -1614,8 +1553,8 @@ because of the unpredictable random salt that is prepended to the digested data
 in v6 signatures, the hardness assumption is not collision resistance but
 second-preimage resistance.
 
-In the case of SLH-DSA the internal hash algorithm varies based on the
-algorithm and parameter ID, see {{slhdsa-sig-data-digest}}.
+In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the
+algorithm ID, see {{slhdsa-sig-data-digest}}.
 
 ## Symmetric Algorithms for SEIPD Packets
 
@@ -1632,9 +1571,9 @@ Implementations may also make more nuanced decisions.
 
 # Additional considerations
 
-## Performance Considerations for SLH-DSA {#performance-considerations}
+## Performance Considerations for SLH-DSA-SHAKE {#performance-considerations}
 
-This specification introduces both ML-DSA + ECC as well as SLH-DSA as PQ(/T)
+This specification introduces both ML-DSA + ECC as well as SLH-DSA-SHAKE as PQ(/T)
 signature schemes.
 
 Generally, it can be said that ML-DSA + ECC provides a performance in terms of
@@ -1642,51 +1581,42 @@ execution time requirements that is close to that of traditional ECC signature
 schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater
 requirements than traditional schemes like EC-based or even RSA
-signature schemes. Implementers may want to offer SLH-DSA for applications
-where a higher degree of trust in the signature scheme is required. However,
-SLH-DSA has performance characteristics in terms of execution time of the
-signature generation as well as space requirements for the signature that are
-even greater than those of
-ML-DSA + ECC signature schemes.
+signature schemes.
 
-Pertaining to the execution time, the particularly costly operation in SLH-DSA
-is the signature generation. In order to achieve short signature generation
-times, one of the parameter sets with the name ending in the letter "f" for
-"fast" should be chosen. This comes at the expense of a larger signature size.
+Implementers may want to offer SLH-DSA-SHAKE for applications where the milder
+security assumptions of a hash-based signature scheme are required – and thus a
+potentially higher degree of trust in the long-term security of signatures is
+achieved. However, SLH-DSA-SHAKE has performance characteristics in terms of
+execution time of the signature generation as well as space requirements for the
+signature that are even greater than those of ML-DSA + ECC signature schemes.
 
-In order to minimize the space requirements of a SLH-DSA signature, a parameter
-set ending in "s" for "small" should be chosen. This comes at the expense of a
-longer signature generation time.
+Pertaining to the execution time, the particularly costly operation in
+SLH-DSA-SHAKE is the signature generation. In order to achieve short signature
+generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast")
+should be chosen. This comes at the expense of a larger signature size.  This
+choice can be relevant in applications where mass signing occurs.
+
+In order to minimize the space requirements of an SLH-DSA-SHAKE signature, an
+algorithm ID with the name ending in "s" for "small" should be chosen. This comes
+at the expense of a longer signature generation time. In particular,
+SLH-DSA-SHAKE-128s achieves the smallest possible signature size. Where a higher
+security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.
 
 # IANA Considerations
 
-IANA is requested to add the following registries to the `OpenPGP`
-registry group at https://www.iana.org/assignments/openpgp:
-
-- Registry name: `OpenPGP SLH-DSA-SHA2 parameters`
-
-  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
-
-  The registry contains the values defined in {{slhdsa-param-sha2}} in this document.
-
-- Registry name: `OpenPGP SLH-DSA-SHAKE parameters`
-
-  Registration procedure: SPECIFICATION REQUIRED [RFC8126]
-
-  The registry contains the values defined in {{slhdsa-param-shake}} in this document.
-
-Furthermore, IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.
+IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.
 
 
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
-ID     | Algorithm           | Public Key Format                                                                                                  | Secret Key Format                                                                                                  | Signature Format                                                                                                  | PKESK Format                                                                                                                                                                                    | Reference
----  : | -----               | ---------:                                                                                                         | --------:                                                                                                          | --------:                                                                                                         | -----:                                                                                                                                                                                          | -----:
-TBD    | ML-KEM-768 + X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                               | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
-TBD    | ML-KEM-1024 + X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}})  | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})   | N/A                                                                                                               | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
-TBD    | ML-DSA-65 + Ed25519 | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}}) | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4032  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})    | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                             | {{ecc-mldsa}}
-TBD    | ML-DSA-87 + Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})  | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4896 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})       | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                             | {{ecc-mldsa}}
-TBD    | SLH-DSA-SHA2        | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                        | per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                                              | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                       | N/A                                                                                                                                                                                             | {{slhdsa}}
-TBD    | SLH-DSA-SHAKE       | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                        | per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                                              | 1 octet parameter ID, per parameter fixed-length octet string ({{slhdsa-artifact-lengths}})                       | N/A                                                                                                                                                                                             | {{slhdsa}}
+ID     | Algorithm           | Public Key Format                                                                                                      | Secret Key Format                                                                                                      | Signature Format                                                                                                 | PKESK Format                                                                                                                                                                                           | Reference
+---  : | -----               | ---------:                                                                                                             | --------:                                                                                                              | --------:                                                                                                        | -----:                                                                                                                                                                                                 | -----:
+TBD    | ML-KEM-768 + X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                              | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
+TBD    | ML-KEM-1024 + X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}}) | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})  | N/A                                                                                                              | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}})  | {{ecc-mlkem}}
+TBD    | ML-DSA-65 + Ed25519 | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}})     | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4032  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})        | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
+TBD    | ML-DSA-87 + Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})      | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4896 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})           | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
+TBD    | SLH-DSA-SHAKE-128s  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 7856 octets signature ({{slhdsa-artifact-lengths}})                                                              | N/A                                                                                                                                                                                                    | {{slhdsa}}
+TBD    | SLH-DSA-SHAKE-128f  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 17088 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
+TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 128 octets secret key ({{slhdsa-artifact-lengths}})                                                                    | 29792 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
 
 # Changelog
 
@@ -1737,6 +1667,7 @@ TBD    | SLH-DSA-SHAKE       | 1 octet parameter ID, per parameter fixed-length 
 
 ## draft-ietf-openpgp-pqc-02
 - Removed git rebase artifact
+- Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points
 
 # Contributors
 
