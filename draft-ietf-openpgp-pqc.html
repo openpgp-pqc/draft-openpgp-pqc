@@ -16,14 +16,14 @@ relevant quantum computer, this extension provides a basis for long-term secure
 OpenPGP signatures and ciphertexts. Specifically, it defines composite
 public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite
 public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
-combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
+combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+)
 as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.20.0" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.20.0
+  xml2rfc 3.20.1
     Python 3.11.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -1039,7 +1039,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 5 September 2024</td>
+<td class="center">Expires 26 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-04" class="published">4 March 2024</time>
+<time datetime="2024-03-25" class="published">25 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-05">5 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-26">26 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1088,7 +1088,7 @@ relevant quantum computer, this extension provides a basis for long-term secure
 OpenPGP signatures and ciphertexts. Specifically, it defines composite
 public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite
 public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in
-combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+)
+combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+)
 as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1125,7 +1125,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1175,7 +1175,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
                     <p id="section-toc.1-1.1.2.2.2.2.1"><a href="#section-1.2.2" class="auto internal xref">1.2.2</a>.  <a href="#name-ml-dsa" class="internal xref">ML-DSA</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.3">
-                    <p id="section-toc.1-1.1.2.2.2.3.1"><a href="#section-1.2.3" class="auto internal xref">1.2.3</a>.  <a href="#name-slh-dsa" class="internal xref">SLH-DSA</a></p>
+                    <p id="section-toc.1-1.1.2.2.2.3.1"><a href="#section-1.2.3" class="auto internal xref">1.2.3</a>.  <a href="#name-slh-dsa-shake" class="internal xref">SLH-DSA-SHAKE</a></p>
 </li>
                 </ul>
 </li>
@@ -1227,17 +1227,6 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
                     <p id="section-toc.1-1.3.2.1.2.1.1"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-experimental-codepoints-for" class="internal xref">Experimental Codepoints for Interop Testing</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-parameter-specification" class="internal xref">Parameter Specification</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
-                    <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-slh-dsa-sha2" class="internal xref">SLH-DSA-SHA2</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
-                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-slh-dsa-shake" class="internal xref">SLH-DSA-SHAKE</a></p>
 </li>
                 </ul>
 </li>
@@ -1355,10 +1344,10 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-slh-dsa-2" class="internal xref">SLH-DSA</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-slh-dsa-shake-2" class="internal xref">SLH-DSA-SHAKE</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-the-slh-dsa-algorithms" class="internal xref">The SLH-DSA Algorithms</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-the-slh-dsa-shake-algorithm" class="internal xref">The SLH-DSA-SHAKE Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1.2.1">
                     <p id="section-toc.1-1.7.2.1.2.1.1"><a href="#section-7.1.1" class="auto internal xref">7.1.1</a>.  <a href="#name-signature-data-digest-2" class="internal xref">Signature Data Digest</a></p>
@@ -1422,7 +1411,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
                 <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
-                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
+                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.6">
                 <p id="section-toc.1-1.10.2.6.1"><a href="#section-10.6" class="auto internal xref">10.6</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
@@ -1436,7 +1425,7 @@ as a standalone public key signature scheme.<a href="#section-abstract-1" class=
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-additional-considerations" class="internal xref">Additional considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-performance-considerations-" class="internal xref">Performance Considerations for SLH-DSA</a></p>
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-performance-considerations-" class="internal xref">Performance Considerations for SLH-DSA-SHAKE</a></p>
 </li>
             </ul>
 </li>
@@ -1521,14 +1510,14 @@ National Institute of Standards and Technology (NIST) in mid 2022
 Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>. Namely, these are ML-KEM
 <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern
 building block for public-key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as
-SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
+SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to
 deploy post-quantum in combination with traditional schemes such that the
 security is retained even if all schemes but one in the combination are broken.
-In contrast, the stateless hash-based signature scheme SLH-DSA is considered to
+In contrast, the stateless hash-based signature scheme SLH-DSA-SHAKE is considered to
 be sufficiently well understood with respect to its security assumptions in
 order to be used standalone. To this end, this document specifies the following
-new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and
+new set: SLH-DSA-SHAKE standalone and the two ML-* as composite with ECC-based KEM and
 digital signature schemes. Here, the term "composite" indicates that any data
 structure or algorithm pertaining to the combination of the two components
 appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1563,7 +1552,7 @@ abbreviation "PQ/T" is used. The short form "PQ(/T)" stands for PQ or PQ/T.<a hr
 <p id="section-1.2-1">This section describes the individual post-quantum cryptographic schemes. All
 schemes listed here are believed to provide security in the presence of a
 cryptographically relevant quantum computer. However, the mathematical problems
-on which the two ML-* schemes and SLH-DSA are based, are fundamentally
+on which the two ML-* schemes and SLH-DSA-SHAKE are based, are fundamentally
 different, and accordingly the level of trust commonly placed in them as well
 as their performance characteristics vary.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">[Note to the reader: This specification refers to the NIST PQC draft standards
@@ -1599,16 +1588,16 @@ Accordingly, this specification only defines ML-DSA in composite combination
 with ECC-based signature schemes.<a href="#section-1.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="slh-dsa">
+<div id="slh-dsa-shake">
 <section id="section-1.2.3">
-          <h4 id="name-slh-dsa">
-<a href="#section-1.2.3" class="section-number selfRef">1.2.3. </a><a href="#name-slh-dsa" class="section-name selfRef">SLH-DSA</a>
+          <h4 id="name-slh-dsa-shake">
+<a href="#section-1.2.3" class="section-number selfRef">1.2.3. </a><a href="#name-slh-dsa-shake" class="section-name selfRef">SLH-DSA-SHAKE</a>
           </h4>
-<p id="section-1.2.3-1">SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> is a stateless hash-based signature scheme. Its security
+<p id="section-1.2.3-1">SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> is a stateless hash-based signature scheme. Its security
 relies on the hardness of finding preimages for cryptographic hash functions.
 This feature is generally considered to be a high security guarantee.
-Therefore, this specification defines SLH-DSA as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA should be taken into
+Therefore, this specification defines SLH-DSA-SHAKE as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA-SHAKE should be taken into
 account. We refer to <a href="#performance-considerations" class="auto internal xref">Section 11.1</a> for a discussion of the
 performance characteristics of this scheme.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
 </section>
@@ -1674,7 +1663,7 @@ of ML-KEM with an ECC-based KEM,<a href="#section-1.4.1-2.1.1" class="pilcrow">�
 ML-DSA with ECC-based signature schemes,<a href="#section-1.4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-1.4.1-2.3">
-              <p id="section-1.4.1-2.3.1">PQ digital signature, namely SLH-DSA as a standalone cryptographic
+              <p id="section-1.4.1-2.3.1">PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic
 algorithm.<a href="#section-1.4.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
@@ -1742,8 +1731,8 @@ B = 04 || X || Y
 each coordinate is encoded in the big-endian format and zero-padded to the
 adjusted underlying field size. The adjusted underlying field size is the
 underlying field size rounded up to the nearest 8-bit boundary, as noted in the
-"Field size" column in <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a>,
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a>, or <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>. This encoding is
+"Field size" column in <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a>,
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a>, or <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 9</a>. This encoding is
 compatible with the definition given in <span>[<a href="#SEC1" class="cite xref">SEC1</a>]</span>.<a href="#section-2.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1774,9 +1763,8 @@ specification.<a href="#section-2.1.2-3" class="pilcrow">¶</a></p>
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-supported-public-key-algori" class="section-name selfRef">Supported Public Key Algorithms</a>
       </h2>
 <p id="section-3-1">This section specifies the composite ML-KEM + ECC and ML-DSA + ECC schemes as
-well as the standalone SLH-DSA signature scheme. The composite schemes are
-fully specified via their algorithm ID. The SLH-DSA signature schemes are
-fully specified by their algorithm ID and an additional parameter ID.<a href="#section-3-1" class="pilcrow">¶</a></p>
+well as the standalone SLH-DSA-SHAKE signature scheme. All of these schemes are
+fully specified via their algorithm ID, i.e., they are not parametrized.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="algorithm-specifications">
 <section id="section-3.1">
         <h3 id="name-algorithm-specifications">
@@ -1915,15 +1903,23 @@ fully specified by their algorithm ID and an additional parameter ID.<a href="#s
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">TBD (109 for testing)</td>
-              <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2</td>
-              <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+              <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
+              <td class="text-left" rowspan="1" colspan="1">MAY</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
 </td>
             </tr>
             <tr>
               <td class="text-right" rowspan="1" colspan="1">TBD</td>
-              <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE</td>
+              <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
+              <td class="text-left" rowspan="1" colspan="1">MAY</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
+</td>
+            </tr>
+            <tr>
+              <td class="text-right" rowspan="1" colspan="1">TBD</td>
+              <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
               <td class="text-left" rowspan="1" colspan="1">MAY</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
@@ -1944,119 +1940,6 @@ to cover all newly introduced public-key algorithm identifiers.<a href="#section
 <p id="section-3.1.1-3">The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
 An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
 This draft will not be sent to IANA without every listed algorithm having a non-experimental codepoint.<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-<div id="parameter-specification">
-<section id="section-3.2">
-        <h3 id="name-parameter-specification">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-parameter-specification" class="section-name selfRef">Parameter Specification</a>
-        </h3>
-<div id="slh-dsa-sha2">
-<section id="section-3.2.1">
-          <h4 id="name-slh-dsa-sha2">
-<a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-slh-dsa-sha2" class="section-name selfRef">SLH-DSA-SHA2</a>
-          </h4>
-<p id="section-3.2.1-1">For the SLH-DSA-SHA2 signature algorithm from <a href="#sig-alg-specs" class="auto internal xref">Table 2</a>, the following
-parameters are specified:<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
-<span id="name-slh-dsa-sha2-security-param"></span><div id="slhdsa-param-sha2">
-<table class="center" id="table-3">
-            <caption>
-<a href="#table-3" class="selfRef">Table 3</a>:
-<a href="#name-slh-dsa-sha2-security-param" class="selfRef">SLH-DSA-SHA2 security parameters</a>
-            </caption>
-<thead>
-              <tr>
-                <th class="text-right" rowspan="1" colspan="1">Parameter ID</th>
-                <th class="text-left" rowspan="1" colspan="1">Parameter</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">1</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-128s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">2</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-128f</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">3</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-192s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">4</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-192f</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">5</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-256s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">6</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2-256f</td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-<p id="section-3.2.1-3">All security parameters inherit the requirement of SLH-DSA-SHA2 from
-<a href="#sig-alg-specs" class="auto internal xref">Table 2</a>. That is, implementations SHOULD implement the parameters
-specified in <a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a>. The values <code>0x00</code> and <code>0xFF</code> are reserved
-for future extensions.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="slh-dsa-shake">
-<section id="section-3.2.2">
-          <h4 id="name-slh-dsa-shake">
-<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-slh-dsa-shake" class="section-name selfRef">SLH-DSA-SHAKE</a>
-          </h4>
-<p id="section-3.2.2-1">For the SLH-DSA-SHAKE signature algorithm from <a href="#sig-alg-specs" class="auto internal xref">Table 2</a>, the
-following parameters are specified:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<span id="name-slh-dsa-shake-security-para"></span><div id="slhdsa-param-shake">
-<table class="center" id="table-4">
-            <caption>
-<a href="#table-4" class="selfRef">Table 4</a>:
-<a href="#name-slh-dsa-shake-security-para" class="selfRef">SLH-DSA-SHAKE security parameters</a>
-            </caption>
-<thead>
-              <tr>
-                <th class="text-right" rowspan="1" colspan="1">Parameter ID</th>
-                <th class="text-left" rowspan="1" colspan="1">Parameter</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">1</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">2</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">3</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-192s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">4</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-192f</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">5</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">6</td>
-                <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256f</td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-<p id="section-3.2.2-3">All security parameters inherit the requirement of SLH-DSA-SHAKE from
-<a href="#sig-alg-specs" class="auto internal xref">Table 2</a>. That is, implementations MAY implement the parameters
-specified in <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a>. The values <code>0x00</code> and <code>0xFF</code> are reserved
-for future extensions.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2142,14 +2025,14 @@ sufficient to identify a message as correctly signed, is an interpretation of
           </h4>
 <p id="section-5.1.1-1">In this section we define the encryption, decryption, and data formats for the
 ECDH component of the composite algorithms.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.1-2"><a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a>, and
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a> describe the ECC-KEM parameters and artifact
-lengths. The artifacts in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a> follow the encodings
+<p id="section-5.1.1-2"><a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a>, and
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a> describe the ECC-KEM parameters and artifact
+lengths. The artifacts in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a> follow the encodings
 described in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
 <span id="name-montgomery-curves-parameter"></span><div id="tab-ecdh-cfrg-artifacts">
-<table class="center" id="table-5">
+<table class="center" id="table-3">
             <caption>
-<a href="#table-5" class="selfRef">Table 5</a>:
+<a href="#table-3" class="selfRef">Table 3</a>:
 <a href="#name-montgomery-curves-parameter" class="selfRef">Montgomery curves parameters and artifact lengths</a>
             </caption>
 <thead>
@@ -2217,9 +2100,9 @@ described in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a 
           </table>
 </div>
 <span id="name-nist-curves-parameters-and-"></span><div id="tab-ecdh-nist-artifacts">
-<table class="center" id="table-6">
+<table class="center" id="table-4">
             <caption>
-<a href="#table-6" class="selfRef">Table 6</a>:
+<a href="#table-4" class="selfRef">Table 4</a>:
 <a href="#name-nist-curves-parameters-and-" class="selfRef">NIST curves parameters and artifact lengths</a>
             </caption>
 <thead>
@@ -2279,9 +2162,9 @@ described in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a 
           </table>
 </div>
 <span id="name-brainpool-curves-parameters"></span><div id="tab-ecdh-brainpool-artifacts">
-<table class="center" id="table-7">
+<table class="center" id="table-5">
             <caption>
-<a href="#table-7" class="selfRef">Table 7</a>:
+<a href="#table-5" class="selfRef">Table 5</a>:
 <a href="#name-brainpool-curves-parameters" class="selfRef">Brainpool curves parameters and artifact lengths</a>
             </caption>
 <thead>
@@ -2356,8 +2239,8 @@ defines the instances of the following operations:<a href="#section-5.1.1-7" cla
 </pre><a href="#section-5.1.1-10" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1.1-11">To instantiate <code>ECC-KEM</code>, one must select a parameter set from
-<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a>, or
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.1.1-11" class="pilcrow">¶</a></p>
+<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a>, or
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a>.<a href="#section-5.1.1-11" class="pilcrow">¶</a></p>
 <div id="x25519-kem">
 <section id="section-5.1.1.1">
             <h5 id="name-x25519-kem">
@@ -2461,8 +2344,8 @@ as defined in section <a href="#sec1-format" class="auto internal xref">Section 
 </li>
               <li id="section-5.1.1.3-2.5">
                 <p id="section-5.1.1.3-2.5.1">Set the output <code>eccKeyShare</code> to <code>Hash(X || eccCipherText || eccPublicKey)</code>,
-with <code>Hash</code> chosen according to <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a> or
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a><a href="#section-5.1.1.3-2.5.1" class="pilcrow">¶</a></p>
+with <code>Hash</code> chosen according to <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a> or
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a><a href="#section-5.1.1.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 <p id="section-5.1.1.3-3">The operation <code>ecdhKem.Decaps()</code> is defined as follows:<a href="#section-5.1.1.3-3" class="pilcrow">¶</a></p>
@@ -2477,8 +2360,8 @@ as defined in section <a href="#sec1-format" class="auto internal xref">Section 
 </li>
               <li id="section-5.1.1.3-4.3">
                 <p id="section-5.1.1.3-4.3.1">Set the output <code>eccKeyShare</code> to <code>Hash(X || eccCipherText || eccPublicKey)</code>,
-with <code>Hash</code> chosen according to <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a> or
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a><a href="#section-5.1.1.3-4.3.1" class="pilcrow">¶</a></p>
+with <code>Hash</code> chosen according to <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a> or
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a><a href="#section-5.1.1.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 </section>
@@ -2506,12 +2389,12 @@ with <code>Hash</code> chosen according to <a href="#tab-ecdh-nist-artifacts" cl
 <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>. Note that <code>mlkemPublicKey</code> is the encapsulation and
 <code>mlkemSecretKey</code> is the decapsulation key.<a href="#section-5.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-5.1.2-6">ML-KEM has the parametrization with the corresponding artifact lengths in
-octets as given in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>. All artifacts are encoded as
+octets as given in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>. All artifacts are encoded as
 defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-parameters-artifact-"></span><div id="tab-mlkem-artifacts">
-<table class="center" id="table-8">
+<table class="center" id="table-6">
             <caption>
-<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#table-6" class="selfRef">Table 6</a>:
 <a href="#name-ml-kem-parameters-artifact-" class="selfRef">ML-KEM parameters artifact lengths in octets</a>
             </caption>
 <thead>
@@ -2545,7 +2428,7 @@ defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.<a 
           </table>
 </div>
 <p id="section-5.1.2-8">To instantiate <code>ML-KEM</code>, one must select a parameter set from the column
-"ML-KEM" of <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.1.2-8" class="pilcrow">¶</a></p>
+"ML-KEM" of <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.1.2-8" class="pilcrow">¶</a></p>
 <p id="section-5.1.2-9">The procedure to perform <code>ML-KEM.Encaps()</code> is as follows:<a href="#section-5.1.2-9" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.1.2-10">
 <li id="section-5.1.2-10.1">
@@ -2579,9 +2462,9 @@ defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.<a 
 <p id="section-5.2-1"><a href="#kem-alg-specs" class="auto internal xref">Table 1</a> specifies the following ML-KEM + ECC composite public-key
 encryption schemes:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-ecc-composite-scheme"></span><div id="tab-mlkem-ecc-composite">
-<table class="center" id="table-9">
+<table class="center" id="table-7">
           <caption>
-<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#table-7" class="selfRef">Table 7</a>:
 <a href="#name-ml-kem-ecc-composite-scheme" class="selfRef">ML-KEM + ECC composite schemes</a>
           </caption>
 <thead>
@@ -2758,8 +2641,8 @@ artifacts are encoded as fixed-length octet strings as defined in
 <a href="#mlkem-ops" class="auto internal xref">Section 5.1.2</a>. For ECC this is done following the relative specification in
 <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, <span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span>, or <span>[<a href="#RFC5639" class="cite xref">RFC5639</a>]</span>, and encoding the outputs as
 fixed-length octet strings in the format specified in
-<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 6</a>, or
-<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>, <a href="#tab-ecdh-nist-artifacts" class="auto internal xref">Table 4</a>, or
+<a href="#tab-ecdh-brainpool-artifacts" class="auto internal xref">Table 5</a>.<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-encryption">
@@ -2784,7 +2667,7 @@ in <a href="#mlkem-ecc-key" class="auto internal xref">Section 5.3.2</a>.<a href
 </li>
             <li id="section-5.2.4-2.4">
               <p id="section-5.2.4-2.4.1">Instantiate the ECC-KEM and the ML-KEM depending on the algorithm ID
-according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.4-2.4.1" class="pilcrow">¶</a></p>
+according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 7</a><a href="#section-5.2.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.4-2.5">
               <p id="section-5.2.4-2.5.1">Compute <code>(eccCipherText, eccKeyShare) := ECC-KEM.Encaps(eccPublicKey)</code><a href="#section-5.2.4-2.5.1" class="pilcrow">¶</a></p>
@@ -2837,7 +2720,7 @@ data of the own secret key encoded in the format specified in
 </li>
             <li id="section-5.2.5-2.5">
               <p id="section-5.2.5-2.5.1">Instantiate the ECC-KEM and the ML-KEM depending on the algorithm ID
-according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 9</a><a href="#section-5.2.5-2.5.1" class="pilcrow">¶</a></p>
+according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 7</a><a href="#section-5.2.5-2.5.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.5-2.6">
               <p id="section-5.2.5-2.6.1">Parse <code>eccCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code>
@@ -2890,7 +2773,7 @@ format associated with the curve as specified in <a href="#ecc-kem" class="auto 
 </li>
             <li class="normal" id="section-5.3.1-2.2">
               <p id="section-5.3.1-2.2.1">A fixed-length octet string of the ML-KEM ciphertext, whose length depends
-on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.1-2.2.1" class="pilcrow">¶</a></p>
+on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-2.3">
               <p id="section-5.3.1-2.3.1">A one-octet size of the following fields.<a href="#section-5.3.1-2.3.1" class="pilcrow">¶</a></p>
@@ -2927,7 +2810,7 @@ point format associated with the curve specified in <a href="#ecc-kem" class="au
 </li>
             <li class="normal" id="section-5.3.2-2.2">
               <p id="section-5.3.2-2.2.1">A fixed-length octet string containing the ML-KEM public key, whose
-length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
+length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.3.2-3">The algorithm-specific secret key is these two values:<a href="#section-5.3.2-3" class="pilcrow">¶</a></p>
@@ -2938,7 +2821,7 @@ length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto
 </li>
             <li class="normal" id="section-5.3.2-4.2">
               <p id="section-5.3.2-4.2.1">A fixed-length octet string containing the ML-KEM secret key, whose
-length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.2-4.2.1" class="pilcrow">¶</a></p>
+length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2978,9 +2861,9 @@ length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts
 to <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> as fixed-length octet strings. The following table describes the
 EdDSA parameters and artifact lengths:<a href="#section-6.1.1-5" class="pilcrow">¶</a></p>
 <span id="name-eddsa-parameters-and-artifa"></span><div id="tab-eddsa-artifacts">
-<table class="center" id="table-10">
+<table class="center" id="table-8">
             <caption>
-<a href="#table-10" class="selfRef">Table 10</a>:
+<a href="#table-8" class="selfRef">Table 8</a>:
 <a href="#name-eddsa-parameters-and-artifa" class="selfRef">EdDSA parameters and artifact lengths in octets</a>
             </caption>
 <thead>
@@ -3040,9 +2923,9 @@ signature MUST each be encoded as a big-endian integer in a fixed-length octet
 string of the specified size.<a href="#section-6.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-6.1.2-6">The following table describes the ECDSA parameters and artifact lengths:<a href="#section-6.1.2-6" class="pilcrow">¶</a></p>
 <span id="name-ecdsa-parameters-and-artifa"></span><div id="tab-ecdsa-artifacts">
-<table class="center" id="table-11">
+<table class="center" id="table-9">
             <caption>
-<a href="#table-11" class="selfRef">Table 11</a>:
+<a href="#table-9" class="selfRef">Table 9</a>:
 <a href="#name-ecdsa-parameters-and-artifa" class="selfRef">ECDSA parameters and artifact lengths in octets</a>
             </caption>
 <thead>
@@ -3120,12 +3003,12 @@ defined:<a href="#section-6.1.3-3" class="pilcrow">¶</a></p>
 </pre><a href="#section-6.1.3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-6.1.3-5">ML-DSA has the parametrization with the corresponding artifact lengths in
-octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>. All artifacts are encoded as
+octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>. All artifacts are encoded as
 defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-6.1.3-5" class="pilcrow">¶</a></p>
 <span id="name-ml-dsa-parameters-and-artif"></span><div id="tab-mldsa-artifacts">
-<table class="center" id="table-12">
+<table class="center" id="table-10">
             <caption>
-<a href="#table-12" class="selfRef">Table 12</a>:
+<a href="#table-10" class="selfRef">Table 10</a>:
 <a href="#name-ml-dsa-parameters-and-artif" class="selfRef">ML-DSA parameters and artifact lengths in octets</a>
             </caption>
 <thead>
@@ -3172,14 +3055,14 @@ defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a 
 <p id="section-6.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing
 operations, see <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section 5.2.4. Composite
 ML-DSA + ECC signatures MUST use the associated hash algorithm as specified in
-<a href="#tab-mldsa-hash" class="auto internal xref">Table 13</a> for the signature data digest. Signatures using other hash
+<a href="#tab-mldsa-hash" class="auto internal xref">Table 11</a> for the signature data digest. Signatures using other hash
 algorithms MUST be considered invalid.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.1-2">An implementation supporting a specific ML-DSA + ECC algorithm MUST also
 support the matching hash algorithm.<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <span id="name-binding-between-ml-dsa-and-"></span><div id="tab-mldsa-hash">
-<table class="center" id="table-13">
+<table class="center" id="table-11">
             <caption>
-<a href="#table-13" class="selfRef">Table 13</a>:
+<a href="#table-11" class="selfRef">Table 11</a>:
 <a href="#name-binding-between-ml-dsa-and-" class="selfRef">Binding between ML-DSA and signature data digest</a>
             </caption>
 <thead>
@@ -3315,11 +3198,11 @@ consists of:<a href="#section-6.3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.3.1-3.1">
               <p id="section-6.3.1-3.1.1">A fixed-length octet string representing the EdDSA signature, whose length
-depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.1-3.1.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-6.3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.1-3.2">
               <p id="section-6.3.1-3.2.1">A fixed-length octet string of the ML-DSA signature value, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.1-3.2.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.3.1-4">The algorithm-specific v6 signature parameters for ML-DSA + ECDSA signatures
@@ -3327,15 +3210,15 @@ consists of:<a href="#section-6.3.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.3.1-5.1">
               <p id="section-6.3.1-5.1.1">A fixed-length octet string of the big-endian encoded ECDSA value <code>R</code>, whose
-length depends on the algorithm ID as specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>.<a href="#section-6.3.1-5.1.1" class="pilcrow">¶</a></p>
+length depends on the algorithm ID as specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-6.3.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.1-5.2">
               <p id="section-6.3.1-5.2.1">A fixed-length octet string of the big-endian encoded ECDSA value <code>S</code>, whose
-length depends on the algorithm ID as specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>.<a href="#section-6.3.1-5.2.1" class="pilcrow">¶</a></p>
+length depends on the algorithm ID as specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-6.3.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.1-5.3">
               <p id="section-6.3.1-5.3.1">A fixed-length octet string of the ML-DSA signature value, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.1-5.3.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.1-5.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -3352,11 +3235,11 @@ values:<a href="#section-6.3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.3.2-3.1">
               <p id="section-6.3.2-3.1.1">A fixed-length octet string representing the EdDSA public key, whose length
-depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-3.1.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-6.3.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.2-3.2">
               <p id="section-6.3.2-3.2.1">A fixed-length octet string containing the ML-DSA public key, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.2-3.2.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.3.2-4">The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of
@@ -3364,11 +3247,11 @@ values:<a href="#section-6.3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.3.2-5.1">
               <p id="section-6.3.2-5.1.1">A fixed-length octet string representing the EdDSA secret key, whose length
-depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-5.1.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-6.3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.2-5.2">
               <p id="section-6.3.2-5.2.1">A fixed-length octet string containing the ML-DSA secret key, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.2-5.2.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.3.2-6">The algorithm-specific public key for ML-DSA + ECDSA keys is this series of
@@ -3377,11 +3260,11 @@ values:<a href="#section-6.3.2-6" class="pilcrow">¶</a></p>
 <li class="normal" id="section-6.3.2-7.1">
               <p id="section-6.3.2-7.1.1">A fixed-length octet string representing the ECDSA public key in SEC1
 format, as specified in section <a href="#sec1-format" class="auto internal xref">Section 2.1.1</a> and with length specified in
-<a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>.<a href="#section-6.3.2-7.1.1" class="pilcrow">¶</a></p>
+<a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-6.3.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.2-7.2">
               <p id="section-6.3.2-7.2.1">A fixed-length octet string containing the ML-DSA public key, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.2-7.2.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-7.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.3.2-8">The algorithm-specific secret key for ML-DSA + ECDSA keys is this series of
@@ -3390,11 +3273,11 @@ values:<a href="#section-6.3.2-8" class="pilcrow">¶</a></p>
 <li class="normal" id="section-6.3.2-9.1">
               <p id="section-6.3.2-9.1.1">A fixed-length octet string representing the ECDSA secret key as a
 big-endian encoded integer, whose length depends on the algorithm used as
-specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>.<a href="#section-6.3.2-9.1.1" class="pilcrow">¶</a></p>
+specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-6.3.2-9.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-6.3.2-9.2">
               <p id="section-6.3.2-9.2.1">A fixed-length octet string containing the ML-DSA secret key, whose length
-depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>.<a href="#section-6.3.2-9.2.1" class="pilcrow">¶</a></p>
+depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>.<a href="#section-6.3.2-9.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -3403,74 +3286,49 @@ depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class
 </div>
 </section>
 </div>
-<div id="slh-dsa-1">
+<div id="slh-dsa-shake-1">
 <section id="section-7">
-      <h2 id="name-slh-dsa-2">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-slh-dsa-2" class="section-name selfRef">SLH-DSA</a>
+      <h2 id="name-slh-dsa-shake-2">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-slh-dsa-shake-2" class="section-name selfRef">SLH-DSA-SHAKE</a>
       </h2>
 <div id="slhdsa">
 <section id="section-7.1">
-        <h3 id="name-the-slh-dsa-algorithms">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-the-slh-dsa-algorithms" class="section-name selfRef">The SLH-DSA Algorithms</a>
+        <h3 id="name-the-slh-dsa-shake-algorithm">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-the-slh-dsa-shake-algorithm" class="section-name selfRef">The SLH-DSA-SHAKE Algorithms</a>
         </h3>
-<p id="section-7.1-1">The following table describes the SLH-DSA parameters and artifact lengths:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<span id="name-slh-dsa-parameters-and-arti"></span><div id="slhdsa-artifact-lengths">
-<table class="center" id="table-14">
+<p id="section-7.1-1">The following table lists the group of algorithm code points for the SLH-DSA-SHAKE signature scheme and the corresponding artifact lengths. This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points".<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<span id="name-slh-dsa-shake-algorithm-cod"></span><div id="slhdsa-artifact-lengths">
+<table class="center" id="table-12">
           <caption>
-<a href="#table-14" class="selfRef">Table 14</a>:
-<a href="#name-slh-dsa-parameters-and-arti" class="selfRef">SLH-DSA parameters and artifact lengths in octets. The values equally apply to the parameter IDs of SLH-DSA-SHA2 and SLH-DSA-SHAKE.</a>
+<a href="#table-12" class="selfRef">Table 12</a>:
+<a href="#name-slh-dsa-shake-algorithm-cod" class="selfRef">SLH-DSA-SHAKE algorithm code points and the corresponding artifact lengths in octets.</a>
           </caption>
 <thead>
             <tr>
-              <th class="text-right" rowspan="1" colspan="1">Parameter ID reference</th>
-              <th class="text-right" rowspan="1" colspan="1">Parameter name suffix</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA public key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA secret key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA signature</th>
+              <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE public key</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE secret key</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE signature</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">1</td>
-              <td class="text-right" rowspan="1" colspan="1">128s</td>
+              <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-128s)</td>
               <td class="text-left" rowspan="1" colspan="1">32</td>
               <td class="text-left" rowspan="1" colspan="1">64</td>
               <td class="text-left" rowspan="1" colspan="1">7856</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">2</td>
-              <td class="text-right" rowspan="1" colspan="1">128f</td>
+              <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-128f)</td>
               <td class="text-left" rowspan="1" colspan="1">32</td>
               <td class="text-left" rowspan="1" colspan="1">64</td>
               <td class="text-left" rowspan="1" colspan="1">17088</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">3</td>
-              <td class="text-right" rowspan="1" colspan="1">192s</td>
-              <td class="text-left" rowspan="1" colspan="1">48</td>
-              <td class="text-left" rowspan="1" colspan="1">96</td>
-              <td class="text-left" rowspan="1" colspan="1">16224</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">4</td>
-              <td class="text-right" rowspan="1" colspan="1">192f</td>
-              <td class="text-left" rowspan="1" colspan="1">48</td>
-              <td class="text-left" rowspan="1" colspan="1">96</td>
-              <td class="text-left" rowspan="1" colspan="1">35664</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">5</td>
-              <td class="text-right" rowspan="1" colspan="1">256s</td>
+              <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-256s)</td>
               <td class="text-left" rowspan="1" colspan="1">64</td>
               <td class="text-left" rowspan="1" colspan="1">128</td>
               <td class="text-left" rowspan="1" colspan="1">29792</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">6</td>
-              <td class="text-right" rowspan="1" colspan="1">256f</td>
-              <td class="text-left" rowspan="1" colspan="1">64</td>
-              <td class="text-left" rowspan="1" colspan="1">128</td>
-              <td class="text-left" rowspan="1" colspan="1">49856</td>
             </tr>
           </tbody>
         </table>
@@ -3481,48 +3339,38 @@ depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class
 <a href="#section-7.1.1" class="section-number selfRef">7.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
 <p id="section-7.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing
-operations, see <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section 5.2.4. SLH-DSA
+operations, see <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section 5.2.4. SLH-DSA-SHAKE
 signatures MUST use the associated hash algorithm as specified in
-<a href="#tab-slhdsa-hash" class="auto internal xref">Table 15</a> for the signature data digest. Signatures using other hash
+<a href="#tab-slhdsa-hash" class="auto internal xref">Table 13</a> for the signature data digest. Signatures using other hash
 algorithms MUST be considered invalid.<a href="#section-7.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.1-2">An implementation supporting a specific SLH-DSA algorithm and parameter MUST
+<p id="section-7.1.1-2">An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST
 also support the matching hash algorithm.<a href="#section-7.1.1-2" class="pilcrow">¶</a></p>
-<span id="name-binding-between-slh-dsa-and"></span><div id="tab-slhdsa-hash">
-<table class="center" id="table-15">
+<span id="name-binding-between-slh-dsa-sha"></span><div id="tab-slhdsa-hash">
+<table class="center" id="table-13">
             <caption>
-<a href="#table-15" class="selfRef">Table 15</a>:
-<a href="#name-binding-between-slh-dsa-and" class="selfRef">Binding between SLH-DSA and signature data digest</a>
+<a href="#table-13" class="selfRef">Table 13</a>:
+<a href="#name-binding-between-slh-dsa-sha" class="selfRef">Binding between SLH-DSA-SHAKE algorithm code points and signature data hash algorithms</a>
             </caption>
 <thead>
               <tr>
                 <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-                <th class="text-left" rowspan="1" colspan="1">Parameter ID reference</th>
                 <th class="text-left" rowspan="1" colspan="1">Hash function</th>
                 <th class="text-left" rowspan="1" colspan="1">Hash function ID reference</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (109 for testing)</td>
-                <td class="text-left" rowspan="1" colspan="1">1, 2</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA-256</td>
-                <td class="text-left" rowspan="1" colspan="1">8</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (109 for testing)</td>
-                <td class="text-left" rowspan="1" colspan="1">3, 4, 5, 6</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA-512</td>
-                <td class="text-left" rowspan="1" colspan="1">10</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE)</td>
-                <td class="text-left" rowspan="1" colspan="1">1, 2</td>
+                <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-128s)</td>
                 <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
                 <td class="text-left" rowspan="1" colspan="1">12</td>
               </tr>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE)</td>
-                <td class="text-left" rowspan="1" colspan="1">3, 4, 5, 6</td>
+                <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-128f)</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
+                <td class="text-left" rowspan="1" colspan="1">12</td>
+              </tr>
+              <tr>
+                <td class="text-right" rowspan="1" colspan="1">TBD (SLH-DSA-SHAKE-256s)</td>
                 <td class="text-left" rowspan="1" colspan="1">SHA3-512</td>
                 <td class="text-left" rowspan="1" colspan="1">14</td>
               </tr>
@@ -3536,7 +3384,7 @@ also support the matching hash algorithm.<a href="#section-7.1.1-2" class="pilcr
           <h4 id="name-key-generation">
 <a href="#section-7.1.2" class="section-number selfRef">7.1.2. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
           </h4>
-<p id="section-7.1.2-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as
+<p id="section-7.1.2-1">SLH-DSA-SHAKE key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as
 specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet
 strings as defined in <a href="#slhdsa" class="auto internal xref">Section 7.1</a>.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -3546,11 +3394,9 @@ strings as defined in <a href="#slhdsa" class="auto internal xref">Section 7.1</
           <h4 id="name-signature-generation-2">
 <a href="#section-7.1.3" class="section-number selfRef">7.1.3. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-7.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as
+<p id="section-7.1.3-1">SLH-DSA-SHAKE signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as
 specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>. The variable <code>opt_rand</code> is set to <code>PK.seed</code>. See
 also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 10.5</a>.<a href="#section-7.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.3-2">An implementation MUST set the Parameter ID in the signature equal to the
-issuing secret key Parameter ID.<a href="#section-7.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
@@ -3558,10 +3404,8 @@ issuing secret key Parameter ID.<a href="#section-7.1.3-2" class="pilcrow">¶</a
           <h4 id="name-signature-verification-2">
 <a href="#section-7.1.4" class="section-number selfRef">7.1.4. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-7.1.4-1">SLH-DSA signature verification is performed via the algorithm <code>SLH-DSA.Verify</code>
+<p id="section-7.1.4-1">SLH-DSA-SHAKE signature verification is performed via the algorithm <code>SLH-DSA.Verify</code>
 as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-7.1.4-1" class="pilcrow">¶</a></p>
-<p id="section-7.1.4-2">An implementation MUST check that the Parameter ID in the signature and in the
-key match when verifying.<a href="#section-7.1.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3576,19 +3420,14 @@ key match when verifying.<a href="#section-7.1.4-2" class="pilcrow">¶</a></p>
           <h4 id="name-signature-packet-tag-2-2">
 <a href="#section-7.2.1" class="section-number selfRef">7.2.1. </a><a href="#name-signature-packet-tag-2-2" class="section-name selfRef">Signature Packet (Tag 2)</a>
           </h4>
-<p id="section-7.2.1-1">The SLH-DSA scheme MUST be used only with v6 signatures, as defined in
+<p id="section-7.2.1-1">The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in
 <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span> Section 5.2.3.<a href="#section-7.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.1-2">The algorithm-specific v6 Signature parameters consists of:<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:<a href="#section-7.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.2.1-3.1">
-              <p id="section-7.2.1-3.1.1">A one-octet value specifying the SLH-DSA parameter ID defined in
-<a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a> and <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a>. The values <code>0x00</code> and
-<code>0xFF</code> are reserved for future extensions.<a href="#section-7.2.1-3.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7.2.1-3.2">
-              <p id="section-7.2.1-3.2.1">A fixed-length octet string of the SLH-DSA signature value, whose length
-depends on the parameter ID in the format specified in
-<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>.<a href="#section-7.2.1-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-7.2.1-3.1.1">A fixed-length octet string of the SLH-DSA-SHAKE signature value, whose length
+depends on the algorithm ID in the format specified in
+<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>.<a href="#section-7.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -3598,25 +3437,20 @@ depends on the parameter ID in the format specified in
           <h4 id="name-key-material-packets-3">
 <a href="#section-7.2.2" class="section-number selfRef">7.2.2. </a><a href="#name-key-material-packets-3" class="section-name selfRef">Key Material Packets</a>
           </h4>
-<p id="section-7.2.2-1">The SLH-DSA scheme MUST be used only with v6 keys, as defined in
+<p id="section-7.2.2-1">The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in
 <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>.<a href="#section-7.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2.2-2">The algorithm-specific public key is this series of values:<a href="#section-7.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-7.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.2.2-3.1">
-              <p id="section-7.2.2-3.1.1">A one-octet value specifying the SLH-DSA parameter ID defined in
-<a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a> and <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a>. The values <code>0x00</code> and
-<code>0xFF</code> are reserved for future extensions.<a href="#section-7.2.2-3.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-7.2.2-3.2">
-              <p id="section-7.2.2-3.2.1">A fixed-length octet string containing the SLH-DSA public key, whose length
-depends on the parameter ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>.<a href="#section-7.2.2-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-7.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA-SHAKE public key, whose length
+depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>.<a href="#section-7.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-7.2.2-4">The algorithm-specific secret key is this value:<a href="#section-7.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-7.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-7.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.2.2-5.1">
-              <p id="section-7.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length
-depends on the parameter ID as specified in <a href="#tab-ecdsa-artifacts" class="auto internal xref">Table 11</a>.<a href="#section-7.2.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-7.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA-SHAKE secret key, whose length
+depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>.<a href="#section-7.2.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -3868,10 +3702,10 @@ domain-separator.<a href="#section-10.4-14" class="pilcrow">¶</a></p>
 </div>
 <div id="slhdsa-sec-cons">
 <section id="section-10.5">
-        <h3 id="name-slh-dsa-message-randomizer">
-<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
+        <h3 id="name-slh-dsa-shake-message-rando">
+<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
         </h3>
-<p id="section-10.5-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
+<p id="section-10.5-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional
 non-deterministic message randomizer. This is not used in this specification,
 as OpenPGP v6 signatures already provide a salted signature data digest of the
 appropriate size.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
@@ -3892,8 +3726,8 @@ into NIST security category 3. This does not constitute a security bottleneck:
 because of the unpredictable random salt that is prepended to the digested data
 in v6 signatures, the hardness assumption is not collision resistance but
 second-preimage resistance.<a href="#section-10.6-2" class="pilcrow">¶</a></p>
-<p id="section-10.6-3">In the case of SLH-DSA the internal hash algorithm varies based on the
-algorithm and parameter ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.6-3" class="pilcrow">¶</a></p>
+<p id="section-10.6-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the
+algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 7.1.1</a>.<a href="#section-10.6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
@@ -3922,28 +3756,44 @@ Implementations may also make more nuanced decisions.<a href="#section-10.7-2" c
 <div id="performance-considerations">
 <section id="section-11.1">
         <h3 id="name-performance-considerations-">
-<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-performance-considerations-" class="section-name selfRef">Performance Considerations for SLH-DSA</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-performance-considerations-" class="section-name selfRef">Performance Considerations for SLH-DSA-SHAKE</a>
         </h3>
-<p id="section-11.1-1">This specification introduces both ML-DSA + ECC as well as SLH-DSA as PQ(/T)
+<p id="section-11.1-1">This specification introduces both ML-DSA + ECC as well as SLH-DSA-SHAKE as PQ(/T)
 signature schemes.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 <p id="section-11.1-2">Generally, it can be said that ML-DSA + ECC provides a performance in terms of
 execution time requirements that is close to that of traditional ECC signature
 schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater
 requirements than traditional schemes like EC-based or even RSA
-signature schemes. Implementers may want to offer SLH-DSA for applications
-where a higher degree of trust in the signature scheme is required. However,
-SLH-DSA has performance characteristics in terms of execution time of the
-signature generation as well as space requirements for the signature that are
-even greater than those of
-ML-DSA + ECC signature schemes.<a href="#section-11.1-2" class="pilcrow">¶</a></p>
-<p id="section-11.1-3">Pertaining to the execution time, the particularly costly operation in SLH-DSA
-is the signature generation. In order to achieve short signature generation
-times, one of the parameter sets with the name ending in the letter "f" for
-"fast" should be chosen. This comes at the expense of a larger signature size.<a href="#section-11.1-3" class="pilcrow">¶</a></p>
-<p id="section-11.1-4">In order to minimize the space requirements of a SLH-DSA signature, a parameter
-set ending in "s" for "small" should be chosen. This comes at the expense of a
-longer signature generation time.<a href="#section-11.1-4" class="pilcrow">¶</a></p>
+signature schemes.<a href="#section-11.1-2" class="pilcrow">¶</a></p>
+<p id="section-11.1-3">Implementers may want to offer SLH-DSA-SHAKE for applications where the weaker
+security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a
+potentially higher degree of trust in the long-term security of signatures is
+achieved. However, SLH-DSA-SHAKE has performance characteristics in terms of
+execution time of the signature generation as well as space requirements for the
+signature that are even greater than those of ML-DSA + ECC signature schemes.<a href="#section-11.1-3" class="pilcrow">¶</a></p>
+<p id="section-11.1-4">Pertaining to the execution time, the particularly costly operation in
+SLH-DSA-SHAKE is the signature generation. Depending on the parameter
+set, it can range from approximately the one hundred fold to more than the two
+thousand fold of that of ML-DSA-87.
+These number are based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA.
+In order to achieve fast signature
+generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast")
+should be chosen. This comes at the expense of a larger signature size.  This
+choice can be relevant in applications where mass signing occurs or a small
+latency is required.<a href="#section-11.1-4" class="pilcrow">¶</a></p>
+<p id="section-11.1-5">In order to minimize the space requirements of an SLH-DSA-SHAKE signature, an
+algorithm ID with the name ending in "s" for "small" should be chosen. This comes
+at the expense of a longer signature generation time. In particular,
+SLH-DSA-SHAKE-128s achieves the smallest possible signature size, which is about
+the double size of an ML-DSA-87 signature. Where a higher
+security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.<a href="#section-11.1-5" class="pilcrow">¶</a></p>
+<p id="section-11.1-6">Unlike the signature generation time, the signature verification time of
+SLH-DSA-SHAKE is not that much larger than that of other PQC schemes. Based on
+the performance measurements published in the NIST submissions for SLH-DSA-SHAKE
+and ML-DSA, the verification time of the SLH-DSA-SHAKE is, for the parameters
+covered by this specification, larger than that of ML-DSA-87 by a factor ranging
+from four (for -128s) over nine (for -256s) to twelve (for -128f).<a href="#section-11.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3953,29 +3803,11 @@ longer signature generation time.<a href="#section-11.1-4" class="pilcrow">¶</a
       <h2 id="name-iana-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">IANA is requested to add the following registries to the <code>OpenPGP</code>
-registry group at https://www.iana.org/assignments/openpgp:<a href="#section-12-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-12-2.1">
-          <p id="section-12-2.1.1">Registry name: <code>OpenPGP SLH-DSA-SHA2 parameters</code><a href="#section-12-2.1.1" class="pilcrow">¶</a></p>
-<p id="section-12-2.1.2">
-Registration procedure: SPECIFICATION REQUIRED <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span><a href="#section-12-2.1.2" class="pilcrow">¶</a></p>
-<p id="section-12-2.1.3">
-The registry contains the values defined in <a href="#slhdsa-param-sha2" class="auto internal xref">Table 3</a> in this document.<a href="#section-12-2.1.3" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-12-2.2">
-          <p id="section-12-2.2.1">Registry name: <code>OpenPGP SLH-DSA-SHAKE parameters</code><a href="#section-12-2.2.1" class="pilcrow">¶</a></p>
-<p id="section-12-2.2.2">
-Registration procedure: SPECIFICATION REQUIRED <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span><a href="#section-12-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-12-2.2.3">
-The registry contains the values defined in <a href="#slhdsa-param-shake" class="auto internal xref">Table 4</a> in this document.<a href="#section-12-2.2.3" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-12-3">Furthermore, IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 16</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-12-3" class="pilcrow">¶</a></p>
+<p id="section-12-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 14</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>. The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
-<table class="center" id="table-16">
+<table class="center" id="table-14">
         <caption>
-<a href="#table-16" class="selfRef">Table 16</a>:
+<a href="#table-14" class="selfRef">Table 14</a>:
 <a href="#name-iana-updates-for-registry-o" class="selfRef">IANA updates for registry 'OpenPGP Public Key Algorithms'</a>
         </caption>
 <thead>
@@ -3993,8 +3825,8 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-768 + X25519</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 2400 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 2400 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">
@@ -4004,8 +3836,8 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024 + X448</td>
-            <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 5</a>), 3168 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 3168 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 6</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 5.3.1</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">
@@ -4015,9 +3847,9 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-65 + Ed25519</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4032  octets ML-DSA-65 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets Ed25519 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 3293 octets ML-DSA-65 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4032  octets ML-DSA-65 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets Ed25519 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 3293 octets ML-DSA-65 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#ecc-mldsa" class="auto internal xref">Section 6.2</a>
@@ -4026,9 +3858,9 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-87 + Ed448</td>
-            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4896 octets ML-DSA-87 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">114 octets Ed448 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 10</a>), 4595 octets ML-DSA-87 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4896 octets ML-DSA-87 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">114 octets Ed448 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4595 octets ML-DSA-87 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 10</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#ecc-mldsa" class="auto internal xref">Section 6.2</a>
@@ -4036,10 +3868,10 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
-            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHA2</td>
-            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
@@ -4047,10 +3879,21 @@ The registry contains the values defined in <a href="#slhdsa-param-shake" class=
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">TBD</td>
-            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE</td>
-            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">1 octet parameter ID, per parameter fixed-length octet string (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 14</a>)</td>
+            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 12</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 7.1</a>
@@ -4201,6 +4044,9 @@ in order to align with X25519 and X448.<a href="#section-13.6-1.4.1" class="pilc
 <ul class="normal">
 <li class="normal" id="section-13.7-1.1">
             <p id="section-13.7-1.1.1">Removed git rebase artifact<a href="#section-13.7-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-13.7-1.2">
+            <p id="section-13.7-1.2.1">Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points<a href="#section-13.7-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
