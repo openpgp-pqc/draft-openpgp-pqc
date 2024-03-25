@@ -1339,6 +1339,8 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 
 ## draft-ietf-openpgp-pqc-02
 - Removed git rebase artifact
+
+## draft-ietf-openpgp-pqc-03
 - Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points
 
 # Contributors
