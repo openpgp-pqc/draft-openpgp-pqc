@@ -1344,13 +1344,13 @@ If `AES-256` is not explicitly in the list
 of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket,
 and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since `AES-256` is mandatory to implement.
-If `AES-128` is also implictly added to the list, it is added after `AES-256`.
+If `AES-128` is also implicitly added to the list, it is added after `AES-256`.
 
 If the pair `AES-256` with `OCB` is not explicitly in the list
 of the "Preferred AEAD Ciphersuites" subpacket,
 and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since `AES-256` and `OCB` are mandatory to implement.
-If the pair `AES-128` with `OCB` is also implictly added to the list,
+If the pair `AES-128` with `OCB` is also implicitly added to the list,
 it is added after the pair `AES-256` with `OCB`.
 
 # Migration Considerations
