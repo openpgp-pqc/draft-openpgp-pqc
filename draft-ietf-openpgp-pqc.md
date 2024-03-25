@@ -1583,24 +1583,37 @@ Regarding the size of signatures and public keys, though, ML-DSA has far greater
 requirements than traditional schemes like EC-based or even RSA
 signature schemes.
 
-Implementers may want to offer SLH-DSA-SHAKE for applications where the milder
-security assumptions of a hash-based signature scheme are required – and thus a
+Implementers may want to offer SLH-DSA-SHAKE for applications where the weaker
+security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a
 potentially higher degree of trust in the long-term security of signatures is
 achieved. However, SLH-DSA-SHAKE has performance characteristics in terms of
 execution time of the signature generation as well as space requirements for the
 signature that are even greater than those of ML-DSA + ECC signature schemes.
 
 Pertaining to the execution time, the particularly costly operation in
-SLH-DSA-SHAKE is the signature generation. In order to achieve short signature
+SLH-DSA-SHAKE is the signature generation. Depending on the parameter
+set, it can range from approximately the one hundred fold to more than the two
+thousand fold of that of ML-DSA-87. 
+These number are based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA.
+In order to achieve fast signature
 generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast")
 should be chosen. This comes at the expense of a larger signature size.  This
-choice can be relevant in applications where mass signing occurs.
+choice can be relevant in applications where mass signing occurs or a small
+latency is required.
 
 In order to minimize the space requirements of an SLH-DSA-SHAKE signature, an
 algorithm ID with the name ending in "s" for "small" should be chosen. This comes
 at the expense of a longer signature generation time. In particular,
-SLH-DSA-SHAKE-128s achieves the smallest possible signature size. Where a higher
+SLH-DSA-SHAKE-128s achieves the smallest possible signature size, which is about
+the double size of an ML-DSA-87 signature. Where a higher
 security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.
+
+Unlike the signature generation time, the signature verification time of
+SLH-DSA-SHAKE is not that much larger than that of other PQC schemes. Based on
+the performance measurements published in the NIST submissions for SLH-DSA-SHAKE
+and ML-DSA, the verification time of the SLH-DSA-SHAKE is, for the parameters
+covered by this specification, larger than that of ML-DSA-87 by a factor ranging
+from four (for -128s) over nine (for -256s) to twelve (for -128f).
 
 # IANA Considerations
 
