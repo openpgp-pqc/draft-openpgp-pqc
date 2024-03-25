@@ -1593,7 +1593,7 @@ signature that are even greater than those of ML-DSA + ECC signature schemes.
 Pertaining to the execution time, the particularly costly operation in
 SLH-DSA-SHAKE is the signature generation. Depending on the parameter
 set, it can range from approximately the one hundred fold to more than the two
-thousand fold of that of ML-DSA-87. 
+thousand fold of that of ML-DSA-87.
 These number are based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA.
 In order to achieve fast signature
 generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast")
