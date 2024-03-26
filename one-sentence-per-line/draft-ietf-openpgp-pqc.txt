@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 26 September 2024                                   F. Strenzke
+Expires: 27 September 2024                                   F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                           25 March 2024
+                                                           26 March 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 September 2024.
+   This Internet-Draft will expire on 27 September 2024.
 
 Copyright Notice
 
@@ -1556,7 +1556,8 @@ Table of Contents
    uniformly random output.  Hence, to be able to distinguish a key K,
    derived from shared keys K1 and K2 (and ciphertexts C1 and C2) as
 
-K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo, outputBits, customization)
+K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
+outputBits, customization)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
