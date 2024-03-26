@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 26 September 2024                                   F. Strenzke
+Expires: 27 September 2024                                   F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                           25 March 2024
+                                                           26 March 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 September 2024.
+   This Internet-Draft will expire on 27 September 2024.
 
 Copyright Notice
 
@@ -159,6 +159,7 @@ Table of Contents
      13.5.  draft-ietf-openpgp-pqc-00
      13.6.  draft-ietf-openpgp-pqc-01
      13.7.  draft-ietf-openpgp-pqc-02
+     13.8.  draft-ietf-openpgp-pqc-03
    14. Contributors
    15. References
      15.1.  Normative References
@@ -1896,6 +1897,8 @@ K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
 13.7.  draft-ietf-openpgp-pqc-02
 
    *  Removed git rebase artifact
+
+13.8.  draft-ietf-openpgp-pqc-03
 
    *  Updated SLH-DSA by removing parametrization and restricting to
       three SLH-DSA-SHAKE algorithm code points
