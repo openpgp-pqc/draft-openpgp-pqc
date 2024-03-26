@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-24T01:07:54.770310+00:00",
+  "timestamp": "2024-03-26T01:01:51.636984+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2112,9 +2112,17 @@
       "labels": [],
       "body": "Assuming #99 goes through, we'll be standardizing two levels of SLH-DSA: SLH-DSA-SHAKE-128s and SLH-DSA-SHAKE-128f, which FIPS 205 indicates is NIST \"category 1\", and SLH-DSA-SHAKE-256s, which FIPS 205 indicates is NIST \"Category 5\".\r\n\r\nBut the ML-DSA choices are ML-DSA-768 (NIST \"category 3\") and ML-DSA-1024 (NIST \"category 5\").\r\n\r\nSo it looks to me like the weaker/smaller/faster SLH-DSA signatures are weaker than the weaker/smaller-faster ML-DSA .  Is that intentional?  Am i misreading the FIPS specs?  are the NIST categories things we should be concerned about?",
       "createdAt": "2024-03-23T03:32:11Z",
-      "updatedAt": "2024-03-23T03:32:11Z",
+      "updatedAt": "2024-03-25T08:41:22Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Indeed, this is a mismatch based on the NIST security levels that we intentionally introduced from the beginning: While for SLH-DSA we introduce the 128 bit and 256 bit parameters (previously also the 192 bit), for ML-DSA and ML-KEM we introduce the 192 bit and 256 bit parameters.\r\n(Note that here you seem to confuse the ML-KEM parameters \"-512\", \"-768\", and \"-1024\" with the ML-DSA parameters \"-44\", \"-65\", an \"-87\".) \r\n\r\nThe idea here is (at least in my interpretation of this mismatch) to maintain a security margin for the module-lattice schemes. This is also reflected by pairing the 192 bit module lattice parameters with EC parameters with 128 bit security and the 256 bit module lattice parameters with EC parameters with a security of 192 (or 224) bit.",
+          "createdAt": "2024-03-25T08:41:20Z",
+          "updatedAt": "2024-03-25T08:41:20Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -9919,24 +9927,26 @@
       "id": "PR_kwDOIrmZ-85qZLEx",
       "title": "update SLH-DSA to IETF-119 proposal",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/99",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "For technical reasons, namely being able to proceed with other changes affecting larger portions of the draft without creating any conflicts, the editors would like to merge this PR as soon as it is found to make the correct transformation to the new three SLH-DSA-SHAKE code points (removing the parametrization) in a  *technical sense* (which has an impact on the document structure and the textual reference to the algorithm) .\r\n\r\nThe criterion for merging it should not be that there is already consensus on the exact number of SLH-DSA code points or the text for their justification in the \"Additional Considerations\" section. That can be agreed on in the further discussion on the list and then we can open another PR for the required changes.",
       "createdAt": "2024-03-21T17:05:07Z",
-      "updatedAt": "2024-03-23T03:18:16Z",
+      "updatedAt": "2024-03-25T12:20:12Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b8238c015dcd7a97778518db88376ea366bb51df",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "slh-dsa-new-code-points",
-      "headRefOid": "a22b167854a9713380d0c5b9648891df70fc1bb6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "2a31c15deccba3db1dd6703e3185ef044417c78c",
+      "closedAt": "2024-03-25T12:20:12Z",
+      "mergedAt": "2024-03-25T12:20:12Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "7dfa4224c57d8dbd66bc5a9bed3b87eb56c718e4"
+      },
       "comments": [],
       "reviews": [
         {
@@ -9989,6 +9999,86 @@
               "updatedAt": "2024-03-23T03:18:16Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850pZQq",
+          "commit": {
+            "abbreviatedOid": "a22b167"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-25T07:20:05Z",
+          "updatedAt": "2024-03-25T07:20:05Z",
+          "comments": [
+            {
+              "originalPosition": 345,
+              "body": "On sentence per line sounds more reasonable for the purpose of traceability of changes,  indeed. We'll discuss internally whether it could be an option to switch to that formatting. This would require to merge all bigger open PRs first, though.",
+              "createdAt": "2024-03-25T07:20:05Z",
+              "updatedAt": "2024-03-25T07:20:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850plVy",
+          "commit": {
+            "abbreviatedOid": "a22b167"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-25T07:57:08Z",
+          "updatedAt": "2024-03-25T07:57:09Z",
+          "comments": [
+            {
+              "originalPosition": 340,
+              "body": "Right, \"milder\" is not clear enough. I replaced it by \"weaker\". If it should not be clear how to understand this term, it is explained [here](https://crypto.stackexchange.com/questions/60059/comparing-stronger-vs-weaker-assumptions).",
+              "createdAt": "2024-03-25T07:57:09Z",
+              "updatedAt": "2024-03-25T07:57:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850pyZe",
+          "commit": {
+            "abbreviatedOid": "a22b167"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-25T08:30:17Z",
+          "updatedAt": "2024-03-25T08:30:17Z",
+          "comments": [
+            {
+              "originalPosition": 348,
+              "body": "OK, I am adding information about the verification times, too.",
+              "createdAt": "2024-03-25T08:30:17Z",
+              "updatedAt": "2024-03-25T08:30:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850rn4a",
+          "commit": {
+            "abbreviatedOid": "a22b167"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-25T12:16:42Z",
+          "updatedAt": "2024-03-25T12:16:42Z",
+          "comments": [
+            {
+              "originalPosition": 383,
+              "body": "Yes, I will respect that in the future :-) :+1: ",
+              "createdAt": "2024-03-25T12:16:42Z",
+              "updatedAt": "2024-03-25T12:16:42Z"
+            }
+          ]
         }
       ]
     },
@@ -9997,24 +10087,26 @@
       "id": "PR_kwDOIrmZ-85qZRWl",
       "title": "correct misspelled words",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/100",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-03-21T17:13:31Z",
-      "updatedAt": "2024-03-23T02:43:26Z",
+      "updatedAt": "2024-03-25T12:21:49Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b8238c015dcd7a97778518db88376ea366bb51df",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "spelling",
       "headRefOid": "6d99078cc39115d903197e31d65cf28c483fc1bd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-25T12:21:43Z",
+      "mergedAt": "2024-03-25T12:21:43Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -10022,6 +10114,20 @@
           "body": "LGTM",
           "createdAt": "2024-03-23T02:43:25Z",
           "updatedAt": "2024-03-23T02:43:25Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler Could also please approve this spelling correction so that we can merge it?",
+          "createdAt": "2024-03-25T12:07:11Z",
+          "updatedAt": "2024-03-25T12:07:11Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@wussler This is trivial one, I'll just force-merge it to get it out of the way.",
+          "createdAt": "2024-03-25T12:21:14Z",
+          "updatedAt": "2024-03-25T12:21:14Z"
         }
       ],
       "reviews": [
@@ -10036,6 +10142,133 @@
           "body": "",
           "createdAt": "2024-03-22T06:45:56Z",
           "updatedAt": "2024-03-22T06:45:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 102,
+      "id": "PR_kwDOIrmZ-85qqJVC",
+      "title": "reformatting of text: one sentence per line",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/102",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I checked the reformatted text to be word-by-word equal to the previous version using [wdiff](https://www.gnu.org/software/wdiff/): `wdiff --no-common ...`.\r\n",
+      "createdAt": "2024-03-25T13:24:52Z",
+      "updatedAt": "2024-03-25T15:02:17Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "one-sentence-per-line",
+      "headRefOid": "779def7b60ac4466c882d1b2b0059cb8c3799b23",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-850tJlj",
+          "commit": {
+            "abbreviatedOid": "779def7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-25T15:02:17Z",
+          "updatedAt": "2024-03-25T15:02:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 103,
+      "id": "PR_kwDOIrmZ-85qqMZr",
+      "title": "Adding missing changelog entry for slhdsa update",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/103",
+      "state": "CLOSED",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on the branch of the PR https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/102 (but should not conflict with main)",
+      "createdAt": "2024-03-25T13:31:12Z",
+      "updatedAt": "2024-03-25T13:33:47Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "changelog-for-slhdsa-update",
+      "headRefOid": "fdc4dfdb140e81224f3d7a0f542d7192ab339bb2",
+      "closedAt": "2024-03-25T13:33:40Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Makes more sense to base it on main, will create a new one.",
+          "createdAt": "2024-03-25T13:33:40Z",
+          "updatedAt": "2024-03-25T13:33:40Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 104,
+      "id": "PR_kwDOIrmZ-85qqPA3",
+      "title": "corrected changelog entry for SLH-DSA update",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/104",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-25T13:37:13Z",
+      "updatedAt": "2024-03-25T16:15:47Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "changelog-for-slhdsa-update-2",
+      "headRefOid": "0110808199e6433a598ebb337dc8e80559130ef9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-850sYmw",
+          "commit": {
+            "abbreviatedOid": "0110808"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-25T13:41:37Z",
+          "updatedAt": "2024-03-25T13:41:37Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850t4d_",
+          "commit": {
+            "abbreviatedOid": "0110808"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-25T16:15:47Z",
+          "updatedAt": "2024-03-25T16:15:47Z",
           "comments": []
         }
       ]
