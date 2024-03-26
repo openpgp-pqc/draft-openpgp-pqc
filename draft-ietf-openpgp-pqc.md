@@ -1172,7 +1172,8 @@ More precisely, for a given capacity `c` the indifferentiability proof shows tha
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
 Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (and ciphertexts `C1` and `C2`) as
 
-    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo, outputBits, customization)
+    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
+    outputBits, customization)
 
 from a random bit string, an adversary has to know (or correctly guess) both key shares `K1` and `K2`, entirely.
 
