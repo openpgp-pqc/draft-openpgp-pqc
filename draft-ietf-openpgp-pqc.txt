@@ -1558,7 +1558,7 @@ Table of Contents
    derived from shared keys K1 and K2 (and ciphertexts C1 and C2) as
 
 K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-         outputBits, customization)
+outputBits, customization)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
