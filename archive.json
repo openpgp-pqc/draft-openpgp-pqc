@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-26T01:01:51.636984+00:00",
+  "timestamp": "2024-03-28T01:02:07.412643+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2123,6 +2123,22 @@
           "updatedAt": "2024-03-25T08:41:20Z"
         }
       ]
+    },
+    {
+      "number": 105,
+      "id": "I_kwDOIrmZ-86DmJqq",
+      "title": "Split off NIST/Brainpool composite draft",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/105",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "When the split is made, the following updates are necessary as well:\r\n\r\n- remove the sentence \"Algorithms indicated as MAY are not assigned a codepoint in the current state of the draft since there are not enough private/experimental code points available to cover all newly introduced public-key algorithm identifiers.\"",
+      "createdAt": "2024-03-26T10:12:32Z",
+      "updatedAt": "2024-03-26T10:12:32Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -10151,24 +10167,26 @@
       "id": "PR_kwDOIrmZ-85qqJVC",
       "title": "reformatting of text: one sentence per line",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/102",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I checked the reformatted text to be word-by-word equal to the previous version using [wdiff](https://www.gnu.org/software/wdiff/): `wdiff --no-common ...`.\r\n",
       "createdAt": "2024-03-25T13:24:52Z",
-      "updatedAt": "2024-03-25T15:02:17Z",
+      "updatedAt": "2024-03-26T10:11:08Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "one-sentence-per-line",
-      "headRefOid": "779def7b60ac4466c882d1b2b0059cb8c3799b23",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "79f8626c63d1be7fd164660a5f65cdce19f068f1",
+      "closedAt": "2024-03-26T09:49:51Z",
+      "mergedAt": "2024-03-26T09:49:51Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "46fb3702c5ea835872e12ac51a691a03b8bfe169"
+      },
       "comments": [],
       "reviews": [
         {
@@ -10183,6 +10201,92 @@
           "createdAt": "2024-03-25T15:02:17Z",
           "updatedAt": "2024-03-25T15:02:17Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-850y6i1",
+          "commit": {
+            "abbreviatedOid": "779def7"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-26T07:24:49Z",
+          "updatedAt": "2024-03-26T09:31:29Z",
+          "comments": [
+            {
+              "originalPosition": 299,
+              "body": "This is no longer true, but we should not remove it in this PR",
+              "createdAt": "2024-03-26T07:24:49Z",
+              "updatedAt": "2024-03-26T09:31:29Z"
+            },
+            {
+              "originalPosition": 1324,
+              "body": "This needs to persist the line break as it's in a preformatted block",
+              "createdAt": "2024-03-26T09:29:46Z",
+              "updatedAt": "2024-03-26T09:31:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-8500Qft",
+          "commit": {
+            "abbreviatedOid": "779def7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-26T09:49:19Z",
+          "updatedAt": "2024-03-26T09:49:19Z",
+          "comments": [
+            {
+              "originalPosition": 1324,
+              "body": "Oh yes, I undid that change again.",
+              "createdAt": "2024-03-26T09:49:19Z",
+              "updatedAt": "2024-03-26T09:49:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-8500cq8",
+          "commit": {
+            "abbreviatedOid": "779def7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-26T10:09:29Z",
+          "updatedAt": "2024-03-26T10:09:29Z",
+          "comments": [
+            {
+              "originalPosition": 299,
+              "body": "@wussler\r\n\r\nActually, currently this statement still applies since we haven't yet split out the NIST/Brainpool composites. I will make an issue for the split where I note that we need to remove this statement then as well.",
+              "createdAt": "2024-03-26T10:09:29Z",
+              "updatedAt": "2024-03-26T10:09:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-8500dnb",
+          "commit": {
+            "abbreviatedOid": "779def7"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-26T10:11:08Z",
+          "updatedAt": "2024-03-26T10:11:08Z",
+          "comments": [
+            {
+              "originalPosition": 299,
+              "body": "I was referring to the SLH-DSA",
+              "createdAt": "2024-03-26T10:11:08Z",
+              "updatedAt": "2024-03-26T10:11:08Z"
+            }
+          ]
         }
       ]
     },
@@ -10225,24 +10329,26 @@
       "id": "PR_kwDOIrmZ-85qqPA3",
       "title": "corrected changelog entry for SLH-DSA update",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/104",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-03-25T13:37:13Z",
-      "updatedAt": "2024-03-25T16:15:47Z",
+      "updatedAt": "2024-03-26T07:21:12Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "d16825b4d3d16a3c93032c19b19f8160a3b8d257",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "changelog-for-slhdsa-update-2",
       "headRefOid": "0110808199e6433a598ebb337dc8e80559130ef9",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-03-26T07:21:12Z",
+      "mergedAt": "2024-03-26T07:21:12Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "3f953125f4f13800c68b36b417832276d668442a"
+      },
       "comments": [],
       "reviews": [
         {
