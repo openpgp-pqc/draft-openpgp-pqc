@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-28T01:09:01.719577+00:00",
+  "timestamp": "2024-04-30T01:03:59.795054+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -67,6 +67,16 @@
       "name": "editorial",
       "description": "minor editorial changes, will not be noted in weekly mailing list summary",
       "color": "BFD4F2"
+    },
+    {
+      "name": "OpenPGP summit",
+      "description": "",
+      "color": "006b75"
+    },
+    {
+      "name": "Version 03",
+      "description": "",
+      "color": "8F042A"
     }
   ],
   "issues": [
@@ -484,15 +494,15 @@
       "id": "I_kwDOIrmZ-85a8QHX",
       "title": "Consistency with respect to wording \"extraction\" of component key",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "# Falko's original remark\r\n\r\nIn Section 4.1.2 we state\r\n\r\n> Extract the component public key kyberPublicKey that is part of the recipient's composite public key\r\n\r\nThis seems inconsistent in wording with the descriptions for the EC-KEMs, where no mentioning of the extraction of the component public key from the composite key is made. IMO it should be mentioned in for each scheme or for none.\r\n\r\n# Aron's comment on this (from previous issue)\r\n\r\n> In Section 4.1.2\r\n>This seems inconsistent in wording with the descriptions for the EC-KEMs, \r\n\r\nIn the ECC sections we mention \r\n```...where R is the component public key eccPublicKey...```\r\nI would consider removing point (1) from 4.1.2 and rewrite\r\n``` \r\n2. Invoke (kyberCipherText, keyShare) <- kyberKem.encap(kyberPublicKey) \r\n   where kyberPublicKey is extracted from recipient's composite public key\r\n```\r\n",
       "createdAt": "2023-01-09T14:50:58Z",
-      "updatedAt": "2024-02-13T12:35:11Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T09:15:23Z",
+      "closedAt": "2024-04-29T09:15:23Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -514,6 +524,13 @@
           "body": "will be fixed by #80 ",
           "createdAt": "2024-02-13T12:34:48Z",
           "updatedAt": "2024-02-13T12:34:48Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "fixed via #80",
+          "createdAt": "2024-04-29T09:15:23Z",
+          "updatedAt": "2024-04-29T09:15:23Z"
         }
       ]
     },
@@ -1373,11 +1390,15 @@
       "state": "OPEN",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
-      "labels": [],
+      "assignees": [
+        "TJ-91"
+      ],
+      "labels": [
+        "Version 03"
+      ],
       "body": "See https://datatracker.ietf.org/wg/pquip/documents/\r\n\r\n* The terminology draft for PQ/T has been moved there (adopted by pquip WG), we need to reference the new document.\r\n* https://datatracker.ietf.org/doc/draft-ar-pquip-pqc-engineers/ might also be a reference to consider",
       "createdAt": "2023-08-02T06:43:59Z",
-      "updatedAt": "2023-08-02T06:43:59Z",
+      "updatedAt": "2024-04-29T11:05:44Z",
       "closedAt": null,
       "comments": []
     },
@@ -1453,15 +1474,15 @@
       "id": "I_kwDOIrmZ-852OjcK",
       "title": "Consistency in the KEM descriptions",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/68",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 5.1.2 about ML-KEM starts with\r\n\r\n> 1. Extract the encapsulation key mlkemPublicKey that is part of the recipient's composite public key\r\n\r\nbut in the description of X*-KEM and ECDH-KEM, the recipients pubic key appears out of nowhere.  I think this should be made consistent, one way or the other.",
       "createdAt": "2023-11-08T12:45:16Z",
-      "updatedAt": "2024-02-12T12:10:44Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T08:18:51Z",
+      "closedAt": "2024-04-29T08:18:51Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -1476,6 +1497,13 @@
           "body": "Now addressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80",
           "createdAt": "2024-02-12T12:10:43Z",
           "updatedAt": "2024-02-12T12:10:43Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closing as fixed in #80",
+          "createdAt": "2024-04-29T08:18:51Z",
+          "updatedAt": "2024-04-29T08:18:51Z"
         }
       ]
     },
@@ -1484,15 +1512,15 @@
       "id": "I_kwDOIrmZ-852Om7R",
       "title": "Abbreviation MB appears out of nowhere, is not used again",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/69",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 5.2.2 Key Combiner has:\r\n\r\n> MB = KMAC256(domSeparation, encData, oBits, customizationString)\r\n\r\nBut MB is not motivated, nor used ever again.",
       "createdAt": "2023-11-08T12:49:45Z",
-      "updatedAt": "2024-02-13T12:41:57Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T08:13:59Z",
+      "closedAt": "2024-04-29T08:13:59Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1500,6 +1528,13 @@
           "body": "Will be fixed by #80.",
           "createdAt": "2024-02-13T12:41:56Z",
           "updatedAt": "2024-02-13T12:41:56Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Fixed in #80",
+          "createdAt": "2024-04-29T08:13:59Z",
+          "updatedAt": "2024-04-29T08:13:59Z"
         }
       ]
     },
@@ -1508,7 +1543,7 @@
       "id": "I_kwDOIrmZ-852Pa7I",
       "title": "Make explicit how composite verification results are combined",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/70",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -1517,8 +1552,8 @@
       "labels": [],
       "body": "Currently:\r\n\r\n> [6.2.4. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-6.2.4)[Signature Verification](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-signature-verification)\r\n>\r\n> ...\r\n> As specified in [Section 4.3](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#composite-signatures) an implementation MUST validate both signatures, i.e. EdDSA/ECDSA and ML-DSA, to state that a composite ML-DSA + ECC signature is valid.\r\n\r\nBut the signature verification primitives introduced in section 6 looks like\r\n\r\n> (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)\r\n\r\nSo, \"validate both signatures\" could be understood to do that operation, and it doesn't explicitly say that the result must be `true` (assuming `verified` is a boolean).  This may be overly nitpicky, but I think that making explicit that both must verify successfully, or even stating how the two results are combined would be short and sweet.",
       "createdAt": "2023-11-08T14:34:57Z",
-      "updatedAt": "2024-02-12T12:40:13Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T08:12:45Z",
+      "closedAt": "2024-04-29T08:12:45Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1540,6 +1575,13 @@
           "body": "Yes, thanks!",
           "createdAt": "2024-02-12T12:40:12Z",
           "updatedAt": "2024-02-12T12:40:12Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closing it, as the changes are now in the main branch (unfortunately I lost track of the PR which was responsible for it, the commit above apparently fell victim to rebasing):\r\n\"As specified in {{composite-signatures}} an implementation MUST validate both signatures, i.e. EdDSA/ECDSA and ML-DSA, successfully to state that a composite ML-DSA + ECC signature is valid.\"",
+          "createdAt": "2024-04-29T08:12:45Z",
+          "updatedAt": "2024-04-29T08:12:45Z"
         }
       ]
     },
@@ -1621,15 +1663,15 @@
       "id": "I_kwDOIrmZ-854UOet",
       "title": "Mandatory AES for v3 PKESK: AES is not a MUST in RFC4880",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/74",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Currently our draft states (slightly revised text in my working branch) for ML-KEM cmposite encryption:\r\n\r\n> Note that unlike most public-key algorithms, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted. Instead, it is prepended to the encrypted session key in plaintext. In this case, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).\r\n\r\nBut this isn't possible with RFC 4880 to which we aim to be compatible here, as there AES-128 is only a SHOULD. The only MUST symmetric algorithm there is TripleDES. So either we require at the same time with introducing PQC that AES-128 becomes a MUST, which seems a bit strange to me, or we have to keep the symmetric algorithm flexible, which would make the most sense in my opinion.\r\n\r\nFrom a practical perspective requiring AES-128 as MUST is most likely realistic. But from a formal perspective it means that a sending client conforming to RFC 4880 and sending an encrypted mail to multiple recipients, some supporting ML-KEM, some not, could come into the conflict of having to use AES-128 for the PQC supporting recipients and TripleDES for the legacy clients. Actually the similar but even bigger problem can happen to a client supporting the crypto-refresh and sending to mutiple clients, since the crypto-refresh even completely forbids TripleDES.\r\n\r\nSo should we simply assume that clients today all support AES-128?\r\n\r\n@TJ-91 @wussler @fluppe2\r\n\r\n\r\n",
       "createdAt": "2023-11-30T12:28:45Z",
-      "updatedAt": "2024-02-12T17:27:34Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T10:44:26Z",
+      "closedAt": "2024-04-29T10:44:26Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -1809,13 +1851,25 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
-      "labels": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
+      "labels": [
+        "Version 03"
+      ],
       "body": "I would prefer to replace \"ML-KEM-768 + X25519\" by \"ML-KEM-768+X25519\". In UIs it will most likely be presented without spaces in order to make it clearly appear as a single identifier.",
       "createdAt": "2024-01-22T15:17:41Z",
-      "updatedAt": "2024-01-22T15:17:41Z",
+      "updatedAt": "2024-04-29T10:43:45Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Do it after the split",
+          "createdAt": "2024-04-29T10:41:46Z",
+          "updatedAt": "2024-04-29T10:41:46Z"
+        }
+      ]
     },
     {
       "number": 76,
@@ -1838,15 +1892,15 @@
       "id": "I_kwDOIrmZ-8591Aod",
       "title": "clarify x25519 wire format",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/77",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "draft-ietf-openpgp-pqc-00 currently says:\r\n\r\n> For Curve25519 this specification adapts the encoding of objects as defined in [[RFC7748](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#RFC7748)] in contrast to [[I-D.ietf-openpgp-crypto-refresh](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-00.html#I-D.ietf-openpgp-crypto-refresh)].\r\n\r\nWhat does this sentence mean?  is \"adapt\" supposed to mean \"adopt\"?  In this context, adapt typically means \"modifies to fit\", while \"adopt\" typically means \"embraces as specified\".  the crypto-refresh draft itself uses RFC 7748 for X25519: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.1.6  There is of course Curve25519Legacy (https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#section-5.5.5.6.1.1) but that is deprecated and not the recommended approach.",
       "createdAt": "2024-01-31T22:02:37Z",
-      "updatedAt": "2024-02-05T16:26:26Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T07:42:16Z",
+      "closedAt": "2024-04-29T07:42:16Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -1854,6 +1908,13 @@
           "body": "I think you are entirely right. I am quite sure the text you are referring to was written before the crypto-refresh received the new X25519. I integrated my proposed fix in my recent PR https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/80. Please check if that fixes the issue.",
           "createdAt": "2024-02-05T16:26:25Z",
           "updatedAt": "2024-02-05T16:26:25Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Closing it as fixed in #80",
+          "createdAt": "2024-04-29T07:42:16Z",
+          "updatedAt": "2024-04-29T07:42:16Z"
         }
       ]
     },
@@ -1862,15 +1923,15 @@
       "id": "I_kwDOIrmZ-8591KJf",
       "title": "github repo metadata says \"draft-wussler-openpgp-pqc\", should say \"draft-ietf-openpgp-pqc\"",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/79",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-01-31T22:25:00Z",
-      "updatedAt": "2024-03-04T21:00:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-04-29T10:25:30Z",
+      "closedAt": "2024-04-29T10:25:30Z",
       "comments": [
         {
           "author": "wussler",
@@ -2000,11 +2061,15 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
-      "labels": [],
+      "assignees": [
+        "TJ-91"
+      ],
+      "labels": [
+        "Version 03"
+      ],
       "body": "Kai Engert kindly pointed out that Werner Koch had mentioned (on the LibrePGP list?) that with v4 PQC keys SHA-1 binding signatures would still be allowed. I currently don't see a problem with this, as I don't see how collission attacks against key binding signatures could be possible. The attacker would have to be able to supply one public key for which he has a collision and have that be signed by the victim.\r\n\r\nStill, we might want to mandate that at least SHA-256 must be used in the binding signatures. Any opinions @wussler @fluppe2 @TJ-91 ?",
       "createdAt": "2024-02-13T13:22:08Z",
-      "updatedAt": "2024-02-16T10:54:47Z",
+      "updatedAt": "2024-04-29T10:44:43Z",
       "closedAt": null,
       "comments": [
         {
@@ -2112,7 +2177,7 @@
       "labels": [],
       "body": "Assuming #99 goes through, we'll be standardizing two levels of SLH-DSA: SLH-DSA-SHAKE-128s and SLH-DSA-SHAKE-128f, which FIPS 205 indicates is NIST \"category 1\", and SLH-DSA-SHAKE-256s, which FIPS 205 indicates is NIST \"Category 5\".\r\n\r\nBut the ML-DSA choices are ML-DSA-768 (NIST \"category 3\") and ML-DSA-1024 (NIST \"category 5\").\r\n\r\nSo it looks to me like the weaker/smaller/faster SLH-DSA signatures are weaker than the weaker/smaller-faster ML-DSA .  Is that intentional?  Am i misreading the FIPS specs?  are the NIST categories things we should be concerned about?",
       "createdAt": "2024-03-23T03:32:11Z",
-      "updatedAt": "2024-03-25T08:41:22Z",
+      "updatedAt": "2024-04-29T07:30:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -2121,6 +2186,13 @@
           "body": "Indeed, this is a mismatch based on the NIST security levels that we intentionally introduced from the beginning: While for SLH-DSA we introduce the 128 bit and 256 bit parameters (previously also the 192 bit), for ML-DSA and ML-KEM we introduce the 192 bit and 256 bit parameters.\r\n(Note that here you seem to confuse the ML-KEM parameters \"-512\", \"-768\", and \"-1024\" with the ML-DSA parameters \"-44\", \"-65\", an \"-87\".) \r\n\r\nThe idea here is (at least in my interpretation of this mismatch) to maintain a security margin for the module-lattice schemes. This is also reflected by pairing the 192 bit module lattice parameters with EC parameters with 128 bit security and the 256 bit module lattice parameters with EC parameters with a security of 192 (or 224) bit.",
           "createdAt": "2024-03-25T08:41:20Z",
           "updatedAt": "2024-03-25T08:41:20Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@dkg Does my explanation make sense to you? Can we close this issue based on my response?",
+          "createdAt": "2024-04-29T07:30:42Z",
+          "updatedAt": "2024-04-29T07:30:42Z"
         }
       ]
     },
@@ -2132,11 +2204,35 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
-      "labels": [],
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [
+        "Version 03"
+      ],
       "body": "When the split is made, the following updates are necessary as well:\r\n\r\n- remove the sentence \"Algorithms indicated as MAY are not assigned a codepoint in the current state of the draft since there are not enough private/experimental code points available to cover all newly introduced public-key algorithm identifiers.\"",
       "createdAt": "2024-03-26T10:12:32Z",
-      "updatedAt": "2024-03-26T10:12:32Z",
+      "updatedAt": "2024-04-29T10:44:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 106,
+      "id": "I_kwDOIrmZ-86HNxl2",
+      "title": "State that implicit preferred algorithm lists exist even when the corresponding subpacket is missing",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/106",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "TJ-91"
+      ],
+      "labels": [
+        "Version 03"
+      ],
+      "body": "Regarding the \"Preferred AEAD Ciphersuites\" subpacket and \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket, we need a clarification in Sec. \"8.1. Symmetric Algorithms for SEIPD Packets\". The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.",
+      "createdAt": "2024-04-29T09:24:11Z",
+      "updatedAt": "2024-04-29T10:43:24Z",
       "closedAt": null,
       "comments": []
     }
