@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-30T01:03:59.795054+00:00",
+  "timestamp": "2024-05-02T01:04:00.154978+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -9,29 +9,9 @@
       "color": "d73a4a"
     },
     {
-      "name": "documentation",
-      "description": "Improvements or additions to documentation",
-      "color": "0075ca"
-    },
-    {
       "name": "duplicate",
       "description": "This issue or pull request already exists",
       "color": "cfd3d7"
-    },
-    {
-      "name": "enhancement",
-      "description": "New feature or request",
-      "color": "a2eeef"
-    },
-    {
-      "name": "good first issue",
-      "description": "Good for newcomers",
-      "color": "7057ff"
-    },
-    {
-      "name": "help wanted",
-      "description": "Extra attention is needed",
-      "color": "008672"
     },
     {
       "name": "invalid",
@@ -77,6 +57,11 @@
       "name": "Version 03",
       "description": "",
       "color": "8F042A"
+    },
+    {
+      "name": "NIST final std.",
+      "description": "",
+      "color": "258D21"
     }
   ],
   "issues": [
@@ -2233,6 +2218,24 @@
       "body": "Regarding the \"Preferred AEAD Ciphersuites\" subpacket and \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket, we need a clarification in Sec. \"8.1. Symmetric Algorithms for SEIPD Packets\". The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.",
       "createdAt": "2024-04-29T09:24:11Z",
       "updatedAt": "2024-04-29T10:43:24Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 108,
+      "id": "I_kwDOIrmZ-86HV-eb",
+      "title": "Specify private key format for ML-* depending on final standard",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/108",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [
+        "NIST final std."
+      ],
+      "body": "Based on what was announced, NIST' s final standard for the ML-KEM and ML-DSA will enable private keys in seed format. Currently, the draft only refers to the NIST standard for the private key format. Thus this needs more specification, and it might be relevant to specify in the draft:\r\n\r\n- what is the single (?) secret key format in the NIST standard, that the draft is referring to\r\n  - alternative option: that seed format is also possible for private keys (?)\r\n- that a private key in expanded format needs to be checked for consistency before usage\r\n",
+      "createdAt": "2024-04-30T07:14:15Z",
+      "updatedAt": "2024-04-30T07:14:16Z",
       "closedAt": null,
       "comments": []
     }
@@ -10474,6 +10477,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 107,
+      "id": "PR_kwDOIrmZ-85uGgdI",
+      "title": "Remove NIST and Brainpool curve hybrids",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/107",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Remove algorithms with NIST or Brainpool curves\r\n- Remove ECDSA details\r\n- Rename ECC to EdDSA or ECDH based on context\r\n- Remove unneeded references\r\n- Drop SEC1 point encoding",
+      "createdAt": "2024-04-30T07:08:51Z",
+      "updatedAt": "2024-04-30T07:08:51Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "46fb3702c5ea835872e12ac51a691a03b8bfe169",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "split-drafts",
+      "headRefOid": "5bd14f9ef8465dba6658c77cb36d19f1f8e8826b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
