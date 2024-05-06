@@ -1176,7 +1176,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 
 ## draft-ietf-openpgp-pqc-03
 - Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points.
-- Moved NIST and Brainpool curve hybrids to a separate draft, dropped ECDSA from the current specification.
+- Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
 
 # Contributors
 
