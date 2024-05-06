@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 1 November 2024                                     F. Strenzke
+Expires: 7 November 2024                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                           30 April 2024
+                                                              6 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 November 2024.
+   This Internet-Draft will expire on 7 November 2024.
 
 Copyright Notice
 
@@ -1618,8 +1618,8 @@ outputBits, customization)
    *  Updated SLH-DSA by removing parametrization and restricting to
       three SLH-DSA-SHAKE algorithm code points.
 
-   *  Moved NIST and Brainpool curve hybrids to a separate draft,
-      dropped ECDSA from the current specification.
+   *  Removed NIST and Brainpool curve hybrids, dropped ECDSA from the
+      current specification.
 
 13.  Contributors
 
