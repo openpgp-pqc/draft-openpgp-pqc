@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-05T01:09:04.926931+00:00",
+  "timestamp": "2024-05-07T01:05:26.376375+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -10483,26 +10483,97 @@
       "id": "PR_kwDOIrmZ-85uGgdI",
       "title": "Remove NIST and Brainpool curve hybrids",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/107",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "- Remove algorithms with NIST or Brainpool curves\r\n- Remove ECDSA details\r\n- Rename ECC to EdDSA or ECDH based on context\r\n- Remove unneeded references\r\n- Drop SEC1 point encoding",
       "createdAt": "2024-04-30T07:08:51Z",
-      "updatedAt": "2024-04-30T07:08:51Z",
+      "updatedAt": "2024-05-06T15:03:17Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "46fb3702c5ea835872e12ac51a691a03b8bfe169",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "split-drafts",
-      "headRefOid": "5bd14f9ef8465dba6658c77cb36d19f1f8e8826b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "headRefOid": "8748bef50d8bb7256002587c8f57c8912336f5c6",
+      "closedAt": "2024-05-06T15:03:17Z",
+      "mergedAt": "2024-05-06T15:03:17Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also looks good to me, I think you covered it all.\r\n\r\nI think we \"needed\" the general ECC term mostly for encompassing ECDSA and EdDSA in one term so it makes sense to include this change here when dropping ECDSA. Or did we have another reason for it?\r\nIf it makes defining separate NIST / Brainpool drafts easier we could keep the more general \"ECC\" wording but I prefer it like it is now and don't think it will be a problem.\r\n\r\nOne really minor thing I would change in the Changelog: I wouldn't write \"Moved NIST and Brainpool curve hybrids to a separate draft\" since we have not yet done it (or have we?)",
+          "createdAt": "2024-05-06T08:35:52Z",
+          "updatedAt": "2024-05-06T08:35:52Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Here for instance, the renaming \"ECC\" to \"ECDH\" or \"EdDSA\", resp., wasn't really necessary.\r\n\r\nTrue, but we drop the ECDH-KEM (because it was the generic KEM for NIST/Brainpool curves), so we couldn't rename it without the split as it would have overloaded the term.\r\n\r\nFor ECDSA/EdDSA is what Johannes pointed out, just wanted to be more precise since now we implement only EdDSA.\r\n\r\n> One really minor thing I would change in the Changelog: I wouldn't write \"Moved NIST and Brainpool curve hybrids to a separate draft\" since we have not yet done it (or have we?)\r\n\r\nI can change it to \"Removed NIST and Brainpool curve hybrids\" if you think it's a good idea @TJ-91, since from the perspective of this draft this is what's happening.",
+          "createdAt": "2024-05-06T11:42:09Z",
+          "updatedAt": "2024-05-06T11:42:09Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I can change it to \"Removed NIST and Brainpool curve hybrids\" if you think it's a good idea @TJ-91, since from the perspective of this draft this is what's happening.\r\n\r\nthat works for me :+1:",
+          "createdAt": "2024-05-06T12:29:43Z",
+          "updatedAt": "2024-05-06T12:29:43Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-855m4HB",
+          "commit": {
+            "abbreviatedOid": "5bd14f9"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Looks good in general to me. There a few editorial changes and spelling corrections that would have better been made in a separate PR, though. For the future I think it will be better if we keep PRs as restricted as possible. Here for instance, the renaming \"ECC\" to \"ECDH\" or \"EdDSA\", resp., wasn't really necessary. It could have been left as it is in this PR (the renaming to \"ECDH\" is completely independent of the split, it could have been applied without the split as well). That would have kept the PR minimal and the renaming could have been done in an editorial PR later on. These are just some ideas how to make reviews simpler in the future, since quite a few people might now check them.",
+          "createdAt": "2024-05-06T08:15:42Z",
+          "updatedAt": "2024-05-06T08:15:42Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-855nALz",
+          "commit": {
+            "abbreviatedOid": "5bd14f9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-06T08:36:38Z",
+          "updatedAt": "2024-05-06T08:36:38Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-855pnIm",
+          "commit": {
+            "abbreviatedOid": "5bd14f9"
+          },
+          "author": "wussler",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-06T14:40:31Z",
+          "updatedAt": "2024-05-06T14:40:31Z",
+          "comments": [
+            {
+              "originalPosition": 706,
+              "body": "```suggestion\r\n- Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.\r\n```",
+              "createdAt": "2024-05-06T14:40:31Z",
+              "updatedAt": "2024-05-06T14:40:31Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
