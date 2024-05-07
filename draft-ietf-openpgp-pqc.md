@@ -393,15 +393,13 @@ ID                    | Algorithm                          | Requirement | Defin
 ---------------------:| ---------------------------------- | ----------- | --------------------
 TBD (107 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
 TBD (108 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
-TBD (109 for testing) | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
+TBD (102 for testing) | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
+TBD (103 for testing) | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
+TBD (104 for testing) | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
 
 ### Experimental Codepoints for Interop Testing
 
 \[ Note: this section to be removed before publication \]
-
-Algorithms indicated as MAY are not assigned a codepoint in the current state of the draft since there are not enough private/experimental code points available to cover all newly introduced public-key algorithm identifiers.
 
 The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
 An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
@@ -863,9 +861,9 @@ This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points
 {: title="SLH-DSA-SHAKE algorithm code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
 Algorithm ID reference   |  SLH-DSA-SHAKE public key | SLH-DSA-SHAKE secret key | SLH-DSA-SHAKE signature
 ----------------------:  |  ------------------ | ------------------ | ------------------
-TBD (SLH-DSA-SHAKE-128s) |  32                 | 64                 | 7856
-TBD (SLH-DSA-SHAKE-128f) |  32                 | 64                 | 17088
-TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
+TBD (102 for testing)    |  32                 | 64                 | 7856
+TBD (103 for testing)    |  32                 | 64                 | 17088
+TBD (104 for testing)    |  64                 | 128                | 29792
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
@@ -878,9 +876,9 @@ An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST 
 {: title="Binding between SLH-DSA-SHAKE algorithm code points and signature data hash algorithms" #tab-slhdsa-hash}
 Algorithm ID reference   |  Hash function | Hash function ID reference
 ----------------------:  |  ------------- | --------------------------
-TBD (SLH-DSA-SHAKE-128s) |  SHA3-256      | 12
-TBD (SLH-DSA-SHAKE-128f) |  SHA3-256      | 12
-TBD (SLH-DSA-SHAKE-256s) |  SHA3-512      | 14
+TBD (102 for testing)    |  SHA3-256      | 12
+TBD (103 for testing)    |  SHA3-256      | 12
+TBD (104 for testing)    |  SHA3-512      | 14
 
 ### Key generation
 
