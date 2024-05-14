@@ -936,6 +936,12 @@ If the pair `AES-256` with `OCB` is not explicitly in the list of the "Preferred
 This is justified since `AES-256` and `OCB` are mandatory to implement.
 If the pair `AES-128` with `OCB` is also implicitly added to the list, it is added after the pair `AES-256` with `OCB`.
 
+When encrypting to a certificate that contains a PQ(/T) key
+and if one of the subpackets "Preferred Symmetric Ciphers for v1 SEIPD" or "Preferred AEAD Ciphersuites" is missing,
+an implementation SHOULD treat this as if the subpacket with an empty list exists
+and implicitly add algorithms as describhed in this section.
+Support for the v2 SEIPD feature MUST NOT be assumed on the basis of implicitly added AEAD algorithm pairs alone.
+
 # Migration Considerations
 
 The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature algorithms defined in {{sig-alg-specs}} are a set of new public key algorithms that extend the algorithm selection of {{I-D.ietf-openpgp-crypto-refresh}}.
