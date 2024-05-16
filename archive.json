@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-14T01:06:12.858147+00:00",
+  "timestamp": "2024-05-16T01:06:33.096890+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -10587,7 +10587,7 @@
       "labels": [],
       "body": "I assigned code points 102 - 104 to the three SLH-DSA algorithms now. We can also do 104, 109, 110 or something like that, if there are concerns with using the lower experimental codepoints.\r\n\r\nFixes #105 by removing the now outdated sentence about unassigned code points.",
       "createdAt": "2024-05-07T07:44:16Z",
-      "updatedAt": "2024-05-07T15:32:05Z",
+      "updatedAt": "2024-05-15T12:47:49Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
@@ -10612,6 +10612,13 @@
           "body": "@wussler  We don't strictly need them yet, that's true. We had assigned IDs before and the reason we hadn't in the meantime was that the experimental code space was too restricted. Since that's not an issue any more, I re-assigned them. \r\n\r\nBut we can also leave them unassigned for a while longer if you think that's better (but I don't see a particular reason).",
           "createdAt": "2024-05-07T15:32:04Z",
           "updatedAt": "2024-05-07T15:32:04Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I would avoid doing them now to leave some space for the other drafts in the adoption call. We can always see how it goes once we do have the SLH-DSA algorithms to make the test vectors.\r\n\r\nEdit: if you agree I propose to leave this PR open with the `postponed` label",
+          "createdAt": "2024-05-15T12:44:21Z",
+          "updatedAt": "2024-05-15T12:47:49Z"
         }
       ],
       "reviews": [
@@ -10709,6 +10716,159 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 110,
+      "id": "PR_kwDOIrmZ-85vXky8",
+      "title": "symmetric algorithm preferences: clarify what happens in the absence \u2026",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/110",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026of the subpackets\r\n\r\nCloses #106 \r\n\r\nNot sure if the last sentence is really required, but the Crypto Refresh leaves a lot of room for implementations to determine v2 SEIPD support so it can't hurt.",
+      "createdAt": "2024-05-14T08:54:29Z",
+      "updatedAt": "2024-05-15T23:24:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-106-implicit-preference-packets",
+      "headRefOid": "269656ee82b16147dc930a94a5b442aeb8e5f346",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-856syLt",
+          "commit": {
+            "abbreviatedOid": "269656e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-15T16:57:25Z",
+          "updatedAt": "2024-05-15T16:57:26Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nSupport for the v2 SEIPD feature MUST NOT be assumed on the basis of implicitly added AEAD algorithm pairs alone.\r\n```\r\n\r\nI think the rest of the text is already clear enough about the SEIPDv1 and AEAD. The remaining sounded to me just like a repetition that made the overall concept less clear.\r\n",
+              "createdAt": "2024-05-15T16:57:25Z",
+              "updatedAt": "2024-05-15T16:57:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-856vM3-",
+          "commit": {
+            "abbreviatedOid": "269656e"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I think this text can be further simplified while still getting across the main point.\r\n\r\nI don't think implementers need reminding that \"missing subpacket is the same as empty subpacket\" -- in any case, if they do this might not be the right place to put it.\r\n\r\nWe're talking here about adding additional inference about supported encryption algorithms.  rather than stating what the implementation should *not* do (infer v2 SEIPD support on the basis of the PQ(/T) key alone), we should be explicit about what they *should* do: \r\n\r\n- look at the Features subpacket (today), or\r\n- infer support for v2 SEIPD based on some survey of widely available implementations that support PQC (in the future, when such a survey is available).",
+          "createdAt": "2024-05-15T23:12:40Z",
+          "updatedAt": "2024-05-15T23:24:41Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "s/describhed/described/",
+              "createdAt": "2024-05-15T23:12:40Z",
+              "updatedAt": "2024-05-15T23:24:41Z"
+            },
+            {
+              "originalPosition": 8,
+              "body": "this final line is passive voice: who is doing the assuming or not assuming?\r\n\r\nHow about being clearer, like: \r\n\r\n> When encrypting to a OpenPGP certificate that contains a PQ(/T) key, an implementation MUST NOT infer that the certificate's owner supports v2 SEIPD solely on the basis of the implicitly added AEAD algorithm pairs.",
+              "createdAt": "2024-05-15T23:16:25Z",
+              "updatedAt": "2024-05-15T23:24:41Z"
+            },
+            {
+              "originalPosition": 8,
+              "body": "i tend to agree with @wussler here that we probably don't need to say \"lack of subpacket is the same as empty subpacket\".  We also don't want to imply that any implementation should consider the presence of either encryption-support subpacket as the same as the appropriate bit in the Features subpacket.",
+              "createdAt": "2024-05-15T23:20:15Z",
+              "updatedAt": "2024-05-15T23:24:41Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 111,
+      "id": "PR_kwDOIrmZ-85vX-Hg",
+      "title": "update pquip terminology reference",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/111",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolves #58",
+      "createdAt": "2024-05-14T09:45:12Z",
+      "updatedAt": "2024-05-15T23:11:28Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-58-update-pquip-ref",
+      "headRefOid": "b5e8e6c3e6c35d69af782bb5ab93222fe860c7ed",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This seems fine to me, but i would recommend relying on kramdown-rfc to generate the reference to the internet-draft directly, so that you don't have to maintain it.  I've offered #112 as an alternative.\r\n\r\nI don't think you need to explicitly tag the version of the I-D you're referencing unless you expect that draft to actually radically change the terminology in use between versions.",
+          "createdAt": "2024-05-15T23:11:27Z",
+          "updatedAt": "2024-05-15T23:11:27Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-856fR3I",
+          "commit": {
+            "abbreviatedOid": "b5e8e6c"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-14T11:05:04Z",
+          "updatedAt": "2024-05-14T11:05:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 112,
+      "id": "PR_kwDOIrmZ-85vl3DX",
+      "title": "Change to PQUIP terminology draft",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/112",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "this is a simple alternative to #111 \r\n\r\nCloses: #58 ",
+      "createdAt": "2024-05-15T23:10:39Z",
+      "updatedAt": "2024-05-15T23:10:39Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "id-reference",
+      "headRefOid": "460eae7c0694715aacaf331a45e665c1a0628f81",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
