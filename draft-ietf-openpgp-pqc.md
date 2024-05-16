@@ -217,15 +217,6 @@ informative:
         - org: National Institute of Standards and Technology
       date: August 2023
 
-  draft-driscoll-pqt-hybrid-terminology:
-    target: https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-hybrid-terminology
-    title: Terminology for Post-Quantum Traditional Hybrid Schemes
-    author:
-      -
-        ins: F. Driscoll
-        name: Florence Driscoll
-    date: March 2023
-
   GHP18:
     target: https://doi.org/10.1007/978-3-319-76578-5_7
     title: KEM Combiners
@@ -299,7 +290,7 @@ The document specifies the conventions for interoperability between compliant Op
 
 ### Terminology for Multi-Algorithm Schemes
 
-The terminology in this document is oriented towards the definitions in [draft-driscoll-pqt-hybrid-terminology].
+The terminology in this document is oriented towards the definitions in {{?I-D.ietf-pquip-pqt-hybrid-terminology}}.
 Specifically, the terms "multi-algorithm", "composite" and "non-composite" are used in correspondence with the definitions therein.
 The abbreviation "PQ" is used for post-quantum schemes.
 To denote the combination of post-quantum and traditional schemes, the abbreviation "PQ/T" is used.
