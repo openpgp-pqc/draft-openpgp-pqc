@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 7 November 2024                                     F. Strenzke
+Expires: 17 November 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                              6 May 2024
+                                                             16 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2024.
+   This Internet-Draft will expire on 17 November 2024.
 
 Copyright Notice
 
@@ -205,7 +205,7 @@ Table of Contents
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
    The terminology in this document is oriented towards the definitions
-   in [draft-driscoll-pqt-hybrid-terminology].  Specifically, the terms
+   in [I-D.ietf-pquip-pqt-hybrid-terminology].  Specifically, the terms
    "multi-algorithm", "composite" and "non-composite" are used in
    correspondence with the definitions therein.  The abbreviation "PQ"
    is used for post-quantum schemes.  To denote the combination of post-
@@ -1662,12 +1662,6 @@ outputBits, customization)
               Chosen Ciphertext Attack", 2003,
               <https://doi.org/10.1137/S0097539702403773>.
 
-   [draft-driscoll-pqt-hybrid-terminology]
-              Driscoll, F., "Terminology for Post-Quantum Traditional
-              Hybrid Schemes", March 2023,
-              <https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-
-              hybrid-terminology>.
-
    [FIPS-203] National Institute of Standards and Technology, "Module-
               Lattice-Based Key-Encapsulation Mechanism Standard",
               August 2023, <https://doi.org/10.6028/NIST.FIPS.203.ipd>.
@@ -1682,6 +1676,13 @@ outputBits, customization)
 
    [GHP18]    Giacon, F., Heuer, F., and B. Poettering, "KEM Combiners",
               2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.
+
+   [I-D.ietf-pquip-pqt-hybrid-terminology]
+              D, F. and M. P, "Terminology for Post-Quantum Traditional
+              Hybrid Schemes", Work in Progress, Internet-Draft, draft-
+              ietf-pquip-pqt-hybrid-terminology-03, 9 May 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
+              pqt-hybrid-terminology-03>.
 
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
