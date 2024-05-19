@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-16T01:06:33.096890+00:00",
+  "timestamp": "2024-05-19T01:11:07.676054+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1372,7 +1372,7 @@
       "id": "I_kwDOIrmZ-85tOlhW",
       "title": "Add/Update References to IETF pquip Documents",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/58",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -1383,8 +1383,8 @@
       ],
       "body": "See https://datatracker.ietf.org/wg/pquip/documents/\r\n\r\n* The terminology draft for PQ/T has been moved there (adopted by pquip WG), we need to reference the new document.\r\n* https://datatracker.ietf.org/doc/draft-ar-pquip-pqc-engineers/ might also be a reference to consider",
       "createdAt": "2023-08-02T06:43:59Z",
-      "updatedAt": "2024-04-29T11:05:44Z",
-      "closedAt": null,
+      "updatedAt": "2024-05-16T08:25:56Z",
+      "closedAt": "2024-05-16T08:25:56Z",
       "comments": []
     },
     {
@@ -2217,9 +2217,24 @@
       ],
       "body": "Regarding the \"Preferred AEAD Ciphersuites\" subpacket and \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket, we need a clarification in Sec. \"8.1. Symmetric Algorithms for SEIPD Packets\". The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.",
       "createdAt": "2024-04-29T09:24:11Z",
-      "updatedAt": "2024-04-29T10:43:24Z",
+      "updatedAt": "2024-05-17T11:16:09Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm not sure how much this draft needs to fix this.  But at a maximum, what we need to say is \"a certificate with no AEAD Ciphersuite Preferences subpacket should be treated the same as an otherwise-identical certificate with an present-but-empty AEAD Ciphersuite Preferences subpacket\".  However, framed this way it does seem like this is something that belongs in the primary specification, and not as a clarification in the PQC draft.\r\n\r\nWhat other interpretation is possible, which a wayward implementer might actually consider?",
+          "createdAt": "2024-05-16T20:41:02Z",
+          "updatedAt": "2024-05-16T20:41:02Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \"a certificate with no AEAD Ciphersuite Preferences subpacket should be treated the same as an otherwise-identical certificate with an present-but-empty AEAD Ciphersuite Preferences subpacket\".\r\n\r\nThat's what I tried to do in #110 with the restriction to the PQ/T case and also including v1 SEIPD preferences.\r\nThat makes it 60% longer than the quote if we skip the last optional sentence about not assuming v2 SEIPD features based on the subpacket.\r\n\r\n> What other interpretation is possible, which a wayward implementer might actually consider?\r\n\r\nThe only sane alternative would be to assume `AES-128` or `AES-256` for v1 SEIPD and `AES-128/OCB` for v2 SEIPD, I guess (currently we don't say `AES-256/OCB` is MTI).\r\nAll in all, it is only nitpicking and I am also not sure how much this draft needs to fix this. However, I'm always happy when a specification gives way to only exactly one interpretation (as it should be).\r\n\r\nPersonally, I'm also fine if we do not make the change.",
+          "createdAt": "2024-05-17T11:16:08Z",
+          "updatedAt": "2024-05-17T11:16:08Z"
+        }
+      ]
     },
     {
       "number": 108,
@@ -10580,21 +10595,21 @@
       "id": "PR_kwDOIrmZ-85uuXI2",
       "title": "Assign SLH-DSA Codepoints",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/109",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I assigned code points 102 - 104 to the three SLH-DSA algorithms now. We can also do 104, 109, 110 or something like that, if there are concerns with using the lower experimental codepoints.\r\n\r\nFixes #105 by removing the now outdated sentence about unassigned code points.",
       "createdAt": "2024-05-07T07:44:16Z",
-      "updatedAt": "2024-05-15T12:47:49Z",
+      "updatedAt": "2024-05-16T07:18:02Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "slhdsa-codepoints",
       "headRefOid": "4869494a4c92739762726ea337b9d94ceecbb748",
-      "closedAt": null,
+      "closedAt": "2024-05-16T07:18:02Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -10619,6 +10634,13 @@
           "body": "I would avoid doing them now to leave some space for the other drafts in the adoption call. We can always see how it goes once we do have the SLH-DSA algorithms to make the test vectors.\r\n\r\nEdit: if you agree I propose to leave this PR open with the `postponed` label",
           "createdAt": "2024-05-15T12:44:21Z",
           "updatedAt": "2024-05-15T12:47:49Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, let's wait with assigning IDs for now. I'm closing this PR since the changes are too minor to be worth keeping around.",
+          "createdAt": "2024-05-16T07:18:02Z",
+          "updatedAt": "2024-05-16T07:18:02Z"
         }
       ],
       "reviews": [
@@ -10729,7 +10751,7 @@
       "labels": [],
       "body": "\u2026of the subpackets\r\n\r\nCloses #106 \r\n\r\nNot sure if the last sentence is really required, but the Crypto Refresh leaves a lot of room for implementations to determine v2 SEIPD support so it can't hurt.",
       "createdAt": "2024-05-14T08:54:29Z",
-      "updatedAt": "2024-05-15T23:24:41Z",
+      "updatedAt": "2024-05-17T11:26:38Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
@@ -10740,7 +10762,36 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@wussler @dkg Thanks for the fixes and suggestions.\r\n\r\nThe reason I wrote the text is given in #106:\r\n> The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.\r\n\r\nIn `5.2.3.15. Preferred AEAD Ciphersuites` strictly speaking, it is not described what happens in the absence of the subpacket. The same is true for the non-AEAD stuff (see `12.2. Symmetric Algorithm Preferences`).\r\n\r\nI do think it's not a problem in the Crypto Refresh since it's clear enough what algorithm to choose in such a case since there is only one choice left, the MTI algorithm. Now we extend this mechanism and set more implicit default options to the lists of the subpackets. Now there is ambiguity in the case of a missing subpacket.\r\n\r\nI am also not very happy with the additional text but with the reasoning I gave, do you still think we can drop this clarification completely?",
+          "createdAt": "2024-05-16T08:06:25Z",
+          "updatedAt": "2024-05-16T08:06:25Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I am also happy with @dkg's proposed text, and I think it's now clear what to do in the case of missing subpackets. I also think here would be the right place to add a \"forbid SED tag 9\" for issue #91 ",
+          "createdAt": "2024-05-16T08:35:26Z",
+          "updatedAt": "2024-05-16T08:35:26Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 i see what you're saying about the specifics of what is missing, but (a) the text you're proposing is a _lot_ of words to say \"for these purposes, treat a missing subpacket the same as an empty subpacket\", and (b) i don't really know what the alternative interpretation would be likely to be.  are you suggesting that an implementer might really think \"if they have an empty AEAD ciphersuites subpacket, then i know i can use AES256-OCB, but if they have a missing AEAD ciphersuites subpacket, then i know i have to fall back to AES128-OCB\"?  That would be very weird.\r\n\r\nMaybe this would be best illustrated in a test vector, with a minimal certificate with a PQ/T encryption key, and a features packet that supports v2 SEIPD, and no AEAD Ciphersuites subpacket.  then the test vector could include an encrypted message that uses AES256-OCB .",
+          "createdAt": "2024-05-16T20:24:11Z",
+          "updatedAt": "2024-05-16T20:24:11Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> are you suggesting that an implementer might really think \"if they have an empty AEAD ciphersuites subpacket, then i know i can use AES256-OCB, but if they have a missing AEAD ciphersuites subpacket, then i know i have to fall back to AES128-OCB\"? That would be very weird.\r\n\r\nThat's true, there is not much potential for harm here.\r\n\r\n> Maybe this would be best illustrated in a test vector\r\n\r\nI don't think the test vector really conveys the message (many would probably not notice the detail or if they do, be confused by it).\r\n",
+          "createdAt": "2024-05-17T11:24:36Z",
+          "updatedAt": "2024-05-17T11:26:38Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-856syLt",
@@ -10801,21 +10852,21 @@
       "id": "PR_kwDOIrmZ-85vX-Hg",
       "title": "update pquip terminology reference",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/111",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Resolves #58",
       "createdAt": "2024-05-14T09:45:12Z",
-      "updatedAt": "2024-05-15T23:11:28Z",
+      "updatedAt": "2024-05-16T08:26:03Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-58-update-pquip-ref",
       "headRefOid": "b5e8e6c3e6c35d69af782bb5ab93222fe860c7ed",
-      "closedAt": null,
+      "closedAt": "2024-05-16T08:26:03Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -10826,6 +10877,13 @@
           "body": "This seems fine to me, but i would recommend relying on kramdown-rfc to generate the reference to the internet-draft directly, so that you don't have to maintain it.  I've offered #112 as an alternative.\r\n\r\nI don't think you need to explicitly tag the version of the I-D you're referencing unless you expect that draft to actually radically change the terminology in use between versions.",
           "createdAt": "2024-05-15T23:11:27Z",
           "updatedAt": "2024-05-15T23:11:27Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, that's a good suggestion. Even if the terminology changes, it'll not be very dramatic.",
+          "createdAt": "2024-05-16T07:32:08Z",
+          "updatedAt": "2024-05-16T07:32:08Z"
         }
       ],
       "reviews": [
@@ -10849,26 +10907,91 @@
       "id": "PR_kwDOIrmZ-85vl3DX",
       "title": "Change to PQUIP terminology draft",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/112",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "this is a simple alternative to #111 \r\n\r\nCloses: #58 ",
       "createdAt": "2024-05-15T23:10:39Z",
-      "updatedAt": "2024-05-15T23:10:39Z",
+      "updatedAt": "2024-05-17T11:27:48Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "id-reference",
       "headRefOid": "460eae7c0694715aacaf331a45e665c1a0628f81",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "closedAt": "2024-05-16T08:25:55Z",
+      "mergedAt": "2024-05-16T08:25:55Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "5dfb10938adc6fc28920cac15b63078e423c5603"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "When I run `make` on my system I get a read timeout:\r\n\r\n```\r\n~/.cache/xml2rfc/reference.I-D.ietf-pquip-pqt-hybrid-terminology.xml: fetching from https://datatracker.ietf.org/doc/bibxml3/draft-ietf-pquip-pqt-hybrid-terminology.xml\r\n*** execution expired while fetching https://datatracker.ietf.org/doc/bibxml3/draft-ietf-pquip-pqt-hybrid-terminology.xml\r\n~/draft-openpgp-pqc/lib/.gems/ruby/3.0.0/gems/kramdown-rfc2629-1.6.26/lib/kramdown-rfc2629.rb:1105:in `read': execution expired (Net::OpenTimeout)\r\n\r\n[...]\r\n\r\nError: Unable to parse the XML document: /dev/stdin\r\nmake: *** [lib/main.mk:72: draft-ietf-openpgp-pqc.xml] Error 1\r\n```\r\n\r\nDoes it run on your system? It can very well be a problem on my side.",
+          "createdAt": "2024-05-16T07:36:39Z",
+          "updatedAt": "2024-05-16T07:36:39Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Works for me :+1: ",
+          "createdAt": "2024-05-16T08:21:13Z",
+          "updatedAt": "2024-05-16T08:21:13Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Then let's merge this and I'll fix my system :+1:",
+          "createdAt": "2024-05-16T08:25:47Z",
+          "updatedAt": "2024-05-16T08:25:47Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 that's a strange error message.  is your implementation blocked by some sort of firewall?  does `wget https://datatracker.ietf.org/doc/bibxml3/draft-ietf-pquip-pqt-hybrid-terminology.xml` work for you?",
+          "createdAt": "2024-05-16T20:33:43Z",
+          "updatedAt": "2024-05-16T20:33:43Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm behind a proxy which sometimes causes problems. Anyway, I've got it resolved now :)",
+          "createdAt": "2024-05-17T11:27:46Z",
+          "updatedAt": "2024-05-17T11:27:46Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-856yFjR",
+          "commit": {
+            "abbreviatedOid": "460eae7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-16T08:21:30Z",
+          "updatedAt": "2024-05-16T08:21:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-856yJzZ",
+          "commit": {
+            "abbreviatedOid": "460eae7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-16T08:25:28Z",
+          "updatedAt": "2024-05-16T08:25:28Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
