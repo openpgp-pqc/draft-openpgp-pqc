@@ -1690,13 +1690,6 @@ outputBits, customization)
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
 
-   [SP800-186]
-              Chen, L., Moody, D., Regenscheid, A., and K. Randall,
-              "Recommendations for Discrete Logarithm-Based
-              Cryptography: Elliptic Curve Domain Parameters", NIST
-              Special Publication 800-186 , February 2023,
-              <https://doi.org/10.6028/NIST.SP.800-186>.
-
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
               Davis, "Recommendation for Pair-Wise Key-Establishment
