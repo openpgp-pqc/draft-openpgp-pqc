@@ -713,8 +713,7 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
 
 In the case of a v3 PKESK, a receiving implementation MUST check if the length of the unwrapped symmetric key matches the symmetric algorithm identifier, and abort if this is not the case.
 
-Implementations MUST NOT use Symmetrically Encrypted Data packets (tag 9)
-to encrypt data protected with the algorithms described in this document.
+Implementations MUST NOT use Symmetrically Encrypted Data packets (tag 9) to encrypt data protected with the algorithms described in this document.
 
 ### Key Material Packets {#mlkem-ecc-key}
 
