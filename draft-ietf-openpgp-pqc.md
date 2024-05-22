@@ -384,7 +384,7 @@ ID                    | Algorithm                          | Requirement | Defin
 ---------------------:| ---------------------------------- | ----------- | --------------------
 TBD (107 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
 TBD (108 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
-TBD (109 for testing) | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
 TBD                   | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
 TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
 
@@ -392,7 +392,7 @@ TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slh
 
 \[ Note: this section to be removed before publication \]
 
-Algorithms indicated as MAY are not assigned a codepoint in the current state of the draft since there are not enough private/experimental code points available to cover all newly introduced public-key algorithm identifiers.
+Algorithms indicated as MAY are not assigned a codepoint in the current state of the draft in order to leave enough private/experimental code points available for other drafts.
 
 The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
 An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
