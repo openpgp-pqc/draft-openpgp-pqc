@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 17 November 2024                                    F. Strenzke
+Expires: 23 November 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             16 May 2024
+                                                             22 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 November 2024.
+   This Internet-Draft will expire on 23 November 2024.
 
 Copyright Notice
 
@@ -353,8 +353,8 @@ Table of Contents
      | TBD (108 for | ML-DSA-87 + Ed448  | SHOULD      | Section    |
      |     testing) |                    |             | 5.2        |
      +--------------+--------------------+-------------+------------+
-     | TBD (109 for | SLH-DSA-SHAKE-128s | MAY         | Section    |
-     |     testing) |                    |             | 6.1        |
+     |          TBD | SLH-DSA-SHAKE-128s | MAY         | Section    |
+     |              |                    |             | 6.1        |
      +--------------+--------------------+-------------+------------+
      |          TBD | SLH-DSA-SHAKE-128f | MAY         | Section    |
      |              |                    |             | 6.1        |
@@ -370,9 +370,8 @@ Table of Contents
    [ Note: this section to be removed before publication ]
 
    Algorithms indicated as MAY are not assigned a codepoint in the
-   current state of the draft since there are not enough private/
-   experimental code points available to cover all newly introduced
-   public-key algorithm identifiers.
+   current state of the draft in order to leave enough private/
+   experimental code points available for other drafts.
 
    The use of private/experimental codepoints during development are
    intended to be used in non-released software only, for
