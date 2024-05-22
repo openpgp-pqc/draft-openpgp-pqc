@@ -136,23 +136,6 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56C Rev. 2
 
-  SP800-185:
-    target: https://doi.org/10.6028/NIST.SP.800-185
-    title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
-    author:
-      -
-        ins: J. Kelsey
-        name: John Kelsey
-      -
-        ins: S. Chang
-        name: Shu-jen Chang
-      -
-        ins: R. Perlner
-        name: Ray Perlner
-    date: December 2016
-    seriesinfo:
-      NIST Special Publication 800-185
-
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
@@ -175,26 +158,6 @@ informative:
     date: April 2018
     seriesinfo:
       NIST Special Publication 800-56A Rev. 3
-
-  SP800-186:
-    target: https://doi.org/10.6028/NIST.SP.800-186
-    title: 'Recommendations for Discrete Logarithm-Based Cryptography:  Elliptic Curve Domain Parameters'
-    author:
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: D. Moody
-        name: Dustin Moody
-      -
-        ins: A. Regenscheid
-        name: Andrew Regenscheid
-      -
-        ins: K. Randall
-        name: Karen Randall
-    date: February 2023
-    seriesinfo:
-      NIST Special Publication 800-186
 
   FIPS-203:
       target: https://doi.org/10.6028/NIST.FIPS.203.ipd
@@ -579,12 +542,18 @@ For the composite KEM schemes defined in {{kem-alg-specs}} the following procedu
     //   Input:
     //   algID     - the algorithm ID encoded as octet
 
-    fixedInfo = algID
+    fixedInfo = algID || domSeparation
+
+The value of `domSeparation` is the UTF-8 encoding of the string "OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:
+
+    domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
+                     4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
+                     63 74 69 6F 6E
 
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on KMAC256 {{SP800-185}}.
+The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
     //   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
@@ -605,33 +574,21 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   counter             - the 4 byte value 00 00 00 01
     //   customizationString - the UTF-8 encoding of the string "KDF"
 
-    ecdhData = ecdhKeyShare || ecdhCipherText
-    mlkemData = mlkemKeyShare || mlkemCipherText
-    encData = counter || ecdhData || mlkemData || fixedInfo
+    ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+    mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
 
-    KEK = KMAC256(domSeparation, encData, oBits, customizationString)
+    KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-186}}, Section 4, i.e., the key `K`, main input data `X`, requested output length `L`, and optional customization string `S` in that order.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
-The ciphertext is by design included again in the key combiner to provide a robust security proof.
-
-The value of `domSeparation` is the UTF-8 encoding of the string "OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:
-
-    domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
-                     4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
-                     63 74 69 6F 6E
+The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
 
 The value of `counter` MUST be set to the following octet sequence:
 
     counter :=  00 00 00 01
 
 The value of `fixedInfo` MUST be set according to {{kem-fixed-info}}.
-
-The value of `customizationString` is the UTF-8 encoding of the string "KDF" and MUST be set to the following octet sequence:
-
-    customizationString := 4B 44 46
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -1174,6 +1131,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 ## draft-ietf-openpgp-pqc-03
 - Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points.
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
+- Updated KDF as proposed at IETF 119
 
 # Contributors
 
@@ -1227,13 +1185,13 @@ Here is an unsigned message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `4ec7dc0874ce4a3c257fec94f27f2d3c589764a5fbaf27a4b52836df53c86868`.
+The hex-encoded KMAC `ecdhKeyShare` input is `a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `9a84cb01b6be6eecd16737fb558b5ca35899403076c7e9f0ee350195e7fbf6c4`.
+The hex-encoded KMAC `mlkemKeyShare` input is `fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c`.
 
-The hex-encoded KMAC256 output is `15a0f1eed1fb2a50a22f21e82dbce13ae91c45e3b76a9d2c61246c354a05f781`.
+The hex-encoded SHA3-256 output is `34530ae391ed7ceb738f109540e6b6a057ba3ed84ebcc7835d651d4fd76da214`.
 
-The hex-encoded session key is `08f49fd5340b026e7ec751d82cea83a4b92d4837e785bfb66af71387f84156d0`.
+The hex-encoded session key is `d8e551ea391d10cd886876e1d3fb7ae3dc33b726d422a14fa0335f70466bfed9`.
 
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
 ~~~ application/pgp-keys
@@ -1283,31 +1241,31 @@ Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
 - A v3 PKESK
 - A v1 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `ba6634c5bab5756868dac8282054b0b30916d764e1f15841222392e5545a67c7`.
+The hex-encoded KMAC `ecdhKeyShare` input is `71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `a6b263da0e367b39c2d44bf4c3f66015f410ee4fa674ddbba8d50cde2fc4094a`.
+The hex-encoded KMAC `mlkemKeyShare` input is `c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815`.
 
-The hex-encoded KMAC256 output is `504bc329627af248947117936bee9e87230d327d5c5f5b4db593c4b58b2d0339`.
+The hex-encoded SHA3-256 output is `78ab3bc59a5a846dada25a2c2729ba0a859fa83be7ba59fee0c9f48f84b5c610`.
 
-The hex-encoded session key is `b639d5feaae6c8eabcf04182322d576298193cfa9555d869cf911ffbbc5e52e7`.
+The hex-encoded session key is `5e1bc615873d64579663e8b6f49cb43c8a366ab96f0b9043dcc06b7291d45eec`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v1.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v4-eddsa-sample-message-v1.asc}
 ~~~
 
-Here is an SEIPDv2 unsigned message `testing` encrypted to this key:
+Here is an SEIPDv2 unsigned message `Testing\n` encrypted to this key:
 
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `50a74bfb94dc7677bc02f278eb4e7d5d2f1b04e34a2b5c7b8da0579f3e1e0825`.
+The hex-encoded KMAC `ecdhKeyShare` input is `83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `161911216c93a5b7936f9a8876c446b0767c904c94786bfc79bcc505b45f5075`.
+The hex-encoded KMAC `mlkemKeyShare` input is `b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9`.
 
-The hex-encoded KMAC256 output is `ee4dacbc4efac509ad5f79640d5963af038baf512d55974c46ac71db6c1ed579`.
+The hex-encoded SHA3-256 output is `3da471666f01bfdd65fc9cc43367d597ac15ec61986b37dae34d8e712a8dc6a0`.
 
-The hex-encoded session key is `27e3c564fa7b8adb7ee1cfede3ee2cda79dd8f1a6d029ebeb7f3880c752185f6`.
+The hex-encoded session key is `bfd6454fe05532da6033aa077ea03efb3094bd3cc890a0f04895757ec9484ac1`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v2.asc"}
 ~~~ application/pgp-keys
