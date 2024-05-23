@@ -1034,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 23 November 2024</td>
+<td class="center">Expires 24 November 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-05-22" class="published">22 May 2024</time>
+<time datetime="2024-05-23" class="published">23 May 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-11-23">23 November 2024</time></dd>
+<dd class="expires"><time datetime="2024-11-24">24 November 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1115,7 +1115,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 November 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2089,7 +2089,11 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
 <pre>
 //   Input:
-//   algID     - the algorithm ID encoded as octet
+//   algID - the algorithm ID encoded as octet
+//
+//   Constants:
+//   domSeparation - the UTF-8 encoding of the string
+//                   "OpenPGPCompositeKeyDerivationFunction"
 
 fixedInfo = algID || domSeparation
 </pre><a href="#section-4.2.1-2" class="pilcrow">¶</a>
@@ -2114,23 +2118,18 @@ The construction is a one-step key derivation function compliant to <span>[<a hr
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.2-2">
 <pre>
-//   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
-//                   mlkemKeyShare, mlkemCipherText,
-//                   fixedInfo, oBits)
+//   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
+//                   mlkemCipherText, fixedInfo)
 //
 //   Input:
-//   ecdhKeyShare     - the ECDH key share encoded as an octet string
-//   ecdhCipherText   - the ECDH ciphertext encoded as an octet string
+//   ecdhKeyShare    - the ECDH key share encoded as an octet string
+//   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
 //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
 //   fixedInfo       - the fixed information octet string
-//   oBits           - the size of the output keying material in bits
 //
 //   Constants:
-//   domSeparation       - the UTF-8 encoding of the string
-//                         "OpenPGPCompositeKeyDerivationFunction"
-//   counter             - the 4 byte value 00 00 00 01
-//   customizationString - the UTF-8 encoding of the string "KDF"
+//   counter - the 4 byte value 00 00 00 01
 
 ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
 mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
@@ -2851,19 +2850,16 @@ The additional inclusion of <code>ecdhPublicKey</code> follows the security advi
         <h3 id="name-key-combiner-2">
 <a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a> this specification limits itself to the use of KMAC.
-The sponge construction used by KMAC was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
+<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a> this specification limits itself to the use of SHA-3.
+The sponge construction used by SHA-3 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-Except for a domain separation it is sufficient to simply process the concatenation of any number of key shares when using a sponge-based construction like KMAC.
-The construction using KMAC ensures a standardized domain separation.
-In this case, the processed message is then the concatenation of any number of key shares.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell KMAC from a random oracle.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA-3.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA-3 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (and ciphertexts <code>C1</code> and <code>C2</code>) as<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+Hence, to be able to distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (with ciphertexts <code>C1</code> and <code>C2</code> and public keys <code>P1</code> and <code>P2</code>) as<a href="#section-9.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9.3-3">
 <pre>
-K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-outputBits, customization)
+K = SHA-3(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 </pre><a href="#section-9.3-3" class="pilcrow">¶</a>
 </div>
 <p id="section-9.3-4">from a random bit string, an adversary has to know (or correctly guess) both key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
@@ -3554,8 +3550,8 @@ g+Bld9lBSVmEdMJnOX2ZHOdEoRV4bm1U4aPuhrKL/d8lkIgM
             <p id="appendix-A.1-10.2.1">A v2 SEIPD<a href="#appendix-A.1-10.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-11">The hex-encoded KMAC <code>ecdhKeyShare</code> input is <code>a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-12">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-11">The hex-encoded SHA-3 <code>ecdhKeyShare</code> input is <code>a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-12">The hex-encoded SHA-3 <code>mlkemKeyShare</code> input is <code>fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-13">The hex-encoded SHA3-256 output is <code>34530ae391ed7ceb738f109540e6b6a057ba3ed84ebcc7835d651d4fd76da214</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-14">The hex-encoded session key is <code>d8e551ea391d10cd886876e1d3fb7ae3dc33b726d422a14fa0335f70466bfed9</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.1-15">
@@ -3802,8 +3798,8 @@ Z2MPhqSLt9Vf5kAA/1RP8DeMB+q8U2n55xiSRnxP6+ddHg/Q7bZuUM0Cv+0M
             <p id="appendix-A.2-11.2.1">A v1 SEIPD<a href="#appendix-A.2-11.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-12">The hex-encoded KMAC <code>ecdhKeyShare</code> input is <code>71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-13">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-12">The hex-encoded SHA-3 <code>ecdhKeyShare</code> input is <code>71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-13">The hex-encoded SHA-3 <code>mlkemKeyShare</code> input is <code>c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-14">The hex-encoded SHA3-256 output is <code>78ab3bc59a5a846dada25a2c2729ba0a859fa83be7ba59fee0c9f48f84b5c610</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-15">The hex-encoded session key is <code>5e1bc615873d64579663e8b6f49cb43c8a366ab96f0b9043dcc06b7291d45eec</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-16">
@@ -3849,8 +3845,8 @@ nPPpEKsarKqOFYkCzbbZ2GBvCcMckl+vHo2CVZgvg018EQ==
             <p id="appendix-A.2-18.2.1">A v2 SEIPD<a href="#appendix-A.2-18.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-19">The hex-encoded KMAC <code>ecdhKeyShare</code> input is <code>83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-20">The hex-encoded KMAC <code>mlkemKeyShare</code> input is <code>b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-19">The hex-encoded SHA-3 <code>ecdhKeyShare</code> input is <code>83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-20">The hex-encoded SHA-3 <code>mlkemKeyShare</code> input is <code>b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-21">The hex-encoded SHA3-256 output is <code>3da471666f01bfdd65fc9cc43367d597ac15ec61986b37dae34d8e712a8dc6a0</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-22">The hex-encoded session key is <code>bfd6454fe05532da6033aa077ea03efb3094bd3cc890a0f04895757ec9484ac1</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-23">

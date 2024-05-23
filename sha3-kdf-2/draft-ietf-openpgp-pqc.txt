@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 November 2024                                    F. Strenzke
+Expires: 24 November 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             22 May 2024
+                                                             23 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 November 2024.
+   This Internet-Draft will expire on 24 November 2024.
 
 Copyright Notice
 
@@ -650,7 +650,11 @@ Table of Contents
    to use as binding between the KEK and the communication parties.
 
    //   Input:
-   //   algID     - the algorithm ID encoded as octet
+   //   algID - the algorithm ID encoded as octet
+   //
+   //   Constants:
+   //   domSeparation - the UTF-8 encoding of the string
+   //                   "OpenPGPCompositeKeyDerivationFunction"
 
    fixedInfo = algID || domSeparation
 
@@ -671,23 +675,18 @@ Table of Contents
    following algorithm, which computes the key encryption key KEK that
    is used to wrap, i.e., encrypt, the session key.
 
- //   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
- //                   mlkemKeyShare, mlkemCipherText,
- //                   fixedInfo, oBits)
+ //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
+ //                   mlkemCipherText, fixedInfo)
  //
  //   Input:
- //   ecdhKeyShare     - the ECDH key share encoded as an octet string
- //   ecdhCipherText   - the ECDH ciphertext encoded as an octet string
+ //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+ //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
  //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
  //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
  //   fixedInfo       - the fixed information octet string
- //   oBits           - the size of the output keying material in bits
  //
  //   Constants:
- //   domSeparation       - the UTF-8 encoding of the string
- //                         "OpenPGPCompositeKeyDerivationFunction"
- //   counter             - the 4 byte value 00 00 00 01
- //   customizationString - the UTF-8 encoding of the string "KDF"
+ //   counter - the 4 byte value 00 00 00 01
 
  ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
  mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
@@ -1243,27 +1242,24 @@ Table of Contents
 9.3.  Key combiner
 
    For the key combination in Section 4.2.2 this specification limits
-   itself to the use of KMAC.  The sponge construction used by KMAC was
-   proven to be indifferentiable from a random oracle [BDPA08].  This
-   means, that in contrast to SHA2, which uses a Merkle-Damgard
+   itself to the use of SHA-3.  The sponge construction used by SHA-3
+   was proven to be indifferentiable from a random oracle [BDPA08].
+   This means, that in contrast to SHA2, which uses a Merkle-Damgard
    construction, no HMAC-based construction is required for key
-   combination.  Except for a domain separation it is sufficient to
-   simply process the concatenation of any number of key shares when
-   using a sponge-based construction like KMAC.  The construction using
-   KMAC ensures a standardized domain separation.  In this case, the
-   processed message is then the concatenation of any number of key
-   shares.
+   combination.  It is therefore sufficient to simply process the
+   concatenation of any number of key shares with a domain separation
+   when using a sponge-based construction like SHA-3.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
    permutation, an attacker has to make an expected number of 2^(c/2)
-   calls to the permutation to tell KMAC from a random oracle.  For a
+   calls to the permutation to tell SHA-3 from a random oracle.  For a
    random oracle, a difference in only a single bit gives an unrelated,
    uniformly random output.  Hence, to be able to distinguish a key K,
-   derived from shared keys K1 and K2 (and ciphertexts C1 and C2) as
+   derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
+   public keys P1 and P2) as
 
-K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-outputBits, customization)
+   K = SHA-3(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
@@ -1887,10 +1883,10 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
+   The hex-encoded SHA-3 ecdhKeyShare input is
    a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4.
 
-   The hex-encoded KMAC mlkemKeyShare input is
+   The hex-encoded SHA-3 mlkemKeyShare input is
    fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c.
 
    The hex-encoded SHA3-256 output is
@@ -2117,10 +2113,10 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v1 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
+   The hex-encoded SHA-3 ecdhKeyShare input is
    71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0.
 
-   The hex-encoded KMAC mlkemKeyShare input is
+   The hex-encoded SHA-3 mlkemKeyShare input is
    c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815.
 
    The hex-encoded SHA3-256 output is
@@ -2166,10 +2162,10 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
+   The hex-encoded SHA-3 ecdhKeyShare input is
    83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163.
 
-   The hex-encoded KMAC mlkemKeyShare input is
+   The hex-encoded SHA-3 mlkemKeyShare input is
    b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9.
 
    The hex-encoded SHA3-256 output is
