@@ -540,7 +540,11 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure, justified in {{sec-fixed-info}}, MUST be used to derive a string to use as binding between the KEK and the communication parties.
 
     //   Input:
-    //   algID     - the algorithm ID encoded as octet
+    //   algID - the algorithm ID encoded as octet
+    //
+    //   Constants:
+    //   domSeparation - the UTF-8 encoding of the string
+    //                   "OpenPGPCompositeKeyDerivationFunction"
 
     fixedInfo = algID || domSeparation
 
@@ -556,23 +560,18 @@ For the composite KEM schemes defined in {{kem-alg-specs}} the following procedu
 The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
-    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
-    //                   mlkemKeyShare, mlkemCipherText,
-    //                   fixedInfo, oBits)
+    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
+    //                   mlkemCipherText, fixedInfo)
     //
     //   Input:
-    //   ecdhKeyShare     - the ECDH key share encoded as an octet string
-    //   ecdhCipherText   - the ECDH ciphertext encoded as an octet string
+    //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+    //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
     //   fixedInfo       - the fixed information octet string
-    //   oBits           - the size of the output keying material in bits
     //
     //   Constants:
-    //   domSeparation       - the UTF-8 encoding of the string
-    //                         "OpenPGPCompositeKeyDerivationFunction"
-    //   counter             - the 4 byte value 00 00 00 01
-    //   customizationString - the UTF-8 encoding of the string "KDF"
+    //   counter - the 4 byte value 00 00 00 01
 
     ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
     mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
@@ -948,19 +947,16 @@ The additional inclusion of `ecdhPublicKey` follows the security advice in Secti
 
 ## Key combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC.
-The sponge construction used by KMAC was proven to be indifferentiable from a random oracle {{BDPA08}}.
+For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA-3.
+The sponge construction used by SHA-3 was proven to be indifferentiable from a random oracle {{BDPA08}}.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-Except for a domain separation it is sufficient to simply process the concatenation of any number of key shares when using a sponge-based construction like KMAC.
-The construction using KMAC ensures a standardized domain separation.
-In this case, the processed message is then the concatenation of any number of key shares.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA-3.
 
-More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell KMAC from a random oracle.
+More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell SHA-3 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (and ciphertexts `C1` and `C2`) as
+Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (with ciphertexts `C1` and `C2` and public keys `P1` and `P2`) as
 
-    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-    outputBits, customization)
+    K = SHA-3(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 
 from a random bit string, an adversary has to know (or correctly guess) both key shares `K1` and `K2`, entirely.
 
@@ -1185,9 +1181,9 @@ Here is an unsigned message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4`.
+The hex-encoded SHA-3 `ecdhKeyShare` input is `a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c`.
+The hex-encoded SHA-3 `mlkemKeyShare` input is `fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c`.
 
 The hex-encoded SHA3-256 output is `34530ae391ed7ceb738f109540e6b6a057ba3ed84ebcc7835d651d4fd76da214`.
 
@@ -1241,9 +1237,9 @@ Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
 - A v3 PKESK
 - A v1 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0`.
+The hex-encoded SHA-3 `ecdhKeyShare` input is `71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815`.
+The hex-encoded SHA-3 `mlkemKeyShare` input is `c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815`.
 
 The hex-encoded SHA3-256 output is `78ab3bc59a5a846dada25a2c2729ba0a859fa83be7ba59fee0c9f48f84b5c610`.
 
@@ -1259,9 +1255,9 @@ Here is an SEIPDv2 unsigned message `Testing\n` encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163`.
+The hex-encoded SHA-3 `ecdhKeyShare` input is `83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9`.
+The hex-encoded SHA-3 `mlkemKeyShare` input is `b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9`.
 
 The hex-encoded SHA3-256 output is `3da471666f01bfdd65fc9cc43367d597ac15ec61986b37dae34d8e712a8dc6a0`.
 
