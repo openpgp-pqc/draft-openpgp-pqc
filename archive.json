@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-23T01:06:27.372019+00:00",
+  "timestamp": "2024-05-26T01:12:00.868057+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1422,7 +1422,7 @@
       "labels": [],
       "body": "Makes dev life easier.",
       "createdAt": "2023-09-01T04:19:55Z",
-      "updatedAt": "2023-09-01T04:19:55Z",
+      "updatedAt": "2024-05-23T13:12:43Z",
       "closedAt": null,
       "comments": []
     },
@@ -11145,19 +11145,61 @@
       "labels": [],
       "body": "Adapt the KDF proposal to the discussion held at IETF 119",
       "createdAt": "2024-05-22T19:38:49Z",
-      "updatedAt": "2024-05-22T19:40:40Z",
+      "updatedAt": "2024-05-23T13:24:03Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a031f1f5c7dd0e94c4a5ceee5ada211139b6f980",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sha3-kdf-2",
-      "headRefOid": "48eaadbfe50987e26b0b8ab96a0b9aa64486f17d",
+      "headRefOid": "95608e1e8bbee2c9dde1bba06a50d2b879e1c8a4",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 should be fixed",
+          "createdAt": "2024-05-23T12:29:49Z",
+          "updatedAt": "2024-05-23T12:29:49Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ufff, I forgot in how many places we referenced this...\r\n\r\n> I think in most of the places it would be better to write \"SHA3-256\" instead of just \"SHA-3\", what do you think?\r\n\r\nMakes sense, since we use explicitly only this algo\r\n\r\nI also rewrote the security consideration, cutting out the proof for the omission of the PKs and adapting the references",
+          "createdAt": "2024-05-23T13:24:02Z",
+          "updatedAt": "2024-05-23T13:24:02Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-857mzOf",
+          "commit": {
+            "abbreviatedOid": "48eaadb"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I can decrypt the updated test vectors so it looks good from that side.\r\nThere are still some things that need to be fixed in the document:\r\n\r\n* There are still multiple occurances of `KMAC`\r\n* `multiKeyCombine`:\r\n  * `//   customizationString - the UTF-8 encoding of the string \"KDF\"` should be removed\r\n  * Not sure if `domSeparation` really needs to be a constant in the `multiKeyCombine` any longer\r\n  * the lines describing the `ecdhKeyShare` and `ecdhCipherText` have incorrect whitespaces",
+          "createdAt": "2024-05-23T12:02:58Z",
+          "updatedAt": "2024-05-23T12:02:58Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-857nRSJ",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I think in most of the places it would be better to write \"SHA3-256\" instead of just \"SHA-3\", what do you think?\r\n\r\nAnother thing I just noticed is in Section 9.3. \r\n> Furthermore, we do not require the recipients public key into the key combiner as the public key material is already included in the component key derivation functions. Given two KEMs which we assume to be multi-user secure, we combine their outputs using a KEM-combiner:\r\n\r\nI suppose that's not how we do it anymore.\r\n\r\nAlso the first two paragraphs that describe the `fixedInfo` and the domain separation are not 100% accurate any longer since we mix the two now in the `fixedInfo`. The reference to Section 4.2.2 for `domSeparation` is also wrong now.\r\n\r\nProbably we can just slightly rewrite the first three paragraphs and remove the rest",
+          "createdAt": "2024-05-23T12:57:17Z",
+          "updatedAt": "2024-05-23T12:57:17Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
