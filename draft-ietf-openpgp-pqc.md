@@ -335,8 +335,8 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
 For encryption, the following composite KEM schemes are specified:
 
 {: title="KEM algorithm specifications" #kem-alg-specs}
-ID                    | Algorithm                          | Requirement | Definition
----------------------:| ---------------------------------- | ----------- | --------------------
+ID                    | Algorithm                        | Requirement | Definition
+---------------------:| -------------------------------- | ----------- | --------------------
 TBD (105 for testing) | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
 TBD (106 for testing) | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
