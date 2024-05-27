@@ -335,21 +335,21 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
 For encryption, the following composite KEM schemes are specified:
 
 {: title="KEM algorithm specifications" #kem-alg-specs}
-ID                    | Algorithm                          | Requirement | Definition
----------------------:| ---------------------------------- | ----------- | --------------------
-TBD (105 for testing) | ML-KEM-768 + X25519                | MUST        | {{ecc-mlkem}}
-TBD (106 for testing) | ML-KEM-1024 + X448                 | SHOULD      | {{ecc-mlkem}}
+ID                    | Algorithm                        | Requirement | Definition
+---------------------:| -------------------------------- | ----------- | --------------------
+TBD (105 for testing) | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
+TBD (106 for testing) | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
-ID                    | Algorithm                          | Requirement | Definition
----------------------:| ---------------------------------- | ----------- | --------------------
-TBD (107 for testing) | ML-DSA-65 + Ed25519                | MUST        | {{ecc-mldsa}}
-TBD (108 for testing) | ML-DSA-87 + Ed448                  | SHOULD      | {{ecc-mldsa}}
-TBD                   | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
+ID                    | Algorithm                        | Requirement | Definition
+---------------------:| -------------------------------- | ----------- | --------------------
+TBD (107 for testing) | ML-DSA-65+Ed25519                | MUST        | {{ecc-mldsa}}
+TBD (108 for testing) | ML-DSA-87+Ed448                  | SHOULD      | {{ecc-mldsa}}
+TBD                   | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-128f               | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-256s               | MAY         | {{slhdsa}}
 
 ### Experimental Codepoints for Interop Testing
 
@@ -1037,10 +1037,10 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
 ID     | Algorithm           | Public Key Format                                                                                                      | Secret Key Format                                                                                                      | Signature Format                                                                                                 | PKESK Format                                                                                                                                                                                           | Reference
 ---  : | -----               | ---------:                                                                                                             | --------:                                                                                                              | --------:                                                                                                        | -----:                                                                                                                                                                                                 | -----:
-TBD    | ML-KEM-768 + X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                              | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
-TBD    | ML-KEM-1024 + X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}}) | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})  | N/A                                                                                                              | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}})  | {{ecc-mlkem}}
-TBD    | ML-DSA-65 + Ed25519 | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}})     | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4032  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})        | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
-TBD    | ML-DSA-87 + Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})      | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4896 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})           | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
+TBD    | ML-KEM-768+X25519 | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                              | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
+TBD    | ML-KEM-1024+X448  | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}}) | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})  | N/A                                                                                                              | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}})  | {{ecc-mlkem}}
+TBD    | ML-DSA-65+Ed25519 | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}})     | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4032  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})        | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
+TBD    | ML-DSA-87+Ed448   | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})      | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4896 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})           | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
 TBD    | SLH-DSA-SHAKE-128s  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 7856 octets signature ({{slhdsa-artifact-lengths}})                                                              | N/A                                                                                                                                                                                                    | {{slhdsa}}
 TBD    | SLH-DSA-SHAKE-128f  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 17088 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
 TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 128 octets secret key ({{slhdsa-artifact-lengths}})                                                                    | 29792 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
@@ -1096,7 +1096,8 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 ## draft-ietf-openpgp-pqc-03
 - Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points.
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
-- Updated KDF as proposed at IETF 119
+- Updated KDF as proposed at IETF 119.
+- Removed whitespaces from composite algorithm names.
 
 # Contributors
 
@@ -1119,7 +1120,7 @@ Here is a Private Key consisting of:
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+- A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `52343242345254050219ceff286e9c8e479ec88757f95354388984a02d7d0b59`.
@@ -1137,7 +1138,7 @@ Here is the corresponding Public Key consisting of:
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+- A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-eddsa-sample-pk.asc"}
@@ -1172,14 +1173,14 @@ Here is a Private Key consisting of:
 - A v4 positive certification self-signature
 - A v4 ECDH (Curve25519) Private-Subkey packet
 - A v4 subkey binding signature
-- A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+- A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet
 - A v4 subkey binding signature
 
 The primary key has the fingerprint `b2e9b532d55bd6287ec79e17c62adc0ddd1edd73`.
 
 The ECDH subkey has the fingerprint `95bed3c63f295e7b980b6a2b93b3233faf28c9d2`.
 
-The ML-KEM-ipd-768 + X25519 subkey has the fingerprint `bd67d98388813e88bf3490f3e440cfbaffd6f357`.
+The ML-KEM-ipd-768+X25519 subkey has the fingerprint `bd67d98388813e88bf3490f3e440cfbaffd6f357`.
 
 {: sourcecode-name="v4-eddsa-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1193,7 +1194,7 @@ Here is the corresponding Public Key consisting of:
 - A v4 positive certification self-signature
 - A v4 ECDH (Curve25519) Public-Subkey packet
 - A v4 subkey binding signature
-- A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+- A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet
 - A v4 subkey binding signature
 
 {: sourcecode-name="v4-eddsa-sample-pk.asc"}
