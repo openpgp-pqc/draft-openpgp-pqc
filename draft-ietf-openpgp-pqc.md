@@ -384,9 +384,9 @@ ID                    | Algorithm                          | Requirement | Defin
 ---------------------:| ---------------------------------- | ----------- | --------------------
 TBD (107 for testing) | ML-DSA-65+Ed25519                | MUST        | {{ecc-mldsa}}
 TBD (108 for testing) | ML-DSA-87+Ed448                  | SHOULD      | {{ecc-mldsa}}
-TBD                   | SLH-DSA-SHAKE-128s                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-128f                 | MAY         | {{slhdsa}}
-TBD                   | SLH-DSA-SHAKE-256s                 | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-128f               | MAY         | {{slhdsa}}
+TBD                   | SLH-DSA-SHAKE-256s               | MAY         | {{slhdsa}}
 
 ### Experimental Codepoints for Interop Testing
 
