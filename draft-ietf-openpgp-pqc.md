@@ -380,8 +380,8 @@ TBD (106 for testing) | ML-KEM-1024+X448                 | SHOULD      | {{ecc-m
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
-ID                    | Algorithm                          | Requirement | Definition
----------------------:| ---------------------------------- | ----------- | --------------------
+ID                    | Algorithm                        | Requirement | Definition
+---------------------:| -------------------------------- | ----------- | --------------------
 TBD (107 for testing) | ML-DSA-65+Ed25519                | MUST        | {{ecc-mldsa}}
 TBD (108 for testing) | ML-DSA-87+Ed448                  | SHOULD      | {{ecc-mldsa}}
 TBD                   | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}
