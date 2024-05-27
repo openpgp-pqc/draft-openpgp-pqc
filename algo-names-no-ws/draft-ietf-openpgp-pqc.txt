@@ -1695,7 +1695,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1809,7 +1809,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1918,7 +1918,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -1928,7 +1928,7 @@ A.2.  V4 PQC Subkey Artifacts
    The ECDH subkey has the fingerprint
    95bed3c63f295e7b980b6a2b93b3233faf28c9d2.
 
-   The ML-KEM-ipd-768 + X25519 subkey has the fingerprint
+   The ML-KEM-ipd-768+X25519 subkey has the fingerprint
    bd67d98388813e88bf3490f3e440cfbaffd6f357.
 
    -----BEGIN PGP PRIVATE KEY BLOCK-----
@@ -2038,7 +2038,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v4 subkey binding signature
 
