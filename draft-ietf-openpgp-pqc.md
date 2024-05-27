@@ -1088,7 +1088,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Swapped the optional v3 PKESK algorithm identifier with length octet in order to align with X25519 and X448.
 - Fixed ML-DSA private key size.
 - Added test vectors.
-- correction and completion of IANA instructions.
+- Correction and completion of IANA instructions.
 
 ## draft-ietf-openpgp-pqc-02
 - Removed git rebase artifact.
@@ -1098,6 +1098,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
 - Updated KDF as proposed at IETF 119.
 - Removed whitespaces from composite algorithm names.
+- Explicitly disallowed SED (tag 9) and weak hashes when using PQ algorithms.
 
 # Contributors
 
