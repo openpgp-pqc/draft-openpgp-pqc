@@ -131,6 +131,7 @@ Table of Contents
        6.2.2.  Key Material Packets
    7.  Notes on Algorithms
      7.1.  Symmetric Algorithms for SEIPD Packets
+     7.2.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
      8.1.  Key preference
      8.2.  Key generation strategies
@@ -826,6 +827,10 @@ Table of Contents
    the length of the unwrapped symmetric key matches the symmetric
    algorithm identifier, and abort if this is not the case.
 
+   Implementations MUST NOT use Symmetrically Encrypted Data packets
+   (tag 9) to encrypt data protected with the algorithms described in
+   this document.
+
 4.3.2.  Key Material Packets
 
    The algorithm-specific public key is this series of values:
@@ -1139,6 +1144,13 @@ Table of Contents
    is justified since AES-256 and OCB are mandatory to implement.  If
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
+
+7.2.  Hash Algorithms for Key Binding Signatures
+
+   Subkey binding signatures over algorithms described in this document
+   and primary key binding signatures made by algorithms described in
+   this document MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A
+   receiving implementation MUST treat such a signature as invalid.
 
 8.  Migration Considerations
 
