@@ -713,6 +713,7 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
 
 In the case of a v3 PKESK, a receiving implementation MUST check if the length of the unwrapped symmetric key matches the symmetric algorithm identifier, and abort if this is not the case.
 
+Implementations MUST NOT use Symmetrically Encrypted Data packets (tag 9) to encrypt data protected with the algorithms described in this document.
 
 ### Key Material Packets {#mlkem-ecc-key}
 
@@ -926,6 +927,11 @@ If `AES-128` is also implicitly added to the list, it is added after `AES-256`.
 If the pair `AES-256` with `OCB` is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since `AES-256` and `OCB` are mandatory to implement.
 If the pair `AES-128` with `OCB` is also implicitly added to the list, it is added after the pair `AES-256` with `OCB`.
+
+## Hash Algorithms for Key Binding Signatures
+
+Subkey binding signatures over algorithms described in this document and primary key binding signatures made by algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.
+A receiving implementation MUST treat such a signature as invalid.
 
 # Migration Considerations
 
