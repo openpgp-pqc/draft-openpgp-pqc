@@ -1569,7 +1569,7 @@ Table of Contents
 
    *  Added test vectors.
 
-   *  correction and completion of IANA instructions.
+   *  Correction and completion of IANA instructions.
 
 12.7.  draft-ietf-openpgp-pqc-02
 
@@ -1586,6 +1586,9 @@ Table of Contents
    *  Updated KDF as proposed at IETF 119.
 
    *  Removed whitespaces from composite algorithm names.
+
+   *  Explicitly disallowed SED (tag 9) and weak hashes when using PQ
+      algorithms.
 
 13.  Contributors
 
