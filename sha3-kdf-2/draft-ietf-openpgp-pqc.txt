@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 24 November 2024                                    F. Strenzke
+Expires: 28 November 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             23 May 2024
+                                                             27 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 November 2024.
+   This Internet-Draft will expire on 28 November 2024.
 
 Copyright Notice
 
@@ -654,17 +654,15 @@ Table of Contents
    //
    //   Constants:
    //   domSeparation - the UTF-8 encoding of the string
-   //                   "OpenPGPCompositeKeyDerivationFunction"
+   //                   "OpenPGPCompositeKDFv1"
 
    fixedInfo = algID || domSeparation
 
    The value of domSeparation is the UTF-8 encoding of the string
-   "OpenPGPCompositeKeyDerivationFunction" and MUST be the following
-   octet sequence:
+   "OpenPGPCompositeKDFv1" and MUST be the following octet sequence:
 
-   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
-                    4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
-                    63 74 69 6F 6E
+   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
+                    44 46 76 31
 
 4.2.2.  Key combiner
 
@@ -1242,24 +1240,24 @@ Table of Contents
 9.3.  Key combiner
 
    For the key combination in Section 4.2.2 this specification limits
-   itself to the use of SHA-3.  The sponge construction used by SHA-3
-   was proven to be indifferentiable from a random oracle [BDPA08].
-   This means, that in contrast to SHA2, which uses a Merkle-Damgard
-   construction, no HMAC-based construction is required for key
+   itself to the use of SHA3-256.  The sponge construction used by
+   SHA3-256 was proven to be indifferentiable from a random oracle
+   [BDPA08].  This means, that in contrast to SHA2, which uses a Merkle-
+   Damgard construction, no HMAC-based construction is required for key
    combination.  It is therefore sufficient to simply process the
    concatenation of any number of key shares with a domain separation
-   when using a sponge-based construction like SHA-3.
+   when using a sponge-based construction like SHA3-256.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
    permutation, an attacker has to make an expected number of 2^(c/2)
-   calls to the permutation to tell SHA-3 from a random oracle.  For a
-   random oracle, a difference in only a single bit gives an unrelated,
-   uniformly random output.  Hence, to be able to distinguish a key K,
-   derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
-   public keys P1 and P2) as
+   calls to the permutation to tell SHA3-256 from a random oracle.  For
+   a random oracle, a difference in only a single bit gives an
+   unrelated, uniformly random output.  Hence, to be able to distinguish
+   a key K, derived from shared keys K1 and K2 (with ciphertexts C1 and
+   C2 and public keys P1 and P2) as
 
-   K = SHA-3(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
+  K = SHA3-256(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
@@ -1278,12 +1276,12 @@ Table of Contents
 
 9.4.  Domain separation and binding
 
-   The domSeparation information defined in Section 4.2.2 provides the
+   The domSeparation information defined in Section 4.2.1 provides the
    domain separation for the key combiner construction.  This ensures
    that the input keying material is used to generate a KEK for a
    specific purpose or context.
 
-   The fixedInfo defined in Section 4.2.1 binds the derived KEK to the
+   The algID defined in Section 4.2.1 binds the derived KEK to the
    chosen algorithm and communication parties.  The algorithm ID
    identifies unequivocally the algorithm, the parameters for its
    instantiation, and the length of all artifacts, including the derived
@@ -1294,44 +1292,6 @@ Table of Contents
    relevant for the OpenPGP protocol, since the sender is not required
    to have a key of their own, there are no pre-shared secrets, and all
    the other parameters are unequivocally defined by the algorithm ID.
-
-   Furthermore, we do not require the recipients public key into the key
-   combiner as the public key material is already included in the
-   component key derivation functions.  Given two KEMs which we assume
-   to be multi-user secure, we combine their outputs using a KEM-
-   combiner:
-
-   K = H(K1, C1, K2, C2), C = (C1, C2)
-
-   Our aim is to preserve multi-user security.  A common approach to
-   this is to add the public key into the key derivation for K.
-   However, it turns out that this is not necessary here.  To break
-   security of the combined scheme in the multi-user setting, the
-   adversary has to distinguish a set of challenge keys
-
-   K__u = H(K1__u, C1__u, K2__u, C2*_u)
-
-   for users u in some set from random, also given ciphertexts C*_u =
-   (C1*_u, C2*_u).  For each of these K* it holds that if the adversary
-   never makes a query
-
-   H(K1*_u, C1*_u, K2*_u, C2*_u)
-
-   they have a zero advantage over guessing.
-
-   The only multi-user advantage that the adversary could gain therefore
-   consists of queries to H that are meaningful for two different users
-   u1 != u2 and their associated public keys.  This is only the case if
-
-   (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
-
-   as the ciphertext values decide for which challenge the query is
-   meaningful.  This means that a ciphertext collision is needed between
-   challenges.  Assuming that the randomness used in the generation of
-   the two challenges is uncorrelated, this is negligible.
-
-   In consequence, the ciphertexts already work sufficiently well as
-   domain-separator.
 
 9.5.  SLH-DSA-SHAKE Message Randomizer
 
@@ -1883,47 +1843,47 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded SHA-3 ecdhKeyShare input is
-   a7526929a4da141d1f73124e1d2afc495d9c1ad94cec5dd86f705cdc502e10b4.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb.
 
-   The hex-encoded SHA-3 mlkemKeyShare input is
-   fc3705f5c5d34e22e760991aa2e7ca5fd2a5f370102ad695e531d0152b53c20c.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a.
 
    The hex-encoded SHA3-256 output is
-   34530ae391ed7ceb738f109540e6b6a057ba3ed84ebcc7835d651d4fd76da214.
+   99229561bcf5017d6b1dd34d8eb0441897968d5b140597756db705f1de67c078.
 
    The hex-encoded session key is
-   d8e551ea391d10cd886876e1d3fb7ae3dc33b726d422a14fa0335f70466bfed9.
+   0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e5fd3a24a13641d7b.
 
    -----BEGIN PGP MESSAGE-----
 
-   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
+   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
    -----END PGP MESSAGE-----
 
 A.2.  V4 PQC Subkey Artifacts
@@ -2113,47 +2073,47 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v1 SEIPD
 
-   The hex-encoded SHA-3 ecdhKeyShare input is
-   71b377acbd06a1c1b944a4a7d4a5c83948caa94d125397eec9fe3bd725acebd0.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0.
 
-   The hex-encoded SHA-3 mlkemKeyShare input is
-   c22b9f735b04d8df0cb9342c124c38a44a359309bea1716b34942f182ae6f815.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008.
 
    The hex-encoded SHA3-256 output is
-   78ab3bc59a5a846dada25a2c2729ba0a859fa83be7ba59fee0c9f48f84b5c610.
+   86ea88190089aae9256f04fdd09cd62e19f2c1d02cfb844aa1f99f7b17c49743.
 
    The hex-encoded session key is
-   5e1bc615873d64579663e8b6f49cb43c8a366ab96f0b9043dcc06b7291d45eec.
+   f3037ae17d83a40ed08d884e19dc66065eac82d96337e4b74b1d10e933535e4d.
 
    -----BEGIN PGP MESSAGE-----
 
-   wcPUA+RAz7r/1vNXaT9u0Sxory3ZN0CvJvSnc9PR5bVSGT7SUqhnyw6NC+UdDVff
-   uJ7T+JHy0JmUiTTkhNQN70cQWPIIhVEjIln1CNshAmQF3zM+W0AcVAxAK+bYACuX
-   ZfH2PI1JDGZLsDsTVYWLlesuv1SEV5gMjoeQUB9yQQLJ4rFEIPwGu0ahdC2InP22
-   6ltTrkQ1GDo+6C1l4PH3s5gsSqkKxynBIUNhrphURElhn4x/CqL/QaIGtU+sREwq
-   BNkqv9+g4+ZQjq34IHJ91Jlm08r1OUVFuHxnAB4M7Dp0vtfIgRMBH1EUlDeRZzan
-   yRggowyKye+9zkJf2QINjo5uz9U82W0vovuiQICy8X0hJQxGroHbY0lmaPWwWh0l
-   ZWowOGDHIWiLwdLK2SYs35tY/VvJxCS/q2mC/YM2Mtw9rryuuf5Rivu4z0QUmWVd
-   VBMNOU1AKUKowLa7rB7h0+3D8avuDNXQQz2rk2QYD8Fm6eBNcbcPggD67kAjZ0lB
-   qM1ES1uWUfCgct/OIFqv4lwftXf51xHcYzIJXaWHh/MG5P7OqGvZif7ur3OKX9m4
-   wFt1r29dTgrCjpci4ur3474f0sLXgX7Gvetj++y3KHQTl0QE7dbcHiPAM1atarzJ
-   TF6cYzEG/JvTrT9lxUeF5kQ18FXUjYyQ1sH/ffE1FLiXNod28PzzcLN4rYLYIg+3
-   fEFKFUZv2OleamZCMC75LYsQ/ifwS7kmYOl2DPYBzaOe7689qHKztnvcCwVRfze8
-   rOX8CjYa8PAYzWNIgT0aZSK/Vnezff207J2qPmUzwrLXqwrgIJfejTww9vNPo7Zx
-   QMVcgaDeF6eS04J2NE/Ck2qeip0lSXAj+dPIGhzFgBoBW4rTDOKOZO/U/gd2c5Gt
-   paHVy7AnS9LPcHED6wfy63xa1akNqjvq4t61YTuGhnEBZWejNhiA2jow+sOXdhfi
-   EaDifag+pSVg55lkJD8lWDaDPuyKejLAMDR2QaaldijPNQv32sQU+Pkcu7r7qiS1
-   fasT87tAYu+fKJe0zzm2Ti8EULWik2A/+BfjqNmxOKy9RsmWTHtLPjNoLIck3YUm
-   Fwf6pwzYeuAIekPKa04DGsw+ZbciUMj9MBbEw9Q8WChgPQ0K4LP/wBPqVDAmZJWy
-   o+IJ4LdQWHL+cBl5HZMSUh5SUIXp5B808GgOsqGvO+MM3Qr6GyRNldnWQYldx9+2
-   BaBDZnYWijoPJVoCV6/Knzp4gOOzIZsAOn8Z3oFY6I34ejcSRs/tHso4sdYXTQOH
-   StjhYWo8L5+u704DoUVLtMpJBIGINed00vQhZo+X7FtHb9hmJMCiHaha1+X5y4mV
-   5rKPAZwpOnchGR3P4hys66vqSvC8yxDQCY7Oc8hwJYKdY3DwFmGR8HrpjOPmKWwf
-   GhKBIEKyhoDEmoGWTapAPmgezopUOuPBidSbysKPZ4AQcLd9wLdNxDZ3kfMAiqSQ
-   euHV3HOqjE7rTQFi9rR6ulOT7Iy38AJdQ48DTEcpCcQlArzCRk2Ai23srbKaprho
-   t7EddfQYnSM7NCz/n58C2hCJXpZNtcbSOQGQdn8U8R7dD3oQraR4BXQQPXdd0+J7
-   nPPpEKsarKqOFYkCzbbZ2GBvCcMckl+vHo2CVZgvg018EQ==
-   =8Kws
+   wcPUA+RAz7r/1vNXaUNGH8CAkSiFgunnUDqAiD9JSd3Sb7lMNUsWk6lzWiJicgky
+   S/vu0sSnRtxweWkoMr1y2ZaS45nXbEQyShiqHhZUKfVwtxbU+rGVH5oCgSvtTCrs
+   verZaFpqzqPWyZ8ApzJvjbGUDBuwns09dGIKvKoePT5DCrqXlsW4EA8gFJbiXeb3
+   E7nsyg3l2uMzbt6FHtYoa6qq9Q0PsUiGte52nXXWEnmBOGUfmCkVsgmHDmz63BLT
+   1xXuZ5YopZkhhpjTNtvWtXc6MIaqnh6XtAcg8ZoaH0iferpbHEp9+M4bv5YDjzji
+   vv83rBQN4cBaS1/TSmBkNJHmxcyT1AOOXY2ZbmxQBORhGOTrFz3w8R78MYkEvB6x
+   JAjoYirpsyNLJzdewpXEYrPQq4Ey8EG2+qDY47vQkQaYcSFFoxYQ8MpHXmmgJ2bp
+   D13g/lQlSHcdWX2L59Wa1dhKRVnUyeEtO5c06FKJ7QOrywNjPdVciPVCx6bBfVd2
+   6qiWLynSGnzGaKd1YyaviioCm48Ydu5q8Z+QbEANbKW1azVAWCuxuiomE3RBvf1O
+   8d30UvBnImEf+9ANDxzmjIG2lW39U591Jbv0pL00at3tIMQN2wwiduP1KZ1dilWa
+   gEkdPjl6Q68ov0vRCYMAZizj4pMZbsUdge2Jj9GieObnp+w25pJu9nBeI6iqYmwd
+   Ny1U3OuvzbEUsNfKcHoQd9Cem8EZn+5ICk7eqsTkZq69oYfIVRyzEEc/X9562nzh
+   6B+X4CHZY/C8UCWougQriG4KVszM4myOgekKg0kNVIWgE2y7Z//S9c2twdxRWT/a
+   8QC4p7QX7JRgzDD9erkj/9J3hKwHxDHShKB5jsVaGO+BxtFSCiiTmgeo7+SAnJwU
+   Mi/N0UiI2BbKdo4KmdDPUVDyobBjCjeXil7Kg7pTU0vewPZQDLl9X16CcXCB60HL
+   fkDGpcYbjkZYbmB449sQfaLvxRMHomP4TY4PEfANIXdWmk1mS0/+zNzMQ9+Xderc
+   8P/EdKDKF5yr7IzSNoxuLiIWpyWJj+5QmAwup9mVv5gkh5RPnUQ0fgQ1vU8K9PMz
+   OmYqlX2W4gPn29UovjkbGH+lEzazEzA7VZWHXG86NVN8WMXqdQvMJcmMRZhDmC3F
+   kCII5zc6dxFXjNUgaAqV8eBqvRBbgCqK+6HSwCMY7jNFhFIy+Nj/9BYU/ereax0t
+   Zlsk7XDK9lMZUidh5+VeEqbyMsLQ0YiyO7VJ5VdiPESXHjPkzxo42XZJELuBVC9D
+   ArAX2Qip+oV1RXzhu/SeJdRQufGSENeZpGiG4tW24dpROh40I5TgXmpd4ALhuh1S
+   PrepCNhXuFtKDIStKZEmCknPAGWAkLYZz5rAaMtztdGvzlektn+8CDtSo3d6FUww
+   dp68ZtSMMb5HGscAoiDoOTiB5KVPSd80s3EPXlsgQSfHuSUHTvmD8G6q4hqGXMeV
+   IUdwjwTvDMfW7CU5zqiV01SO6dXKsFyjLJrT57kpCbQ/2fhoMC+kNcXpzI+Z65yI
+   jCP6Sjv+cVh7tv55kTKAPHO5VE3MDxvSOQHpUQ0zora+lfzpLUahfv8uZ4Q4J3L6
+   mkHfXuplyv3LcunejQDog2bhakqbrb5lg3fZGYNagykZxw==
+   =2Xhi
    -----END PGP MESSAGE-----
 
    Here is an SEIPDv2 unsigned message Testing\n encrypted to this key:
@@ -2162,47 +2122,47 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded SHA-3 ecdhKeyShare input is
-   83459e119d438565f77932bef6fd452509479084aadadbbd66b593a260ed4163.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341.
 
-   The hex-encoded SHA-3 mlkemKeyShare input is
-   b732625a31361a23ea3f4a460da006265cb5870e6428925689376369204e14e9.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0.
 
    The hex-encoded SHA3-256 output is
-   3da471666f01bfdd65fc9cc43367d597ac15ec61986b37dae34d8e712a8dc6a0.
+   76ea8fcc9a31a9fa672940b9ad578f6b8ecbea1b1d1175d01f1777364a8e2704.
 
    The hex-encoded session key is
-   bfd6454fe05532da6033aa077ea03efb3094bd3cc890a0f04895757ec9484ac1.
+   b5d810efc6b2b82e77f907813e114587aca2d0e33c9c74e90eb1638df030dcaf.
 
    -----BEGIN PGP MESSAGE-----
 
-   wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dpHEM2uFZj+52Ib2APbQDMl9Ju3MMY
-   xVRckudRUMExf0RSr1qWc8f/z+mxSL5DCOuEamHnRJmlhpNyOiQDhGfooXh4aRT2
-   cPBu3bheDQx+JmSglR35T53O4uY96jSaJLbxIYobEpPaRMvC3hznlhtMTtoPJq6O
-   00Q1rsgAdlQLc+dY1cCxSxFpb5EbdLyAsCEPBS84FFgF0qbDelgWm7QLgNuJkXw2
-   0GWk2MJnRELwB3HozPKPAmxcwse3FnPvoMneX2ETCkT8TdYjEiqARrzr9h1B0QKQ
-   sX4F+EuRdy3j2zGHpjzPBgGWKe6TasU8D7u33bMG/NCYPus+UCE/dMx1YRdIamWd
-   uNq3xFVVPY3Hl+Gro1ZapCV7XNK2QhWw/wi1aAT5ZfEAGyq+OIj/wd4vZx/Pak8S
-   ua0JKBMK1d8N95lqP82idrsWrhbp/zA6zr2NFgZ3vsFnp5oxacyoft7JrZ0AjbVV
-   LshKhwM6vByC/+k2vrytf71NYCk0KEVQQR0hny4FemBWrKNAdOAGfyk9/Zh51iQg
-   vdpKu8fVwbYKJMsO5wNv+79zNfYj1xfkL+lo2r2NrObtFdjAy850My5s1XsQoTEX
-   T16xZFRe0oFde8eYS6+gt6pvDbnQyLQAdY+cIQF+CB8IeV9cTyKDzRcWPqsV80fB
-   MNg73P2HI7vkDEHbyp+SA9r3OM2DJJ0tJbnQOtYaod9IoJr057X16m2K4rst2+H2
-   UERqhoP0oM83Q5ZPzS1FzNQYSh90zUMv29qGI1tPKimP+OFIbzprD561W49t2+zS
-   CmDR/4DXvnc2CnrkeP7YXfNQDuHVaCJ37HM/MZaopR+GT/hBmNqTxvpJ3S3jSPV9
-   XZUG67YYZKHQ001YFb3Kp6zxQDZNfoC+T4FUez38SLowvx2PfiF8G5v4nVpeZPOG
-   VQc2J/XAJjje7nyx11jNTdDqT1YcbB6PUV4m8/qYXMkNdWJcec59HslgWu0oBVH8
-   cRGKnUksfhfEDzyC0t2h2IRtgkjOL+NUiJuTzE2FsBTVcoXEyn4UU+sgYqGHmWAY
-   TiXnZHVSY7gTi8l62+ZHJCNWIIxSB3V8yLWZFo0BjkfP2ZLdNIXI7KJC6xsSE5iu
-   hIgycqrhhVEPB/1FuO2NFWFVWSoPICLE/7EaHGjZWgjJg4dJ2lxWdy7c0LafHgBn
-   wtVta1UBL0ZB0qK1TQD9s1GqYa/Ltxo+BoFqUM3B7rHwAA9cki0M1FtsFY/HRw7k
-   NiGA9xFUYWO1QbH3L1Lk/Q3pPRzSSRKC2EA/i5MN9uPx/e97gef7PNnBL8hEm8ng
-   T+EKMjjNU7cy2eYypdjhLRujXz71jQp9cDUng+OdWZetEFeh7SInOt2oP+2bmyZ0
-   mfIrqZTYXtp4D098TC9rX+Peg7itIdgb4mZ9MCp9xXG2C+tBTw+QYvr0hsSqd9EE
-   egS4UQoPIUEubIJfOdHvNg1pMAY9V6dNkxOb17nSiKTWYs8Fej6rqKnrPCiZEU2R
-   VlCWPtTWXbzd7zuU1YJ8j2eHfhr3xJzQS6sRu2X6MtZLqYyU0lQCCQIMbhMI/1A1
-   O3T/XB4W61WrnBvWUS0+qZzoKjfrbfhui5imgNzVhpG0frgmERgi63MPe01EdYoZ
-   75XtZ2jY+DGUhmLhBszkOTGpKp0rGGIHGN8=
+   wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dpZ1Yz1yu1Dk/HK2JuEmE6RavqzhvT
+   i508AZhPxC08BxfNFar+uyZCNyMrUSrY0qY8H61GTtx1+O9VynXl8uXtS1nTDGJ9
+   vCR+EvH6rT/gOPQB8HUhX6Ps97Yqi/Iys1gfS8n961pScwIYpPJzUWfUUKjIT55W
+   htkh9aIB6unqzwUDi3p4oRZRm67j1ZP14SLyonAG2tXtCZyu1An62UHeOyNl1/6Z
+   CgC3egTf6lz26US15T8AP54AO77LOf9KwLpUYcwvSExqHGgmhS0Mil6WnFyuJUDB
+   7A2T2p/koW7TDaqoxhWsxY2isiH1SmAxNxzMnrGd7rNpPJ/k/r42bILfOuG0TRUN
+   zqC9ph6OdydSyhHkN5G4eOYQqqvk19/lfLuHWlNwfNcn/2PsgsxLxNj7ltVn90W0
+   qLubPWrujn/DhLl+hs2xXDOudpcztUqxcBnrsSaHlaebjQoDfttVAQj2jjdNXRjZ
+   uNRnRfcG9s3sO3b8d4ed6tk6U+nMrE2dZCBjTagqvD07Z1TpZDh7t86V3X16o/ps
+   jxW42s+YR589b88IZcieZRbKVtXt00pn2tn95kpvL3d8nAkaiPUhrowQUz0jpn8c
+   CDBNAn1j690qM3pD5XJlwverC2cmJH1Hjobnrhi6X1k2lQxweX28p+R9NQjSoX0h
+   ORuE0/Wpi15y0xmr2EzjcZ/6vPncy/IrYJCYmx9+aWQAjrKjizzNFTt73kf1xba5
+   t4tbZkj9xgdDJXq3bAqB0/JeeTb4aTCk+n4olVYzCnMtLgj+1fWPClMModACmFOG
+   1+bw5Q91/7euo363sw5UwgU1JhSQ/xcKNyJQsnklWkLMJNB1Yhj/C32lEmLntigv
+   UOO510+ehA7D5ftef8cMfEIm73HrBBiLfixvVTR8AQV4hiV/mzKP7weM7kxvAvbz
+   ir4jt3uSBOuhTjzq2is/S3D2K+O8FZqGIbkDhnKd98LbEA2cn9nTfsbV+TVXCmaS
+   lHNojVxPL2pUKxedV5skvfflRFciuP7UNsf8myHe7wdfPdSzMsbytDEwID3vcsme
+   fBqZdEZxqv/mNnn38TfHMSCF+yv5XbF9ham4DIcqNlkYud1ipEFFbcBZ0o9nUIWp
+   diSY7KGAtVF224dtcr3FTHGuBnayDq+Yk++VhF4Bb3uPVuwrkf7Bncp1aYEQfkhI
+   HwF3X6GnwC3y7kpbkU1rOq7yXv/0mRyGpVQlW/Yf3qT1buxcWt5BvXBmKzbBpVg/
+   0B9vpzrlFsT0Pb2GHuQ6U+9JoZ+ePnRMVdDz93RCGr1kQlyY15K1b+yILJiV6oOL
+   OxoxXHnr5soIumxCqv+6oAm4SdQVJLELQK72x1dVKJ90jUOgYCeOY61NsC9BFWHT
+   h0itUEnwWMjKg73z00bthndwfEXHBJLrHizkcv+pwD8M5wb/9H6HU4x8ELSr5Fyn
+   WjSoa2739wmJkoJY5ifaic3L8UXJeLuEZnVG9tUrl9ohHO8RNR3Vc/uHmyhImoYp
+   RL4rcc6YpuyextmYu9S9LkPR5Bzr+mFeJDeXbA7GJm9eofdw0lQCCQIMAGc2j84/
+   tfivyP5YrgQ8uBt9iwJN3IYRBy8qdr9JUyxkpkOEshV6XE4g3Orpbx0ZdrxbKmDS
+   7eJl5fSust3gb2KfaAoWkFQivVJP2KTl5gw=
    -----END PGP MESSAGE-----
 
 Acknowledgments
