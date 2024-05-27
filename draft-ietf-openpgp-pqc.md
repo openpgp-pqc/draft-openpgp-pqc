@@ -136,23 +136,6 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56C Rev. 2
 
-  SP800-185:
-    target: https://doi.org/10.6028/NIST.SP.800-185
-    title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
-    author:
-      -
-        ins: J. Kelsey
-        name: John Kelsey
-      -
-        ins: S. Chang
-        name: Shu-jen Chang
-      -
-        ins: R. Perlner
-        name: Ray Perlner
-    date: December 2016
-    seriesinfo:
-      NIST Special Publication 800-185
-
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
@@ -175,26 +158,6 @@ informative:
     date: April 2018
     seriesinfo:
       NIST Special Publication 800-56A Rev. 3
-
-  SP800-186:
-    target: https://doi.org/10.6028/NIST.SP.800-186
-    title: 'Recommendations for Discrete Logarithm-Based Cryptography:  Elliptic Curve Domain Parameters'
-    author:
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: D. Moody
-        name: Dustin Moody
-      -
-        ins: A. Regenscheid
-        name: Andrew Regenscheid
-      -
-        ins: K. Randall
-        name: Karen Randall
-    date: February 2023
-    seriesinfo:
-      NIST Special Publication 800-186
 
   FIPS-203:
       target: https://doi.org/10.6028/NIST.FIPS.203.ipd
@@ -577,61 +540,53 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure, justified in {{sec-fixed-info}}, MUST be used to derive a string to use as binding between the KEK and the communication parties.
 
     //   Input:
-    //   algID     - the algorithm ID encoded as octet
+    //   algID - the algorithm ID encoded as octet
+    //
+    //   Constants:
+    //   domSeparation - the UTF-8 encoding of the string
+    //                   "OpenPGPCompositeKDFv1"
 
-    fixedInfo = algID
+    fixedInfo = algID || domSeparation
+
+The value of `domSeparation` is the UTF-8 encoding of the string "OpenPGPCompositeKDFv1" and MUST be the following octet sequence:
+
+    domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
+                     44 46 76 31
 
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on KMAC256 {{SP800-185}}.
+The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
-    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
-    //                   mlkemKeyShare, mlkemCipherText,
-    //                   fixedInfo, oBits)
+    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
+    //                   mlkemCipherText, fixedInfo)
     //
     //   Input:
-    //   ecdhKeyShare     - the ECDH key share encoded as an octet string
-    //   ecdhCipherText   - the ECDH ciphertext encoded as an octet string
+    //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+    //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
     //   fixedInfo       - the fixed information octet string
-    //   oBits           - the size of the output keying material in bits
     //
     //   Constants:
-    //   domSeparation       - the UTF-8 encoding of the string
-    //                         "OpenPGPCompositeKeyDerivationFunction"
-    //   counter             - the 4 byte value 00 00 00 01
-    //   customizationString - the UTF-8 encoding of the string "KDF"
+    //   counter - the 4 byte value 00 00 00 01
 
-    ecdhData = ecdhKeyShare || ecdhCipherText
-    mlkemData = mlkemKeyShare || mlkemCipherText
-    encData = counter || ecdhData || mlkemData || fixedInfo
+    ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+    mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
 
-    KEK = KMAC256(domSeparation, encData, oBits, customizationString)
+    KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-186}}, Section 4, i.e., the key `K`, main input data `X`, requested output length `L`, and optional customization string `S` in that order.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
-The ciphertext is by design included again in the key combiner to provide a robust security proof.
-
-The value of `domSeparation` is the UTF-8 encoding of the string "OpenPGPCompositeKeyDerivationFunction" and MUST be the following octet sequence:
-
-    domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
-                     4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
-                     63 74 69 6F 6E
+The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
 
 The value of `counter` MUST be set to the following octet sequence:
 
     counter :=  00 00 00 01
 
 The value of `fixedInfo` MUST be set according to {{kem-fixed-info}}.
-
-The value of `customizationString` is the UTF-8 encoding of the string "KDF" and MUST be set to the following octet sequence:
-
-    customizationString := 4B 44 46
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -991,19 +946,16 @@ The additional inclusion of `ecdhPublicKey` follows the security advice in Secti
 
 ## Key combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC.
-The sponge construction used by KMAC was proven to be indifferentiable from a random oracle {{BDPA08}}.
+For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256.
+The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle {{BDPA08}}.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-Except for a domain separation it is sufficient to simply process the concatenation of any number of key shares when using a sponge-based construction like KMAC.
-The construction using KMAC ensures a standardized domain separation.
-In this case, the processed message is then the concatenation of any number of key shares.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.
 
-More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell KMAC from a random oracle.
+More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell SHA3-256 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (and ciphertexts `C1` and `C2`) as
+Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (with ciphertexts `C1` and `C2` and public keys `P1` and `P2`) as
 
-    K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-    outputBits, customization)
+    K = SHA3-256(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 
 from a random bit string, an adversary has to know (or correctly guess) both key shares `K1` and `K2`, entirely.
 
@@ -1015,44 +967,14 @@ In the random oracle setting, the reordering does not influence the arguments in
 
 ## Domain separation and binding {#sec-fixed-info}
 
-The `domSeparation` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
+The `domSeparation` information defined in {{kem-fixed-info}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose or context.
 
-The `fixedInfo` defined in {{kem-fixed-info}} binds the derived KEK to the chosen algorithm and communication parties.
+The `algID` defined in {{kem-fixed-info}} binds the derived KEK to the chosen algorithm and communication parties.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
 This is in line with the Recommendation for ECC in section 5.5 of [SP800-56A].
 Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.
-
-Furthermore, we do not require the recipients public key into the key combiner as the public key material is already included in the component key derivation functions.
-Given two KEMs which we assume to be multi-user secure, we combine their outputs using a KEM-combiner:
-
-    K = H(K1, C1, K2, C2), C = (C1, C2)
-
-Our aim is to preserve multi-user security.
-A common approach to this is to add the public key into the key derivation for K.
-However, it turns out that this is not necessary here.
-To break security of the combined scheme in the multi-user setting, the adversary has to distinguish a set of challenge keys
-
-  K*_u = H(K1*_u, C1*_u, K2*_u, C2*_u)
-
-for users u in some set from random, also given ciphertexts `C*_u = (C1*_u, C2*_u)`.
-For each of these K* it holds that if the adversary never makes a query
-
-    H(K1*_u, C1*_u, K2*_u, C2*_u)
-
-they have a zero advantage over guessing.
-
-The only multi-user advantage that the adversary could gain therefore consists of queries to H that are meaningful for two different users u1 != u2 and their associated public keys.
-This is only the case if
-
-    (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
-
-as the ciphertext values decide for which challenge the query is meaningful.
-This means that a ciphertext collision is needed between challenges.
-Assuming that the randomness used in the generation of the two challenges is uncorrelated, this is negligible.
-
-In consequence, the ciphertexts already work sufficiently well as domain-separator.
 
 ## SLH-DSA-SHAKE Message Randomizer {#slhdsa-sec-cons}
 
@@ -1174,6 +1096,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 ## draft-ietf-openpgp-pqc-03
 - Updated SLH-DSA by removing parametrization and restricting to three SLH-DSA-SHAKE algorithm code points.
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
+- Updated KDF as proposed at IETF 119
 
 # Contributors
 
@@ -1227,13 +1150,13 @@ Here is an unsigned message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `4ec7dc0874ce4a3c257fec94f27f2d3c589764a5fbaf27a4b52836df53c86868`.
+The hex-encoded SHA3-256 `ecdhKeyShare` input is `c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `9a84cb01b6be6eecd16737fb558b5ca35899403076c7e9f0ee350195e7fbf6c4`.
+The hex-encoded SHA3-256 `mlkemKeyShare` input is `9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a`.
 
-The hex-encoded KMAC256 output is `15a0f1eed1fb2a50a22f21e82dbce13ae91c45e3b76a9d2c61246c354a05f781`.
+The hex-encoded SHA3-256 output is `99229561bcf5017d6b1dd34d8eb0441897968d5b140597756db705f1de67c078`.
 
-The hex-encoded session key is `08f49fd5340b026e7ec751d82cea83a4b92d4837e785bfb66af71387f84156d0`.
+The hex-encoded session key is `0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e5fd3a24a13641d7b`.
 
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
 ~~~ application/pgp-keys
@@ -1283,31 +1206,31 @@ Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
 - A v3 PKESK
 - A v1 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `ba6634c5bab5756868dac8282054b0b30916d764e1f15841222392e5545a67c7`.
+The hex-encoded SHA3-256 `ecdhKeyShare` input is `98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `a6b263da0e367b39c2d44bf4c3f66015f410ee4fa674ddbba8d50cde2fc4094a`.
+The hex-encoded SHA3-256 `mlkemKeyShare` input is `3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008`.
 
-The hex-encoded KMAC256 output is `504bc329627af248947117936bee9e87230d327d5c5f5b4db593c4b58b2d0339`.
+The hex-encoded SHA3-256 output is `86ea88190089aae9256f04fdd09cd62e19f2c1d02cfb844aa1f99f7b17c49743`.
 
-The hex-encoded session key is `b639d5feaae6c8eabcf04182322d576298193cfa9555d869cf911ffbbc5e52e7`.
+The hex-encoded session key is `f3037ae17d83a40ed08d884e19dc66065eac82d96337e4b74b1d10e933535e4d`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v1.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v4-eddsa-sample-message-v1.asc}
 ~~~
 
-Here is an SEIPDv2 unsigned message `testing` encrypted to this key:
+Here is an SEIPDv2 unsigned message `Testing\n` encrypted to this key:
 
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded KMAC `ecdhKeyShare` input is `50a74bfb94dc7677bc02f278eb4e7d5d2f1b04e34a2b5c7b8da0579f3e1e0825`.
+The hex-encoded SHA3-256 `ecdhKeyShare` input is `4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341`.
 
-The hex-encoded KMAC `mlkemKeyShare` input is `161911216c93a5b7936f9a8876c446b0767c904c94786bfc79bcc505b45f5075`.
+The hex-encoded SHA3-256 `mlkemKeyShare` input is `4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0`.
 
-The hex-encoded KMAC256 output is `ee4dacbc4efac509ad5f79640d5963af038baf512d55974c46ac71db6c1ed579`.
+The hex-encoded SHA3-256 output is `76ea8fcc9a31a9fa672940b9ad578f6b8ecbea1b1d1175d01f1777364a8e2704`.
 
-The hex-encoded session key is `27e3c564fa7b8adb7ee1cfede3ee2cda79dd8f1a6d029ebeb7f3880c752185f6`.
+The hex-encoded session key is `b5d810efc6b2b82e77f907813e114587aca2d0e33c9c74e90eb1638df030dcaf`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v2.asc"}
 ~~~ application/pgp-keys
