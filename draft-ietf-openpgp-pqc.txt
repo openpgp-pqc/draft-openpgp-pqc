@@ -330,17 +330,17 @@ Table of Contents
 
    For encryption, the following composite KEM schemes are specified:
 
-    +=======================+=============+=============+============+
-    |                    ID | Algorithm   | Requirement | Definition |
-    +=======================+=============+=============+============+
-    | TBD (105 for testing) | ML-KEM-768  | MUST        | Section    |
-    |                       | + X25519    |             | 4.2        |
-    +-----------------------+-------------+-------------+------------+
-    | TBD (106 for testing) | ML-KEM-1024 | SHOULD      | Section    |
-    |                       | + X448      |             | 4.2        |
-    +-----------------------+-------------+-------------+------------+
+      +==============+===================+=============+============+
+      |           ID | Algorithm         | Requirement | Definition |
+      +==============+===================+=============+============+
+      | TBD (105 for | ML-KEM-768+X25519 | MUST        | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
+      | TBD (106 for | ML-KEM-1024+X448  | SHOULD      | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
 
-                  Table 1: KEM algorithm specifications
+                   Table 1: KEM algorithm specifications
 
    For signatures, the following (composite) signature schemes are
    specified:
@@ -348,10 +348,10 @@ Table of Contents
      +==============+====================+=============+============+
      |           ID | Algorithm          | Requirement | Definition |
      +==============+====================+=============+============+
-     | TBD (107 for | ML-DSA-65 +        | MUST        | Section    |
-     |     testing) | Ed25519            |             | 5.2        |
+     | TBD (107 for | ML-DSA-65+Ed25519  | MUST        | Section    |
+     |     testing) |                    |             | 5.2        |
      +--------------+--------------------+-------------+------------+
-     | TBD (108 for | ML-DSA-87 + Ed448  | SHOULD      | Section    |
+     | TBD (108 for | ML-DSA-87+Ed448    | SHOULD      | Section    |
      |     testing) |                    |             | 5.2        |
      +--------------+--------------------+-------------+------------+
      |          TBD | SLH-DSA-SHAKE-128s | MAY         | Section    |
@@ -1402,104 +1402,108 @@ Table of Contents
    algorithms denote fields that are only conditionally contained in the
    data structure.
 
-   +===+=========+=======+=======+=========+==============+===========+
-   |ID |Algorithm| Public| Secret|Signature| PKESK Format | Reference |
-   |   |         |    Key|    Key|   Format|              |           |
-   |   |         | Format| Format|         |              |           |
-   +===+=========+=======+=======+=========+==============+===========+
-   |TBD|ML-      |     32|     32|      N/A|    32 octets |   Section |
-   |   |KEM-768 +| octets| octets|         |       X25519 |       4.2 |
-   |   |X25519   | X25519| X25519|         |  ciphertext, |           |
-   |   |         | public| secret|         |  1088 octets |           |
-   |   |         |    key|    key|         |   ML-KEM-768 |           |
-   |   |         | (Table| (Table|         |   ciphertext |           |
-   |   |         |    3),|    3),|         |   [, 1 octet |           |
-   |   |         |   1184|   2400|         | algorithm ID |           |
-   |   |         | octets| octets|         |   in case of |           |
-   |   |         |    ML-|    ML-|         | v3 PKESK], 1 |           |
-   |   |         |KEM-768|KEM-768|         | octet length |           |
-   |   |         | public|secret-|         |     field of |           |
-   |   |         |    key|    key|         |   value n, n |           |
-   |   |         | (Table| (Table|         |       octets |           |
-   |   |         |     4)|     4)|         |      wrapped |           |
-   |   |         |       |       |         |  session key |           |
-   |   |         |       |       |         |     (Section |           |
-   |   |         |       |       |         |       4.3.1) |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-      |     56|     56|      N/A|    56 octets |   Section |
-   |   |KEM-1024 | octets| octets|         |         X448 |       4.2 |
-   |   |+ X448   |   X448|   X448|         |  ciphertext, |           |
-   |   |         | public| secret|         |  1568 octets |           |
-   |   |         |    key|    key|         |  ML-KEM-1024 |           |
-   |   |         | (Table| (Table|         |   ciphertext |           |
-   |   |         |    3),|    3),|         |   [, 1 octet |           |
-   |   |         |   1568|   3168|         | algorithm ID |           |
-   |   |         | octets| octets|         |   in case of |           |
-   |   |         |ML-KEM-|ML-KEM-|         | v3 PKESK], 1 |           |
-   |   |         |   1024|   1024|         | octet length |           |
-   |   |         | public|secret-|         |     field of |           |
-   |   |         |    key|    key|         |   value n, n |           |
-   |   |         | (Table| (Table|         |       octets |           |
-   |   |         |     4)|     4)|         |      wrapped |           |
-   |   |         |       |       |         |  session key |           |
-   |   |         |       |       |         |     (Section |           |
-   |   |         |       |       |         |       4.3.1) |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-DSA-65|     32|     32|64 octets|          N/A |   Section |
-   |   |+ Ed25519| octets| octets|  Ed25519|              |       5.2 |
-   |   |         |Ed25519|Ed25519|signature|              |           |
-   |   |         | public| secret|   (Table|              |           |
-   |   |         |    key|    key| 6), 3293|              |           |
-   |   |         | (Table| (Table|   octets|              |           |
-   |   |         |    6),|    6),|ML-DSA-65|              |           |
-   |   |         |   1952|   4032|signature|              |           |
-   |   |         | octets| octets|(Table 7)|              |           |
-   |   |         |    ML-|    ML-|         |              |           |
-   |   |         | DSA-65| DSA-65|         |              |           |
-   |   |         | public| secret|         |              |           |
-   |   |         |    key| (Table|         |              |           |
-   |   |         | (Table|     7)|         |              |           |
-   |   |         |     7)|       |         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-DSA-87|     57|     57|      114|          N/A |   Section |
-   |   |+ Ed448  | octets| octets|   octets|              |       5.2 |
-   |   |         |  Ed448|  Ed448|    Ed448|              |           |
-   |   |         | public| secret|signature|              |           |
-   |   |         |    key|    key|   (Table|              |           |
-   |   |         | (Table| (Table| 6), 4595|              |           |
-   |   |         |    6),|    6),|   octets|              |           |
-   |   |         |   2592|   4896|ML-DSA-87|              |           |
-   |   |         | octets| octets|signature|              |           |
-   |   |         |    ML-|    ML-|(Table 7)|              |           |
-   |   |         | DSA-87| DSA-87|         |              |           |
-   |   |         | public| secret|         |              |           |
-   |   |         |    key| (Table|         |              |           |
-   |   |         | (Table|     7)|         |              |           |
-   |   |         |     7)|       |         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     32|     64|     7856|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |128s     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     32|     64|    17088|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |128f     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     64|    128|    29792|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |256s     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
+   +===+============+=======+=======+=========+==============+=========+
+   |ID | Algorithm  | Public| Secret|Signature|        PKESK |Reference|
+   |   |            |    Key|    Key|   Format|       Format |         |
+   |   |            | Format| Format|         |              |         |
+   +===+============+=======+=======+=========+==============+=========+
+   |TBD| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
+   |   | 768+X25519 | octets| octets|         |       X25519 |      4.2|
+   |   |            | X25519| X25519|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1088 octets |         |
+   |   |            |    key|    key|         |   ML-KEM-768 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1184|   2400|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |    ML-|    ML-|         |        of v3 |         |
+   |   |            |KEM-768|KEM-768|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
+   |   | 1024+X448  | octets| octets|         |         X448 |      4.2|
+   |   |            |   X448|   X448|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1568 octets |         |
+   |   |            |    key|    key|         |  ML-KEM-1024 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1568|   3168|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |ML-KEM-|ML-KEM-|         |        of v3 |         |
+   |   |            |   1024|   1024|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
+   |   | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
+   |   |            |Ed25519|Ed25519|signature|              |         |
+   |   |            | public| secret|   (Table|              |         |
+   |   |            |    key|    key| 6), 3293|              |         |
+   |   |            | (Table| (Table|   octets|              |         |
+   |   |            |    6),|    6),|ML-DSA-65|              |         |
+   |   |            |   1952|   4032|signature|              |         |
+   |   |            | octets| octets|(Table 7)|              |         |
+   |   |            |    ML-|    ML-|         |              |         |
+   |   |            | DSA-65| DSA-65|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     57|     57|      114|          N/A |  Section|
+   |   | 87+Ed448   | octets| octets|   octets|              |      5.2|
+   |   |            |  Ed448|  Ed448|    Ed448|              |         |
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|   (Table|              |         |
+   |   |            | (Table| (Table| 6), 4595|              |         |
+   |   |            |    6),|    6),|   octets|              |         |
+   |   |            |   2592|   4896|ML-DSA-87|              |         |
+   |   |            | octets| octets|signature|              |         |
+   |   |            |    ML-|    ML-|(Table 7)|              |         |
+   |   |            | DSA-87| DSA-87|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
+   |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
+   |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
+   |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
 
-   Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1579,7 +1583,9 @@ Table of Contents
    *  Removed NIST and Brainpool curve hybrids, dropped ECDSA from the
       current specification.
 
-   *  Updated KDF as proposed at IETF 119
+   *  Updated KDF as proposed at IETF 119.
+
+   *  Removed whitespaces from composite algorithm names.
 
 13.  Contributors
 
@@ -1689,7 +1695,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1803,7 +1809,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1912,7 +1918,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -1922,7 +1928,7 @@ A.2.  V4 PQC Subkey Artifacts
    The ECDH subkey has the fingerprint
    95bed3c63f295e7b980b6a2b93b3233faf28c9d2.
 
-   The ML-KEM-ipd-768 + X25519 subkey has the fingerprint
+   The ML-KEM-ipd-768+X25519 subkey has the fingerprint
    bd67d98388813e88bf3490f3e440cfbaffd6f357.
 
    -----BEGIN PGP PRIVATE KEY BLOCK-----
@@ -2032,7 +2038,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v4 subkey binding signature
 
