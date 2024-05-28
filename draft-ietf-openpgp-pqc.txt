@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 28 November 2024                                    F. Strenzke
+Expires: 29 November 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             27 May 2024
+                                                             28 May 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2024.
+   This Internet-Draft will expire on 29 November 2024.
 
 Copyright Notice
 
@@ -827,9 +827,9 @@ Table of Contents
    the length of the unwrapped symmetric key matches the symmetric
    algorithm identifier, and abort if this is not the case.
 
-   Implementations MUST NOT use Symmetrically Encrypted Data packets
-   (tag 9) to encrypt data protected with the algorithms described in
-   this document.
+   Implementations MUST NOT use the obsolete Symmetrically Encrypted
+   Data packet (tag 9) to encrypt data protected with the algorithms
+   described in this document.
 
 4.3.2.  Key Material Packets
 
