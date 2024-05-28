@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-26T01:12:00.868057+00:00",
+  "timestamp": "2024-05-28T01:07:08.784748+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1840,7 +1840,7 @@
       "id": "I_kwDOIrmZ-8580jFN",
       "title": "remove whitespaces in algorithm names",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/75",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -1851,8 +1851,8 @@
       ],
       "body": "I would prefer to replace \"ML-KEM-768 + X25519\" by \"ML-KEM-768+X25519\". In UIs it will most likely be presented without spaces in order to make it clearly appear as a single identifier.",
       "createdAt": "2024-01-22T15:17:41Z",
-      "updatedAt": "2024-04-29T10:43:45Z",
-      "closedAt": null,
+      "updatedAt": "2024-05-27T13:10:15Z",
+      "closedAt": "2024-05-27T13:10:15Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2058,7 +2058,7 @@
       "id": "I_kwDOIrmZ-85_GIpY",
       "title": "binding signature hash for PQC encryption v4 keys",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/91",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2069,8 +2069,8 @@
       ],
       "body": "Kai Engert kindly pointed out that Werner Koch had mentioned (on the LibrePGP list?) that with v4 PQC keys SHA-1 binding signatures would still be allowed. I currently don't see a problem with this, as I don't see how collission attacks against key binding signatures could be possible. The attacker would have to be able to supply one public key for which he has a collision and have that be signed by the victim.\r\n\r\nStill, we might want to mandate that at least SHA-256 must be used in the binding signatures. Any opinions @wussler @fluppe2 @TJ-91 ?",
       "createdAt": "2024-02-13T13:22:08Z",
-      "updatedAt": "2024-05-22T11:02:37Z",
-      "closedAt": null,
+      "updatedAt": "2024-05-27T21:26:59Z",
+      "closedAt": "2024-05-27T10:23:03Z",
       "comments": [
         {
           "author": "kaie",
@@ -2176,6 +2176,27 @@
           "body": "I created a PR in #113 that includes those two statements at hopefully the right places",
           "createdAt": "2024-05-22T11:02:36Z",
           "updatedAt": "2024-05-22T11:02:36Z"
+        },
+        {
+          "author": "kaie",
+          "authorAssociation": "NONE",
+          "body": "Thank you for updating the spec with this recommendation.\r\n\r\nI'd like to give feedback that the following sentence wasn't immediately clear to me.\r\n\r\n> ```\r\n> Implementations MUST NOT use Symmetrically Encrypted Data packets (tag 9)\r\n> to encrypt data protected with the algorithms described in this document.\r\n> ```\r\n\r\nIt confused me to read that algorithms from this document shouldn't be used for encryption.\r\n\r\nThanks to @vanitasvitae for explaining it to me: Your sentence forbids the use with the old non-integrity protected package, thereby requiring something better (such as the packet with tag 18).\r\n\r\nYou could consider to slightly tweak the sentence to make it clearer that you want to require the use of newer, encryption packet formats.\r\nSorry for not pointing this out earlier.\r\n",
+          "createdAt": "2024-05-27T15:47:03Z",
+          "updatedAt": "2024-05-27T15:47:03Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I could propose \r\n> Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packets (tag 9) to encrypt data protected with the algorithms described in this document.",
+          "createdAt": "2024-05-27T17:34:32Z",
+          "updatedAt": "2024-05-27T17:34:32Z"
+        },
+        {
+          "author": "kaie",
+          "authorAssociation": "NONE",
+          "body": "I think adding the word \"obsolete\" as you propose would be very helpful!\r\n",
+          "createdAt": "2024-05-27T21:26:58Z",
+          "updatedAt": "2024-05-27T21:26:58Z"
         }
       ]
     },
@@ -2191,7 +2212,7 @@
       "labels": [],
       "body": "Assuming #99 goes through, we'll be standardizing two levels of SLH-DSA: SLH-DSA-SHAKE-128s and SLH-DSA-SHAKE-128f, which FIPS 205 indicates is NIST \"category 1\", and SLH-DSA-SHAKE-256s, which FIPS 205 indicates is NIST \"Category 5\".\r\n\r\nBut the ML-DSA choices are ML-DSA-768 (NIST \"category 3\") and ML-DSA-1024 (NIST \"category 5\").\r\n\r\nSo it looks to me like the weaker/smaller/faster SLH-DSA signatures are weaker than the weaker/smaller-faster ML-DSA .  Is that intentional?  Am i misreading the FIPS specs?  are the NIST categories things we should be concerned about?",
       "createdAt": "2024-03-23T03:32:11Z",
-      "updatedAt": "2024-04-29T07:30:44Z",
+      "updatedAt": "2024-05-27T14:54:23Z",
       "closedAt": null,
       "comments": [
         {
@@ -2207,6 +2228,13 @@
           "body": "@dkg Does my explanation make sense to you? Can we close this issue based on my response?",
           "createdAt": "2024-04-29T07:30:42Z",
           "updatedAt": "2024-04-29T07:30:42Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@wussler presented a table at the 2024 May interim which i thought was compelling for the current choices of algorithm strengths.  As far as i'm concerned, we can close this issue.",
+          "createdAt": "2024-05-27T14:54:22Z",
+          "updatedAt": "2024-05-27T14:54:22Z"
         }
       ]
     },
@@ -2241,12 +2269,10 @@
       "assignees": [
         "TJ-91"
       ],
-      "labels": [
-        "Version 03"
-      ],
+      "labels": [],
       "body": "Regarding the \"Preferred AEAD Ciphersuites\" subpacket and \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket, we need a clarification in Sec. \"8.1. Symmetric Algorithms for SEIPD Packets\". The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.",
       "createdAt": "2024-04-29T09:24:11Z",
-      "updatedAt": "2024-05-17T11:16:09Z",
+      "updatedAt": "2024-05-27T12:38:08Z",
       "closedAt": null,
       "comments": [
         {
@@ -11043,24 +11069,26 @@
       "id": "PR_kwDOIrmZ-85wL-ZT",
       "title": "Clarify SED and Key Binding Sigs",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/113",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #91 \r\n\r\n",
       "createdAt": "2024-05-22T11:01:38Z",
-      "updatedAt": "2024-05-22T11:07:23Z",
+      "updatedAt": "2024-05-27T10:23:02Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5dfb10938adc6fc28920cac15b63078e423c5603",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-91-key-binding-sig-hash-and-sed",
       "headRefOid": "0bec5c5b012ee6a0e52383b3f06ac1c7fc8c6624",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-05-27T10:23:02Z",
+      "mergedAt": "2024-05-27T10:23:02Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "3fdf81182103a1ae605f918f417c097858a7ab9c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11088,6 +11116,19 @@
               "updatedAt": "2024-05-22T11:05:31Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-857--zY",
+          "commit": {
+            "abbreviatedOid": "0bec5c5"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T06:45:00Z",
+          "updatedAt": "2024-05-27T06:45:00Z",
+          "comments": []
         }
       ]
     },
@@ -11138,24 +11179,26 @@
       "id": "PR_kwDOIrmZ-85wP1vh",
       "title": "Switch KDF to  SHA3-256",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/116",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Adapt the KDF proposal to the discussion held at IETF 119",
       "createdAt": "2024-05-22T19:38:49Z",
-      "updatedAt": "2024-05-23T13:24:03Z",
+      "updatedAt": "2024-05-27T12:22:09Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "a031f1f5c7dd0e94c4a5ceee5ada211139b6f980",
+      "baseRefOid": "3fdf81182103a1ae605f918f417c097858a7ab9c",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sha3-kdf-2",
-      "headRefOid": "95608e1e8bbee2c9dde1bba06a50d2b879e1c8a4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "80b19a02030631314c272536369fc63652631ab3",
+      "closedAt": "2024-05-27T12:22:09Z",
+      "mergedAt": "2024-05-27T12:22:09Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "dba75bcaeedd7a0009725a352c5b5bae07b95141"
+      },
       "comments": [
         {
           "author": "wussler",
@@ -11197,6 +11240,316 @@
           "body": "I think in most of the places it would be better to write \"SHA3-256\" instead of just \"SHA-3\", what do you think?\r\n\r\nAnother thing I just noticed is in Section 9.3. \r\n> Furthermore, we do not require the recipients public key into the key combiner as the public key material is already included in the component key derivation functions. Given two KEMs which we assume to be multi-user secure, we combine their outputs using a KEM-combiner:\r\n\r\nI suppose that's not how we do it anymore.\r\n\r\nAlso the first two paragraphs that describe the `fixedInfo` and the domain separation are not 100% accurate any longer since we mix the two now in the `fixedInfo`. The reference to Section 4.2.2 for `domSeparation` is also wrong now.\r\n\r\nProbably we can just slightly rewrite the first three paragraphs and remove the rest",
           "createdAt": "2024-05-23T12:57:17Z",
           "updatedAt": "2024-05-23T12:57:17Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-857_qNc",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T08:14:35Z",
+          "updatedAt": "2024-05-27T08:25:24Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "It might make sense to prefix the algID with a length field. That makes the construction forward compatible even when multi byte algorithm IDs should be introduced.",
+              "createdAt": "2024-05-27T08:14:35Z",
+              "updatedAt": "2024-05-27T08:25:24Z"
+            },
+            {
+              "originalPosition": 62,
+              "body": "However, I think we are running into problem when doing it naively this way. Since the fixedInfo comes at the end, the whole string is currently only unabigously parsable from its rear end. But then we would need right-encoding of the algorithm ID field, i.e. `fixedInfo = algID || len(algID) || domSeparation`.",
+              "createdAt": "2024-05-27T08:22:51Z",
+              "updatedAt": "2024-05-27T08:25:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858AIJi",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T08:58:50Z",
+          "updatedAt": "2024-05-27T08:58:50Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "I also think we should encode it at the end, if we do so.\r\n\r\nOn the other hand, in this (unlinkely) case, I think we could also alter the domain separation? We'll need a new key/PKESK/... version for that",
+              "createdAt": "2024-05-27T08:58:50Z",
+              "updatedAt": "2024-05-27T08:58:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858AbCK",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T09:30:12Z",
+          "updatedAt": "2024-05-27T09:30:12Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "I do not think that the string needs to be parsed, so it shouldn't matter where we place it from that perspective.\r\n\r\nI assume you are worried about ambiguities / collisions where the boundary between the alg ID byte(s) and the KEM bytes clash? When viewing both the length, and the KEM input as \"arbitrary length and arbitrary content\" strings, wouldn't we have the same problem even when encoding the length of the algorithm ID? Since we have multiple variable-length fields following each other without a clear boundary. Thus, we need to prefix the length of the other variable input (the KEM data), too.\r\n\r\nAlso, I would change it to simply `0x01` instead of `len(algID)`, since multi-byte IDs are only a remote possibility now.\r\nFurther, I agree with Aron, that we will always have the freedom to adjust the KEM inputs for newly introduced algorithms. The `domSeparation` could then be used to unambigously define the \"version\" of the KDF.",
+              "createdAt": "2024-05-27T09:30:12Z",
+              "updatedAt": "2024-05-27T09:30:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858As8j",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T10:04:02Z",
+          "updatedAt": "2024-05-27T10:04:02Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "> When viewing both the length, and the KEM input as \"arbitrary length and arbitrary content\" strings, wouldn't we have the same problem even when encoding the length of the algorithm ID? Since we have multiple variable-length fields following each other without a clear boundary. Thus, we need to prefix the length of the other variable input (the KEM data), too.\r\n\r\nWhat I propose aims exactly at solving this problem. When the string is anambiguously parsable from the rear, collisions cannot happen: after the algorithm ID has been parsed from the rear, the lengths of the other fields are known.\r\n\r\nChanging the domain separation string might again lead to possible collisions. Thus the new  domain separation string would need to be of the same length as the current one. Maybe we should include a two digit (i.e. two byte) version number in the `domSeparation` string and set it to \"00\" for now.",
+              "createdAt": "2024-05-27T10:04:02Z",
+              "updatedAt": "2024-05-27T10:04:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858AzvL",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T10:19:39Z",
+          "updatedAt": "2024-05-27T10:19:40Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "> after the algorithm ID has been parsed from the rear, the lengths of the other fields are known.\r\n\r\nYou are right, that does fix it. We can still consider prefixing all variable-length fields but that's just a matter of preference (but it might become required if we introduce more variable-length fields).\r\n\r\n> Maybe we should include a two digit (i.e. two byte) version number in the `domSeparation` string and set it to \"00\" for now.\r\n\r\nI think it's a good idea. Alternatively, we can use one byte, e.g., `fixedInfo = algID || len(algID) || KDFVersion || domSeparation`. However, I don't think there are any benefits of one over the other.",
+              "createdAt": "2024-05-27T10:19:40Z",
+              "updatedAt": "2024-05-27T10:19:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858BIhI",
+          "commit": {
+            "abbreviatedOid": "95608e1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T11:08:19Z",
+          "updatedAt": "2024-05-27T11:08:19Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "Making the domain separation `OpenPGPCompositeKDFv1`",
+              "createdAt": "2024-05-27T11:08:19Z",
+              "updatedAt": "2024-05-27T11:08:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858BQUr",
+          "commit": {
+            "abbreviatedOid": "99ed67b"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T11:27:29Z",
+          "updatedAt": "2024-05-27T11:27:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858BpRf",
+          "commit": {
+            "abbreviatedOid": "80b19a0"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T12:21:58Z",
+          "updatedAt": "2024-05-27T12:21:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 117,
+      "id": "PR_kwDOIrmZ-85wpvEO",
+      "title": "remove whitespaces from formal algorithm names",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/117",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-27T11:32:32Z",
+      "updatedAt": "2024-05-27T12:55:00Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "dba75bcaeedd7a0009725a352c5b5bae07b95141",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "algo-names-no-ws",
+      "headRefOid": "6fa85ef1670d91efbb3de10afcdbde100624d3bd",
+      "closedAt": "2024-05-27T12:55:00Z",
+      "mergedAt": "2024-05-27T12:55:00Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "1d0e6da4a363a7859febce8c49ab8002d629ad9b"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We still have \"ML-KEM-ipd-768 + X25519\" (from the test vectors where the string is with \"ipd\"",
+          "createdAt": "2024-05-27T12:28:00Z",
+          "updatedAt": "2024-05-27T12:28:00Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> We still have \"ML-KEM-ipd-768 + X25519\" (from the test vectors where the string is with \"ipd\"\r\n\r\nFixed this in above commit.",
+          "createdAt": "2024-05-27T12:49:24Z",
+          "updatedAt": "2024-05-27T12:49:24Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-858BTQP",
+          "commit": {
+            "abbreviatedOid": "7c63abc"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T11:34:44Z",
+          "updatedAt": "2024-05-27T11:57:11Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\nTBD                   | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}\r\nTBD                   | SLH-DSA-SHAKE-128f               | MAY         | {{slhdsa}}\r\nTBD                   | SLH-DSA-SHAKE-256s               | MAY         | {{slhdsa}}\r\n```",
+              "createdAt": "2024-05-27T11:34:44Z",
+              "updatedAt": "2024-05-27T11:57:12Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nID                    | Algorithm                        | Requirement | Definition\r\n---------------------:| -------------------------------- | ----------- | --------------------\r\n```",
+              "createdAt": "2024-05-27T11:34:55Z",
+              "updatedAt": "2024-05-27T11:57:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858Bs1k",
+          "commit": {
+            "abbreviatedOid": "f9f7f07"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-27T12:30:08Z",
+          "updatedAt": "2024-05-27T12:30:08Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\nID                    | Algorithm                        | Requirement | Definition\r\n---------------------:| -------------------------------- | ----------- | --------------------\r\n```",
+              "createdAt": "2024-05-27T12:30:08Z",
+              "updatedAt": "2024-05-27T12:30:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858B131",
+          "commit": {
+            "abbreviatedOid": "1fa3f96"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T12:50:14Z",
+          "updatedAt": "2024-05-27T12:50:14Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 118,
+      "id": "PR_kwDOIrmZ-85wqTtK",
+      "title": "Fix changelog",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/118",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-27T12:58:33Z",
+      "updatedAt": "2024-05-27T13:08:53Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "1d0e6da4a363a7859febce8c49ab8002d629ad9b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-changelog",
+      "headRefOid": "dc1e9323041e7f259c1201cc8a4674588ad33a53",
+      "closedAt": "2024-05-27T13:08:52Z",
+      "mergedAt": "2024-05-27T13:08:52Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-858B7hN",
+          "commit": {
+            "abbreviatedOid": "dc1e932"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T13:02:19Z",
+          "updatedAt": "2024-05-27T13:02:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858B-Fh",
+          "commit": {
+            "abbreviatedOid": "dc1e932"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-27T13:07:52Z",
+          "updatedAt": "2024-05-27T13:07:52Z",
           "comments": []
         }
       ]
