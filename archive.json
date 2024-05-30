@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-05-28T01:07:08.784748+00:00",
+  "timestamp": "2024-05-30T01:07:58.181589+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2205,15 +2205,15 @@
       "id": "I_kwDOIrmZ-86DWVb5",
       "title": "SLH-DSA-SHAKE-128 is NIST \"Category 1\", but ML-DSA-768 is NIST \"Category 3\"",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/101",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Assuming #99 goes through, we'll be standardizing two levels of SLH-DSA: SLH-DSA-SHAKE-128s and SLH-DSA-SHAKE-128f, which FIPS 205 indicates is NIST \"category 1\", and SLH-DSA-SHAKE-256s, which FIPS 205 indicates is NIST \"Category 5\".\r\n\r\nBut the ML-DSA choices are ML-DSA-768 (NIST \"category 3\") and ML-DSA-1024 (NIST \"category 5\").\r\n\r\nSo it looks to me like the weaker/smaller/faster SLH-DSA signatures are weaker than the weaker/smaller-faster ML-DSA .  Is that intentional?  Am i misreading the FIPS specs?  are the NIST categories things we should be concerned about?",
       "createdAt": "2024-03-23T03:32:11Z",
-      "updatedAt": "2024-05-27T14:54:23Z",
-      "closedAt": null,
+      "updatedAt": "2024-05-28T04:02:19Z",
+      "closedAt": "2024-05-28T04:01:26Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2235,6 +2235,13 @@
           "body": "@wussler presented a table at the 2024 May interim which i thought was compelling for the current choices of algorithm strengths.  As far as i'm concerned, we can close this issue.",
           "createdAt": "2024-05-27T14:54:22Z",
           "updatedAt": "2024-05-27T14:54:22Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is the current security bits PQ/curve matching. Note that the security bits are approximate.\r\n\r\nAlgorithm | Security bits PQ | Security bits curve\r\n-- | -- | --\r\nML-KEM-768 + X25519 | 192 | 128\r\nML-KEM-1024 + X448 | 256 | 224\r\nML-DSA-65 + Ed25519 | 192 | 128\r\nML-DSA-87 + Ed448 | 256 | 224\r\nSLH-DSA-SHAKE-128f | 128 | N/A\r\nSLH-DSA-SHAKE-128s | 128 | N/A\r\nSLH-DSA-SHAKE-256s | 256 | N/A\r\n\r\nIn the current proposal, a safety margin is included for the ML-* algorithms, that are matched with curves with less security bits. The speed tradeoff is minimal, and the size tradeoff is around 1KB per operation.",
+          "createdAt": "2024-05-28T04:01:26Z",
+          "updatedAt": "2024-05-28T04:02:19Z"
         }
       ]
     },
@@ -2321,9 +2328,17 @@
       "labels": [],
       "body": "This issue tracks the following discussion on the mailing list: https://mailarchive.ietf.org/arch/msg/openpgp/a1D8Sivi1lk_22yBETE0QSqN8aU/",
       "createdAt": "2024-05-22T12:44:39Z",
-      "updatedAt": "2024-05-22T12:44:39Z",
+      "updatedAt": "2024-05-28T04:03:26Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This issue has been presented at the IETF interim meeting, and while some more points about interoperability and ease of v4-v6 migration were raised, no consensus was reached yet.",
+          "createdAt": "2024-05-28T04:03:25Z",
+          "updatedAt": "2024-05-28T04:03:25Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -11551,6 +11566,228 @@
           "createdAt": "2024-05-27T13:07:52Z",
           "updatedAt": "2024-05-27T13:07:52Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 119,
+      "id": "PR_kwDOIrmZ-85wtmD-",
+      "title": "Add \"obsolete\" to SED description",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/119",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Reflect @kaie suggestion in #91 ",
+      "createdAt": "2024-05-28T03:58:05Z",
+      "updatedAt": "2024-05-28T07:07:16Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sed-obsolete",
+      "headRefOid": "1f4da05ebc38ce66e0b9f570c22949ee6e9ab2de",
+      "closedAt": "2024-05-28T07:07:16Z",
+      "mergedAt": "2024-05-28T07:07:16Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "f75c6001da1e6e0151c85530b97398f50eb7d023"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-858FwVQ",
+          "commit": {
+            "abbreviatedOid": "1f4da05"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-28T06:41:46Z",
+          "updatedAt": "2024-05-28T06:41:46Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858F7S6",
+          "commit": {
+            "abbreviatedOid": "1f4da05"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-05-28T07:06:26Z",
+          "updatedAt": "2024-05-28T07:06:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 120,
+      "id": "PR_kwDOIrmZ-85wuUHI",
+      "title": "Rewrite parallel encryption guidance",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/120",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR addresses #2 and #67, removing the normative section about recipients, and making it an example for applications supporting it.\r\nA review of all the terms \"recipient\" and \"sender\" was done, to remove the implicit reference to email",
+      "createdAt": "2024-05-28T07:00:15Z",
+      "updatedAt": "2024-05-28T07:56:54Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "redefine-recipient",
+      "headRefOid": "3c0608837791a7be81f0ef946308dae6a2224594",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-858GCco",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I think the PR achieves what was agreed on in the interim. I am not sure that the new term \"communication party\" is avoiding the notion of a message transmission completely, but it clearly seems to be an improvement over \"recipient\". I also don't find any better term.\r\n\r\nOnce my proposed correction was decided on, I will approve this PR.",
+          "createdAt": "2024-05-28T07:21:06Z",
+          "updatedAt": "2024-05-28T07:44:21Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "This is not pertaining to the changes, but to the text as was before: Actually, whether the encryption has to be considered \"multi algorithm\" or not depends on whether the set of keys used belong to different algorithms. So  probably we should rather write: \r\n```suggestion\r\nAccordingly, when a message is encrypted using multiple PKESK packages for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the communication party has to decrypt only one of the PKESK packages in order to decrypt the message.\r\n```",
+              "createdAt": "2024-05-28T07:21:06Z",
+              "updatedAt": "2024-05-28T07:44:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GQg8",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:47:52Z",
+          "updatedAt": "2024-05-28T07:47:53Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Since we're talking about signatures here, I guess \"verifier\" or something like that would work.\r\n\r\nAn alternative would be to simply state how the verification procedure works, not how an entity (recipient/comm. party) has to perform it. Something like \"composite sigs are only considered valid if all component sigs are valid\"\r\n\r\n\"communication party\" might be weird in some contexts.",
+              "createdAt": "2024-05-28T07:47:53Z",
+              "updatedAt": "2024-05-28T07:47:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GSNA",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:51:07Z",
+          "updatedAt": "2024-05-28T07:51:07Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "I think the feedback in the Interim was not to avoid the word \"recipient\" everywhere. I think here it is sufficiently clear what is meant by \"recipient\" and I think it's the best word to use. The ambiguity comes in when matching multiple keys/certs to a recipient / entity and it becomes a more abstract concept.\r\n\r\nFor a PKESK packet there is a recipient / recipient key and for a SEIPD message the recipients are each recipient of the list of PKESK packets. I think that's common wording also in the Crypto Refresh.",
+              "createdAt": "2024-05-28T07:51:07Z",
+              "updatedAt": "2024-05-28T07:51:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GUXs",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:55:08Z",
+          "updatedAt": "2024-05-28T07:55:08Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "Yes, it is correct the the term \"recipient\" is used throughout the crypto-refresh. So we should rather stick to it and probably just avoid conveying the idea of differentiating between keys that belong to a single recipient and to multiple recipients.",
+              "createdAt": "2024-05-28T07:55:08Z",
+              "updatedAt": "2024-05-28T07:55:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GUcV",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:55:16Z",
+          "updatedAt": "2024-05-28T07:55:16Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "Here I think we run into the problem that the abstract concept of a recipient (outside of PKESKs) is not well defined. Might be ok for the non-normative statement, though.",
+              "createdAt": "2024-05-28T07:55:16Z",
+              "updatedAt": "2024-05-28T07:55:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GU-f",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:56:16Z",
+          "updatedAt": "2024-05-28T07:56:17Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "I think that here the word \"recipient\" would be unterstood in the context of the PKESK packet(s) so it'd be ok to use",
+              "createdAt": "2024-05-28T07:56:17Z",
+              "updatedAt": "2024-05-28T07:56:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-858GVTv",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-28T07:56:54Z",
+          "updatedAt": "2024-05-28T07:56:54Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Also here I think \"recipient\" is ok to use",
+              "createdAt": "2024-05-28T07:56:54Z",
+              "updatedAt": "2024-05-28T07:56:54Z"
+            }
+          ]
         }
       ]
     }
