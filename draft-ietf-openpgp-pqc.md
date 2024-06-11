@@ -559,14 +559,16 @@ For the composite KEM schemes defined in {{kem-alg-specs}} the following procedu
 The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
-    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
-    //                   mlkemCipherText, fixedInfo)
+    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
+    //                   mlkemCipherText, mlkemPublicKey, fixedInfo)
     //
     //   Input:
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
+    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
+    //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
     //   fixedInfo       - the fixed information octet string
     //
     //   Constants:
