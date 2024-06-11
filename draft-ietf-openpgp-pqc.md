@@ -382,13 +382,13 @@ The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA signatures
 The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.
 
 An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
-This ensures backwards compatibility due to {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.5, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
+This ensures backwards compatibility due to {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.5, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
 
 Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.
 
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
 
-\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.5.\]
+\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.5.\]
 
 ## ECC requirements
 
@@ -556,7 +556,7 @@ The value of `domSeparation` is the UTF-8 encoding of the string "OpenPGPComposi
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to {{SP800-56C}} Section 4, based on SHA3-256.
+The construction is a one-step key derivation function compliant to {{SP800-56C}}, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
     //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
@@ -732,7 +732,7 @@ TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4595
 
 ### Signature data digest {#mldsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4.
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
 Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -754,7 +754,7 @@ For EdDSA this is done following the relative specification in {{RFC7748}}, and 
 
 To sign a message `M` with ML-DSA + EdDSA the following sequence of operations has to be performed:
 
- 1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4
+ 1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4
 
  2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from {{eddsa-signature}}
 
@@ -816,7 +816,7 @@ TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}} Section 5.2.4.
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
 SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -847,7 +847,7 @@ SLH-DSA-SHAKE signature verification is performed via the algorithm `SLH-DSA.Ver
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [I-D.ietf-openpgp-crypto-refresh] Section 5.2.3.
+The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.3.
 
 The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:
 
