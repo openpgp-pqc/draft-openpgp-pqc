@@ -565,9 +565,9 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   Input:
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
+    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
     //   fixedInfo       - the fixed information octet string
     //
