@@ -614,7 +614,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 8. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
+ 8. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)` as defined in {{kem-key-combiner}}
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -642,7 +642,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  9. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 10. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
+ 10. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)` as defined in {{kem-key-combiner}}
 
  11. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
