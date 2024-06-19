@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 15 November 2024                                    F. Strenzke
+Expires: 21 December 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             14 May 2024
+                                                            19 June 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 November 2024.
+   This Internet-Draft will expire on 21 December 2024.
 
 Copyright Notice
 
@@ -131,6 +131,7 @@ Table of Contents
        6.2.2.  Key Material Packets
    7.  Notes on Algorithms
      7.1.  Symmetric Algorithms for SEIPD Packets
+     7.2.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
      8.1.  Key preference
      8.2.  Key generation strategies
@@ -205,7 +206,7 @@ Table of Contents
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
    The terminology in this document is oriented towards the definitions
-   in [draft-driscoll-pqt-hybrid-terminology].  Specifically, the terms
+   in [I-D.ietf-pquip-pqt-hybrid-terminology].  Specifically, the terms
    "multi-algorithm", "composite" and "non-composite" are used in
    correspondence with the definitions therein.  The abbreviation "PQ"
    is used for post-quantum schemes.  To denote the combination of post-
@@ -329,17 +330,17 @@ Table of Contents
 
    For encryption, the following composite KEM schemes are specified:
 
-    +=======================+=============+=============+============+
-    |                    ID | Algorithm   | Requirement | Definition |
-    +=======================+=============+=============+============+
-    | TBD (105 for testing) | ML-KEM-768  | MUST        | Section    |
-    |                       | + X25519    |             | 4.2        |
-    +-----------------------+-------------+-------------+------------+
-    | TBD (106 for testing) | ML-KEM-1024 | SHOULD      | Section    |
-    |                       | + X448      |             | 4.2        |
-    +-----------------------+-------------+-------------+------------+
+      +==============+===================+=============+============+
+      |           ID | Algorithm         | Requirement | Definition |
+      +==============+===================+=============+============+
+      | TBD (105 for | ML-KEM-768+X25519 | MUST        | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
+      | TBD (106 for | ML-KEM-1024+X448  | SHOULD      | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
 
-                  Table 1: KEM algorithm specifications
+                   Table 1: KEM algorithm specifications
 
    For signatures, the following (composite) signature schemes are
    specified:
@@ -347,14 +348,14 @@ Table of Contents
      +==============+====================+=============+============+
      |           ID | Algorithm          | Requirement | Definition |
      +==============+====================+=============+============+
-     | TBD (107 for | ML-DSA-65 +        | MUST        | Section    |
-     |     testing) | Ed25519            |             | 5.2        |
-     +--------------+--------------------+-------------+------------+
-     | TBD (108 for | ML-DSA-87 + Ed448  | SHOULD      | Section    |
+     | TBD (107 for | ML-DSA-65+Ed25519  | MUST        | Section    |
      |     testing) |                    |             | 5.2        |
      +--------------+--------------------+-------------+------------+
-     | TBD (109 for | SLH-DSA-SHAKE-128s | MAY         | Section    |
-     |     testing) |                    |             | 6.1        |
+     | TBD (108 for | ML-DSA-87+Ed448    | SHOULD      | Section    |
+     |     testing) |                    |             | 5.2        |
+     +--------------+--------------------+-------------+------------+
+     |          TBD | SLH-DSA-SHAKE-128s | MAY         | Section    |
+     |              |                    |             | 6.1        |
      +--------------+--------------------+-------------+------------+
      |          TBD | SLH-DSA-SHAKE-128f | MAY         | Section    |
      |              |                    |             | 6.1        |
@@ -370,9 +371,8 @@ Table of Contents
    [ Note: this section to be removed before publication ]
 
    Algorithms indicated as MAY are not assigned a codepoint in the
-   current state of the draft since there are not enough private/
-   experimental code points available to cover all newly introduced
-   public-key algorithm identifiers.
+   current state of the draft in order to leave enough private/
+   experimental code points available for other drafts.
 
    The use of private/experimental codepoints during development are
    intended to be used in non-released software only, for
@@ -651,71 +651,59 @@ Table of Contents
    to use as binding between the KEK and the communication parties.
 
    //   Input:
-   //   algID     - the algorithm ID encoded as octet
+   //   algID - the algorithm ID encoded as octet
+   //
+   //   Constants:
+   //   domSeparation - the UTF-8 encoding of the string
+   //                   "OpenPGPCompositeKDFv1"
 
-   fixedInfo = algID
+   fixedInfo = algID || domSeparation
+
+   The value of domSeparation is the UTF-8 encoding of the string
+   "OpenPGPCompositeKDFv1" and MUST be the following octet sequence:
+
+   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
+                    44 46 76 31
 
 4.2.2.  Key combiner
 
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a one-step key derivation function compliant to
-   [SP800-56C] Section 4, based on KMAC256 [SP800-185].  It is given by
-   the following algorithm, which computes the key encryption key KEK
-   that is used to wrap, i.e., encrypt, the session key.
+   [SP800-56C] Section 4, based on SHA3-256.  It is given by the
+   following algorithm, which computes the key encryption key KEK that
+   is used to wrap, i.e., encrypt, the session key.
 
- //   multiKeyCombine(ecdhKeyShare, ecdhCipherText,
- //                   mlkemKeyShare, mlkemCipherText,
- //                   fixedInfo, oBits)
+ //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
+ //                   mlkemCipherText, fixedInfo)
  //
  //   Input:
- //   ecdhKeyShare     - the ECDH key share encoded as an octet string
- //   ecdhCipherText   - the ECDH ciphertext encoded as an octet string
+ //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+ //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
  //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
  //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
  //   fixedInfo       - the fixed information octet string
- //   oBits           - the size of the output keying material in bits
  //
  //   Constants:
- //   domSeparation       - the UTF-8 encoding of the string
- //                         "OpenPGPCompositeKeyDerivationFunction"
- //   counter             - the 4 byte value 00 00 00 01
- //   customizationString - the UTF-8 encoding of the string "KDF"
+ //   counter - the 4 byte value 00 00 00 01
 
- ecdhData = ecdhKeyShare || ecdhCipherText
- mlkemData = mlkemKeyShare || mlkemCipherText
- encData = counter || ecdhData || mlkemData || fixedInfo
+ ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+ mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
 
- KEK = KMAC256(domSeparation, encData, oBits, customizationString)
+ KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
  return KEK
-
-   Here, the parameters to KMAC256 appear in the order as specified in
-   [SP800-186], Section 4, i.e., the key K, main input data X, requested
-   output length L, and optional customization string S in that order.
 
    Note that the values ecdhKeyShare defined in Section 4.1.1 and
    mlkemKeyShare defined in Section 4.1.2 already use the relative
-   ciphertext in the derivation.  The ciphertext is by design included
-   again in the key combiner to provide a robust security proof.
-
-   The value of domSeparation is the UTF-8 encoding of the string
-   "OpenPGPCompositeKeyDerivationFunction" and MUST be the following
-   octet sequence:
-
-   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65
-                    4B 65 79 44 65 72 69 76 61 74 69 6F 6E 46 75 6E
-                    63 74 69 6F 6E
+   ciphertext in the derivation.  The ciphertext and public keys are by
+   design included again in the key combiner to provide a robust
+   security proof.
 
    The value of counter MUST be set to the following octet sequence:
 
    counter :=  00 00 00 01
 
    The value of fixedInfo MUST be set according to Section 4.2.1.
-
-   The value of customizationString is the UTF-8 encoding of the string
-   "KDF" and MUST be set to the following octet sequence:
-
-   customizationString := 4B 44 46
 
 4.2.3.  Key generation procedure
 
@@ -759,10 +747,12 @@ Table of Contents
         [RFC3394] that includes a 64 bit integrity check
 
    10.  Output the algorithm specific part of the PKESK as
-        ecdhCipherText || mlkemCipherText (|| symAlgId) || len(C) || C,
-        where both symAlgId and len(C) are single octet fields and
-        symAlgId denotes the symmetric algorithm ID used and is present
-        only for a v3 PKESK
+        ecdhCipherText || mlkemCipherText || len(C, symAlgId) (||
+        symAlgId) || C, where both symAlgId and len(C, symAlgId) are
+        single octet fields, symAlgId denotes the symmetric algorithm ID
+        used and is present only for a v3 PKESK, and len(C, symAlgId)
+        denotes the combined octet length of the fields specified as the
+        arguments.
 
 4.2.5.  Decryption procedure
 
@@ -784,9 +774,9 @@ Table of Contents
         algorithm ID according to Table 5
 
    6.   Parse ecdhCipherText, mlkemCipherText, and C from encryptedKey
-        encoded as ecdhCipherText || mlkemCipherText (|| symAlgId) ||
-        len(C) || C as specified in Section 4.3.1, where symAlgId is
-        present only in the case of a v3 PKESK.
+        encoded as ecdhCipherText || mlkemCipherText || len(C,symAlgId)
+        (|| symAlgId) || C as specified in Section 4.3.1, where symAlgId
+        is present only in the case of a v3 PKESK.
 
    7.   Compute (ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText,
         ecdhSecretKey, ecdhPublicKey)
@@ -838,6 +828,10 @@ Table of Contents
    In the case of a v3 PKESK, a receiving implementation MUST check if
    the length of the unwrapped symmetric key matches the symmetric
    algorithm identifier, and abort if this is not the case.
+
+   Implementations MUST NOT use the obsolete Symmetrically Encrypted
+   Data packet (tag 9) to encrypt data protected with the algorithms
+   described in this document.
 
 4.3.2.  Key Material Packets
 
@@ -1153,13 +1147,12 @@ Table of Contents
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
 
-   When encrypting to a certificate that contains a PQ(/T) key and if
-   one of the subpackets "Preferred Symmetric Ciphers for v1 SEIPD" or
-   "Preferred AEAD Ciphersuites" is missing, an implementation SHOULD
-   treat this as if the subpacket with an empty list exists and
-   implicitly add algorithms as describhed in this section.  Support for
-   the v2 SEIPD feature MUST NOT be assumed on the basis of implicitly
-   added AEAD algorithm pairs alone.
+7.2.  Hash Algorithms for Key Binding Signatures
+
+   Subkey binding signatures over algorithms described in this document
+   and primary key binding signatures made by algorithms described in
+   this document MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A
+   receiving implementation MUST treat such a signature as invalid.
 
 8.  Migration Considerations
 
@@ -1261,27 +1254,24 @@ Table of Contents
 9.3.  Key combiner
 
    For the key combination in Section 4.2.2 this specification limits
-   itself to the use of KMAC.  The sponge construction used by KMAC was
-   proven to be indifferentiable from a random oracle [BDPA08].  This
-   means, that in contrast to SHA2, which uses a Merkle-Damgard
-   construction, no HMAC-based construction is required for key
-   combination.  Except for a domain separation it is sufficient to
-   simply process the concatenation of any number of key shares when
-   using a sponge-based construction like KMAC.  The construction using
-   KMAC ensures a standardized domain separation.  In this case, the
-   processed message is then the concatenation of any number of key
-   shares.
+   itself to the use of SHA3-256.  The sponge construction used by
+   SHA3-256 was proven to be indifferentiable from a random oracle
+   [BDPA08].  This means, that in contrast to SHA2, which uses a Merkle-
+   Damgard construction, no HMAC-based construction is required for key
+   combination.  It is therefore sufficient to simply process the
+   concatenation of any number of key shares with a domain separation
+   when using a sponge-based construction like SHA3-256.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
    permutation, an attacker has to make an expected number of 2^(c/2)
-   calls to the permutation to tell KMAC from a random oracle.  For a
-   random oracle, a difference in only a single bit gives an unrelated,
-   uniformly random output.  Hence, to be able to distinguish a key K,
-   derived from shared keys K1 and K2 (and ciphertexts C1 and C2) as
+   calls to the permutation to tell SHA3-256 from a random oracle.  For
+   a random oracle, a difference in only a single bit gives an
+   unrelated, uniformly random output.  Hence, to be able to distinguish
+   a key K, derived from shared keys K1 and K2 (with ciphertexts C1 and
+   C2 and public keys P1 and P2) as
 
-K = KMAC(domainSeparation, counter || K1 || C1 || K2 || C2 || fixedInfo,
-outputBits, customization)
+  K = SHA3-256(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
@@ -1300,12 +1290,12 @@ outputBits, customization)
 
 9.4.  Domain separation and binding
 
-   The domSeparation information defined in Section 4.2.2 provides the
+   The domSeparation information defined in Section 4.2.1 provides the
    domain separation for the key combiner construction.  This ensures
    that the input keying material is used to generate a KEK for a
    specific purpose or context.
 
-   The fixedInfo defined in Section 4.2.1 binds the derived KEK to the
+   The algID defined in Section 4.2.1 binds the derived KEK to the
    chosen algorithm and communication parties.  The algorithm ID
    identifies unequivocally the algorithm, the parameters for its
    instantiation, and the length of all artifacts, including the derived
@@ -1316,44 +1306,6 @@ outputBits, customization)
    relevant for the OpenPGP protocol, since the sender is not required
    to have a key of their own, there are no pre-shared secrets, and all
    the other parameters are unequivocally defined by the algorithm ID.
-
-   Furthermore, we do not require the recipients public key into the key
-   combiner as the public key material is already included in the
-   component key derivation functions.  Given two KEMs which we assume
-   to be multi-user secure, we combine their outputs using a KEM-
-   combiner:
-
-   K = H(K1, C1, K2, C2), C = (C1, C2)
-
-   Our aim is to preserve multi-user security.  A common approach to
-   this is to add the public key into the key derivation for K.
-   However, it turns out that this is not necessary here.  To break
-   security of the combined scheme in the multi-user setting, the
-   adversary has to distinguish a set of challenge keys
-
-   K__u = H(K1__u, C1__u, K2__u, C2*_u)
-
-   for users u in some set from random, also given ciphertexts C*_u =
-   (C1*_u, C2*_u).  For each of these K* it holds that if the adversary
-   never makes a query
-
-   H(K1*_u, C1*_u, K2*_u, C2*_u)
-
-   they have a zero advantage over guessing.
-
-   The only multi-user advantage that the adversary could gain therefore
-   consists of queries to H that are meaningful for two different users
-   u1 != u2 and their associated public keys.  This is only the case if
-
-   (c1*_u1, c2*_u1) = (c1*_u2, c2*_u2)
-
-   as the ciphertext values decide for which challenge the query is
-   meaningful.  This means that a ciphertext collision is needed between
-   challenges.  Assuming that the randomness used in the generation of
-   the two challenges is uncorrelated, this is negligible.
-
-   In consequence, the ciphertexts already work sufficiently well as
-   domain-separator.
 
 9.5.  SLH-DSA-SHAKE Message Randomizer
 
@@ -1452,104 +1404,108 @@ outputBits, customization)
    algorithms denote fields that are only conditionally contained in the
    data structure.
 
-   +===+=========+=======+=======+=========+==============+===========+
-   |ID |Algorithm| Public| Secret|Signature| PKESK Format | Reference |
-   |   |         |    Key|    Key|   Format|              |           |
-   |   |         | Format| Format|         |              |           |
-   +===+=========+=======+=======+=========+==============+===========+
-   |TBD|ML-      |     32|     32|      N/A|    32 octets |   Section |
-   |   |KEM-768 +| octets| octets|         |       X25519 |       4.2 |
-   |   |X25519   | X25519| X25519|         |  ciphertext, |           |
-   |   |         | public| secret|         |  1088 octets |           |
-   |   |         |    key|    key|         |   ML-KEM-768 |           |
-   |   |         | (Table| (Table|         |   ciphertext |           |
-   |   |         |    3),|    3),|         |   [, 1 octet |           |
-   |   |         |   1184|   2400|         | algorithm ID |           |
-   |   |         | octets| octets|         |   in case of |           |
-   |   |         |    ML-|    ML-|         | v3 PKESK], 1 |           |
-   |   |         |KEM-768|KEM-768|         | octet length |           |
-   |   |         | public|secret-|         |     field of |           |
-   |   |         |    key|    key|         |   value n, n |           |
-   |   |         | (Table| (Table|         |       octets |           |
-   |   |         |     4)|     4)|         |      wrapped |           |
-   |   |         |       |       |         |  session key |           |
-   |   |         |       |       |         |     (Section |           |
-   |   |         |       |       |         |       4.3.1) |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-      |     56|     56|      N/A|    56 octets |   Section |
-   |   |KEM-1024 | octets| octets|         |         X448 |       4.2 |
-   |   |+ X448   |   X448|   X448|         |  ciphertext, |           |
-   |   |         | public| secret|         |  1568 octets |           |
-   |   |         |    key|    key|         |  ML-KEM-1024 |           |
-   |   |         | (Table| (Table|         |   ciphertext |           |
-   |   |         |    3),|    3),|         |   [, 1 octet |           |
-   |   |         |   1568|   3168|         | algorithm ID |           |
-   |   |         | octets| octets|         |   in case of |           |
-   |   |         |ML-KEM-|ML-KEM-|         | v3 PKESK], 1 |           |
-   |   |         |   1024|   1024|         | octet length |           |
-   |   |         | public|secret-|         |     field of |           |
-   |   |         |    key|    key|         |   value n, n |           |
-   |   |         | (Table| (Table|         |       octets |           |
-   |   |         |     4)|     4)|         |      wrapped |           |
-   |   |         |       |       |         |  session key |           |
-   |   |         |       |       |         |     (Section |           |
-   |   |         |       |       |         |       4.3.1) |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-DSA-65|     32|     32|64 octets|          N/A |   Section |
-   |   |+ Ed25519| octets| octets|  Ed25519|              |       5.2 |
-   |   |         |Ed25519|Ed25519|signature|              |           |
-   |   |         | public| secret|   (Table|              |           |
-   |   |         |    key|    key| 6), 3293|              |           |
-   |   |         | (Table| (Table|   octets|              |           |
-   |   |         |    6),|    6),|ML-DSA-65|              |           |
-   |   |         |   1952|   4032|signature|              |           |
-   |   |         | octets| octets|(Table 7)|              |           |
-   |   |         |    ML-|    ML-|         |              |           |
-   |   |         | DSA-65| DSA-65|         |              |           |
-   |   |         | public| secret|         |              |           |
-   |   |         |    key| (Table|         |              |           |
-   |   |         | (Table|     7)|         |              |           |
-   |   |         |     7)|       |         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|ML-DSA-87|     57|     57|      114|          N/A |   Section |
-   |   |+ Ed448  | octets| octets|   octets|              |       5.2 |
-   |   |         |  Ed448|  Ed448|    Ed448|              |           |
-   |   |         | public| secret|signature|              |           |
-   |   |         |    key|    key|   (Table|              |           |
-   |   |         | (Table| (Table| 6), 4595|              |           |
-   |   |         |    6),|    6),|   octets|              |           |
-   |   |         |   2592|   4896|ML-DSA-87|              |           |
-   |   |         | octets| octets|signature|              |           |
-   |   |         |    ML-|    ML-|(Table 7)|              |           |
-   |   |         | DSA-87| DSA-87|         |              |           |
-   |   |         | public| secret|         |              |           |
-   |   |         |    key| (Table|         |              |           |
-   |   |         | (Table|     7)|         |              |           |
-   |   |         |     7)|       |         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     32|     64|     7856|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |128s     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     32|     64|    17088|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |128f     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
-   |TBD|SLH-DSA- |     64|    128|    29792|          N/A |   Section |
-   |   |SHAKE-   | octets| octets|   octets|              |       6.1 |
-   |   |256s     | public| secret|signature|              |           |
-   |   |         |    key|    key|(Table 9)|              |           |
-   |   |         | (Table| (Table|         |              |           |
-   |   |         |     9)|     9)|         |              |           |
-   +---+---------+-------+-------+---------+--------------+-----------+
+   +===+============+=======+=======+=========+==============+=========+
+   |ID | Algorithm  | Public| Secret|Signature|        PKESK |Reference|
+   |   |            |    Key|    Key|   Format|       Format |         |
+   |   |            | Format| Format|         |              |         |
+   +===+============+=======+=======+=========+==============+=========+
+   |TBD| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
+   |   | 768+X25519 | octets| octets|         |       X25519 |      4.2|
+   |   |            | X25519| X25519|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1088 octets |         |
+   |   |            |    key|    key|         |   ML-KEM-768 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1184|   2400|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |    ML-|    ML-|         |        of v3 |         |
+   |   |            |KEM-768|KEM-768|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
+   |   | 1024+X448  | octets| octets|         |         X448 |      4.2|
+   |   |            |   X448|   X448|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1568 octets |         |
+   |   |            |    key|    key|         |  ML-KEM-1024 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1568|   3168|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |ML-KEM-|ML-KEM-|         |        of v3 |         |
+   |   |            |   1024|   1024|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
+   |   | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
+   |   |            |Ed25519|Ed25519|signature|              |         |
+   |   |            | public| secret|   (Table|              |         |
+   |   |            |    key|    key| 6), 3293|              |         |
+   |   |            | (Table| (Table|   octets|              |         |
+   |   |            |    6),|    6),|ML-DSA-65|              |         |
+   |   |            |   1952|   4032|signature|              |         |
+   |   |            | octets| octets|(Table 7)|              |         |
+   |   |            |    ML-|    ML-|         |              |         |
+   |   |            | DSA-65| DSA-65|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     57|     57|      114|          N/A |  Section|
+   |   | 87+Ed448   | octets| octets|   octets|              |      5.2|
+   |   |            |  Ed448|  Ed448|    Ed448|              |         |
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|   (Table|              |         |
+   |   |            | (Table| (Table| 6), 4595|              |         |
+   |   |            |    6),|    6),|   octets|              |         |
+   |   |            |   2592|   4896|ML-DSA-87|              |         |
+   |   |            | octets| octets|signature|              |         |
+   |   |            |    ML-|    ML-|(Table 7)|              |         |
+   |   |            | DSA-87| DSA-87|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
+   |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
+   |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
+   |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
 
-   Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1615,7 +1571,7 @@ outputBits, customization)
 
    *  Added test vectors.
 
-   *  correction and completion of IANA instructions.
+   *  Correction and completion of IANA instructions.
 
 12.7.  draft-ietf-openpgp-pqc-02
 
@@ -1628,6 +1584,13 @@ outputBits, customization)
 
    *  Removed NIST and Brainpool curve hybrids, dropped ECDSA from the
       current specification.
+
+   *  Updated KDF as proposed at IETF 119.
+
+   *  Removed whitespaces from composite algorithm names.
+
+   *  Explicitly disallowed SED (tag 9) and weak hashes when using PQ
+      algorithms.
 
 13.  Contributors
 
@@ -1670,12 +1633,6 @@ outputBits, customization)
               Chosen Ciphertext Attack", 2003,
               <https://doi.org/10.1137/S0097539702403773>.
 
-   [draft-driscoll-pqt-hybrid-terminology]
-              Driscoll, F., "Terminology for Post-Quantum Traditional
-              Hybrid Schemes", March 2023,
-              <https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-
-              hybrid-terminology>.
-
    [FIPS-203] National Institute of Standards and Technology, "Module-
               Lattice-Based Key-Encapsulation Mechanism Standard",
               August 2023, <https://doi.org/10.6028/NIST.FIPS.203.ipd>.
@@ -1691,6 +1648,13 @@ outputBits, customization)
    [GHP18]    Giacon, F., Heuer, F., and B. Poettering, "KEM Combiners",
               2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.
 
+   [I-D.ietf-pquip-pqt-hybrid-terminology]
+              D, F. and M. P, "Terminology for Post-Quantum Traditional
+              Hybrid Schemes", Work in Progress, Internet-Draft, draft-
+              ietf-pquip-pqt-hybrid-terminology-03, 9 May 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
+              pqt-hybrid-terminology-03>.
+
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
               <https://csrc.nist.gov/projects/post-quantum-cryptography/
@@ -1704,19 +1668,6 @@ outputBits, customization)
               Post-Quantum Cryptography Standardization Process", NIST
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
-
-   [SP800-185]
-              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
-              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
-              NIST Special Publication 800-185 , December 2016,
-              <https://doi.org/10.6028/NIST.SP.800-185>.
-
-   [SP800-186]
-              Chen, L., Moody, D., Regenscheid, A., and K. Randall,
-              "Recommendations for Discrete Logarithm-Based
-              Cryptography: Elliptic Curve Domain Parameters", NIST
-              Special Publication 800-186 , February 2023,
-              <https://doi.org/10.6028/NIST.SP.800-186>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
@@ -1749,7 +1700,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1863,7 +1814,7 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1915,47 +1866,47 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
-   4ec7dc0874ce4a3c257fec94f27f2d3c589764a5fbaf27a4b52836df53c86868.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb.
 
-   The hex-encoded KMAC mlkemKeyShare input is
-   9a84cb01b6be6eecd16737fb558b5ca35899403076c7e9f0ee350195e7fbf6c4.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a.
 
-   The hex-encoded KMAC256 output is
-   15a0f1eed1fb2a50a22f21e82dbce13ae91c45e3b76a9d2c61246c354a05f781.
+   The hex-encoded SHA3-256 output is
+   99229561bcf5017d6b1dd34d8eb0441897968d5b140597756db705f1de67c078.
 
    The hex-encoded session key is
-   08f49fd5340b026e7ec751d82cea83a4b92d4837e785bfb66af71387f84156d0.
+   0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e5fd3a24a13641d7b.
 
    -----BEGIN PGP MESSAGE-----
 
-   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
+   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
    -----END PGP MESSAGE-----
 
 A.2.  V4 PQC Subkey Artifacts
@@ -1972,7 +1923,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Private-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -1982,7 +1933,7 @@ A.2.  V4 PQC Subkey Artifacts
    The ECDH subkey has the fingerprint
    95bed3c63f295e7b980b6a2b93b3233faf28c9d2.
 
-   The ML-KEM-ipd-768 + X25519 subkey has the fingerprint
+   The ML-KEM-ipd-768+X25519 subkey has the fingerprint
    bd67d98388813e88bf3490f3e440cfbaffd6f357.
 
    -----BEGIN PGP PRIVATE KEY BLOCK-----
@@ -2092,7 +2043,7 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v4 subkey binding signature
 
-   *  A v4 ML-KEM-ipd-768 + X25519 Public-Subkey packet
+   *  A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -2145,96 +2096,96 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v1 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
-   ba6634c5bab5756868dac8282054b0b30916d764e1f15841222392e5545a67c7.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0.
 
-   The hex-encoded KMAC mlkemKeyShare input is
-   a6b263da0e367b39c2d44bf4c3f66015f410ee4fa674ddbba8d50cde2fc4094a.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008.
 
-   The hex-encoded KMAC256 output is
-   504bc329627af248947117936bee9e87230d327d5c5f5b4db593c4b58b2d0339.
+   The hex-encoded SHA3-256 output is
+   86ea88190089aae9256f04fdd09cd62e19f2c1d02cfb844aa1f99f7b17c49743.
 
    The hex-encoded session key is
-   b639d5feaae6c8eabcf04182322d576298193cfa9555d869cf911ffbbc5e52e7.
+   f3037ae17d83a40ed08d884e19dc66065eac82d96337e4b74b1d10e933535e4d.
 
    -----BEGIN PGP MESSAGE-----
 
-   wcPUA+RAz7r/1vNXafOEf/qo/UCjgP5MHXsUdzusv+Xtwa/q5/gtvWSKENMEm/ef
-   mwvHzlOW3jyHPr3wNkiRGNmZdEgHlRUxOF67AKfUqX1/H+RawlXrnu2O/7xDfn09
-   1DOeYQYsG+VQe5eDfPOh6EAqvhglNG29enkwukjQuWJ0U2+SywRlh0J49oG0lZZi
-   tEonE6BX+dKo7JFAAW27I4+I15zamWCm7C2qXtcjlMq+68U6isstfJYBgCFoJLRV
-   9ME/JlwVQ/3OA4eagh1Ysw/s0Kbl8dWc/U+pUVINfLFnZbr8UnRx5QVjo47HzV9y
-   IPQcl1ETnrQqg4jH5cUB0wVB/OGSHEH1l1q7OwO4TBx9seRKza3wzHgXQyQn4jJn
-   WxG4Uf0rWwa/dbXpoGdxye7Di0HhFJBp4aPaPEm9RwmeD06HPGyurgQS2heW+ICR
-   X9q6HjxKmbIToWau7sEUZQh1isRD923zmZO1Cceiefwvv8RDErBaYRRfhoDHnwlf
-   haUkGDH55GC/mFgMUst7XjYLTpjTtM32bHHVoYyx3edk3V4C32dRP4geZRlq8MKb
-   3eNvTyZHPBXVeVjB2XVenMkju2qQvjAvr7xkJk5QvqRGZ3qy5JKPHjupPKMKR6Wv
-   90WtP9OPf6geE4K8g8dc4yqhqEf84IpWfwyUjglPwc8G7QURyc14INSgnVKQ8nzJ
-   26Y0YSuBG599cwnBXIv7TLOsrmpcR+3O/OiqztEXwBSFalWqC6SScWr51+K4RHpi
-   0Dg3GYOdeu9V12ofWhh5eoXiQxiThsDc0cYD2LwwITb/sXJW6jisvTSQSszuDJsg
-   w4LJGVIgk94GwBeYCa4w+YbFD/6bC+nd9hze5iWyAt4jx2XuYWHvI95wUvRal4Y6
-   LcYKShZslef/9sZlrJ3O+oM8Tc+xjr7w860cw9bHBaRA3oZfDwVLRbJ63bh6dzLS
-   8Vj4UL0NiK9AlokOTlYTatKj2tkLaD6snZ5QaS916NniwvBiSozyCWKFPvKbIA5t
-   Fy7bWMk70wd7FJ5rOYsRvWOodcxxfYHLyOYCRikP5sOgelHJfIcqZZM/iMyKrUl5
-   QXTe5SUMFKuAAWkv1nFgJqaBGkkYUN+aL6um4ogKJKxBArhUXtz5jp1zLQe6w7Pf
-   XtJ3rtnLMNIGbaJjN6jlSqB1lF88ljU6yL8lsfNfGuq6eLsNz1QD9sFoZyNKGVF8
-   uGcX8KH07hyNCOPbn4jMZqnLfcEwT971KNeW0NNNLaVIjiYtYrEInYpnGP1fW0G7
-   4ic4/CGZ0Jsti39rTPdz76n14EV5+HGGNtO92nXr7HhRvlvehZO+pPN2pPvAOQgp
-   378jEDnhdcFIUnWjaSN4HLjxN9X3tWosa9stVatcOB5n01+QAqdstgbARXiYhzZI
-   QOy5bk7GzM/xaD+4iMlsMgmhdvI3EuMrvzRHx95YvU+tc8UBhVtMpcxgp5tiPtw7
-   wEFyPWYqTA6c+YGTZFzHNhqJ+DqLTlKP6+uYet4pCY6YLcu4z0JMG60Q4/MnuF2u
-   7pjPG7aRNGwr2/JFeaumSFbs5SrDPwDSOQGz9bQ6fbfGNm9Iw/Gq4EYrNx0raEVt
-   E1FD8+nRXcS1PribkWlu/qNd0yM+tXMXlryR6wAV3R4p9Q==
-   =h3Km
+   wcPUA+RAz7r/1vNXaUNGH8CAkSiFgunnUDqAiD9JSd3Sb7lMNUsWk6lzWiJicgky
+   S/vu0sSnRtxweWkoMr1y2ZaS45nXbEQyShiqHhZUKfVwtxbU+rGVH5oCgSvtTCrs
+   verZaFpqzqPWyZ8ApzJvjbGUDBuwns09dGIKvKoePT5DCrqXlsW4EA8gFJbiXeb3
+   E7nsyg3l2uMzbt6FHtYoa6qq9Q0PsUiGte52nXXWEnmBOGUfmCkVsgmHDmz63BLT
+   1xXuZ5YopZkhhpjTNtvWtXc6MIaqnh6XtAcg8ZoaH0iferpbHEp9+M4bv5YDjzji
+   vv83rBQN4cBaS1/TSmBkNJHmxcyT1AOOXY2ZbmxQBORhGOTrFz3w8R78MYkEvB6x
+   JAjoYirpsyNLJzdewpXEYrPQq4Ey8EG2+qDY47vQkQaYcSFFoxYQ8MpHXmmgJ2bp
+   D13g/lQlSHcdWX2L59Wa1dhKRVnUyeEtO5c06FKJ7QOrywNjPdVciPVCx6bBfVd2
+   6qiWLynSGnzGaKd1YyaviioCm48Ydu5q8Z+QbEANbKW1azVAWCuxuiomE3RBvf1O
+   8d30UvBnImEf+9ANDxzmjIG2lW39U591Jbv0pL00at3tIMQN2wwiduP1KZ1dilWa
+   gEkdPjl6Q68ov0vRCYMAZizj4pMZbsUdge2Jj9GieObnp+w25pJu9nBeI6iqYmwd
+   Ny1U3OuvzbEUsNfKcHoQd9Cem8EZn+5ICk7eqsTkZq69oYfIVRyzEEc/X9562nzh
+   6B+X4CHZY/C8UCWougQriG4KVszM4myOgekKg0kNVIWgE2y7Z//S9c2twdxRWT/a
+   8QC4p7QX7JRgzDD9erkj/9J3hKwHxDHShKB5jsVaGO+BxtFSCiiTmgeo7+SAnJwU
+   Mi/N0UiI2BbKdo4KmdDPUVDyobBjCjeXil7Kg7pTU0vewPZQDLl9X16CcXCB60HL
+   fkDGpcYbjkZYbmB449sQfaLvxRMHomP4TY4PEfANIXdWmk1mS0/+zNzMQ9+Xderc
+   8P/EdKDKF5yr7IzSNoxuLiIWpyWJj+5QmAwup9mVv5gkh5RPnUQ0fgQ1vU8K9PMz
+   OmYqlX2W4gPn29UovjkbGH+lEzazEzA7VZWHXG86NVN8WMXqdQvMJcmMRZhDmC3F
+   kCII5zc6dxFXjNUgaAqV8eBqvRBbgCqK+6HSwCMY7jNFhFIy+Nj/9BYU/ereax0t
+   Zlsk7XDK9lMZUidh5+VeEqbyMsLQ0YiyO7VJ5VdiPESXHjPkzxo42XZJELuBVC9D
+   ArAX2Qip+oV1RXzhu/SeJdRQufGSENeZpGiG4tW24dpROh40I5TgXmpd4ALhuh1S
+   PrepCNhXuFtKDIStKZEmCknPAGWAkLYZz5rAaMtztdGvzlektn+8CDtSo3d6FUww
+   dp68ZtSMMb5HGscAoiDoOTiB5KVPSd80s3EPXlsgQSfHuSUHTvmD8G6q4hqGXMeV
+   IUdwjwTvDMfW7CU5zqiV01SO6dXKsFyjLJrT57kpCbQ/2fhoMC+kNcXpzI+Z65yI
+   jCP6Sjv+cVh7tv55kTKAPHO5VE3MDxvSOQHpUQ0zora+lfzpLUahfv8uZ4Q4J3L6
+   mkHfXuplyv3LcunejQDog2bhakqbrb5lg3fZGYNagykZxw==
+   =2Xhi
    -----END PGP MESSAGE-----
 
-   Here is an SEIPDv2 unsigned message testing encrypted to this key:
+   Here is an SEIPDv2 unsigned message Testing\n encrypted to this key:
 
    *  A v6 PKESK
 
    *  A v2 SEIPD
 
-   The hex-encoded KMAC ecdhKeyShare input is
-   50a74bfb94dc7677bc02f278eb4e7d5d2f1b04e34a2b5c7b8da0579f3e1e0825.
+   The hex-encoded SHA3-256 ecdhKeyShare input is
+   4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341.
 
-   The hex-encoded KMAC mlkemKeyShare input is
-   161911216c93a5b7936f9a8876c446b0767c904c94786bfc79bcc505b45f5075.
+   The hex-encoded SHA3-256 mlkemKeyShare input is
+   4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0.
 
-   The hex-encoded KMAC256 output is
-   ee4dacbc4efac509ad5f79640d5963af038baf512d55974c46ac71db6c1ed579.
+   The hex-encoded SHA3-256 output is
+   76ea8fcc9a31a9fa672940b9ad578f6b8ecbea1b1d1175d01f1777364a8e2704.
 
    The hex-encoded session key is
-   27e3c564fa7b8adb7ee1cfede3ee2cda79dd8f1a6d029ebeb7f3880c752185f6.
+   b5d810efc6b2b82e77f907813e114587aca2d0e33c9c74e90eb1638df030dcaf.
 
    -----BEGIN PGP MESSAGE-----
 
-   wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dp/h3ny6MDFKIjw8Jva/pK0mlJJMbX
-   RtJ2+idWKUL4/Evq2JBL2pky3VeCkhJIAnKdMXBvuucpNC4xVhCREpPquOsQcJE1
-   IyR5kdk0uOw/7T5i7i9zb3N8Mn4jObYNxem0PbD44xYfF4BcNZqWPhLSwdFp+uti
-   FDVcsAtaruQQnwcb0tE9KUxMHsH2QxuG6Xnm+a1v3fds/rp/DqrR1vTcwbeUBej9
-   AcrWhRI+KrE80WtMqqB0nvj74Jsx7xrYKyDqi7C50PG1LwTfFmO1kuIOGwEVh3AL
-   f9vesNee8+QWqJHMuSaqTsndts7Pq2EQ1fzdsrhYvseFEuiITj6OHnvmERjhkVRt
-   M36v3cA8GmcKI2YLa+fNvyagjgkoUycjNopK94/KQk8DY4JnKEbMHJ1BvUQ6mXkZ
-   ZeQXEt9gBHMZvTPE4ZPKSR14tki9YbjCvGcklEx1BEhONMo+03C07H/AHMtk5Ia1
-   BFDF3dRkOhyXLfJCNKhJL4Sq7Z07CqKYCCzEq6WgKQUlWmiJzEtZKmh61LX3FaVU
-   A8+iK56QBvYyFUv/T9mGIBvF6qM+1l9BUSDim81EEN3FVKuo5QJ+tEbuKOrDWMTQ
-   klx3iEmGFeW8/N0gxTMpDKQRqDbkhdwFoM1c1L61NeCfDvTiWWVQQg00Z/n38gGC
-   S4MC8szKWPPlmtPYsXbyITMLpErgbIfr3IPfwRkm1RWVPQ/T7dm0Iz8ufeVTAqv+
-   4+WgeILpQbFf/PmKHlZJnyj+munVaLaV9ed8g/0ncfZ0Vn9sMzGXifAjJ7vT8t/2
-   ojSqc1AQuhoNguI3xFUCaUEzmWzOl3ONZhgDr4WTJdvfW/8IHn2y0Kkn5buqLAO5
-   LOvrksFgkuy3N21OzgI+H5SeCqOGt5NKgyMAUGKEa5a6ApG/DSecXJ38yr4hTG6k
-   IGxfd9dlezcdByrohFsRHC93XUSlTnxTqdYmuhK8x4me6QblJFEJhoDTr3lrKTQE
-   gXC5ncdTLKLLINnZgFRc0oFABKGATf/708nt/vkuhyNroCY2NxGKoem3M8P5radp
-   vKJ7qRi+ePBmxwPhb5mWVf7G5y509GgVhKUFUWCzvyoyp1HLtekARKrxBAElXo4D
-   RINA468O/Sx9rWDFFkaShsXqQEhe06C3IhoG6vqagdB82LYcisCWEAKd/hZE99Ub
-   EWawnQor/jrHhGNQId1nZEwpEE2/cndU3Np0mhoGF/kkjyGah8wxjFRZhX2b+w3M
-   jmyFyOFGog6SDK1dK6+Vdki3fJFvBCx/uLmuLiNQo2MYeG3B4W30jNDlkxZ2DA14
-   1zPXL8S3t54ZCtqiqDO63SNW18o2SB9AJpmSYYF34LO29VJnWIK5/94tIsfwHbAg
-   P/JdfRmSXkUYDTwJcYR1SOp8IIWwhmybnYctHS/n1q+WnzMj0jJIe4SI9ifoJg6n
-   +ntRfsqR1B3fcTAKN0XK6pnNy+pJ1BCVDOYDz5RGsAa61wJdVK/mXEg7VyjMlf0t
-   EnPzSfwfotMPoZs9n+MuK/BO0AX8DqzY8SluBALG6Eu5OV+A0lQCCQIMeNuKCuzH
-   CoYERR8ds1jE9m+xLEGK7i1+zr5FSdzGowHh4xMo95Zk5JUubl5rYvcYbHgVVKKE
-   9mwM7/4Q5mXZ2xvsBftkujgamZM2UN9UYSA=
+   wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dpZ1Yz1yu1Dk/HK2JuEmE6RavqzhvT
+   i508AZhPxC08BxfNFar+uyZCNyMrUSrY0qY8H61GTtx1+O9VynXl8uXtS1nTDGJ9
+   vCR+EvH6rT/gOPQB8HUhX6Ps97Yqi/Iys1gfS8n961pScwIYpPJzUWfUUKjIT55W
+   htkh9aIB6unqzwUDi3p4oRZRm67j1ZP14SLyonAG2tXtCZyu1An62UHeOyNl1/6Z
+   CgC3egTf6lz26US15T8AP54AO77LOf9KwLpUYcwvSExqHGgmhS0Mil6WnFyuJUDB
+   7A2T2p/koW7TDaqoxhWsxY2isiH1SmAxNxzMnrGd7rNpPJ/k/r42bILfOuG0TRUN
+   zqC9ph6OdydSyhHkN5G4eOYQqqvk19/lfLuHWlNwfNcn/2PsgsxLxNj7ltVn90W0
+   qLubPWrujn/DhLl+hs2xXDOudpcztUqxcBnrsSaHlaebjQoDfttVAQj2jjdNXRjZ
+   uNRnRfcG9s3sO3b8d4ed6tk6U+nMrE2dZCBjTagqvD07Z1TpZDh7t86V3X16o/ps
+   jxW42s+YR589b88IZcieZRbKVtXt00pn2tn95kpvL3d8nAkaiPUhrowQUz0jpn8c
+   CDBNAn1j690qM3pD5XJlwverC2cmJH1Hjobnrhi6X1k2lQxweX28p+R9NQjSoX0h
+   ORuE0/Wpi15y0xmr2EzjcZ/6vPncy/IrYJCYmx9+aWQAjrKjizzNFTt73kf1xba5
+   t4tbZkj9xgdDJXq3bAqB0/JeeTb4aTCk+n4olVYzCnMtLgj+1fWPClMModACmFOG
+   1+bw5Q91/7euo363sw5UwgU1JhSQ/xcKNyJQsnklWkLMJNB1Yhj/C32lEmLntigv
+   UOO510+ehA7D5ftef8cMfEIm73HrBBiLfixvVTR8AQV4hiV/mzKP7weM7kxvAvbz
+   ir4jt3uSBOuhTjzq2is/S3D2K+O8FZqGIbkDhnKd98LbEA2cn9nTfsbV+TVXCmaS
+   lHNojVxPL2pUKxedV5skvfflRFciuP7UNsf8myHe7wdfPdSzMsbytDEwID3vcsme
+   fBqZdEZxqv/mNnn38TfHMSCF+yv5XbF9ham4DIcqNlkYud1ipEFFbcBZ0o9nUIWp
+   diSY7KGAtVF224dtcr3FTHGuBnayDq+Yk++VhF4Bb3uPVuwrkf7Bncp1aYEQfkhI
+   HwF3X6GnwC3y7kpbkU1rOq7yXv/0mRyGpVQlW/Yf3qT1buxcWt5BvXBmKzbBpVg/
+   0B9vpzrlFsT0Pb2GHuQ6U+9JoZ+ePnRMVdDz93RCGr1kQlyY15K1b+yILJiV6oOL
+   OxoxXHnr5soIumxCqv+6oAm4SdQVJLELQK72x1dVKJ90jUOgYCeOY61NsC9BFWHT
+   h0itUEnwWMjKg73z00bthndwfEXHBJLrHizkcv+pwD8M5wb/9H6HU4x8ELSr5Fyn
+   WjSoa2739wmJkoJY5ifaic3L8UXJeLuEZnVG9tUrl9ohHO8RNR3Vc/uHmyhImoYp
+   RL4rcc6YpuyextmYu9S9LkPR5Bzr+mFeJDeXbA7GJm9eofdw0lQCCQIMAGc2j84/
+   tfivyP5YrgQ8uBt9iwJN3IYRBy8qdr9JUyxkpkOEshV6XE4g3Orpbx0ZdrxbKmDS
+   7eJl5fSust3gb2KfaAoWkFQivVJP2KTl5gw=
    -----END PGP MESSAGE-----
 
 Acknowledgments
