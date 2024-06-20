@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-18T01:09:58.565324+00:00",
+  "timestamp": "2024-06-20T01:08:06.948522+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -11843,13 +11843,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-06-11T13:40:02Z",
-      "updatedAt": "2024-06-11T14:09:03Z",
+      "updatedAt": "2024-06-19T08:45:14Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-inputs",
-      "headRefOid": "bb9c2364bd87ed3c0bfa016f77724fae894e1339",
+      "headRefOid": "7d68f04a0b6f942df19b33fc26c6b5cff2c01d1d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -11970,6 +11970,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 125,
+      "id": "PR_kwDOIrmZ-85y7gPE",
+      "title": "fixed order of symAlgId and len(C) in algo description",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/125",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-06-19T08:41:05Z",
+      "updatedAt": "2024-06-19T08:41:05Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-order-pkesk",
+      "headRefOid": "59394135eaedc699d31f0ec369def2a1f6c76151",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
