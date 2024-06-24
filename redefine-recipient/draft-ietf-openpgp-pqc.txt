@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 29 November 2024                                    F. Strenzke
+Expires: 26 December 2024                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             28 May 2024
+                                                            24 June 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 November 2024.
+   This Internet-Draft will expire on 26 December 2024.
 
 Copyright Notice
 
@@ -312,9 +312,9 @@ Table of Contents
    Furthermore, the OpenPGP protocol also allows for parallel encryption
    to different keys.  Accordingly, when a message is encrypted using
    multiple PKESK packages for different encryption keys, a non-
-   composite multi-algorithm public-key encryption is realized where the
-   communication party has to decrypt only one of the PKESK packages in
-   order to decrypt the message.
+   composite, potentially multi-algorithm, public-key encryption is
+   realized where the communication party has to decrypt only one of the
+   PKESK packages in order to decrypt the message.
 
 2.  Supported Public Key Algorithms
 
