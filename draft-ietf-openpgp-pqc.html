@@ -2198,7 +2198,7 @@ For ECDH this is done following the relative specification in <span>[<a href="#R
               <p id="section-4.2.4-2.9.1">Compute <code>C := AESKeyWrap(KEK, sessionKey)</code> with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> that includes a 64 bit integrity check<a href="#section-4.2.4-2.9.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.4-2.10">
-              <p id="section-4.2.4-2.10.1">Output the algorithm specific part of the PKESK as <code>ecdhCipherText || mlkemCipherText (|| symAlgId) || len(C) || C</code>, where both <code>symAlgId</code> and <code>len(C)</code> are single octet fields and <code>symAlgId</code> denotes the symmetric algorithm ID used and is present only for a v3 PKESK<a href="#section-4.2.4-2.10.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.4-2.10.1">Output the algorithm specific part of the PKESK as <code>ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C</code>, where both <code>symAlgId</code> and <code>len(C, symAlgId)</code> are single octet fields, <code>symAlgId</code> denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and <code>len(C, symAlgId)</code> denotes the combined octet length of the fields specified as the arguments.<a href="#section-4.2.4-2.10.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -2226,7 +2226,7 @@ For ECDH this is done following the relative specification in <span>[<a href="#R
               <p id="section-4.2.5-2.5.1">Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 5</a><a href="#section-4.2.5-2.5.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.5-2.6">
-              <p id="section-4.2.5-2.6.1">Parse <code>ecdhCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code> encoded as <code>ecdhCipherText || mlkemCipherText (|| symAlgId) || len(C) || C</code> as specified in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>, where <code>symAlgId</code> is present only in the case of a v3 PKESK.<a href="#section-4.2.5-2.6.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.5-2.6.1">Parse <code>ecdhCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code> encoded as <code>ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C</code> as specified in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>, where <code>symAlgId</code> is present only in the case of a v3 PKESK.<a href="#section-4.2.5-2.6.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.5-2.7">
               <p id="section-4.2.5-2.7.1">Compute <code>(ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey, ecdhPublicKey)</code><a href="#section-4.2.5-2.7.1" class="pilcrow">¶</a></p>
