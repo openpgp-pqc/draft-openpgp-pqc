@@ -322,7 +322,7 @@ These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
 
 Furthermore, the OpenPGP protocol also allows for parallel encryption to different keys.
-Accordingly, when a message is encrypted using multiple PKESK packages for different encryption keys, a non-composite multi-algorithm public-key encryption is realized where the communication party has to decrypt only one of the PKESK packages in order to decrypt the message.
+Accordingly, when a message is encrypted using multiple PKESK packages for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the communication party has to decrypt only one of the PKESK packages in order to decrypt the message.
 
 # Supported Public Key Algorithms
 
