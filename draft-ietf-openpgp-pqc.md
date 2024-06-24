@@ -618,7 +618,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
- 10. Output the algorithm specific part of the PKESK as `ecdhCipherText || mlkemCipherText (|| symAlgId) || len(C) || C`, where both `symAlgId` and `len(C)` are single octet fields and `symAlgId` denotes the symmetric algorithm ID used and is present only for a v3 PKESK
+ 10. Output the algorithm specific part of the PKESK as `ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C`, where both `symAlgId` and `len(C, symAlgId)` are single octet fields, `symAlgId` denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and `len(C, symAlgId)` denotes the combined octet length of the fields specified as the arguments.
 
 ### Decryption procedure
 
@@ -634,7 +634,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  5. Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to {{tab-mlkem-ecc-composite}}
 
- 6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText (|| symAlgId) || len(C) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
+ 6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
 
  7. Compute `(ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey, ecdhPublicKey)`
 
