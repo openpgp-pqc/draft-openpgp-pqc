@@ -559,14 +559,16 @@ For the composite KEM schemes defined in {{kem-alg-specs}} the following procedu
 The construction is a one-step key derivation function compliant to {{SP800-56C}}, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
-    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare,
-    //                   mlkemCipherText, fixedInfo)
+    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
+    //                   mlkemCipherText, mlkemPublicKey, fixedInfo)
     //
     //   Input:
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
+    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
+    //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
     //   fixedInfo       - the fixed information octet string
     //
     //   Constants:
@@ -612,7 +614,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  7. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 8. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
+ 8. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)` as defined in {{kem-key-combiner}}
 
  9. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -640,7 +642,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  9. Compute `fixedInfo` as specified in {{kem-fixed-info}}
 
- 10. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, mlkemKeyShare, mlkemCipherText, fixedInfo, oBits=256)` as defined in {{kem-key-combiner}}
+ 10. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)` as defined in {{kem-key-combiner}}
 
  11. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
