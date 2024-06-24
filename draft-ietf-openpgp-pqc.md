@@ -778,7 +778,7 @@ As specified in {{composite-signatures}} an implementation MUST validate both si
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [I-D.ietf-openpgp-crypto-refresh].
 
-The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures consists of:
+The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures consist of:
 
  - A fixed-length octet string representing the EdDSA signature, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
