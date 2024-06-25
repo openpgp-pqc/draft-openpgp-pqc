@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-23T01:13:53.273054+00:00",
+  "timestamp": "2024-06-25T01:09:39.222241+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -11636,13 +11636,13 @@
       "labels": [],
       "body": "This PR addresses #2 and #67, removing the normative section about recipients, and making it an example for applications supporting it.\r\nA review of all the terms \"recipient\" and \"sender\" was done, to remove the implicit reference to email",
       "createdAt": "2024-05-28T07:00:15Z",
-      "updatedAt": "2024-05-28T07:56:54Z",
+      "updatedAt": "2024-06-25T00:06:59Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "redefine-recipient",
-      "headRefOid": "3c0608837791a7be81f0ef946308dae6a2224594",
+      "headRefOid": "a9f7e1f8c29928c5b40c120d10af17c8ce6eed7d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -11788,6 +11788,92 @@
               "updatedAt": "2024-05-28T07:56:54Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XY2D",
+          "commit": {
+            "abbreviatedOid": "fb62b6a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-24T21:42:32Z",
+          "updatedAt": "2024-06-24T21:42:32Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I don't think it's verification only here, if we want to use `verifier` we also need to say `decrypter`?",
+              "createdAt": "2024-06-24T21:42:32Z",
+              "updatedAt": "2024-06-24T21:42:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XZSj",
+          "commit": {
+            "abbreviatedOid": "fb62b6a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-24T21:43:31Z",
+          "updatedAt": "2024-06-24T21:43:31Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\nAn implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).\r\n```",
+              "createdAt": "2024-06-24T21:43:31Z",
+              "updatedAt": "2024-06-24T21:43:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XaDe",
+          "commit": {
+            "abbreviatedOid": "a9f7e1f"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-24T21:46:11Z",
+          "updatedAt": "2024-06-24T21:46:11Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I think it's fine as an explanation of the previous sentence",
+              "createdAt": "2024-06-24T21:46:11Z",
+              "updatedAt": "2024-06-24T21:46:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_YEYn",
+          "commit": {
+            "abbreviatedOid": "a9f7e1f"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I'm with @TJ-91 in that i think \"communication party\" has gotten too abstract to be useful.  can we pull back a little bit?",
+          "createdAt": "2024-06-25T00:02:33Z",
+          "updatedAt": "2024-06-25T00:06:59Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "seems to me that we have a \"generating\" implementation and a \"consuming\" or \"evaluating\" implementation.  \"Communication party\" is rather too vague.",
+              "createdAt": "2024-06-25T00:02:33Z",
+              "updatedAt": "2024-06-25T00:06:59Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "what is a \"PKESK package\"?  does this mean \"packet\"?  i recognize it's not a part of the text edited here, but it could be cleaned up while we're touching this line.\r\n\r\nagain, i think \"communication party\" is too generic.  we're talking about the \"consuming\" or \"evaluating\" implementation, not the generating implementation.  in this case, we're just talking about decryption, so we could just say \"the decrypting party\".",
+              "createdAt": "2024-06-25T00:04:24Z",
+              "updatedAt": "2024-06-25T00:06:59Z"
+            }
+          ]
         }
       ]
     },
@@ -11796,24 +11882,26 @@
       "id": "PR_kwDOIrmZ-85yHNMl",
       "title": "added generated .xml to ignores",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/121",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-06-11T13:23:43Z",
-      "updatedAt": "2024-06-11T13:35:55Z",
+      "updatedAt": "2024-06-24T21:37:43Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "ignore-xml",
       "headRefOid": "a69dda2463e81f59fba2b9d7da96bebdceb6ffbf",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-24T21:37:43Z",
+      "mergedAt": "2024-06-24T21:37:43Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "34198c82ea206a23e28df2db5b4fe616f8971c6b"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11828,6 +11916,19 @@
           "createdAt": "2024-06-11T13:35:55Z",
           "updatedAt": "2024-06-11T13:35:55Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XW3O",
+          "commit": {
+            "abbreviatedOid": "a69dda2"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-24T21:37:08Z",
+          "updatedAt": "2024-06-24T21:37:08Z",
+          "comments": []
         }
       ]
     },
@@ -11836,24 +11937,26 @@
       "id": "PR_kwDOIrmZ-85yHWAu",
       "title": "added missing inputs to multiKeyCombine",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/122",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-06-11T13:40:02Z",
-      "updatedAt": "2024-06-19T08:45:14Z",
+      "updatedAt": "2024-06-24T21:38:24Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-inputs",
       "headRefOid": "7d68f04a0b6f942df19b33fc26c6b5cff2c01d1d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-24T21:38:23Z",
+      "mergedAt": "2024-06-24T21:38:23Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "da1fb50ce0f9b48c2d29bb27acd7fe6899a70c5e"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11888,6 +11991,19 @@
           "createdAt": "2024-06-11T14:09:03Z",
           "updatedAt": "2024-06-11T14:09:03Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XWQ2",
+          "commit": {
+            "abbreviatedOid": "7d68f04"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-24T21:35:29Z",
+          "updatedAt": "2024-06-24T21:35:29Z",
+          "comments": []
         }
       ]
     },
@@ -11896,24 +12012,26 @@
       "id": "PR_kwDOIrmZ-85yHXPa",
       "title": "added missing commas when giving section number after reference",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/123",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-06-11T13:42:30Z",
-      "updatedAt": "2024-06-11T13:45:35Z",
+      "updatedAt": "2024-06-24T21:37:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "commas-in-refs",
       "headRefOid": "152520dd8447df157864e07428307b71218b4415",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-24T21:37:57Z",
+      "mergedAt": "2024-06-24T21:37:57Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "0d5b27d48677906e95d8f20de723d4368f629a6f"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11928,6 +12046,19 @@
           "createdAt": "2024-06-11T13:45:35Z",
           "updatedAt": "2024-06-11T13:45:35Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XWu4",
+          "commit": {
+            "abbreviatedOid": "152520d"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-24T21:36:42Z",
+          "updatedAt": "2024-06-24T21:36:42Z",
+          "comments": []
         }
       ]
     },
@@ -11936,24 +12067,26 @@
       "id": "PR_kwDOIrmZ-85yHbPX",
       "title": "fixed singular/plural typo",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/124",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-06-11T13:49:25Z",
-      "updatedAt": "2024-06-11T13:51:23Z",
+      "updatedAt": "2024-06-24T21:38:06Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "typo-plural",
       "headRefOid": "4b61bbdce3c718a2c8160ea679d5bb25b9fee00d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-24T21:38:05Z",
+      "mergedAt": "2024-06-24T21:38:05Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "7d5dbd2a2d6d23a3a8edc27dfc2723c630325a23"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11968,6 +12101,19 @@
           "createdAt": "2024-06-11T13:51:23Z",
           "updatedAt": "2024-06-11T13:51:23Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XWbe",
+          "commit": {
+            "abbreviatedOid": "4b61bbd"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-24T21:36:02Z",
+          "updatedAt": "2024-06-24T21:36:02Z",
+          "comments": []
         }
       ]
     },
@@ -11976,24 +12122,26 @@
       "id": "PR_kwDOIrmZ-85y7gPE",
       "title": "fixed order of symAlgId and len(C) in algo description",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/125",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-06-19T08:41:05Z",
-      "updatedAt": "2024-06-20T13:28:47Z",
+      "updatedAt": "2024-06-24T21:38:45Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f75c6001da1e6e0151c85530b97398f50eb7d023",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "fix-order-pkesk",
       "headRefOid": "59394135eaedc699d31f0ec369def2a1f6c76151",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-24T21:38:45Z",
+      "mergedAt": "2024-06-24T21:38:45Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "e55c6d15bc1b1954f2a34c61d6cb7074a8925640"
+      },
       "comments": [],
       "reviews": [
         {
@@ -12007,6 +12155,19 @@
           "body": "",
           "createdAt": "2024-06-20T13:28:47Z",
           "updatedAt": "2024-06-20T13:28:47Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_XV9r",
+          "commit": {
+            "abbreviatedOid": "5939413"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-24T21:34:23Z",
+          "updatedAt": "2024-06-24T21:34:23Z",
           "comments": []
         }
       ]
