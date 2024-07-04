@@ -310,7 +310,7 @@ This specification introduces new cryptographic schemes, which can be categorize
 
  - PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic algorithm.
 
-For each of the composite schemes, this specification mandates that the communication party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
+For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully in order to achieve a successful verification of the composite signature.
 In the case of the composite public-key decryption, each of the component KEM decapsulation operations must succeed.
 
@@ -322,7 +322,7 @@ These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
 
 Furthermore, the OpenPGP protocol also allows for parallel encryption to different keys.
-Accordingly, when a message is encrypted using multiple PKESK packages for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the communication party has to decrypt only one of the PKESK packages in order to decrypt the message.
+Accordingly, when a message is encrypted using multiple PKESK packets for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the consuming party has to decrypt only one of the PKESK packets in order to decrypt the message.
 
 # Supported Public Key Algorithms
 
@@ -531,7 +531,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 
  - The session key for content encryption is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
- - The PKESK package's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
+ - The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
 ### Fixed information {#kem-fixed-info}
 
@@ -868,7 +868,7 @@ The algorithm-specific part of the secret key consists of:
 ## Symmetric Algorithms for SEIPD Packets
 
 Implementations MUST implement `AES-256`.
-An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).
+An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
 
 A v4 or v6 certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
 A v6 certificate that contains a PQ(/T) key SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
@@ -995,7 +995,7 @@ This specification mandates support for `AES-256` for two reasons.
 First, `AES-KeyWrap` with `AES-256` is already part of the composite KEM construction.
 Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
 
-For the same reasons, this specification further recommends the use of `AES-256` if it is supported by all communication parties, regardless of what the implementation would otherwise choose based on the communication parties' preferences.
+For the same reasons, this specification further recommends the use of `AES-256` if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of `AES-256` for encryption.
 Implementations may also make more nuanced decisions.
 
