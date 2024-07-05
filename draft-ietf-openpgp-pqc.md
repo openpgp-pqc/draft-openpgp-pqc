@@ -272,7 +272,7 @@ Furthermore, we want to point out that, depending on possible future changes to 
 
 ### ML-KEM {#mlkem-intro}
 
-ML-KEM [FIPS-203] is based on the hardness of solving the learning-with-errors problem in module lattices (MLWE).
+ML-KEM [FIPS-203] is based on the hardness of solving the Learning with Errors problem in module lattices (MLWE).
 The scheme is believed to provide security against cryptanalytic attacks by classical as well as quantum computers.
 This specification defines ML-KEM only in composite combination with ECDH encryption schemes in order to provide a pre-quantum security fallback.
 
@@ -740,7 +740,7 @@ Signatures using other hash algorithms MUST be considered invalid.
 
 An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithm.
 
-{: title="Binding between ML-DSA and signature data digest" #tab-mldsa-hash}
+{: title="Binding between ML-DSA + EdDSA and signature data digest" #tab-mldsa-hash}
 Algorithm ID reference | Hash function | Hash function ID reference
 ----------------------:| ------------- | --------------------------
 TBD (107 for testing)  | SHA3-256      | 12
