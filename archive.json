@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-04T01:10:20.386668+00:00",
+  "timestamp": "2024-07-07T01:16:17.270970+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2339,6 +2339,67 @@
           "updatedAt": "2024-05-28T04:03:25Z"
         }
       ]
+    },
+    {
+      "number": 126,
+      "id": "I_kwDOIrmZ-86OhKh6",
+      "title": "Mention that no further hashing happens in EdDSA",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/126",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We will need to refer to this section in the crypto-refresh: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#name-eddsa\r\n\r\nIt specifies exactly how EdDSA is invoked.\r\n\r\n@wussler @TJ-91 ",
+      "createdAt": "2024-07-04T15:00:18Z",
+      "updatedAt": "2024-07-04T15:00:18Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 127,
+      "id": "I_kwDOIrmZ-86OklL7",
+      "title": "correction of KEM combiner KDF input order to achieve NIST compliance",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/127",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The ordering of the KEM combiner inputs must be adjusted in the fashion of \r\n```\r\nSHA3-256(counter || ss1 || ss2 || <further-inputs>)\r\n```\r\n(see https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=22),\r\ni.e., after the counter first the shared-secrets must be fed and then any other inputs.\r\n\r\nThis issue was raised both in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/6 and https://github.com/lamps-wg/draft-composite-kem/issues/26.\r\n",
+      "createdAt": "2024-07-05T06:47:39Z",
+      "updatedAt": "2024-07-05T11:22:36Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "My concrete proposal is to make the new combiner in this form:\r\n\r\n```\r\ndomSep = \"OpenPGPCompositeKDFv1\"\r\n\r\nKEK = SHA3-256(counter || ecdhKeyShare || mlkemKeyShare || ecdhCipherText ||\r\n ecdhPublicKey  || mlkemCipherText || mlkemPublicKey || domSep || len(domSep) \r\n || algID )\r\n```\r\nIn any case, the string must be uniquely parsable from the rear end for any conceivable future value of `domSep`, which is not the case in our current proposal.\r\n\r\n@wussler \r\n@TJ-91 ",
+          "createdAt": "2024-07-05T06:53:58Z",
+          "updatedAt": "2024-07-05T06:56:12Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think it's good like this, at least I don't see any problem with it, or any benefit in a different ordering.\r\n\r\n> In any case, the string must be uniquely parsable from the rear end for any conceivable future value of domSep, which is not the case in our current proposal.\r\n\r\nWe should also note these facts in the security considerations. (1) this KDF has no possible collisions of inputs since it's uniquely parseble from the rear end (2) future versions of the KDF must also make sure of this.",
+          "createdAt": "2024-07-05T07:21:30Z",
+          "updatedAt": "2024-07-05T07:21:30Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think our idea with the current construction in which the tail of the KDF input is\r\n```\r\nfixedInfo = algID || \"OpenPGPCompositeKDFv1\",\r\n```\r\nis that one can infer the length of the whole string from the end of the string \"...v1\". But that mechanism seems a bit brittle (one would have to properly parse the encoded string from the rear). I would prefer to have an explicit length encoding. But my above claim that it is not uniquely parsable from the rear is not fully justified in this view.",
+          "createdAt": "2024-07-05T10:24:07Z",
+          "updatedAt": "2024-07-05T10:25:49Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> But my above claim that it is not uniquely parsable from the rear is not fully justified in this view.\r\n\r\nI did not check before, but you are right of course and `fixedInfo = algID || \"OpenPGPCompositeKDFv1\"` is fine. As long as any other version of the KDF that introduces a new `domSep` value ensures that the encoding of different values is suffix-free (i.e., the new version does not end with `\"OpenPGPCompositeKDFv1\"`)\r\n\r\n> But that mechanism seems a bit brittle (one would have to properly parse the encoded string from the rear). I would prefer to have an explicit length encoding. \r\n\r\nI agree with the length encoding for `domSep`. Using `domSep || len(domSep) || algID` is safe in my estimation, as long as a new KDF version does not change this structure at the end of the SHA3 input string and only changes the value of `domSep`. This means the new proposal is a bit more robust against unfortunate choices of future `domSep` values (however, the designer of the new KDF version would not likely choose a string that ends with `\"OpenPGPCompositeKDFv1\"`)\r\n\r\n---\r\n\r\nOne point that I just now thought of is the remote possibility of adding multi-byte algorithm identifiers (which was discussed as a possibility on several occasions). In that case the inputs can collide if the algorithm identifier comes last. Thus, it might be better to put `domSep || len(domSep)` last and then the new algorithms can unambiguously be used with a new KDF version. Or add a length byte for the algorithm identifier.",
+          "createdAt": "2024-07-05T11:22:34Z",
+          "updatedAt": "2024-07-05T11:22:34Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3092,7 +3153,7 @@
       "id": "PR_kwDOIrmZ-85IjZ8B",
       "title": "Add some guidance to prevent parallel encryption",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/20",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3103,14 +3164,14 @@
       ],
       "body": "Addresses #2 ",
       "createdAt": "2023-01-25T23:33:19Z",
-      "updatedAt": "2023-09-12T15:57:44Z",
+      "updatedAt": "2024-07-04T13:58:48Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "34e4cede25785c1db8ec5787ad1c8b901671d936",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "avoid-double-encryption",
       "headRefOid": "af41b93306dfadca4e3ca5666d3f29782c8a9da8",
-      "closedAt": null,
+      "closedAt": "2024-07-04T13:58:47Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -3170,6 +3231,13 @@
           "body": "This PR is supposed to be discussed after adoption, to understand what kind of guidance (if any) is due here",
           "createdAt": "2023-09-11T13:17:48Z",
           "updatedAt": "2023-09-11T13:17:48Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Superseded by #120 ",
+          "createdAt": "2024-07-04T13:58:48Z",
+          "updatedAt": "2024-07-04T13:58:48Z"
         }
       ],
       "reviews": [
@@ -11636,13 +11704,13 @@
       "labels": [],
       "body": "This PR addresses #2 and #67, removing the normative section about recipients, and making it an example for applications supporting it.\r\nA review of all the terms \"recipient\" and \"sender\" was done, to remove the implicit reference to email",
       "createdAt": "2024-05-28T07:00:15Z",
-      "updatedAt": "2024-06-25T00:06:59Z",
+      "updatedAt": "2024-07-05T10:17:55Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "redefine-recipient",
-      "headRefOid": "a9f7e1f8c29928c5b40c120d10af17c8ce6eed7d",
+      "headRefOid": "dab350a3e7f2c359b3d96a9d9eca1ce3e4b11840",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -11763,9 +11831,9 @@
           "comments": [
             {
               "originalPosition": 69,
-              "body": "I think that here the word \"recipient\" would be unterstood in the context of the PKESK packet(s) so it'd be ok to use",
+              "body": "I think that here the word \"recipient\" would be unterstood in the context of the PKESK packet(s) so it'd be ok to use\r\n\r\nEdit: alternative in line 900 looks good, resolving this",
               "createdAt": "2024-05-28T07:56:17Z",
-              "updatedAt": "2024-05-28T07:56:17Z"
+              "updatedAt": "2024-07-04T14:04:07Z"
             }
           ]
         },
@@ -11872,6 +11940,118 @@
               "body": "what is a \"PKESK package\"?  does this mean \"packet\"?  i recognize it's not a part of the text edited here, but it could be cleaned up while we're touching this line.\r\n\r\nagain, i think \"communication party\" is too generic.  we're talking about the \"consuming\" or \"evaluating\" implementation, not the generating implementation.  in this case, we're just talking about decryption, so we could just say \"the decrypting party\".",
               "createdAt": "2024-06-25T00:04:24Z",
               "updatedAt": "2024-06-25T00:06:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-85_Xai_",
+          "commit": {
+            "abbreviatedOid": "a9f7e1f"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-06-24T21:47:42Z",
+          "updatedAt": "2024-07-04T15:52:44Z",
+          "comments": [
+            {
+              "originalPosition": 69,
+              "body": "This was completely moved and re-worded, avoiding the concept of communication party or recipient",
+              "createdAt": "2024-06-24T21:47:42Z",
+              "updatedAt": "2024-07-04T15:52:44Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "Up to you all, this makes no difference in my opinion",
+              "createdAt": "2024-06-24T21:48:15Z",
+              "updatedAt": "2024-07-04T15:52:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86AwEQY",
+          "commit": {
+            "abbreviatedOid": "dab350a"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me. Thanks for the work Aron. I just propose two corrections regarding wording.",
+          "createdAt": "2024-07-05T07:04:43Z",
+          "updatedAt": "2024-07-05T07:16:09Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\nIn section {{pq-key-preference}} it is explained how to deal with multiple key scenarios.\r\n```",
+              "createdAt": "2024-07-05T07:04:43Z",
+              "updatedAt": "2024-07-05T07:16:09Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "```suggestion\r\nIn a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.\r\n```",
+              "createdAt": "2024-07-05T07:14:25Z",
+              "updatedAt": "2024-07-05T07:16:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Aw3t7",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-05T09:04:30Z",
+          "updatedAt": "2024-07-05T09:04:31Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I would still rather rewrite this. IMO that problem is outside of the scope of the OpenPGP protocol and more an application thing. The protocol layer doesn't necessarily know that two certificates / keys that it processes for encrypting are somehow linked. And even if it does, it can't know the intent of the application/user.\r\nSee also #67, I think the critique still applies to this: Do we mean the second or the third scenario, or both, and what is the criterion for an application to determine that two certificates belong to the same recipient in the third scenario?\r\n\r\nIn any case, I would change the paragraph to start with the more obvious case first:\r\n\r\n> For instance, in the case that a certificate has both a PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey SHOULD be preferred.\r\n\r\nAnd then we can add the \"multiple certificate scenario\" a bit more vaguely. The best I could come up with is the following:\r\n\r\n> Further, if an application can determine (by any means not defined in this document) that encrypting to a PQ/T certificate and a traditional certificate serves the same purpose, it should omit encrypting to the traditional certificate.\r\n\r\nSorry for being a bit picky here but I think sooner or later someone will re-raise this issue.",
+              "createdAt": "2024-07-05T09:04:30Z",
+              "updatedAt": "2024-07-05T09:04:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Aw5n6",
+          "commit": {
+            "abbreviatedOid": "dab350a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-05T09:08:19Z",
+          "updatedAt": "2024-07-05T09:08:19Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I'd try to state this more concisely since it's more or less stating the obvious.\r\n\r\n```suggestion\r\nFurthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple PKESK packets, thus realizing non-composite multi-algorithm public-key encryption.\r\n```",
+              "createdAt": "2024-07-05T09:08:19Z",
+              "updatedAt": "2024-07-05T09:08:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86AxXew",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-05T10:17:55Z",
+          "updatedAt": "2024-07-05T10:17:55Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "After looking closer again I agree with Johannes, here the assumptions about the identity of the recipient will most likely have to be more vague.",
+              "createdAt": "2024-07-05T10:17:55Z",
+              "updatedAt": "2024-07-05T10:17:55Z"
             }
           ]
         }
@@ -12168,6 +12348,86 @@
           "body": "",
           "createdAt": "2024-06-24T21:34:23Z",
           "updatedAt": "2024-06-24T21:34:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 128,
+      "id": "PR_kwDOIrmZ-850ggNL",
+      "title": "add note about the planned modifications of the KEM combiner",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/128",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-05T07:42:18Z",
+      "updatedAt": "2024-07-05T09:10:07Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "e55c6d15bc1b1954f2a34c61d6cb7074a8925640",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "note-kem-kdf-change",
+      "headRefOid": "aab3956f54d6d63fd04b2780ed4e436495f94ca8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86Aw6ZR",
+          "commit": {
+            "abbreviatedOid": "aab3956"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-05T09:10:07Z",
+          "updatedAt": "2024-07-05T09:10:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 129,
+      "id": "PR_kwDOIrmZ-850iwwN",
+      "title": "corrections of spelling and wording",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/129",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-05T14:16:19Z",
+      "updatedAt": "2024-07-05T14:19:50Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "e55c6d15bc1b1954f2a34c61d6cb7074a8925640",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "corrections-falko",
+      "headRefOid": "9f10cc8c24905def87497c1b8e86cbf1b841f879",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86Ay46D",
+          "commit": {
+            "abbreviatedOid": "9f10cc8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-05T14:19:50Z",
+          "updatedAt": "2024-07-05T14:19:50Z",
           "comments": []
         }
       ]
