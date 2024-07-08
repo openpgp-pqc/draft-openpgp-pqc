@@ -1160,10 +1160,12 @@ Table of Contents
 8.1.  Key preference
 
    Implementations SHOULD prefer PQ(/T) keys when multiple options are
-   available.  For instance, an implementation that encrypts messages
-   for a recipient for which both a valid PQ/T and a valid ECC
-   certificate are available, the implementation should use the PQ/T
-   certificate only.
+   available.  In case that a certificate has both a valid PQ/T and a
+   valid traditional subkey, an implementation SHOULD use the PQ/T
+   subkey only.  Furthermore, if an application has any means to
+   determine that encrypting to a PQ/T certificate and a traditional
+   certificate is redundant, it should omit encrypting to the
+   traditional certificate.
 
    As specified in Section 3.1, the confidentiality of a message is not
    post-quantum secure when using multiple PKESKs if at least one does
