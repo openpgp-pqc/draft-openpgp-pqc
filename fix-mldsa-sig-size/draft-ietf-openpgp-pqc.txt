@@ -1601,6 +1601,16 @@ return KEK
 
 12.9.  draft-ietf-openpgp-pqc-04
 
+   *  Fixed ML-DSA signature size
+
+   *  Fixed parameters order in PKESK algorithm description
+
+   *  Fixed missing inputs into KEM combination description
+
+   *  Improved parallel encryption guidance
+
+   *  Improved SED deprecation decscription
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
