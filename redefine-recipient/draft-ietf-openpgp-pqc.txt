@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 5 January 2025                                      F. Strenzke
+Expires: 9 January 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             4 July 2024
+                                                             8 July 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2025.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -309,12 +309,9 @@ Table of Contents
    implementations should handle the verification of such combinations
    of signatures.
 
-   Furthermore, the OpenPGP protocol also allows for parallel encryption
-   to different keys.  Accordingly, when a message is encrypted using
-   multiple PKESK packets for different encryption keys, a non-
-   composite, potentially multi-algorithm, public-key encryption is
-   realized where the consuming party has to decrypt only one of the
-   PKESK packets in order to decrypt the message.
+   Furthermore, the OpenPGP protocol also allows parallel encryption to
+   different keys by using multiple PKESK packets, thus realizing non-
+   composite multi-algorithm public-key encryption.
 
 2.  Supported Public Key Algorithms
 
@@ -393,7 +390,7 @@ Table of Contents
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
    encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.  In section Section 8.1 is explained how to
+   T encryption schemes.  In section Section 8.1 it is explained how to
    deal with multiple key scenarios.
 
 3.2.  Composite Signatures
@@ -1217,15 +1214,16 @@ Table of Contents
    the protocol's resistance against signature stripping attacks
    naturally arises.  In a signature stripping attack, an adversary
    removes one or more of the signatures such that only a subset of the
-   signatures remain in the message when verified.  This amounts to a
-   downgrade attack that potentially reduces the value of the signature.
-   It should be noted that the composite signature schemes specified in
-   this draft are not subject to a signature stripping vulnerability.
-   This is due to the fact that in any OpenPGP signature, the hashed
-   meta data includes the signature algorithm ID, as specified in
-   [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As a consequence,
-   a component signature taken out of the context of a specific
-   composite algorithm is not a valid signature for any message.
+   signatures remain in the message at the point when it is verified.
+   This amounts to a downgrade attack that potentially reduces the value
+   of the signature.  It should be noted that the composite signature
+   schemes specified in this draft are not subject to a signature
+   stripping vulnerability.  This is due to the fact that in any OpenPGP
+   signature, the hashed meta data includes the signature algorithm ID,
+   as specified in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As
+   a consequence, a component signature taken out of the context of a
+   specific composite algorithm is not a valid signature for any
+   message.
 
    Furthermore, it is also not possible to craft a new signature for a
    message that was signed twice with a composite algorithm by

@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 5 January 2025</td>
+<td class="center">Expires 9 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-04" class="published">4 July 2024</time>
+<time datetime="2024-07-08" class="published">8 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-05">5 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-09">9 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1587,8 +1587,7 @@ In the case of the composite public-key decryption, each of the component KEM de
 Furthermore, multiple OpenPGP signatures may be combined on the application layer.
 These latter two cases realize non-composite combinations of signatures.
 <a href="#multiple-signatures" class="auto internal xref">Section 3.3</a> specifies how implementations should handle the verification of such combinations of signatures.<a href="#section-1.4.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.4.2-2">Furthermore, the OpenPGP protocol also allows for parallel encryption to different keys.
-Accordingly, when a message is encrypted using multiple PKESK packets for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the consuming party has to decrypt only one of the PKESK packets in order to decrypt the message.<a href="#section-1.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-1.4.2-2">Furthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple PKESK packets, thus realizing non-composite multi-algorithm public-key encryption.<a href="#section-1.4.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1731,7 +1730,7 @@ This draft will not be sent to IANA without every listed algorithm having a non-
 This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">As explained in <a href="#non-composite-multi-alg" class="auto internal xref">Section 1.4.2</a>, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
-In section <a href="#pq-key-preference" class="auto internal xref">Section 8.1</a> is explained how to deal with multiple key scenarios.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+In section <a href="#pq-key-preference" class="auto internal xref">Section 8.1</a> it is explained how to deal with multiple key scenarios.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="composite-signatures">
@@ -2827,7 +2826,7 @@ This simplifies key distribution, as only one certificate needs to be communicat
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-security-aspects-of-composi" class="section-name selfRef">Security Aspects of Composite Signatures</a>
         </h3>
 <p id="section-9.1-1">When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
-In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message when verified.
+In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <span>[<a href="#I-D.ietf-openpgp-crypto-refresh" class="cite xref">I-D.ietf-openpgp-crypto-refresh</a>]</span>, Section 5.2.4.
