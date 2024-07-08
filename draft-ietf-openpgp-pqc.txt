@@ -91,10 +91,9 @@ Table of Contents
        2.1.1.  Experimental Codepoints for Interop Testing
    3.  Algorithm Combinations
      3.1.  Composite KEMs
-     3.2.  Parallel Public-Key Encryption
-     3.3.  Composite Signatures
-     3.4.  Multiple Signatures
-     3.5.  ECC requirements
+     3.2.  Composite Signatures
+     3.3.  Multiple Signatures
+     3.4.  ECC requirements
    4.  Composite KEM schemes
      4.1.  Building Blocks
        4.1.1.  ECDH KEMs
@@ -290,7 +289,7 @@ Table of Contents
       cryptographic algorithm.
 
    For each of the composite schemes, this specification mandates that
-   the recipient has to successfully perform the cryptographic
+   the consuming party has to successfully perform the cryptographic
    algorithms for each of the component schemes used in a cryptographic
    message, in order for the message to be deciphered and considered as
    valid.  This means that all component signatures must be verified
@@ -306,18 +305,13 @@ Table of Contents
    possible to realize non-composite combinations of signatures.
    Furthermore, multiple OpenPGP signatures may be combined on the
    application layer.  These latter two cases realize non-composite
-   combinations of signatures.  Section 3.4 specifies how
+   combinations of signatures.  Section 3.3 specifies how
    implementations should handle the verification of such combinations
    of signatures.
 
-   Furthermore, the OpenPGP protocol also allows for parallel encryption
-   to different keys held by the same recipient.  Accordingly, if the
-   sender makes use of this feature and sends an encrypted message with
-   multiple PKESK packages for different encryption keys held by the
-   same recipient, a non-composite multi-algorithm public-key encryption
-   is realized where the recipient has to decrypt only one of the PKESK
-   packages in order to decrypt the message.  See Section 3.2 for
-   restrictions on parallel encryption mandated by this specification.
+   Furthermore, the OpenPGP protocol also allows parallel encryption to
+   different keys by using multiple PKESK packets, thus realizing non-
+   composite multi-algorithm public-key encryption.
 
 2.  Supported Public Key Algorithms
 
@@ -392,21 +386,20 @@ Table of Contents
    key combiner to produce a single shared secret for message
    encryption.
 
-3.2.  Parallel Public-Key Encryption
-
    As explained in Section 1.4.2, the OpenPGP protocol inherently
-   supports parallel encryption to different keys of the same recipient.
-   Implementations MUST NOT encrypt a message with a purely traditional
-   public-key encryption key of a recipient if it is encrypted with a
-   PQ/T key of the same recipient.
+   supports parallel encryption to different keys.  Note that the
+   confidentiality of a message is not post-quantum secure when
+   encrypting to different keys if at least one key does not support PQ/
+   T encryption schemes.  In section Section 8.1 it is explained how to
+   deal with multiple key scenarios.
 
-3.3.  Composite Signatures
+3.2.  Composite Signatures
 
    The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA
    signatures, and an implementation MUST successfully validate both
    signatures to state that the ML-DSA + EdDSA signature is valid.
 
-3.4.  Multiple Signatures
+3.3.  Multiple Signatures
 
    The OpenPGP message format allows multiple signatures of a message,
    i.e. the attachment of multiple signature packets.
@@ -427,7 +420,7 @@ Table of Contents
    is sufficient to identify a message as correctly signed, is an
    interpretation of [I-D.ietf-openpgp-crypto-refresh], Section 5.2.5.]
 
-3.5.  ECC requirements
+3.4.  ECC requirements
 
    Even though the zero point, also called the point at infinity, may
    occur as a result of arithmetic operations on points of an elliptic
@@ -640,9 +633,8 @@ Table of Contents
       described in [RFC3394] using AES-256 as algorithm and the KEK as
       key.
 
-   *  The PKESK package's algorithm-specific parts are made up of the
-      ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session
-      key.
+   *  The PKESK packet's algorithm-specific parts are made up of the ML-
+      KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
 4.2.1.  Fixed information
 
@@ -987,7 +979,7 @@ return KEK
    2.  Verify the ML-DSA signature with ML-DSA.Verify() from
        Section 5.1.2
 
-   As specified in Section 3.3 an implementation MUST validate both
+   As specified in Section 3.2 an implementation MUST validate both
    signatures, i.e. EdDSA and ML-DSA, successfully to state that a
    composite ML-DSA + EdDSA signature is valid.
 
@@ -1139,7 +1131,8 @@ return KEK
    Implementations MUST implement AES-256.  An implementation SHOULD use
    AES-256 in the case of a v1 SEIPD packet, or AES-256 with any
    available AEAD mode in the case of a v2 SEIPD packet, if all
-   recipients indicate support for it (explicitly or implicitly).
+   recipient certificates indicate support for it (explicitly or
+   implicitly).
 
    A v4 or v6 certificate that contains a PQ(/T) key SHOULD include
    AES-256 in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
@@ -1181,23 +1174,23 @@ return KEK
 8.1.  Key preference
 
    Implementations SHOULD prefer PQ(/T) keys when multiple options are
-   available.
+   available.  When encrypting to a certificate that has both a valid
+   PQ/T and a valid traditional encryption subkey, an implementation
+   SHOULD use the PQ/T subkey only.  Furthermore, if an application has
+   any means to determine that encrypting to a PQ/T certificate and a
+   traditional certificate is redundant, it should omit encrypting to
+   the traditional certificate.
 
-   For instance, if encrypting for a recipient for which both a valid
-   PQ/T and a valid ECC certificate are available, the implementation
-   SHOULD choose the PQ/T certificate.  In case a certificate has both a
-   PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey
-   SHOULD be preferred.
+   As specified in Section 3.1, the confidentiality of a message is not
+   post-quantum secure when using multiple PKESKs if at least one does
+   not use PQ/T encryption schemes.  An implementation SHOULD NOT abort
+   the encryption process when encrypting a message to both PQ/T and
+   traditional keys to allow for a smooth transition to post-quantum
+   cryptography.
 
    An implementation MAY sign with both a PQ(/T) and an ECC key using
-   multiple signatures over the same data as described in Section 3.4.
+   multiple signatures over the same data as described in Section 3.3.
    Signing only with PQ(/T) key material is not backwards compatible.
-
-   Note that the confidentiality of a message is not post-quantum secure
-   when encrypting to multiple recipients if at least one recipient does
-   not support PQ/T encryption schemes.  An implementation SHOULD NOT
-   abort the encryption process in this case to allow for a smooth
-   transition to post-quantum cryptography.
 
 8.2.  Key generation strategies
 
@@ -1233,17 +1226,17 @@ return KEK
    When multiple signatures are applied to a message, the question of
    the protocol's resistance against signature stripping attacks
    naturally arises.  In a signature stripping attack, an adversary
-   removes one or more of the transmitted signatures such that only a
-   subset of the signatures originally applied by the sender remain in
-   the message that reaches the recipient.  This amounts to a downgrade
-   attack that potentially reduces the value of the signature.  It
-   should be noted that the composite signature schemes specified in
-   this draft are not subject to a signature stripping vulnerability.
-   This is due to the fact that in any OpenPGP signature, the hashed
-   meta data includes the signature algorithm ID, as specified in
-   [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As a consequence,
-   a component signature taken out of the context of a specific
-   composite algorithm is not a valid signature for any message.
+   removes one or more of the signatures such that only a subset of the
+   signatures remain in the message at the point when it is verified.
+   This amounts to a downgrade attack that potentially reduces the value
+   of the signature.  It should be noted that the composite signature
+   schemes specified in this draft are not subject to a signature
+   stripping vulnerability.  This is due to the fact that in any OpenPGP
+   signature, the hashed meta data includes the signature algorithm ID,
+   as specified in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As
+   a consequence, a component signature taken out of the context of a
+   specific composite algorithm is not a valid signature for any
+   message.
 
    Furthermore, it is also not possible to craft a new signature for a
    message that was signed twice with a composite algorithm by
@@ -1352,11 +1345,12 @@ return KEK
    security level of AES-256.
 
    For the same reasons, this specification further recommends the use
-   of AES-256 if it is supported by all recipients, regardless of what
-   the implementation would otherwise choose based on the recipients'
-   preferences.  This recommendation should be understood as a clear and
-   simple rule for the selection of AES-256 for encryption.
-   Implementations may also make more nuanced decisions.
+   of AES-256 if it is supported by all recipient certificates,
+   regardless of what the implementation would otherwise choose based on
+   the recipients' preferences.  This recommendation should be
+   understood as a clear and simple rule for the selection of AES-256
+   for encryption.  Implementations may also make more nuanced
+   decisions.
 
 10.  Additional considerations
 
