@@ -730,8 +730,8 @@ All artifacts are encoded as defined in [FIPS-204].
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
 Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ----------------------:| --------- | -----------| ---------- | ---------------
-TBD (107 for testing)  | ML-DSA-65 | 1952       | 4032       | 3293
-TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4595
+TBD (107 for testing)  | ML-DSA-65 | 1952       | 4032       | 3309
+TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4627
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
@@ -1104,6 +1104,9 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Updated KDF as proposed at IETF 119.
 - Removed whitespaces from composite algorithm names.
 - Explicitly disallowed SED (tag 9) and weak hashes when using PQ algorithms.
+
+## draft-ietf-openpgp-pqc-04
+
 
 # Contributors
 
