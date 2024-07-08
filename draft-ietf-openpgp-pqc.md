@@ -321,8 +321,7 @@ Furthermore, multiple OpenPGP signatures may be combined on the application laye
 These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
 
-Furthermore, the OpenPGP protocol also allows for parallel encryption to different keys.
-Accordingly, when a message is encrypted using multiple PKESK packets for different encryption keys, a non-composite, potentially multi-algorithm, public-key encryption is realized where the consuming party has to decrypt only one of the PKESK packets in order to decrypt the message.
+Furthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple PKESK packets, thus realizing non-composite multi-algorithm public-key encryption.
 
 # Supported Public Key Algorithms
 
@@ -369,7 +368,7 @@ This is achieved via KEM combination, i.e. both key encapsulations/decapsulation
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
-In section {{pq-key-preference}} is explained how to deal with multiple key scenarios.
+In section {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
 
 ## Composite Signatures
 
@@ -927,7 +926,7 @@ Two migration strategies are recommended:
 ## Security Aspects of Composite Signatures
 
 When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
-In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message when verified.
+In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
