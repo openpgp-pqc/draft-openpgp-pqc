@@ -2117,7 +2117,11 @@ domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
 <p id="section-4.2.2-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
 The construction is a one-step key derivation function compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.2-2">
+<p id="section-4.2.2-2">[Note to the reader: the key combiner defined in the current version of this draft is not actually compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, since the NIST standard requires that the shared secret is fed to the KDF first whereas the combiner defined here feeds
+the key shares of the two component schemes, which together form the shared secret, in two parts with public information in between.
+The combiner will be reworked to fix this defect.
+The change is planned to be integrated prior to IETF 121.]<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.2-3">
 <pre>
 //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
 //                   mlkemCipherText, mlkemPublicKey, fixedInfo)
@@ -2139,17 +2143,17 @@ mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
 
 KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
 return KEK
-</pre><a href="#section-4.2.2-2" class="pilcrow">¶</a>
+</pre><a href="#section-4.2.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2.2-3">Note that the values <code>ecdhKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a> and <code>mlkemKeyShare</code> defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a> already use the relative ciphertext in the derivation.
-The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.<a href="#section-4.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2.2-4">The value of <code>counter</code> MUST be set to the following octet sequence:<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.2-5">
+<p id="section-4.2.2-4">Note that the values <code>ecdhKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a> and <code>mlkemKeyShare</code> defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a> already use the relative ciphertext in the derivation.
+The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-5">The value of <code>counter</code> MUST be set to the following octet sequence:<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.2-6">
 <pre>
 counter :=  00 00 00 01
-</pre><a href="#section-4.2.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-4.2.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2.2-6">The value of <code>fixedInfo</code> MUST be set according to <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a>.<a href="#section-4.2.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.2.2-7">The value of <code>fixedInfo</code> MUST be set according to <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a>.<a href="#section-4.2.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-generation">
