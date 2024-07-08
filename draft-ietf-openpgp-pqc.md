@@ -559,6 +559,12 @@ For the composite KEM schemes defined in {{kem-alg-specs}} the following procedu
 The construction is a one-step key derivation function compliant to {{SP800-56C}}, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
+\[Note to the reader: the key combiner defined in the current version of this draft is not actually compliant to {{SP800-56C}}, since the NIST standard requires that the shared secret is fed to the KDF first whereas the combiner defined here feeds
+the key shares of the two component schemes, which together form the shared secret, in two parts with public information in between.
+The combiner will be reworked to fix this defect.
+The change is planned to be integrated prior to IETF 121.\]
+
+
     //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
     //                   mlkemCipherText, mlkemPublicKey, fixedInfo)
     //
