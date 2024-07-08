@@ -1107,7 +1107,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 
 ## draft-ietf-openpgp-pqc-04
 - Fixed ML-DSA signature size
-- Fixed parameters order in PKESK algorithm description
+- Fixed parameters order in PKESK description
 - Fixed missing inputs into KEM combination description
 - Improved parallel encryption guidance
 - Improved SED deprecation decscription
