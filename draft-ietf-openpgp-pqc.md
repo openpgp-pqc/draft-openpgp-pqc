@@ -894,13 +894,12 @@ Therefore various migration considerations must be taken into account, in partic
 ## Key preference {#pq-key-preference}
 
 Implementations SHOULD prefer PQ(/T) keys when multiple options are available.
-In case that a certificate has both a valid PQ/T and a valid traditional subkey, an implementation SHOULD use the PQ/T subkey only.
+When encrypting to a certificate that has both a valid PQ/T and a valid traditional encryption subkey, an implementation SHOULD use the PQ/T subkey only.
 Furthermore, if an application has any means to determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.
 
 As specified in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
 An implementation SHOULD NOT abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
 
-In case a certificate has both a PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey SHOULD be preferred.
 
 An implementation MAY sign with both a PQ(/T) and an ECC key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
