@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 26 December 2024                                    F. Strenzke
+Expires: 9 January 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                            24 June 2024
+                                                             8 July 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 December 2024.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -236,8 +236,8 @@ Table of Contents
 
 1.2.1.  ML-KEM
 
-   ML-KEM [FIPS-203] is based on the hardness of solving the learning-
-   with-errors problem in module lattices (MLWE).  The scheme is
+   ML-KEM [FIPS-203] is based on the hardness of solving the Learning
+   with Errors problem in module lattices (MLWE).  The scheme is
    believed to provide security against cryptanalytic attacks by
    classical as well as quantum computers.  This specification defines
    ML-KEM only in composite combination with ECDH encryption schemes in
@@ -938,7 +938,8 @@ return KEK
         |  TBD (108 for testing) | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
-        Table 8: Binding between ML-DSA and signature data digest
+          Table 8: Binding between ML-DSA + EdDSA and signature
+                               data digest
 
 5.2.2.  Key generation procedure
 
