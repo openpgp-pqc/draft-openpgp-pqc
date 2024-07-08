@@ -310,7 +310,7 @@ This specification introduces new cryptographic schemes, which can be categorize
 
  - PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic algorithm.
 
-For each of the composite schemes, this specification mandates that the recipient has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
+For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully in order to achieve a successful verification of the composite signature.
 In the case of the composite public-key decryption, each of the component KEM decapsulation operations must succeed.
 
@@ -321,9 +321,7 @@ Furthermore, multiple OpenPGP signatures may be combined on the application laye
 These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
 
-Furthermore, the OpenPGP protocol also allows for parallel encryption to different keys held by the same recipient.
-Accordingly, if the sender makes use of this feature and sends an encrypted message with multiple PKESK packages for different encryption keys held by the same recipient, a non-composite multi-algorithm public-key encryption is realized where the recipient has to decrypt only one of the PKESK packages in order to decrypt the message.
-See {{no-pq-t-parallel-encryption}} for restrictions on parallel encryption mandated by this specification.
+Furthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple PKESK packets, thus realizing non-composite multi-algorithm public-key encryption.
 
 # Supported Public Key Algorithms
 
@@ -363,15 +361,14 @@ This draft will not be sent to IANA without every listed algorithm having a non-
 
 # Algorithm Combinations
 
-## Composite KEMs
+## Composite KEMs {#composite-kem}
 
 The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
 This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
 
-## Parallel Public-Key Encryption {#no-pq-t-parallel-encryption}
-
-As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys of the same recipient.
-Implementations MUST NOT encrypt a message with a purely traditional public-key encryption key of a recipient if it is encrypted with a PQ/T key of the same recipient.
+As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
+Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
+In section {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
 
 ## Composite Signatures
 
@@ -533,7 +530,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 
  - The session key for content encryption is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
- - The PKESK package's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
+ - The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
 ### Fixed information {#kem-fixed-info}
 
@@ -878,7 +875,7 @@ The algorithm-specific part of the secret key consists of:
 ## Symmetric Algorithms for SEIPD Packets
 
 Implementations MUST implement `AES-256`.
-An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipients indicate support for it (explicitly or implicitly).
+An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
 
 A v4 or v6 certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
 A v6 certificate that contains a PQ(/T) key SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
@@ -902,18 +899,18 @@ The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature a
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
-## Key preference
+## Key preference {#pq-key-preference}
 
 Implementations SHOULD prefer PQ(/T) keys when multiple options are available.
+When encrypting to a certificate that has both a valid PQ/T and a valid traditional encryption subkey, an implementation SHOULD use the PQ/T subkey only.
+Furthermore, if an application has any means to determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.
 
-For instance, if encrypting for a recipient for which both a valid PQ/T and a valid ECC certificate are available, the implementation SHOULD choose the PQ/T certificate.
-In case a certificate has both a PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey SHOULD be preferred.
+As specified in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
+An implementation SHOULD NOT abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
+
 
 An implementation MAY sign with both a PQ(/T) and an ECC key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
-
-Note that the confidentiality of a message is not post-quantum secure when encrypting to multiple recipients if at least one recipient does not support PQ/T encryption schemes.
-An implementation SHOULD NOT abort the encryption process in this case to allow for a smooth transition to post-quantum cryptography.
 
 ## Key generation strategies
 
@@ -937,7 +934,7 @@ Two migration strategies are recommended:
 ## Security Aspects of Composite Signatures
 
 When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
-In a signature stripping attack, an adversary removes one or more of the transmitted signatures such that only a subset of the signatures originally applied by the sender remain in the message that reaches the recipient.
+In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
@@ -1005,7 +1002,7 @@ This specification mandates support for `AES-256` for two reasons.
 First, `AES-KeyWrap` with `AES-256` is already part of the composite KEM construction.
 Second, some of the PQ(/T) algorithms target the security level of `AES-256`.
 
-For the same reasons, this specification further recommends the use of `AES-256` if it is supported by all recipients, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+For the same reasons, this specification further recommends the use of `AES-256` if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of `AES-256` for encryption.
 Implementations may also make more nuanced decisions.
 
