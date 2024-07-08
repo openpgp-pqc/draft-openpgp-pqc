@@ -1111,6 +1111,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Fixed missing inputs into KEM combination description
 - Improved parallel encryption guidance
 - Improved SED deprecation decscription
+- Added ML-DSA test vectors
 
 # Contributors
 
@@ -1175,6 +1176,38 @@ The hex-encoded session key is `0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v6-eddsa-sample-message.asc}
+~~~
+
+Here is a Private Key consisting of:
+
+- A v6 ML-DSA-ipd-65+EdDSA Private-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
+- A v6 subkey binding signature
+
+The primary key has the fingerprint `eb8503e3b591f84d068fc2411c310a0b7ca116974d32f81f96f0407f3fbfbb21`.
+
+The subkey has the fingerprint `5f7e002bd964a5be4f3c50b95e03b19cb37bf02fa0e029af701f6677e08bd272`.
+
+{: sourcecode-name="v6-mldsa-sample-sk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-sample-sk.asc}
+~~~
+
+Here is the corresponding Public Key consisting of:
+
+- A v6 ML-DSA-ipd-65+EdDSA Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-mldsa-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-sample-pk.asc}
 ~~~
 
 ## V4 PQC Subkey Artifacts
