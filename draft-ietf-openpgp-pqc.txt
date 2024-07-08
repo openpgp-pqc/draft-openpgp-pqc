@@ -154,6 +154,7 @@ Table of Contents
      12.6.  draft-ietf-openpgp-pqc-01
      12.7.  draft-ietf-openpgp-pqc-02
      12.8.  draft-ietf-openpgp-pqc-03
+     12.9.  draft-ietf-openpgp-pqc-04
    13. Contributors
    14. References
      14.1.  Normative References
@@ -909,9 +910,9 @@ return KEK
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 4032   | 3293      |
+   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 4032   | 3309      |
    +------------------------+-----------+--------+--------+-----------+
-   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 4896   | 4595      |
+   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 4896   | 4627      |
    +------------------------+-----------+--------+--------+-----------+
 
         Table 7: ML-DSA parameters and artifact lengths in octets
@@ -1597,6 +1598,18 @@ return KEK
 
    *  Explicitly disallowed SED (tag 9) and weak hashes when using PQ
       algorithms.
+
+12.9.  draft-ietf-openpgp-pqc-04
+
+   *  Fixed ML-DSA signature size
+
+   *  Fixed parameters order in PKESK description
+
+   *  Fixed missing inputs into KEM combination description
+
+   *  Improved parallel encryption guidance
+
+   *  Improved SED deprecation decscription
 
 13.  Contributors
 
