@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T01:16:17.270970+00:00",
+  "timestamp": "2024-07-09T01:11:19.906259+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2368,15 +2368,15 @@
       "labels": [],
       "body": "The ordering of the KEM combiner inputs must be adjusted in the fashion of \r\n```\r\nSHA3-256(counter || ss1 || ss2 || <further-inputs>)\r\n```\r\n(see https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=22),\r\ni.e., after the counter first the shared-secrets must be fed and then any other inputs.\r\n\r\nThis issue was raised both in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/6 and https://github.com/lamps-wg/draft-composite-kem/issues/26.\r\n",
       "createdAt": "2024-07-05T06:47:39Z",
-      "updatedAt": "2024-07-05T11:22:36Z",
+      "updatedAt": "2024-07-08T10:24:34Z",
       "closedAt": null,
       "comments": [
         {
           "author": "falko-strenzke",
           "authorAssociation": "COLLABORATOR",
-          "body": "My concrete proposal is to make the new combiner in this form:\r\n\r\n```\r\ndomSep = \"OpenPGPCompositeKDFv1\"\r\n\r\nKEK = SHA3-256(counter || ecdhKeyShare || mlkemKeyShare || ecdhCipherText ||\r\n ecdhPublicKey  || mlkemCipherText || mlkemPublicKey || domSep || len(domSep) \r\n || algID )\r\n```\r\nIn any case, the string must be uniquely parsable from the rear end for any conceivable future value of `domSep`, which is not the case in our current proposal.\r\n\r\n@wussler \r\n@TJ-91 ",
+          "body": "My concrete proposal is to make the new combiner in this form:\r\n\r\n```\r\ndomSep = \"OpenPGPCompositeKDFv1\"\r\n\r\nKEK = SHA3-256(counter || ecdhKeyShare || mlkemKeyShare || ecdhCipherText ||\r\n ecdhPublicKey  || mlkemCipherText || mlkemPublicKey || domSep || len(domSep) \r\n || algID )\r\n```\r\nwith `len(domSep)` being a single octet.\r\n\r\nIn any case, the string must be uniquely parsable from the rear end for any conceivable future value of `domSep`, which is not the case in our current proposal.\r\n\r\n@wussler \r\n@TJ-91 ",
           "createdAt": "2024-07-05T06:53:58Z",
-          "updatedAt": "2024-07-05T06:56:12Z"
+          "updatedAt": "2024-07-08T10:24:34Z"
         },
         {
           "author": "TJ-91",
@@ -2388,9 +2388,9 @@
         {
           "author": "falko-strenzke",
           "authorAssociation": "COLLABORATOR",
-          "body": "I think our idea with the current construction in which the tail of the KDF input is\r\n```\r\nfixedInfo = algID || \"OpenPGPCompositeKDFv1\",\r\n```\r\nis that one can infer the length of the whole string from the end of the string \"...v1\". But that mechanism seems a bit brittle (one would have to properly parse the encoded string from the rear). I would prefer to have an explicit length encoding. But my above claim that it is not uniquely parsable from the rear is not fully justified in this view.",
+          "body": "I think our idea with the current construction in which the tail of the KDF input is\r\n```\r\nfixedInfo = algID || \"OpenPGPCompositeKDFv1\",\r\n```\r\nis that one can infer the length of the whole string from the end of the string \"...v1\". But that mechanism seems a bit brittle ~~(one would have to properly parse the encoded string from the rear)~~ [quite nonsensical comment, as we will never parse the string ...]. I would prefer to have an explicit length encoding. ~~But my above claim that it is not uniquely parsable from the rear is not fully justified in this view.~~ [No, I justified it now, see my comment after TJ-91's comment]",
           "createdAt": "2024-07-05T10:24:07Z",
-          "updatedAt": "2024-07-05T10:25:49Z"
+          "updatedAt": "2024-07-08T10:17:25Z"
         },
         {
           "author": "TJ-91",
@@ -2398,6 +2398,13 @@
           "body": "> But my above claim that it is not uniquely parsable from the rear is not fully justified in this view.\r\n\r\nI did not check before, but you are right of course and `fixedInfo = algID || \"OpenPGPCompositeKDFv1\"` is fine. As long as any other version of the KDF that introduces a new `domSep` value ensures that the encoding of different values is suffix-free (i.e., the new version does not end with `\"OpenPGPCompositeKDFv1\"`)\r\n\r\n> But that mechanism seems a bit brittle (one would have to properly parse the encoded string from the rear). I would prefer to have an explicit length encoding. \r\n\r\nI agree with the length encoding for `domSep`. Using `domSep || len(domSep) || algID` is safe in my estimation, as long as a new KDF version does not change this structure at the end of the SHA3 input string and only changes the value of `domSep`. This means the new proposal is a bit more robust against unfortunate choices of future `domSep` values (however, the designer of the new KDF version would not likely choose a string that ends with `\"OpenPGPCompositeKDFv1\"`)\r\n\r\n---\r\n\r\nOne point that I just now thought of is the remote possibility of adding multi-byte algorithm identifiers (which was discussed as a possibility on several occasions). In that case the inputs can collide if the algorithm identifier comes last. Thus, it might be better to put `domSep || len(domSep)` last and then the new algorithms can unambiguously be used with a new KDF version. Or add a length byte for the algorithm identifier.",
           "createdAt": "2024-07-05T11:22:34Z",
           "updatedAt": "2024-07-05T11:22:34Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The actual problem why I think the right encoded length should be appended is that the string is not necessarily prefix-free: currently we are using \"OpenPGPCompositeKDFv1\", but if someone came up with \"[X]OpenPGPCompositeKDFv1\", and \"[X]\" happens to represent a valid algorithm ID, there would be a problem.",
+          "createdAt": "2024-07-08T10:18:50Z",
+          "updatedAt": "2024-07-08T10:18:50Z"
         }
       ]
     }
@@ -11697,24 +11704,26 @@
       "id": "PR_kwDOIrmZ-85wuUHI",
       "title": "Rewrite parallel encryption guidance",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/120",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR addresses #2 and #67, removing the normative section about recipients, and making it an example for applications supporting it.\r\nA review of all the terms \"recipient\" and \"sender\" was done, to remove the implicit reference to email",
       "createdAt": "2024-05-28T07:00:15Z",
-      "updatedAt": "2024-07-05T10:17:55Z",
+      "updatedAt": "2024-07-08T13:42:15Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a84b0b4dd47d9589b565d26eab914bbc41eb32f6",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "redefine-recipient",
-      "headRefOid": "dab350a3e7f2c359b3d96a9d9eca1ce3e4b11840",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c37bdae79dde53306e5e528ea0f29b4b4162a30c",
+      "closedAt": "2024-07-08T13:42:15Z",
+      "mergedAt": "2024-07-08T13:42:15Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "1bbde0340d2b6f83af4b53d8d330ae2003923c7d"
+      },
       "comments": [],
       "reviews": [
         {
@@ -11924,10 +11933,10 @@
           },
           "author": "dkg",
           "authorAssociation": "COLLABORATOR",
-          "state": "CHANGES_REQUESTED",
+          "state": "DISMISSED",
           "body": "I'm with @TJ-91 in that i think \"communication party\" has gotten too abstract to be useful.  can we pull back a little bit?",
           "createdAt": "2024-06-25T00:02:33Z",
-          "updatedAt": "2024-06-25T00:06:59Z",
+          "updatedAt": "2024-07-08T10:12:38Z",
           "comments": [
             {
               "originalPosition": 4,
@@ -12054,6 +12063,232 @@
               "updatedAt": "2024-07-05T10:17:55Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A5pz6",
+          "commit": {
+            "abbreviatedOid": "dab350a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T08:17:14Z",
+          "updatedAt": "2024-07-08T08:17:14Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\nFor instance, in case that a certificate has both a PQ/T and an ECC encryption-capable valid subkey, the PQ/T subkey SHOULD be preferred.\r\nFurthermore, if an application can anyhow determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.\r\n```\r\nWhat about this?",
+              "createdAt": "2024-07-08T08:17:14Z",
+              "updatedAt": "2024-07-08T08:17:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A5wmt",
+          "commit": {
+            "abbreviatedOid": "411b863"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T08:27:47Z",
+          "updatedAt": "2024-07-08T08:27:47Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I think we're almost there. But \"SHOULD be preferred\" might not be clear enough, as we also want to express that in this case the traditional key should not be used at all. So I would write for instance \" ... valid subkey, the PQ/T subkey SHOULD be used and the traditional key SHOULD NOT be used.\"\r\n\r\nFurthermore, I wouldn't write \"and an *ECC* encryption-capable valid subkey\" but rather \"and a *traditional* encryption-capable valid subkey\" in order not to create the false assumption that it only refers to ECC keys (other types of keys might be around for quite some time).",
+              "createdAt": "2024-07-08T08:27:47Z",
+              "updatedAt": "2024-07-08T08:27:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A53tp",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T08:40:37Z",
+          "updatedAt": "2024-07-08T08:40:37Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "That's the point of \"for instance\", IMO. I would rather remove the normative part from an example then or remove the \"for instance\".\r\n\r\nNormative way:\r\n```suggestion\r\nIn case that a certificate has both a valid PQ/T and a valid traditional subkey, an implementation SHOULD use the PQ/T subkey only.\r\nFurthermore, if an application can anyhow determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.\r\n```\r\nExample way:\r\n```suggestion\r\nFor instance, an implementation that encrypts messages for a recipient for which both a valid PQ/T and a valid ECC encryption subkey are available, the implementation should use the PQ/T subkey only.\r\nFurthermore, if an application can anyhow determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.\r\n```\r\nSomehow hybrid, but not normative:\r\n```suggestion\r\nFor instance, an implementation that encrypts messages for a recipient for which both a valid PQ/T and a valid traditional encryption subkey are available, the implementation should use the PQ/T subkey only.\r\nFurthermore, if an application can anyhow determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.\r\n```",
+              "createdAt": "2024-07-08T08:40:37Z",
+              "updatedAt": "2024-07-08T08:40:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6MKM",
+          "commit": {
+            "abbreviatedOid": "411b863"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T09:11:50Z",
+          "updatedAt": "2024-07-08T09:11:51Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I would write:\r\n\r\n> For instance, an implementation that encrypts a message to a certificate for which both a valid PQ/T and a valid traditional encryption subkey are available, the implementation should encrypt to the PQ/T subkey only.\r\n\r\nThis is adapted from your \"Example way\" to avoid the \"recipient\" terminology, and I also replaced \"use\" by \"encrypt to\", as well as \"ECC\" by \"traditional\".\r\n\r\nI'm happy with your suggestion for the \"multiple certificate scenario\".",
+              "createdAt": "2024-07-08T09:11:51Z",
+              "updatedAt": "2024-07-08T09:11:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6aGY",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T09:36:25Z",
+          "updatedAt": "2024-07-08T09:36:25Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "I vote for the normative variant @wussler has posted above.\r\n\r\n(An example with ECC is in my point potentially misleaing \u2013 even though from a formal point it is correct since it is an example. But our aim here by rendering the guidance as an example is only with respect to the set of keys, I don't see a need to make it concrete with respect to the public-key encryption algorithm.)\r\n\r\nI also generally agree to the second sentence about the redundant certificate. That solves the problem of the using the word \"recipient\" well in my view. But the use of the word \"anyhow\" doesn't seem right to me. I ran the sentence through deepl and it doesn't translate to German correctly. I think we need to replace \"anyhow\" with \"in some way\" or with \"somehow\". Or maybe even better \r\n\r\n\"Furthermore, if an application has any means to determine ...\"",
+              "createdAt": "2024-07-08T09:36:25Z",
+              "updatedAt": "2024-07-08T09:37:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6h2E",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T09:51:17Z",
+          "updatedAt": "2024-07-08T09:51:18Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "Ok, then let's go with the normative variant.\r\n\r\nI was a bit unsure about \"anyhow\" myself but cannot judge it. I vote for your suggestion to write \"Furthermore, if an application has any means to determine ...\".\r\n\r\n\r\n",
+              "createdAt": "2024-07-08T09:51:18Z",
+              "updatedAt": "2024-07-08T09:51:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6ljj",
+          "commit": {
+            "abbreviatedOid": "3c06088"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T09:58:00Z",
+          "updatedAt": "2024-07-08T09:58:00Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\nIn case that a certificate has both a valid PQ/T and a valid traditional subkey, an implementation SHOULD use the PQ/T subkey only.\r\nFurthermore, if an application has any means to determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.\r\n```",
+              "createdAt": "2024-07-08T09:58:00Z",
+              "updatedAt": "2024-07-08T09:58:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6tbD",
+          "commit": {
+            "abbreviatedOid": "e1edfaf"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T10:11:12Z",
+          "updatedAt": "2024-07-08T10:11:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6-Kr",
+          "commit": {
+            "abbreviatedOid": "e1edfaf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T10:47:26Z",
+          "updatedAt": "2024-07-08T10:47:26Z",
+          "comments": [
+            {
+              "originalPosition": 66,
+              "body": "Sorry for the holdup, but I just noticed that we should phrase it a bit narrower. Otherwise this statement also includes the signature case and contradicts what we write in line 905, 906.\r\n\r\n```suggestion\r\nWhen encrypting to a certificate that has both a valid PQ/T and a valid traditional encryption subkey, an implementation SHOULD use the PQ/T subkey only.\r\n```",
+              "createdAt": "2024-07-08T10:47:26Z",
+              "updatedAt": "2024-07-08T10:47:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6-PK",
+          "commit": {
+            "abbreviatedOid": "e1edfaf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T10:47:36Z",
+          "updatedAt": "2024-07-08T10:47:36Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "still needs to be removed",
+              "createdAt": "2024-07-08T10:47:36Z",
+              "updatedAt": "2024-07-08T10:47:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A6-ZL",
+          "commit": {
+            "abbreviatedOid": "e1edfaf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T10:47:55Z",
+          "updatedAt": "2024-07-08T10:47:56Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-07-08T10:47:55Z",
+              "updatedAt": "2024-07-08T10:47:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A8kOT",
+          "commit": {
+            "abbreviatedOid": "c37bdae"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T13:41:38Z",
+          "updatedAt": "2024-07-08T13:41:38Z",
+          "comments": []
         }
       ]
     },
@@ -12357,24 +12592,26 @@
       "id": "PR_kwDOIrmZ-850ggNL",
       "title": "add note about the planned modifications of the KEM combiner",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/128",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-07-05T07:42:18Z",
-      "updatedAt": "2024-07-05T09:10:07Z",
+      "updatedAt": "2024-07-08T07:48:25Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e55c6d15bc1b1954f2a34c61d6cb7074a8925640",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "note-kem-kdf-change",
       "headRefOid": "aab3956f54d6d63fd04b2780ed4e436495f94ca8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-07-08T07:48:25Z",
+      "mergedAt": "2024-07-08T07:48:24Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "7f31501c57337492a2fd3b467690138dbd04e7e2"
+      },
       "comments": [],
       "reviews": [
         {
@@ -12389,6 +12626,19 @@
           "createdAt": "2024-07-05T09:10:07Z",
           "updatedAt": "2024-07-05T09:10:07Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A5aDD",
+          "commit": {
+            "abbreviatedOid": "aab3956"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T07:48:13Z",
+          "updatedAt": "2024-07-08T07:48:13Z",
+          "comments": []
         }
       ]
     },
@@ -12397,24 +12647,26 @@
       "id": "PR_kwDOIrmZ-850iwwN",
       "title": "corrections of spelling and wording",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/129",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-07-05T14:16:19Z",
-      "updatedAt": "2024-07-05T14:19:50Z",
+      "updatedAt": "2024-07-08T07:47:08Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e55c6d15bc1b1954f2a34c61d6cb7074a8925640",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "corrections-falko",
       "headRefOid": "9f10cc8c24905def87497c1b8e86cbf1b841f879",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-07-08T07:47:08Z",
+      "mergedAt": "2024-07-08T07:47:08Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "de054fcc9c73a9935b49d0c200703cdb13bd5dde"
+      },
       "comments": [],
       "reviews": [
         {
@@ -12429,8 +12681,106 @@
           "createdAt": "2024-07-05T14:19:50Z",
           "updatedAt": "2024-07-05T14:19:50Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86A5ZcL",
+          "commit": {
+            "abbreviatedOid": "9f10cc8"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-08T07:47:00Z",
+          "updatedAt": "2024-07-08T07:47:00Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 130,
+      "id": "PR_kwDOIrmZ-850twwo",
+      "title": "Fix ML-DSA signature size",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/130",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://csrc.nist.gov/files/pubs/fips/204/ipd/docs/fips-204-initial-public-comments-2023.pdf\r\n\r\nComment on page 6 points this out\r\n",
+      "createdAt": "2024-07-08T15:54:50Z",
+      "updatedAt": "2024-07-08T19:48:21Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "1bbde0340d2b6f83af4b53d8d330ae2003923c7d",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-mldsa-sig-size",
+      "headRefOid": "383627ced7f8b5f6ed4eee80f6e86f40d3b2d09a",
+      "closedAt": "2024-07-08T19:48:21Z",
+      "mergedAt": "2024-07-08T19:48:21Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "910722085abbffd423785e5ac349324a6abfc409"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86A_5Eb",
+          "commit": {
+            "abbreviatedOid": "dadddae"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-08T19:44:26Z",
+          "updatedAt": "2024-07-08T19:44:26Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n- Fixed parameters order in PKESK description\r\n```",
+              "createdAt": "2024-07-08T19:44:26Z",
+              "updatedAt": "2024-07-08T19:44:26Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 131,
+      "id": "PR_kwDOIrmZ-850t82s",
+      "title": "Add ML-DSA-ipd test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/131",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-08T16:20:45Z",
+      "updatedAt": "2024-07-08T19:55:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "910722085abbffd423785e5ac349324a6abfc409",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "add-mldsa-test-vectors",
+      "headRefOid": "fe60ce577da910defc97224ab0b469797fd8604a",
+      "closedAt": "2024-07-08T19:55:25Z",
+      "mergedAt": "2024-07-08T19:55:25Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2"
+      },
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This MR depends on #130 ",
+          "createdAt": "2024-07-08T16:21:02Z",
+          "updatedAt": "2024-07-08T16:21:02Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
