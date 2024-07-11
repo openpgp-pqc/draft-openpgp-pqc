@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-09T01:11:19.906259+00:00",
+  "timestamp": "2024-07-11T01:12:03.572637+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2405,6 +2405,100 @@
           "body": "The actual problem why I think the right encoded length should be appended is that the string is not necessarily prefix-free: currently we are using \"OpenPGPCompositeKDFv1\", but if someone came up with \"[X]OpenPGPCompositeKDFv1\", and \"[X]\" happens to represent a valid algorithm ID, there would be a problem.",
           "createdAt": "2024-07-08T10:18:50Z",
           "updatedAt": "2024-07-08T10:18:50Z"
+        }
+      ]
+    },
+    {
+      "number": 132,
+      "id": "I_kwDOIrmZ-86PEu2u",
+      "title": "NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM ",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2220090284 Quynh states that the current construction with a key derivation step in ECDH-KEM is not NIST compliant, which would equally affect the X25519/X448 KEM construction in this draft:\r\n\r\n> So, if we delete the step 3 in ECDH-KEM ( Set the output eccKeyShare to Hash(X || eccCipherText || eccPublicKey),  then Falko's suggested KDF is NIST-compliant.\r\n\r\n> If we keep the step 3, eccKeyShare is a pseudorandom key and if eccKeyShare takes the place of X in Falko's suggested KDF, the KDF is not NIST-compliant at this point, but the KMAC-KDF mentioned above is NIST-compliant.\r\n\r\n@QuynhDangNIST: can you provide the exact clause in the NIST standards that causes the incompliance? So far it seems to me that the using the output of ` Hash(X || eccCipherText || eccPublicKey)`  is equally fine to use as the ECC shared secret as input to the KEM combiner given by SHA3-256.\r\n\r\nIf the construction would really turn out to not being NIST compliant, we would have to change it in this draft as well.",
+      "createdAt": "2024-07-10T10:36:55Z",
+      "updatedAt": "2024-07-10T13:15:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I just want to add that from my point of view, just as I proposed here in said [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2213190813) for the Weiherstrass-Curves, from my point of view the Hashing step in the X25519/X448 KEM can be dropped since we feed the public key and the ciphertext already to the key combiner KDF.",
+          "createdAt": "2024-07-10T10:46:03Z",
+          "updatedAt": "2024-07-10T10:47:06Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "See Section 2 on page 2 of 56Cr2 here: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf\n\nZ' = Z || T.  Z is a raw shared secret as specified in 56A,B&C, not a pseudorandom key.  A KDF specified in 56C is used to generate pseudorandom key(s) from Z or Z'.\n\nRight now, the KDFs in 56C are NIST-compliant only when H(counter || Z || FixedInfo) on page 14 has Z being a raw shared secret or Z' above. The situation where \"counter\" can be skipped was explained in my previous email.\n\nRegards,\nQuynh.\n\nFrom: Falko Strenzke ***@***.***>\nSent: Wednesday, July 10, 2024 6:37 AM\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\nSubject: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\n\n\nIn openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp#10 (comment)<https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2220090284> Quynh states that the current construction with a key derivation step in ECDH-KEM is not NIST compliant, which would equally affect the X25519/X448 KEM construction in this draft:\n\nSo, if we delete the step 3 in ECDH-KEM ( Set the output eccKeyShare to Hash(X || eccCipherText || eccPublicKey), then Falko's suggested KDF is NIST-compliant.\n\nIf we keep the step 3, eccKeyShare is a pseudorandom key and if eccKeyShare takes the place of X in Falko's suggested KDF, the KDF is not NIST-compliant at this point, but the KMAC-KDF mentioned above is NIST-compliant.\n\n@QuynhDangNIST<https://github.com/QuynhDangNIST>: can you provide the exact clause in the NIST standards that causes the incompliance? So far it seems to me that the using the output of Hash(X || eccCipherText || eccPublicKey) is equally fine to use as the ECC shared secret as input to the KEM combiner given by SHA3-256.\n\nIf the construction would really turn out to not being NIST compliant, we would have to change it in this draft as well.\n\n-\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRBYUTIQB4WBCW7DACLZLUFFXAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43ASLTON2WKOZSGQYDAMZYGIZTQMQ>.\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\n",
+          "createdAt": "2024-07-10T10:49:56Z",
+          "updatedAt": "2024-07-10T10:49:56Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> See Section 2 on page 2 of 56Cr2 here: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf\r\n\r\n@QuynhDangNIST Ist the point that if we have the hashing step in the ECDH-KEM and in the key combiner, that then we effectively do something like `key = hash(hash(X || ...) || ... )`, i.e., that contrary to NIST.SP.800-56Cr2 we hash twice?",
+          "createdAt": "2024-07-10T11:03:30Z",
+          "updatedAt": "2024-07-10T11:03:30Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "\n\nFrom: Falko Strenzke ***@***.***>\nSent: Wednesday, July 10, 2024 7:04 AM\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\nSubject: Re: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\n\n\nSee Section 2 on page 2 of 56Cr2 here: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf\n\n@QuynhDangNIST<https://github.com/QuynhDangNIST> Ist the point that if we have the hashing step in the ECDH-KEM and in the key combiner, that then we effectively do something like key = hash(hash(X || ...) || ... ), i.e., that contrary to NIST.SP.800-56Cr2 we hash twice?\n\n[Dang, Quynh H. (Fed)] That is not compliant with 56C.  Check section 4. One-Step Key Derivation.  Look at step 6 on page 14. The SHA3-256 in your suggested KDF is H.\n\nQuynh.\n\n-\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132#issuecomment-2220214824>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRCBQZF2FZ7533CESXLZLUIJPAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDEMRQGIYTIOBSGQ>.\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\n",
+          "createdAt": "2024-07-10T11:10:32Z",
+          "updatedAt": "2024-07-10T11:10:32Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "OK, to be more precise, what we currently do is \r\n\r\n```\r\nkey = hash( counter || hash(X || ...) || ... )\r\n```\r\nBut still my question is what exactly is causing the non-conformance in your view. The only deviation from 56C that I can identify is that instead of feeding `X` directly to the outer hash function we feed `hash(X || ...)`. Is that reason for the incompliance that you were speaking of?",
+          "createdAt": "2024-07-10T11:25:58Z",
+          "updatedAt": "2024-07-10T11:25:58Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@QuynhDangNIST And a further question: will this incompliance also be given when the ECDH scheme is X25519 or X448?",
+          "createdAt": "2024-07-10T11:28:34Z",
+          "updatedAt": "2024-07-10T11:28:34Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "I don't understand what part of the things I have written today is not clear to you.\n\nI am not talking about security.  I have been talking about what KDFs are NIST-compliant and what are not.\n\nQuynh.\n\nFrom: Falko Strenzke ***@***.***>\nSent: Wednesday, July 10, 2024 7:26 AM\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\nSubject: Re: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\n\n\nOK, to be more precise, what we currently do is\n\nkey = hash( counter || hash(X || ...) || ... )\n\nBut still my question is what exactly is causing the non-conformance in your view. The only deviation from 56C that I can identify is that instead of feeding X directly to the outer hash function we feed hash(X || ...). Is that reason for the incompliance that you were speaking of?\n\n-\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132#issuecomment-2220265756>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRBQZTA67KPOKRVDQR3ZLUK5VAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDEMRQGI3DKNZVGY>.\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\n",
+          "createdAt": "2024-07-10T11:30:00Z",
+          "updatedAt": "2024-07-10T11:30:00Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "Hi Falko,\n\nI don't know for sure what specific KDF this question ***@***.*** And a further question: will this incompliance also be given when the ECDH scheme is X25519 or X448? \" was for.\n\nIn the past, NIST said that NIST planned to allow X25519 and/or X448 for ECDH. But at this moment, they are not the options in 56A.\n\nI can talk to my group to see whether that is still in the plan. Especially, when we want people to use PQ crypto.\n\nRegards,\nQuynh.\n\n\n\nFrom: Falko Strenzke ***@***.***>\nSent: Wednesday, July 10, 2024 7:29 AM\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\nSubject: Re: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\n\n\n@QuynhDangNIST<https://github.com/QuynhDangNIST> And a further question: will this incompliance also be given when the ECDH scheme is X25519 or X448?\n\n-\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132#issuecomment-2220271482>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRBKE7IOEXFFXC3443DZLULHPAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDEMRQGI3TCNBYGI>.\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\n",
+          "createdAt": "2024-07-10T11:37:21Z",
+          "updatedAt": "2024-07-10T11:37:21Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I can talk to my group to see whether that is still in the plan. Especially, when we want people to use PQ crypto.\r\n\r\nMaybe that can wait until we decided which way we prefer. If we remove the incompliance anyway, this would be better in my view.",
+          "createdAt": "2024-07-10T12:22:38Z",
+          "updatedAt": "2024-07-10T12:22:38Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Here is my summary to the problem as I understand it:\r\n\r\nIn [NIST.SP.800-56Cr2](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=10), page 2 it says\r\n\r\n> derive keying material from a shared secret Z generated during the execution of a key-establishment scheme specified in ...\r\n\r\nSo the shared secret that is input to the key derivation of the key combiner will have to be\r\n\r\n    Z\u2032 = Z || T,\r\n\r\nwhere `Z` is the raw shared secret from the ECDH scheme and `T` in our case is the ML-KEM key share. Then the SHA3-based construction that we are specifying for the key combiner becomes:\r\n\r\n    SHA3-256(counter || Z || T || <other input>),\r\n\r\nwhere `<other input>` is the public keys, ciphertexts, domain separation string, and algorithm ID. This is how it should be done according to SP.800-56C.\r\n\r\nNow the problem that causes the non-compliance apparently is that in our current specification, we don't input `Z` as shown above, but instead `hash(Z ||  ecdhCipherText || ecdhPublicKey)`. This additional hashing step is a formal deviation from the NIST spec.\r\n\r\nThe NIST-compliance is definitely relevant to the draft for the NIST/Brainpool curves. But since X25519/X448 is considered by NIST to receive NIST compliance as well, it has a certain relevance to the main draft as well.\r\n\r\nThe solution would be omitting the hashing step from the ECDH specification. Then we input the raw shared secret from the ECDH scheme into the key combiner as required by NIST. I don't think there can be any drawback, as the ECDH public key and ciphertext are still input as part of `<other input>` above.\r\n\r\nThe alternative that Quynh pointed out is to keep using KMAC. The formal difference seems to stem from the fact that in [NIST.SP.800-108r1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=10) it says that the input keys may stem from  \"[...] or a previous instance of key derivation as specified in this Recommendation\" (p. 2) and thus allows to use KMAC with `hash(Z || ...) || T` as the input. That this does not equally apply to SHA3 is simply due to SP.800-108r1 not specifying SHA3 as a KDF at all.\r\n",
+          "createdAt": "2024-07-10T12:27:50Z",
+          "updatedAt": "2024-07-10T12:27:50Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "Hi Falko,\n\nFrom: Falko Strenzke ***@***.***>\nSent: Wednesday, July 10, 2024 8:28 AM\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\nSubject: Re: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\n\n\nHere is my summary to the problem as I understand it:\n\nIn NIST.SP.800-56Cr2<https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=10>, page 2 it says\n\nderive keying material from a shared secret Z generated during the execution of a key-establishment scheme specified in ...\n\nSo the shared secret that is input to the key derivation of the key combiner will have to be\n\nZ\u2032 = Z || T,\n\nwhere Z is the raw shared secret from the ECDH scheme and T in our case is the ML-KEM key share. Then the SHA3-based construction that we are specifying for the key combiner becomes:\n\nSHA3-256(counter || Z || T || <other input>),\n\nwhere <other input> is the public keys, ciphertexts, domain separation string, and algorithm ID. This is how it should be done according to SP.800-56C.\n\nNow the problem that causes the non-compliance apparently is that in our current specification, we don't input Z as shown above, but instead hash(Z || ecdhCipherText || ecdhPublicKey). This additional hashing step is a formal deviation from the NIST spec.\n\n[Dang, Quynh H. (Fed)] Correct. Z here is the result of the step 3 on page 49 of 56Ar3 at https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf\n\nThe NIST-compliance is definitely relevant to the draft for the NIST/Brainpool curves. But since X25519/X448 is considered by NIST to receive NIST compliance as well, it has a certain relevance to the main draft as well.\n\nThe solution would be omitting the hashing step from the ECDH specification. Then we input the raw shared secret from the ECDH scheme into the key combiner as required by NIST. I don't think there can be any drawback, as the ECDH public key and ciphertext are still input as part of <other input> above.\n\nThe alternative that Quynh pointed out is to keep using KMAC. The formal difference seems to stem from the fact that in NIST.SP.800-108r1<https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=10> it says that the input keys may stem from \"[...] or a previous instance of key derivation as specified in this Recommendation\" (p. 2) and thus allows to use KMAC with hash(Z || ...) || T as the input. That this does not equally apply to SHA3 is simply due to SP.800-108r1 not specifying SHA3 as a KDF at all.\n\n[Dang, Quynh H. (Fed)] perfect recap! KMAC with hash(Z || ...) || T being the Key Derivation Key in 108.\n\nRegards,\n\nQuynh.\n\n-\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132#issuecomment-2220386567>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRASDNVDHIVN7Y4LWTDZLUSFZAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDEMRQGM4DMNJWG4>.\nYou are receiving this because you were mentioned.Message ID: ***@***.***>\n",
+          "createdAt": "2024-07-10T13:15:28Z",
+          "updatedAt": "2024-07-10T13:15:28Z"
         }
       ]
     }
