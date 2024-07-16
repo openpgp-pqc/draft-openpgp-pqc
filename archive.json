@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-14T01:17:15.647131+00:00",
+  "timestamp": "2024-07-16T01:13:00.052208+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2270,7 +2270,7 @@
       "id": "I_kwDOIrmZ-86HNxl2",
       "title": "State that implicit preferred algorithm lists exist even when the corresponding subpacket is missing",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/106",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2279,8 +2279,8 @@
       "labels": [],
       "body": "Regarding the \"Preferred AEAD Ciphersuites\" subpacket and \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket, we need a clarification in Sec. \"8.1. Symmetric Algorithms for SEIPD Packets\". The crypto-refresh does not clearly state that the implicit lists of preferred algorithms are in force even when the respective subpacket is missing. We should clarify this at least in the PQC specification.",
       "createdAt": "2024-04-29T09:24:11Z",
-      "updatedAt": "2024-05-27T12:38:08Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-15T14:42:31Z",
+      "closedAt": "2024-07-15T14:38:41Z",
       "comments": [
         {
           "author": "dkg",
@@ -2295,6 +2295,13 @@
           "body": "> \"a certificate with no AEAD Ciphersuite Preferences subpacket should be treated the same as an otherwise-identical certificate with an present-but-empty AEAD Ciphersuite Preferences subpacket\".\r\n\r\nThat's what I tried to do in #110 with the restriction to the PQ/T case and also including v1 SEIPD preferences.\r\nThat makes it 60% longer than the quote if we skip the last optional sentence about not assuming v2 SEIPD features based on the subpacket.\r\n\r\n> What other interpretation is possible, which a wayward implementer might actually consider?\r\n\r\nThe only sane alternative would be to assume `AES-128` or `AES-256` for v1 SEIPD and `AES-128/OCB` for v2 SEIPD, I guess (currently we don't say `AES-256/OCB` is MTI).\r\nAll in all, it is only nitpicking and I am also not sure how much this draft needs to fix this. However, I'm always happy when a specification gives way to only exactly one interpretation (as it should be).\r\n\r\nPersonally, I'm also fine if we do not make the change.",
           "createdAt": "2024-05-17T11:16:08Z",
           "updatedAt": "2024-05-17T11:16:08Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "According to the discussion in #110 there is no consensus for a change based on my observation that is the subject of this issue. Thus I am closing it.",
+          "createdAt": "2024-07-15T14:38:41Z",
+          "updatedAt": "2024-07-15T14:38:41Z"
         }
       ]
     },
@@ -11020,7 +11027,7 @@
       "labels": [],
       "body": "\u2026of the subpackets\r\n\r\nCloses #106 \r\n\r\nNot sure if the last sentence is really required, but the Crypto Refresh leaves a lot of room for implementations to determine v2 SEIPD support so it can't hurt.",
       "createdAt": "2024-05-14T08:54:29Z",
-      "updatedAt": "2024-05-17T11:26:38Z",
+      "updatedAt": "2024-07-15T14:35:54Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
@@ -11111,6 +11118,26 @@
               "body": "i tend to agree with @wussler here that we probably don't need to say \"lack of subpacket is the same as empty subpacket\".  We also don't want to imply that any implementation should consider the presence of either encryption-support subpacket as the same as the appropriate bit in the Features subpacket.",
               "createdAt": "2024-05-15T23:20:15Z",
               "updatedAt": "2024-05-15T23:24:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86B0B-m",
+          "commit": {
+            "abbreviatedOid": "269656e"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-15T14:35:54Z",
+          "updatedAt": "2024-07-15T14:35:54Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "The bottom line seems to be that there is consenus to only add the sentence that @dkg propsed above. In that case I ask @TJ-91 to update the PR accordingly. I am ready to close issue #106, which was the reason for the initially proposed changes in this PR, that was raised by me as irrelevant.",
+              "createdAt": "2024-07-15T14:35:54Z",
+              "updatedAt": "2024-07-15T14:35:54Z"
             }
           ]
         }
