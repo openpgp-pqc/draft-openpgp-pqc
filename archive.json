@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-25T01:12:05.669812+00:00",
+  "timestamp": "2024-07-28T01:17:37.271856+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2427,7 +2427,7 @@
       "labels": [],
       "body": "In https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2220090284 Quynh states that the current construction with a key derivation step in ECDH-KEM is not NIST compliant, which would equally affect the X25519/X448 KEM construction in this draft:\r\n\r\n> So, if we delete the step 3 in ECDH-KEM ( Set the output eccKeyShare to Hash(X || eccCipherText || eccPublicKey),  then Falko's suggested KDF is NIST-compliant.\r\n\r\n> If we keep the step 3, eccKeyShare is a pseudorandom key and if eccKeyShare takes the place of X in Falko's suggested KDF, the KDF is not NIST-compliant at this point, but the KMAC-KDF mentioned above is NIST-compliant.\r\n\r\n@QuynhDangNIST: can you provide the exact clause in the NIST standards that causes the incompliance? So far it seems to me that the using the output of ` Hash(X || eccCipherText || eccPublicKey)`  is equally fine to use as the ECC shared secret as input to the KEM combiner given by SHA3-256.\r\n\r\nIf the construction would really turn out to not being NIST compliant, we would have to change it in this draft as well.",
       "createdAt": "2024-07-10T10:36:55Z",
-      "updatedAt": "2024-07-11T15:15:00Z",
+      "updatedAt": "2024-07-25T11:56:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -2520,6 +2520,20 @@
           "body": "Dear all, Falko asked me to provide a comment on this.\r\n\r\nI would like to highlight two aspects here. First, our goal is to build a \"KEM-combiner\", i.e., something that constructs a secure KEM from two KEMs. The initial hash of the ECDH data achieves exactly this: It turns DH into a KEM. This way, we are able to apply modular reasoning which also protects against issues stemming from replacing ECDH by some other construction. \r\n\r\nSecond, our set goal is really to construct an IND-CCA secure KEM. This is a mismatch with https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf  which describes how to derive a secret key from some source of computational entropy (like a pre-master secret) where one such source is obtained via DH. Note that while the SP this does not explicitly state any security goals (at least I did not find any), the way it is written suggests that active security is not a concern here. \r\n\r\nRegarding what we know in terms of results: We have a security proof for a KEM that is obtained by combining the data of two KEMs as is currently done in the draft (KDF(k1,c1,pk1,k2,c2,pk2) where the order does not matter if we use SHA3/SHAKE/KMAC-SHA3). This proof is in the standard model and thereby holds against quantum adversaries as well. I do not know what we can prove for the \"simply hashing everything in the end\" approach (KDF(DH.k, k2, DH.pk_sender, DH.pk_receiver, c2, pk2)). This will require a direct, non-modular proof for the full construction. Does NIST have any results for this? I did not see references in the SP.\r\n\r\nBest wishes,\r\n\r\nAndreas\r\n  ",
           "createdAt": "2024-07-11T15:14:58Z",
           "updatedAt": "2024-07-11T15:14:58Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Hi @QuynhDangNIST\r\n\r\nDo we need all steps of KDF to be FIPS-compliant to achieve FIPS compliance? \r\n\r\nIf so, please let me propose a solution if I parsed correctly all the info in the thread:\r\n- We can use an SP.800-56Cr2 compliant KDF in the ECDH KDF, that is already `SHA3-256(X || ecdhCipherText || ecdhPublicKey)`\r\n- We rely on SP.800-108r1 and switch to KMAC for the KEM Combiner as KMAC(K, X, 256, \"KDF\"), where K is the concatenated keys (?) and X are the ciphertexts and public keys?\r\n\r\nWould that be compliant?",
+          "createdAt": "2024-07-25T11:15:13Z",
+          "updatedAt": "2024-07-25T11:15:13Z"
+        },
+        {
+          "author": "QuynhDangNIST",
+          "authorAssociation": "NONE",
+          "body": "Hi Aron,\r\n\r\nSee below.\r\n\r\n________________________________\r\nFrom: Aron Wussler ***@***.***>\r\nSent: Thursday, July 25, 2024 7:15 AM\r\nTo: openpgp-pqc/draft-openpgp-pqc ***@***.***>\r\nCc: Dang, Quynh H. (Fed) ***@***.***>; Mention ***@***.***>\r\nSubject: Re: [openpgp-pqc/draft-openpgp-pqc] NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM (Issue #132)\r\n\r\n\r\nHi @QuynhDangNIST<https://github.com/QuynhDangNIST>\r\n\r\nDo we need all steps of KDF to be FIPS-compliant to achieve FIPS compliance?\r\n\r\nIf so, please let me propose a solution if I parsed correctly all the info in the thread:\r\n\r\n  *\r\nWe can use an SP.800-56Cr2 compliant KDF in the ECDH KDF, that is already SHA3-256(X || ecdhCipherText || ecdhPublicKey)\r\n\r\nWhen X is a raw shared secret of a DH, then the KDF above is compliant with NIST for classical security. The DH must be a NIST-compliant one.\r\nWhen X is a ML-KEM key (it is a pseudorandom key), then it is compliant with 56C when FIPS 205 is published for PQ security.\r\nWhen X = X1||X2 and X1 is a ML-KEM key and X2 is another shared secret such as X25519 shared secret or another secret value, then the KDF is compliant with 56C for PQ security.\r\n\r\nA ML-KEM key can be used directly as an encryption key or MAC key such as taking the leftmost (or rightmost) 128 bits to be an AES128 key. A ML-KEM-1024 key can be used as a AES256 key.\r\n\r\n  *\r\nWe rely on SP.800-108r1 and switch to KMAC for the KEM Combiner as KMAC(K, X, 256, \"KDF\"), where K is the concatenated keys (?) and X are the ciphertexts and public keys?\r\n\r\nK, the key derivation key, is a pseudorandom key such as a ML-KEM key or a Y = SHA3-256(X || ecdhCipherText || ecdhPublicKey) where X is a raw P256 ECDH shared secret.\r\n\r\nOr, K can be ML-KEM key || Y or Y||ML-KEM key.  K can be a concatenation of multiple pseudorandom keys but they must be the outputs of NIST-approved methods as currently specified in SP 800-133.\r\n\r\nOne can put X25519 shared secret in X to make the KDF compliant.\r\n\r\nEven though technically, it is fine to use K = ML-KEM key || X25519 shared secret (or a pseudorandom key derived from it).\r\n\r\nRegards,\r\nQuynh.\r\n\r\nWould that be compliant?\r\n\r\n\u2014\r\nReply to this email directly, view it on GitHub<https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132#issuecomment-2250079446>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AFTFKRDQ6RTEQNEQ5QLRSHDZODM5RAVCNFSM6AAAAABKUTZYRKVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZDENJQGA3TSNBUGY>.\r\nYou are receiving this because you were mentioned.\r\n",
+          "createdAt": "2024-07-25T11:56:33Z",
+          "updatedAt": "2024-07-25T11:56:33Z"
         }
       ]
     }
