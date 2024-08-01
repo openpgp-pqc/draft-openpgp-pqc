@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-30T01:12:20.569555+00:00",
+  "timestamp": "2024-08-01T01:18:30.146213+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2536,6 +2536,22 @@
           "updatedAt": "2024-07-25T11:56:33Z"
         }
       ]
+    },
+    {
+      "number": 133,
+      "id": "I_kwDOIrmZ-86RdPzN",
+      "title": "Composite signature domain separators?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/133",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Within the LAMPS composite sigs, we have:\r\n\r\n```\r\nM' := Domain || HASH(Message)\r\n\r\nS1 := Sign( K1, A1, M' )\r\nS2 := Sign( K2, A2, M' )\r\n```\r\nwhere `Domain` is the `DER( Composite_OID )`. The intent is so that S1 and S2 will not verify over `HASH(Message)` directly, but only over `DER( Composite_OID ) || HASH(Message)`. This achieves Strong Non-Separability as per Hale-Connolly.\r\n\r\nIs there a reason that you are not doing this for your composite signature?",
+      "createdAt": "2024-07-31T15:41:32Z",
+      "updatedAt": "2024-07-31T15:41:32Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
