@@ -888,6 +888,8 @@ If the pair `AES-256` with `OCB` is not explicitly in the list of the "Preferred
 This is justified since `AES-256` and `OCB` are mandatory to implement.
 If the pair `AES-128` with `OCB` is also implicitly added to the list, it is added after the pair `AES-256` with `OCB`.
 
+When encrypting to an OpenPGP certificate that contains a PQ(/T) key, an implementation MUST NOT infer that the certificate's owner supports v2 SEIPD solely on the basis of the implicitly added AEAD algorithm pairs.
+
 ## Hash Algorithms for Key Binding Signatures
 
 Subkey binding signatures over algorithms described in this document and primary key binding signatures made by algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.
