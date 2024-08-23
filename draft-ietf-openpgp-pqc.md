@@ -50,7 +50,7 @@ normative:
 
   RFC3394:
 
-  I-D.ietf-openpgp-crypto-refresh:
+  RFC9580:
 
 informative:
 
@@ -253,7 +253,7 @@ The document specifies the conventions for interoperability between compliant Op
 
 ### Terminology for Multi-Algorithm Schemes
 
-The terminology in this document is oriented towards the definitions in {{?I-D.ietf-pquip-pqt-hybrid-terminology}}.
+The terminology in this document is oriented towards the definitions in [RFC9580].
 Specifically, the terms "multi-algorithm", "composite" and "non-composite" are used in correspondence with the definitions therein.
 The abbreviation "PQ" is used for post-quantum schemes.
 To denote the combination of post-quantum and traditional schemes, the abbreviation "PQ/T" is used.
@@ -316,7 +316,7 @@ In the case of the composite public-key decryption, each of the component KEM de
 
 ### Non-Composite Algorithm Combinations {#non-composite-multi-alg}
 
-As the OpenPGP protocol [I-D.ietf-openpgp-crypto-refresh] allows for multiple signatures to be applied to a single message, it is also possible to realize non-composite combinations of signatures.
+As the OpenPGP protocol [RFC9580] allows for multiple signatures to be applied to a single message, it is also possible to realize non-composite combinations of signatures.
 Furthermore, multiple OpenPGP signatures may be combined on the application layer.
 These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
@@ -368,7 +368,7 @@ This is achieved via KEM combination, i.e. both key encapsulations/decapsulation
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
-In section {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
+In {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
 
 ## Composite Signatures
 
@@ -379,13 +379,13 @@ The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA signatures
 The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.
 
 An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
-This ensures backwards compatibility due to {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.5, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
+This ensures backwards compatibility due to [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa), since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
 
 Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.
 
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
 
-\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.5.\]
+\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa).\]
 
 ## ECC requirements
 
@@ -667,7 +667,7 @@ The algorithm-specific fields consists of the output of the encryption procedure
 
  - The wrapped session key represented as an octet string.
 
-Note that like in the case of the algorithms X25519 and X448 specified in {{I-D.ietf-openpgp-crypto-refresh}}, for the ML-KEM composite schemes, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
+Note that like in the case of the algorithms X25519 and X448 specified in [RFC9580], for the ML-KEM composite schemes, in the case of a v3 PKESK packet, the symmetric algorithm identifier is not encrypted.
 Instead, it is placed in plaintext after the `mlkemCipherText` and before the length octet preceding the wrapped session key.
 In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algorithm used MUST be AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
 
@@ -737,7 +737,7 @@ TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4627
 
 ### Signature data digest {#mldsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
 Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -759,7 +759,7 @@ For EdDSA this is done following the relative specification in {{RFC7748}}, and 
 
 To sign a message `M` with ML-DSA + EdDSA the following sequence of operations has to be performed:
 
- 1. Generate `dataDigest` according to {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4
+ 1. Generate `dataDigest` according to [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures)
 
  2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from {{eddsa-signature}}
 
@@ -781,7 +781,7 @@ As specified in {{composite-signatures}} an implementation MUST validate both si
 
 ### Signature Packet (Tag 2) {#ecc-mldsa-sig-packet}
 
-The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [I-D.ietf-openpgp-crypto-refresh].
+The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [RFC9580].
 
 The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures consist of:
 
@@ -791,7 +791,7 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
 ### Key Material Packets
 
-The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [I-D.ietf-openpgp-crypto-refresh].
+The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580].
 
 The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:
 
@@ -821,7 +821,7 @@ TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
 SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -852,7 +852,7 @@ SLH-DSA-SHAKE signature verification is performed via the algorithm `SLH-DSA.Ver
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.3.
+The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#name-versions-4-and-6-signature-).
 
 The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:
 
@@ -860,7 +860,7 @@ The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm
 
 ### Key Material Packets
 
-The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in [I-D.ietf-openpgp-crypto-refresh].
+The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in [RFC9580].
 
 The algorithm-specific part of the public key consists of:
 
@@ -895,7 +895,7 @@ A receiving implementation MUST treat such a signature as invalid.
 
 # Migration Considerations
 
-The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature algorithms defined in {{sig-alg-specs}} are a set of new public key algorithms that extend the algorithm selection of {{I-D.ietf-openpgp-crypto-refresh}}.
+The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature algorithms defined in {{sig-alg-specs}} are a set of new public key algorithms that extend the algorithm selection of [RFC9580].
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
@@ -937,7 +937,7 @@ When multiple signatures are applied to a message, the question of the protocol'
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{I-D.ietf-openpgp-crypto-refresh}}, Section 5.2.4.
+This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
@@ -947,7 +947,7 @@ This is due to the fact that each v6 signatures also includes a random salt at t
 
 Our construction of the ECDH-KEMs, in particular the inclusion of `ecdhCipherText` in the final hashing step in encapsulation and decapsulation that produces the `ecdhKeyShare`, is standard and known as hashed ElGamal key encapsulation, a hashed variant of ElGamal encryption.
 It ensures IND-CCA2 security in the random oracle model under some Diffie-Hellman intractability assumptions [CS03].
-The additional inclusion of `ecdhPublicKey` follows the security advice in Section 6.1 of {{RFC7748}}.
+The additional inclusion of `ecdhPublicKey` follows the security advice in [[RFC7748, Section 6.1]](https://www.rfc-editor.org/rfc/rfc7748#section-6.1).
 
 ## Key combiner {#sec-key-combiner}
 
@@ -978,7 +978,7 @@ This ensures that the input keying material is used to generate a KEK for a spec
 The `algID` defined in {{kem-fixed-info}} binds the derived KEK to the chosen algorithm and communication parties.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
-This is in line with the Recommendation for ECC in section 5.5 of [SP800-56A].
+This is in line with the Recommendation for ECC in Section 5.5 of [SP800-56A].
 Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.
 
 ## SLH-DSA-SHAKE Message Randomizer {#slhdsa-sec-cons}
