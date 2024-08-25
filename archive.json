@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-22T01:14:54.392176+00:00",
+  "timestamp": "2024-08-25T01:19:36.028366+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -70,7 +70,7 @@
       "id": "I_kwDOIrmZ-85aIRQu",
       "title": "Guidance on how to avoid encrypting PQ(/T) and traditional for the same user",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -79,8 +79,8 @@
       "labels": [],
       "body": "The text contains the following statement:\r\n> Implementations MUST NOT encrypt a message to a purely traditional public-key encryption key of a recipient if it is encrypted to a PQ/T key of the same recipient.\r\n\r\nThis should be expanded to ensure what to check when encrypting to the same recipient. Should it be the primary identity?\r\n\r\n",
       "createdAt": "2022-12-27T19:56:07Z",
-      "updatedAt": "2023-06-05T11:28:36Z",
-      "closedAt": null,
+      "updatedAt": "2024-08-22T14:03:19Z",
+      "closedAt": "2024-08-22T14:03:19Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -95,6 +95,13 @@
           "body": "Meeting 2023-06-05:\r\n\r\n  * FSE: not a fundamental security concern\r\n  * AW: could be SHOULD not encrypt to the same recipient. Leave it open to the implementer if and how to do it. Shall we make it a SHOULD?\r\n  * FSE: I agree\r\n",
           "createdAt": "2023-06-05T11:28:27Z",
           "updatedAt": "2023-06-05T11:28:27Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed in #120 ",
+          "createdAt": "2024-08-22T14:03:19Z",
+          "updatedAt": "2024-08-22T14:03:19Z"
         }
       ]
     },
@@ -524,7 +531,7 @@
       "id": "I_kwDOIrmZ-85bTd2r",
       "title": "From pqc@ietf: Summary OpenPGP crypto functions and further references",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -533,8 +540,8 @@
       "labels": [],
       "body": "In view of\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/pqc/rX2AcijHUbdiijehEaZS5PmpulQ/\r\n\r\naddress (how?) the following\r\n\r\n>> I think it would also benefit from a intro section that summarizes OpenPGP Crypto functions. ... Even references to the proper RFCs for more info would be beneficial.\r\n\r\n> This RFC is designed to be an addition to the crypto-refresh (what the WG is working on right now), and is directly based on it. I think you're right about the references, and it could be very beneficial to add more links to it, with specific references to the sections.\r\n",
       "createdAt": "2023-01-13T07:19:20Z",
-      "updatedAt": "2024-02-12T15:26:52Z",
-      "closedAt": null,
+      "updatedAt": "2024-08-22T14:30:18Z",
+      "closedAt": "2024-08-22T14:30:18Z",
       "comments": [
         {
           "author": "wussler",
@@ -578,7 +585,7 @@
       "id": "I_kwDOIrmZ-85bTht0",
       "title": "Should we point to https://datatracker.ietf.org/doc/draft-ounsworth-cfrg-kem-combiners/",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -587,8 +594,8 @@
       ],
       "body": "Such that our proposal for KEM combination automatically docks to the discussion of this draft?",
       "createdAt": "2023-01-13T07:34:54Z",
-      "updatedAt": "2024-05-22T12:34:42Z",
-      "closedAt": null,
+      "updatedAt": "2024-08-22T14:06:43Z",
+      "closedAt": "2024-08-22T14:06:42Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -631,6 +638,13 @@
           "body": "This was discussed at IETF 119 as well, for now we use the agreed constructions, with the idea that it might be provisional if CFRG produces an outcome",
           "createdAt": "2024-05-22T12:34:41Z",
           "updatedAt": "2024-05-22T12:34:41Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Merged into https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/127",
+          "createdAt": "2024-08-22T14:06:42Z",
+          "updatedAt": "2024-08-22T14:06:42Z"
         }
       ]
     },
@@ -1431,7 +1445,7 @@
       "id": "I_kwDOIrmZ-852ORFp",
       "title": "Concerns regarding section 4.2, restrictions on T and PQ/T encryption to the same recipient",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/67",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "teythoon",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [
@@ -1442,8 +1456,8 @@
       ],
       "body": "Curerntly, the spec states:\r\n\r\n> [4.2. ](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#section-4.2)[Parallel Public-Key Encryption](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#name-parallel-public-key-encrypt)\r\n>\r\n> As explained in [Section 1.4.2](https://www.ietf.org/archive/id/draft-wussler-openpgp-pqc-03.html#non-composite-multi-alg), the OpenPGP protocol inherently supports parallel encryption to different keys of the same recipient. Implementations MUST NOT encrypt a message with a purely traditional public-key encryption key of a recipient if it is encrypted with a PQ/T key of the same recipient.\r\n\r\nIt is not quite clear to me what that means, and how implementations should enforce that restriction.  To be clear, I get the intention and I think it is a valid concern.\r\n\r\n- Does that mean that if there is an OpenPGP certificate that has both a T and a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with the same user ID (or aliasing user ID, whatever that exactly means), where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?\r\n- Does that mean that if an implementation has two OpenPGP certificates with different, non-aliasing user IDs, but the implementation or application knows somehow that the certificates belong to the same recipient, where one has a T encryption subkey, and the other one has a PQ/T encryption subkey, an implementation MUST NOT encrypt to both subkeys?",
       "createdAt": "2023-11-08T12:08:15Z",
-      "updatedAt": "2024-02-13T09:29:22Z",
-      "closedAt": null,
+      "updatedAt": "2024-08-22T14:03:33Z",
+      "closedAt": "2024-08-22T14:03:33Z",
       "comments": [
         {
           "author": "wussler",
@@ -1458,6 +1472,13 @@
           "body": "Also duplicate of https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/2",
           "createdAt": "2024-02-13T09:29:21Z",
           "updatedAt": "2024-02-13T09:29:21Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Addressed in #120 ",
+          "createdAt": "2024-08-22T14:03:33Z",
+          "updatedAt": "2024-08-22T14:03:33Z"
         }
       ]
     },
@@ -1868,15 +1889,15 @@
       "id": "I_kwDOIrmZ-859mYzg",
       "title": "Please add sntrup761 and mceliece6688128",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/76",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jas4711",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I suggest to add sntrup761 and mceliece6688128 to the document.\r\n\r\nIncluding some rationale also posted to the mailing list:\r\n\r\nThe argument would be that sntrup761 is a reasonable alternative for lattice-based kyber, and mceliece is a conservative fallback if lattices fails.\r\n\r\nI believe that for some deployments, the currently chosen algorithms won't be relevant, in the same way that NIST would consider some algorithms not relevant for their deployment.  Fortunately NIST reconsider, so we now have Curve25519 in NIST too, and having others lead the way may have helped that happen.\r\n\r\nPlenty of arguments can be made comparing any two crypto algorithms. While it is easy today to see what went wrong in the design of MD4, RC4, DES; I don't believe we yet can easily tell what the bad parts of current PQ algorithms are (except for the recently broken ones, but that doesn't give us enough of patterns to look for) including the mentioned algorithms.  Classic McEliece is the only one with longer track record, but even that has not been widely deployed on the Internet.\r\n\r\nHard coding deployments of protocols to one mandatory crypto algorithm makes the ecosystem vulnerable if a weakness if found in that algorithm. Compare how long it took to migrate from RC4 in TLS.  I believe the modern design approach is to not have crypto negotiation built into protocols but rather roll protocol version to upgrade all protocol semantics, and have one hard coded crypto algorithm and no in-protocol negotiation.  That's not feasible for legacy PGP as far as I can tell.\r\n\r\nThis all leads me to believe that it is better to mandate at least two different PQ-safe algorithms so that we get two variants deployed and get better testing of algorithm negotiation.  The algorithms to select is a subjective choice, and I suggest we pick variants that cater to different communities.\r\n",
       "createdAt": "2024-01-30T08:19:57Z",
-      "updatedAt": "2024-05-22T12:30:18Z",
-      "closedAt": null,
+      "updatedAt": "2024-08-22T14:10:49Z",
+      "closedAt": "2024-08-22T14:10:49Z",
       "comments": [
         {
           "author": "wussler",
@@ -1884,6 +1905,13 @@
           "body": "Hi @jas4711, as discussed at IETF 119, we are trying to reduce the number of algorithms, and split off variants to separate drafts to ensure a less controversial draft and an easier document for the WG. We just removed most of the codepoints included in the document.",
           "createdAt": "2024-05-22T12:30:17Z",
           "updatedAt": "2024-05-22T12:30:17Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I am closing this issue now since like Aron wrote, further crypto algorithms are out-of-scope of this draft.",
+          "createdAt": "2024-08-22T14:10:49Z",
+          "updatedAt": "2024-08-22T14:10:49Z"
         }
       ]
     },
@@ -2308,7 +2336,7 @@
     {
       "number": 108,
       "id": "I_kwDOIrmZ-86HV-eb",
-      "title": "Specify private key format for ML-* depending on final standard",
+      "title": "Specify private key format for ML-KEM when switching to FIPS final versions",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/108",
       "state": "OPEN",
       "author": "falko-strenzke",
@@ -2319,9 +2347,17 @@
       ],
       "body": "Based on what was announced, NIST' s final standard for the ML-KEM and ML-DSA will enable private keys in seed format. Currently, the draft only refers to the NIST standard for the private key format. Thus this needs more specification, and it might be relevant to specify in the draft:\r\n\r\n- what is the single (?) secret key format in the NIST standard, that the draft is referring to\r\n  - alternative option: that seed format is also possible for private keys (?)\r\n- that a private key in expanded format needs to be checked for consistency before usage\r\n",
       "createdAt": "2024-04-30T07:14:15Z",
-      "updatedAt": "2024-04-30T07:14:16Z",
+      "updatedAt": "2024-08-22T14:59:57Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is relevant only for ML-KEM, since FIPS 204 does not explicitly mention the seed format for the private key.\r\n",
+          "createdAt": "2024-08-22T14:59:21Z",
+          "updatedAt": "2024-08-22T14:59:21Z"
+        }
+      ]
     },
     {
       "number": 115,
@@ -2331,11 +2367,13 @@
       "state": "OPEN",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "wussler"
+      ],
       "labels": [],
       "body": "This issue tracks the following discussion on the mailing list: https://mailarchive.ietf.org/arch/msg/openpgp/a1D8Sivi1lk_22yBETE0QSqN8aU/",
       "createdAt": "2024-05-22T12:44:39Z",
-      "updatedAt": "2024-05-28T04:03:26Z",
+      "updatedAt": "2024-08-22T14:32:29Z",
       "closedAt": null,
       "comments": [
         {
@@ -2344,6 +2382,13 @@
           "body": "This issue has been presented at the IETF interim meeting, and while some more points about interoperability and ease of v4-v6 migration were raised, no consensus was reached yet.",
           "createdAt": "2024-05-28T04:03:25Z",
           "updatedAt": "2024-05-28T04:03:25Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed at IETF 120, encryption subkeys are going to be bound to v6 in the next version",
+          "createdAt": "2024-08-22T14:12:45Z",
+          "updatedAt": "2024-08-22T14:13:36Z"
         }
       ]
     },
@@ -2355,13 +2400,23 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [],
-      "body": "We will need to refer to this section in the crypto-refresh: https://www.ietf.org/archive/id/draft-ietf-openpgp-crypto-refresh-13.html#name-eddsa\r\n\r\nIt specifies exactly how EdDSA is invoked.\r\n\r\n@wussler @TJ-91 ",
+      "body": "We will need to refer to this section in the crypto-refresh: https://www.rfc-editor.org/rfc/rfc9580.html#eddsa-notes\r\n\r\nIt specifies exactly how EdDSA is invoked.\r\n\r\n@wussler @TJ-91 ",
       "createdAt": "2024-07-04T15:00:18Z",
-      "updatedAt": "2024-07-04T15:00:18Z",
+      "updatedAt": "2024-08-22T14:48:09Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Proposed today in meeting: \"While a HashEdDSA variant also exists, we use the ... for consistency here\"",
+          "createdAt": "2024-08-22T14:48:07Z",
+          "updatedAt": "2024-08-22T14:48:07Z"
+        }
+      ]
     },
     {
       "number": 127,
@@ -2371,11 +2426,13 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [],
       "body": "The ordering of the KEM combiner inputs must be adjusted in the fashion of \r\n```\r\nSHA3-256(counter || ss1 || ss2 || <further-inputs>)\r\n```\r\n(see https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=22),\r\ni.e., after the counter first the shared-secrets must be fed and then any other inputs.\r\n\r\nThis issue was raised both in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/6 and https://github.com/lamps-wg/draft-composite-kem/issues/26.\r\n",
       "createdAt": "2024-07-05T06:47:39Z",
-      "updatedAt": "2024-07-08T10:24:34Z",
+      "updatedAt": "2024-08-22T14:29:36Z",
       "closedAt": null,
       "comments": [
         {
@@ -2423,11 +2480,13 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [],
       "body": "In https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2220090284 Quynh states that the current construction with a key derivation step in ECDH-KEM is not NIST compliant, which would equally affect the X25519/X448 KEM construction in this draft:\r\n\r\n> So, if we delete the step 3 in ECDH-KEM ( Set the output eccKeyShare to Hash(X || eccCipherText || eccPublicKey),  then Falko's suggested KDF is NIST-compliant.\r\n\r\n> If we keep the step 3, eccKeyShare is a pseudorandom key and if eccKeyShare takes the place of X in Falko's suggested KDF, the KDF is not NIST-compliant at this point, but the KMAC-KDF mentioned above is NIST-compliant.\r\n\r\n@QuynhDangNIST: can you provide the exact clause in the NIST standards that causes the incompliance? So far it seems to me that the using the output of ` Hash(X || eccCipherText || eccPublicKey)`  is equally fine to use as the ECC shared secret as input to the KEM combiner given by SHA3-256.\r\n\r\nIf the construction would really turn out to not being NIST compliant, we would have to change it in this draft as well.",
       "createdAt": "2024-07-10T10:36:55Z",
-      "updatedAt": "2024-07-25T11:56:34Z",
+      "updatedAt": "2024-08-22T14:29:28Z",
       "closedAt": null,
       "comments": [
         {
@@ -2549,7 +2608,7 @@
       "labels": [],
       "body": "Within the LAMPS composite sigs, we have:\r\n\r\n```\r\nM' := Domain || HASH(Message)\r\n\r\nS1 := Sign( K1, A1, M' )\r\nS2 := Sign( K2, A2, M' )\r\n```\r\nwhere `Domain` is the `DER( Composite_OID )`. The intent is so that S1 and S2 will not verify over `HASH(Message)` directly, but only over `DER( Composite_OID ) || HASH(Message)`. This achieves Strong Non-Separability as per Hale-Connolly.\r\n\r\nIs there a reason that you are not doing this for your composite signature?",
       "createdAt": "2024-07-31T15:41:32Z",
-      "updatedAt": "2024-08-01T12:33:28Z",
+      "updatedAt": "2024-08-22T14:00:31Z",
       "closedAt": null,
       "comments": [
         {
@@ -2558,8 +2617,51 @@
           "body": "In OpenPGP Strong Non-Separability is achieved in without any additional measures, since OpenPGP hashes the signature algorithm identifier as part of the meta data in the signature digest. Thus changing the signature algorithm in the signature packet causes a signature to which no message can be found.",
           "createdAt": "2024-08-01T12:33:27Z",
           "updatedAt": "2024-08-01T12:33:27Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@ounsworth  Is it OK if we close this issue?",
+          "createdAt": "2024-08-22T14:00:30Z",
+          "updatedAt": "2024-08-22T14:00:30Z"
         }
       ]
+    },
+    {
+      "number": 134,
+      "id": "I_kwDOIrmZ-86T3zD1",
+      "title": "Update reference \"crypto-refresh\" to RFC 9580",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/134",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "fluppe2"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-08-22T14:02:28Z",
+      "updatedAt": "2024-08-22T14:29:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 135,
+      "id": "I_kwDOIrmZ-86T4TIz",
+      "title": "Reference use of pre-hash variant of FIPS 203 and 204 (in case we will use it)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/135",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "NIST final std."
+      ],
+      "body": "- [ ] in case we specify pre-hash (PH) schemes for the PQC schemes\r\n  - [ ] Need to provide OIDs for specified PH algorithms for both schemes \r\n  - [ ] Explain how to use the pre-hash, explain what is `PH_M`\r\n  - [ ] In the introd., where ML-DSA and SLH-DSA is mentioned first, the choice of Pre-hash should be mentioned \r\n",
+      "createdAt": "2024-08-22T14:58:05Z",
+      "updatedAt": "2024-08-22T14:58:05Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -11058,21 +11160,21 @@
       "id": "PR_kwDOIrmZ-85vXky8",
       "title": "symmetric algorithm preferences: clarify what happens in the absence \u2026",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/110",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\u2026of the subpackets\r\n\r\nCloses #106 \r\n\r\nNot sure if the last sentence is really required, but the Crypto Refresh leaves a lot of room for implementations to determine v2 SEIPD support so it can't hurt.",
       "createdAt": "2024-05-14T08:54:29Z",
-      "updatedAt": "2024-07-15T14:35:54Z",
+      "updatedAt": "2024-08-22T12:29:47Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "7d61d7d6c5a45b53a16e2b6705622a57b2462adb",
+      "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-106-implicit-preference-packets",
-      "headRefOid": "269656ee82b16147dc930a94a5b442aeb8e5f346",
-      "closedAt": null,
+      "headRefOid": "d61ccd33a0181d7e9370f82be83b4a6fe1fdf0f8",
+      "closedAt": "2024-08-22T12:29:47Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -11104,6 +11206,13 @@
           "body": "> are you suggesting that an implementer might really think \"if they have an empty AEAD ciphersuites subpacket, then i know i can use AES256-OCB, but if they have a missing AEAD ciphersuites subpacket, then i know i have to fall back to AES128-OCB\"? That would be very weird.\r\n\r\nThat's true, there is not much potential for harm here.\r\n\r\n> Maybe this would be best illustrated in a test vector\r\n\r\nI don't think the test vector really conveys the message (many would probably not notice the detail or if they do, be confused by it).\r\n",
           "createdAt": "2024-05-17T11:24:36Z",
           "updatedAt": "2024-05-17T11:26:38Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We are planning to bind PQ(/T) encryption keys to v6 keys, making this obsolete.",
+          "createdAt": "2024-08-22T12:29:47Z",
+          "updatedAt": "2024-08-22T12:29:47Z"
         }
       ],
       "reviews": [
@@ -11176,6 +11285,66 @@
               "body": "The bottom line seems to be that there is consenus to only add the sentence that @dkg propsed above. In that case I ask @TJ-91 to update the PR accordingly. I am ready to close issue #106, which was the reason for the initially proposed changes in this PR, that was raised by me as irrelevant.",
               "createdAt": "2024-07-15T14:35:54Z",
               "updatedAt": "2024-07-15T14:35:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86GXjfc",
+          "commit": {
+            "abbreviatedOid": "269656e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-22T12:01:47Z",
+          "updatedAt": "2024-08-22T12:01:47Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "@wussler @falko-strenzke I rebased now with only that change",
+              "createdAt": "2024-08-22T12:01:47Z",
+              "updatedAt": "2024-08-22T12:01:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86GXsIb",
+          "commit": {
+            "abbreviatedOid": "d61ccd3"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-22T12:18:56Z",
+          "updatedAt": "2024-08-22T12:18:57Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Since now we are going to remove the possibility of using ML-KEM and any other PQC encryption in v4 keys, isn't the whole topic obsolete now? \r\n\r\nPQC encryption implies a v6 key. A v6 key implies support for v6 PKESK and v2 SEIPD.",
+              "createdAt": "2024-08-22T12:18:57Z",
+              "updatedAt": "2024-08-22T12:18:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86GXxMy",
+          "commit": {
+            "abbreviatedOid": "d61ccd3"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-22T12:28:33Z",
+          "updatedAt": "2024-08-22T12:28:33Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Technically the decision is not final for another month but yes, that's true. I didn't think of that.\r\n\r\nI'll close this PR. ",
+              "createdAt": "2024-08-22T12:28:33Z",
+              "updatedAt": "2024-08-22T12:28:33Z"
             }
           ]
         }
@@ -12953,6 +13122,32 @@
           "updatedAt": "2024-07-08T16:21:02Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 136,
+      "id": "PR_kwDOIrmZ-855O_3Q",
+      "title": "Updated refs for crypto-refresh to point to RFC9580. Formatted refere\u2026",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/136",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026nces to sections in external RFCs to be direct hyperlinks.\r\n\r\nThis adresses #134 as well as #61.",
+      "createdAt": "2024-08-23T11:11:24Z",
+      "updatedAt": "2024-08-23T11:11:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "134-update-reference-crypto-refresh-to-rfc-9580",
+      "headRefOid": "e25cf250cd6bbaabcd979014b5d4f4abc667df43",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
