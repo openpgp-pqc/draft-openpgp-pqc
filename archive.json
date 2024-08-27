@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-25T01:19:36.028366+00:00",
+  "timestamp": "2024-08-27T01:15:11.551287+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -13136,7 +13136,7 @@
       "labels": [],
       "body": "\u2026nces to sections in external RFCs to be direct hyperlinks.\r\n\r\nThis adresses #134 as well as #61.",
       "createdAt": "2024-08-23T11:11:24Z",
-      "updatedAt": "2024-08-23T11:11:25Z",
+      "updatedAt": "2024-08-26T04:35:27Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
@@ -13148,7 +13148,34 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86GsCvA",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-08-26T04:18:31Z",
+          "updatedAt": "2024-08-26T04:35:27Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "This was a different reference.\r\n```suggestion\r\nThe terminology in this document is oriented towards the definitions in {{?I-D.ietf-pquip-pqt-hybrid-terminology}}.\r\n```",
+              "createdAt": "2024-08-26T04:18:32Z",
+              "updatedAt": "2024-08-26T04:35:27Z"
+            },
+            {
+              "originalPosition": 41,
+              "body": "I am not entirely sure whether this way of rendering the reference is common practice. In the new rendering, there is no more a link to the reference section in the same document. This means that the references to RFC 9580 without a specific section point to the reference section, and the references to the RFC with a specific section point to the URL.  Does anyone know an example of an RFC which uses references in this way?\r\n\r\nAccording to https://www.rfc-editor.org/styleguide/part2/ the new variant seems to be OK, as the prescription there only pertains to the rendering of the references-section, and not to how the references in the text have to look.\r\n\r\n@TJ-91 @wussler Any opinions on this?",
+              "createdAt": "2024-08-26T04:34:25Z",
+              "updatedAt": "2024-08-26T04:35:27Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
