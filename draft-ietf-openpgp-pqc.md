@@ -1087,6 +1087,9 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Improved SED deprecation decscription
 - Added ML-DSA test vectors
 
+## draft-ietf-openpgp-pqc-05
+- reworked KEM combiner for the purpose of NIST-compliance
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
