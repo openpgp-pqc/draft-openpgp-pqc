@@ -559,10 +559,11 @@ The change is planned to be integrated prior to IETF 121.\]
     //   oBits           - the size of the output keying material in bits
     //   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
     //
-    //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
-    //                                                 44 46 76 31
+    //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
+    //                                          6F 73 69 74 65 4B 44 46 76 31
 
-    KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText || ecdhPublicKey || mlkemPublicKey || algId, oBits, domSep)
+    KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
+                  || ecdhPublicKey || mlkemPublicKey || algId, oBits, domSep)
     return KEK
 
 Here, the parameters to KMAC256 appear in the order as specified in [SP800-186], Section 4, i.e., the key K, main input data X, requested output length L, and optional customization string S in that order.
@@ -945,10 +946,10 @@ In the random oracle setting, the reordering does not influence the arguments in
 
 ## Domain separation and binding {#sec-fixed-info}
 
-The `domSeparation` information defined in {{kem-fixed-info}} provides the domain separation for the key combiner construction.
+The `domSeparation` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose or context.
 
-The `algID` defined in {{kem-fixed-info}} binds the derived KEK to the chosen algorithm and communication parties.
+The `algID` defined in {{kem-key-combiner}} binds the derived KEK to the chosen algorithm and communication parties.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
 This is in line with the Recommendation for ECC in section 5.5 of [SP800-56A].
