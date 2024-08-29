@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-27T01:15:11.551287+00:00",
+  "timestamp": "2024-08-29T01:16:21.894488+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2648,7 +2648,7 @@
     {
       "number": 135,
       "id": "I_kwDOIrmZ-86T4TIz",
-      "title": "Reference use of pre-hash variant of FIPS 203 and 204 (in case we will use it)",
+      "title": "Reference use of pre-hash variant of FIPS 204 and 205 (in case we will use it)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/135",
       "state": "OPEN",
       "author": "falko-strenzke",
@@ -2659,9 +2659,55 @@
       ],
       "body": "- [ ] in case we specify pre-hash (PH) schemes for the PQC schemes\r\n  - [ ] Need to provide OIDs for specified PH algorithms for both schemes \r\n  - [ ] Explain how to use the pre-hash, explain what is `PH_M`\r\n  - [ ] In the introd., where ML-DSA and SLH-DSA is mentioned first, the choice of Pre-hash should be mentioned \r\n",
       "createdAt": "2024-08-22T14:58:05Z",
-      "updatedAt": "2024-08-22T14:58:05Z",
+      "updatedAt": "2024-08-28T10:07:28Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "On the list, I voted to drop the topic and simply use the pure variant to sign the hash. That's not perfect in my view, but NIST's specification in FIPS 204 is too unclear to make the point that it is intended to use the pre-hash variant in our case. For OpenPGP, this decision has no security implications anyway. I propose to close this issue.",
+          "createdAt": "2024-08-27T11:09:33Z",
+          "updatedAt": "2024-08-27T11:09:33Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we should wait a bit for the discussion on the OpenPGP mailing list to conclude, as well as your request for clarification on the NIST mailing list.",
+          "createdAt": "2024-08-27T12:11:18Z",
+          "updatedAt": "2024-08-27T12:11:18Z"
+        }
+      ]
+    },
+    {
+      "number": 137,
+      "id": "I_kwDOIrmZ-86UY-qG",
+      "title": "Cross-protocol domain separation for signatures",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/137",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
+      "createdAt": "2024-08-27T14:37:20Z",
+      "updatedAt": "2024-08-27T15:13:20Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm in favor of this if this ends up being exposed by crypto APIs.\r\n\r\nI've even searched for \"openpgp import x509 key\" and found some explanations how you can manually convert your x.509 key to an OpenPGP key with openssl and gpg so it doesn't seem like an entirely theoretical concern.\r\n",
+          "createdAt": "2024-08-27T15:10:49Z",
+          "updatedAt": "2024-08-27T15:10:49Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It's especially not theoretic concern if people reuse their keys on a hardware token.",
+          "createdAt": "2024-08-27T15:13:19Z",
+          "updatedAt": "2024-08-27T15:13:19Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -13136,7 +13182,7 @@
       "labels": [],
       "body": "\u2026nces to sections in external RFCs to be direct hyperlinks.\r\n\r\nThis adresses #134 as well as #61.",
       "createdAt": "2024-08-23T11:11:24Z",
-      "updatedAt": "2024-08-26T04:35:27Z",
+      "updatedAt": "2024-08-28T06:21:24Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
@@ -13174,6 +13220,132 @@
               "updatedAt": "2024-08-26T04:35:27Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86G-GGf",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-27T20:48:38Z",
+          "updatedAt": "2024-08-27T20:48:39Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Maybe I am being dense, but do not see the problem with this reference format",
+              "createdAt": "2024-08-27T20:48:38Z",
+              "updatedAt": "2024-08-27T20:48:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86G-HD7",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, if applied the comment from @falko-strenzke (terminology ref)",
+          "createdAt": "2024-08-27T20:50:41Z",
+          "updatedAt": "2024-08-27T20:50:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HA_9M",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-28T05:31:56Z",
+          "updatedAt": "2024-08-28T05:31:56Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Yeah, I think it'll be OK. It's just that then you don't jump to the reference section by following the link, which is the only format I have seen so far in RFCs. But in any case, if our format should turn out not be OK, someone will tell us at some point and we can still revert it. In any case it is more convenient to jump to the referenced section directly.",
+              "createdAt": "2024-08-28T05:31:56Z",
+              "updatedAt": "2024-08-28T05:31:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HBTZ9",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Note that you can also use the section number in the URL: https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5 instead of https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa\r\n\r\nThis might be easier to maintain and spot errors.",
+          "createdAt": "2024-08-28T06:21:24Z",
+          "updatedAt": "2024-08-28T06:21:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 138,
+      "id": "PR_kwDOIrmZ-855s3Cl",
+      "title": "reworked key combiner to be NIST conforming",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/138",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [ ] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
+      "createdAt": "2024-08-28T12:10:07Z",
+      "updatedAt": "2024-08-28T16:15:30Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "kem-combiner-nist",
+      "headRefOid": "5b223bf550c1cd2cad8acbd25a8f1d84d08a8a7f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86HG5DE",
+          "commit": {
+            "abbreviatedOid": "5b223bf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-28T16:14:32Z",
+          "updatedAt": "2024-08-28T16:14:32Z",
+          "comments": [
+            {
+              "originalPosition": 158,
+              "body": "I think this wording was more natural when it referred to `fixedInfo`. Now it's weird to refer to the `algID` input like this so we should rephrase.",
+              "createdAt": "2024-08-28T16:14:32Z",
+              "updatedAt": "2024-08-28T16:14:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HG5js",
+          "commit": {
+            "abbreviatedOid": "5b223bf"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": ">@wussler @TJ-91 Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to multiKeyCombine\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n\r\nYou are correct. Your suggestion to write `multiKeyCombine` makes more sense, since it's more high-level. \r\n\r\nYou also replaced SHA3 here: \r\n\r\n> hex-encoded KMAC256 output is `TODO`.\r\n\r\nI think it is more consistent to then also write `multiKeyCombine`.\r\n\r\n",
+          "createdAt": "2024-08-28T16:15:30Z",
+          "updatedAt": "2024-08-28T16:15:30Z",
+          "comments": []
         }
       ]
     }
