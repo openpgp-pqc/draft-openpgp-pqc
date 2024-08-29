@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 1 March 2025                                        F. Strenzke
+Expires: 2 March 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                          28 August 2024
+                                                          29 August 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 March 2025.
+   This Internet-Draft will expire on 2 March 2025.
 
 Copyright Notice
 
@@ -137,10 +137,10 @@ Table of Contents
      9.1.  Security Aspects of Composite Signatures
      9.2.  Hashing in ECDH-KEM
      9.3.  Key combiner
-     9.4.  Domain separation and binding
-     9.5.  SLH-DSA-SHAKE Message Randomizer
-     9.6.  Binding hashes in signatures with signature algorithms
-     9.7.  Symmetric Algorithms for SEIPD Packets
+       9.3.1.  Domain separation and binding
+     9.4.  SLH-DSA-SHAKE Message Randomizer
+     9.5.  Binding hashes in signatures with signature algorithms
+     9.6.  Symmetric Algorithms for SEIPD Packets
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA-SHAKE
    11. IANA Considerations
@@ -1060,7 +1060,7 @@ return KEK
 
    SLH-DSA-SHAKE signature generation is performed via the algorithm
    SLH-DSA.Sign as specified in [FIPS-205].  The variable opt_rand is
-   set to PK.seed.  See also Section 9.5.
+   set to PK.seed.  See also Section 9.4.
 
 6.1.4.  Signature Verification
 
@@ -1267,7 +1267,7 @@ return KEK
    input shared secrets and ciphertexts.  In the random oracle setting,
    the reordering does not influence the arguments in [GHP18].
 
-9.4.  Domain separation and binding
+9.3.1.  Domain separation and binding
 
    The domSeparation information defined in Section 4.2.1 provides the
    domain separation for the key combiner construction.  This ensures
@@ -1286,14 +1286,14 @@ return KEK
    to have a key of their own, there are no pre-shared secrets, and all
    the other parameters are unequivocally defined by the algorithm ID.
 
-9.5.  SLH-DSA-SHAKE Message Randomizer
+9.4.  SLH-DSA-SHAKE Message Randomizer
 
    The specification of SLH-DSA-SHAKE [FIPS-205] prescribes an optional
    non-deterministic message randomizer.  This is not used in this
    specification, as OpenPGP v6 signatures already provide a salted
    signature data digest of the appropriate size.
 
-9.6.  Binding hashes in signatures with signature algorithms
+9.5.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1311,7 +1311,7 @@ return KEK
    In the case of SLH-DSA-SHAKE the internal hash algorithm varies based
    on the algorithm ID, see Section 6.1.1.
 
-9.7.  Symmetric Algorithms for SEIPD Packets
+9.6.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1864,13 +1864,13 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded ecdhKeyShare input to multiKeyCombine (??) is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb.
 
-   The hex-encoded mlkemKeyShare input to multiKeyCombine (??) is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a.
 
-   The hex-encoded KMAC256 output is TODO.
+   The hex-encoded output of multiKeyCombine is TODO.
 
    The hex-encoded session key is TODO.
 
@@ -2839,13 +2839,13 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v1 SEIPD
 
-   The hex-encoded ecdhKeyShare input to multiKeyCombine (??) is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0.
 
-   The hex-encoded mlkemKeyShare input to multiKeyCombine (??) is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008.
 
-   The hex-encoded KMAC256 output is TODO.
+   The hex-encoded output of multiKeyCombine is TODO.
 
    The hex-encoded session key is TODO.
 
@@ -2886,13 +2886,13 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded ecdhKeyShare input to multiKeyCombine (??) is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341.
 
-   The hex-encoded mlkemKeyShare input to multiKeyCombine (??) is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0.
 
-   The hex-encoded KMAC256 output is TODO.
+   The hex-encoded output of multiKeyCombine is TODO.
 
    The hex-encoded session key is TODO.
 

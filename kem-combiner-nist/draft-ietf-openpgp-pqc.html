@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 1 March 2025</td>
+<td class="center">Expires 2 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-08-28" class="published">28 August 2024</time>
+<time datetime="2024-08-29" class="published">29 August 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-01">1 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-02">2 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1368,18 +1368,20 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
+                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="auto internal xref">9.3.1</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.7">
-                <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="auto internal xref">9.7</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
             </ul>
 </li>
@@ -2648,7 +2650,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
           </h4>
 <p id="section-6.1.3-1">SLH-DSA-SHAKE signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.
 The variable <code>opt_rand</code> is set to <code>PK.seed</code>.
-See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.5</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
@@ -2838,53 +2840,53 @@ Indeed, the above stated indifferentiability from a random oracle qualifies Kecc
 That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input shared secrets and ciphertexts.
 In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
+<div id="sec-fixed-info">
+<section id="section-9.3.1">
+          <h4 id="name-domain-separation-and-bindi">
+<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
+          </h4>
+<p id="section-9.3.1-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
+This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-2">The <code>algID</code> defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> binds the derived KEK to the chosen algorithm and communication parties.
+The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-3">This is in line with the Recommendation for ECC in section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
+Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-fixed-info">
-<section id="section-9.4">
-        <h3 id="name-domain-separation-and-bindi">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
-        </h3>
-<p id="section-9.4-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
-This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
-<p id="section-9.4-2">The <code>algID</code> defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> binds the derived KEK to the chosen algorithm and communication parties.
-The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
-<p id="section-9.4-3">This is in line with the Recommendation for ECC in section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
-Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="slhdsa-sec-cons">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-slh-dsa-shake-message-rando">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
         </h3>
-<p id="section-9.5-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
-This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
+This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-9.6-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
-<p id="section-9.6-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
+<p id="section-9.5-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
-<p id="section-9.6-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.6-3" class="pilcrow">¶</a></p>
+This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+<p id="section-9.5-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.7">
+<section id="section-9.6">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.7" class="section-number selfRef">9.7. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.7-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.7-1" class="pilcrow">¶</a></p>
-<p id="section-9.7-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.7-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3536,9 +3538,9 @@ g+Bld9lBSVmEdMJnOX2ZHOdEoRV4bm1U4aPuhrKL/d8lkIgM
             <p id="appendix-A.1-10.2.1">A v2 SEIPD<a href="#appendix-A.1-10.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-11">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-12">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-13">The hex-encoded KMAC256 output is <code>TODO</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-11">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-12">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-13">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-14">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.1-15">
 <pre>
@@ -4547,9 +4549,9 @@ Z2MPhqSLt9Vf5kAA/1RP8DeMB+q8U2n55xiSRnxP6+ddHg/Q7bZuUM0Cv+0M
             <p id="appendix-A.2-11.2.1">A v1 SEIPD<a href="#appendix-A.2-11.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-12">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-13">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-14">The hex-encoded KMAC256 output is <code>TODO</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-12">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-13">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-14">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-15">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-16">
 <pre>
@@ -4594,9 +4596,9 @@ mkHfXuplyv3LcunejQDog2bhakqbrb5lg3fZGYNagykZxw==
             <p id="appendix-A.2-18.2.1">A v2 SEIPD<a href="#appendix-A.2-18.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-19">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-20">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> (??) is <code>4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-21">The hex-encoded KMAC256 output is <code>TODO</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-19">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-20">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-21">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-22">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-23">
 <pre>
