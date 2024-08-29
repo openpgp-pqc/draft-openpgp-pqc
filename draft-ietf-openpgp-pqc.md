@@ -944,7 +944,7 @@ That is, Keccak behaves like a random function if at least one input shared secr
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input shared secrets and ciphertexts.
 In the random oracle setting, the reordering does not influence the arguments in {{GHP18}}.
 
-## Domain separation and binding {#sec-fixed-info}
+### Domain separation and binding {#sec-fixed-info}
 
 The `domSeparation` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose or context.
@@ -1142,11 +1142,11 @@ Here is an unsigned message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` (??) is `c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb`.
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` (??) is `9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a`.
 
-The hex-encoded KMAC256 output is `TODO`.
+The hex-encoded output of `multiKeyCombine` is `TODO`.
 
 The hex-encoded session key is `TODO`.
 
@@ -1230,11 +1230,11 @@ Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
 - A v3 PKESK
 - A v1 SEIPD
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` (??) is `98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0`.
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` (??) is `3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008`.
 
-The hex-encoded KMAC256 output is `TODO`.
+The hex-encoded output of `multiKeyCombine` is `TODO`.
 
 The hex-encoded session key is `TODO`.
 
@@ -1248,11 +1248,11 @@ Here is an SEIPDv2 unsigned message `Testing\n` encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` (??) is `4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341`.
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` (??) is `4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0`.
 
-The hex-encoded KMAC256 output is `TODO`.
+The hex-encoded output of `multiKeyCombine` is `TODO`.
 
 The hex-encoded session key is `TODO`.
 
