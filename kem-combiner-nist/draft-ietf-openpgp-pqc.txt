@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 2 March 2025                                        F. Strenzke
+Expires: 3 March 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                          29 August 2024
+                                                          30 August 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 March 2025.
+   This Internet-Draft will expire on 3 March 2025.
 
 Copyright Notice
 
@@ -656,7 +656,7 @@ Table of Contents
    prior to IETF 121.]
 
 //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
-//                   mlkemCipherText, mlkemPublicKey, algId, oBits)
+//                   mlkemCipherText, mlkemPublicKey, algId)
 //
 //   Input:
 //   ecdhKeyShare    - the ECDH key share encoded as an octet string
@@ -666,19 +666,19 @@ Table of Contents
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
 //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
 //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
-//   oBits           - the size of the output keying material in bits
 //   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
 //
 //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
 //                                          6F 73 69 74 65 4B 44 46 76 31
 
 KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
-              || ecdhPublicKey || mlkemPublicKey || algId, oBits, domSep)
+              || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
 return KEK
 
    Here, the parameters to KMAC256 appear in the order as specified in
-   [SP800-186], Section 4, i.e., the key K, main input data X, requested
-   output length L, and optional customization string S in that order.
+   [SP800-185], Section 4, i.e., the key K, main input data X, requested
+   output length in bits L, and optional customization string S in that
+   order.
 
    Note that the values ecdhKeyShare defined in Section 4.1.1 and
    mlkemKeyShare defined in Section 4.1.2 already use the relative
@@ -720,7 +720,7 @@ return KEK
 
    7.  Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
        ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-       algId, oBits=256) as defined in Section 4.2.1
+       algId, 256) as defined in Section 4.2.1
 
    8.  Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
        [RFC3394] that includes a 64 bit integrity check
@@ -765,7 +765,7 @@ return KEK
 
    9.   Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
         ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-        algId, oBits=256) as defined in Section 4.2.1
+        algId) as defined in Section 4.2.1
 
    10.  Compute sessionKey := AESKeyUnwrap(KEK, C) with AES-256 as per
         [RFC3394], aborting if the 64 bit integrity check fails
@@ -1233,10 +1233,11 @@ return KEK
 9.3.  Key combiner
 
    For the key combination in Section 4.2.1 this specification limits
-   itself to the use of KMAC256.  The sponge construction used by
-   KMAC256 was proven to be indifferentiable from a random oracle
-   [BDPA08].  This means, that in contrast to SHA2, which uses a Merkle-
-   Damgard construction, no HMAC-based construction is required for key
+   itself to the use of KMAC256 in a construction following
+   [SP800-108r1-upd1].  The sponge construction used by KMAC256 was
+   proven to be indifferentiable from a random oracle [BDPA08].  This
+   means, that in contrast to SHA2, which uses a Merkle-Damgard
+   construction, no HMAC-based construction is required for key
    combination.  It is therefore sufficient to simply process the
    concatenation of any number of key shares with a domain separation
    when using a sponge-based construction like KMAC256.
@@ -1250,7 +1251,7 @@ return KEK
    derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
    public keys P1 and P2) as
 
-   K = KMAC256(K1 || K2 || C1 || C2 || P1 || P2 || algId, oBits, domSep)
+   K = KMAC256(K1 || K2 || C1 || C2 || P1 || P2 || algId, 256, domSep)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
@@ -1666,6 +1667,18 @@ return KEK
               Post-Quantum Cryptography Standardization Process", NIST
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
+
+   [SP800-108r1-upd1]
+              Chen, L., "Recommendation for Key-Derivation Using
+              Pseudorandom Functions", NIST Special Publication 800-108
+              Rev. 1 , August 2022,
+              <https://doi.org/10.6028/NIST.SP.800-108r1-upd1>.
+
+   [SP800-185]
+              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
+              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
+              NIST Special Publication 800-185 , December 2016,
+              <https://doi.org/10.6028/NIST.SP.800-185>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
