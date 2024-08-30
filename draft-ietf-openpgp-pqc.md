@@ -179,6 +179,23 @@ informative:
       author:
         - org: National Institute of Standards and Technology
       date: August 2023
+      
+  SP800-185:
+    target: https://doi.org/10.6028/NIST.SP.800-185
+    title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
+    author:
+      -
+        ins: J. Kelsey
+        name: John Kelsey
+      -
+        ins: S. Chang
+        name: Shu-jen Chang
+      -
+        ins: R. Perlner
+        name: Ray Perlner
+    date: December 2016
+    seriesinfo:
+      NIST Special Publication 800-185
 
   GHP18:
     target: https://doi.org/10.1007/978-3-319-76578-5_7
@@ -566,7 +583,7 @@ The change is planned to be integrated prior to IETF 121.\]
                   || ecdhPublicKey || mlkemPublicKey || algId, oBits, domSep)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in [SP800-186], Section 4, i.e., the key K, main input data X, requested output length L, and optional customization string S in that order.
+Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length L, and optional customization string S in that order.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
 The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
