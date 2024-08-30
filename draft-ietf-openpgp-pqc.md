@@ -159,6 +159,17 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56A Rev. 3
 
+  SP800-108r1-upd1:
+    target: https://doi.org/10.6028/NIST.SP.800-108r1-upd1
+    title: Recommendation for Key-Derivation Using Pseudorandom Functions
+    author:
+      -
+        ins: L. Chen
+        name: Lily Chen
+    date: August 2022
+    seriesinfo:
+      NIST Special Publication 800-108 Rev. 1
+
   FIPS-203:
       target: https://doi.org/10.6028/NIST.FIPS.203.ipd
       title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
@@ -179,7 +190,7 @@ informative:
       author:
         - org: National Institute of Standards and Technology
       date: August 2023
-      
+
   SP800-185:
     target: https://doi.org/10.6028/NIST.SP.800-185
     title: 'SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash'
@@ -941,7 +952,7 @@ The additional inclusion of `ecdhPublicKey` follows the security advice in Secti
 
 ## Key combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC256.
+For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC256 in a construction following {{SP800-108r1-upd1}}.
 The sponge construction used by KMAC256 was proven to be indifferentiable from a random oracle {{BDPA08}}.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
 It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like KMAC256.
