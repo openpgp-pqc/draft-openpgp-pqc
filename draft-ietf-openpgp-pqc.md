@@ -563,7 +563,7 @@ The change is planned to be integrated prior to IETF 121.\]
 
 
     //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
-    //                   mlkemCipherText, mlkemPublicKey, algId, oBits)
+    //                   mlkemCipherText, mlkemPublicKey, algId)
     //
     //   Input:
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
@@ -573,17 +573,16 @@ The change is planned to be integrated prior to IETF 121.\]
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
     //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
-    //   oBits           - the size of the output keying material in bits
     //   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
     //
     //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
     //                                          6F 73 69 74 65 4B 44 46 76 31
 
     KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
-                  || ecdhPublicKey || mlkemPublicKey || algId, oBits, domSep)
+                  || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length L, and optional customization string S in that order.
+Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S in that order.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
 The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
@@ -610,7 +609,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)`
 
- 7. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId, oBits=256)` as defined in {{kem-key-combiner}}
+ 7. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId, 256)` as defined in {{kem-key-combiner}}
 
  8. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -636,7 +635,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
- 9. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId, oBits=256)` as defined in {{kem-key-combiner}}
+ 9. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  10. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
@@ -951,7 +950,7 @@ More precisely, for a given capacity `c` the indifferentiability proof shows tha
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
 Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (with ciphertexts `C1` and `C2` and public keys `P1` and `P2`) as
 
-    K = KMAC256(K1 || K2 || C1 || C2 || P1 || P2 || algId, oBits, domSep)
+    K = KMAC256(K1 || K2 || C1 || C2 || P1 || P2 || algId, 256, domSep)
 
 from a random bit string, an adversary has to know (or correctly guess) both key shares `K1` and `K2`, entirely.
 
