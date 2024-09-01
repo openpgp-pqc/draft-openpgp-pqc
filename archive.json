@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-08-29T01:16:21.894488+00:00",
+  "timestamp": "2024-09-01T01:34:43.645047+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -13299,20 +13299,28 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [ ] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
+      "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`. This is merely an editorial change.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [x] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
       "createdAt": "2024-08-28T12:10:07Z",
-      "updatedAt": "2024-08-28T16:15:30Z",
+      "updatedAt": "2024-08-30T10:36:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-nist",
-      "headRefOid": "5b223bf550c1cd2cad8acbd25a8f1d84d08a8a7f",
+      "headRefOid": "45e35a9ac605e21ad77ab0a27288c3ba6e0bff2f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> You also replaced SHA3 here:\r\n> \r\n> > hex-encoded KMAC256 output is `TODO`.\r\n> \r\n> I think it is more consistent to then also write `multiKeyCombine`.\r\n\r\nChanged it now also to `multiKeyCombine`.",
+          "createdAt": "2024-08-29T07:48:02Z",
+          "updatedAt": "2024-08-29T07:48:02Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86HG5DE",
@@ -13346,6 +13354,124 @@
           "createdAt": "2024-08-28T16:15:30Z",
           "updatedAt": "2024-08-28T16:15:30Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HLyEM",
+          "commit": {
+            "abbreviatedOid": "fc47319"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-29T08:17:21Z",
+          "updatedAt": "2024-08-29T08:27:03Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "1. I think this should be `SP800-185`\r\n2. You need to write `{{SP800-185}}` and reintroduce the reference that was removed in PR #116 ",
+              "createdAt": "2024-08-29T08:17:21Z",
+              "updatedAt": "2024-08-29T08:27:03Z"
+            },
+            {
+              "originalPosition": 89,
+              "body": "We could remove `oBits` here and add it as a constant to the key combiner if it is always `256` anyway. I think that makes it easier / clearer for implementers.",
+              "createdAt": "2024-08-29T08:22:33Z",
+              "updatedAt": "2024-08-29T08:27:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HT6zQ",
+          "commit": {
+            "abbreviatedOid": "fc47319"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-29T20:35:49Z",
+          "updatedAt": "2024-08-29T20:38:50Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Agreed, we had removed `oBits` since it's fixed",
+              "createdAt": "2024-08-29T20:35:49Z",
+              "updatedAt": "2024-08-29T20:38:50Z"
+            },
+            {
+              "originalPosition": 158,
+              "body": "```suggestion\r\nThe `algID` defined in {{kem-key-combiner}} binds the derived KEK to the chosen algorithm.\r\n```",
+              "createdAt": "2024-08-29T20:38:00Z",
+              "updatedAt": "2024-08-29T20:38:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HLaj-",
+          "commit": {
+            "abbreviatedOid": "bdce5bb"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-29T07:36:36Z",
+          "updatedAt": "2024-08-30T06:39:54Z",
+          "comments": [
+            {
+              "originalPosition": 158,
+              "body": "```suggestion\r\nThe algorithm ID, passed as the `algID` paramter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm. The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties.\r\n```\r\n\r\nI think it can be solved by rephrasing the text, I don't think there is the need to introduce a whole section to say \"fixedInfo = algID\" just to have a section to reference. \r\n\r\nAnd apparently the sentence still seemed to assume the the public keys were part of the fixed info.",
+              "createdAt": "2024-08-29T07:36:36Z",
+              "updatedAt": "2024-08-30T06:39:54Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "done in bdce5bbb7c3f9e3cef400ab293dcb38dcd09fb7c",
+              "createdAt": "2024-08-30T06:18:33Z",
+              "updatedAt": "2024-08-30T06:39:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HYbMX",
+          "commit": {
+            "abbreviatedOid": "5b223bf"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-30T06:40:56Z",
+          "updatedAt": "2024-08-30T06:40:56Z",
+          "comments": [
+            {
+              "originalPosition": 158,
+              "body": "I had already made the above suggestion, only that I was still \"review mode\" for some reason and didn't commit it.",
+              "createdAt": "2024-08-30T06:40:56Z",
+              "updatedAt": "2024-08-30T06:40:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HYdIG",
+          "commit": {
+            "abbreviatedOid": "fc47319"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-08-30T06:45:10Z",
+          "updatedAt": "2024-08-30T06:45:10Z",
+          "comments": [
+            {
+              "originalPosition": 89,
+              "body": "Removed `oBits` in e8ec2815000df0e7cdac12374d092e9b9aec60a5",
+              "createdAt": "2024-08-30T06:45:10Z",
+              "updatedAt": "2024-08-30T06:45:10Z"
+            }
+          ]
         }
       ]
     }
