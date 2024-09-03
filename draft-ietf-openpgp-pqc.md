@@ -253,7 +253,7 @@ The document specifies the conventions for interoperability between compliant Op
 
 ### Terminology for Multi-Algorithm Schemes
 
-The terminology in this document is oriented towards the definitions in [RFC9580].
+The terminology in this document is oriented towards the definitions in {{?I-D.ietf-pquip-pqt-hybrid-terminology}}.
 Specifically, the terms "multi-algorithm", "composite" and "non-composite" are used in correspondence with the definitions therein.
 The abbreviation "PQ" is used for post-quantum schemes.
 To denote the combination of post-quantum and traditional schemes, the abbreviation "PQ/T" is used.
