@@ -1751,10 +1751,10 @@ In <a href="#pq-key-preference" class="auto internal xref">Section 8.1</a> it is
         </h3>
 <p id="section-3.3-1">The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
-This ensures backwards compatibility due to <a href="https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa">[RFC9580, Section 5.2.5]</a>, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+This ensures backwards compatibility due to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.3-5">[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa">[RFC9580, Section 5.2.5]</a>.]<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>.]<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-requirements">
@@ -2445,7 +2445,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
           <h4 id="name-signature-data-digest">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature data digest</a>
           </h4>
-<p id="section-5.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures">[RFC9580, Section 5.2.4]</a>.
+<p id="section-5.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
 Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-mldsa-hash" class="auto internal xref">Table 8</a> for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-2">An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithm.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
@@ -2496,7 +2496,7 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
 <p id="section-5.2.3-1">To sign a message <code>M</code> with ML-DSA + EdDSA the following sequence of operations has to be performed:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
 <li id="section-5.2.3-2.1">
-              <p id="section-5.2.3-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.3-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.3-2.2">
               <p id="section-5.2.3-2.2.1">Create the EdDSA signature over <code>dataDigest</code> with <code>EdDSA.Sign()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
@@ -2634,7 +2634,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points
           <h4 id="name-signature-data-digest-2">
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
-<p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures">[RFC9580, Section 5.2.4]</a>.
+<p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
 SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
@@ -2710,7 +2710,7 @@ See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.5</a>.<
           <h4 id="name-signature-packet-tag-2-2">
 <a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-signature-packet-tag-2-2" class="section-name selfRef">Signature Packet (Tag 2)</a>
           </h4>
-<p id="section-6.2.1-1">The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in <a href="https://www.rfc-editor.org/rfc/rfc9580#name-versions-4-and-6-signature-">[RFC9580, Section 5.2.3]</a>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-1">The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3">[RFC9580, Section 5.2.3]</a>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.1-3.1">
@@ -2838,7 +2838,7 @@ This simplifies key distribution, as only one certificate needs to be communicat
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <a href="https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures">[RFC9580, Section 5.2.4]</a>.
+This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
 This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
