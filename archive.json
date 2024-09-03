@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-01T01:34:43.645047+00:00",
+  "timestamp": "2024-09-03T01:15:57.570425+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2690,7 +2690,7 @@
       "labels": [],
       "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
       "createdAt": "2024-08-27T14:37:20Z",
-      "updatedAt": "2024-08-27T15:13:20Z",
+      "updatedAt": "2024-09-01T19:58:40Z",
       "closedAt": null,
       "comments": [
         {
@@ -2706,6 +2706,13 @@
           "body": "It's especially not theoretic concern if people reuse their keys on a hardware token.",
           "createdAt": "2024-08-27T15:13:19Z",
           "updatedAt": "2024-08-27T15:13:19Z"
+        },
+        {
+          "author": "br-hale",
+          "authorAssociation": "NONE",
+          "body": "Including domain separation through a label such as 'OpenPGP signature' would be very useful. This does not make such a combiner specific to the OpenPGP WG though - I would like to see a generic combiner through CRFG that can use such labels as 'OpenPGP signature' and potentially others as needed, vs several slightly different drafts for parallel combiners across WGs. ",
+          "createdAt": "2024-09-01T19:58:39Z",
+          "updatedAt": "2024-09-01T19:58:39Z"
         }
       ]
     }
