@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 9 January 2025                                      F. Strenzke
+Expires: 7 March 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             8 July 2024
+                                                        3 September 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2025.
+   This Internet-Draft will expire on 7 March 2025.
 
 Copyright Notice
 
@@ -301,14 +301,13 @@ Table of Contents
 
 1.4.2.  Non-Composite Algorithm Combinations
 
-   As the OpenPGP protocol [I-D.ietf-openpgp-crypto-refresh] allows for
-   multiple signatures to be applied to a single message, it is also
-   possible to realize non-composite combinations of signatures.
-   Furthermore, multiple OpenPGP signatures may be combined on the
-   application layer.  These latter two cases realize non-composite
-   combinations of signatures.  Section 3.3 specifies how
-   implementations should handle the verification of such combinations
-   of signatures.
+   As the OpenPGP protocol [RFC9580] allows for multiple signatures to
+   be applied to a single message, it is also possible to realize non-
+   composite combinations of signatures.  Furthermore, multiple OpenPGP
+   signatures may be combined on the application layer.  These latter
+   two cases realize non-composite combinations of signatures.
+   Section 3.3 specifies how implementations should handle the
+   verification of such combinations of signatures.
 
    Furthermore, the OpenPGP protocol also allows parallel encryption to
    different keys by using multiple PKESK packets, thus realizing non-
@@ -391,8 +390,8 @@ Table of Contents
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
    encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.  In section Section 8.1 it is explained how to
-   deal with multiple key scenarios.
+   T encryption schemes.  In Section 8.1 it is explained how to deal
+   with multiple key scenarios.
 
 3.2.  Composite Signatures
 
@@ -407,9 +406,9 @@ Table of Contents
 
    An implementation MAY sign a message with a traditional key and a
    PQ(/T) key from the same sender.  This ensures backwards
-   compatibility due to [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.5, since a legacy implementation without PQ(/T) support
-   can fall back on the traditional signature.
+   compatibility due to [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation
+   without PQ(/T) support can fall back on the traditional signature.
 
    Newer implementations with PQ(/T) support MAY ignore the traditional
    signature(s) during validation.
@@ -419,7 +418,8 @@ Table of Contents
 
    [Note to the reader: The last requirement, that one valid signature
    is sufficient to identify a message as correctly signed, is an
-   interpretation of [I-D.ietf-openpgp-crypto-refresh], Section 5.2.5.]
+   interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5).]
 
 3.4.  ECC requirements
 
@@ -821,13 +821,13 @@ return KEK
    *  The wrapped session key represented as an octet string.
 
    Note that like in the case of the algorithms X25519 and X448
-   specified in [I-D.ietf-openpgp-crypto-refresh], for the ML-KEM
-   composite schemes, in the case of a v3 PKESK packet, the symmetric
-   algorithm identifier is not encrypted.  Instead, it is placed in
-   plaintext after the mlkemCipherText and before the length octet
-   preceding the wrapped session key.  In the case of v3 PKESK packets
-   for ML-KEM composite schemes, the symmetric algorithm used MUST be
-   AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
+   specified in [RFC9580], for the ML-KEM composite schemes, in the case
+   of a v3 PKESK packet, the symmetric algorithm identifier is not
+   encrypted.  Instead, it is placed in plaintext after the
+   mlkemCipherText and before the length octet preceding the wrapped
+   session key.  In the case of v3 PKESK packets for ML-KEM composite
+   schemes, the symmetric algorithm used MUST be AES-128, AES-192 or
+   AES-256 (algorithm ID 7, 8 or 9).
 
    In the case of a v3 PKESK, a receiving implementation MUST check if
    the length of the unwrapped symmetric key matches the symmetric
@@ -922,11 +922,11 @@ return KEK
 5.2.1.  Signature data digest
 
    Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.4.  Composite ML-DSA + EdDSA signatures MUST use the
-   associated hash algorithm as specified in Table 8 for the signature
-   data digest.  Signatures using other hash algorithms MUST be
-   considered invalid.
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
+   signatures MUST use the associated hash algorithm as specified in
+   Table 8 for the signature data digest.  Signatures using other hash
+   algorithms MUST be considered invalid.
 
    An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
    also support the matching hash algorithm.
@@ -958,8 +958,8 @@ return KEK
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
 
-   1.  Generate dataDigest according to
-       [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4
+   1.  Generate dataDigest according to [RFC9580, Section 5.2.4]
+       (https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
 
    2.  Create the EdDSA signature over dataDigest with EdDSA.Sign() from
        Section 5.1.1
@@ -989,7 +989,7 @@ return KEK
 5.3.1.  Signature Packet (Tag 2)
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6
-   signatures, as defined in [I-D.ietf-openpgp-crypto-refresh].
+   signatures, as defined in [RFC9580].
 
    The algorithm-specific v6 signature parameters for ML-DSA + EdDSA
    signatures consist of:
@@ -1003,7 +1003,7 @@ return KEK
 5.3.2.  Key Material Packets
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys,
-   as defined in [I-D.ietf-openpgp-crypto-refresh].
+   as defined in [RFC9580].
 
    The algorithm-specific public key for ML-DSA + EdDSA keys is this
    series of values:
@@ -1052,10 +1052,11 @@ return KEK
 6.1.1.  Signature Data Digest
 
    Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.4.  SLH-DSA-SHAKE signatures MUST use the associated hash
-   algorithm as specified in Table 10 for the signature data digest.
-   Signatures using other hash algorithms MUST be considered invalid.
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA-SHAKE signatures MUST
+   use the associated hash algorithm as specified in Table 10 for the
+   signature data digest.  Signatures using other hash algorithms MUST
+   be considered invalid.
 
    An implementation supporting a specific SLH-DSA-SHAKE algorithm code
    point MUST also support the matching hash algorithm.
@@ -1099,7 +1100,8 @@ return KEK
 6.2.1.  Signature Packet (Tag 2)
 
    The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as
-   defined in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.3.
+   defined in [RFC9580, Section 5.2.3] (https://www.rfc-editor.org/rfc/
+   rfc9580#section-5.2.3).
 
    The algorithm-specific part of a signature packet for an SLH-DSA-
    SHAKE algorithm code point consists of:
@@ -1111,7 +1113,7 @@ return KEK
 6.2.2.  Key Material Packets
 
    The SLH-DSA-SHAKE algorithms code points MUST be used only with v6
-   keys, as defined in [I-D.ietf-openpgp-crypto-refresh].
+   keys, as defined in [RFC9580].
 
    The algorithm-specific part of the public key consists of:
 
@@ -1164,11 +1166,10 @@ return KEK
 
    The post-quantum KEM algorithms defined in Table 1 and the signature
    algorithms defined in Table 2 are a set of new public key algorithms
-   that extend the algorithm selection of
-   [I-D.ietf-openpgp-crypto-refresh].  During the transition period, the
-   post-quantum algorithms will not be supported by all clients.
-   Therefore various migration considerations must be taken into
-   account, in particular backwards compatibility to existing
+   that extend the algorithm selection of [RFC9580].  During the
+   transition period, the post-quantum algorithms will not be supported
+   by all clients.  Therefore various migration considerations must be
+   taken into account, in particular backwards compatibility to existing
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
@@ -1234,10 +1235,10 @@ return KEK
    schemes specified in this draft are not subject to a signature
    stripping vulnerability.  This is due to the fact that in any OpenPGP
    signature, the hashed meta data includes the signature algorithm ID,
-   as specified in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As
-   a consequence, a component signature taken out of the context of a
-   specific composite algorithm is not a valid signature for any
-   message.
+   as specified in [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  As a consequence, a component
+   signature taken out of the context of a specific composite algorithm
+   is not a valid signature for any message.
 
    Furthermore, it is also not possible to craft a new signature for a
    message that was signed twice with a composite algorithm by
@@ -1255,7 +1256,8 @@ return KEK
    encryption.  It ensures IND-CCA2 security in the random oracle model
    under some Diffie-Hellman intractability assumptions [CS03].  The
    additional inclusion of ecdhPublicKey follows the security advice in
-   Section 6.1 of [RFC7748].
+   [RFC7748, Section 6.1] (https://www.rfc-editor.org/rfc/
+   rfc7748#section-6.1).
 
 9.3.  Key combiner
 
@@ -1307,7 +1309,7 @@ return KEK
    instantiation, and the length of all artifacts, including the derived
    key.
 
-   This is in line with the Recommendation for ECC in section 5.5 of
+   This is in line with the Recommendation for ECC in Section 5.5 of
    [SP800-56A].  Other fields included in the recommendation are not
    relevant for the OpenPGP protocol, since the sender is not required
    to have a key of their own, there are no pre-shared secrets, and all
@@ -1623,13 +1625,6 @@ return KEK
 
 14.1.  Normative References
 
-   [I-D.ietf-openpgp-crypto-refresh]
-              Wouters, P., Huigens, D., Winter, J., and N. Yutaka,
-              "OpenPGP", Work in Progress, Internet-Draft, draft-ietf-
-              openpgp-crypto-refresh-13, 4 January 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-
-              crypto-refresh-13>.
-
    [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
               (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
               September 2002, <https://www.rfc-editor.org/rfc/rfc3394>.
@@ -1642,6 +1637,10 @@ return KEK
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
+
+   [RFC9580]  Wouters, P., Ed., Huigens, D., Winter, J., and Y. Niibe,
+              "OpenPGP", RFC 9580, DOI 10.17487/RFC9580, July 2024,
+              <https://www.rfc-editor.org/rfc/rfc9580>.
 
 14.2.  Informative References
 
