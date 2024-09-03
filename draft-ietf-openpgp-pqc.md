@@ -379,13 +379,13 @@ The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA signatures
 The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.
 
 An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
-This ensures backwards compatibility due to [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa), since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
+This ensures backwards compatibility due to [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
 
 Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.
 
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
 
-\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa).\]
+\[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5).\]
 
 ## ECC requirements
 
@@ -737,7 +737,7 @@ TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4627
 
 ### Signature data digest {#mldsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
 Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -759,7 +759,7 @@ For EdDSA this is done following the relative specification in {{RFC7748}}, and 
 
 To sign a message `M` with ML-DSA + EdDSA the following sequence of operations has to be performed:
 
- 1. Generate `dataDigest` according to [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures)
+ 1. Generate `dataDigest` according to [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
 
  2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from {{eddsa-signature}}
 
@@ -821,7 +821,7 @@ TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
 
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
 SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
@@ -852,7 +852,7 @@ SLH-DSA-SHAKE signature verification is performed via the algorithm `SLH-DSA.Ver
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#name-versions-4-and-6-signature-).
+The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3).
 
 The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:
 
@@ -937,7 +937,7 @@ When multiple signatures are applied to a message, the question of the protocol'
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures).
+This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
