@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 3 March 2025                                        F. Strenzke
+Expires: 7 March 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                          30 August 2024
+                                                        3 September 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 March 2025.
+   This Internet-Draft will expire on 7 March 2025.
 
 Copyright Notice
 
@@ -1251,7 +1251,7 @@ return KEK
    derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
    public keys P1 and P2) as
 
-   K = KMAC256(K1 || K2 || C1 || C2 || P1 || P2 || algId, 256, domSep)
+   K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
