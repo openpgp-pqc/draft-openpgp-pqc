@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-03T01:15:57.570425+00:00",
+  "timestamp": "2024-09-05T01:17:16.041739+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2632,7 +2632,7 @@
       "id": "I_kwDOIrmZ-86T3zD1",
       "title": "Update reference \"crypto-refresh\" to RFC 9580",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/134",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2641,8 +2641,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-08-22T14:02:28Z",
-      "updatedAt": "2024-08-22T14:29:15Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-03T12:38:32Z",
+      "closedAt": "2024-09-03T12:38:32Z",
       "comments": []
     },
     {
@@ -2690,7 +2690,7 @@
       "labels": [],
       "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
       "createdAt": "2024-08-27T14:37:20Z",
-      "updatedAt": "2024-09-01T19:58:40Z",
+      "updatedAt": "2024-09-04T04:44:46Z",
       "closedAt": null,
       "comments": [
         {
@@ -2713,6 +2713,13 @@
           "body": "Including domain separation through a label such as 'OpenPGP signature' would be very useful. This does not make such a combiner specific to the OpenPGP WG though - I would like to see a generic combiner through CRFG that can use such labels as 'OpenPGP signature' and potentially others as needed, vs several slightly different drafts for parallel combiners across WGs. ",
           "createdAt": "2024-09-01T19:58:39Z",
           "updatedAt": "2024-09-01T19:58:39Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Including domain separation through a label such as 'OpenPGP signature' would be very useful. This does not make such a combiner specific to the OpenPGP WG though - I would like to see a generic combiner through CRFG that can use such labels as 'OpenPGP signature' and potentially others as needed, vs several slightly different drafts for parallel combiners across WGs.\r\n\r\nI am not sure what you are referring to here as the \"combiner\". We essentially just concatenate two signatures. Accordingly, I don't see a construction which could potentially be aligned with other WGs.",
+          "createdAt": "2024-09-04T04:44:45Z",
+          "updatedAt": "2024-09-04T04:44:45Z"
         }
       ]
     }
@@ -13182,25 +13189,35 @@
       "id": "PR_kwDOIrmZ-855O_3Q",
       "title": "Updated refs for crypto-refresh to point to RFC9580. Formatted refere\u2026",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/136",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\u2026nces to sections in external RFCs to be direct hyperlinks.\r\n\r\nThis adresses #134 as well as #61.",
       "createdAt": "2024-08-23T11:11:24Z",
-      "updatedAt": "2024-08-28T06:21:24Z",
+      "updatedAt": "2024-09-03T12:38:32Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "134-update-reference-crypto-refresh-to-rfc-9580",
-      "headRefOid": "e25cf250cd6bbaabcd979014b5d4f4abc667df43",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "0541f9a5cf8c03ac023d6d302e9c0c09e3857c18",
+      "closedAt": "2024-09-03T12:38:31Z",
+      "mergedAt": "2024-09-03T12:38:31Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "9867ccf50997da570485e24f8f3567a2f8f7d868"
+      },
+      "comments": [
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Note that you can also use the section number in the URL: https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5 instead of https://www.rfc-editor.org/rfc/rfc9580#name-malformed-and-unknown-signa\r\n> \r\n> This might be easier to maintain and spot errors.\r\n\r\nApplied, thank you.",
+          "createdAt": "2024-09-03T09:57:44Z",
+          "updatedAt": "2024-09-03T09:57:44Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86GsCvA",
@@ -13293,6 +13310,59 @@
           "createdAt": "2024-08-28T06:21:24Z",
           "updatedAt": "2024-08-28T06:21:24Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Ht2Ut",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-03T09:47:30Z",
+          "updatedAt": "2024-09-03T09:47:30Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Thank you for spotting this.",
+              "createdAt": "2024-09-03T09:47:30Z",
+              "updatedAt": "2024-09-03T09:47:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Ht68N",
+          "commit": {
+            "abbreviatedOid": "e25cf25"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-03T09:55:15Z",
+          "updatedAt": "2024-09-03T09:55:15Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "Ok, seems like I can resolve this conversation.",
+              "createdAt": "2024-09-03T09:55:15Z",
+              "updatedAt": "2024-09-03T09:55:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86HuqfV",
+          "commit": {
+            "abbreviatedOid": "0541f9a"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-03T11:26:38Z",
+          "updatedAt": "2024-09-03T11:26:38Z",
+          "comments": []
         }
       ]
     },
@@ -13308,13 +13378,13 @@
       "labels": [],
       "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`. This is merely an editorial change.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [x] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
       "createdAt": "2024-08-28T12:10:07Z",
-      "updatedAt": "2024-08-30T10:36:53Z",
+      "updatedAt": "2024-09-03T11:24:05Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-nist",
-      "headRefOid": "45e35a9ac605e21ad77ab0a27288c3ba6e0bff2f",
+      "headRefOid": "637eeaabd08400df6a095c647525d69fa3589791",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -13477,6 +13547,26 @@
               "body": "Removed `oBits` in e8ec2815000df0e7cdac12374d092e9b9aec60a5",
               "createdAt": "2024-08-30T06:45:10Z",
               "updatedAt": "2024-08-30T06:45:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Hum4E",
+          "commit": {
+            "abbreviatedOid": "45e35a9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-03T11:19:00Z",
+          "updatedAt": "2024-09-03T11:19:00Z",
+          "comments": [
+            {
+              "originalPosition": 186,
+              "body": "```suggestion\r\n    K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)\r\n```",
+              "createdAt": "2024-09-03T11:19:00Z",
+              "updatedAt": "2024-09-03T11:19:00Z"
             }
           ]
         }
