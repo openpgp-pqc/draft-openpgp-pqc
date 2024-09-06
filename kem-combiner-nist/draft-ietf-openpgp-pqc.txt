@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 7 March 2025                                        F. Strenzke
+Expires: 10 March 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        3 September 2024
+                                                        6 September 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 March 2025.
+   This Internet-Draft will expire on 10 March 2025.
 
 Copyright Notice
 
@@ -1275,11 +1275,12 @@ return KEK
    that the input keying material is used to generate a KEK for a
    specific purpose or context.
 
-   The algID defined in Section 4.2.1 binds the derived KEK to the
-   chosen algorithm and communication parties.  The algorithm ID
-   identifies unequivocally the algorithm, the parameters for its
-   instantiation, and the length of all artifacts, including the derived
-   key.
+   The algorithm ID, passed as the algID paramter to multiKeyCombine,
+   binds the derived KEK to the chosen algorithm.  The input of the
+   public keys into multiKeyCombine binds the KEK to the communication
+   parties.  The algorithm ID identifies unequivocally the algorithm,
+   the parameters for its instantiation, and the length of all
+   artifacts, including the derived key.
 
    This is in line with the Recommendation for ECC in section 5.5 of
    [SP800-56A].  Other fields included in the recommendation are not

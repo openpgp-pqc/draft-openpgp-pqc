@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 7 March 2025</td>
+<td class="center">Expires 10 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-03" class="published">3 September 2024</time>
+<time datetime="2024-09-06" class="published">6 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-07">7 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-10">10 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2846,7 +2846,7 @@ In the random oracle setting, the reordering does not influence the arguments in
           </h4>
 <p id="section-9.3.1-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.3.1-2">The <code>algID</code> defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> binds the derived KEK to the chosen algorithm and communication parties.
+<p id="section-9.3.1-2">The algorithm ID, passed as the <code>algID</code> paramter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm. The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
 <p id="section-9.3.1-3">This is in line with the Recommendation for ECC in section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
 Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
