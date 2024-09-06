@@ -976,7 +976,7 @@ In the random oracle setting, the reordering does not influence the arguments in
 The `domSeparation` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose or context.
 
-The `algID` defined in {{kem-key-combiner}} binds the derived KEK to the chosen algorithm and communication parties.
+The algorithm ID, passed as the `algID` paramter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm. The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
 This is in line with the Recommendation for ECC in section 5.5 of [SP800-56A].
