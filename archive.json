@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-08T01:22:59.053617+00:00",
+  "timestamp": "2024-09-10T01:18:01.928910+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2697,7 +2697,7 @@
       "labels": [],
       "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
       "createdAt": "2024-08-27T14:37:20Z",
-      "updatedAt": "2024-09-04T04:44:46Z",
+      "updatedAt": "2024-09-08T17:21:48Z",
       "closedAt": null,
       "comments": [
         {
@@ -2727,6 +2727,13 @@
           "body": "> Including domain separation through a label such as 'OpenPGP signature' would be very useful. This does not make such a combiner specific to the OpenPGP WG though - I would like to see a generic combiner through CRFG that can use such labels as 'OpenPGP signature' and potentially others as needed, vs several slightly different drafts for parallel combiners across WGs.\r\n\r\nI am not sure what you are referring to here as the \"combiner\". We essentially just concatenate two signatures. Accordingly, I don't see a construction which could potentially be aligned with other WGs.",
           "createdAt": "2024-09-04T04:44:45Z",
           "updatedAt": "2024-09-04T04:44:45Z"
+        },
+        {
+          "author": "br-hale",
+          "authorAssociation": "NONE",
+          "body": "Please read https://datatracker.ietf.org/doc/draft-ietf-pquip-pqt-hybrid-terminology/ for combiner definition.",
+          "createdAt": "2024-09-08T17:21:48Z",
+          "updatedAt": "2024-09-08T17:21:48Z"
         }
       ]
     }
@@ -13385,7 +13392,7 @@
       "labels": [],
       "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`. This is merely an editorial change.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [x] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
       "createdAt": "2024-08-28T12:10:07Z",
-      "updatedAt": "2024-09-06T11:39:30Z",
+      "updatedAt": "2024-09-09T09:04:10Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
@@ -13576,6 +13583,19 @@
               "updatedAt": "2024-09-03T11:19:00Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86IdEXf",
+          "commit": {
+            "abbreviatedOid": "3c88d14"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-09T09:04:10Z",
+          "updatedAt": "2024-09-09T09:04:10Z",
+          "comments": []
         }
       ]
     }
