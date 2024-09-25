@@ -632,7 +632,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  1. Take the matching PKESK and own secret key packet as input
 
- 2. From the PKESK extract the algorithm ID as `algId` and the the wrapped session key as `encryptedKey`
+ 2. From the PKESK extract the algorithm ID as `algId` and the wrapped session key as `encryptedKey`
 
  3. Check that the own and the extracted algorithm ID match
 
