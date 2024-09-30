@@ -880,8 +880,7 @@ The algorithm-specific part of the secret key consists of:
 Implementations MUST implement `AES-256`.
 An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
 
-A v4 or v6 certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
-A v6 certificate that contains a PQ(/T) key SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
+A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
 If `AES-256` is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since `AES-256` is mandatory to implement.
@@ -927,8 +926,7 @@ Two migration strategies are recommended:
    Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
    This allows having an older v4 or v6 certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
 
-2. Attach PQ(/T) encryption subkeys to an existing traditional OpenPGP certificate.
-   In the case of a v6 certificate, also PQ(/T) signature keys may be attached.
+2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
    Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
    This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.
 
