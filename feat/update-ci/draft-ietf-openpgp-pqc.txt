@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 February 2025                                    F. Strenzke
+Expires: 3 April 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                          22 August 2024
+                                                       30 September 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 February 2025.
+   This Internet-Draft will expire on 3 April 2025.
 
 Copyright Notice
 
@@ -99,11 +99,10 @@ Table of Contents
        4.1.1.  ECDH KEMs
        4.1.2.  ML-KEM
      4.2.  Composite Encryption Schemes with ML-KEM
-       4.2.1.  Fixed information
-       4.2.2.  Key combiner
-       4.2.3.  Key generation procedure
-       4.2.4.  Encryption procedure
-       4.2.5.  Decryption procedure
+       4.2.1.  Key combiner
+       4.2.2.  Key generation procedure
+       4.2.3.  Encryption procedure
+       4.2.4.  Decryption procedure
      4.3.  Packet specifications
        4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
        4.3.2.  Key Material Packets
@@ -138,10 +137,10 @@ Table of Contents
      9.1.  Security Aspects of Composite Signatures
      9.2.  Hashing in ECDH-KEM
      9.3.  Key combiner
-     9.4.  Domain separation and binding
-     9.5.  SLH-DSA-SHAKE Message Randomizer
-     9.6.  Binding hashes in signatures with signature algorithms
-     9.7.  Symmetric Algorithms for SEIPD Packets
+       9.3.1.  Domain separation and binding
+     9.4.  SLH-DSA-SHAKE Message Randomizer
+     9.5.  Binding hashes in signatures with signature algorithms
+     9.6.  Symmetric Algorithms for SEIPD Packets
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA-SHAKE
    11. IANA Considerations
@@ -155,6 +154,7 @@ Table of Contents
      12.7.  draft-ietf-openpgp-pqc-02
      12.8.  draft-ietf-openpgp-pqc-03
      12.9.  draft-ietf-openpgp-pqc-04
+     12.10. draft-ietf-openpgp-pqc-05
    13. Contributors
    14. References
      14.1.  Normative References
@@ -301,14 +301,13 @@ Table of Contents
 
 1.4.2.  Non-Composite Algorithm Combinations
 
-   As the OpenPGP protocol [I-D.ietf-openpgp-crypto-refresh] allows for
-   multiple signatures to be applied to a single message, it is also
-   possible to realize non-composite combinations of signatures.
-   Furthermore, multiple OpenPGP signatures may be combined on the
-   application layer.  These latter two cases realize non-composite
-   combinations of signatures.  Section 3.3 specifies how
-   implementations should handle the verification of such combinations
-   of signatures.
+   As the OpenPGP protocol [RFC9580] allows for multiple signatures to
+   be applied to a single message, it is also possible to realize non-
+   composite combinations of signatures.  Furthermore, multiple OpenPGP
+   signatures may be combined on the application layer.  These latter
+   two cases realize non-composite combinations of signatures.
+   Section 3.3 specifies how implementations should handle the
+   verification of such combinations of signatures.
 
    Furthermore, the OpenPGP protocol also allows parallel encryption to
    different keys by using multiple PKESK packets, thus realizing non-
@@ -391,8 +390,8 @@ Table of Contents
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
    encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.  In section Section 8.1 it is explained how to
-   deal with multiple key scenarios.
+   T encryption schemes.  In Section 8.1 it is explained how to deal
+   with multiple key scenarios.
 
 3.2.  Composite Signatures
 
@@ -407,9 +406,9 @@ Table of Contents
 
    An implementation MAY sign a message with a traditional key and a
    PQ(/T) key from the same sender.  This ensures backwards
-   compatibility due to [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.5, since a legacy implementation without PQ(/T) support
-   can fall back on the traditional signature.
+   compatibility due to [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation
+   without PQ(/T) support can fall back on the traditional signature.
 
    Newer implementations with PQ(/T) support MAY ignore the traditional
    signature(s) during validation.
@@ -419,7 +418,8 @@ Table of Contents
 
    [Note to the reader: The last requirement, that one valid signature
    is sufficient to identify a message as correctly signed, is an
-   interpretation of [I-D.ietf-openpgp-crypto-refresh], Section 5.2.5.]
+   interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5).]
 
 3.4.  ECC requirements
 
@@ -637,33 +637,12 @@ Table of Contents
    *  The PKESK packet's algorithm-specific parts are made up of the ML-
       KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
-4.2.1.  Fixed information
-
-   For the composite KEM schemes defined in Table 1 the following
-   procedure, justified in Section 9.4, MUST be used to derive a string
-   to use as binding between the KEK and the communication parties.
-
-   //   Input:
-   //   algID - the algorithm ID encoded as octet
-   //
-   //   Constants:
-   //   domSeparation - the UTF-8 encoding of the string
-   //                   "OpenPGPCompositeKDFv1"
-
-   fixedInfo = algID || domSeparation
-
-   The value of domSeparation is the UTF-8 encoding of the string
-   "OpenPGPCompositeKDFv1" and MUST be the following octet sequence:
-
-   domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
-                    44 46 76 31
-
-4.2.2.  Key combiner
+4.2.1.  Key combiner
 
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a one-step key derivation function compliant to
-   [SP800-56C], Section 4, based on SHA3-256.  It is given by the
+   [SP800-56C], Section 4, based on KMAC256.  It is given by the
    following algorithm, which computes the key encryption key KEK that
    is used to wrap, i.e., encrypt, the session key.
 
@@ -677,7 +656,7 @@ Table of Contents
    prior to IETF 121.]
 
 //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
-//                   mlkemCipherText, mlkemPublicKey, fixedInfo)
+//                   mlkemCipherText, mlkemPublicKey, algId)
 //
 //   Input:
 //   ecdhKeyShare    - the ECDH key share encoded as an octet string
@@ -686,16 +665,20 @@ Table of Contents
 //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
 //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
-//   fixedInfo       - the fixed information octet string
+//   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
+//   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
 //
-//   Constants:
-//   counter - the 4 byte value 00 00 00 01
+//  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
+//                                          6F 73 69 74 65 4B 44 46 76 31
 
-ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
-
-KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
+KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
+              || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
 return KEK
+
+   Here, the parameters to KMAC256 appear in the order as specified in
+   [SP800-185], Section 4, i.e., the key K, main input data X, requested
+   output length in bits L, and optional customization string S in that
+   order.
 
    Note that the values ecdhKeyShare defined in Section 4.1.1 and
    mlkemKeyShare defined in Section 4.1.2 already use the relative
@@ -703,13 +686,7 @@ return KEK
    design included again in the key combiner to provide a robust
    security proof.
 
-   The value of counter MUST be set to the following octet sequence:
-
-   counter :=  00 00 00 01
-
-   The value of fixedInfo MUST be set according to Section 4.2.1.
-
-4.2.3.  Key generation procedure
+4.2.2.  Key generation procedure
 
    The implementation MUST independently generate the ML-KEM and the
    ECDH component keys.  ML-KEM key generation follows the specification
@@ -718,55 +695,53 @@ return KEK
    the relative specification in [RFC7748], and encoding the outputs as
    fixed-length octet strings in the format specified in Table 3.
 
-4.2.4.  Encryption procedure
+4.2.3.  Encryption procedure
 
    The procedure to perform public-key encryption with an ML-KEM + ECDH
    composite scheme is as follows:
 
-   1.   Take the recipient's authenticated public-key packet pkComposite
-        and sessionKey as input
+   1.  Take the recipient's authenticated public-key packet pkComposite
+       and sessionKey as input
 
-   2.   Parse the algorithm ID from pkComposite
+   2.  Parse the algorithm ID from pkComposite and set it as algId
 
-   3.   Extract the ecdhPublicKey and mlkemPublicKey component from the
-        algorithm specific data encoded in pkComposite with the format
-        specified in Section 4.3.2.
+   3.  Extract the ecdhPublicKey and mlkemPublicKey component from the
+       algorithm specific data encoded in pkComposite with the format
+       specified in Section 4.3.2.
 
-   4.   Instantiate the ECDH-KEM and the ML-KEM depending on the
-        algorithm ID according to Table 5
+   4.  Instantiate the ECDH-KEM and the ML-KEM depending on the
+       algorithm ID according to Table 5
 
-   5.   Compute (ecdhCipherText, ecdhKeyShare) := ECDH-
-        KEM.Encaps(ecdhPublicKey)
+   5.  Compute (ecdhCipherText, ecdhKeyShare) := ECDH-
+       KEM.Encaps(ecdhPublicKey)
 
-   6.   Compute (mlkemCipherText, mlkemKeyShare) := ML-
-        KEM.Encaps(mlkemPublicKey)
+   6.  Compute (mlkemCipherText, mlkemKeyShare) := ML-
+       KEM.Encaps(mlkemPublicKey)
 
-   7.   Compute fixedInfo as specified in Section 4.2.1
+   7.  Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
+       ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
+       algId, 256) as defined in Section 4.2.1
 
-   8.   Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
-        ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-        fixedInfo) as defined in Section 4.2.2
+   8.  Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
+       [RFC3394] that includes a 64 bit integrity check
 
-   9.   Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
-        [RFC3394] that includes a 64 bit integrity check
+   9.  Output the algorithm specific part of the PKESK as
+       ecdhCipherText || mlkemCipherText || len(C, symAlgId) (||
+       symAlgId) || C, where both symAlgId and len(C, symAlgId) are
+       single octet fields, symAlgId denotes the symmetric algorithm ID
+       used and is present only for a v3 PKESK, and len(C, symAlgId)
+       denotes the combined octet length of the fields specified as the
+       arguments.
 
-   10.  Output the algorithm specific part of the PKESK as
-        ecdhCipherText || mlkemCipherText || len(C, symAlgId) (||
-        symAlgId) || C, where both symAlgId and len(C, symAlgId) are
-        single octet fields, symAlgId denotes the symmetric algorithm ID
-        used and is present only for a v3 PKESK, and len(C, symAlgId)
-        denotes the combined octet length of the fields specified as the
-        arguments.
-
-4.2.5.  Decryption procedure
+4.2.4.  Decryption procedure
 
    The procedure to perform public-key decryption with an ML-KEM + ECDH
    composite scheme is as follows:
 
    1.   Take the matching PKESK and own secret key packet as input
 
-   2.   From the PKESK extract the algorithm ID and the encryptedKey,
-        i.e., the wrapped session key
+   2.   From the PKESK extract the algorithm ID as algId and the wrapped
+        session key as encryptedKey
 
    3.   Check that the own and the extracted algorithm ID match
 
@@ -788,23 +763,21 @@ return KEK
    8.   Compute (mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
 
-   9.   Compute fixedInfo as specified in Section 4.2.1
-
-   10.  Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
+   9.   Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
         ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-        fixedInfo) as defined in Section 4.2.2
+        algId) as defined in Section 4.2.1
 
-   11.  Compute sessionKey := AESKeyUnwrap(KEK, C) with AES-256 as per
+   10.  Compute sessionKey := AESKeyUnwrap(KEK, C) with AES-256 as per
         [RFC3394], aborting if the 64 bit integrity check fails
 
-   12.  Output sessionKey
+   11.  Output sessionKey
 
 4.3.  Packet specifications
 
 4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
 
    The algorithm-specific fields consists of the output of the
-   encryption procedure described in Section 4.2.4:
+   encryption procedure described in Section 4.2.3:
 
    *  A fixed-length octet string representing an ECDH ephemeral public
       key in the format associated with the curve as specified in
@@ -821,13 +794,13 @@ return KEK
    *  The wrapped session key represented as an octet string.
 
    Note that like in the case of the algorithms X25519 and X448
-   specified in [I-D.ietf-openpgp-crypto-refresh], for the ML-KEM
-   composite schemes, in the case of a v3 PKESK packet, the symmetric
-   algorithm identifier is not encrypted.  Instead, it is placed in
-   plaintext after the mlkemCipherText and before the length octet
-   preceding the wrapped session key.  In the case of v3 PKESK packets
-   for ML-KEM composite schemes, the symmetric algorithm used MUST be
-   AES-128, AES-192 or AES-256 (algorithm ID 7, 8 or 9).
+   specified in [RFC9580], for the ML-KEM composite schemes, in the case
+   of a v3 PKESK packet, the symmetric algorithm identifier is not
+   encrypted.  Instead, it is placed in plaintext after the
+   mlkemCipherText and before the length octet preceding the wrapped
+   session key.  In the case of v3 PKESK packets for ML-KEM composite
+   schemes, the symmetric algorithm used MUST be AES-128, AES-192 or
+   AES-256 (algorithm ID 7, 8 or 9).
 
    In the case of a v3 PKESK, a receiving implementation MUST check if
    the length of the unwrapped symmetric key matches the symmetric
@@ -922,11 +895,11 @@ return KEK
 5.2.1.  Signature data digest
 
    Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.4.  Composite ML-DSA + EdDSA signatures MUST use the
-   associated hash algorithm as specified in Table 8 for the signature
-   data digest.  Signatures using other hash algorithms MUST be
-   considered invalid.
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
+   signatures MUST use the associated hash algorithm as specified in
+   Table 8 for the signature data digest.  Signatures using other hash
+   algorithms MUST be considered invalid.
 
    An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
    also support the matching hash algorithm.
@@ -958,8 +931,8 @@ return KEK
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
 
-   1.  Generate dataDigest according to
-       [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4
+   1.  Generate dataDigest according to [RFC9580, Section 5.2.4]
+       (https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
 
    2.  Create the EdDSA signature over dataDigest with EdDSA.Sign() from
        Section 5.1.1
@@ -989,7 +962,7 @@ return KEK
 5.3.1.  Signature Packet (Tag 2)
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6
-   signatures, as defined in [I-D.ietf-openpgp-crypto-refresh].
+   signatures, as defined in [RFC9580].
 
    The algorithm-specific v6 signature parameters for ML-DSA + EdDSA
    signatures consist of:
@@ -1003,7 +976,7 @@ return KEK
 5.3.2.  Key Material Packets
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys,
-   as defined in [I-D.ietf-openpgp-crypto-refresh].
+   as defined in [RFC9580].
 
    The algorithm-specific public key for ML-DSA + EdDSA keys is this
    series of values:
@@ -1052,10 +1025,11 @@ return KEK
 6.1.1.  Signature Data Digest
 
    Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [I-D.ietf-openpgp-crypto-refresh],
-   Section 5.2.4.  SLH-DSA-SHAKE signatures MUST use the associated hash
-   algorithm as specified in Table 10 for the signature data digest.
-   Signatures using other hash algorithms MUST be considered invalid.
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA-SHAKE signatures MUST
+   use the associated hash algorithm as specified in Table 10 for the
+   signature data digest.  Signatures using other hash algorithms MUST
+   be considered invalid.
 
    An implementation supporting a specific SLH-DSA-SHAKE algorithm code
    point MUST also support the matching hash algorithm.
@@ -1087,7 +1061,7 @@ return KEK
 
    SLH-DSA-SHAKE signature generation is performed via the algorithm
    SLH-DSA.Sign as specified in [FIPS-205].  The variable opt_rand is
-   set to PK.seed.  See also Section 9.5.
+   set to PK.seed.  See also Section 9.4.
 
 6.1.4.  Signature Verification
 
@@ -1099,7 +1073,8 @@ return KEK
 6.2.1.  Signature Packet (Tag 2)
 
    The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as
-   defined in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.3.
+   defined in [RFC9580, Section 5.2.3] (https://www.rfc-editor.org/rfc/
+   rfc9580#section-5.2.3).
 
    The algorithm-specific part of a signature packet for an SLH-DSA-
    SHAKE algorithm code point consists of:
@@ -1111,7 +1086,7 @@ return KEK
 6.2.2.  Key Material Packets
 
    The SLH-DSA-SHAKE algorithms code points MUST be used only with v6
-   keys, as defined in [I-D.ietf-openpgp-crypto-refresh].
+   keys, as defined in [RFC9580].
 
    The algorithm-specific part of the public key consists of:
 
@@ -1153,11 +1128,6 @@ return KEK
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
 
-   When encrypting to an OpenPGP certificate that contains a PQ(/T) key,
-   an implementation MUST NOT infer that the certificate's owner
-   supports v2 SEIPD solely on the basis of the implicitly added AEAD
-   algorithm pairs.
-
 7.2.  Hash Algorithms for Key Binding Signatures
 
    Subkey binding signatures over algorithms described in this document
@@ -1169,11 +1139,10 @@ return KEK
 
    The post-quantum KEM algorithms defined in Table 1 and the signature
    algorithms defined in Table 2 are a set of new public key algorithms
-   that extend the algorithm selection of
-   [I-D.ietf-openpgp-crypto-refresh].  During the transition period, the
-   post-quantum algorithms will not be supported by all clients.
-   Therefore various migration considerations must be taken into
-   account, in particular backwards compatibility to existing
+   that extend the algorithm selection of [RFC9580].  During the
+   transition period, the post-quantum algorithms will not be supported
+   by all clients.  Therefore various migration considerations must be
+   taken into account, in particular backwards compatibility to existing
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
@@ -1239,10 +1208,10 @@ return KEK
    schemes specified in this draft are not subject to a signature
    stripping vulnerability.  This is due to the fact that in any OpenPGP
    signature, the hashed meta data includes the signature algorithm ID,
-   as specified in [I-D.ietf-openpgp-crypto-refresh], Section 5.2.4.  As
-   a consequence, a component signature taken out of the context of a
-   specific composite algorithm is not a valid signature for any
-   message.
+   as specified in [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  As a consequence, a component
+   signature taken out of the context of a specific composite algorithm
+   is not a valid signature for any message.
 
    Furthermore, it is also not possible to craft a new signature for a
    message that was signed twice with a composite algorithm by
@@ -1260,34 +1229,36 @@ return KEK
    encryption.  It ensures IND-CCA2 security in the random oracle model
    under some Diffie-Hellman intractability assumptions [CS03].  The
    additional inclusion of ecdhPublicKey follows the security advice in
-   Section 6.1 of [RFC7748].
+   [RFC7748, Section 6.1] (https://www.rfc-editor.org/rfc/
+   rfc7748#section-6.1).
 
 9.3.  Key combiner
 
-   For the key combination in Section 4.2.2 this specification limits
-   itself to the use of SHA3-256.  The sponge construction used by
-   SHA3-256 was proven to be indifferentiable from a random oracle
-   [BDPA08].  This means, that in contrast to SHA2, which uses a Merkle-
-   Damgard construction, no HMAC-based construction is required for key
+   For the key combination in Section 4.2.1 this specification limits
+   itself to the use of KMAC256 in a construction following
+   [SP800-108r1-upd1].  The sponge construction used by KMAC256 was
+   proven to be indifferentiable from a random oracle [BDPA08].  This
+   means, that in contrast to SHA2, which uses a Merkle-Damgard
+   construction, no HMAC-based construction is required for key
    combination.  It is therefore sufficient to simply process the
    concatenation of any number of key shares with a domain separation
-   when using a sponge-based construction like SHA3-256.
+   when using a sponge-based construction like KMAC256.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
    permutation, an attacker has to make an expected number of 2^(c/2)
-   calls to the permutation to tell SHA3-256 from a random oracle.  For
-   a random oracle, a difference in only a single bit gives an
-   unrelated, uniformly random output.  Hence, to be able to distinguish
-   a key K, derived from shared keys K1 and K2 (with ciphertexts C1 and
-   C2 and public keys P1 and P2) as
+   calls to the permutation to tell KMAC256 from a random oracle.  For a
+   random oracle, a difference in only a single bit gives an unrelated,
+   uniformly random output.  Hence, to be able to distinguish a key K,
+   derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
+   public keys P1 and P2) as
 
-  K = SHA3-256(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
+   K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
 
    from a random bit string, an adversary has to know (or correctly
    guess) both key shares K1 and K2, entirely.
 
-   The proposed construction in Section 4.2.2 preserves IND-CCA2 of any
+   The proposed construction in Section 4.2.1 preserves IND-CCA2 of any
    of its ingredient KEMs, i.e. the newly formed combined KEM is IND-
    CCA2 secure as long as at least one of the ingredient KEMs is.
    Indeed, the above stated indifferentiability from a random oracle
@@ -1299,33 +1270,34 @@ return KEK
    input shared secrets and ciphertexts.  In the random oracle setting,
    the reordering does not influence the arguments in [GHP18].
 
-9.4.  Domain separation and binding
+9.3.1.  Domain separation and binding
 
    The domSeparation information defined in Section 4.2.1 provides the
    domain separation for the key combiner construction.  This ensures
    that the input keying material is used to generate a KEK for a
    specific purpose or context.
 
-   The algID defined in Section 4.2.1 binds the derived KEK to the
-   chosen algorithm and communication parties.  The algorithm ID
-   identifies unequivocally the algorithm, the parameters for its
-   instantiation, and the length of all artifacts, including the derived
-   key.
+   The algorithm ID, passed as the algID paramter to multiKeyCombine,
+   binds the derived KEK to the chosen algorithm.  The input of the
+   public keys into multiKeyCombine binds the KEK to the communication
+   parties.  The algorithm ID identifies unequivocally the algorithm,
+   the parameters for its instantiation, and the length of all
+   artifacts, including the derived key.
 
-   This is in line with the Recommendation for ECC in section 5.5 of
+   This is in line with the Recommendation for ECC in Section 5.5 of
    [SP800-56A].  Other fields included in the recommendation are not
    relevant for the OpenPGP protocol, since the sender is not required
    to have a key of their own, there are no pre-shared secrets, and all
    the other parameters are unequivocally defined by the algorithm ID.
 
-9.5.  SLH-DSA-SHAKE Message Randomizer
+9.4.  SLH-DSA-SHAKE Message Randomizer
 
    The specification of SLH-DSA-SHAKE [FIPS-205] prescribes an optional
    non-deterministic message randomizer.  This is not used in this
    specification, as OpenPGP v6 signatures already provide a salted
    signature data digest of the appropriate size.
 
-9.6.  Binding hashes in signatures with signature algorithms
+9.5.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1343,7 +1315,7 @@ return KEK
    In the case of SLH-DSA-SHAKE the internal hash algorithm varies based
    on the algorithm ID, see Section 6.1.1.
 
-9.7.  Symmetric Algorithms for SEIPD Packets
+9.6.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1618,6 +1590,10 @@ return KEK
 
    *  Added ML-DSA test vectors
 
+12.10.  draft-ietf-openpgp-pqc-05
+
+   *  reworked KEM combiner for the purpose of NIST-compliance
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
@@ -1627,13 +1603,6 @@ return KEK
 14.  References
 
 14.1.  Normative References
-
-   [I-D.ietf-openpgp-crypto-refresh]
-              Wouters, P., Huigens, D., Winter, J., and N. Yutaka,
-              "OpenPGP", Work in Progress, Internet-Draft, draft-ietf-
-              openpgp-crypto-refresh-13, 4 January 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-
-              crypto-refresh-13>.
 
    [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
               (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
@@ -1647,6 +1616,10 @@ return KEK
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
+
+   [RFC9580]  Wouters, P., Ed., Huigens, D., Winter, J., and Y. Niibe,
+              "OpenPGP", RFC 9580, DOI 10.17487/RFC9580, July 2024,
+              <https://www.rfc-editor.org/rfc/rfc9580>.
 
 14.2.  Informative References
 
@@ -1675,11 +1648,11 @@ return KEK
               2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.
 
    [I-D.ietf-pquip-pqt-hybrid-terminology]
-              D, F. and M. P, "Terminology for Post-Quantum Traditional
-              Hybrid Schemes", Work in Progress, Internet-Draft, draft-
-              ietf-pquip-pqt-hybrid-terminology-03, 9 May 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqt-hybrid-terminology-03>.
+              D, F., P, M., and B. Hale, "Terminology for Post-Quantum
+              Traditional Hybrid Schemes", Work in Progress, Internet-
+              Draft, draft-ietf-pquip-pqt-hybrid-terminology-04, 10
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-pquip-pqt-hybrid-terminology-04>.
 
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
@@ -1694,6 +1667,18 @@ return KEK
               Post-Quantum Cryptography Standardization Process", NIST
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
+
+   [SP800-108r1-upd1]
+              Chen, L., "Recommendation for Key-Derivation Using
+              Pseudorandom Functions", NIST Special Publication 800-108
+              Rev. 1 , August 2022,
+              <https://doi.org/10.6028/NIST.SP.800-108r1-upd1>.
+
+   [SP800-185]
+              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
+              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
+              NIST Special Publication 800-185 , December 2016,
+              <https://doi.org/10.6028/NIST.SP.800-185>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
@@ -1892,17 +1877,15 @@ A.1.  Sample v6 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded SHA3-256 ecdhKeyShare input is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb.
 
-   The hex-encoded SHA3-256 mlkemKeyShare input is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a.
 
-   The hex-encoded SHA3-256 output is
-   99229561bcf5017d6b1dd34d8eb0441897968d5b140597756db705f1de67c078.
+   The hex-encoded output of multiKeyCombine is TODO.
 
-   The hex-encoded session key is
-   0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e5fd3a24a13641d7b.
+   The hex-encoded session key is TODO.
 
    -----BEGIN PGP MESSAGE-----
 
@@ -2869,17 +2852,15 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v1 SEIPD
 
-   The hex-encoded SHA3-256 ecdhKeyShare input is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0.
 
-   The hex-encoded SHA3-256 mlkemKeyShare input is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008.
 
-   The hex-encoded SHA3-256 output is
-   86ea88190089aae9256f04fdd09cd62e19f2c1d02cfb844aa1f99f7b17c49743.
+   The hex-encoded output of multiKeyCombine is TODO.
 
-   The hex-encoded session key is
-   f3037ae17d83a40ed08d884e19dc66065eac82d96337e4b74b1d10e933535e4d.
+   The hex-encoded session key is TODO.
 
    -----BEGIN PGP MESSAGE-----
 
@@ -2918,17 +2899,15 @@ A.2.  V4 PQC Subkey Artifacts
 
    *  A v2 SEIPD
 
-   The hex-encoded SHA3-256 ecdhKeyShare input is
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
    4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341.
 
-   The hex-encoded SHA3-256 mlkemKeyShare input is
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
    4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0.
 
-   The hex-encoded SHA3-256 output is
-   76ea8fcc9a31a9fa672940b9ad578f6b8ecbea1b1d1175d01f1777364a8e2704.
+   The hex-encoded output of multiKeyCombine is TODO.
 
-   The hex-encoded session key is
-   b5d810efc6b2b82e77f907813e114587aca2d0e33c9c74e90eb1638df030dcaf.
+   The hex-encoded session key is TODO.
 
    -----BEGIN PGP MESSAGE-----
 
