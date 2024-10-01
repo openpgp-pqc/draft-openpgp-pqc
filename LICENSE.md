@@ -1,4 +1,4 @@
 # License
 
 See the
-[guidelines for contributions](https://github.com/pqc-openpgp/draft-wussler-pqc-openpgp/blob//CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/openpgp-pqc/draft-openpgp-pqc/blob/main/CONTRIBUTING.md).
