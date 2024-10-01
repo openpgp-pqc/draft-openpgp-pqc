@@ -14,18 +14,18 @@
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.23.0" name="generator">
+<meta content="xml2rfc 3.23.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.0
-    Python 3.12.3
+  xml2rfc 3.23.1
+    Python 3.12.6
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 4.9.4
-    platformdirs 4.2.2
+    platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.32.3
@@ -1029,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">September 2024</td>
+<td class="right">October 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 7 March 2025</td>
+<td class="center">Expires 4 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-03" class="published">3 September 2024</time>
+<time datetime="2024-10-01" class="published">1 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-07">7 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-04">4 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1232,19 +1232,16 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-composite-encryption-scheme" class="internal xref">Composite Encryption Schemes with ML-KEM</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.1">
-                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-fixed-information" class="internal xref">Fixed information</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-key-combiner" class="internal xref">Key combiner</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.2">
-                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-key-combiner" class="internal xref">Key combiner</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-key-generation-procedure" class="internal xref">Key generation procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.3">
-                    <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="auto internal xref">4.2.3</a>.  <a href="#name-key-generation-procedure" class="internal xref">Key generation procedure</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="auto internal xref">4.2.3</a>.  <a href="#name-encryption-procedure" class="internal xref">Encryption procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.4">
-                    <p id="section-toc.1-1.4.2.2.2.4.1"><a href="#section-4.2.4" class="auto internal xref">4.2.4</a>.  <a href="#name-encryption-procedure" class="internal xref">Encryption procedure</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.5">
-                    <p id="section-toc.1-1.4.2.2.2.5.1"><a href="#section-4.2.5" class="auto internal xref">4.2.5</a>.  <a href="#name-decryption-procedure" class="internal xref">Decryption procedure</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.4.1"><a href="#section-4.2.4" class="auto internal xref">4.2.4</a>.  <a href="#name-decryption-procedure" class="internal xref">Decryption procedure</a></p>
 </li>
                 </ul>
 </li>
@@ -1371,18 +1368,20 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
+                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="auto internal xref">9.3.1</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.7">
-                <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="auto internal xref">9.7</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
             </ul>
 </li>
@@ -1426,6 +1425,9 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.9">
                 <p id="section-toc.1-1.12.2.9.1"><a href="#section-12.9" class="auto internal xref">12.9</a>.  <a href="#name-draft-ietf-openpgp-pqc-04" class="internal xref">draft-ietf-openpgp-pqc-04</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.10">
+                <p id="section-toc.1-1.12.2.10.1"><a href="#section-12.10" class="auto internal xref">12.10</a>. <a href="#name-draft-ietf-openpgp-pqc-05" class="internal xref">draft-ietf-openpgp-pqc-05</a></p>
 </li>
             </ul>
 </li>
@@ -2074,49 +2076,22 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
             <p id="section-4.2-4.5.1">The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.<a href="#section-4.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div id="kem-fixed-info">
-<section id="section-4.2.1">
-          <h4 id="name-fixed-information">
-<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-fixed-information" class="section-name selfRef">Fixed information</a>
-          </h4>
-<p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure, justified in <a href="#sec-fixed-info" class="auto internal xref">Section 9.4</a>, MUST be used to derive a string to use as binding between the KEK and the communication parties.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.1-2">
-<pre>
-//   Input:
-//   algID - the algorithm ID encoded as octet
-//
-//   Constants:
-//   domSeparation - the UTF-8 encoding of the string
-//                   "OpenPGPCompositeKDFv1"
-
-fixedInfo = algID || domSeparation
-</pre><a href="#section-4.2.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-4.2.1-3">The value of <code>domSeparation</code> is the UTF-8 encoding of the string "OpenPGPCompositeKDFv1" and MUST be the following octet sequence:<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.1-4">
-<pre>
-domSeparation := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B
-                 44 46 76 31
-</pre><a href="#section-4.2.1-4" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
 <div id="kem-key-combiner">
-<section id="section-4.2.2">
+<section id="section-4.2.1">
           <h4 id="name-key-combiner">
-<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-key-combiner" class="section-name selfRef">Key combiner</a>
+<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key combiner</a>
           </h4>
-<p id="section-4.2.2-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, Section 4, based on SHA3-256.
-It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.2-2">[Note to the reader: the key combiner defined in the current version of this draft is not actually compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, since the NIST standard requires that the shared secret is fed to the KDF first whereas the combiner defined here feeds
+<p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
+The construction is a one-step key derivation function compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, Section 4, based on KMAC256.
+It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">[Note to the reader: the key combiner defined in the current version of this draft is not actually compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, since the NIST standard requires that the shared secret is fed to the KDF first whereas the combiner defined here feeds
 the key shares of the two component schemes, which together form the shared secret, in two parts with public information in between.
 The combiner will be reworked to fix this defect.
-The change is planned to be integrated prior to IETF 121.]<a href="#section-4.2.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.2-3">
+The change is planned to be integrated prior to IETF 121.]<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.1-3">
 <pre>
 //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
-//                   mlkemCipherText, mlkemPublicKey, fixedInfo)
+//                   mlkemCipherText, mlkemPublicKey, algId)
 //
 //   Input:
 //   ecdhKeyShare    - the ECDH key share encoded as an octet string
@@ -2125,121 +2100,108 @@ The change is planned to be integrated prior to IETF 121.]<a href="#section-4.2.
 //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
 //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
-//   fixedInfo       - the fixed information octet string
+//   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
+//   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
 //
-//   Constants:
-//   counter - the 4 byte value 00 00 00 01
+//  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
+//                                          6F 73 69 74 65 4B 44 46 76 31
 
-ecdhData = ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-mlkemData = mlkemKeyShare || mlkemCipherText || mlkemPublicKey
-
-KEK = SHA3-256(counter || ecdhData || mlkemData || fixedInfo)
+KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
+              || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
 return KEK
-</pre><a href="#section-4.2.2-3" class="pilcrow">¶</a>
+</pre><a href="#section-4.2.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2.2-4">Note that the values <code>ecdhKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a> and <code>mlkemKeyShare</code> defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a> already use the relative ciphertext in the derivation.
-The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.<a href="#section-4.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.2.2-5">The value of <code>counter</code> MUST be set to the following octet sequence:<a href="#section-4.2.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2.2-6">
-<pre>
-counter :=  00 00 00 01
-</pre><a href="#section-4.2.2-6" class="pilcrow">¶</a>
-</div>
-<p id="section-4.2.2-7">The value of <code>fixedInfo</code> MUST be set according to <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a>.<a href="#section-4.2.2-7" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-4">Here, the parameters to KMAC256 appear in the order as specified in <span>[<a href="#SP800-185" class="cite xref">SP800-185</a>]</span>, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S in that order.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-5">Note that the values <code>ecdhKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a> and <code>mlkemKeyShare</code> defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a> already use the relative ciphertext in the derivation.
+The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.<a href="#section-4.2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-generation">
-<section id="section-4.2.3">
+<section id="section-4.2.2">
           <h4 id="name-key-generation-procedure">
-<a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-key-generation-procedure" class="section-name selfRef">Key generation procedure</a>
+<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-key-generation-procedure" class="section-name selfRef">Key generation procedure</a>
           </h4>
-<p id="section-4.2.3-1">The implementation MUST independently generate the ML-KEM and the ECDH component keys.
+<p id="section-4.2.2-1">The implementation MUST independently generate the ML-KEM and the ECDH component keys.
 ML-KEM key generation follows the specification <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> and the artifacts are encoded as fixed-length octet strings as defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a>.
-For ECDH this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the outputs as fixed-length octet strings in the format specified in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>.<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
+For ECDH this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the outputs as fixed-length octet strings in the format specified in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-encryption">
-<section id="section-4.2.4">
+<section id="section-4.2.3">
           <h4 id="name-encryption-procedure">
-<a href="#section-4.2.4" class="section-number selfRef">4.2.4. </a><a href="#name-encryption-procedure" class="section-name selfRef">Encryption procedure</a>
+<a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-encryption-procedure" class="section-name selfRef">Encryption procedure</a>
           </h4>
-<p id="section-4.2.4-1">The procedure to perform public-key encryption with an ML-KEM + ECDH composite scheme is as follows:<a href="#section-4.2.4-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-4.2.4-2">
-<li id="section-4.2.4-2.1">
-              <p id="section-4.2.4-2.1.1">Take the recipient's authenticated public-key packet <code>pkComposite</code> and <code>sessionKey</code> as input<a href="#section-4.2.4-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-4.2.3-1">The procedure to perform public-key encryption with an ML-KEM + ECDH composite scheme is as follows:<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4.2.3-2">
+<li id="section-4.2.3-2.1">
+              <p id="section-4.2.3-2.1.1">Take the recipient's authenticated public-key packet <code>pkComposite</code> and <code>sessionKey</code> as input<a href="#section-4.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.2">
-              <p id="section-4.2.4-2.2.1">Parse the algorithm ID from <code>pkComposite</code><a href="#section-4.2.4-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.2">
+              <p id="section-4.2.3-2.2.1">Parse the algorithm ID from <code>pkComposite</code> and set it as <code>algId</code><a href="#section-4.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.3">
-              <p id="section-4.2.4-2.3.1">Extract the <code>ecdhPublicKey</code> and <code>mlkemPublicKey</code> component from the algorithm specific data encoded in <code>pkComposite</code> with the format specified in <a href="#mlkem-ecc-key" class="auto internal xref">Section 4.3.2</a>.<a href="#section-4.2.4-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.3">
+              <p id="section-4.2.3-2.3.1">Extract the <code>ecdhPublicKey</code> and <code>mlkemPublicKey</code> component from the algorithm specific data encoded in <code>pkComposite</code> with the format specified in <a href="#mlkem-ecc-key" class="auto internal xref">Section 4.3.2</a>.<a href="#section-4.2.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.4">
-              <p id="section-4.2.4-2.4.1">Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 5</a><a href="#section-4.2.4-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.4">
+              <p id="section-4.2.3-2.4.1">Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 5</a><a href="#section-4.2.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.5">
-              <p id="section-4.2.4-2.5.1">Compute <code>(ecdhCipherText, ecdhKeyShare) := ECDH-KEM.Encaps(ecdhPublicKey)</code><a href="#section-4.2.4-2.5.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.5">
+              <p id="section-4.2.3-2.5.1">Compute <code>(ecdhCipherText, ecdhKeyShare) := ECDH-KEM.Encaps(ecdhPublicKey)</code><a href="#section-4.2.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.6">
-              <p id="section-4.2.4-2.6.1">Compute <code>(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)</code><a href="#section-4.2.4-2.6.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.6">
+              <p id="section-4.2.3-2.6.1">Compute <code>(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)</code><a href="#section-4.2.3-2.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.7">
-              <p id="section-4.2.4-2.7.1">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a><a href="#section-4.2.4-2.7.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.7">
+              <p id="section-4.2.3-2.7.1">Compute <code>KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId, 256)</code> as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a><a href="#section-4.2.3-2.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.8">
-              <p id="section-4.2.4-2.8.1">Compute <code>KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)</code> as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a><a href="#section-4.2.4-2.8.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.8">
+              <p id="section-4.2.3-2.8.1">Compute <code>C := AESKeyWrap(KEK, sessionKey)</code> with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> that includes a 64 bit integrity check<a href="#section-4.2.3-2.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.4-2.9">
-              <p id="section-4.2.4-2.9.1">Compute <code>C := AESKeyWrap(KEK, sessionKey)</code> with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> that includes a 64 bit integrity check<a href="#section-4.2.4-2.9.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-4.2.4-2.10">
-              <p id="section-4.2.4-2.10.1">Output the algorithm specific part of the PKESK as <code>ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C</code>, where both <code>symAlgId</code> and <code>len(C, symAlgId)</code> are single octet fields, <code>symAlgId</code> denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and <code>len(C, symAlgId)</code> denotes the combined octet length of the fields specified as the arguments.<a href="#section-4.2.4-2.10.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.3-2.9">
+              <p id="section-4.2.3-2.9.1">Output the algorithm specific part of the PKESK as <code>ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C</code>, where both <code>symAlgId</code> and <code>len(C, symAlgId)</code> are single octet fields, <code>symAlgId</code> denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and <code>len(C, symAlgId)</code> denotes the combined octet length of the fields specified as the arguments.<a href="#section-4.2.3-2.9.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
 </div>
 <div id="decryption-procedure">
-<section id="section-4.2.5">
+<section id="section-4.2.4">
           <h4 id="name-decryption-procedure">
-<a href="#section-4.2.5" class="section-number selfRef">4.2.5. </a><a href="#name-decryption-procedure" class="section-name selfRef">Decryption procedure</a>
+<a href="#section-4.2.4" class="section-number selfRef">4.2.4. </a><a href="#name-decryption-procedure" class="section-name selfRef">Decryption procedure</a>
           </h4>
-<p id="section-4.2.5-1">The procedure to perform public-key decryption with an ML-KEM + ECDH composite scheme is as follows:<a href="#section-4.2.5-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-4.2.5-2">
-<li id="section-4.2.5-2.1">
-              <p id="section-4.2.5-2.1.1">Take the matching PKESK and own secret key packet as input<a href="#section-4.2.5-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-4.2.4-1">The procedure to perform public-key decryption with an ML-KEM + ECDH composite scheme is as follows:<a href="#section-4.2.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4.2.4-2">
+<li id="section-4.2.4-2.1">
+              <p id="section-4.2.4-2.1.1">Take the matching PKESK and own secret key packet as input<a href="#section-4.2.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.2">
-              <p id="section-4.2.5-2.2.1">From the PKESK extract the algorithm ID and the <code>encryptedKey</code>, i.e., the wrapped session key<a href="#section-4.2.5-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.2">
+              <p id="section-4.2.4-2.2.1">From the PKESK extract the algorithm ID as <code>algId</code> and the wrapped session key as <code>encryptedKey</code><a href="#section-4.2.4-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.3">
-              <p id="section-4.2.5-2.3.1">Check that the own and the extracted algorithm ID match<a href="#section-4.2.5-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.3">
+              <p id="section-4.2.4-2.3.1">Check that the own and the extracted algorithm ID match<a href="#section-4.2.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.4">
-              <p id="section-4.2.5-2.4.1">Parse the <code>ecdhSecretKey</code> and <code>mlkemSecretKey</code> from the algorithm specific data of the own secret key encoded in the format specified in <a href="#mlkem-ecc-key" class="auto internal xref">Section 4.3.2</a><a href="#section-4.2.5-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.4">
+              <p id="section-4.2.4-2.4.1">Parse the <code>ecdhSecretKey</code> and <code>mlkemSecretKey</code> from the algorithm specific data of the own secret key encoded in the format specified in <a href="#mlkem-ecc-key" class="auto internal xref">Section 4.3.2</a><a href="#section-4.2.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.5">
-              <p id="section-4.2.5-2.5.1">Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 5</a><a href="#section-4.2.5-2.5.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.5">
+              <p id="section-4.2.4-2.5.1">Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to <a href="#tab-mlkem-ecc-composite" class="auto internal xref">Table 5</a><a href="#section-4.2.4-2.5.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.6">
-              <p id="section-4.2.5-2.6.1">Parse <code>ecdhCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code> encoded as <code>ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C</code> as specified in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>, where <code>symAlgId</code> is present only in the case of a v3 PKESK.<a href="#section-4.2.5-2.6.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.6">
+              <p id="section-4.2.4-2.6.1">Parse <code>ecdhCipherText</code>, <code>mlkemCipherText</code>, and <code>C</code> from <code>encryptedKey</code> encoded as <code>ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C</code> as specified in <a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>, where <code>symAlgId</code> is present only in the case of a v3 PKESK.<a href="#section-4.2.4-2.6.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.7">
-              <p id="section-4.2.5-2.7.1">Compute <code>(ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey, ecdhPublicKey)</code><a href="#section-4.2.5-2.7.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.7">
+              <p id="section-4.2.4-2.7.1">Compute <code>(ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey, ecdhPublicKey)</code><a href="#section-4.2.4-2.7.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.8">
-              <p id="section-4.2.5-2.8.1">Compute <code>(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)</code><a href="#section-4.2.5-2.8.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.8">
+              <p id="section-4.2.4-2.8.1">Compute <code>(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)</code><a href="#section-4.2.4-2.8.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.9">
-              <p id="section-4.2.5-2.9.1">Compute <code>fixedInfo</code> as specified in <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a><a href="#section-4.2.5-2.9.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.9">
+              <p id="section-4.2.4-2.9.1">Compute <code>KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId)</code> as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a><a href="#section-4.2.4-2.9.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.10">
-              <p id="section-4.2.5-2.10.1">Compute <code>KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, fixedInfo)</code> as defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a><a href="#section-4.2.5-2.10.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.10">
+              <p id="section-4.2.4-2.10.1">Compute <code>sessionKey := AESKeyUnwrap(KEK, C)</code>  with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>, aborting if the 64 bit integrity check fails<a href="#section-4.2.4-2.10.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-4.2.5-2.11">
-              <p id="section-4.2.5-2.11.1">Compute <code>sessionKey := AESKeyUnwrap(KEK, C)</code>  with AES-256 as per <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span>, aborting if the 64 bit integrity check fails<a href="#section-4.2.5-2.11.1" class="pilcrow">¶</a></p>
-</li>
-            <li id="section-4.2.5-2.12">
-              <p id="section-4.2.5-2.12.1">Output <code>sessionKey</code><a href="#section-4.2.5-2.12.1" class="pilcrow">¶</a></p>
+            <li id="section-4.2.4-2.11">
+              <p id="section-4.2.4-2.11.1">Output <code>sessionKey</code><a href="#section-4.2.4-2.11.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -2256,7 +2218,7 @@ For ECDH this is done following the relative specification in <span>[<a href="#R
           <h4 id="name-public-key-encrypted-sessio">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-public-key-encrypted-sessio" class="section-name selfRef">Public-Key Encrypted Session Key Packets (Tag 1)</a>
           </h4>
-<p id="section-4.3.1-1">The algorithm-specific fields consists of the output of the encryption procedure described in <a href="#ecc-mlkem-encryption" class="auto internal xref">Section 4.2.4</a>:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">The algorithm-specific fields consists of the output of the encryption procedure described in <a href="#ecc-mlkem-encryption" class="auto internal xref">Section 4.2.3</a>:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3.1-2.1">
               <p id="section-4.3.1-2.1.1">A fixed-length octet string representing an ECDH ephemeral public key in the format associated with the curve as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.1-2.1.1" class="pilcrow">¶</a></p>
@@ -2687,7 +2649,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
           </h4>
 <p id="section-6.1.3-1">SLH-DSA-SHAKE signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.
 The variable <code>opt_rand</code> is set to <code>PK.seed</code>.
-See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.5</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
@@ -2859,71 +2821,71 @@ The additional inclusion of <code>ecdhPublicKey</code> follows the security advi
         <h3 id="name-key-combiner-2">
 <a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a> this specification limits itself to the use of SHA3-256.
-The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
+<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of KMAC256 in a construction following <span>[<a href="#SP800-108r1-upd1" class="cite xref">SP800-108r1-upd1</a>]</span>.
+The sponge construction used by KMAC256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA3-256 from a random oracle.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like KMAC256.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell KMAC256 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
 Hence, to be able to distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (with ciphertexts <code>C1</code> and <code>C2</code> and public keys <code>P1</code> and <code>P2</code>) as<a href="#section-9.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9.3-3">
 <pre>
-K = SHA3-256(counter || K1 || C1 || P1 || K2 || C2 || P2 || fixedInfo)
+K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
 </pre><a href="#section-9.3-3" class="pilcrow">¶</a>
 </div>
 <p id="section-9.3-4">from a random bit string, an adversary has to know (or correctly guess) both key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
-<p id="section-9.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.2</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
+<p id="section-9.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
 Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.
 That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input shared secrets and ciphertexts.
 In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
+<div id="sec-fixed-info">
+<section id="section-9.3.1">
+          <h4 id="name-domain-separation-and-bindi">
+<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
+          </h4>
+<p id="section-9.3.1-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
+This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-2">The algorithm ID, passed as the <code>algID</code> paramter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm. The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties.
+The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-3">This is in line with the Recommendation for ECC in Section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
+Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-fixed-info">
-<section id="section-9.4">
-        <h3 id="name-domain-separation-and-bindi">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
-        </h3>
-<p id="section-9.4-1">The <code>domSeparation</code> information defined in <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
-This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
-<p id="section-9.4-2">The <code>algID</code> defined in <a href="#kem-fixed-info" class="auto internal xref">Section 4.2.1</a> binds the derived KEK to the chosen algorithm and communication parties.
-The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
-<p id="section-9.4-3">This is in line with the Recommendation for ECC in Section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
-Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="slhdsa-sec-cons">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-slh-dsa-shake-message-rando">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
         </h3>
-<p id="section-9.5-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
-This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
+This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-9.6-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
-<p id="section-9.6-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
+<p id="section-9.5-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
-<p id="section-9.6-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.6-3" class="pilcrow">¶</a></p>
+This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+<p id="section-9.5-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.7">
+<section id="section-9.6">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.7" class="section-number selfRef">9.7. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.7-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.7-1" class="pilcrow">¶</a></p>
-<p id="section-9.7-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.7-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3259,6 +3221,18 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </ul>
 </section>
 </div>
+<div id="draft-ietf-openpgp-pqc-05">
+<section id="section-12.10">
+        <h3 id="name-draft-ietf-openpgp-pqc-05">
+<a href="#section-12.10" class="section-number selfRef">12.10. </a><a href="#name-draft-ietf-openpgp-pqc-05" class="section-name selfRef">draft-ietf-openpgp-pqc-05</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.10-1.1">
+            <p id="section-12.10-1.1.1">reworked KEM combiner for the purpose of NIST-compliance<a href="#section-12.10-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="contributors">
@@ -3333,7 +3307,7 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqt-hybrid-terminology">[I-D.ietf-pquip-pqt-hybrid-terminology]</dt>
         <dd>
-<span class="refAuthor">D, F.</span> and <span class="refAuthor">M. P</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqt-hybrid-terminology-03</span>, <time datetime="2024-05-09" class="refDate">9 May 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-03">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-03</a>&gt;</span>. </dd>
+<span class="refAuthor">D, F.</span>, <span class="refAuthor">P, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqt-hybrid-terminology-04</span>, <time datetime="2024-09-10" class="refDate">10 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-04">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-PQC">[NIST-PQC]</dt>
         <dd>
@@ -3342,6 +3316,14 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dt id="NISTIR-8413">[NISTIR-8413]</dt>
         <dd>
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-108r1-upd1">[SP800-108r1-upd1]</dt>
+        <dd>
+<span class="refAuthor">Chen, L.</span>, <span class="refTitle">"Recommendation for Key-Derivation Using Pseudorandom Functions"</span>, <span class="seriesInfo">NIST Special Publication 800-108 Rev. 1 </span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-108r1-upd1">https://doi.org/10.6028/NIST.SP.800-108r1-upd1</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-185">[SP800-185]</dt>
+        <dd>
+<span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Chang, S.</span>, and <span class="refAuthor">R. Perlner</span>, <span class="refTitle">"SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash"</span>, <span class="seriesInfo">NIST Special Publication 800-185 </span>, <time datetime="2016-12" class="refDate">December 2016</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-185">https://doi.org/10.6028/NIST.SP.800-185</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SP800-56A">[SP800-56A]</dt>
         <dd>
@@ -3563,10 +3545,10 @@ g+Bld9lBSVmEdMJnOX2ZHOdEoRV4bm1U4aPuhrKL/d8lkIgM
             <p id="appendix-A.1-10.2.1">A v2 SEIPD<a href="#appendix-A.1-10.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.1-11">The hex-encoded SHA3-256 <code>ecdhKeyShare</code> input is <code>c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-12">The hex-encoded SHA3-256 <code>mlkemKeyShare</code> input is <code>9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-13">The hex-encoded SHA3-256 output is <code>99229561bcf5017d6b1dd34d8eb0441897968d5b140597756db705f1de67c078</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-14">The hex-encoded session key is <code>0e7d04eb84f066d0943c7898db8d36959203bdecdfb3e17e5fd3a24a13641d7b</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-11">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>c3bcf24924717f82614c331cc13eea1c333ab16c6d42a6f958cbeb48aa4260fb</code>.<a href="#appendix-A.1-11" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-12">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>9e956c105e25da824d6f1fddbbd93b920dd33f2fd647cfcb859904966efff31a</code>.<a href="#appendix-A.1-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-13">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.1-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-14">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.1-14" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.1-15">
 <pre>
 -----BEGIN PGP MESSAGE-----
@@ -4574,10 +4556,10 @@ Z2MPhqSLt9Vf5kAA/1RP8DeMB+q8U2n55xiSRnxP6+ddHg/Q7bZuUM0Cv+0M
             <p id="appendix-A.2-11.2.1">A v1 SEIPD<a href="#appendix-A.2-11.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-12">The hex-encoded SHA3-256 <code>ecdhKeyShare</code> input is <code>98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-13">The hex-encoded SHA3-256 <code>mlkemKeyShare</code> input is <code>3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-14">The hex-encoded SHA3-256 output is <code>86ea88190089aae9256f04fdd09cd62e19f2c1d02cfb844aa1f99f7b17c49743</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-15">The hex-encoded session key is <code>f3037ae17d83a40ed08d884e19dc66065eac82d96337e4b74b1d10e933535e4d</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-12">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-13">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-14">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-15">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-16">
 <pre>
 -----BEGIN PGP MESSAGE-----
@@ -4621,10 +4603,10 @@ mkHfXuplyv3LcunejQDog2bhakqbrb5lg3fZGYNagykZxw==
             <p id="appendix-A.2-18.2.1">A v2 SEIPD<a href="#appendix-A.2-18.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-A.2-19">The hex-encoded SHA3-256 <code>ecdhKeyShare</code> input is <code>4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-20">The hex-encoded SHA3-256 <code>mlkemKeyShare</code> input is <code>4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-21">The hex-encoded SHA3-256 output is <code>76ea8fcc9a31a9fa672940b9ad578f6b8ecbea1b1d1175d01f1777364a8e2704</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-22">The hex-encoded session key is <code>b5d810efc6b2b82e77f907813e114587aca2d0e33c9c74e90eb1638df030dcaf</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-19">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-20">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-21">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
+<p id="appendix-A.2-22">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
 <div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-23">
 <pre>
 -----BEGIN PGP MESSAGE-----
