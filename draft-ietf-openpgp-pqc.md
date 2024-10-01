@@ -924,7 +924,7 @@ Two migration strategies are recommended:
 
 1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
    Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
-   This allows having an older v4 or v6 certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
+   This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
 
 2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
    Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
