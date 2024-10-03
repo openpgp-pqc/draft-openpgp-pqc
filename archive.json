@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-10T01:18:01.928910+00:00",
+  "timestamp": "2024-10-03T01:21:20.488325+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -1429,16 +1429,24 @@
       "id": "I_kwDOIrmZ-85v3AeA",
       "title": "Format hyperlinks to mentioned sections in external documents (e.g. RFCs)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/61",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Makes dev life easier.",
       "createdAt": "2023-09-01T04:19:55Z",
-      "updatedAt": "2024-05-23T13:12:43Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-09-27T04:44:03Z",
+      "closedAt": "2024-09-27T04:41:58Z",
+      "comments": [
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in #136.",
+          "createdAt": "2024-09-27T04:44:02Z",
+          "updatedAt": "2024-09-27T04:44:02Z"
+        }
+      ]
     },
     {
       "number": 67,
@@ -2336,7 +2344,7 @@
     {
       "number": 108,
       "id": "I_kwDOIrmZ-86HV-eb",
-      "title": "Specify private key format for ML-KEM when switching to FIPS final versions",
+      "title": "Specify private key format for ML-KEM and ML-DSA when switching to FIPS final versions",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/108",
       "state": "OPEN",
       "author": "falko-strenzke",
@@ -2347,7 +2355,7 @@
       ],
       "body": "Based on what was announced, NIST' s final standard for the ML-KEM and ML-DSA will enable private keys in seed format. Currently, the draft only refers to the NIST standard for the private key format. Thus this needs more specification, and it might be relevant to specify in the draft:\r\n\r\n- what is the single (?) secret key format in the NIST standard, that the draft is referring to\r\n  - alternative option: that seed format is also possible for private keys (?)\r\n- that a private key in expanded format needs to be checked for consistency before usage\r\n",
       "createdAt": "2024-04-30T07:14:15Z",
-      "updatedAt": "2024-09-05T06:37:33Z",
+      "updatedAt": "2024-09-26T06:10:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -2363,6 +2371,13 @@
           "body": "LAMPS has decided to use the seed format of the private key format as the transfer format: https://mailarchive.ietf.org/arch/msg/spasm/KPg3lbPeNms2H5PNDBt0iJByuE0/",
           "createdAt": "2024-09-05T06:37:33Z",
           "updatedAt": "2024-09-05T06:37:33Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It seems that for ML-DSA, Botan will also offer only the seed format: https://github.com/randombit/botan/pull/4270#issuecomment-2356039856",
+          "createdAt": "2024-09-18T11:50:18Z",
+          "updatedAt": "2024-09-18T11:50:18Z"
         }
       ]
     },
@@ -2430,7 +2445,7 @@
       "id": "I_kwDOIrmZ-86OklL7",
       "title": "correction of KEM combiner KDF input order to achieve NIST compliance",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/127",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2439,8 +2454,8 @@
       "labels": [],
       "body": "The ordering of the KEM combiner inputs must be adjusted in the fashion of \r\n```\r\nSHA3-256(counter || ss1 || ss2 || <further-inputs>)\r\n```\r\n(see https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Cr2.pdf#page=22),\r\ni.e., after the counter first the shared-secrets must be fed and then any other inputs.\r\n\r\nThis issue was raised both in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/6 and https://github.com/lamps-wg/draft-composite-kem/issues/26.\r\n",
       "createdAt": "2024-07-05T06:47:39Z",
-      "updatedAt": "2024-08-22T14:29:36Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-26T06:15:05Z",
+      "closedAt": "2024-09-26T06:15:05Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2484,7 +2499,7 @@
       "id": "I_kwDOIrmZ-86PEu2u",
       "title": "NIST compliance of KEM-combiner w.r.t. X25519/X448 KEM ",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/132",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2493,8 +2508,8 @@
       "labels": [],
       "body": "In https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10#issuecomment-2220090284 Quynh states that the current construction with a key derivation step in ECDH-KEM is not NIST compliant, which would equally affect the X25519/X448 KEM construction in this draft:\r\n\r\n> So, if we delete the step 3 in ECDH-KEM ( Set the output eccKeyShare to Hash(X || eccCipherText || eccPublicKey),  then Falko's suggested KDF is NIST-compliant.\r\n\r\n> If we keep the step 3, eccKeyShare is a pseudorandom key and if eccKeyShare takes the place of X in Falko's suggested KDF, the KDF is not NIST-compliant at this point, but the KMAC-KDF mentioned above is NIST-compliant.\r\n\r\n@QuynhDangNIST: can you provide the exact clause in the NIST standards that causes the incompliance? So far it seems to me that the using the output of ` Hash(X || eccCipherText || eccPublicKey)`  is equally fine to use as the ECC shared secret as input to the KEM combiner given by SHA3-256.\r\n\r\nIf the construction would really turn out to not being NIST compliant, we would have to change it in this draft as well.",
       "createdAt": "2024-07-10T10:36:55Z",
-      "updatedAt": "2024-08-22T14:29:28Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-26T06:15:05Z",
+      "closedAt": "2024-09-26T06:15:04Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2734,6 +2749,32 @@
           "body": "Please read https://datatracker.ietf.org/doc/draft-ietf-pquip-pqt-hybrid-terminology/ for combiner definition.",
           "createdAt": "2024-09-08T17:21:48Z",
           "updatedAt": "2024-09-08T17:21:48Z"
+        }
+      ]
+    },
+    {
+      "number": 139,
+      "id": "I_kwDOIrmZ-86X5aHr",
+      "title": "Private key storage in seed vs expanded key format for ML-KEM, ML-DSA",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/139",
+      "state": "OPEN",
+      "author": "robplee",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "duplicate"
+      ],
+      "body": "As I raised on the mailing list [1], I think there's a reasonable argument for limiting the storage format for post-quantum keys to the seed format rather than the, arguably more temperamental, expanded key format.  I think LAMPS is going in the direction of seed-format-only so I think there is precendence that we can follow and go with the same approach. See [2] and [3]\r\n\r\nThere were some concerns about low-power devices/OpenPGP smart cards but I think it was decided that was not a huge concern or at least not a reason to have multiple key storage formats (but others are free to contradict me if it is :) ).\r\n\r\nHappy to provide some assistance with writing/reviewing text on storage formats if it'll help.\r\n\r\n[1] https://mailarchive.ietf.org/arch/msg/openpgp/2dg-DrWt4DgIoX8uTalCa-kzE38/\r\n[2] https://github.com/randombit/botan/pull/3893#issuecomment-2349229966\r\n[3] https://github.com/randombit/botan/pull/4270#issuecomment-2356039856",
+      "createdAt": "2024-09-25T16:12:58Z",
+      "updatedAt": "2024-09-26T06:21:02Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This topic is already being tracked in #108. Regarding the private key format for smart cards, I think that their private key format does not necessarily have to conform with the general OpenPGP format. An OpenPGP seed private key could still be imported into a smart card that is using the expanded format. If the expanded key of the card also holds the seed (without using it internally) the key could even be exported to a \"software\" key again.",
+          "createdAt": "2024-09-26T06:21:01Z",
+          "updatedAt": "2024-09-26T06:21:01Z"
         }
       ]
     }
@@ -13385,24 +13426,26 @@
       "id": "PR_kwDOIrmZ-855s3Cl",
       "title": "reworked key combiner to be NIST conforming",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/138",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR brings the following changes:\r\n\r\n- Revert the key combiner KDF back to KMAC256. Reason: This is currently the only known way to combine two keys in a NIST-compliant way without modifying the ECC-KEM. See #132 and [issue 10 of the NIST/Brainpool draft](https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp/issues/10) for details.\r\n- This change also implictly fixes the input-order-problem of the key combiner raised in #127.\r\n- It also implicitly fixes a potential problem regarding the KDF input string being uniquely parsable from the rear raised in #127.\r\n- We remove the counter from the KDF. This is justified by\r\n  - https://csrc.nist.gov/csrc/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf#page=178 which explicitly addresses the general counter removal for KDFs that use only a single iteration\r\n  - and specificly for KMAC as a KDF in [NIST.SP.800-108r1-upd1](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1-upd1.pdf#page=19).\r\n- We remove the `fixedInfo` field and directly replace it with `algID`. This is merely an editorial change.\r\n\r\nFixes #132.\r\nFixes #127.\r\n\r\nOnce this is approved we will apply the same construction in https://github.com/openpgp-pqc/draft-ehlen-openpgp-nist-bp-comp.\r\n\r\nIn the meeting on 2024-08-22, we agreed to create new test vectors only before the publication.\r\n\r\n# Open work items\r\n\r\nBefore we can remove the draft status, there is one thing that needs checking regarding the test vectors:\r\n- [x] @wussler @TJ-91  Please check the naming of the key share intermediate values. There was a label \"SHA3-256\" that I couldn't make any sense of and which I removed. I also added \"input to `multiKeyCombine`\" as I assume this is was is meant here. There are still \"(??)\" marks in the text for this reason which we should remove before merging when my changes have been verified by you.\r\n",
       "createdAt": "2024-08-28T12:10:07Z",
-      "updatedAt": "2024-09-09T09:04:10Z",
+      "updatedAt": "2024-09-26T06:15:04Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "3cc29dc899e4fdfeadcd09305c4efdc80db502e2",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "kem-combiner-nist",
-      "headRefOid": "3c88d146fef6f21811f1bf805608045e6d1f24a3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "965100ef15eb293d50d010f35a06dafdc3bb44b7",
+      "closedAt": "2024-09-26T06:15:03Z",
+      "mergedAt": "2024-09-26T06:15:03Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "0a9f80188b5b802b18b61504547b884651be3393"
+      },
       "comments": [
         {
           "author": "falko-strenzke",
@@ -13595,6 +13638,175 @@
           "body": "",
           "createdAt": "2024-09-09T09:04:10Z",
           "updatedAt": "2024-09-09T09:04:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86JdStt",
+          "commit": {
+            "abbreviatedOid": "3c88d14"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-16T09:35:02Z",
+          "updatedAt": "2024-09-16T09:35:02Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86KyjN-",
+          "commit": {
+            "abbreviatedOid": "3c88d14"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-25T14:44:01Z",
+          "updatedAt": "2024-09-25T14:45:06Z",
+          "comments": [
+            {
+              "originalPosition": 147,
+              "body": "```suggestion\r\n 2. From the PKESK extract the algorithm ID as `algId` and the wrapped session key as `encryptedKey`\r\n```",
+              "createdAt": "2024-09-25T14:44:01Z",
+              "updatedAt": "2024-09-25T14:45:06Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 140,
+      "id": "PR_kwDOIrmZ-8586aFI",
+      "title": "Mandate v6 keys with ML-KEM+ECDH",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/140",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR mandates the use of v6 keys for the ML-KEM + ECDH algorithms, and removes the test vectors for V4 encryption subkeys",
+      "createdAt": "2024-09-27T12:00:55Z",
+      "updatedAt": "2024-10-01T13:51:33Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "e0039c4245d313c1afc42b235df44635b7b8f957",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "remove-v4-encryption",
+      "headRefOid": "294cb14a05b9d7bb875a528faba51c1b20f2a3d8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We still reference v4 encryption in `## Symmetric Algorithms for SEIPD Packets`\r\n\r\nAlso, we should reword the first two sentences of point 2 of `## Key generation strategies`\r\n\r\n",
+          "createdAt": "2024-09-27T12:11:58Z",
+          "updatedAt": "2024-09-27T12:11:58Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86LWt6d",
+          "commit": {
+            "abbreviatedOid": "15b1416"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "looks good to me \ud83d\udc4d ",
+          "createdAt": "2024-09-30T15:58:22Z",
+          "updatedAt": "2024-10-01T12:04:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86LeWkb",
+          "commit": {
+            "abbreviatedOid": "05f933e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-01T11:58:22Z",
+          "updatedAt": "2024-10-01T11:58:22Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\n   This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.\r\n```\r\nAlthough not critical maybe an editorial improvement, in order to focus on the terminology \"traditional\" instead of \"old\".",
+              "createdAt": "2024-10-01T11:58:22Z",
+              "updatedAt": "2024-10-01T11:58:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Lf9-q",
+          "commit": {
+            "abbreviatedOid": "294cb14"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-10-01T13:51:33Z",
+          "updatedAt": "2024-10-01T13:51:33Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 141,
+      "id": "PR_kwDOIrmZ-859GYMv",
+      "title": "Update CI",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/141",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix actions",
+      "createdAt": "2024-09-30T11:05:16Z",
+      "updatedAt": "2024-10-01T12:01:09Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "0a9f80188b5b802b18b61504547b884651be3393",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "feat/update-ci",
+      "headRefOid": "5f9932f5146be6b3cfd4052d2ee802f90ab37966",
+      "closedAt": "2024-10-01T12:01:09Z",
+      "mergedAt": "2024-10-01T12:01:09Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "e0039c4245d313c1afc42b235df44635b7b8f957"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86LWsrm",
+          "commit": {
+            "abbreviatedOid": "5f9932f"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-30T15:57:03Z",
+          "updatedAt": "2024-09-30T15:57:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86LeSJu",
+          "commit": {
+            "abbreviatedOid": "5f9932f"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-01T11:49:43Z",
+          "updatedAt": "2024-10-01T11:49:43Z",
           "comments": []
         }
       ]
