@@ -678,6 +678,8 @@ Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (t
 
 ### Key Material Packets {#mlkem-ecc-key}
 
+The composite ML-KEM + ECDH schemes MUST be used only with v6 keys, as defined in [RFC9580].
+
 The algorithm-specific public key is this series of values:
 
  - A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in {{ecc-kem}}.
@@ -878,8 +880,7 @@ The algorithm-specific part of the secret key consists of:
 Implementations MUST implement `AES-256`.
 An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
 
-A v4 or v6 certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
-A v6 certificate that contains a PQ(/T) key SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
+A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
 If `AES-256` is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since `AES-256` is mandatory to implement.
@@ -923,10 +924,9 @@ Two migration strategies are recommended:
 
 1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
    Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
-   This allows having an older v4 or v6 certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
+   This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
 
-2. Attach PQ(/T) encryption subkeys to an existing traditional OpenPGP certificate.
-   In the case of a v6 certificate, also PQ(/T) signature keys may be attached.
+2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
    Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
    This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.
 
@@ -1115,7 +1115,8 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Added ML-DSA test vectors
 
 ## draft-ietf-openpgp-pqc-05
-- reworked KEM combiner for the purpose of NIST-compliance
+- Reworked KEM combiner for the purpose of NIST-compliance
+- Mandated v6 keys for ML-KEM + ECDH algorithms
 
 # Contributors
 
@@ -1212,80 +1213,6 @@ Here is the corresponding Public Key consisting of:
 {: sourcecode-name="v6-mldsa-sample-pk.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v6-mldsa-sample-pk.asc}
-~~~
-
-## V4 PQC Subkey Artifacts
-
-Here is a Private Key consisting of:
-
-- A v4 Ed25519 Private-Key packet
-- A User ID packet
-- A v4 positive certification self-signature
-- A v4 ECDH (Curve25519) Private-Subkey packet
-- A v4 subkey binding signature
-- A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet
-- A v4 subkey binding signature
-
-The primary key has the fingerprint `b2e9b532d55bd6287ec79e17c62adc0ddd1edd73`.
-
-The ECDH subkey has the fingerprint `95bed3c63f295e7b980b6a2b93b3233faf28c9d2`.
-
-The ML-KEM-ipd-768+X25519 subkey has the fingerprint `bd67d98388813e88bf3490f3e440cfbaffd6f357`.
-
-{: sourcecode-name="v4-eddsa-sample-sk.asc"}
-~~~ application/pgp-keys
-{::include test-vectors/v4-eddsa-sample-sk.asc}
-~~~
-
-Here is the corresponding Public Key consisting of:
-
-- A v4 Ed25519 Public-Key packet
-- A User ID packet
-- A v4 positive certification self-signature
-- A v4 ECDH (Curve25519) Public-Subkey packet
-- A v4 subkey binding signature
-- A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet
-- A v4 subkey binding signature
-
-{: sourcecode-name="v4-eddsa-sample-pk.asc"}
-~~~ application/pgp-keys
-{::include test-vectors/v4-eddsa-sample-pk.asc}
-~~~
-
-Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:
-
-- A v3 PKESK
-- A v1 SEIPD
-
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0`.
-
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008`.
-
-The hex-encoded output of `multiKeyCombine` is `TODO`.
-
-The hex-encoded session key is `TODO`.
-
-{: sourcecode-name="v4-eddsa-sample-message-v1.asc"}
-~~~ application/pgp-keys
-{::include test-vectors/v4-eddsa-sample-message-v1.asc}
-~~~
-
-Here is an SEIPDv2 unsigned message `Testing\n` encrypted to this key:
-
-- A v6 PKESK
-- A v2 SEIPD
-
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341`.
-
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0`.
-
-The hex-encoded output of `multiKeyCombine` is `TODO`.
-
-The hex-encoded session key is `TODO`.
-
-{: sourcecode-name="v4-eddsa-sample-message-v2.asc"}
-~~~ application/pgp-keys
-{::include test-vectors/v4-eddsa-sample-message-v2.asc}
 ~~~
 
 # Acknowledgments
