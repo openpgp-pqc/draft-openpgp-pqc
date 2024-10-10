@@ -600,7 +600,7 @@ The ciphertext and public keys are by design included again in the key combiner 
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
-The implementation MUST independently generate the ML-KEM and the ECDH component keys.
+The implementation MUST generate the ML-KEM and the ECDH component keys independently.
 ML-KEM key generation follows the specification [FIPS-203] and the artifacts are encoded as fixed-length octet strings as defined in {{mlkem-ops}}.
 For ECDH this is done following the relative specification in {{RFC7748}}, and encoding the outputs as fixed-length octet strings in the format specified in {{tab-ecdh-cfrg-artifacts}}.
 
@@ -763,7 +763,7 @@ TBD (108 for testing)  | SHA3-512      | 14
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
-The implementation MUST independently generate the ML-DSA and the EdDSA component keys.
+The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
 ML-DSA key generation follows the specification [FIPS-204] and the artifacts are encoded as fixed-length octet strings as defined in {{mldsa-signature}}.
 For EdDSA this is done following the relative specification in {{RFC7748}}, and encoding the artifacts as specified in {{eddsa-signature}} as fixed-length octet strings.
 
