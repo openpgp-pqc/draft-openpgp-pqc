@@ -14,12 +14,12 @@
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.23.1" name="generator">
+<meta content="xml2rfc 3.23.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.1
-    Python 3.12.6
+  xml2rfc 3.23.2
+    Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 4 April 2025</td>
+<td class="center">Expires 13 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-01" class="published">1 October 2024</time>
+<time datetime="2024-10-10" class="published">10 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-04">4 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-13">13 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1450,9 +1450,6 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.1">
                 <p id="section-toc.1-1.15.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-sample-v6-pqc-subkey-artifa" class="internal xref">Sample v6 PQC Subkey Artifacts</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2">
-                <p id="section-toc.1-1.15.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-v4-pqc-subkey-artifacts" class="internal xref">V4 PQC Subkey Artifacts</a></p>
 </li>
             </ul>
 </li>
@@ -2248,22 +2245,23 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
           <h4 id="name-key-material-packets">
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-key-material-packets" class="section-name selfRef">Key Material Packets</a>
           </h4>
-<p id="section-4.3.2-1">The algorithm-specific public key is this series of values:<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-1">The composite ML-KEM + ECDH schemes MUST be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-2">The algorithm-specific public key is this series of values:<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.3.2-2.1">
-              <p id="section-4.3.2-2.1.1">A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.3.2-3.1">
+              <p id="section-4.3.2-3.1.1">A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4.3.2-2.2">
-              <p id="section-4.3.2-2.2.1">A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4.3.2-3.2">
+              <p id="section-4.3.2-3.2.1">A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-4.3.2-3">The algorithm-specific secret key is these two values:<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-4">The algorithm-specific secret key is these two values:<a href="#section-4.3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.3.2-4.1">
-              <p id="section-4.3.2-4.1.1">A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.3.2-5.1">
+              <p id="section-4.3.2-5.1.1">A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4.3.2-4.2">
-              <p id="section-4.3.2-4.2.1">A fixed-length octet string containing the ML-KEM secret key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2-4.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-4.3.2-5.2">
+              <p id="section-4.3.2-5.2.1">A fixed-length octet string containing the ML-KEM secret key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2717,8 +2715,7 @@ See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<
         </h3>
 <p id="section-7.1-1">Implementations MUST implement <code>AES-256</code>.
 An implementation SHOULD use <code>AES-256</code> in the case of a v1 SEIPD packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">A v4 or v6 certificate that contains a PQ(/T) key SHOULD include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket.
-A v6 certificate that contains a PQ(/T) key SHOULD include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">A certificate that contains a PQ(/T) key SHOULD include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> is mandatory to implement.
 If <code>AES-128</code> is also implicitly added to the list, it is added after <code>AES-256</code>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
@@ -2773,11 +2770,10 @@ Two migration strategies are recommended:<a href="#section-8.2-2" class="pilcrow
 <li id="section-8.2-3.1">
             <p id="section-8.2-3.1.1">Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
 Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
-This allows having an older v4 or v6 certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.<a href="#section-8.2-3.1.1" class="pilcrow">¶</a></p>
+This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.<a href="#section-8.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-8.2-3.2">
-            <p id="section-8.2-3.2.1">Attach PQ(/T) encryption subkeys to an existing traditional OpenPGP certificate.
-In the case of a v6 certificate, also PQ(/T) signature keys may be attached.
+            <p id="section-8.2-3.2.1">Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
 Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
 This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.<a href="#section-8.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
@@ -3228,7 +3224,10 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </h3>
 <ul class="normal">
 <li class="normal" id="section-12.10-1.1">
-            <p id="section-12.10-1.1.1">reworked KEM combiner for the purpose of NIST-compliance<a href="#section-12.10-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-12.10-1.1.1">Reworked KEM combiner for the purpose of NIST-compliance<a href="#section-12.10-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.10-1.2">
+            <p id="section-12.10-1.2.1">Mandated v6 keys for ML-KEM + ECDH algorithms<a href="#section-12.10-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -4345,301 +4344,6 @@ GIErOWJmc4CV2BVXWJTuJzpjksxuvMfc/wMuTVR1tMH1Sk5ufYEAAAAAAAAAAAAA
 AAAAAAAAAAAACA0SFx8k
 -----END PGP PUBLIC KEY BLOCK-----
 </pre><a href="#appendix-A.1-23" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="v4-pqc-subkey-artifacts">
-<section id="appendix-A.2">
-        <h3 id="name-v4-pqc-subkey-artifacts">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-v4-pqc-subkey-artifacts" class="section-name selfRef">V4 PQC Subkey Artifacts</a>
-        </h3>
-<p id="appendix-A.2-1">Here is a Private Key consisting of:<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.2-2.1">
-            <p id="appendix-A.2-2.1.1">A v4 Ed25519 Private-Key packet<a href="#appendix-A.2-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.2">
-            <p id="appendix-A.2-2.2.1">A User ID packet<a href="#appendix-A.2-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.3">
-            <p id="appendix-A.2-2.3.1">A v4 positive certification self-signature<a href="#appendix-A.2-2.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.4">
-            <p id="appendix-A.2-2.4.1">A v4 ECDH (Curve25519) Private-Subkey packet<a href="#appendix-A.2-2.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.5">
-            <p id="appendix-A.2-2.5.1">A v4 subkey binding signature<a href="#appendix-A.2-2.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.6">
-            <p id="appendix-A.2-2.6.1">A v4 ML-KEM-ipd-768+X25519 Private-Subkey packet<a href="#appendix-A.2-2.6.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-2.7">
-            <p id="appendix-A.2-2.7.1">A v4 subkey binding signature<a href="#appendix-A.2-2.7.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.2-3">The primary key has the fingerprint <code>b2e9b532d55bd6287ec79e17c62adc0ddd1edd73</code>.<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-4">The ECDH subkey has the fingerprint <code>95bed3c63f295e7b980b6a2b93b3233faf28c9d2</code>.<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-5">The ML-KEM-ipd-768+X25519 subkey has the fingerprint <code>bd67d98388813e88bf3490f3e440cfbaffd6f357</code>.<a href="#appendix-A.2-5" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.2-6">
-<pre>
------BEGIN PGP PRIVATE KEY BLOCK-----
-
-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
-0O22blDNAr/tDA==
-=q5En
------END PGP PRIVATE KEY BLOCK-----
-</pre><a href="#appendix-A.2-6" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.2-7">Here is the corresponding Public Key consisting of:<a href="#appendix-A.2-7" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.2-8.1">
-            <p id="appendix-A.2-8.1.1">A v4 Ed25519 Public-Key packet<a href="#appendix-A.2-8.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.2">
-            <p id="appendix-A.2-8.2.1">A User ID packet<a href="#appendix-A.2-8.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.3">
-            <p id="appendix-A.2-8.3.1">A v4 positive certification self-signature<a href="#appendix-A.2-8.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.4">
-            <p id="appendix-A.2-8.4.1">A v4 ECDH (Curve25519) Public-Subkey packet<a href="#appendix-A.2-8.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.5">
-            <p id="appendix-A.2-8.5.1">A v4 subkey binding signature<a href="#appendix-A.2-8.5.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.6">
-            <p id="appendix-A.2-8.6.1">A v4 ML-KEM-ipd-768+X25519 Public-Subkey packet<a href="#appendix-A.2-8.6.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-8.7">
-            <p id="appendix-A.2-8.7.1">A v4 subkey binding signature<a href="#appendix-A.2-8.7.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-9">
-<pre>
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-=dPFW
------END PGP PUBLIC KEY BLOCK-----
-</pre><a href="#appendix-A.2-9" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.2-10">Here is an SEIPDv1 unsigned message "Testing\n" encrypted to this key:<a href="#appendix-A.2-10" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.2-11.1">
-            <p id="appendix-A.2-11.1.1">A v3 PKESK<a href="#appendix-A.2-11.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-11.2">
-            <p id="appendix-A.2-11.2.1">A v1 SEIPD<a href="#appendix-A.2-11.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.2-12">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>98782f4d20476dc2787ce8e264731e0d0cfeac0a35732cd88cc5518b57e634a0</code>.<a href="#appendix-A.2-12" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-13">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>3e8813445ee2a4a6f1a503d14149304f0ea4f626b45ed871e9381b967fb19008</code>.<a href="#appendix-A.2-13" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-14">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-14" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-15">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-15" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-16">
-<pre>
------BEGIN PGP MESSAGE-----
-
-wcPUA+RAz7r/1vNXaUNGH8CAkSiFgunnUDqAiD9JSd3Sb7lMNUsWk6lzWiJicgky
-S/vu0sSnRtxweWkoMr1y2ZaS45nXbEQyShiqHhZUKfVwtxbU+rGVH5oCgSvtTCrs
-verZaFpqzqPWyZ8ApzJvjbGUDBuwns09dGIKvKoePT5DCrqXlsW4EA8gFJbiXeb3
-E7nsyg3l2uMzbt6FHtYoa6qq9Q0PsUiGte52nXXWEnmBOGUfmCkVsgmHDmz63BLT
-1xXuZ5YopZkhhpjTNtvWtXc6MIaqnh6XtAcg8ZoaH0iferpbHEp9+M4bv5YDjzji
-vv83rBQN4cBaS1/TSmBkNJHmxcyT1AOOXY2ZbmxQBORhGOTrFz3w8R78MYkEvB6x
-JAjoYirpsyNLJzdewpXEYrPQq4Ey8EG2+qDY47vQkQaYcSFFoxYQ8MpHXmmgJ2bp
-D13g/lQlSHcdWX2L59Wa1dhKRVnUyeEtO5c06FKJ7QOrywNjPdVciPVCx6bBfVd2
-6qiWLynSGnzGaKd1YyaviioCm48Ydu5q8Z+QbEANbKW1azVAWCuxuiomE3RBvf1O
-8d30UvBnImEf+9ANDxzmjIG2lW39U591Jbv0pL00at3tIMQN2wwiduP1KZ1dilWa
-gEkdPjl6Q68ov0vRCYMAZizj4pMZbsUdge2Jj9GieObnp+w25pJu9nBeI6iqYmwd
-Ny1U3OuvzbEUsNfKcHoQd9Cem8EZn+5ICk7eqsTkZq69oYfIVRyzEEc/X9562nzh
-6B+X4CHZY/C8UCWougQriG4KVszM4myOgekKg0kNVIWgE2y7Z//S9c2twdxRWT/a
-8QC4p7QX7JRgzDD9erkj/9J3hKwHxDHShKB5jsVaGO+BxtFSCiiTmgeo7+SAnJwU
-Mi/N0UiI2BbKdo4KmdDPUVDyobBjCjeXil7Kg7pTU0vewPZQDLl9X16CcXCB60HL
-fkDGpcYbjkZYbmB449sQfaLvxRMHomP4TY4PEfANIXdWmk1mS0/+zNzMQ9+Xderc
-8P/EdKDKF5yr7IzSNoxuLiIWpyWJj+5QmAwup9mVv5gkh5RPnUQ0fgQ1vU8K9PMz
-OmYqlX2W4gPn29UovjkbGH+lEzazEzA7VZWHXG86NVN8WMXqdQvMJcmMRZhDmC3F
-kCII5zc6dxFXjNUgaAqV8eBqvRBbgCqK+6HSwCMY7jNFhFIy+Nj/9BYU/ereax0t
-Zlsk7XDK9lMZUidh5+VeEqbyMsLQ0YiyO7VJ5VdiPESXHjPkzxo42XZJELuBVC9D
-ArAX2Qip+oV1RXzhu/SeJdRQufGSENeZpGiG4tW24dpROh40I5TgXmpd4ALhuh1S
-PrepCNhXuFtKDIStKZEmCknPAGWAkLYZz5rAaMtztdGvzlektn+8CDtSo3d6FUww
-dp68ZtSMMb5HGscAoiDoOTiB5KVPSd80s3EPXlsgQSfHuSUHTvmD8G6q4hqGXMeV
-IUdwjwTvDMfW7CU5zqiV01SO6dXKsFyjLJrT57kpCbQ/2fhoMC+kNcXpzI+Z65yI
-jCP6Sjv+cVh7tv55kTKAPHO5VE3MDxvSOQHpUQ0zora+lfzpLUahfv8uZ4Q4J3L6
-mkHfXuplyv3LcunejQDog2bhakqbrb5lg3fZGYNagykZxw==
-=2Xhi
------END PGP MESSAGE-----
-</pre><a href="#appendix-A.2-16" class="pilcrow">¶</a>
-</div>
-<p id="appendix-A.2-17">Here is an SEIPDv2 unsigned message <code>Testing\n</code> encrypted to this key:<a href="#appendix-A.2-17" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.2-18.1">
-            <p id="appendix-A.2-18.1.1">A v6 PKESK<a href="#appendix-A.2-18.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-18.2">
-            <p id="appendix-A.2-18.2.1">A v2 SEIPD<a href="#appendix-A.2-18.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.2-19">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>4a0b21ff26997b812f6e0381b7b4ff907ecc7abdec01f16ecbf60bdc3f633341</code>.<a href="#appendix-A.2-19" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-20">The hex-encoded <code>mlkemKeyShare</code> input to <code>multiKeyCombine</code> is <code>4c0c441f23711ed5d44983e2cbfc06799295029b92f627b161cd57f072e0ebd0</code>.<a href="#appendix-A.2-20" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-21">The hex-encoded output of <code>multiKeyCombine</code> is <code>TODO</code>.<a href="#appendix-A.2-21" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-22">The hex-encoded session key is <code>TODO</code>.<a href="#appendix-A.2-22" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2-23">
-<pre>
------BEGIN PGP MESSAGE-----
-
-wcPhBhUEvWfZg4iBPoi/NJDz5EDPuv/W81dpZ1Yz1yu1Dk/HK2JuEmE6RavqzhvT
-i508AZhPxC08BxfNFar+uyZCNyMrUSrY0qY8H61GTtx1+O9VynXl8uXtS1nTDGJ9
-vCR+EvH6rT/gOPQB8HUhX6Ps97Yqi/Iys1gfS8n961pScwIYpPJzUWfUUKjIT55W
-htkh9aIB6unqzwUDi3p4oRZRm67j1ZP14SLyonAG2tXtCZyu1An62UHeOyNl1/6Z
-CgC3egTf6lz26US15T8AP54AO77LOf9KwLpUYcwvSExqHGgmhS0Mil6WnFyuJUDB
-7A2T2p/koW7TDaqoxhWsxY2isiH1SmAxNxzMnrGd7rNpPJ/k/r42bILfOuG0TRUN
-zqC9ph6OdydSyhHkN5G4eOYQqqvk19/lfLuHWlNwfNcn/2PsgsxLxNj7ltVn90W0
-qLubPWrujn/DhLl+hs2xXDOudpcztUqxcBnrsSaHlaebjQoDfttVAQj2jjdNXRjZ
-uNRnRfcG9s3sO3b8d4ed6tk6U+nMrE2dZCBjTagqvD07Z1TpZDh7t86V3X16o/ps
-jxW42s+YR589b88IZcieZRbKVtXt00pn2tn95kpvL3d8nAkaiPUhrowQUz0jpn8c
-CDBNAn1j690qM3pD5XJlwverC2cmJH1Hjobnrhi6X1k2lQxweX28p+R9NQjSoX0h
-ORuE0/Wpi15y0xmr2EzjcZ/6vPncy/IrYJCYmx9+aWQAjrKjizzNFTt73kf1xba5
-t4tbZkj9xgdDJXq3bAqB0/JeeTb4aTCk+n4olVYzCnMtLgj+1fWPClMModACmFOG
-1+bw5Q91/7euo363sw5UwgU1JhSQ/xcKNyJQsnklWkLMJNB1Yhj/C32lEmLntigv
-UOO510+ehA7D5ftef8cMfEIm73HrBBiLfixvVTR8AQV4hiV/mzKP7weM7kxvAvbz
-ir4jt3uSBOuhTjzq2is/S3D2K+O8FZqGIbkDhnKd98LbEA2cn9nTfsbV+TVXCmaS
-lHNojVxPL2pUKxedV5skvfflRFciuP7UNsf8myHe7wdfPdSzMsbytDEwID3vcsme
-fBqZdEZxqv/mNnn38TfHMSCF+yv5XbF9ham4DIcqNlkYud1ipEFFbcBZ0o9nUIWp
-diSY7KGAtVF224dtcr3FTHGuBnayDq+Yk++VhF4Bb3uPVuwrkf7Bncp1aYEQfkhI
-HwF3X6GnwC3y7kpbkU1rOq7yXv/0mRyGpVQlW/Yf3qT1buxcWt5BvXBmKzbBpVg/
-0B9vpzrlFsT0Pb2GHuQ6U+9JoZ+ePnRMVdDz93RCGr1kQlyY15K1b+yILJiV6oOL
-OxoxXHnr5soIumxCqv+6oAm4SdQVJLELQK72x1dVKJ90jUOgYCeOY61NsC9BFWHT
-h0itUEnwWMjKg73z00bthndwfEXHBJLrHizkcv+pwD8M5wb/9H6HU4x8ELSr5Fyn
-WjSoa2739wmJkoJY5ifaic3L8UXJeLuEZnVG9tUrl9ohHO8RNR3Vc/uHmyhImoYp
-RL4rcc6YpuyextmYu9S9LkPR5Bzr+mFeJDeXbA7GJm9eofdw0lQCCQIMAGc2j84/
-tfivyP5YrgQ8uBt9iwJN3IYRBy8qdr9JUyxkpkOEshV6XE4g3Orpbx0ZdrxbKmDS
-7eJl5fSust3gb2KfaAoWkFQivVJP2KTl5gw=
------END PGP MESSAGE-----
-</pre><a href="#appendix-A.2-23" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
