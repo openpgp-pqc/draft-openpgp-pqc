@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-10T01:20:48.415830+00:00",
+  "timestamp": "2024-10-13T01:26:28.078370+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2349,13 +2349,15 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [
         "NIST final std."
       ],
       "body": "Based on what was announced, NIST' s final standard for the ML-KEM and ML-DSA will enable private keys in seed format. Currently, the draft only refers to the NIST standard for the private key format. Thus this needs more specification, and it might be relevant to specify in the draft:\r\n\r\n- what is the single (?) secret key format in the NIST standard, that the draft is referring to\r\n  - alternative option: that seed format is also possible for private keys (?)\r\n- that a private key in expanded format needs to be checked for consistency before usage\r\n",
       "createdAt": "2024-04-30T07:14:15Z",
-      "updatedAt": "2024-09-26T06:10:14Z",
+      "updatedAt": "2024-10-10T08:31:51Z",
       "closedAt": null,
       "comments": [
         {
@@ -2386,7 +2388,7 @@
       "id": "I_kwDOIrmZ-86Jto99",
       "title": "Binding PQC encryption to V6",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/115",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2395,8 +2397,8 @@
       "labels": [],
       "body": "This issue tracks the following discussion on the mailing list: https://mailarchive.ietf.org/arch/msg/openpgp/a1D8Sivi1lk_22yBETE0QSqN8aU/",
       "createdAt": "2024-05-22T12:44:39Z",
-      "updatedAt": "2024-08-22T14:32:29Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-10T08:08:16Z",
+      "closedAt": "2024-10-10T08:08:16Z",
       "comments": [
         {
           "author": "wussler",
@@ -2423,20 +2425,20 @@
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
-        "falko-strenzke"
+        "fluppe2"
       ],
       "labels": [],
       "body": "We will need to refer to this section in the crypto-refresh: https://www.rfc-editor.org/rfc/rfc9580.html#eddsa-notes\r\n\r\nIt specifies exactly how EdDSA is invoked.\r\n\r\n@wussler @TJ-91 ",
       "createdAt": "2024-07-04T15:00:18Z",
-      "updatedAt": "2024-08-22T14:48:09Z",
+      "updatedAt": "2024-10-10T08:34:34Z",
       "closedAt": null,
       "comments": [
         {
           "author": "falko-strenzke",
           "authorAssociation": "COLLABORATOR",
-          "body": "Proposed today in meeting: \"While a HashEdDSA variant also exists, we use the ... for consistency here\"",
+          "body": "~~Proposed today in meeting: \"While a HashEdDSA variant also exists, we use the ... for consistency here\"~~\r\n\r\nNote 2024-10-10: N/A, we will use pure variants only",
           "createdAt": "2024-08-22T14:48:07Z",
-          "updatedAt": "2024-08-22T14:48:07Z"
+          "updatedAt": "2024-10-10T08:34:34Z"
         }
       ]
     },
@@ -2623,15 +2625,15 @@
       "id": "I_kwDOIrmZ-86RdPzN",
       "title": "Composite signature domain separators?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/133",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Within the LAMPS composite sigs, we have:\r\n\r\n```\r\nM' := Domain || HASH(Message)\r\n\r\nS1 := Sign( K1, A1, M' )\r\nS2 := Sign( K2, A2, M' )\r\n```\r\nwhere `Domain` is the `DER( Composite_OID )`. The intent is so that S1 and S2 will not verify over `HASH(Message)` directly, but only over `DER( Composite_OID ) || HASH(Message)`. This achieves Strong Non-Separability as per Hale-Connolly.\r\n\r\nIs there a reason that you are not doing this for your composite signature?",
       "createdAt": "2024-07-31T15:41:32Z",
-      "updatedAt": "2024-08-22T14:00:31Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-10T08:11:00Z",
+      "closedAt": "2024-10-10T08:11:00Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2675,13 +2677,15 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "fluppe2"
+      ],
       "labels": [
         "NIST final std."
       ],
-      "body": "- [ ] in case we specify pre-hash (PH) schemes for the PQC schemes\r\n  - [ ] Need to provide OIDs for specified PH algorithms for both schemes \r\n  - [ ] Explain how to use the pre-hash, explain what is `PH_M`\r\n  - [ ] In the introd., where ML-DSA and SLH-DSA is mentioned first, the choice of Pre-hash should be mentioned \r\n",
+      "body": "- #142\r\n  - Need to provide OIDs for specified PH algorithms for both schemes \r\n  - Explain how to use the pre-hash, explain what is `PH_M`\r\n  - In the introd., where ML-DSA and SLH-DSA is mentioned first, the choice of Pre-hash should be mentioned \r\n",
       "createdAt": "2024-08-22T14:58:05Z",
-      "updatedAt": "2024-08-28T10:07:28Z",
+      "updatedAt": "2024-10-10T16:19:28Z",
       "closedAt": null,
       "comments": [
         {
@@ -2697,6 +2701,13 @@
           "body": "I think we should wait a bit for the discussion on the OpenPGP mailing list to conclude, as well as your request for clarification on the NIST mailing list.",
           "createdAt": "2024-08-27T12:11:18Z",
           "updatedAt": "2024-08-27T12:11:18Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "After discussion with @falko-strenzke and @wussler, I will clarify throughout the text that we use the pure version of ML-DSA and SLH-DSA.",
+          "createdAt": "2024-10-10T07:48:12Z",
+          "updatedAt": "2024-10-10T07:48:12Z"
         }
       ]
     },
@@ -2708,11 +2719,13 @@
       "state": "OPEN",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "wussler"
+      ],
       "labels": [],
       "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
       "createdAt": "2024-08-27T14:37:20Z",
-      "updatedAt": "2024-09-08T17:21:48Z",
+      "updatedAt": "2024-10-10T08:31:59Z",
       "closedAt": null,
       "comments": [
         {
@@ -2760,13 +2773,15 @@
       "state": "OPEN",
       "author": "robplee",
       "authorAssociation": "NONE",
-      "assignees": [],
+      "assignees": [
+        "falko-strenzke"
+      ],
       "labels": [
         "duplicate"
       ],
       "body": "As I raised on the mailing list [1], I think there's a reasonable argument for limiting the storage format for post-quantum keys to the seed format rather than the, arguably more temperamental, expanded key format.  I think LAMPS is going in the direction of seed-format-only so I think there is precendence that we can follow and go with the same approach. See [2] and [3]\r\n\r\nThere were some concerns about low-power devices/OpenPGP smart cards but I think it was decided that was not a huge concern or at least not a reason to have multiple key storage formats (but others are free to contradict me if it is :) ).\r\n\r\nHappy to provide some assistance with writing/reviewing text on storage formats if it'll help.\r\n\r\n[1] https://mailarchive.ietf.org/arch/msg/openpgp/2dg-DrWt4DgIoX8uTalCa-kzE38/\r\n[2] https://github.com/randombit/botan/pull/3893#issuecomment-2349229966\r\n[3] https://github.com/randombit/botan/pull/4270#issuecomment-2356039856",
       "createdAt": "2024-09-25T16:12:58Z",
-      "updatedAt": "2024-09-26T06:21:02Z",
+      "updatedAt": "2024-10-10T08:31:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -2777,6 +2792,54 @@
           "updatedAt": "2024-09-26T06:21:01Z"
         }
       ]
+    },
+    {
+      "number": 142,
+      "id": "I_kwDOIrmZ-86ZvQZ2",
+      "title": "in case we specify pre-hash (PH) schemes for the PQC schemes",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/142",
+      "state": "CLOSED",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-10T16:18:28Z",
+      "updatedAt": "2024-10-10T16:18:52Z",
+      "closedAt": "2024-10-10T16:18:52Z",
+      "comments": []
+    },
+    {
+      "number": 143,
+      "id": "I_kwDOIrmZ-86ZvmkH",
+      "title": "SLH-DSA-SHAKE or SLH-DSA",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/143",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I found SLH-DSA-SHAKE to cause some problems:\r\n- The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n- The intro (and I guess several other places\" cites \"SLH-DSA-SHAKE [FIPS-205]\". I don't think this is correct, but rather \"SLH-DSA [FIPS-205]\".\r\n- Section \"1.2.3 SLH-DSA-SHAKE\" uses this terminology without introducing/explaining it.\r\n\r\nI would rather prefer to switch back to \"SLH-DSA\" and not have this new name \"SLH-DSA-SHAKE\" that might cause confusion. Rather say when we define the codepoints that we restrict to the SHAKE parameter sets.",
+      "createdAt": "2024-10-10T17:03:35Z",
+      "updatedAt": "2024-10-10T17:05:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 144,
+      "id": "I_kwDOIrmZ-86ZvsyS",
+      "title": "Introductory section on Elliptic Curve Cryptography",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/144",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I feel that the text in section \"1.3 Elliptic Curve Cryptography\" outdated? Shouldn't we actually refer to X25519, X448 and EdDSA?",
+      "createdAt": "2024-10-10T17:19:26Z",
+      "updatedAt": "2024-10-10T17:19:27Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -13680,24 +13743,26 @@
       "id": "PR_kwDOIrmZ-8586aFI",
       "title": "Mandate v6 keys with ML-KEM+ECDH",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/140",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR mandates the use of v6 keys for the ML-KEM + ECDH algorithms, and removes the test vectors for V4 encryption subkeys",
       "createdAt": "2024-09-27T12:00:55Z",
-      "updatedAt": "2024-10-01T13:51:33Z",
+      "updatedAt": "2024-10-10T07:04:35Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e0039c4245d313c1afc42b235df44635b7b8f957",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "remove-v4-encryption",
       "headRefOid": "294cb14a05b9d7bb875a528faba51c1b20f2a3d8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-10T07:04:34Z",
+      "mergedAt": "2024-10-10T07:04:34Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "71209d8bee34895f0281b3b52e0df96c5764952a"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -13752,6 +13817,19 @@
           "body": "LGTM",
           "createdAt": "2024-10-01T13:51:33Z",
           "updatedAt": "2024-10-01T13:51:33Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86MnvJg",
+          "commit": {
+            "abbreviatedOid": "294cb14"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-10T07:03:58Z",
+          "updatedAt": "2024-10-10T07:03:58Z",
           "comments": []
         }
       ]
@@ -13810,6 +13888,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 145,
+      "id": "PR_kwDOIrmZ-85-QJZK",
+      "title": "Pure EdDSA, ML-DSA, SLH-DSA. Update refs to final FIPS 203, 204, 205",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/145",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This should also close #126.\r\n\r\nI think the sentences added to the specific sections should be enough.",
+      "createdAt": "2024-10-10T17:28:37Z",
+      "updatedAt": "2024-10-10T17:28:37Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "135-reference-use-of-pre-hash-variant-of-fips-204-and-205-in-case-we-will-use-it",
+      "headRefOid": "b9b9879240ed41f3aa9ddbc3802c736dd2337fca",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
