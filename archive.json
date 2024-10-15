@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-13T01:26:28.078370+00:00",
+  "timestamp": "2024-10-15T01:22:16.563423+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2821,9 +2821,17 @@
       "labels": [],
       "body": "I found SLH-DSA-SHAKE to cause some problems:\r\n- The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n- The intro (and I guess several other places\" cites \"SLH-DSA-SHAKE [FIPS-205]\". I don't think this is correct, but rather \"SLH-DSA [FIPS-205]\".\r\n- Section \"1.2.3 SLH-DSA-SHAKE\" uses this terminology without introducing/explaining it.\r\n\r\nI would rather prefer to switch back to \"SLH-DSA\" and not have this new name \"SLH-DSA-SHAKE\" that might cause confusion. Rather say when we define the codepoints that we restrict to the SHAKE parameter sets.",
       "createdAt": "2024-10-10T17:03:35Z",
-      "updatedAt": "2024-10-10T17:05:26Z",
+      "updatedAt": "2024-10-14T13:39:44Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n\r\nI would go one step further and simply drop mentioning the former names of the algorithms.\r\n\r\n> I would rather prefer to switch back to \"SLH-DSA\"\r\n\r\nI agree.",
+          "createdAt": "2024-10-14T13:39:43Z",
+          "updatedAt": "2024-10-14T13:39:43Z"
+        }
+      ]
     },
     {
       "number": 144,
@@ -2837,9 +2845,17 @@
       "labels": [],
       "body": "I feel that the text in section \"1.3 Elliptic Curve Cryptography\" outdated? Shouldn't we actually refer to X25519, X448 and EdDSA?",
       "createdAt": "2024-10-10T17:19:26Z",
-      "updatedAt": "2024-10-10T17:19:27Z",
+      "updatedAt": "2024-10-14T13:41:45Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We refer to https://www.rfc-editor.org/rfc/rfc7748 (Curve25519/Curve448) and https://www.rfc-editor.org/rfc/rfc8032 (EdDSA). Maybe you are looking at the wrong version - or am I?",
+          "createdAt": "2024-10-14T13:41:43Z",
+          "updatedAt": "2024-10-14T13:41:43Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -13901,7 +13917,7 @@
       "labels": [],
       "body": "This should also close #126.\r\n\r\nI think the sentences added to the specific sections should be enough.",
       "createdAt": "2024-10-10T17:28:37Z",
-      "updatedAt": "2024-10-10T17:28:37Z",
+      "updatedAt": "2024-10-14T13:51:31Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
@@ -13913,7 +13929,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86NEToB",
+          "commit": {
+            "abbreviatedOid": "b9b9879"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Simple and concise.\r\n\r\nThe only thing I'm not sure about is whether or not \"Pure ML-DSA\" is well enough established in FIPS 204. The variant is only called \"pure\" one time and the \"pure\" is put in quotation marks. FIPS 205 is much more clear on that.",
+          "createdAt": "2024-10-14T13:51:31Z",
+          "updatedAt": "2024-10-14T13:51:31Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
