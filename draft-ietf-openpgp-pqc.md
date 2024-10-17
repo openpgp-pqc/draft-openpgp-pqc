@@ -720,7 +720,7 @@ TBD (108 for testing)  | Ed448   | 57         | 57         | 57         | 114
 
 ### ML-DSA signatures {#mldsa-signature}
 
-Throughout this specification ML-DSA refers to the pure ML-DSA version defined
+Throughout this specification ML-DSA refers to the pure version ML-DSA, i.e., in contrast to the pre-hash variant, defined
 in [FIPS-204].
 
 For ML-DSA signature generation the default hedged version of `ML-DSA.Sign` given in [FIPS-204] is used.
