@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 13 April 2025                                       F. Strenzke
+Expires: 20 April 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         10 October 2024
+                                                         17 October 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2025.
+   This Internet-Draft will expire on 20 April 2025.
 
 Copyright Notice
 
@@ -868,8 +868,9 @@ return KEK
 
 5.1.2.  ML-DSA signatures
 
-   Throughout this specification ML-DSA refers to the pure ML-DSA
-   version defined in [FIPS-204].
+   Throughout this specification ML-DSA refers to the pure version ML-
+   DSA, i.e., in contrast to the pre-hash variant, defined in
+   [FIPS-204].
 
    For ML-DSA signature generation the default hedged version of ML-
    DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
