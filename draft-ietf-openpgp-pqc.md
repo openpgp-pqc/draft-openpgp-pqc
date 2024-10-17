@@ -171,25 +171,25 @@ informative:
       NIST Special Publication 800-108 Rev. 1
 
   FIPS-203:
-      target: https://doi.org/10.6028/NIST.FIPS.203.ipd
+      target: https://doi.org/10.6028/NIST.FIPS.203
       title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
       author:
         - org: National Institute of Standards and Technology
-      date: August 2023
+      date: August 2024
 
   FIPS-204:
-      target: https://doi.org/10.6028/NIST.FIPS.204.ipd
+      target: https://doi.org/10.6028/NIST.FIPS.204
       title: Module-Lattice-Based Digital Signature Standard
       author:
         - org: National Institute of Standards and Technology
-      date: August 2023
+      date: August 2024
 
   FIPS-205:
-      target: https://doi.org/10.6028/NIST.FIPS.205.ipd
+      target: https://doi.org/10.6028/NIST.FIPS.205
       title: Stateless Hash-Based Digital Signature Standard
       author:
         - org: National Institute of Standards and Technology
-      date: August 2023
+      date: August 2024
 
   SP800-185:
     target: https://doi.org/10.6028/NIST.SP.800-185
@@ -698,6 +698,9 @@ The algorithm-specific secret key is these two values:
 
 ### EdDSA-Based signatures {#eddsa-signature}
 
+Throughout this specification EdDSA refers to the PureEdDSA variant defined in
+[RFC8032].
+
 To sign and verify with EdDSA the following operations are defined:
 
     (eddsaSignature) <- EdDSA.Sign(eddsaSecretKey, dataDigest)
@@ -716,6 +719,9 @@ TBD (107 for testing)  | Ed25519 | 32         | 32         | 32         | 64
 TBD (108 for testing)  | Ed448   | 57         | 57         | 57         | 114
 
 ### ML-DSA signatures {#mldsa-signature}
+
+Throughout this specification ML-DSA refers to the pure version ML-DSA, i.e., in contrast to the pre-hash variant, defined
+in [FIPS-204].
 
 For ML-DSA signature generation the default hedged version of `ML-DSA.Sign` given in [FIPS-204] is used.
 That is, to sign with ML-DSA the following operation is defined:
@@ -809,6 +815,8 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
  - A fixed-length octet string containing the ML-DSA secret key, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
 # SLH-DSA-SHAKE
+
+Throughout this specification SLH-DSA-SHAKE refers to the pure SLH-DSA(-SHAKE) version defined in [FIPS-205].
 
 ## The SLH-DSA-SHAKE Algorithms {#slhdsa}
 
