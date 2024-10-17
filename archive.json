@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T01:22:16.563423+00:00",
+  "timestamp": "2024-10-17T01:21:34.733727+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2821,7 +2821,7 @@
       "labels": [],
       "body": "I found SLH-DSA-SHAKE to cause some problems:\r\n- The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n- The intro (and I guess several other places\" cites \"SLH-DSA-SHAKE [FIPS-205]\". I don't think this is correct, but rather \"SLH-DSA [FIPS-205]\".\r\n- Section \"1.2.3 SLH-DSA-SHAKE\" uses this terminology without introducing/explaining it.\r\n\r\nI would rather prefer to switch back to \"SLH-DSA\" and not have this new name \"SLH-DSA-SHAKE\" that might cause confusion. Rather say when we define the codepoints that we restrict to the SHAKE parameter sets.",
       "createdAt": "2024-10-10T17:03:35Z",
-      "updatedAt": "2024-10-14T13:39:44Z",
+      "updatedAt": "2024-10-16T10:42:09Z",
       "closedAt": null,
       "comments": [
         {
@@ -2830,6 +2830,13 @@
           "body": "> The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n\r\nI would go one step further and simply drop mentioning the former names of the algorithms.\r\n\r\n> I would rather prefer to switch back to \"SLH-DSA\"\r\n\r\nI agree.",
           "createdAt": "2024-10-14T13:39:43Z",
           "updatedAt": "2024-10-14T13:39:43Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > I would rather prefer to switch back to \"SLH-DSA\"\r\n> \r\n> I agree.\r\n\r\nI agree also. It is sufficient to mention \"SHAKE\" as the PRF in table  #sig-alg-specs. The remainder of the document should only refer to \"SLH-DSA\".",
+          "createdAt": "2024-10-16T10:42:08Z",
+          "updatedAt": "2024-10-16T10:42:08Z"
         }
       ]
     },
@@ -2845,7 +2852,7 @@
       "labels": [],
       "body": "I feel that the text in section \"1.3 Elliptic Curve Cryptography\" outdated? Shouldn't we actually refer to X25519, X448 and EdDSA?",
       "createdAt": "2024-10-10T17:19:26Z",
-      "updatedAt": "2024-10-14T13:41:45Z",
+      "updatedAt": "2024-10-16T12:17:55Z",
       "closedAt": null,
       "comments": [
         {
@@ -2854,6 +2861,20 @@
           "body": "We refer to https://www.rfc-editor.org/rfc/rfc7748 (Curve25519/Curve448) and https://www.rfc-editor.org/rfc/rfc8032 (EdDSA). Maybe you are looking at the wrong version - or am I?",
           "createdAt": "2024-10-14T13:41:43Z",
           "updatedAt": "2024-10-14T13:41:43Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we have the same text in front of us.\r\n\r\nI would just spell out the algorithm names along with pointing to their RFCs. That would make it much clearer that this specification only does X and Ed.\r\n\r\ne.g.\r\n\r\n\"The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748]. EdDSA as defined in [RFC8032] is used as the elliptic curve-based digital signature scheme.\"\r\n\r\ninstead of the present\r\n\r\nThe ECDH encryption is defined here as a KEM. Curve25519 and Curve448 are defined in [RFC7748] for use in a Diffie-Hellman key agreement scheme and defined in [RFC8032] for use in a digital signature scheme.\r\n\r\n---\r\n(Maybe I am to pedantic here, and we simply close this issue again.)",
+          "createdAt": "2024-10-15T11:00:46Z",
+          "updatedAt": "2024-10-15T11:02:46Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \"The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748]. EdDSA as defined in [RFC8032] is used as the elliptic curve-based digital signature scheme.\"\r\n\r\nI am fine with this proposed change. I wouldn't see it as ultimately necessary, but I think it's a further clarification of the text.",
+          "createdAt": "2024-10-16T12:17:54Z",
+          "updatedAt": "2024-10-16T12:17:54Z"
         }
       ]
     }
@@ -13917,7 +13938,7 @@
       "labels": [],
       "body": "This should also close #126.\r\n\r\nI think the sentences added to the specific sections should be enough.",
       "createdAt": "2024-10-10T17:28:37Z",
-      "updatedAt": "2024-10-14T13:51:31Z",
+      "updatedAt": "2024-10-16T12:30:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
@@ -13928,7 +13949,22 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The only thing I'm not sure about is whether or not \"Pure ML-DSA\" is well enough established in FIPS 204. The variant is only called \"pure\" one time and the \"pure\" is put in quotation marks. FIPS 205 is much more clear on that.\r\n\r\nGood point, but remember that we are explicitly referencing the algorithms 'ML-DSA.Sign' and 'ML-DSA.Verify' which constitute the pure version of ML-DSA. We are not pointing to 'HashML-DSA.Sign/Verify'. Do you think that is fine enough?\r\n\r\n",
+          "createdAt": "2024-10-15T10:49:54Z",
+          "updatedAt": "2024-10-15T10:49:54Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> we are explicitly referencing the algorithms 'ML-DSA.Sign' and 'ML-DSA.Verify' \r\n\r\nThat's true. I think it's fine. ",
+          "createdAt": "2024-10-15T11:27:10Z",
+          "updatedAt": "2024-10-15T11:27:10Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86NEToB",
@@ -13941,6 +13977,87 @@
           "body": "Simple and concise.\r\n\r\nThe only thing I'm not sure about is whether or not \"Pure ML-DSA\" is well enough established in FIPS 204. The variant is only called \"pure\" one time and the \"pure\" is put in quotation marks. FIPS 205 is much more clear on that.",
           "createdAt": "2024-10-14T13:51:31Z",
           "updatedAt": "2024-10-14T13:51:31Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86NZrv8",
+          "commit": {
+            "abbreviatedOid": "b9b9879"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-16T12:30:42Z",
+          "updatedAt": "2024-10-16T12:30:57Z",
+          "comments": [
+            {
+              "originalPosition": 46,
+              "body": "```suggestion\r\nThroughout this specification ML-DSA refers to the pure version ML-DSA, i.e., in contrast to the pre-hash variant, defined\r\n```\r\nI think this clarification is necessary as unfortunately, as Johannes pointed out, the label \"pure\" is not formally defined FIPS-204.",
+              "createdAt": "2024-10-16T12:30:42Z",
+              "updatedAt": "2024-10-16T12:30:57Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 146,
+      "id": "PR_kwDOIrmZ-85-0qUV",
+      "title": "Defining ML-KEM and ML-DSA secret keys to be in seed format",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/146",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #139 \r\nCloses #108 \r\n",
+      "createdAt": "2024-10-16T12:25:59Z",
+      "updatedAt": "2024-10-16T13:49:48Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sec-key-seed",
+      "headRefOid": "fec4f4a67e68882651d2a01d999be094db2af0c0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> We use `ML-KEM.Decaps` and `ML-DSA.Sign` directly with the secret key (seed) which is only defined for the expanded key. For ML-KEM we would first need to call `ML-KEM.KeyGen_internal` to obtain the actual key that can be input to Decaps.\r\n\r\nThis is why it says in the added text to the secret key format:\r\n\r\n> Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked [...]\r\n\r\nI think it is easier to state that where the key format is defined, because it is up to the implementation when to expand the secret key.",
+          "createdAt": "2024-10-16T13:22:58Z",
+          "updatedAt": "2024-10-16T13:22:58Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86NaKlq",
+          "commit": {
+            "abbreviatedOid": "fec4f4a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Looks good to me aside from one further issue. We use `ML-KEM.Decaps` and `ML-DSA.Sign` directly with the secret key (seed) which is only defined for the expanded key. For ML-KEM we would first need to call `ML-KEM.KeyGen_internal` to obtain the actual key that can be input to Decaps.\r\n\r\n",
+          "createdAt": "2024-10-16T13:18:02Z",
+          "updatedAt": "2024-10-16T13:18:22Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86NalLW",
+          "commit": {
+            "abbreviatedOid": "fec4f4a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I re-read and now agree with you. It should be sufficiently clear, especially since we clarify that `mlkemSecretKey` is the decapsulation key.",
+          "createdAt": "2024-10-16T13:49:48Z",
+          "updatedAt": "2024-10-16T13:49:48Z",
           "comments": []
         }
       ]
