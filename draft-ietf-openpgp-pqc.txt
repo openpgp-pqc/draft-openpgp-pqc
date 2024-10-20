@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 13 April 2025                                       F. Strenzke
+Expires: 23 April 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         10 October 2024
+                                                         20 October 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2025.
+   This Internet-Draft will expire on 23 April 2025.
 
 Copyright Notice
 
@@ -838,6 +838,9 @@ return KEK
 
 5.1.1.  EdDSA-Based signatures
 
+   Throughout this specification EdDSA refers to the PureEdDSA variant
+   defined in [RFC8032].
+
    To sign and verify with EdDSA the following operations are defined:
 
    (eddsaSignature) <- EdDSA.Sign(eddsaSecretKey, dataDigest)
@@ -864,6 +867,10 @@ return KEK
          Table 6: EdDSA parameters and artifact lengths in octets
 
 5.1.2.  ML-DSA signatures
+
+   Throughout this specification ML-DSA refers to the pure version ML-
+   DSA, i.e., in contrast to the pre-hash variant, defined in
+   [FIPS-204].
 
    For ML-DSA signature generation the default hedged version of ML-
    DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
@@ -999,6 +1006,9 @@ return KEK
       whose length depends on the algorithm ID as specified in Table 7.
 
 6.  SLH-DSA-SHAKE
+
+   Throughout this specification SLH-DSA-SHAKE refers to the pure SLH-
+   DSA(-SHAKE) version defined in [FIPS-205].
 
 6.1.  The SLH-DSA-SHAKE Algorithms
 
@@ -1637,15 +1647,15 @@ return KEK
 
    [FIPS-203] National Institute of Standards and Technology, "Module-
               Lattice-Based Key-Encapsulation Mechanism Standard",
-              August 2023, <https://doi.org/10.6028/NIST.FIPS.203.ipd>.
+              August 2024, <https://doi.org/10.6028/NIST.FIPS.203>.
 
    [FIPS-204] National Institute of Standards and Technology, "Module-
-              Lattice-Based Digital Signature Standard", August 2023,
-              <https://doi.org/10.6028/NIST.FIPS.204.ipd>.
+              Lattice-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.204>.
 
    [FIPS-205] National Institute of Standards and Technology, "Stateless
-              Hash-Based Digital Signature Standard", August 2023,
-              <https://doi.org/10.6028/NIST.FIPS.205.ipd>.
+              Hash-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.205>.
 
    [GHP18]    Giacon, F., Heuer, F., and B. Poettering, "KEM Combiners",
               2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.

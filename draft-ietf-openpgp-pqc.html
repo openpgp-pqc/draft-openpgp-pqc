@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 13 April 2025</td>
+<td class="center">Expires 23 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1046,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-10" class="published">10 October 2024</time>
+<time datetime="2024-10-20" class="published">20 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-13">13 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-23">23 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2285,20 +2285,22 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
           <h4 id="name-eddsa-based-signatures">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-eddsa-based-signatures" class="section-name selfRef">EdDSA-Based signatures</a>
           </h4>
-<p id="section-5.1.1-1">To sign and verify with EdDSA the following operations are defined:<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.1-2">
+<p id="section-5.1.1-1">Throughout this specification EdDSA refers to the PureEdDSA variant defined in
+<span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-2">To sign and verify with EdDSA the following operations are defined:<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1-3">
 <pre>
 (eddsaSignature) &lt;- EdDSA.Sign(eddsaSecretKey, dataDigest)
-</pre><a href="#section-5.1.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-5.1.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.1-3">and<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.1-4">
+<p id="section-5.1.1-4">and<a href="#section-5.1.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.1-5">
 <pre>
 (verified) &lt;- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
-</pre><a href="#section-5.1.1-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.1.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.1-5">The public and secret key, as well as the signature MUST be encoded according to <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> as fixed-length octet strings.
-The following table describes the EdDSA parameters and artifact lengths:<a href="#section-5.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-6">The public and secret key, as well as the signature MUST be encoded according to <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> as fixed-length octet strings.
+The following table describes the EdDSA parameters and artifact lengths:<a href="#section-5.1.1-6" class="pilcrow">¶</a></p>
 <span id="name-eddsa-parameters-and-artifa"></span><div id="tab-eddsa-artifacts">
 <table class="center" id="table-6">
             <caption>
@@ -2342,22 +2344,24 @@ The following table describes the EdDSA parameters and artifact lengths:<a href=
           <h4 id="name-ml-dsa-signatures">
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-ml-dsa-signatures" class="section-name selfRef">ML-DSA signatures</a>
           </h4>
-<p id="section-5.1.2-1">For ML-DSA signature generation the default hedged version of <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
-That is, to sign with ML-DSA the following operation is defined:<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.2-2">
+<p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the pure version ML-DSA, i.e., in contrast to the pre-hash variant, defined
+in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+That is, to sign with ML-DSA the following operation is defined:<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.2-3">
 <pre>
 (mldsaSignature) &lt;- ML-DSA.Sign(mldsaSecretKey, dataDigest)
-</pre><a href="#section-5.1.2-2" class="pilcrow">¶</a>
+</pre><a href="#section-5.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-3">For ML-DSA signature verification the algorithm ML-DSA.Verify given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
-That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1.2-4">
+<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm ML-DSA.Verify given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1.2-5">
 <pre>
 (verified) &lt;- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
-</pre><a href="#section-5.1.2-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.1.2-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-5">ML-DSA has the parametrization with the corresponding artifact lengths in octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>.
-All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-6">ML-DSA has the parametrization with the corresponding artifact lengths in octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>.
+All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
 <span id="name-ml-dsa-parameters-and-artif"></span><div id="tab-mldsa-artifacts">
 <table class="center" id="table-7">
             <caption>
@@ -2546,6 +2550,7 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
       <h2 id="name-slh-dsa-shake-2">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-slh-dsa-shake-2" class="section-name selfRef">SLH-DSA-SHAKE</a>
       </h2>
+<p id="section-6-1">Throughout this specification SLH-DSA-SHAKE refers to the pure SLH-DSA(-SHAKE) version defined in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <div id="slhdsa">
 <section id="section-6.1">
         <h3 id="name-the-slh-dsa-shake-algorithm">
@@ -3290,15 +3295,15 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dd class="break"></dd>
 <dt id="FIPS-203">[FIPS-203]</dt>
         <dd>
-<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Key-Encapsulation Mechanism Standard"</span>, <time datetime="2023-08" class="refDate">August 2023</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.203.ipd">https://doi.org/10.6028/NIST.FIPS.203.ipd</a>&gt;</span>. </dd>
+<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Key-Encapsulation Mechanism Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.203">https://doi.org/10.6028/NIST.FIPS.203</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FIPS-204">[FIPS-204]</dt>
         <dd>
-<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Digital Signature Standard"</span>, <time datetime="2023-08" class="refDate">August 2023</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.204.ipd">https://doi.org/10.6028/NIST.FIPS.204.ipd</a>&gt;</span>. </dd>
+<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.204">https://doi.org/10.6028/NIST.FIPS.204</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FIPS-205">[FIPS-205]</dt>
         <dd>
-<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <time datetime="2023-08" class="refDate">August 2023</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205.ipd">https://doi.org/10.6028/NIST.FIPS.205.ipd</a>&gt;</span>. </dd>
+<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205">https://doi.org/10.6028/NIST.FIPS.205</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="GHP18">[GHP18]</dt>
         <dd>
