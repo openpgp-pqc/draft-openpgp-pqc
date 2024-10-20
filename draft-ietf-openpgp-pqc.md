@@ -1021,6 +1021,11 @@ For the same reasons, this specification further recommends the use of `AES-256`
 This recommendation should be understood as a clear and simple rule for the selection of `AES-256` for encryption.
 Implementations may also make more nuanced decisions.
 
+## Key generation
+
+When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
+Note that reusing a key may create a valid message or signature in a different protocol, and reusing a key may open to subtle vulnerabilities.
+
 # Additional considerations
 
 ## Performance Considerations for SLH-DSA-SHAKE {#performance-considerations}
@@ -1132,6 +1137,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Reworked KEM combiner for the purpose of NIST-compliance
 - Mandated v6 keys for ML-KEM + ECDH algorithms
 - Defined private key seed format for ML-KEM and ML-DSA
+- Added key generation security considerations
 
 # Contributors
 
