@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T01:21:34.733727+00:00",
+  "timestamp": "2024-10-20T01:34:53.039673+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -13938,13 +13938,13 @@
       "labels": [],
       "body": "This should also close #126.\r\n\r\nI think the sentences added to the specific sections should be enough.",
       "createdAt": "2024-10-10T17:28:37Z",
-      "updatedAt": "2024-10-16T12:30:57Z",
+      "updatedAt": "2024-10-17T03:48:29Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "135-reference-use-of-pre-hash-variant-of-fips-204-and-205-in-case-we-will-use-it",
-      "headRefOid": "b9b9879240ed41f3aa9ddbc3802c736dd2337fca",
+      "headRefOid": "17b3a4e1834e365eb4fe55b18b6874f6fa78dc7a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -14013,7 +14013,7 @@
       "labels": [],
       "body": "Closes #139 \r\nCloses #108 \r\n",
       "createdAt": "2024-10-16T12:25:59Z",
-      "updatedAt": "2024-10-16T13:49:48Z",
+      "updatedAt": "2024-10-17T13:16:56Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
@@ -14058,6 +14058,32 @@
           "body": "I re-read and now agree with you. It should be sufficiently clear, especially since we clarify that `mlkemSecretKey` is the decapsulation key.",
           "createdAt": "2024-10-16T13:49:48Z",
           "updatedAt": "2024-10-16T13:49:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86NgbLd",
+          "commit": {
+            "abbreviatedOid": "fec4f4a"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-10-17T03:50:29Z",
+          "updatedAt": "2024-10-17T03:50:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86NkvTg",
+          "commit": {
+            "abbreviatedOid": "fec4f4a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Ah, just one minor detail: Could you add a changelog entry, Falko?",
+          "createdAt": "2024-10-17T13:16:56Z",
+          "updatedAt": "2024-10-17T13:16:56Z",
           "comments": []
         }
       ]
