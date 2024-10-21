@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 19 April 2025                                       F. Strenzke
+Expires: 24 April 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         16 October 2024
+                                                         21 October 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 April 2025.
+   This Internet-Draft will expire on 24 April 2025.
 
 Copyright Notice
 
@@ -1610,6 +1610,8 @@ return KEK
    *  Reworked KEM combiner for the purpose of NIST-compliance
 
    *  Mandated v6 keys for ML-KEM + ECDH algorithms
+
+   *  Defined private key seed format for ML-KEM and ML-DSA
 
 13.  Contributors
 
