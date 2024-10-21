@@ -641,9 +641,9 @@ Table of Contents
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a key derivation function compliant to
-   [SP800-108r1-upd1], Section 4.4, based on KMAC256.  It is given by
-   the following algorithm, which computes the key encryption key KEK
-   that is used to wrap, i.e., encrypt, the session key.
+   [SP800-108r1], Section 4.4, based on KMAC256.  It is given by the
+   following algorithm, which computes the key encryption key KEK that
+   is used to wrap, i.e., encrypt, the session key.
 
 //   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare,
 //                   ecdhCipherText, ecdhPublicKey, algId)
@@ -1249,13 +1249,13 @@ return KEK
 
    For the key combination in Section 4.2.1 this specification limits
    itself to the use of KMAC256 in a construction following
-   [SP800-108r1-upd1].  The sponge construction used by KMAC256 was
-   proven to be indifferentiable from a random oracle [BDPA08].  This
-   means, that in contrast to SHA2, which uses a Merkle-Damgard
-   construction, no HMAC-based construction is required for key
-   combination.  It is therefore sufficient to simply process the
-   concatenation of any number of key shares with a domain separation
-   when using a sponge-based construction like KMAC256.
+   [SP800-108r1].  The sponge construction used by KMAC256 was proven to
+   be indifferentiable from a random oracle [BDPA08].  This means, that
+   in contrast to SHA2, which uses a Merkle-Damgard construction, no
+   HMAC-based construction is required for key combination.  It is
+   therefore sufficient to simply process the concatenation of any
+   number of key shares with a domain separation when using a sponge-
+   based construction like KMAC256.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
@@ -1695,7 +1695,7 @@ return KEK
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
 
-   [SP800-108r1-upd1]
+   [SP800-108r1]
               Chen, L., "Recommendation for Key-Derivation Using
               Pseudorandom Functions", NIST Special Publication 800-108
               Rev. 1 , August 2022,

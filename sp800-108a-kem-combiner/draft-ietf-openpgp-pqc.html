@@ -2082,7 +2082,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key combiner</a>
           </h4>
 <p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to <span>[<a href="#SP800-108r1-upd1" class="cite xref">SP800-108r1-upd1</a>]</span>, Section 4.4, based on KMAC256.
+The construction is a key derivation function compliant to <span>[<a href="#SP800-108r1" class="cite xref">SP800-108r1</a>]</span>, Section 4.4, based on KMAC256.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
 <pre>
@@ -2827,7 +2827,7 @@ The additional inclusion of <code>ecdhPublicKey</code> follows the security advi
         <h3 id="name-key-combiner-2">
 <a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of KMAC256 in a construction following <span>[<a href="#SP800-108r1-upd1" class="cite xref">SP800-108r1-upd1</a>]</span>.
+<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of KMAC256 in a construction following <span>[<a href="#SP800-108r1" class="cite xref">SP800-108r1</a>]</span>.
 The sponge construction used by KMAC256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
 It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like KMAC256.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
@@ -3341,7 +3341,7 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="SP800-108r1-upd1">[SP800-108r1-upd1]</dt>
+<dt id="SP800-108r1">[SP800-108r1]</dt>
         <dd>
 <span class="refAuthor">Chen, L.</span>, <span class="refTitle">"Recommendation for Key-Derivation Using Pseudorandom Functions"</span>, <span class="seriesInfo">NIST Special Publication 800-108 Rev. 1 </span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-108r1-upd1">https://doi.org/10.6028/NIST.SP.800-108r1-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
