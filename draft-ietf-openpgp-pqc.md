@@ -519,8 +519,8 @@ All artifacts are encoded as defined in [FIPS-203].
 {: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
 Algorithm ID reference | ML-KEM      | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ----------- | ---------- | ---------- | ---------- | ---------
-TBD (105 for testing)  | ML-KEM-768  | 1184       | 2400       | 1088       | 32
-TBD (106 for testing)  | ML-KEM-1024 | 1568       | 3168       | 1568       | 32
+TBD (105 for testing)  | ML-KEM-768  | 1184       | 64         | 1088       | 32
+TBD (106 for testing)  | ML-KEM-1024 | 1568       | 64         | 1568       | 32
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
 
@@ -690,7 +690,10 @@ The algorithm-specific secret key is these two values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the ML-KEM secret key, whose length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
+ - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
+   The seed format is defined in accordance with [FIPS-203], Section 3.3.
+   Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
+   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
 # Composite Signature Schemes
 
@@ -739,8 +742,8 @@ All artifacts are encoded as defined in [FIPS-204].
 {: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
 Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ----------------------:| --------- | -----------| ---------- | ---------------
-TBD (107 for testing)  | ML-DSA-65 | 1952       | 4032       | 3309
-TBD (108 for testing)  | ML-DSA-87 | 2592       | 4896       | 4627
+TBD (107 for testing)  | ML-DSA-65 | 1952       | 32         | 3309
+TBD (108 for testing)  | ML-DSA-87 | 2592       | 32         | 4627
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
@@ -812,7 +815,10 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
 
  - A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the ML-DSA secret key, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
+ - A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare {{tab-mldsa-artifacts}}).
+   The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
+   Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
+   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
 # SLH-DSA-SHAKE
 
@@ -1125,6 +1131,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 ## draft-ietf-openpgp-pqc-05
 - Reworked KEM combiner for the purpose of NIST-compliance
 - Mandated v6 keys for ML-KEM + ECDH algorithms
+- Defined private key seed format for ML-KEM and ML-DSA
 
 # Contributors
 
