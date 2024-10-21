@@ -321,7 +321,7 @@ We refer to {{performance-considerations}} for a discussion of the performance c
 
 ## Elliptic Curve Cryptography
 
-The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748]. 
+The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748].
 EdDSA as defined in [RFC8032] is used as the elliptic curve-based digital signature scheme.
 
 ## Standalone and Multi-Algorithm Schemes {#multi-algo-schemes}
