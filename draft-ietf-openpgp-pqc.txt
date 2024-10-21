@@ -141,6 +141,7 @@ Table of Contents
      9.4.  SLH-DSA-SHAKE Message Randomizer
      9.5.  Binding hashes in signatures with signature algorithms
      9.6.  Symmetric Algorithms for SEIPD Packets
+     9.7.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA-SHAKE
    11. IANA Considerations
@@ -687,8 +688,8 @@ return KEK
 
 4.2.2.  Key generation procedure
 
-   The implementation MUST independently generate the ML-KEM and the
-   ECDH component keys.  ML-KEM key generation follows the specification
+   The implementation MUST generate the ML-KEM and the ECDH component
+   keys independently.  ML-KEM key generation follows the specification
    [FIPS-203] and the artifacts are encoded as fixed-length octet
    strings as defined in Section 4.1.2.  For ECDH this is done following
    the relative specification in [RFC7748], and encoding the outputs as
@@ -935,12 +936,12 @@ return KEK
 
 5.2.2.  Key generation procedure
 
-   The implementation MUST independently generate the ML-DSA and the
-   EdDSA component keys.  ML-DSA key generation follows the
-   specification [FIPS-204] and the artifacts are encoded as fixed-
-   length octet strings as defined in Section 5.1.2.  For EdDSA this is
-   done following the relative specification in [RFC7748], and encoding
-   the artifacts as specified in Section 5.1.1 as fixed-length octet
+   The implementation MUST generate the ML-DSA and the EdDSA component
+   keys independently.  ML-DSA key generation follows the specification
+   [FIPS-204] and the artifacts are encoded as fixed-length octet
+   strings as defined in Section 5.1.2.  For EdDSA this is done
+   following the relative specification in [RFC7748], and encoding the
+   artifacts as specified in Section 5.1.1 as fixed-length octet
    strings.
 
 5.2.3.  Signature Generation
@@ -1355,6 +1356,15 @@ return KEK
    for encryption.  Implementations may also make more nuanced
    decisions.
 
+9.7.  Key generation
+
+   When generating keys, this specification requires component keys to
+   be generated independently, and recommends not to reuse existing keys
+   for any of the components.  Note that reusing a key across different
+   protocols may lead to signature confusion vulnerabilities, that
+   formally classify as signature forgeries.  Generally, reusing a key
+   for different purposes may lead to subtle vulnerabilities.
+
 10.  Additional considerations
 
 10.1.  Performance Considerations for SLH-DSA-SHAKE
@@ -1622,6 +1632,8 @@ return KEK
    *  Mandated v6 keys for ML-KEM + ECDH algorithms
 
    *  Defined private key seed format for ML-KEM and ML-DSA
+
+   *  Added key generation security considerations
 
 13.  Contributors
 
