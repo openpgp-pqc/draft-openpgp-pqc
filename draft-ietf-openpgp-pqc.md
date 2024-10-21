@@ -1024,7 +1024,7 @@ Implementations may also make more nuanced decisions.
 ## Key generation
 
 When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key may create a valid message or signature in a different protocol, and reusing a key may open to subtle vulnerabilities.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.
 
 # Additional considerations
 
