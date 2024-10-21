@@ -265,10 +265,9 @@ Table of Contents
 
 1.3.  Elliptic Curve Cryptography
 
-   The ECDH encryption is defined here as a KEM.  Curve25519 and
-   Curve448 are defined in [RFC7748] for use in a Diffie-Hellman key
-   agreement scheme and defined in [RFC8032] for use in a digital
-   signature scheme.
+   The ECDH encryption is defined here as a KEM via X25519 and X448
+   which are defined in [RFC7748].  EdDSA as defined in [RFC8032] is
+   used as the elliptic curve-based digital signature scheme.
 
 1.4.  Standalone and Multi-Algorithm Schemes
 
