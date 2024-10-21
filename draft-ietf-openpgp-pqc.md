@@ -1126,18 +1126,19 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Explicitly disallowed SED (tag 9) and weak hashes when using PQ algorithms.
 
 ## draft-ietf-openpgp-pqc-04
-- Fixed ML-DSA signature size
-- Fixed parameters order in PKESK description
-- Fixed missing inputs into KEM combination description
-- Improved parallel encryption guidance
-- Improved SED deprecation decscription
-- Added ML-DSA test vectors
+- Fixed ML-DSA signature size.
+- Fixed parameters order in PKESK description.
+- Fixed missing inputs into KEM combination description.
+- Improved parallel encryption guidance.
+- Improved SED deprecation decscription.
+- Added ML-DSA test vectors.
 
 ## draft-ietf-openpgp-pqc-05
-- Reworked KEM combiner for the purpose of NIST-compliance
-- Mandated v6 keys for ML-KEM + ECDH algorithms
-- Defined private key seed format for ML-KEM and ML-DSA
-- Added key generation security considerations
+- Reworked KEM combiner for the purpose of NIST-compliance.
+- Mandated v6 keys for ML-KEM + ECDH algorithms.
+- Defined private key seed format for ML-KEM and ML-DSA.
+- Added key generation security considerations.
+- Replaced initial public drafts with FIPS 203, 204, 205.
 
 # Contributors
 
