@@ -1139,7 +1139,6 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Defined private key seed format for ML-KEM and ML-DSA.
 - Added key generation security considerations.
 - Replaced initial public drafts with FIPS 203, 204, 205.
-- Renamed SLH-DSA-SHAKE to SLH-DSA.
 
 # Contributors
 
