@@ -1609,27 +1609,29 @@ return KEK
 
 12.9.  draft-ietf-openpgp-pqc-04
 
-   *  Fixed ML-DSA signature size
+   *  Fixed ML-DSA signature size.
 
-   *  Fixed parameters order in PKESK description
+   *  Fixed parameters order in PKESK description.
 
-   *  Fixed missing inputs into KEM combination description
+   *  Fixed missing inputs into KEM combination description.
 
-   *  Improved parallel encryption guidance
+   *  Improved parallel encryption guidance.
 
-   *  Improved SED deprecation decscription
+   *  Improved SED deprecation decscription.
 
-   *  Added ML-DSA test vectors
+   *  Added ML-DSA test vectors.
 
 12.10.  draft-ietf-openpgp-pqc-05
 
-   *  Reworked KEM combiner for the purpose of NIST-compliance
+   *  Reworked KEM combiner for the purpose of NIST-compliance.
 
-   *  Mandated v6 keys for ML-KEM + ECDH algorithms
+   *  Mandated v6 keys for ML-KEM + ECDH algorithms.
 
-   *  Defined private key seed format for ML-KEM and ML-DSA
+   *  Defined private key seed format for ML-KEM and ML-DSA.
 
-   *  Added key generation security considerations
+   *  Added key generation security considerations.
+
+   *  Replaced initial public drafts with FIPS 203, 204, 205.
 
 13.  Contributors
 
