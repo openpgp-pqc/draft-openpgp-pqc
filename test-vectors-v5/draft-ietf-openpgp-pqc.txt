@@ -1,0 +1,2684 @@
+
+
+
+
+Network Working Group                                        S. Kousidis
+Internet-Draft                                                       BSI
+Intended status: Informational                                   J. Roth
+Expires: 24 April 2025                                       F. Strenzke
+                                                                  MTG AG
+                                                              A. Wussler
+                                                               Proton AG
+                                                         21 October 2024
+
+
+                  Post-Quantum Cryptography in OpenPGP
+                     draft-ietf-openpgp-pqc-latest
+
+Abstract
+
+   This document defines a post-quantum public-key algorithm extension
+   for the OpenPGP protocol.  Given the generally assumed threat of a
+   cryptographically relevant quantum computer, this extension provides
+   a basis for long-term secure OpenPGP signatures and ciphertexts.
+   Specifically, it defines composite public-key encryption based on ML-
+   KEM (formerly CRYSTALS-Kyber), composite public-key signatures based
+   on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with
+   elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a
+   standalone public key signature scheme.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-openpgp-pqc/.
+
+   Discussion of this document takes place on the WG Working Group
+   mailing list (mailto:openpgp@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/openpgp/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/openpgp/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/openpgp-pqc/draft-openpgp-pqc.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 24 April 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+     1.1.  Conventions used in this Document
+       1.1.1.  Terminology for Multi-Algorithm Schemes
+     1.2.  Post-Quantum Cryptography
+       1.2.1.  ML-KEM
+       1.2.2.  ML-DSA
+       1.2.3.  SLH-DSA
+     1.3.  Elliptic Curve Cryptography
+     1.4.  Standalone and Multi-Algorithm Schemes
+       1.4.1.  Standalone and Composite Multi-Algorithm Schemes
+       1.4.2.  Non-Composite Algorithm Combinations
+   2.  Supported Public Key Algorithms
+     2.1.  Algorithm Specifications
+       2.1.1.  Experimental Codepoints for Interop Testing
+   3.  Algorithm Combinations
+     3.1.  Composite KEMs
+     3.2.  Composite Signatures
+     3.3.  Multiple Signatures
+     3.4.  ECC requirements
+   4.  Composite KEM schemes
+     4.1.  Building Blocks
+       4.1.1.  ECDH KEMs
+       4.1.2.  ML-KEM
+     4.2.  Composite Encryption Schemes with ML-KEM
+       4.2.1.  Key combiner
+       4.2.2.  Key generation procedure
+       4.2.3.  Encryption procedure
+       4.2.4.  Decryption procedure
+     4.3.  Packet specifications
+       4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+       4.3.2.  Key Material Packets
+   5.  Composite Signature Schemes
+     5.1.  Building blocks
+       5.1.1.  EdDSA-Based signatures
+       5.1.2.  ML-DSA signatures
+     5.2.  Composite Signature Schemes with ML-DSA
+       5.2.1.  Signature data digest
+       5.2.2.  Key generation procedure
+       5.2.3.  Signature Generation
+       5.2.4.  Signature Verification
+     5.3.  Packet Specifications
+       5.3.1.  Signature Packet (Tag 2)
+       5.3.2.  Key Material Packets
+   6.  SLH-DSA
+     6.1.  The SLH-DSA Algorithms
+       6.1.1.  Signature Data Digest
+       6.1.2.  Key generation
+       6.1.3.  Signature Generation
+       6.1.4.  Signature Verification
+     6.2.  Packet specifications
+       6.2.1.  Signature Packet (Tag 2)
+       6.2.2.  Key Material Packets
+   7.  Notes on Algorithms
+     7.1.  Symmetric Algorithms for SEIPD Packets
+     7.2.  Hash Algorithms for Key Binding Signatures
+   8.  Migration Considerations
+     8.1.  Key preference
+     8.2.  Key generation strategies
+   9.  Security Considerations
+     9.1.  Security Aspects of Composite Signatures
+     9.2.  Hashing in ECDH-KEM
+     9.3.  Key combiner
+       9.3.1.  Domain separation and binding
+     9.4.  SLH-DSA Message Randomizer
+     9.5.  Binding hashes in signatures with signature algorithms
+     9.6.  Symmetric Algorithms for SEIPD Packets
+     9.7.  Key generation
+   10. Additional considerations
+     10.1.  Performance Considerations for SLH-DSA
+   11. IANA Considerations
+   12. Changelog
+     12.1.  draft-wussler-openpgp-pqc-01
+     12.2.  draft-wussler-openpgp-pqc-02
+     12.3.  draft-wussler-openpgp-pqc-03
+     12.4.  draft-wussler-openpgp-pqc-04
+     12.5.  draft-ietf-openpgp-pqc-00
+     12.6.  draft-ietf-openpgp-pqc-01
+     12.7.  draft-ietf-openpgp-pqc-02
+     12.8.  draft-ietf-openpgp-pqc-03
+     12.9.  draft-ietf-openpgp-pqc-04
+     12.10. draft-ietf-openpgp-pqc-05
+   13. Contributors
+   14. References
+     14.1.  Normative References
+     14.2.  Informative References
+   Appendix A.  Test Vectors
+     A.1.  Sample v6 PQC Subkey Artifacts
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   The OpenPGP protocol supports various traditional public-key
+   algorithms based on the factoring or discrete logarithm problem.  As
+   the security of algorithms based on these mathematical problems is
+   endangered by the advent of quantum computers, there is a need to
+   extend OpenPGP by algorithms that remain secure in the presence of
+   quantum computers.
+
+   Such cryptographic algorithms are referred to as post-quantum
+   cryptography.  The algorithms defined in this extension were chosen
+   for standardization by the National Institute of Standards and
+   Technology (NIST) in mid 2022 [NISTIR-8413] as the result of the NIST
+   Post-Quantum Cryptography Standardization process initiated in 2016
+   [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
+   Encapsulation Mechanism (KEM), a KEM being a modern building block
+   for public-key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
+   [FIPS-205] as signature schemes.
+
+   For the two ML-* schemes, this document follows the conservative
+   strategy to deploy post-quantum in combination with traditional
+   schemes such that the security is retained even if all schemes but
+   one in the combination are broken.  In contrast, the stateless hash-
+   based signature scheme SLH-DSA is considered to be sufficiently well
+   understood with respect to its security assumptions in order to be
+   used standalone.  To this end, this document specifies the following
+   new set: SLH-DSA standalone and the two ML-* as composite with ECC-
+   based KEM and digital signature schemes.  Here, the term "composite"
+   indicates that any data structure or algorithm pertaining to the
+   combination of the two components appears as single data structure or
+   algorithm from the protocol perspective.
+
+   The document specifies the conventions for interoperability between
+   compliant OpenPGP implementations that make use of this extension and
+   the newly defined algorithms or algorithm combinations.
+
+1.1.  Conventions used in this Document
+
+1.1.1.  Terminology for Multi-Algorithm Schemes
+
+   The terminology in this document is oriented towards the definitions
+   in [I-D.ietf-pquip-pqt-hybrid-terminology].  Specifically, the terms
+   "multi-algorithm", "composite" and "non-composite" are used in
+   correspondence with the definitions therein.  The abbreviation "PQ"
+   is used for post-quantum schemes.  To denote the combination of post-
+   quantum and traditional schemes, the abbreviation "PQ/T" is used.
+   The short form "PQ(/T)" stands for PQ or PQ/T.
+
+1.2.  Post-Quantum Cryptography
+
+   This section describes the individual post-quantum cryptographic
+   schemes.  All schemes listed here are believed to provide security in
+   the presence of a cryptographically relevant quantum computer.
+   However, the mathematical problems on which the two ML-* schemes and
+   SLH-DSA are based, are fundamentally different, and accordingly the
+   level of trust commonly placed in them as well as their performance
+   characteristics vary.
+
+   [Note to the reader: This specification refers to the NIST PQC draft
+   standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final
+   specification.  This is a temporary solution until the final versions
+   of these documents are available.  The goal is to provide a
+   sufficiently precise specification of the algorithms already at the
+   draft stage of this specification, so that it is possible for
+   implementers to create interoperable implementations.  Furthermore,
+   we want to point out that, depending on possible future changes to
+   the draft standards by NIST, this specification may be updated as
+   soon as corresponding information becomes available.]
+
+1.2.1.  ML-KEM
+
+   ML-KEM [FIPS-203] is based on the hardness of solving the Learning
+   with Errors problem in module lattices (MLWE).  The scheme is
+   believed to provide security against cryptanalytic attacks by
+   classical as well as quantum computers.  This specification defines
+   ML-KEM only in composite combination with ECDH encryption schemes in
+   order to provide a pre-quantum security fallback.
+
+1.2.2.  ML-DSA
+
+   ML-DSA [FIPS-204] is a signature scheme that, like ML-KEM, is based
+   on the hardness of solving the Learning With Errors problem and a
+   variant of the Short Integer Solution problem in module lattices
+   (MLWE and SelfTargetMSIS).  Accordingly, this specification only
+   defines ML-DSA in composite combination with EdDSA signature schemes.
+
+1.2.3.  SLH-DSA
+
+   SLH-DSA [FIPS-205] is a stateless hash-based signature scheme.  Its
+   security relies on the hardness of finding preimages for
+   cryptographic hash functions.  This feature is generally considered
+   to be a high security guarantee.  Therefore, this specification
+   defines SLH-DSA as a standalone signature scheme.
+
+   In deployments the performance characteristics of SLH-DSA should be
+   taken into account.  We refer to Section 10.1 for a discussion of the
+   performance characteristics of this scheme.
+
+1.3.  Elliptic Curve Cryptography
+
+   The ECDH encryption is defined here as a KEM via X25519 and X448
+   which are defined in [RFC7748].  EdDSA as defined in [RFC8032] is
+   used as the elliptic curve-based digital signature scheme.
+
+1.4.  Standalone and Multi-Algorithm Schemes
+
+   This section provides a categorization of the new algorithms and
+   their combinations.
+
+1.4.1.  Standalone and Composite Multi-Algorithm Schemes
+
+   This specification introduces new cryptographic schemes, which can be
+   categorized as follows:
+
+   *  PQ/T multi-algorithm public-key encryption, namely a composite
+      combination of ML-KEM with an ECDH KEM,
+
+   *  PQ/T multi-algorithm digital signature, namely composite
+      combinations of ML-DSA with EdDSA signature schemes,
+
+   *  PQ digital signature, namely SLH-DSA as a standalone cryptographic
+      algorithm.
+
+   For each of the composite schemes, this specification mandates that
+   the consuming party has to successfully perform the cryptographic
+   algorithms for each of the component schemes used in a cryptographic
+   message, in order for the message to be deciphered and considered as
+   valid.  This means that all component signatures must be verified
+   successfully in order to achieve a successful verification of the
+   composite signature.  In the case of the composite public-key
+   decryption, each of the component KEM decapsulation operations must
+   succeed.
+
+1.4.2.  Non-Composite Algorithm Combinations
+
+   As the OpenPGP protocol [RFC9580] allows for multiple signatures to
+   be applied to a single message, it is also possible to realize non-
+   composite combinations of signatures.  Furthermore, multiple OpenPGP
+   signatures may be combined on the application layer.  These latter
+   two cases realize non-composite combinations of signatures.
+   Section 3.3 specifies how implementations should handle the
+   verification of such combinations of signatures.
+
+   Furthermore, the OpenPGP protocol also allows parallel encryption to
+   different keys by using multiple PKESK packets, thus realizing non-
+   composite multi-algorithm public-key encryption.
+
+2.  Supported Public Key Algorithms
+
+   This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA
+   schemes as well as the standalone SLH-DSA signature scheme.  All of
+   these schemes are fully specified via their algorithm ID, i.e., they
+   are not parametrized.
+
+2.1.  Algorithm Specifications
+
+   For encryption, the following composite KEM schemes are specified:
+
+      +==============+===================+=============+============+
+      |           ID | Algorithm         | Requirement | Definition |
+      +==============+===================+=============+============+
+      | TBD (105 for | ML-KEM-768+X25519 | MUST        | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
+      | TBD (106 for | ML-KEM-1024+X448  | SHOULD      | Section    |
+      |     testing) |                   |             | 4.2        |
+      +--------------+-------------------+-------------+------------+
+
+                   Table 1: KEM algorithm specifications
+
+   For signatures, the following (composite) signature schemes are
+   specified:
+
+     +==============+====================+=============+============+
+     |           ID | Algorithm          | Requirement | Definition |
+     +==============+====================+=============+============+
+     | TBD (107 for | ML-DSA-65+Ed25519  | MUST        | Section    |
+     |     testing) |                    |             | 5.2        |
+     +--------------+--------------------+-------------+------------+
+     | TBD (108 for | ML-DSA-87+Ed448    | SHOULD      | Section    |
+     |     testing) |                    |             | 5.2        |
+     +--------------+--------------------+-------------+------------+
+     |          TBD | SLH-DSA-SHAKE-128s | MAY         | Section    |
+     |              |                    |             | 6.1        |
+     +--------------+--------------------+-------------+------------+
+     |          TBD | SLH-DSA-SHAKE-128f | MAY         | Section    |
+     |              |                    |             | 6.1        |
+     +--------------+--------------------+-------------+------------+
+     |          TBD | SLH-DSA-SHAKE-256s | MAY         | Section    |
+     |              |                    |             | 6.1        |
+     +--------------+--------------------+-------------+------------+
+
+               Table 2: Signature algorithm specifications
+
+2.1.1.  Experimental Codepoints for Interop Testing
+
+   [ Note: this section to be removed before publication ]
+
+   Algorithms indicated as MAY are not assigned a codepoint in the
+   current state of the draft in order to leave enough private/
+   experimental code points available for other drafts.
+
+   The use of private/experimental codepoints during development are
+   intended to be used in non-released software only, for
+   experimentation and interop testing purposes only.  An OpenPGP
+   implementation MUST NOT produce a formal release using these
+   experimental codepoints.  This draft will not be sent to IANA without
+   every listed algorithm having a non-experimental codepoint.
+
+3.  Algorithm Combinations
+
+3.1.  Composite KEMs
+
+   The ML-KEM + ECDH public-key encryption involves both the ML-KEM and
+   an ECDH KEM in an a priori non-separable manner.  This is achieved
+   via KEM combination, i.e. both key encapsulations/decapsulations are
+   performed in parallel, and the resulting key shares are fed into a
+   key combiner to produce a single shared secret for message
+   encryption.
+
+   As explained in Section 1.4.2, the OpenPGP protocol inherently
+   supports parallel encryption to different keys.  Note that the
+   confidentiality of a message is not post-quantum secure when
+   encrypting to different keys if at least one key does not support PQ/
+   T encryption schemes.  In Section 8.1 it is explained how to deal
+   with multiple key scenarios.
+
+3.2.  Composite Signatures
+
+   The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA
+   signatures, and an implementation MUST successfully validate both
+   signatures to state that the ML-DSA + EdDSA signature is valid.
+
+3.3.  Multiple Signatures
+
+   The OpenPGP message format allows multiple signatures of a message,
+   i.e. the attachment of multiple signature packets.
+
+   An implementation MAY sign a message with a traditional key and a
+   PQ(/T) key from the same sender.  This ensures backwards
+   compatibility due to [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation
+   without PQ(/T) support can fall back on the traditional signature.
+
+   Newer implementations with PQ(/T) support MAY ignore the traditional
+   signature(s) during validation.
+
+   Implementations SHOULD consider the message correctly signed if at
+   least one of the non-ignored signatures validates successfully.
+
+   [Note to the reader: The last requirement, that one valid signature
+   is sufficient to identify a message as correctly signed, is an
+   interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5).]
+
+3.4.  ECC requirements
+
+   Even though the zero point, also called the point at infinity, may
+   occur as a result of arithmetic operations on points of an elliptic
+   curve, it MUST NOT appear in any ECC data structure defined in this
+   document.
+
+   Furthermore, when performing the explicitly listed operations in
+   Section 4.1.1.1 or Section 4.1.1.2 it is REQUIRED to follow the
+   specification and security advisory mandated from the respective
+   elliptic curve specification.
+
+4.  Composite KEM schemes
+
+4.1.  Building Blocks
+
+4.1.1.  ECDH KEMs
+
+   In this section we define the encryption, decryption, and data
+   formats for the ECDH component of the composite algorithms.
+
+   Table 3 describes the ECDH-KEM parameters and artifact lengths.  The
+   artifacts in Table 3 follow the encodings described in [RFC7748].
+
+   +========================+=======================+==================+
+   |                        | X25519                | X448             |
+   +========================+=======================+==================+
+   | Algorithm ID reference | TBD (105 for          | TBD (106 for     |
+   |                        | testing)              | testing)         |
+   +------------------------+-----------------------+------------------+
+   | Field size             | 32 octets             | 56 octets        |
+   +------------------------+-----------------------+------------------+
+   | ECDH-KEM               | x25519Kem             | x448Kem (Section |
+   |                        | (Section 4.1.1.1)     | 4.1.1.2)         |
+   +------------------------+-----------------------+------------------+
+   | ECDH public key        | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH secret key        | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH ephemeral         | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | ECDH share             | 32 octets             | 56 octets        |
+   |                        | [RFC7748]             | [RFC7748]        |
+   +------------------------+-----------------------+------------------+
+   | Key share              | 32 octets             | 64 octets        |
+   +------------------------+-----------------------+------------------+
+   | Hash                   | SHA3-256              | SHA3-512         |
+   +------------------------+-----------------------+------------------+
+
+         Table 3: Montgomery curves parameters and artifact lengths
+
+   The various procedures to perform the operations of an ECDH KEM are
+   defined in the following subsections.  Specifically, each of these
+   subsections defines the instances of the following operations:
+
+   (ecdhCipherText, ecdhKeyShare) <- ECDH-KEM.Encaps(ecdhPublicKey)
+
+   and
+
+(ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText, ecdhPublicKey)
+
+   To instantiate ECDH-KEM, one must select a parameter set from
+   Table 3.
+
+4.1.1.1.  X25519-KEM
+
+   The encapsulation and decapsulation operations of x25519kem are
+   described using the function X25519() and encodings defined in
+   [RFC7748].  The ecdhSecretKey is denoted as r, the ecdhPublicKey as
+   R, they are subject to the equation R = X25519(r, U(P)).  Here, U(P)
+   denotes the u-coordinate of the base point of Curve25519.
+
+   The operation x25519Kem.Encaps() is defined as follows:
+
+   1.  Generate an ephemeral key pair {v, V} via V = X25519(v,U(P))
+       where v is a randomly generated octet string with a length of 32
+       octets
+
+   2.  Compute the shared coordinate X = X25519(v, R) where R is the
+       recipient's public key ecdhPublicKey
+
+   3.  Set the output ecdhCipherText to V
+
+   4.  Set the output ecdhKeyShare to SHA3-256(X || ecdhCipherText ||
+       ecdhPublicKey)
+
+   The operation x25519Kem.Decaps() is defined as follows:
+
+   1.  Compute the shared coordinate X = X25519(r, V), where r is the
+       ecdhSecretKey and V is the ecdhCipherText
+
+   2.  Set the output ecdhKeyShare to SHA3-256(X || ecdhCipherText ||
+       ecdhPublicKey)
+
+4.1.1.2.  X448-KEM
+
+   The encapsulation and decapsulation operations of x448kem are
+   described using the function X448() and encodings defined in
+   [RFC7748].  The ecdhSecretKey is denoted as r, the ecdhPublicKey as
+   R, they are subject to the equation R = X25519(r, U(P)).  Here, U(P)
+   denotes the u-coordinate of the base point of Curve448.
+
+   The operation x448.Encaps() is defined as follows:
+
+   1.  Generate an ephemeral key pair {v, V} via V = X448(v,U(P)) where
+       v is a randomly generated octet string with a length of 56 octets
+
+   2.  Compute the shared coordinate X = X448(v, R) where R is the
+       recipient's public key ecdhPublicKey
+
+   3.  Set the output ecdhCipherText to V
+
+   4.  Set the output ecdhKeyShare to SHA3-512(X || ecdhCipherText ||
+       ecdhPublicKey)
+
+   The operation x448Kem.Decaps() is defined as follows:
+
+   1.  Compute the shared coordinate X = X448(r, V), where r is the
+       ecdhSecretKey and V is the ecdhCipherText
+
+   2.  Set the output ecdhKeyShare to SHA3-512(X || ecdhCipherText ||
+       ecdhPublicKey)
+
+4.1.2.  ML-KEM
+
+   ML-KEM features the following operations:
+
+   (mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)
+
+   and
+
+   (mlkemKeyShare) <- ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)
+
+   The above are the operations ML-KEM.Encaps and ML-KEM.Decaps defined
+   in [FIPS-203].  Note that mlkemPublicKey is the encapsulation and
+   mlkemSecretKey is the decapsulation key.
+
+   ML-KEM has the parametrization with the corresponding artifact
+   lengths in octets as given in Table 4.  All artifacts are encoded as
+   defined in [FIPS-203].
+
+   +==============+=============+========+========+============+=======+
+   |    Algorithm | ML-KEM      | Public | Secret | Ciphertext | Key   |
+   |           ID |             | key    | key    |            | share |
+   |    reference |             |        |        |            |       |
+   +==============+=============+========+========+============+=======+
+   |     TBD (105 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
+   |          for |             |        |        |            |       |
+   |     testing) |             |        |        |            |       |
+   +--------------+-------------+--------+--------+------------+-------+
+   |     TBD (106 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
+   |          for |             |        |        |            |       |
+   |     testing) |             |        |        |            |       |
+   +--------------+-------------+--------+--------+------------+-------+
+
+           Table 4: ML-KEM parameters artifact lengths in octets
+
+   To instantiate ML-KEM, one must select a parameter set from the
+   column "ML-KEM" of Table 4.
+
+   The procedure to perform ML-KEM.Encaps() is as follows:
+
+   1.  Invoke (mlkemCipherText, mlkemKeyShare) <- ML-
+       KEM.Encaps(mlkemPublicKey), where mlkemPublicKey is the
+       recipient's public key
+
+   2.  Set mlkemCipherText as the ML-KEM ciphertext
+
+   3.  Set mlkemKeyShare as the ML-KEM symmetric key share
+
+   The procedure to perform ML-KEM.Decaps() is as follows:
+
+   1.  Invoke mlkemKeyShare <- ML-KEM.Decaps(mlkemCipherText,
+       mlkemSecretKey)
+
+   2.  Set mlkemKeyShare as the ML-KEM symmetric key share
+
+4.2.  Composite Encryption Schemes with ML-KEM
+
+   Table 1 specifies the following ML-KEM + ECDH composite public-key
+   encryption schemes:
+
+           +========================+=============+===========+
+           | Algorithm ID reference | ML-KEM      | ECDH-KEM  |
+           +========================+=============+===========+
+           |  TBD (105 for testing) | ML-KEM-768  | x25519Kem |
+           +------------------------+-------------+-----------+
+           |  TBD (106 for testing) | ML-KEM-1024 | x448Kem   |
+           +------------------------+-------------+-----------+
+
+                 Table 5: ML-KEM + ECDH composite schemes
+
+   The ML-KEM + ECDH composite public-key encryption schemes are built
+   according to the following principal design:
+
+   *  The ML-KEM encapsulation algorithm is invoked to create an ML-KEM
+      ciphertext together with an ML-KEM symmetric key share.
+
+   *  The encapsulation algorithm of an ECDH KEM, namely X25519-KEM or
+      X448-KEM, is invoked to create an ECDH ciphertext together with an
+      ECDH symmetric key share.
+
+   *  A Key-Encryption-Key (KEK) is computed as the output of a key
+      combiner that receives as input both of the above created
+      symmetric key shares and the protocol binding information.
+
+   *  The session key for content encryption is then wrapped as
+      described in [RFC3394] using AES-256 as algorithm and the KEK as
+      key.
+
+   *  The PKESK packet's algorithm-specific parts are made up of the ML-
+      KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
+
+4.2.1.  Key combiner
+
+   For the composite KEM schemes defined in Table 1 the following
+   procedure MUST be used to compute the KEK that wraps a session key.
+   The construction is a one-step key derivation function compliant to
+   [SP800-56C], Section 4, based on KMAC256.  It is given by the
+   following algorithm, which computes the key encryption key KEK that
+   is used to wrap, i.e., encrypt, the session key.
+
+   [Note to the reader: the key combiner defined in the current version
+   of this draft is not actually compliant to [SP800-56C], since the
+   NIST standard requires that the shared secret is fed to the KDF first
+   whereas the combiner defined here feeds the key shares of the two
+   component schemes, which together form the shared secret, in two
+   parts with public information in between.  The combiner will be
+   reworked to fix this defect.  The change is planned to be integrated
+   prior to IETF 121.]
+
+//   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
+//                   mlkemCipherText, mlkemPublicKey, algId)
+//
+//   Input:
+//   ecdhKeyShare    - the ECDH key share encoded as an octet string
+//   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
+//   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
+//   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
+//   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
+//   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
+//   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
+//   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
+//
+//  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
+//                                          6F 73 69 74 65 4B 44 46 76 31
+
+KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
+              || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
+return KEK
+
+   Here, the parameters to KMAC256 appear in the order as specified in
+   [SP800-185], Section 4, i.e., the key K, main input data X, requested
+   output length in bits L, and optional customization string S in that
+   order.
+
+   Note that the values ecdhKeyShare defined in Section 4.1.1 and
+   mlkemKeyShare defined in Section 4.1.2 already use the relative
+   ciphertext in the derivation.  The ciphertext and public keys are by
+   design included again in the key combiner to provide a robust
+   security proof.
+
+4.2.2.  Key generation procedure
+
+   The implementation MUST generate the ML-KEM and the ECDH component
+   keys independently.  ML-KEM key generation follows the specification
+   [FIPS-203] and the artifacts are encoded as fixed-length octet
+   strings as defined in Section 4.1.2.  For ECDH this is done following
+   the relative specification in [RFC7748], and encoding the outputs as
+   fixed-length octet strings in the format specified in Table 3.
+
+4.2.3.  Encryption procedure
+
+   The procedure to perform public-key encryption with an ML-KEM + ECDH
+   composite scheme is as follows:
+
+   1.  Take the recipient's authenticated public-key packet pkComposite
+       and sessionKey as input
+
+   2.  Parse the algorithm ID from pkComposite and set it as algId
+
+   3.  Extract the ecdhPublicKey and mlkemPublicKey component from the
+       algorithm specific data encoded in pkComposite with the format
+       specified in Section 4.3.2.
+
+   4.  Instantiate the ECDH-KEM and the ML-KEM depending on the
+       algorithm ID according to Table 5
+
+   5.  Compute (ecdhCipherText, ecdhKeyShare) := ECDH-
+       KEM.Encaps(ecdhPublicKey)
+
+   6.  Compute (mlkemCipherText, mlkemKeyShare) := ML-
+       KEM.Encaps(mlkemPublicKey)
+
+   7.  Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
+       ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
+       algId, 256) as defined in Section 4.2.1
+
+   8.  Compute C := AESKeyWrap(KEK, sessionKey) with AES-256 as per
+       [RFC3394] that includes a 64 bit integrity check
+
+   9.  Output the algorithm specific part of the PKESK as
+       ecdhCipherText || mlkemCipherText || len(C, symAlgId) (||
+       symAlgId) || C, where both symAlgId and len(C, symAlgId) are
+       single octet fields, symAlgId denotes the symmetric algorithm ID
+       used and is present only for a v3 PKESK, and len(C, symAlgId)
+       denotes the combined octet length of the fields specified as the
+       arguments.
+
+4.2.4.  Decryption procedure
+
+   The procedure to perform public-key decryption with an ML-KEM + ECDH
+   composite scheme is as follows:
+
+   1.   Take the matching PKESK and own secret key packet as input
+
+   2.   From the PKESK extract the algorithm ID as algId and the wrapped
+        session key as encryptedKey
+
+   3.   Check that the own and the extracted algorithm ID match
+
+   4.   Parse the ecdhSecretKey and mlkemSecretKey from the algorithm
+        specific data of the own secret key encoded in the format
+        specified in Section 4.3.2
+
+   5.   Instantiate the ECDH-KEM and the ML-KEM depending on the
+        algorithm ID according to Table 5
+
+   6.   Parse ecdhCipherText, mlkemCipherText, and C from encryptedKey
+        encoded as ecdhCipherText || mlkemCipherText || len(C,symAlgId)
+        (|| symAlgId) || C as specified in Section 4.3.1, where symAlgId
+        is present only in the case of a v3 PKESK.
+
+   7.   Compute (ecdhKeyShare) := ECDH-KEM.Decaps(ecdhCipherText,
+        ecdhSecretKey, ecdhPublicKey)
+
+   8.   Compute (mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText,
+        mlkemSecretKey)
+
+   9.   Compute KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText,
+        ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
+        algId) as defined in Section 4.2.1
+
+   10.  Compute sessionKey := AESKeyUnwrap(KEK, C) with AES-256 as per
+        [RFC3394], aborting if the 64 bit integrity check fails
+
+   11.  Output sessionKey
+
+4.3.  Packet specifications
+
+4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+
+   The algorithm-specific fields consists of the output of the
+   encryption procedure described in Section 4.2.3:
+
+   *  A fixed-length octet string representing an ECDH ephemeral public
+      key in the format associated with the curve as specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string of the ML-KEM ciphertext, whose length
+      depends on the algorithm ID as specified in Table 4.
+
+   *  A one-octet size of the following fields.
+
+   *  Only in the case of a v3 PKESK packet: a one-octet symmetric
+      algorithm identifier.
+
+   *  The wrapped session key represented as an octet string.
+
+   Note that like in the case of the algorithms X25519 and X448
+   specified in [RFC9580], for the ML-KEM composite schemes, in the case
+   of a v3 PKESK packet, the symmetric algorithm identifier is not
+   encrypted.  Instead, it is placed in plaintext after the
+   mlkemCipherText and before the length octet preceding the wrapped
+   session key.  In the case of v3 PKESK packets for ML-KEM composite
+   schemes, the symmetric algorithm used MUST be AES-128, AES-192 or
+   AES-256 (algorithm ID 7, 8 or 9).
+
+   In the case of a v3 PKESK, a receiving implementation MUST check if
+   the length of the unwrapped symmetric key matches the symmetric
+   algorithm identifier, and abort if this is not the case.
+
+   Implementations MUST NOT use the obsolete Symmetrically Encrypted
+   Data packet (tag 9) to encrypt data protected with the algorithms
+   described in this document.
+
+4.3.2.  Key Material Packets
+
+   The composite ML-KEM + ECDH schemes MUST be used only with v6 keys,
+   as defined in [RFC9580].
+
+   The algorithm-specific public key is this series of values:
+
+   *  A fixed-length octet string representing an EC point public key,
+      in the point format associated with the curve specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string containing the ML-KEM public key,
+      whose length depends on the algorithm ID as specified in Table 4.
+
+   The algorithm-specific secret key is these two values:
+
+   *  A fixed-length octet string of the encoded secret scalar, whose
+      encoding and length depend on the algorithm ID as specified in
+      Section 4.1.1.
+
+   *  A fixed-length octet string containing the ML-KEM secret key in
+      seed format, whose length is 64 octets (compare Table 4).  The
+      seed format is defined in accordance with [FIPS-203], Section 3.3.
+      Namely, the secret key is given by the concatenation of the values
+      of d and z, generated in steps 1 and 2 of ML-KEM.KeyGen
+      [FIPS-203], each of a length of 32 octets.  Upon parsing the
+      private key format, or before using the secret key, for the
+      expansion of the key, the function ML-KEM.KeyGen_internal
+      [FIPS-203] has to be invoked with the parsed values of d and z as
+      input.
+
+5.  Composite Signature Schemes
+
+5.1.  Building blocks
+
+5.1.1.  EdDSA-Based signatures
+
+   Throughout this specification EdDSA refers to the PureEdDSA variant
+   defined in [RFC8032].
+
+   To sign and verify with EdDSA the following operations are defined:
+
+   (eddsaSignature) <- EdDSA.Sign(eddsaSecretKey, dataDigest)
+
+   and
+
+  (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
+
+   The public and secret key, as well as the signature MUST be encoded
+   according to [RFC8032] as fixed-length octet strings.  The following
+   table describes the EdDSA parameters and artifact lengths:
+
+     +==============+=========+=======+========+========+===========+
+     | Algorithm ID | Curve   | Field | Public | Secret | Signature |
+     |    reference |         | size  | key    | key    |           |
+     +==============+=========+=======+========+========+===========+
+     | TBD (107 for | Ed25519 | 32    | 32     | 32     | 64        |
+     |     testing) |         |       |        |        |           |
+     +--------------+---------+-------+--------+--------+-----------+
+     | TBD (108 for | Ed448   | 57    | 57     | 57     | 114       |
+     |     testing) |         |       |        |        |           |
+     +--------------+---------+-------+--------+--------+-----------+
+
+         Table 6: EdDSA parameters and artifact lengths in octets
+
+5.1.2.  ML-DSA signatures
+
+   Throughout this specification ML-DSA refers to the pure version ML-
+   DSA, i.e., in contrast to the pre-hash variant, defined in
+   [FIPS-204].
+
+   For ML-DSA signature generation the default hedged version of ML-
+   DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
+   the following operation is defined:
+
+   (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
+
+   For ML-DSA signature verification the algorithm ML-DSA.Verify given
+   in [FIPS-204] is used.  That is, to verify with ML-DSA the following
+   operation is defined:
+
+ (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
+
+   ML-DSA has the parametrization with the corresponding artifact
+   lengths in octets as given in Table 7.  All artifacts are encoded as
+   defined in [FIPS-204].
+
+   +========================+===========+========+========+===========+
+   | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
+   |                        |           | key    | key    | value     |
+   +========================+===========+========+========+===========+
+   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 32     | 3309      |
+   +------------------------+-----------+--------+--------+-----------+
+   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 32     | 4627      |
+   +------------------------+-----------+--------+--------+-----------+
+
+        Table 7: ML-DSA parameters and artifact lengths in octets
+
+5.2.  Composite Signature Schemes with ML-DSA
+
+5.2.1.  Signature data digest
+
+   Signature data (i.e. the data to be signed) is digested prior to
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
+   signatures MUST use the associated hash algorithm as specified in
+   Table 8 for the signature data digest.  Signatures using other hash
+   algorithms MUST be considered invalid.
+
+   An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
+   also support the matching hash algorithm.
+
+        +========================+===============+===============+
+        | Algorithm ID reference | Hash function | Hash function |
+        |                        |               | ID reference  |
+        +========================+===============+===============+
+        |  TBD (107 for testing) | SHA3-256      | 12            |
+        +------------------------+---------------+---------------+
+        |  TBD (108 for testing) | SHA3-512      | 14            |
+        +------------------------+---------------+---------------+
+
+          Table 8: Binding between ML-DSA + EdDSA and signature
+                               data digest
+
+5.2.2.  Key generation procedure
+
+   The implementation MUST generate the ML-DSA and the EdDSA component
+   keys independently.  ML-DSA key generation follows the specification
+   [FIPS-204] and the artifacts are encoded as fixed-length octet
+   strings as defined in Section 5.1.2.  For EdDSA this is done
+   following the relative specification in [RFC7748], and encoding the
+   artifacts as specified in Section 5.1.1 as fixed-length octet
+   strings.
+
+5.2.3.  Signature Generation
+
+   To sign a message M with ML-DSA + EdDSA the following sequence of
+   operations has to be performed:
+
+   1.  Generate dataDigest according to [RFC9580, Section 5.2.4]
+       (https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
+
+   2.  Create the EdDSA signature over dataDigest with EdDSA.Sign() from
+       Section 5.1.1
+
+   3.  Create the ML-DSA signature over dataDigest with ML-DSA.Sign()
+       from Section 5.1.2
+
+   4.  Encode the EdDSA and ML-DSA signatures according to the packet
+       structure given in Section 5.3.1.
+
+5.2.4.  Signature Verification
+
+   To verify an ML-DSA + EdDSA signature the following sequence of
+   operations has to be performed:
+
+   1.  Verify the EdDSA signature with EdDSA.Verify() from Section 5.1.1
+
+   2.  Verify the ML-DSA signature with ML-DSA.Verify() from
+       Section 5.1.2
+
+   As specified in Section 3.2 an implementation MUST validate both
+   signatures, i.e. EdDSA and ML-DSA, successfully to state that a
+   composite ML-DSA + EdDSA signature is valid.
+
+5.3.  Packet Specifications
+
+5.3.1.  Signature Packet (Tag 2)
+
+   The composite ML-DSA + EdDSA schemes MUST be used only with v6
+   signatures, as defined in [RFC9580].
+
+   The algorithm-specific v6 signature parameters for ML-DSA + EdDSA
+   signatures consist of:
+
+   *  A fixed-length octet string representing the EdDSA signature,
+      whose length depends on the algorithm ID as specified in Table 6.
+
+   *  A fixed-length octet string of the ML-DSA signature value, whose
+      length depends on the algorithm ID as specified in Table 7.
+
+5.3.2.  Key Material Packets
+
+   The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys,
+   as defined in [RFC9580].
+
+   The algorithm-specific public key for ML-DSA + EdDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the EdDSA public key,
+      whose length depends on the algorithm ID as specified in Table 6.
+
+   *  A fixed-length octet string containing the ML-DSA public key,
+      whose length depends on the algorithm ID as specified in Table 7.
+
+   The algorithm-specific secret key for ML-DSA + EdDSA keys is this
+   series of values:
+
+   *  A fixed-length octet string representing the EdDSA secret key,
+      whose length depends on the algorithm ID as specified in Table 6.
+
+   *  A fixed-length octet string containing the ML-DSA secret key in
+      seed format, whose length is 32 octets (compare Table 7).  The
+      seed format is defined in accordance with [FIPS-204],
+      Section 3.6.3.  Namely, the secret key is given by the value xi
+      generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
+      private key format, or before using the secret key, for the
+      expansion of the key, the function ML-DSA.KeyGen_internal
+      [FIPS-204] has to be invoked with the parsed value of xi as input.
+
+6.  SLH-DSA
+
+   Throughout this specification SLH-DSA refers to the pure SLH-DSA
+   version defined in [FIPS-205].
+
+6.1.  The SLH-DSA Algorithms
+
+   The following table lists the group of algorithm code points for the
+   SLH-DSA signature scheme and the corresponding artifact lengths.
+   This group of algorithms is henceforth referred to as "SLH-DSA code
+   points".
+
+     +========================+============+============+===========+
+     | Algorithm ID reference | SLH-DSA    | SLH-DSA    | SLH-DSA   |
+     |                        | public key | secret key | signature |
+     +========================+============+============+===========+
+     |    TBD (SLH-DSA-SHAKE- | 32         | 64         | 7856      |
+     |                  128s) |            |            |           |
+     +------------------------+------------+------------+-----------+
+     |    TBD (SLH-DSA-SHAKE- | 32         | 64         | 17088     |
+     |                  128f) |            |            |           |
+     +------------------------+------------+------------+-----------+
+     |    TBD (SLH-DSA-SHAKE- | 64         | 128        | 29792     |
+     |                  256s) |            |            |           |
+     +------------------------+------------+------------+-----------+
+
+       Table 9: SLH-DSA algorithm code points and the corresponding
+                       artifact lengths in octets.
+
+6.1.1.  Signature Data Digest
+
+   Signature data (i.e. the data to be signed) is digested prior to
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA signatures MUST use
+   the associated hash algorithm as specified in Table 10 for the
+   signature data digest.  Signatures using other hash algorithms MUST
+   be considered invalid.
+
+   An implementation supporting a specific SLH-DSA algorithm code point
+   MUST also support the matching hash algorithm.
+
+        +========================+===============+===============+
+        | Algorithm ID reference | Hash function | Hash function |
+        |                        |               | ID reference  |
+        +========================+===============+===============+
+        |    TBD (SLH-DSA-SHAKE- | SHA3-256      | 12            |
+        |                  128s) |               |               |
+        +------------------------+---------------+---------------+
+        |    TBD (SLH-DSA-SHAKE- | SHA3-256      | 12            |
+        |                  128f) |               |               |
+        +------------------------+---------------+---------------+
+        |    TBD (SLH-DSA-SHAKE- | SHA3-512      | 14            |
+        |                  256s) |               |               |
+        +------------------------+---------------+---------------+
+
+             Table 10: Binding between SLH-DSA algorithm code
+                points and signature data hash algorithms
+
+6.1.2.  Key generation
+
+   SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
+   as specified in [FIPS-205], and the artifacts are encoded as fixed-
+   length octet strings as defined in Section 6.1.
+
+6.1.3.  Signature Generation
+
+   SLH-DSA signature generation is performed via the algorithm SLH-
+   DSA.Sign as specified in [FIPS-205].  The variable opt_rand is set to
+   PK.seed.  See also Section 9.4.
+
+6.1.4.  Signature Verification
+
+   SLH-DSA signature verification is performed via the algorithm SLH-
+   DSA.Verify as specified in [FIPS-205].
+
+6.2.  Packet specifications
+
+6.2.1.  Signature Packet (Tag 2)
+
+   The SLH-DSA algorithms MUST be used only with v6 signatures, as
+   defined in [RFC9580, Section 5.2.3] (https://www.rfc-editor.org/rfc/
+   rfc9580#section-5.2.3).
+
+   The algorithm-specific part of a signature packet for an SLH-DSA
+   algorithm code point consists of:
+
+   *  A fixed-length octet string of the SLH-DSA signature value, whose
+      length depends on the algorithm ID in the format specified in
+      Table 9.
+
+6.2.2.  Key Material Packets
+
+   The SLH-DSA algorithms code points MUST be used only with v6 keys, as
+   defined in [RFC9580].
+
+   The algorithm-specific part of the public key consists of:
+
+   *  A fixed-length octet string containing the SLH-DSA public key,
+      whose length depends on the algorithm ID as specified in Table 9.
+
+   The algorithm-specific part of the secret key consists of:
+
+   *  A fixed-length octet string containing the SLH-DSA secret key,
+      whose length depends on the algorithm ID as specified in Table 9.
+
+7.  Notes on Algorithms
+
+7.1.  Symmetric Algorithms for SEIPD Packets
+
+   Implementations MUST implement AES-256.  An implementation SHOULD use
+   AES-256 in the case of a v1 SEIPD packet, or AES-256 with any
+   available AEAD mode in the case of a v2 SEIPD packet, if all
+   recipient certificates indicate support for it (explicitly or
+   implicitly).
+
+   A certificate that contains a PQ(/T) key SHOULD include AES-256 in
+   the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD
+   include the pair AES-256 with OCB in the "Preferred AEAD
+   Ciphersuites" subpacket.
+
+   If AES-256 is not explicitly in the list of the "Preferred Symmetric
+   Ciphers for v1 SEIPD" subpacket, and if the certificate contains a
+   PQ/T key, it is implicitly at the end of the list.  This is justified
+   since AES-256 is mandatory to implement.  If AES-128 is also
+   implicitly added to the list, it is added after AES-256.
+
+   If the pair AES-256 with OCB is not explicitly in the list of the
+   "Preferred AEAD Ciphersuites" subpacket, and if the certificate
+   contains a PQ/T key, it is implicitly at the end of the list.  This
+   is justified since AES-256 and OCB are mandatory to implement.  If
+   the pair AES-128 with OCB is also implicitly added to the list, it is
+   added after the pair AES-256 with OCB.
+
+7.2.  Hash Algorithms for Key Binding Signatures
+
+   Subkey binding signatures over algorithms described in this document
+   and primary key binding signatures made by algorithms described in
+   this document MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A
+   receiving implementation MUST treat such a signature as invalid.
+
+8.  Migration Considerations
+
+   The post-quantum KEM algorithms defined in Table 1 and the signature
+   algorithms defined in Table 2 are a set of new public key algorithms
+   that extend the algorithm selection of [RFC9580].  During the
+   transition period, the post-quantum algorithms will not be supported
+   by all clients.  Therefore various migration considerations must be
+   taken into account, in particular backwards compatibility to existing
+   implementations that have not yet been updated to support the post-
+   quantum algorithms.
+
+8.1.  Key preference
+
+   Implementations SHOULD prefer PQ(/T) keys when multiple options are
+   available.  When encrypting to a certificate that has both a valid
+   PQ/T and a valid traditional encryption subkey, an implementation
+   SHOULD use the PQ/T subkey only.  Furthermore, if an application has
+   any means to determine that encrypting to a PQ/T certificate and a
+   traditional certificate is redundant, it should omit encrypting to
+   the traditional certificate.
+
+   As specified in Section 3.1, the confidentiality of a message is not
+   post-quantum secure when using multiple PKESKs if at least one does
+   not use PQ/T encryption schemes.  An implementation SHOULD NOT abort
+   the encryption process when encrypting a message to both PQ/T and
+   traditional keys to allow for a smooth transition to post-quantum
+   cryptography.
+
+   An implementation MAY sign with both a PQ(/T) and an ECC key using
+   multiple signatures over the same data as described in Section 3.3.
+   Signing only with PQ(/T) key material is not backwards compatible.
+
+8.2.  Key generation strategies
+
+   It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
+   keys.  Note that reusing key material from existing ECC keys in
+   PQ(/T) keys does not provide backwards compatibility.
+
+   An OpenPGP certificate is composed of a certification-capable primary
+   key and one or more subkeys for signature, encryption, and
+   authentication.  Two migration strategies are recommended:
+
+   1.  Generate two independent certificates, one for PQ(/T)-capable
+       implementations, and one for legacy implementations.
+       Implementations not understanding PQ(/T) certificates can use the
+       legacy certificate, while PQ(/T)-capable implementations will
+       prefer the newer certificate.  This allows having a traditional
+       certificate for compatibility and a v6 PQ(/T) certificate, at a
+       greater complexity in key distribution.
+
+   2.  Attach PQ(/T) encryption or signature subkeys to an existing
+       traditional v6 OpenPGP certificate.  Implementations
+       understanding PQ(/T) will be able to parse and use the subkeys,
+       while PQ(/T)-incapable implementations can gracefully ignore
+       them.  This simplifies key distribution, as only one certificate
+       needs to be communicated and verified, but leaves the primary key
+       vulnerable to quantum computer attacks.
+
+9.  Security Considerations
+
+9.1.  Security Aspects of Composite Signatures
+
+   When multiple signatures are applied to a message, the question of
+   the protocol's resistance against signature stripping attacks
+   naturally arises.  In a signature stripping attack, an adversary
+   removes one or more of the signatures such that only a subset of the
+   signatures remain in the message at the point when it is verified.
+   This amounts to a downgrade attack that potentially reduces the value
+   of the signature.  It should be noted that the composite signature
+   schemes specified in this draft are not subject to a signature
+   stripping vulnerability.  This is due to the fact that in any OpenPGP
+   signature, the hashed meta data includes the signature algorithm ID,
+   as specified in [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  As a consequence, a component
+   signature taken out of the context of a specific composite algorithm
+   is not a valid signature for any message.
+
+   Furthermore, it is also not possible to craft a new signature for a
+   message that was signed twice with a composite algorithm by
+   interchanging (i.e., remixing) the component signatures, which would
+   classify as a weak existential forgery.  This is due to the fact that
+   each v6 signatures also includes a random salt at the start of the
+   hashed meta data, as also specified in the aforementioned reference.
+
+9.2.  Hashing in ECDH-KEM
+
+   Our construction of the ECDH-KEMs, in particular the inclusion of
+   ecdhCipherText in the final hashing step in encapsulation and
+   decapsulation that produces the ecdhKeyShare, is standard and known
+   as hashed ElGamal key encapsulation, a hashed variant of ElGamal
+   encryption.  It ensures IND-CCA2 security in the random oracle model
+   under some Diffie-Hellman intractability assumptions [CS03].  The
+   additional inclusion of ecdhPublicKey follows the security advice in
+   [RFC7748, Section 6.1] (https://www.rfc-editor.org/rfc/
+   rfc7748#section-6.1).
+
+9.3.  Key combiner
+
+   For the key combination in Section 4.2.1 this specification limits
+   itself to the use of KMAC256 in a construction following
+   [SP800-108r1-upd1].  The sponge construction used by KMAC256 was
+   proven to be indifferentiable from a random oracle [BDPA08].  This
+   means, that in contrast to SHA2, which uses a Merkle-Damgard
+   construction, no HMAC-based construction is required for key
+   combination.  It is therefore sufficient to simply process the
+   concatenation of any number of key shares with a domain separation
+   when using a sponge-based construction like KMAC256.
+
+   More precisely, for a given capacity c the indifferentiability proof
+   shows that assuming there are no weaknesses found in the Keccak
+   permutation, an attacker has to make an expected number of 2^(c/2)
+   calls to the permutation to tell KMAC256 from a random oracle.  For a
+   random oracle, a difference in only a single bit gives an unrelated,
+   uniformly random output.  Hence, to be able to distinguish a key K,
+   derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
+   public keys P1 and P2) as
+
+   K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
+
+   from a random bit string, an adversary has to know (or correctly
+   guess) both key shares K1 and K2, entirely.
+
+   The proposed construction in Section 4.2.1 preserves IND-CCA2 of any
+   of its ingredient KEMs, i.e. the newly formed combined KEM is IND-
+   CCA2 secure as long as at least one of the ingredient KEMs is.
+   Indeed, the above stated indifferentiability from a random oracle
+   qualifies Keccak as a split-key pseudorandom function as defined in
+   [GHP18].  That is, Keccak behaves like a random function if at least
+   one input shared secret is picked uniformly at random.  Our
+   construction can thus be seen as an instantiation of the IND-CCA2
+   preserving Example 3 in Figure 1 of [GHP18], up to some reordering of
+   input shared secrets and ciphertexts.  In the random oracle setting,
+   the reordering does not influence the arguments in [GHP18].
+
+9.3.1.  Domain separation and binding
+
+   The domSeparation information defined in Section 4.2.1 provides the
+   domain separation for the key combiner construction.  This ensures
+   that the input keying material is used to generate a KEK for a
+   specific purpose or context.
+
+   The algorithm ID, passed as the algID paramter to multiKeyCombine,
+   binds the derived KEK to the chosen algorithm.  The input of the
+   public keys into multiKeyCombine binds the KEK to the communication
+   parties.  The algorithm ID identifies unequivocally the algorithm,
+   the parameters for its instantiation, and the length of all
+   artifacts, including the derived key.
+
+   This is in line with the Recommendation for ECC in Section 5.5 of
+   [SP800-56A].  Other fields included in the recommendation are not
+   relevant for the OpenPGP protocol, since the sender is not required
+   to have a key of their own, there are no pre-shared secrets, and all
+   the other parameters are unequivocally defined by the algorithm ID.
+
+9.4.  SLH-DSA Message Randomizer
+
+   The specification of SLH-DSA [FIPS-205] prescribes an optional non-
+   deterministic message randomizer.  This is not used in this
+   specification, as OpenPGP v6 signatures already provide a salted
+   signature data digest of the appropriate size.
+
+9.5.  Binding hashes in signatures with signature algorithms
+
+   In order not to extend the attack surface, we bind the hash algorithm
+   used for signature data digestion to the hash algorithm used
+   internally by the signature algorithm.
+
+   ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3
+   in the ML-DSA + EdDSA signature packet, see Section 5.2.1.  Note that
+   we bind a NIST security category 2 hash function to a signature
+   algorithm that falls into NIST security category 3.  This does not
+   constitute a security bottleneck: because of the unpredictable random
+   salt that is prepended to the digested data in v6 signatures, the
+   hardness assumption is not collision resistance but second-preimage
+   resistance.
+
+   In the case of SLH-DSA the internal hash algorithm varies based on
+   the algorithm ID, see Section 6.1.1.
+
+9.6.  Symmetric Algorithms for SEIPD Packets
+
+   This specification mandates support for AES-256 for two reasons.
+   First, AES-KeyWrap with AES-256 is already part of the composite KEM
+   construction.  Second, some of the PQ(/T) algorithms target the
+   security level of AES-256.
+
+   For the same reasons, this specification further recommends the use
+   of AES-256 if it is supported by all recipient certificates,
+   regardless of what the implementation would otherwise choose based on
+   the recipients' preferences.  This recommendation should be
+   understood as a clear and simple rule for the selection of AES-256
+   for encryption.  Implementations may also make more nuanced
+   decisions.
+
+9.7.  Key generation
+
+   When generating keys, this specification requires component keys to
+   be generated independently, and recommends not to reuse existing keys
+   for any of the components.  Note that reusing a key across different
+   protocols may lead to signature confusion vulnerabilities, that
+   formally classify as signature forgeries.  Generally, reusing a key
+   for different purposes may lead to subtle vulnerabilities.
+
+10.  Additional considerations
+
+10.1.  Performance Considerations for SLH-DSA
+
+   This specification introduces both ML-DSA + EdDSA as well as SLH-DSA
+   as PQ(/T) signature schemes.
+
+   Generally, it can be said that ML-DSA + EdDSA provides a performance
+   in terms of execution time requirements that is close to that of
+   traditional ECC signature schemes.  Regarding the size of signatures
+   and public keys, though, ML-DSA has far greater requirements than
+   traditional schemes like EC-based or even RSA signature schemes.
+
+   Implementers may want to offer SLH-DSA for applications where the
+   weaker security assumptions of a hash-based signature scheme are
+   required – namely only the 2nd preimage resistance of a hash function
+   – and thus a potentially higher degree of trust in the long-term
+   security of signatures is achieved.  However, SLH-DSA has performance
+   characteristics in terms of execution time of the signature
+   generation as well as space requirements for the signature that are
+   even greater than those of ML-DSA + EdDSA signature schemes.
+
+   Pertaining to the execution time, the particularly costly operation
+   in SLH-DSA is the signature generation.  Depending on the parameter
+   set, it can range from approximately the one hundred fold to more
+   than the two thousand fold of that of ML-DSA-87.  These number are
+   based on the performance measurements published in the NIST
+   submissions for SLH-DSA and ML-DSA.  In order to achieve fast
+   signature generation times, the algorithm SLH-DSA-SHAKE-128f ("f"
+   standing for "fast") should be chosen.  This comes at the expense of
+   a larger signature size.  This choice can be relevant in applications
+   where mass signing occurs or a small latency is required.
+
+   In order to minimize the space requirements of an SLH-DSA signature,
+   an algorithm ID with the name ending in "s" for "small" should be
+   chosen.  This comes at the expense of a longer signature generation
+   time.  In particular, SLH-DSA-SHAKE-128s achieves the smallest
+   possible signature size, which is about the double size of an ML-
+   DSA-87 signature.  Where a higher security level than 128 bit is
+   needed, SLH-DSA-SHAKE-256s can be used.
+
+   Unlike the signature generation time, the signature verification time
+   of SLH-DSA is not that much larger than that of other PQC schemes.
+   Based on the performance measurements published in the NIST
+   submissions for SLH-DSA and ML-DSA, the verification time of the SLH-
+   DSA is, for the parameters covered by this specification, larger than
+   that of ML-DSA-87 by a factor ranging from four (for -128s) over nine
+   (for -256s) to twelve (for -128f).
+
+11.  IANA Considerations
+
+   IANA is requested to add the algorithm IDs defined in Table 11 to the
+   existing registry OpenPGP Public Key Algorithms.  The field
+   specifications enclosed in brackets for the ML-KEM + ECDH composite
+   algorithms denote fields that are only conditionally contained in the
+   data structure.
+
+   +===+============+=======+=======+=========+==============+=========+
+   |ID | Algorithm  | Public| Secret|Signature|        PKESK |Reference|
+   |   |            |    Key|    Key|   Format|       Format |         |
+   |   |            | Format| Format|         |              |         |
+   +===+============+=======+=======+=========+==============+=========+
+   |TBD| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
+   |   | 768+X25519 | octets| octets|         |       X25519 |      4.2|
+   |   |            | X25519| X25519|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1088 octets |         |
+   |   |            |    key|    key|         |   ML-KEM-768 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1184|   2400|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |    ML-|    ML-|         |        of v3 |         |
+   |   |            |KEM-768|KEM-768|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
+   |   | 1024+X448  | octets| octets|         |         X448 |      4.2|
+   |   |            |   X448|   X448|         |  ciphertext, |         |
+   |   |            | public| secret|         |  1568 octets |         |
+   |   |            |    key|    key|         |  ML-KEM-1024 |         |
+   |   |            | (Table| (Table|         |   ciphertext |         |
+   |   |            |    3),|    3),|         |   [, 1 octet |         |
+   |   |            |   1568|   3168|         |    algorithm |         |
+   |   |            | octets| octets|         |   ID in case |         |
+   |   |            |ML-KEM-|ML-KEM-|         |        of v3 |         |
+   |   |            |   1024|   1024|         |    PKESK], 1 |         |
+   |   |            | public|secret-|         |        octet |         |
+   |   |            |    key|    key|         |       length |         |
+   |   |            | (Table| (Table|         |     field of |         |
+   |   |            |     4)|     4)|         |   value n, n |         |
+   |   |            |       |       |         |       octets |         |
+   |   |            |       |       |         |      wrapped |         |
+   |   |            |       |       |         |  session key |         |
+   |   |            |       |       |         |     (Section |         |
+   |   |            |       |       |         |       4.3.1) |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
+   |   | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
+   |   |            |Ed25519|Ed25519|signature|              |         |
+   |   |            | public| secret|   (Table|              |         |
+   |   |            |    key|    key| 6), 3293|              |         |
+   |   |            | (Table| (Table|   octets|              |         |
+   |   |            |    6),|    6),|ML-DSA-65|              |         |
+   |   |            |   1952|   4032|signature|              |         |
+   |   |            | octets| octets|(Table 7)|              |         |
+   |   |            |    ML-|    ML-|         |              |         |
+   |   |            | DSA-65| DSA-65|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| ML-DSA-    |     57|     57|      114|          N/A |  Section|
+   |   | 87+Ed448   | octets| octets|   octets|              |      5.2|
+   |   |            |  Ed448|  Ed448|    Ed448|              |         |
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|   (Table|              |         |
+   |   |            | (Table| (Table| 6), 4595|              |         |
+   |   |            |    6),|    6),|   octets|              |         |
+   |   |            |   2592|   4896|ML-DSA-87|              |         |
+   |   |            | octets| octets|signature|              |         |
+   |   |            |    ML-|    ML-|(Table 7)|              |         |
+   |   |            | DSA-87| DSA-87|         |              |         |
+   |   |            | public| secret|         |              |         |
+   |   |            |    key| (Table|         |              |         |
+   |   |            | (Table|     7)|         |              |         |
+   |   |            |     7)|       |         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
+   |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
+   |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+   |TBD| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
+   |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
+   |   |            | public| secret|signature|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
+   |   |            | (Table| (Table|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
+   +---+------------+-------+-------+---------+--------------+---------+
+
+    Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+
+12.  Changelog
+
+12.1.  draft-wussler-openpgp-pqc-01
+
+   *  Shifted the algorithm IDs by 4 to align with the crypto-refresh.
+
+   *  Renamed v5 packets into v6 to align with the crypto-refresh.
+
+   *  Defined IND-CCA2 security for KDF and key combination.
+
+   *  Added explicit key generation procedures.
+
+   *  Changed the key combination KMAC salt.
+
+   *  Mandated Parameter ID check in SPHINCS+ signature verification.
+
+   *  Fixed key share size for Kyber-768.
+
+   *  Added "Preliminaries" section.
+
+   *  Fixed IANA considerations.
+
+12.2.  draft-wussler-openpgp-pqc-02
+
+   *  Added the ephemeral and public key in the ECC key derivation
+      function.
+
+   *  Removed public key hash from key combiner.
+
+   *  Allowed v3 PKESKs and v4 keys with PQ algorithms, limiting them to
+      AES symmetric ciphers. for encryption with SEIPDv1, in line with
+      the crypto-refresh.
+
+12.3.  draft-wussler-openpgp-pqc-03
+
+   *  Replaced round 3 submission with NIST PQC Draft Standards FIPS
+      203, 204, 205.
+
+   *  Added consideration about security level for hashes.
+
+12.4.  draft-wussler-openpgp-pqc-04
+
+   *  Added Johannes Roth as author
+
+12.5.  draft-ietf-openpgp-pqc-00
+
+   *  Renamed draft
+
+12.6.  draft-ietf-openpgp-pqc-01
+
+   *  Mandated AES-256 as mandatory to implement.
+
+   *  Added AES-256 / AES-128 with OCB implicitly to v1/v2 SEIPD
+      preferences of "PQ(/T) certificates".
+
+   *  Added a recommendation to use AES-256 when possible.
+
+   *  Swapped the optional v3 PKESK algorithm identifier with length
+      octet in order to align with X25519 and X448.
+
+   *  Fixed ML-DSA private key size.
+
+   *  Added test vectors.
+
+   *  Correction and completion of IANA instructions.
+
+12.7.  draft-ietf-openpgp-pqc-02
+
+   *  Removed git rebase artifact.
+
+12.8.  draft-ietf-openpgp-pqc-03
+
+   *  Updated SLH-DSA by removing parametrization and restricting to
+      three SLH-DSA-SHAKE algorithm code points.
+
+   *  Removed NIST and Brainpool curve hybrids, dropped ECDSA from the
+      current specification.
+
+   *  Updated KDF as proposed at IETF 119.
+
+   *  Removed whitespaces from composite algorithm names.
+
+   *  Explicitly disallowed SED (tag 9) and weak hashes when using PQ
+      algorithms.
+
+12.9.  draft-ietf-openpgp-pqc-04
+
+   *  Fixed ML-DSA signature size.
+
+   *  Fixed parameters order in PKESK description.
+
+   *  Fixed missing inputs into KEM combination description.
+
+   *  Improved parallel encryption guidance.
+
+   *  Improved SED deprecation decscription.
+
+   *  Added ML-DSA test vectors.
+
+12.10.  draft-ietf-openpgp-pqc-05
+
+   *  Reworked KEM combiner for the purpose of NIST-compliance.
+
+   *  Mandated v6 keys for ML-KEM + ECDH algorithms.
+
+   *  Defined private key seed format for ML-KEM and ML-DSA.
+
+   *  Added key generation security considerations.
+
+   *  Replaced initial public drafts with FIPS 203, 204, 205.
+
+13.  Contributors
+
+   Stephan Ehlen (BSI)
+   Carl-Daniel Hailfinger (BSI)
+   Andreas Huelsing (TU Eindhoven)
+
+14.  References
+
+14.1.  Normative References
+
+   [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
+              (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
+              September 2002, <https://www.rfc-editor.org/rfc/rfc3394>.
+
+   [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
+              for Security", RFC 7748, DOI 10.17487/RFC7748, January
+              2016, <https://www.rfc-editor.org/rfc/rfc7748>.
+
+   [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
+              Signature Algorithm (EdDSA)", RFC 8032,
+              DOI 10.17487/RFC8032, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8032>.
+
+   [RFC9580]  Wouters, P., Ed., Huigens, D., Winter, J., and Y. Niibe,
+              "OpenPGP", RFC 9580, DOI 10.17487/RFC9580, July 2024,
+              <https://www.rfc-editor.org/rfc/rfc9580>.
+
+14.2.  Informative References
+
+   [BDPA08]   Bertoni, G., Daemen, J., Peters, M., and G. Assche, "On
+              the Indifferentiability of the Sponge Construction", 2008,
+              <https://doi.org/10.1007/978-3-540-78967-3_11>.
+
+   [CS03]     Cramer, R. and V. Shoup, "Design and Analysis of Practical
+              Public-Key Encryption Schemes Secure against Adaptive
+              Chosen Ciphertext Attack", 2003,
+              <https://doi.org/10.1137/S0097539702403773>.
+
+   [FIPS-203] National Institute of Standards and Technology, "Module-
+              Lattice-Based Key-Encapsulation Mechanism Standard",
+              August 2024, <https://doi.org/10.6028/NIST.FIPS.203>.
+
+   [FIPS-204] National Institute of Standards and Technology, "Module-
+              Lattice-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.204>.
+
+   [FIPS-205] National Institute of Standards and Technology, "Stateless
+              Hash-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.205>.
+
+   [GHP18]    Giacon, F., Heuer, F., and B. Poettering, "KEM Combiners",
+              2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.
+
+   [I-D.ietf-pquip-pqt-hybrid-terminology]
+              D, F., P, M., and B. Hale, "Terminology for Post-Quantum
+              Traditional Hybrid Schemes", Work in Progress, Internet-
+              Draft, draft-ietf-pquip-pqt-hybrid-terminology-04, 10
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-pquip-pqt-hybrid-terminology-04>.
+
+   [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
+              Cryptography Standardization", December 2016,
+              <https://csrc.nist.gov/projects/post-quantum-cryptography/
+              post-quantum-cryptography-standardization>.
+
+   [NISTIR-8413]
+              Alagic, G., Apon, D., Cooper, D., Dang, Q., Dang, T.,
+              Kelsey, J., Lichtinger, J., Miller, C., Moody, D.,
+              Peralta, R., Perlner, R., Robinson, A., Smith-Tone, D.,
+              and Y. Liu, "Status Report on the Third Round of the NIST
+              Post-Quantum Cryptography Standardization Process", NIST
+              IR 8413 , September 2022,
+              <https://doi.org/10.6028/NIST.IR.8413-upd1>.
+
+   [SP800-108r1-upd1]
+              Chen, L., "Recommendation for Key-Derivation Using
+              Pseudorandom Functions", NIST Special Publication 800-108
+              Rev. 1 , August 2022,
+              <https://doi.org/10.6028/NIST.SP.800-108r1-upd1>.
+
+   [SP800-185]
+              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
+              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
+              NIST Special Publication 800-185 , December 2016,
+              <https://doi.org/10.6028/NIST.SP.800-185>.
+
+   [SP800-56A]
+              Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
+              Davis, "Recommendation for Pair-Wise Key-Establishment
+              Schemes Using Discrete Logarithm Cryptography", NIST
+              Special Publication 800-56A Rev. 3 , April 2018,
+              <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
+
+   [SP800-56C]
+              Barker, E., Chen, L., and R. Davis, "Recommendation for
+              Key-Derivation Methods in Key-Establishment Schemes", NIST
+              Special Publication 800-56C Rev. 2 , August 2020,
+              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
+
+Appendix A.  Test Vectors
+
+   To help implementing this specification a set of non-normative
+   examples follow here.  The test vectors are implemented using the
+   Initial Public Draft (IPD) variant of the ML-DSA and ML-KEM schemes.
+
+A.1.  Sample v6 PQC Subkey Artifacts
+
+   Here is a Private Key consisting of:
+
+   *  A v6 Ed25519 Private-Key packet
+
+   *  A v6 direct key self-signature
+
+   *  A User ID packet
+
+   *  A v6 positive certification self-signature
+
+   *  A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
+
+   *  A v6 subkey binding signature
+
+   The primary key has the fingerprint
+   6f98c6e0e5555d9d5807247b2e0a2e9366ab01da29e0c3f1d0ea4c38b13433f1.
+
+   The subkey has the fingerprint
+   56b4a66a79a945f589d1f4869e100f5ee024349871747d6eb5f967b736835922.
+
+   -----BEGIN PGP PRIVATE KEY BLOCK-----
+
+   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
+   BoWQifC9dbHD5JNv0/6CMXFZagQABA==
+   -----END PGP PRIVATE KEY BLOCK-----
+
+   Here is the corresponding Public Key consisting of:
+
+   *  A v6 Ed25519 Public-Key packet
+
+   *  A v6 direct key self-signature
+
+   *  A User ID packet
+
+   *  A v6 positive certification self-signature
+
+   *  A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
+
+   *  A v6 subkey binding signature
+
+   -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+   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
+   -----END PGP PUBLIC KEY BLOCK-----
+
+   Here is a signed message "Testing\n" encrypted to this key:
+
+   *  A v6 PKESK
+
+   *  A v2 SEIPD
+
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
+   6bab5196b42b06ee30ab6107b7af7a5a2867db4dffa1d1af144d97befea72308.
+
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
+   d68af1960559e3725424eda1480acbc7ac3a71fb13f320069337d9520609d42a.
+
+   The hex-encoded output of multiKeyCombine is
+   0b7a893dc37f7cb8bf963e20121f94029aec577ae77e1b540a440df2f1b3f183.
+
+   The hex-encoded session key is
+   02da6f1ea752c950fdeb1038210b850994bde7f2489641ce85499dea2eae9a5c.
+
+   -----BEGIN PGP MESSAGE-----
+
+   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
+   -----END PGP MESSAGE-----
+
+   Here is a Private Key consisting of:
+
+   *  A v6 ML-DSA-ipd-65+EdDSA Private-Key packet
+
+   *  A v6 direct key self-signature
+
+   *  A User ID packet
+
+   *  A v6 positive certification self-signature
+
+   *  A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
+
+   *  A v6 subkey binding signature
+
+   The primary key has the fingerprint
+   b4713efb190007deef8468ef2f9514124408e0e5cbbe79354554f182802698ab.
+
+   The subkey has the fingerprint
+   b86b50d898c93c24ae85cc36bf05c8a8a778978e924276e8fbcec6d4e5ac3eda.
+
+   -----BEGIN PGP PRIVATE KEY BLOCK-----
+
+   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
+   ofEp0p9RrUwl/iGveCR0bdX11D5P/JyetN97OmQoLGmI9FWWrCZ46rlqMuH6+53i
+   ejXDUGXOnn0D27y3MdmFtklIMOMNapEt5Bz7iFbtA0uxPBD6TjlYwP5l6FEzjVyE
+   /KeOyv+oVZzTFsKW2mfyfPrj2N+DyPrMknZzI2joNGUkKfcuRcO681OU6tX3bj01
+   sTWo7F6wg4ZQdT6Aje2ryScj24eHAjbGRqI7VQGvDx/kYmSXdrbhHG4Hnmk6mhG5
+   NO1kR6Wu8EioJ2wCjfxBmzHGu4RP2+pWji8KIVeIy3LYfyKpgP8jxx62VbGYrUV4
+   Iag+OPBukfe3QLhr3p5iMnoPI0ihwNYmCzCvJ76IKLmfjwchvT/W0a29syQuKcNa
+   ofjSihIlUs3ug1T/ZG3Xyl7NF2h0YFHnF7Rpm3WRSZQsePbMGmwiEck0UFP/Z/DP
+   Fe1V8lkH3hEty4NtMUqtn5F1VHalFs4C5UYKHtBRuZvqjvr0xnbZDFouCc7m4Vjp
+   lzsS1tSjLl6EAyonAbbQ3vCtTn3v9k8Ro8J1p9mRHA1NdBCTI9J8Lkml+f1IIn8g
+   VdHTTiYcqDxM/zRPmC5ve6fAD+BFh7qvDkIGqpB0FIkHnstjp2/XFaxJ1Xso7e0Q
+   Yo30tzVyBFNu8KQF8Okeh2Mz6M2oKn8GInjeDMWD9DxlZwHOnlcWuXFeurj79G5Y
+   iUffg9el18KCwIMrnDD48xUqv1gYDRy/1LAp3AE3nnm5cIPq1Rp4Nsi8DQBOW/ZL
+   J7HW1IXs6o2U7Hytlx+KLZ2a3ETlZ5Nu86OwZYhErsLxDd3wF/85NYUzMxvO5uAV
+   O2LO54jKjpTkQIHpMC4n4laHM3bQJf2HqJIOwEdL44M5vcXV8jgfoKgoVqUlJDP9
+   SBUQZ8aoLWCq9fAaDgjCjh3862zrcfclfNlAIFnje1bWz7S+Wr6IkG1vkj7ViGLi
+   x2+40wftuzo1+igIutUyRdHN7I+ggoFBf+zXEbSlMhV6sW5/4PFw//n0+julq35F
+   Kj5psG8/XmLZun2E0CMOTNDJlursrPRL8aU1M5IXjOMvRMpj3T2m2tkqoDfRjQEc
+   xf9eiJYFjTtU0YqPFUMwHpKs3k+d3YXgRpU2KeFn10wvgro0oiIbG52YycBRL5Le
+   +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
+   -----END PGP PRIVATE KEY BLOCK-----
+
+   Here is the corresponding Public Key consisting of:
+
+   *  A v6 ML-DSA-ipd-65+EdDSA Public-Key packet
+
+   *  A v6 direct key self-signature
+
+   *  A User ID packet
+
+   *  A v6 positive certification self-signature
+
+   *  A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
+
+   *  A v6 subkey binding signature
+
+   -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+   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
+   3jz049pE7fRQ9CYRNXb7FUQBcN4lJL7zlHlmTJLLv6hMCXQUIAm0tht4EgVdDA3C
+   HyzORsKnJ00FYrrHokQRil2A51k50HzaA2B+a2Y8MdWzEUmkaZyxwrxddbT9jXFE
+   MWwp7opXhFs6321lWOziVgFTa0uYQoWaUbqFZFtK+9uEToLYuL1hSAMQ7YqDdl5F
+   ib5xD+tr7bbk8lHYBii0ZFJFVXvsjTtWD+cTf7nL938ceYwHhaYxH7r0L/yYOO07
+   /RqRP8ELUxpBPjjr4esp31R+hzzwsPkjmFRYMJV9U9UtcNilj2VwzfOg51IfPaZ3
+   NjVdWgABUuLQnTlyfbaKumLXuWN4CnJP1vflKQ5DuCjly6NHvRJES4LfKsW7KMJ9
+   VAJ5a4sPMiu+nmCHSj6xbvhJzzuJKlOWzSkmksSetkSPqCic3Y1ResG8SvmMEYfX
+   kG0PIVDQs93NuICtCkU6lRUGARmW2OV0O2pqt7MunOXmK8iQOuOqqjQ/8Gvms66H
+   GHCx0tA+qzOk5KpYkwFdQpCwUiVNLOX1djeH1RgKQkebRJCZxZG/RCVh66PXOpv3
+   JKQY2VscDzf7x22FDxuCDiKR72Mi15XydCi6fnQIug1/j6olqArvt51WpBoM/aN5
+   uD7fuzqcv5OaCXuhyck6lhLRfp0/YRaYdlciihOb1jHtdO4545qpeb/qETayE7R8
+   8zrUQLkiNsjdGdxHgs+MHl64KFC3D6mDvkqnFdqb7Nd4FxDCBGv5ktQlKFKhGWtr
+   R7PWnOYif6JqzzgsxWnC1nmVEAeWtw17s4tuke4cRh5owUNJBZZygKBJsn37H5cX
+   oZHw8uzmESNxgMxw9zVUoeOc+l4eX5ynM+FxmXhxIhOH1sQluFb1MpQglVPBrWzz
+   /2NKvV9tsQq+lISpoewliGawL6Vh7X8qyvzad1LmofEp0p9RrUwl/iGveCR0bdX1
+   1D5P/JyetN97OmQoLGmI9FWWrCZ46rlqMuH6+53iejXDUGXOnn0D27y3MdmFtklI
+   MOMNapEt5Bz7iFbtA0uxPBD6TjlYwP5l6FEzjVyE/KeOyv+oVZzTFsKW2mfyfPrj
+   2N+DyPrMknZzI2joNGUkKfcuRcO681OU6tX3bj01sTWo7F6wg4ZQdT6Aje2ryScj
+   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
+   AAAAAAAAAAAACgwOExkk
+   -----END PGP PUBLIC KEY BLOCK-----
+
+   Here is a signed message "Testing\n" encrypted to this key:
+
+   *  A v6 PKESK
+
+   *  A v2 SEIPD
+
+   The hex-encoded mlkemKeyShare input to multiKeyCombine is
+   67b591752f895c0edbb990963827b876faf9b72aca33762a422fc9e40712364d.
+
+   The hex-encoded ecdhKeyShare input to multiKeyCombine is
+   76ec0ced0724c3d8ccbf37eb2b45f80d5794f4ecd05d5f1fc777ffa7601651f2.
+
+   The hex-encoded output of multiKeyCombine is
+   630addb63c6fae50e2b14afc94ec2b2beb060527ea1ad230f20edd45e43ed59f.
+
+   The hex-encoded session key is
+   ae60488175c59579458abe4007a5b781849c2129ff50e8c7d1cc2f32b351f6a4.
+
+   -----BEGIN PGP MESSAGE-----
+
+   wcPtBiEGuGtQ2JjJPCSuhcw2vwXIqKd4l46SQnbo+87G1OWsPtppmNpyMxNC+Ake
+   xO2m6qb3kWShL//iPKDqcsCLengrmwpPgLCZPYiKBaDIw+3M9rWRy/Xv+KcRdEsW
+   Y/1I/dNRoBYyBRafuQlH7jhbDPZ82xRCaD2MamOCrwQlGMYhgWeBPfpQ7WaUk7ID
+   CmnbqZ80X50CQYDpYtELUojnJCQ283T/0fqTbumPwAEooPzXSZX3/8gbsS0IDWCx
+   wOB//NVHuOBTJLYl3tjiPNY01xfafMi/9XHtH6ssOpTFzcwSKpEEuI/KSI0xEPqo
+   PtQFW45BFtaNX+sQS+90fodny70TEPth1NY7WSAfhvq/SQx5q6qTg4d7/5pQL9CF
+   IHLxACu3B5Wjbd/TyESVfM1PZvYtveRNhlCdft1ZHpqigL9XaOaObR2fGkq8ChRv
+   DsPGziQZdUQpxseAvZoAO3YgfXV+l3fC75eohsha80N5smoJcqw46bSJhFmhhahQ
+   NelWnQYefQD+Wgsrl9cE7F8Jnvvt6eZkIyrlkj3kgrv6ACOr45FOS01YwM73birf
+   5Ioxf1IakCApU3exxW4GrGWO/Jre/3T0YKJiA/ENULpVlvIVpdYlQAD9ESs72niE
+   n+BdQtlvTZVQb0U/YUR8aaG25IEvj9/RgjKErtsYGMQMmSl9OKRiuX8qOLgknbqz
+   l5KvkJ4WdfOYI9qQ50cgBS4+yNKkX3VJw/qCTMWrncGzvvGkNZP86c5II/rwIsyh
+   iYkQfY1W4FlOXndceu4tkbgVhk4lPNXaoIwevFHc9Yfj2nZf8TAXPJK7HkpWrPym
+   PkhzSQ3aNDdX6JS8k1KR5owwsIslVgvQR4/m2M1hdEehmzDuNzD65kQzjUaEZpg/
+   K2z9FvmcvD81qv2Ostcvn64mm1+rUcWG1Z0X0oQ5U4B1R6dj/hPcp+ptnv7iefd+
+   zmru3RhvcDpW7oIzgXc0lRkaWH23Q8uxpErVBO8HZvp9ULAlgm+Tsf5JLemeHug9
+   YTxKi2J3s7C+c9SR2ACKF1MIqxveS10IaezGY67LS3Uv2nfu9trGZtZ13mlzJSHd
+   ByDIpd5mgc7tD/Xv37fcF8oKQVj6zEdlF9anm+2/eNQpgOV11dQSxle/bpfpVo49
+   ++0BANrsXMvjur/8I1WHDSNDl7beFYGpK5FZ91HNNSbMcmPpsjGZY3OZGWTZge03
+   PGwcjTPbfj38HCSoj6Ch+RaXWPlJFg+aUUhUMzT0lBue/FdoO59s8x2Ddq34vDy4
+   Gm0L43zgpnOCId5mtBuFiC0R1k0c5PDlb0hmE0PQir/CBowGdtpljcjNc62XhZsu
+   VSmYiSUVQlBZg6/Iq0zaotiu08kbfCt3qHhu0IaprA8IO6hui9zI6zrDcIpMn3+C
+   a/ytISfvcdNWcFlMpVclv2pgGyrzT5k4L4EYHDWsjYpYisiqMGNemnnSYNA/xC9x
+   v71cbuHhZMootRm5ROmy2SP4u/oydJpiVTcPRob5u7rzlTf8RaDnxhxjTwBCPvql
+   DSJ/nK0NfihnHw7GFPfsMKPE30sM5rF0oU+e73tgtfqM5sWLraPV2OirBhYB9QcR
+   0usCCQIMOfJ5dA/g1WpOBC53HZf3ur3GJu3xyTjrssCgWI31DSKf7FFz6UCraATM
+   cH2J37/n5wg1IFKsdd+kYkZYxWcoH/zdZV7JjMIbV5wzDn+1t3S0K3Jzp2SPvErn
+   lm44/FkMGznIVoYEIbd8UZpGBerXrcdznR6bvxlYAm8FJg6Y9S4GcSsPa5QpurUO
+   c3ezFd8YRTiKI0rmmODMCr/HmWUSMGKQe6+JkjnsUh0F2kH3x8pKmsKmJ5QMPE3u
+   okFHhrFaI6I0FLfFe0gGpund+4CsI+/X4nv57JScscnfMG8OJpJ20kVfJ8b1od++
+   VNlRvGY03bBsDdV3aeSR9P9JsdeoajuKur1syRkNgtcExaDn0cpQPqLW0E9u/7I1
+   1piQKlzQT28pdEmwYhfhi+12JjrgiYyIImGKRZVCapLHw2F98LNBs1JilNcMSlUI
+   3wqiueXKJptLrC8g38SFgYE/lDmteFEMKYYk8ka2+LGuqmo2GzyU2QtEdXggPz+L
+   /tAvhSTiTqv39KqA/O8MPHw3pCSTPeCWRr/2eES21sg3RXTH4FIRibDS7P2jNRRt
+   RSzllSgLDueH6y5z9jKnkcf4+QZMM0PbprMEgzR4Vc8HzQqxsUo6+vFFt4XGpG2+
+   uT2JPVWUXoK+0c6bXGXYQv3YLgmd05bReRKoR/6iqaP055CceXjiI6hoWqresiju
+   /YovPOak6KkSLcl6NZFGMGL6Ia/AaBksBCrReBmYmDgDNlYHz2rYRcqQTK3vu9+e
+   jQldkffCjgRQeRpgbyALkpbdMlHhhmP4LI8J5BBsKyMn+xDDvZ4dA3BLrkfJOJQG
+   2kBSCOu/jXVYxoufiSa063h4hWNmP6kfBbMkBVjHGExkDRyN7Rp5U8ccd1evj0lo
+   9udjQS5sb4ADjd7lGTDq/fZQ/TvuPum0ZsE7bTgEWAWVZ8PWpjjYvKg6dPwXgnHX
+   c1y4daVYpfIKJMSbIo7/MfGG+PNB57Ca5b+wLvF+dorAdLgFdjTyFd0CAxYBT6aU
+   sn15YJaqRfzDtJvdNkCOa3yvGoAg0dHebx+JHMha3mzk7V8dmnjVvkKz/QRM+vbD
+   fP2C+nhGPoZx48nA+QIk9QDLtAXirb5UeLJ4D+XoQv72IJMidSRk4qGO8sgGck+U
+   lxyDPWyfUn0LFb/gjkbzVhg8vfbPvvQ2RW/GlW3QiqM65AUTvVGCLoC1NwchNwxj
+   hV5VJQ04j2JIZ2zIyaZIJqnfk92AeAU2THSa8tNTGgjMobUZfujWOryY6KtcF+ed
+   cqms9rnRiuEFDeVOVgNbEJf7qdxp8eGmm3bQyYglB+son9E8g6JUVJNDDdiQbA7D
+   lcvxqaJvKoRFrK3LygITRPAjMJwYqFl8xJJoQuKqGl8SHy19VId2JsW2ZEFjxn1W
+   2IHAj66Dd3b70d/p0/U7OAQmdg9ALqthFs3MdIuMYv9A4VdfrhDKTQy3Ar6NjHUa
+   z+rxjtOo+Xsj8I9U/hYAMYinMGmlh5jX8d2ax/46Ggzw0nOT5AFbG0KDcXbZnAl6
+   8q6Uq++p9wwejqAqLGrk1YSPMgiP/SPo6AYs98YgKgDNn9SmjdP+87zqIiYmtOd3
+   FEJ1WxkeapmpCA3BX8BIX46qCzDNlQEIYESccjNOFJZd2cn0BwC8ogbZmqyYLMP7
+   91Alh+kZsbBdCQogTUScHE2H2Pil5NuzQkOU2cm29C88evtnzZGMB0Ppxsa2rk8P
+   YX8UNpvMNJfF565Hy0UguYySlaY3EuF4TdBUATTDR77uziKmYbwGk5DYwCEUtwsX
+   kaosPazipgJ0wK89bzkz9KuVtGLJKZQF8gRo5m80MlCYEufJFHApT/mvsnM07QKj
+   ApOoKdcZp9tyHIzHoGon5vM1kSIuD7e8L+jeySUx4U/MILsHqy0ZkKmaJeH3Osbj
+   OAIlOFdfC9sJ1JIH5q0aArXXPhBgQ9yPY2lnO+N/BEWbsWzXdQbWXOmLSoxd0QLi
+   NQlEsl1YXWKaf1grZn5L1wS9oKJuRNOyS3lQBFnLA+CkCJ3nh7m/xJ8evoN0MlGW
+   m60R+reZGxKJBDLXNseifwVVNKZFDn+8rUQYI3FNsCCNxHQh92E3YEIa2liBHQOq
+   WtvrTuc5lI3Iu4ND8DF8kEXr6V419kO5VjVtZdH5RBbqLucn5+oYbAMYaZphdaHQ
+   WfVHZbJ1TdUA6GRuSNQLvdRXiP5ReogmN/ej1mOJhs7ACxV/9U0S9P3YjLsKO8Ny
+   WAT0yaqI2P/U099Q/e1iQUrjN6zeSG8tprtgbYha5R9IalzORGzjQKiTmyMWlxY9
+   ht2syRtKigqfLsaqUd6J25mgCui0m0GtH+HuX1yVzHZN+EUsakUTgNAnF9CngYXt
+   mY6jK08ZlyHBtkGR2ZogL3RAORLxqNFvV3/BmiYbTrT7PG2jst1JIwhRJv1zPddD
+   Tw0OUlZKUhVhfjzo9y+9YV8F0iqmnoZ9HKzDG/nCIOW6wQ4xdBLM2K7cpTj+TiRy
+   F/X15xRGZwMMpEfKdzeu7BgYAYWXMvW+TrZwlAZn7bGs4aROo+dMhjvYMYPEmPVU
+   MgOx2HuZkEnBy3LWHQnQkrF09jjYVVvHF1yg/BXWRWDRPR6ZAd54rFOu9CCV+oc3
+   HX9uTLvFyzCW4iQzL8eT3uOHLoDNcU8An5DBk9lHrc/x90IynLVwN+gw91G2JUU0
+   RO1DCqrwKZVeWPYVn/JlZefpH262ohWCz04bEatzE8AtBcVEj35A83dKmims0RCY
+   5Vpo1BKMZatfhbRYynsANFCQYNtYIJNcqVzHODo2xYpveb8Mjp5GufEF8F7yIhM+
+   uvoh51cq60o/n0MMCjSbHpgiZJLIpWGQZkmWr6S0dEeBfCM0QNq4NDg1a4AYA0tB
+   5Uyi5lfRAZEmodOnrXN3kN6VWcni0KyD7M9xv2fX6uFfRS3j+TX6Fd+e11B4VJJO
+   l8mqF7m/pdBqfovo3nW0XMX8PJLo3zxsxFuE9SF+qvjxluXoTBSIWXYH0F2IMY6a
+   Mj25CrTfsSm1DI6JZOQNnZvUqpOLn1MLZb9b6NZ7nloLM/JD8S8i4xLZiyPFEzz/
+   nbJp++pJzlErjHbEoeYEqjxkRDW1ePm4fAtNkJvAOscVyTdzqBDiiP9GGDiYagbn
+   iwxixPdKzvRkIqWmWvFyl2IkdIca0/sKcQwPmZTqYUTxwMiTf7NzJxvAjdoL6sji
+   YTEC5n08ce+TVB8mTYCXvqG31qAGISH4EcraTgv+U7yJ/4Bo8XFNSawh83YQKFdW
+   TKRyLmvT9aTHC+qfhHNuD7qMCVnpa9j4d23UuCKOd3yOg6vj+Jn5SdBfsvSyo93H
+   i0gyFXZp99rByVtkQMbjtuOHEAum0q9v4hLAKeNuEj/3P8tLod4fletkX5BXTbTN
+   GAbG/n3RXJf3QUqtPm2jWOeQ+3iHD6PL5B4a9NvbEg391Ihb7Ya5PhJ/DTL9hk4x
+   PzZS3jM62b14YfrY6pUXxbnjLyqDsqfYmYW7Y9j6Pc47KXP9HCYz5MuU7lllGZoS
+   dmthiGhmatlpjVKDSxOhdFnMG3T8BgQOw0dVEn6XwbK48OL31+Qgh5JQJLzaZV+H
+   7CJ4Q4EOjUmYRR7eP+vfWd68frOJBmqv2yFyI6wctoymHvhP6KVjI4ebJzEm21d0
+   AMY67OmmeSFOYj6FFaUEDKDKNkZLaFFhAHPY/+G5AW+bqZfFmDAFNsjiMJeyZWqr
+   VP4/jl7tdmt9AFf58s296BtDBsUkaqXurg5UCfeOEz3E25Y1mOxWy/xCfYEISgN8
+   yaVsRgzOH/sQNeo+xBWtMIU7GUPmSOv625/kKE1Aqd4UrtAgCGj9VMRsJfGPxJdh
+   unoesbRFvBM9bjmCTNIXKvX1NEr4pUfDfAa7GIErf7yJ5LSbHst6m6XuvOsttTs7
+   kTXXG1PFE7DNGxJ5YylmZSYuMB6wMtHoPKymRKOp0gtXjBx+UnG3BBSgrlf4Yn/9
+   X29z1yGZ+W3c25SRIs7+SOkzr3mW7IIJNKx650DQioVOIG2XxjPtyrH9HRmXNw9A
+   fMsvB7plGPAPnTdbbHrWMkjMtbvopu9OhtJ1epD/9gVj+FEL5oIP3eg/teY93OPz
+   WGj0h0y5eBN29UvioeUMsAkKy+JwjzMgOPysEApuSjQCOKxXXTcujkpH7mk8v5O6
+   uIVIGHUGZxGmFo289mqEran6gKDv7uoxy5/f9hzPXvPHiiTWARJRs9T5cyxQzSLi
+   FTZ/Q0ohZfW5CmvsXh/G8B5iYcAhb1KIeZCWZxpPgfEElckWsvYHhbvwARXn/M3A
+   XFrICRXGA4tzUD5xbwLtrdJ/mWIbYD89FX9+g4Vv6tY2LvJHFb77uDthLatr8Rm4
+   sqhP4UtmyeUJsSSGKddSQxeOFbhwgqO/e1UhpBeOrZ089HFJ6Ceb9GgfNKylTDfz
+   Im1+qZSRJkZi+p2djDf6h+BE3eWxDvQTXpbYa0A5bhmSbXgZqfyhvm6Z0y5G5boB
+   /YVzYv5eQE0GQK9jtZqwd8AQuV2JY2ZlYYFHcBpSDUAs8xUjAt6b8bukaXcHiGzW
+   BYA+cgUIroR/1rI0JXxCOGRihvShUMHIHRZoGWIFjCEJYsxnNPfmi2x567T1WpXJ
+   A6noQdv+xpDTI+LwMX7mItUFK/DpOHFSj/KddHf8ywbe/+AoCaAI2sef01LlCnj8
+   uRmCT2zRUkY0vzZ0EweXD5ugPqn4wbrWC1I5X1iAZHdLhz6+CEpMIxBTCk0F4qJw
+   HwyRj2lJUgHC8z8RgdA7EE8TuAEx01JUe8/aur9SjlBAvDP3V/ivTA==
+   -----END PGP MESSAGE-----
+
+Acknowledgments
+
+   Thanks to Daniel Huigens and Evangelos Karatsiolis for the early
+   review and feedback on this document.
+
+Authors' Addresses
+
+   Stavros Kousidis
+   BSI
+   Germany
+   Email: stavros.kousidis@bsi.bund.de
+
+
+   Johannes Roth
+   MTG AG
+   Germany
+   Email: johannes.roth@mtg.de
+
+
+   Falko Strenzke
+   MTG AG
+   Germany
+   Email: falko.strenzke@mtg.de
+
+
+   Aron Wussler
+   Proton AG
+   Switzerland
+   Email: aron@wussler.it
