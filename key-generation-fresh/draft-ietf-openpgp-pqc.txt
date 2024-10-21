@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 April 2025                                       F. Strenzke
+Expires: 24 April 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         20 October 2024
+                                                         21 October 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2025.
+   This Internet-Draft will expire on 24 April 2025.
 
 Copyright Notice
 
@@ -1346,9 +1346,10 @@ return KEK
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
-   for any of the components.  Note that reusing a key may create a
-   valid message or signature in a different protocol, and reusing a key
-   may open to subtle vulnerabilities.
+   for any of the components.  Note that reusing a key across different
+   protocols may lead signature confusion vulnerabilities, that
+   formarlly classify as signature forgeries.  Generally, reusing a key
+   for different purposes may lead to subtle vulnerabilities.
 
 10.  Additional considerations
 
