@@ -119,23 +119,6 @@ informative:
     seriesinfo:
       NIST IR 8413
 
-  SP800-56C:
-    target: https://doi.org/10.6028/NIST.SP.800-56Cr2
-    title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
-    author:
-      -
-        ins: E. Barker
-        name: Elaine Barker
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: R. Davis
-        name: Richard Davis
-    date: August 2020
-    seriesinfo:
-      NIST Special Publication 800-56C Rev. 2
-
   SP800-56A:
     target: https://doi.org/10.6028/NIST.SP.800-56Ar3
     title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
@@ -159,7 +142,7 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56A Rev. 3
 
-  SP800-108r1-upd1:
+  SP800-108:
     target: https://doi.org/10.6028/NIST.SP.800-108r1-upd1
     title: Recommendation for Key-Derivation Using Pseudorandom Functions
     author:
@@ -564,36 +547,31 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to {{SP800-56C}}, Section 4, based on KMAC256.
+The construction is a key derivation function compliant to {{SP800-108}}, Section 4.4, based on KMAC256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
-\[Note to the reader: the key combiner defined in the current version of this draft is not actually compliant to {{SP800-56C}}, since the NIST standard requires that the shared secret is fed to the KDF first whereas the combiner defined here feeds
-the key shares of the two component schemes, which together form the shared secret, in two parts with public information in between.
-The combiner will be reworked to fix this defect.
-The change is planned to be integrated prior to IETF 121.\]
 
-
-    //   multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare,
-    //                   mlkemCipherText, mlkemPublicKey, algId)
+    //   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare,
+    //                   ecdhCipherText, ecdhPublicKey, algId)
     //
     //   Input:
-    //   ecdhKeyShare    - the ECDH key share encoded as an octet string
-    //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
     //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
+    //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+    //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
+    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
     //   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
     //
     //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
     //                                          6F 73 69 74 65 4B 44 46 76 31
 
-    KEK = KMAC256(ecdhKeyShare || mlkemKeyShare, ecdhCipherText || mlkemCipherText
-                  || ecdhPublicKey || mlkemPublicKey || algId, 256, domSep)
+    KEK = KMAC256(mlkemKeyShare || ecdhKeyShare, mlkemCipherText || ecdhCipherText
+                  || mlkemPublicKey || ecdhPublicKey || algId, 256, domSep)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S in that order.
+Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
 The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
@@ -620,7 +598,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)`
 
- 7. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId, 256)` as defined in {{kem-key-combiner}}
+ 7. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId, 256)` as defined in {{kem-key-combiner}}
 
  8. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -646,7 +624,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
- 9. Compute `KEK := multiKeyCombine(ecdhKeyShare, ecdhCipherText, ecdhPublicKey, mlkemKeyShare, mlkemCipherText, mlkemPublicKey, algId)` as defined in {{kem-key-combiner}}
+ 9. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  10. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
@@ -966,7 +944,7 @@ The additional inclusion of `ecdhPublicKey` follows the security advice in [[RFC
 
 ## Key combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC256 in a construction following {{SP800-108r1-upd1}}.
+For the key combination in {{kem-key-combiner}} this specification limits itself to the use of KMAC256 in a construction following {{SP800-108}}.
 The sponge construction used by KMAC256 was proven to be indifferentiable from a random oracle {{BDPA08}}.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
 It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like KMAC256.
