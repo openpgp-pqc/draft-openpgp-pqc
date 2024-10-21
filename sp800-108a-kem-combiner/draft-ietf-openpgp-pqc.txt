@@ -640,7 +640,7 @@ Table of Contents
 
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
-   The construction is a one-step key derivation function compliant to
+   The construction is a key derivation function compliant to
    [SP800-108r1-upd1], Section 4.4, based on KMAC256.  It is given by
    the following algorithm, which computes the key encryption key KEK
    that is used to wrap, i.e., encrypt, the session key.
@@ -667,8 +667,7 @@ return KEK
 
    Here, the parameters to KMAC256 appear in the order as specified in
    [SP800-185], Section 4, i.e., the key K, main input data X, requested
-   output length in bits L, and optional customization string S in that
-   order.
+   output length in bits L, and optional customization string S.
 
    Note that the values ecdhKeyShare defined in Section 4.1.1 and
    mlkemKeyShare defined in Section 4.1.2 already use the relative
