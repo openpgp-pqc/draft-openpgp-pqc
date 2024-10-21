@@ -12,7 +12,7 @@
 <meta content="
        This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
-Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+) as a standalone public key signature scheme. 
+Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
 <meta content="xml2rfc 3.23.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -1078,7 +1078,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
-Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+) as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1164,7 +1164,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                     <p id="section-toc.1-1.1.2.2.2.2.1"><a href="#section-1.2.2" class="auto internal xref">1.2.2</a>.  <a href="#name-ml-dsa" class="internal xref">ML-DSA</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.3">
-                    <p id="section-toc.1-1.1.2.2.2.3.1"><a href="#section-1.2.3" class="auto internal xref">1.2.3</a>.  <a href="#name-slh-dsa-shake" class="internal xref">SLH-DSA-SHAKE</a></p>
+                    <p id="section-toc.1-1.1.2.2.2.3.1"><a href="#section-1.2.3" class="auto internal xref">1.2.3</a>.  <a href="#name-slh-dsa" class="internal xref">SLH-DSA</a></p>
 </li>
                 </ul>
 </li>
@@ -1303,10 +1303,10 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-slh-dsa-shake-2" class="internal xref">SLH-DSA-SHAKE</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-slh-dsa-2" class="internal xref">SLH-DSA</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-slh-dsa-shake-algorithm" class="internal xref">The SLH-DSA-SHAKE Algorithms</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-slh-dsa-algorithms" class="internal xref">The SLH-DSA Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
                     <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-signature-data-digest-2" class="internal xref">Signature Data Digest</a></p>
@@ -1375,7 +1375,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-slh-dsa-shake-message-rando" class="internal xref">SLH-DSA-SHAKE Message Randomizer</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
                 <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
@@ -1392,7 +1392,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-additional-considerations" class="internal xref">Additional considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-performance-considerations-" class="internal xref">Performance Considerations for SLH-DSA-SHAKE</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-performance-considerations-" class="internal xref">Performance Considerations for SLH-DSA</a></p>
 </li>
             </ul>
 </li>
@@ -1475,10 +1475,10 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of quantum computers.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography.
 The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
-Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
+Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
-In contrast, the stateless hash-based signature scheme SLH-DSA-SHAKE is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
-To this end, this document specifies the following new set: SLH-DSA-SHAKE standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
+In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
+To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and the newly defined algorithms or algorithm combinations.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="conventions-used-in-this-document">
@@ -1507,7 +1507,7 @@ The short form "PQ(/T)" stands for PQ or PQ/T.<a href="#section-1.1.1-1" class="
         </h3>
 <p id="section-1.2-1">This section describes the individual post-quantum cryptographic schemes.
 All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
-However, the mathematical problems on which the two ML-* schemes and SLH-DSA-SHAKE are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">[Note to the reader: This specification refers to the NIST PQC draft standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final specification.
 This is a temporary solution until the final versions of these documents are available.
 The goal is to provide a sufficiently precise specification of the algorithms already at the draft stage of this specification, so that it is possible for implementers to create interoperable implementations.
@@ -1531,16 +1531,16 @@ This specification defines ML-KEM only in composite combination with ECDH encryp
 Accordingly, this specification only defines ML-DSA in composite combination with EdDSA signature schemes.<a href="#section-1.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="slh-dsa-shake">
+<div id="slh-dsa">
 <section id="section-1.2.3">
-          <h4 id="name-slh-dsa-shake">
-<a href="#section-1.2.3" class="section-number selfRef">1.2.3. </a><a href="#name-slh-dsa-shake" class="section-name selfRef">SLH-DSA-SHAKE</a>
+          <h4 id="name-slh-dsa">
+<a href="#section-1.2.3" class="section-number selfRef">1.2.3. </a><a href="#name-slh-dsa" class="section-name selfRef">SLH-DSA</a>
           </h4>
-<p id="section-1.2.3-1">SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> is a stateless hash-based signature scheme.
+<p id="section-1.2.3-1">SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> is a stateless hash-based signature scheme.
 Its security relies on the hardness of finding preimages for cryptographic hash functions.
 This feature is generally considered to be a high security guarantee.
-Therefore, this specification defines SLH-DSA-SHAKE as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA-SHAKE should be taken into account.
+Therefore, this specification defines SLH-DSA as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA should be taken into account.
 We refer to <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for a discussion of the performance characteristics of this scheme.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1575,7 +1575,7 @@ Curve25519 and Curve448 are defined in <span>[<a href="#RFC7748" class="cite xre
               <p id="section-1.4.1-2.2.1">PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA signature schemes,<a href="#section-1.4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-1.4.1-2.3">
-              <p id="section-1.4.1-2.3.1">PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic algorithm.<a href="#section-1.4.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-1.4.1-2.3.1">PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.<a href="#section-1.4.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-1.4.1-3">For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
@@ -1604,7 +1604,7 @@ These latter two cases realize non-composite combinations of signatures.
       <h2 id="name-supported-public-key-algori">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-supported-public-key-algori" class="section-name selfRef">Supported Public Key Algorithms</a>
       </h2>
-<p id="section-2-1">This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA schemes as well as the standalone SLH-DSA-SHAKE signature scheme.
+<p id="section-2-1">This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA schemes as well as the standalone SLH-DSA signature scheme.
 All of these schemes are fully specified via their algorithm ID, i.e., they are not parametrized.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="algorithm-specifications">
 <section id="section-2.1">
@@ -2554,31 +2554,31 @@ Upon parsing the private key format, or before using the secret key, for the exp
 </div>
 </section>
 </div>
-<div id="slh-dsa-shake-1">
+<div id="slh-dsa-1">
 <section id="section-6">
-      <h2 id="name-slh-dsa-shake-2">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-slh-dsa-shake-2" class="section-name selfRef">SLH-DSA-SHAKE</a>
+      <h2 id="name-slh-dsa-2">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-slh-dsa-2" class="section-name selfRef">SLH-DSA</a>
       </h2>
-<p id="section-6-1">Throughout this specification SLH-DSA-SHAKE refers to the pure SLH-DSA(-SHAKE) version defined in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Throughout this specification SLH-DSA refers to the pure SLH-DSA version defined in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <div id="slhdsa">
 <section id="section-6.1">
-        <h3 id="name-the-slh-dsa-shake-algorithm">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-the-slh-dsa-shake-algorithm" class="section-name selfRef">The SLH-DSA-SHAKE Algorithms</a>
+        <h3 id="name-the-slh-dsa-algorithms">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-the-slh-dsa-algorithms" class="section-name selfRef">The SLH-DSA Algorithms</a>
         </h3>
-<p id="section-6.1-1">The following table lists the group of algorithm code points for the SLH-DSA-SHAKE signature scheme and the corresponding artifact lengths.
-This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<span id="name-slh-dsa-shake-algorithm-cod"></span><div id="slhdsa-artifact-lengths">
+<p id="section-6.1-1">The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
+This group of algorithms is henceforth referred to as "SLH-DSA code points".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<span id="name-slh-dsa-algorithm-code-poin"></span><div id="slhdsa-artifact-lengths">
 <table class="center" id="table-9">
           <caption>
 <a href="#table-9" class="selfRef">Table 9</a>:
-<a href="#name-slh-dsa-shake-algorithm-cod" class="selfRef">SLH-DSA-SHAKE algorithm code points and the corresponding artifact lengths in octets.</a>
+<a href="#name-slh-dsa-algorithm-code-poin" class="selfRef">SLH-DSA algorithm code points and the corresponding artifact lengths in octets.</a>
           </caption>
 <thead>
             <tr>
               <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE public key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE secret key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE signature</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA public key</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA secret key</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA signature</th>
             </tr>
           </thead>
           <tbody>
@@ -2609,14 +2609,14 @@ This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
 <p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
+SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
-<span id="name-binding-between-slh-dsa-sha"></span><div id="tab-slhdsa-hash">
+<p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+<span id="name-binding-between-slh-dsa-alg"></span><div id="tab-slhdsa-hash">
 <table class="center" id="table-10">
             <caption>
 <a href="#table-10" class="selfRef">Table 10</a>:
-<a href="#name-binding-between-slh-dsa-sha" class="selfRef">Binding between SLH-DSA-SHAKE algorithm code points and signature data hash algorithms</a>
+<a href="#name-binding-between-slh-dsa-alg" class="selfRef">Binding between SLH-DSA algorithm code points and signature data hash algorithms</a>
             </caption>
 <thead>
               <tr>
@@ -2651,7 +2651,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
           <h4 id="name-key-generation">
 <a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
           </h4>
-<p id="section-6.1.2-1">SLH-DSA-SHAKE key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings as defined in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings as defined in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation-1">
@@ -2659,7 +2659,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
           <h4 id="name-signature-generation-2">
 <a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-6.1.3-1">SLH-DSA-SHAKE signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.
+<p id="section-6.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.
 The variable <code>opt_rand</code> is set to <code>PK.seed</code>.
 See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
@@ -2669,7 +2669,7 @@ See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<
           <h4 id="name-signature-verification-2">
 <a href="#section-6.1.4" class="section-number selfRef">6.1.4. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-6.1.4-1">SLH-DSA-SHAKE signature verification is performed via the algorithm <code>SLH-DSA.Verify</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.4-1">SLH-DSA signature verification is performed via the algorithm <code>SLH-DSA.Verify</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2684,11 +2684,11 @@ See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<
           <h4 id="name-signature-packet-tag-2-2">
 <a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-signature-packet-tag-2-2" class="section-name selfRef">Signature Packet (Tag 2)</a>
           </h4>
-<p id="section-6.2.1-1">The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3">[RFC9580, Section 5.2.3]</a>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-1">The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3">[RFC9580, Section 5.2.3]</a>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.1-3.1">
-              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA-SHAKE signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2698,17 +2698,17 @@ See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<
           <h4 id="name-key-material-packets-3">
 <a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-key-material-packets-3" class="section-name selfRef">Key Material Packets</a>
           </h4>
-<p id="section-6.2.2-1">The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.2-1">The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-3.1">
-              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA-SHAKE public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-5.1">
-              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA-SHAKE secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2866,10 +2866,10 @@ Other fields included in the recommendation are not relevant for the OpenPGP pro
 </div>
 <div id="slhdsa-sec-cons">
 <section id="section-9.4">
-        <h3 id="name-slh-dsa-shake-message-rando">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-slh-dsa-shake-message-rando" class="section-name selfRef">SLH-DSA-SHAKE Message Randomizer</a>
+        <h3 id="name-slh-dsa-message-randomizer">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
         </h3>
-<p id="section-9.4-1">The specification of SLH-DSA-SHAKE <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
+<p id="section-9.4-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
 This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2882,7 +2882,7 @@ This is not used in this specification, as OpenPGP v6 signatures already provide
 <p id="section-9.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
 This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
-<p id="section-9.5-3">In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
+<p id="section-9.5-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
@@ -2917,25 +2917,25 @@ Note that reusing a key across different protocols may lead to signature confusi
 <div id="performance-considerations">
 <section id="section-10.1">
         <h3 id="name-performance-considerations-">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-performance-considerations-" class="section-name selfRef">Performance Considerations for SLH-DSA-SHAKE</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-performance-considerations-" class="section-name selfRef">Performance Considerations for SLH-DSA</a>
         </h3>
-<p id="section-10.1-1">This specification introduces both ML-DSA + EdDSA as well as SLH-DSA-SHAKE as PQ(/T) signature schemes.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-1">This specification introduces both ML-DSA + EdDSA as well as SLH-DSA as PQ(/T) signature schemes.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 <p id="section-10.1-2">Generally, it can be said that ML-DSA + EdDSA provides a performance in terms of execution time requirements that is close to that of traditional ECC signature schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like EC-based or even RSA signature schemes.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">Implementers may want to offer SLH-DSA-SHAKE for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
-However, SLH-DSA-SHAKE has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
-<p id="section-10.1-4">Pertaining to the execution time, the particularly costly operation in SLH-DSA-SHAKE is the signature generation.
+<p id="section-10.1-3">Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
+However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-4">Pertaining to the execution time, the particularly costly operation in SLH-DSA is the signature generation.
 Depending on the parameter set, it can range from approximately the one hundred fold to more than the two thousand fold of that of ML-DSA-87.
-These number are based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA.
+These number are based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA.
 In order to achieve fast signature generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast") should be chosen.
 This comes at the expense of a larger signature size.
 This choice can be relevant in applications where mass signing occurs or a small latency is required.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
-<p id="section-10.1-5">In order to minimize the space requirements of an SLH-DSA-SHAKE signature, an algorithm ID with the name ending in "s" for "small" should be chosen.
+<p id="section-10.1-5">In order to minimize the space requirements of an SLH-DSA signature, an algorithm ID with the name ending in "s" for "small" should be chosen.
 This comes at the expense of a longer signature generation time.
 In particular, SLH-DSA-SHAKE-128s achieves the smallest possible signature size, which is about the double size of an ML-DSA-87 signature.
 Where a higher security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.<a href="#section-10.1-5" class="pilcrow">¶</a></p>
-<p id="section-10.1-6">Unlike the signature generation time, the signature verification time of SLH-DSA-SHAKE is not that much larger than that of other PQC schemes.
-Based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA, the verification time of the SLH-DSA-SHAKE is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).<a href="#section-10.1-6" class="pilcrow">¶</a></p>
+<p id="section-10.1-6">Unlike the signature generation time, the signature verification time of SLH-DSA is not that much larger than that of other PQC schemes.
+Based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA, the verification time of the SLH-DSA is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).<a href="#section-10.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
