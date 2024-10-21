@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 April 2025                                       F. Strenzke
+Expires: 24 April 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         20 October 2024
+                                                         21 October 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2025.
+   This Internet-Draft will expire on 24 April 2025.
 
 Copyright Notice
 
@@ -569,11 +569,11 @@ Table of Contents
    |           ID |             | key    | key    |            | share |
    |    reference |             |        |        |            |       |
    +==============+=============+========+========+============+=======+
-   |     TBD (105 | ML-KEM-768  | 1184   | 2400   | 1088       | 32    |
+   |     TBD (105 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
    |          for |             |        |        |            |       |
    |     testing) |             |        |        |            |       |
    +--------------+-------------+--------+--------+------------+-------+
-   |     TBD (106 | ML-KEM-1024 | 1568   | 3168   | 1568       | 32    |
+   |     TBD (106 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
    |          for |             |        |        |            |       |
    |     testing) |             |        |        |            |       |
    +--------------+-------------+--------+--------+------------+-------+
@@ -829,8 +829,16 @@ return KEK
       encoding and length depend on the algorithm ID as specified in
       Section 4.1.1.
 
-   *  A fixed-length octet string containing the ML-KEM secret key,
-      whose length depends on the algorithm ID as specified in Table 4.
+   *  A fixed-length octet string containing the ML-KEM secret key in
+      seed format, whose length is 64 octets (compare Table 4).  The
+      seed format is defined in accordance with [FIPS-203], Section 3.3.
+      Namely, the secret key is given by the concatenation of the values
+      of d and z, generated in steps 1 and 2 of ML-KEM.KeyGen
+      [FIPS-203], each of a length of 32 octets.  Upon parsing the
+      private key format, or before using the secret key, for the
+      expansion of the key, the function ML-KEM.KeyGen_internal
+      [FIPS-203] has to be invoked with the parsed values of d and z as
+      input.
 
 5.  Composite Signature Schemes
 
@@ -892,9 +900,9 @@ return KEK
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 4032   | 3309      |
+   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 32     | 3309      |
    +------------------------+-----------+--------+--------+-----------+
-   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 4896   | 4627      |
+   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 32     | 4627      |
    +------------------------+-----------+--------+--------+-----------+
 
         Table 7: ML-DSA parameters and artifact lengths in octets
@@ -1002,8 +1010,14 @@ return KEK
    *  A fixed-length octet string representing the EdDSA secret key,
       whose length depends on the algorithm ID as specified in Table 6.
 
-   *  A fixed-length octet string containing the ML-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 7.
+   *  A fixed-length octet string containing the ML-DSA secret key in
+      seed format, whose length is 32 octets (compare Table 7).  The
+      seed format is defined in accordance with [FIPS-204],
+      Section 3.6.3.  Namely, the secret key is given by the value xi
+      generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
+      private key format, or before using the secret key, for the
+      expansion of the key, the function ML-DSA.KeyGen_internal
+      [FIPS-204] has to be invoked with the parsed value of xi as input.
 
 6.  SLH-DSA-SHAKE
 
@@ -1606,6 +1620,8 @@ return KEK
    *  Reworked KEM combiner for the purpose of NIST-compliance
 
    *  Mandated v6 keys for ML-KEM + ECDH algorithms
+
+   *  Defined private key seed format for ML-KEM and ML-DSA
 
 13.  Contributors
 
