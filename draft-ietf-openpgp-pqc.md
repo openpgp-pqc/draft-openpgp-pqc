@@ -547,7 +547,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a one-step key derivation function compliant to {{SP800-108r1-upd1}}, Section 4.4, based on KMAC256.
+The construction is a key derivation function compliant to {{SP800-108r1-upd1}}, Section 4.4, based on KMAC256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
 
@@ -571,7 +571,7 @@ It is given by the following algorithm, which computes the key encryption key `K
                   || mlkemPublicKey || ecdhPublicKey || algId, 256, domSep)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S in that order.
+Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S.
 
 Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
 The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
