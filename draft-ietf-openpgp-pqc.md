@@ -1123,6 +1123,7 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 ## draft-ietf-openpgp-pqc-05
 - Reworked KEM combiner for the purpose of NIST-compliance
 - Mandated v6 keys for ML-KEM + ECDH algorithms
+- Defined private key seed format for ML-KEM and ML-DSA
 
 # Contributors
 
