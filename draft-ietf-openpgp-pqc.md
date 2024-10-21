@@ -257,7 +257,7 @@ informative:
 
 This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
-Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA-SHAKE (formerly SPHINCS+) as a standalone public key signature scheme.
+Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
 
 --- middle
 
@@ -268,11 +268,11 @@ As the security of algorithms based on these mathematical problems is endangered
 
 Such cryptographic algorithms are referred to as post-quantum cryptography.
 The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
-Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA-SHAKE {{FIPS-205}} as signature schemes.
+Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
-In contrast, the stateless hash-based signature scheme SLH-DSA-SHAKE is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
-To this end, this document specifies the following new set: SLH-DSA-SHAKE standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
+In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
+To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
 
 The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and the newly defined algorithms or algorithm combinations.
@@ -291,7 +291,7 @@ The short form "PQ(/T)" stands for PQ or PQ/T.
 
 This section describes the individual post-quantum cryptographic schemes.
 All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
-However, the mathematical problems on which the two ML-* schemes and SLH-DSA-SHAKE are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.
+However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.
 
 \[Note to the reader: This specification refers to the NIST PQC draft standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final specification.
 This is a temporary solution until the final versions of these documents are available.
@@ -309,14 +309,14 @@ This specification defines ML-KEM only in composite combination with ECDH encryp
 ML-DSA [FIPS-204] is a signature scheme that, like ML-KEM, is based on the hardness of solving the Learning With Errors problem and a variant of the Short Integer Solution problem in module lattices (MLWE and SelfTargetMSIS).
 Accordingly, this specification only defines ML-DSA in composite combination with EdDSA signature schemes.
 
-### SLH-DSA-SHAKE
+### SLH-DSA
 
-SLH-DSA-SHAKE [FIPS-205] is a stateless hash-based signature scheme.
+SLH-DSA [FIPS-205] is a stateless hash-based signature scheme.
 Its security relies on the hardness of finding preimages for cryptographic hash functions.
 This feature is generally considered to be a high security guarantee.
-Therefore, this specification defines SLH-DSA-SHAKE as a standalone signature scheme.
+Therefore, this specification defines SLH-DSA as a standalone signature scheme.
 
-In deployments the performance characteristics of SLH-DSA-SHAKE should be taken into account.
+In deployments the performance characteristics of SLH-DSA should be taken into account.
 We refer to {{performance-considerations}} for a discussion of the performance characteristics of this scheme.
 
 ## Elliptic Curve Cryptography
@@ -336,7 +336,7 @@ This specification introduces new cryptographic schemes, which can be categorize
 
  - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA signature schemes,
 
- - PQ digital signature, namely SLH-DSA-SHAKE as a standalone cryptographic algorithm.
+ - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.
 
 For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully in order to achieve a successful verification of the composite signature.
@@ -353,7 +353,7 @@ Furthermore, the OpenPGP protocol also allows parallel encryption to different k
 
 # Supported Public Key Algorithms
 
-This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA schemes as well as the standalone SLH-DSA-SHAKE signature scheme.
+This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA schemes as well as the standalone SLH-DSA signature scheme.
 All of these schemes are fully specified via their algorithm ID, i.e., they are not parametrized.
 
 ## Algorithm Specifications
@@ -820,17 +820,17 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
    Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
    Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
-# SLH-DSA-SHAKE
+# SLH-DSA
 
-Throughout this specification SLH-DSA-SHAKE refers to the pure SLH-DSA(-SHAKE) version defined in [FIPS-205].
+Throughout this specification SLH-DSA refers to the pure SLH-DSA version defined in [FIPS-205].
 
-## The SLH-DSA-SHAKE Algorithms {#slhdsa}
+## The SLH-DSA Algorithms {#slhdsa}
 
-The following table lists the group of algorithm code points for the SLH-DSA-SHAKE signature scheme and the corresponding artifact lengths.
-This group of algorithms is henceforth referred to as "SLH-DSA-SHAKE code points".
+The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
+This group of algorithms is henceforth referred to as "SLH-DSA code points".
 
-{: title="SLH-DSA-SHAKE algorithm code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
-Algorithm ID reference   |  SLH-DSA-SHAKE public key | SLH-DSA-SHAKE secret key | SLH-DSA-SHAKE signature
+{: title="SLH-DSA algorithm code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
+Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA signature
 ----------------------:  |  ------------------ | ------------------ | ------------------
 TBD (SLH-DSA-SHAKE-128s) |  32                 | 64                 | 7856
 TBD (SLH-DSA-SHAKE-128f) |  32                 | 64                 | 17088
@@ -839,12 +839,12 @@ TBD (SLH-DSA-SHAKE-256s) |  64                 | 128                | 29792
 ### Signature Data Digest {#slhdsa-sig-data-digest}
 
 Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
-SLH-DSA-SHAKE signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
+SLH-DSA signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.
 
-An implementation supporting a specific SLH-DSA-SHAKE algorithm code point MUST also support the matching hash algorithm.
+An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.
 
-{: title="Binding between SLH-DSA-SHAKE algorithm code points and signature data hash algorithms" #tab-slhdsa-hash}
+{: title="Binding between SLH-DSA algorithm code points and signature data hash algorithms" #tab-slhdsa-hash}
 Algorithm ID reference   |  Hash function | Hash function ID reference
 ----------------------:  |  ------------- | --------------------------
 TBD (SLH-DSA-SHAKE-128s) |  SHA3-256      | 12
@@ -853,39 +853,39 @@ TBD (SLH-DSA-SHAKE-256s) |  SHA3-512      | 14
 
 ### Key generation
 
-SLH-DSA-SHAKE key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings as defined in {{slhdsa}}.
+SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings as defined in {{slhdsa}}.
 
 ### Signature Generation
 
-SLH-DSA-SHAKE signature generation is performed via the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
+SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
 The variable `opt_rand` is set to `PK.seed`.
 See also {{slhdsa-sec-cons}}.
 
 ### Signature Verification
 
-SLH-DSA-SHAKE signature verification is performed via the algorithm `SLH-DSA.Verify` as specified in {{FIPS-205}}.
+SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` as specified in {{FIPS-205}}.
 
 ## Packet specifications
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA-SHAKE algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3).
+The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3).
 
-The algorithm-specific part of a signature packet for an SLH-DSA-SHAKE algorithm code point consists of:
+The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:
 
- - A fixed-length octet string of the SLH-DSA-SHAKE signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
+ - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
 
 ### Key Material Packets
 
-The SLH-DSA-SHAKE algorithms code points MUST be used only with v6 keys, as defined in [RFC9580].
+The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in [RFC9580].
 
 The algorithm-specific part of the public key consists of:
 
- - A fixed-length octet string containing the SLH-DSA-SHAKE public key, whose length depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
+ - A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
 
 The algorithm-specific part of the secret key consists of:
 
- - A fixed-length octet string containing the SLH-DSA-SHAKE secret key, whose length depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
+ - A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
 
 # Notes on Algorithms
 
@@ -996,9 +996,9 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 This is in line with the Recommendation for ECC in Section 5.5 of [SP800-56A].
 Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.
 
-## SLH-DSA-SHAKE Message Randomizer {#slhdsa-sec-cons}
+## SLH-DSA Message Randomizer {#slhdsa-sec-cons}
 
-The specification of SLH-DSA-SHAKE {{FIPS-205}} prescribes an optional non-deterministic message randomizer.
+The specification of SLH-DSA {{FIPS-205}} prescribes an optional non-deterministic message randomizer.
 This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.
 
 ## Binding hashes in signatures with signature algorithms
@@ -1009,7 +1009,7 @@ ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DS
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
 This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.
 
-In the case of SLH-DSA-SHAKE the internal hash algorithm varies based on the algorithm ID, see {{slhdsa-sig-data-digest}}.
+In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see {{slhdsa-sig-data-digest}}.
 
 ## Symmetric Algorithms for SEIPD Packets
 
@@ -1028,30 +1028,30 @@ Note that reusing a key across different protocols may lead to signature confusi
 
 # Additional considerations
 
-## Performance Considerations for SLH-DSA-SHAKE {#performance-considerations}
+## Performance Considerations for SLH-DSA {#performance-considerations}
 
-This specification introduces both ML-DSA + EdDSA as well as SLH-DSA-SHAKE as PQ(/T) signature schemes.
+This specification introduces both ML-DSA + EdDSA as well as SLH-DSA as PQ(/T) signature schemes.
 
 Generally, it can be said that ML-DSA + EdDSA provides a performance in terms of execution time requirements that is close to that of traditional ECC signature schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like EC-based or even RSA signature schemes.
 
-Implementers may want to offer SLH-DSA-SHAKE for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
-However, SLH-DSA-SHAKE has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.
+Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
+However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.
 
-Pertaining to the execution time, the particularly costly operation in SLH-DSA-SHAKE is the signature generation.
+Pertaining to the execution time, the particularly costly operation in SLH-DSA is the signature generation.
 Depending on the parameter set, it can range from approximately the one hundred fold to more than the two thousand fold of that of ML-DSA-87.
-These number are based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA.
+These number are based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA.
 In order to achieve fast signature generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast") should be chosen.
 This comes at the expense of a larger signature size.
 This choice can be relevant in applications where mass signing occurs or a small latency is required.
 
-In order to minimize the space requirements of an SLH-DSA-SHAKE signature, an algorithm ID with the name ending in "s" for "small" should be chosen.
+In order to minimize the space requirements of an SLH-DSA signature, an algorithm ID with the name ending in "s" for "small" should be chosen.
 This comes at the expense of a longer signature generation time.
 In particular, SLH-DSA-SHAKE-128s achieves the smallest possible signature size, which is about the double size of an ML-DSA-87 signature.
 Where a higher security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.
 
-Unlike the signature generation time, the signature verification time of SLH-DSA-SHAKE is not that much larger than that of other PQC schemes.
-Based on the performance measurements published in the NIST submissions for SLH-DSA-SHAKE and ML-DSA, the verification time of the SLH-DSA-SHAKE is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).
+Unlike the signature generation time, the signature verification time of SLH-DSA is not that much larger than that of other PQC schemes.
+Based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA, the verification time of the SLH-DSA is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).
 
 # IANA Considerations
 
