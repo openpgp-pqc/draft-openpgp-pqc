@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T01:34:53.039673+00:00",
+  "timestamp": "2024-10-22T01:22:32.384395+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2346,7 +2346,7 @@
       "id": "I_kwDOIrmZ-86HV-eb",
       "title": "Specify private key format for ML-KEM and ML-DSA when switching to FIPS final versions",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/108",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2357,8 +2357,8 @@
       ],
       "body": "Based on what was announced, NIST' s final standard for the ML-KEM and ML-DSA will enable private keys in seed format. Currently, the draft only refers to the NIST standard for the private key format. Thus this needs more specification, and it might be relevant to specify in the draft:\r\n\r\n- what is the single (?) secret key format in the NIST standard, that the draft is referring to\r\n  - alternative option: that seed format is also possible for private keys (?)\r\n- that a private key in expanded format needs to be checked for consistency before usage\r\n",
       "createdAt": "2024-04-30T07:14:15Z",
-      "updatedAt": "2024-10-10T08:31:51Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T07:29:34Z",
+      "closedAt": "2024-10-21T07:29:34Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2421,7 +2421,7 @@
       "id": "I_kwDOIrmZ-86OhKh6",
       "title": "Mention that no further hashing happens in EdDSA",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/126",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2430,8 +2430,8 @@
       "labels": [],
       "body": "We will need to refer to this section in the crypto-refresh: https://www.rfc-editor.org/rfc/rfc9580.html#eddsa-notes\r\n\r\nIt specifies exactly how EdDSA is invoked.\r\n\r\n@wussler @TJ-91 ",
       "createdAt": "2024-07-04T15:00:18Z",
-      "updatedAt": "2024-10-10T08:34:34Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T18:08:28Z",
+      "closedAt": "2024-10-20T18:08:28Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2674,7 +2674,7 @@
       "id": "I_kwDOIrmZ-86T4TIz",
       "title": "Reference use of pre-hash variant of FIPS 204 and 205 (in case we will use it)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/135",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2685,8 +2685,8 @@
       ],
       "body": "- #142\r\n  - Need to provide OIDs for specified PH algorithms for both schemes \r\n  - Explain how to use the pre-hash, explain what is `PH_M`\r\n  - In the introd., where ML-DSA and SLH-DSA is mentioned first, the choice of Pre-hash should be mentioned \r\n",
       "createdAt": "2024-08-22T14:58:05Z",
-      "updatedAt": "2024-10-10T16:19:28Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T18:08:29Z",
+      "closedAt": "2024-10-20T18:08:29Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2716,7 +2716,7 @@
       "id": "I_kwDOIrmZ-86UY-qG",
       "title": "Cross-protocol domain separation for signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/137",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -2725,8 +2725,8 @@
       "labels": [],
       "body": "This goes back to a suggestion by Mike Ownsworth: \r\n\r\nSince it cannot be excluded that a user uses his keys across multiple protocols, we should introduce domain separation for signatures. This can be achieved by setting the ctx parameter of ML-DSA or SLH-DSA to a protocol-specifc value like \"OpenPGP signature\".\r\n\r\nThe problem will most likely be the lack of support to set the context parameter in the API of crypto libraries.",
       "createdAt": "2024-08-27T14:37:20Z",
-      "updatedAt": "2024-10-10T08:31:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T08:03:00Z",
+      "closedAt": "2024-10-21T08:03:00Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -2762,6 +2762,13 @@
           "body": "Please read https://datatracker.ietf.org/doc/draft-ietf-pquip-pqt-hybrid-terminology/ for combiner definition.",
           "createdAt": "2024-09-08T17:21:48Z",
           "updatedAt": "2024-09-08T17:21:48Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We decided to tackle this in #147 by adding some guidance, since other protocols seem not to have implemented any domain separation",
+          "createdAt": "2024-10-21T08:03:00Z",
+          "updatedAt": "2024-10-21T08:03:00Z"
         }
       ]
     },
@@ -2770,7 +2777,7 @@
       "id": "I_kwDOIrmZ-86X5aHr",
       "title": "Private key storage in seed vs expanded key format for ML-KEM, ML-DSA",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/139",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "robplee",
       "authorAssociation": "NONE",
       "assignees": [
@@ -2781,8 +2788,8 @@
       ],
       "body": "As I raised on the mailing list [1], I think there's a reasonable argument for limiting the storage format for post-quantum keys to the seed format rather than the, arguably more temperamental, expanded key format.  I think LAMPS is going in the direction of seed-format-only so I think there is precendence that we can follow and go with the same approach. See [2] and [3]\r\n\r\nThere were some concerns about low-power devices/OpenPGP smart cards but I think it was decided that was not a huge concern or at least not a reason to have multiple key storage formats (but others are free to contradict me if it is :) ).\r\n\r\nHappy to provide some assistance with writing/reviewing text on storage formats if it'll help.\r\n\r\n[1] https://mailarchive.ietf.org/arch/msg/openpgp/2dg-DrWt4DgIoX8uTalCa-kzE38/\r\n[2] https://github.com/randombit/botan/pull/3893#issuecomment-2349229966\r\n[3] https://github.com/randombit/botan/pull/4270#issuecomment-2356039856",
       "createdAt": "2024-09-25T16:12:58Z",
-      "updatedAt": "2024-10-10T08:31:44Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T07:29:33Z",
+      "closedAt": "2024-10-21T07:29:33Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2814,15 +2821,15 @@
       "id": "I_kwDOIrmZ-86ZvmkH",
       "title": "SLH-DSA-SHAKE or SLH-DSA",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/143",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I found SLH-DSA-SHAKE to cause some problems:\r\n- The abstract says \"SLH-DSA-SHAKE (formerly SPHINCS+)\". I don't think this is correct, rather SLH-DSA is the new name of the former SPHINCS+ framework.\r\n- The intro (and I guess several other places\" cites \"SLH-DSA-SHAKE [FIPS-205]\". I don't think this is correct, but rather \"SLH-DSA [FIPS-205]\".\r\n- Section \"1.2.3 SLH-DSA-SHAKE\" uses this terminology without introducing/explaining it.\r\n\r\nI would rather prefer to switch back to \"SLH-DSA\" and not have this new name \"SLH-DSA-SHAKE\" that might cause confusion. Rather say when we define the codepoints that we restrict to the SHAKE parameter sets.",
       "createdAt": "2024-10-10T17:03:35Z",
-      "updatedAt": "2024-10-16T10:42:09Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T09:07:29Z",
+      "closedAt": "2024-10-21T09:07:29Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -2845,15 +2852,15 @@
       "id": "I_kwDOIrmZ-86ZvsyS",
       "title": "Introductory section on Elliptic Curve Cryptography",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/144",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I feel that the text in section \"1.3 Elliptic Curve Cryptography\" outdated? Shouldn't we actually refer to X25519, X448 and EdDSA?",
       "createdAt": "2024-10-10T17:19:26Z",
-      "updatedAt": "2024-10-16T12:17:55Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T09:07:52Z",
+      "closedAt": "2024-10-21T09:07:52Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -13931,24 +13938,26 @@
       "id": "PR_kwDOIrmZ-85-QJZK",
       "title": "Pure EdDSA, ML-DSA, SLH-DSA. Update refs to final FIPS 203, 204, 205",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/145",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This should also close #126.\r\n\r\nI think the sentences added to the specific sections should be enough.",
       "createdAt": "2024-10-10T17:28:37Z",
-      "updatedAt": "2024-10-17T03:48:29Z",
+      "updatedAt": "2024-10-20T18:08:28Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "135-reference-use-of-pre-hash-variant-of-fips-204-and-205-in-case-we-will-use-it",
       "headRefOid": "17b3a4e1834e365eb4fe55b18b6874f6fa78dc7a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-20T18:08:27Z",
+      "mergedAt": "2024-10-20T18:08:27Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "5a08d1290fc40862bcb47b19f2b080c49bf04bb1"
+      },
       "comments": [
         {
           "author": "fluppe2",
@@ -13998,6 +14007,19 @@
               "updatedAt": "2024-10-16T12:30:57Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N5c6F",
+          "commit": {
+            "abbreviatedOid": "17b3a4e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-20T18:08:12Z",
+          "updatedAt": "2024-10-20T18:08:12Z",
+          "comments": []
         }
       ]
     },
@@ -14006,24 +14028,26 @@
       "id": "PR_kwDOIrmZ-85-0qUV",
       "title": "Defining ML-KEM and ML-DSA secret keys to be in seed format",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/146",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #139 \r\nCloses #108 \r\n",
       "createdAt": "2024-10-16T12:25:59Z",
-      "updatedAt": "2024-10-17T13:16:56Z",
+      "updatedAt": "2024-10-21T07:29:33Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "71209d8bee34895f0281b3b52e0df96c5764952a",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sec-key-seed",
-      "headRefOid": "fec4f4a67e68882651d2a01d999be094db2af0c0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c6f4edbfa7db30133070fb883b6752f8c4e17923",
+      "closedAt": "2024-10-21T07:29:32Z",
+      "mergedAt": "2024-10-21T07:29:32Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "0a48622276b01f2d71b132eb76f403e7b4517770"
+      },
       "comments": [
         {
           "author": "falko-strenzke",
@@ -14084,6 +14108,590 @@
           "body": "Ah, just one minor detail: Could you add a changelog entry, Falko?",
           "createdAt": "2024-10-17T13:16:56Z",
           "updatedAt": "2024-10-17T13:16:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N5c3q",
+          "commit": {
+            "abbreviatedOid": "fec4f4a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Same for me, with changelog looks good!",
+          "createdAt": "2024-10-20T18:07:00Z",
+          "updatedAt": "2024-10-20T18:07:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N7Seu",
+          "commit": {
+            "abbreviatedOid": "c6f4edb"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T07:12:40Z",
+          "updatedAt": "2024-10-21T07:12:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 147,
+      "id": "PR_kwDOIrmZ-85_PMSK",
+      "title": "Add key generation security considerations",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/147",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Add a key generation paragraph to the security consideration paragraph considering other protocols\r\n- Fix the wording in key generation procedure",
+      "createdAt": "2024-10-20T18:24:45Z",
+      "updatedAt": "2024-10-21T07:42:45Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "0a48622276b01f2d71b132eb76f403e7b4517770",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "key-generation-fresh",
+      "headRefOid": "19c56fe6ad8813182d1b10c646958ef97fbe6caa",
+      "closedAt": "2024-10-21T07:42:45Z",
+      "mergedAt": "2024-10-21T07:42:45Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "9e56480aa14f89c924a3927a165c326d3aa26d88"
+      },
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> In `## Key generation strategies` we already mention that keys should be fresh:\r\n> \r\n> > It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.\r\n> \r\n> But I think it's ok to repeat that.\r\n\r\nThis is by design, here it's non-normative and provides a justification",
+          "createdAt": "2024-10-21T07:29:01Z",
+          "updatedAt": "2024-10-21T07:29:01Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "LGTM",
+          "createdAt": "2024-10-21T07:41:51Z",
+          "updatedAt": "2024-10-21T07:41:51Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N7JZd",
+          "commit": {
+            "abbreviatedOid": "1cb6a2f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T06:54:51Z",
+          "updatedAt": "2024-10-21T06:54:51Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\nNote that reusing a key across different protocols may lead signature confusion vulnerabilities, that formarlly classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.\r\n```",
+              "createdAt": "2024-10-21T06:54:51Z",
+              "updatedAt": "2024-10-21T06:54:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N7PtV",
+          "commit": {
+            "abbreviatedOid": "9bfa1b6"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T07:06:59Z",
+          "updatedAt": "2024-10-21T07:06:59Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N7VVj",
+          "commit": {
+            "abbreviatedOid": "9bfa1b6"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "In `## Key generation strategies` we already mention that keys should be fresh:\r\n\r\n> It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.\r\n\r\nBut I think it's ok to repeat that.\r\n",
+          "createdAt": "2024-10-21T07:18:24Z",
+          "updatedAt": "2024-10-21T07:18:24Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N7fpW",
+          "commit": {
+            "abbreviatedOid": "400fd40"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T07:37:14Z",
+          "updatedAt": "2024-10-21T07:37:15Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I think there is a \"to\" missing in \"...may lead signature confusion vulnerabilities...\"",
+              "createdAt": "2024-10-21T07:37:14Z",
+              "updatedAt": "2024-10-21T07:37:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N7gyv",
+          "commit": {
+            "abbreviatedOid": "400fd40"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T07:39:28Z",
+          "updatedAt": "2024-10-21T07:39:28Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Good catch, pushed a fix",
+              "createdAt": "2024-10-21T07:39:28Z",
+              "updatedAt": "2024-10-21T07:39:28Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 148,
+      "id": "PR_kwDOIrmZ-85_SDSW",
+      "title": "Replaced naming 'SLH-DSA-SHAKE' to 'SLH-DSA' when referring to the general algorithm",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/148",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This closes #143.\r\n(Codepoints left untouched)",
+      "createdAt": "2024-10-21T08:31:59Z",
+      "updatedAt": "2024-10-21T09:07:28Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9e56480aa14f89c924a3927a165c326d3aa26d88",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "143-slh-dsa-shake-to-slh-dsa",
+      "headRefOid": "9b52d0e3d0e93c7c8825bb5d655fe12dc457b784",
+      "closedAt": "2024-10-21T09:07:28Z",
+      "mergedAt": "2024-10-21T09:07:28Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "8c9d830e9ee0731fb46c00784517c93f05c05ee3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N8Kou",
+          "commit": {
+            "abbreviatedOid": "9b52d0e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T08:50:00Z",
+          "updatedAt": "2024-10-21T08:50:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8Uwm",
+          "commit": {
+            "abbreviatedOid": "9b52d0e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T09:07:07Z",
+          "updatedAt": "2024-10-21T09:07:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 149,
+      "id": "PR_kwDOIrmZ-85_SKNm",
+      "title": "Updated intro to ECC",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/149",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #144 ",
+      "createdAt": "2024-10-21T08:44:50Z",
+      "updatedAt": "2024-10-21T09:07:51Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9e56480aa14f89c924a3927a165c326d3aa26d88",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "144-introductory-section-on-elliptic-curve-cryptography",
+      "headRefOid": "c35562d409efaa99e592bac0ce222b1de0519af6",
+      "closedAt": "2024-10-21T09:07:50Z",
+      "mergedAt": "2024-10-21T09:07:50Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "f66d3ff78b9566a3431b734f4d8bc2a5cf84a3b3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N8IdS",
+          "commit": {
+            "abbreviatedOid": "ea2a66d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T08:46:33Z",
+          "updatedAt": "2024-10-21T08:46:33Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8TKJ",
+          "commit": {
+            "abbreviatedOid": "ea2a66d"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T09:04:18Z",
+          "updatedAt": "2024-10-21T09:04:56Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nThe ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748]. \r\nEdDSA as defined in [RFC8032] is used as the elliptic curve-based digital signature scheme.\r\n```",
+              "createdAt": "2024-10-21T09:04:18Z",
+              "updatedAt": "2024-10-21T09:04:56Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 150,
+      "id": "PR_kwDOIrmZ-85_Sa13",
+      "title": "Formally align KEM combiner to SP800-108a",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/150",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR updates the KEM combiner order to have ML-KEM at the beginning, ensuring compliance with SP800-108a. It also updates the relative text and removes an editor's note.\r\n\r\nNo changelog entry, as we already have \r\n```Reworked KEM combiner for the purpose of NIST-compliance```",
+      "createdAt": "2024-10-21T09:16:05Z",
+      "updatedAt": "2024-10-21T14:03:19Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f66d3ff78b9566a3431b734f4d8bc2a5cf84a3b3",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sp800-108a-kem-combiner",
+      "headRefOid": "659322716b9d885a3d6c28fb4824adcadf773f76",
+      "closedAt": "2024-10-21T14:03:19Z",
+      "mergedAt": "2024-10-21T14:03:19Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "dd19ea6807da14beff3ccc645f82c22a0081172d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N8jaC",
+          "commit": {
+            "abbreviatedOid": "32b6bf4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T09:30:37Z",
+          "updatedAt": "2024-10-21T09:30:37Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\r\nThe construction is a key derivation function compliant to {{SP800-108r1-upd1}}, Section 4.4, based on KMAC256.\r\n```\r\nNo \"one-step\" anymore.",
+              "createdAt": "2024-10-21T09:30:37Z",
+              "updatedAt": "2024-10-21T09:30:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8kIS",
+          "commit": {
+            "abbreviatedOid": "32b6bf4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T09:31:52Z",
+          "updatedAt": "2024-10-21T09:31:53Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "```suggestion\r\nHere, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S.\r\n```\r\nI think the \"in that order\" at the end of the sentence is not needed.\r\n\r\nI also think that we might just drop this whole sentence as we refer to using KMAC256 as a KDF according to the specification in SP 800-108. However, it doesn't hurt. It's fine for me to leave it there.",
+              "createdAt": "2024-10-21T09:31:52Z",
+              "updatedAt": "2024-10-21T09:39:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8my1",
+          "commit": {
+            "abbreviatedOid": "32b6bf4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Apart from the suggestions: I think the reference name \"SP800-108r1-upd1\" (in line 145)  can be shortened to \"SP800-108\", as we omitted revision info in the other reference names. (I didn't manage to leave a suggestion in that code block).",
+          "createdAt": "2024-10-21T09:36:18Z",
+          "updatedAt": "2024-10-21T09:36:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N81v2",
+          "commit": {
+            "abbreviatedOid": "280d700"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T10:00:27Z",
+          "updatedAt": "2024-10-21T10:00:27Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I would just write \"SP800-108\".",
+              "createdAt": "2024-10-21T10:00:27Z",
+              "updatedAt": "2024-10-21T10:00:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N9HVh",
+          "commit": {
+            "abbreviatedOid": "280d700"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T10:32:14Z",
+          "updatedAt": "2024-10-21T10:32:14Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "What still needs to be done is to adapt the two invocations of `multiKeyCombine()` to the new order or arguments.",
+              "createdAt": "2024-10-21T10:32:14Z",
+              "updatedAt": "2024-10-21T10:32:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N-e-5",
+          "commit": {
+            "abbreviatedOid": "6593227"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T12:50:49Z",
+          "updatedAt": "2024-10-21T12:50:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N_cPj",
+          "commit": {
+            "abbreviatedOid": "6593227"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM. Thank you",
+          "createdAt": "2024-10-21T14:02:08Z",
+          "updatedAt": "2024-10-21T14:02:08Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 151,
+      "id": "PR_kwDOIrmZ-85_ScOs",
+      "title": "Update changelog for draft-05",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/151",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T09:18:49Z",
+      "updatedAt": "2024-10-21T09:49:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f66d3ff78b9566a3431b734f4d8bc2a5cf84a3b3",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-changelog-5",
+      "headRefOid": "84b1698394a40af4aeaee0ec6f10fc95592ab496",
+      "closedAt": "2024-10-21T09:49:41Z",
+      "mergedAt": "2024-10-21T09:49:41Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "1870910005b84f454626dab612230fdc8b10011a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N8hMa",
+          "commit": {
+            "abbreviatedOid": "4c5139f"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T09:27:07Z",
+          "updatedAt": "2024-10-21T09:27:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8h8H",
+          "commit": {
+            "abbreviatedOid": "4c5139f"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T09:28:18Z",
+          "updatedAt": "2024-10-21T09:28:18Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "I think that's only an editorial change that we should not list here for the sake of keeping the list short and helpful",
+              "createdAt": "2024-10-21T09:28:18Z",
+              "updatedAt": "2024-10-21T09:28:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8r8v",
+          "commit": {
+            "abbreviatedOid": "4c5139f"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T09:45:21Z",
+          "updatedAt": "2024-10-21T09:45:21Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2024-10-21T09:45:21Z",
+              "updatedAt": "2024-10-21T09:45:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N8txU",
+          "commit": {
+            "abbreviatedOid": "84b1698"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T09:48:29Z",
+          "updatedAt": "2024-10-21T09:48:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 152,
+      "id": "PR_kwDOIrmZ-85_Umel",
+      "title": "Update test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/152",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR updates the test vectors for all the changes between draft-04 and 05",
+      "createdAt": "2024-10-21T13:28:43Z",
+      "updatedAt": "2024-10-21T15:16:08Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "1870910005b84f454626dab612230fdc8b10011a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "test-vectors-v5",
+      "headRefOid": "6a43ff6debb7c45d2a2ff12c6d7d559dea5e5401",
+      "closedAt": "2024-10-21T15:16:08Z",
+      "mergedAt": "2024-10-21T15:16:08Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "b4c91fd2fe011aa6af4a90b999c10f3c7ee26847"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86N_dj4",
+          "commit": {
+            "abbreviatedOid": "6a43ff6"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Guess I cannot contribute much here.",
+          "createdAt": "2024-10-21T14:03:50Z",
+          "updatedAt": "2024-10-21T14:03:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86N_4kE",
+          "commit": {
+            "abbreviatedOid": "6a43ff6"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Blind approval from my side.",
+          "createdAt": "2024-10-21T14:39:45Z",
+          "updatedAt": "2024-10-21T14:39:45Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86OAA5G",
+          "commit": {
+            "abbreviatedOid": "6a43ff6"
+          },
+          "author": "larabr",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-21T14:51:12Z",
+          "updatedAt": "2024-10-21T14:51:12Z",
           "comments": []
         }
       ]
