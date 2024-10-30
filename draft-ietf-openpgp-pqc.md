@@ -1185,6 +1185,8 @@ The hex-encoded session key is `873b2a8218a75cf3d570729ba48b88acbeb2d7ce9f993f42
 {::include test-vectors/v6-eddsa-sample-message.asc}
 ~~~
 
+## Sample v6 PQC Primary and Subkey Artifacts
+
 Here is a Private Key consisting of:
 
 - A v6 ML-DSA-65+EdDSA Private-Key packet
