@@ -163,6 +163,7 @@ Table of Contents
      14.2.  Informative References
    Appendix A.  Test Vectors
      A.1.  Sample v6 PQC Subkey Artifacts
+     A.2.  Sample v6 PQC Key Artifacts
    Acknowledgments
    Authors' Addresses
 
@@ -1901,6 +1902,8 @@ A.1.  Sample v6 PQC Subkey Artifacts
    XG3mdXCpDNUINEvDx/amIQvIq9bo39IjLMIl9HU9Q7aEKXWgVL89JKDmOk+etbNd
    7EdJjpSgQmN6qFtZ/C8krfENn0qu0xo8FlXp4Oc7rsGAbmSH0lMJIW8=
    -----END PGP MESSAGE-----
+
+A.2.  Sample v6 PQC Key Artifacts
 
    Here is a Private Key consisting of:
 
