@@ -1246,9 +1246,9 @@ Here is a Private Key consisting of:
 - A v6 ML-KEM-1024+X448 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `63d3142b93a592f8410092deb1fe1603cb5d5788b672ca9cc5924d07b3e6cfd6`.
+The primary key has the fingerprint `275c8bea833c5deab538269381b120ebc002b8bca9c19df88740c942343f1462`.
 
-The subkey has the fingerprint `3385de68205544e9421f5c83bb951846ddbe6fdead017c18c163216ba2c0cd06`.
+The subkey has the fingerprint `9e5f6087500c4a72b96ad343745360c99a0126dd43545e7e882ca4cdfe107fef`.
 
 {: sourcecode-name="v6-mldsa-87-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1274,13 +1274,13 @@ Here is a signed message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `253a585dc736f372ef5f18b61f61fca6e851bdee9fe8d1fafe8ff2ef5a52d6f5`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `98d3b185ced0cb4fbdb26e1d1a19a79c98afb1586d72947b5877162b89f6af3f`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `dbfeac2d94cd6cc3a41e58c289eb9c97dfa0867148bbf1747a3f28cdbefdf52f`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `a09c74f0d55eefbecdbc8a7cdf5a645d6bd1f6630f75ddd9958c25a6bc9d5bd8b9d2f393e98468ff9c267033f14034137ddf07a6fcf49824f3b9d1b97907d77a`.
 
-The hex-encoded output of `multiKeyCombine` is `195235fd88b37d1db49dc25307c294437ba081ae9004e5a690cda8681c4c94e1`.
+The hex-encoded output of `multiKeyCombine` is `3bee730ccdc5ab30c1eef9c77c9d1ccd1b2489e3a23ac2b341f7283c5d27b673`.
 
-The hex-encoded session key is `7866ae4ab94657be277efac47623b5d759c7ba09f68f380f6089f0792b436396`.
+The hex-encoded session key is `3d14b7f9140091c17ff30c3215284a9dbb7e699633f5d3edf02dba4dcdbd5c6e`.
 
 {: sourcecode-name="v6-mldsa-87-sample-message.asc"}
 ~~~ application/pgp-keys
