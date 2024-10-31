@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-29T01:23:23.434562+00:00",
+  "timestamp": "2024-10-31T01:23:05.501969+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2884,6 +2884,48 @@
           "updatedAt": "2024-10-16T12:17:54Z"
         }
       ]
+    },
+    {
+      "number": 153,
+      "id": "I_kwDOIrmZ-86cXVuD",
+      "title": "Test Vectors: Hash Binding",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/153",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "bug"
+      ],
+      "body": "The -05 test vectors do not respect the hash binding that is mandated in https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc-05#tab-mldsa-hash. Instead, SHA256 and SHA512 are used.",
+      "createdAt": "2024-10-30T09:12:08Z",
+      "updatedAt": "2024-10-30T16:05:52Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91  Please make this two issues. The two points have nothing to do with each other.",
+          "createdAt": "2024-10-30T16:04:23Z",
+          "updatedAt": "2024-10-30T16:04:23Z"
+        }
+      ]
+    },
+    {
+      "number": 154,
+      "id": "I_kwDOIrmZ-86ccBX5",
+      "title": "Test Vectors: still mentioning \"ipd\"",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/154",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "we have to drop the `-ipd` in the test vector description and the algorithm names",
+      "createdAt": "2024-10-30T16:07:06Z",
+      "updatedAt": "2024-10-30T16:07:06Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -14695,6 +14737,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 155,
+      "id": "PR_kwDOIrmZ-86Ab5ra",
+      "title": "Fix and improve test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/155",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This closes #153 and #154",
+      "createdAt": "2024-10-30T19:12:34Z",
+      "updatedAt": "2024-10-30T19:28:30Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b4c91fd2fe011aa6af4a90b999c10f3c7ee26847",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "test-vectors-v6",
+      "headRefOid": "28b462fbc2e8d2140ddb46c332b841784ecbd493",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
