@@ -1118,6 +1118,9 @@ TBD    | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}}
 - Added key generation security considerations.
 - Replaced initial public drafts with FIPS 203, 204, 205.
 
+## draft-ietf-openpgp-pqc-06
+- Fixed and improved test vectors.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
@@ -1129,7 +1132,6 @@ Andreas Huelsing (TU Eindhoven)
 # Test Vectors
 
 To help implementing this specification a set of non-normative examples follow here.
-The test vectors are implemented using the Initial Public Draft (IPD) variant of the ML-DSA and ML-KEM schemes.
 
 ## Sample v6 PQC Subkey Artifacts
 
@@ -1139,12 +1141,12 @@ Here is a Private Key consisting of:
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `6f98c6e0e5555d9d5807247b2e0a2e9366ab01da29e0c3f1d0ea4c38b13433f1`.
+The primary key has the fingerprint `4a6722225bcd7cb077936b6e1bf7e7b3d8e8f5f49d61257bf79d572faaa792ce`.
 
-The subkey has the fingerprint `56b4a66a79a945f589d1f4869e100f5ee024349871747d6eb5f967b736835922`.
+The subkey has the fingerprint `9521f34e730a005fc5f912b088da710ff2f340c82ce3a5526833bfd7a0050006`.
 
 {: sourcecode-name="v6-eddsa-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1157,7 +1159,7 @@ Here is the corresponding Public Key consisting of:
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-eddsa-sample-pk.asc"}
@@ -1170,49 +1172,51 @@ Here is a signed message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `6bab5196b42b06ee30ab6107b7af7a5a2867db4dffa1d1af144d97befea72308`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `eb7fcf5ddbc127bc80d83dcb1bb43a1c6b9a1fa67b31752564d9f5fa18d80c64`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `d68af1960559e3725424eda1480acbc7ac3a71fb13f320069337d9520609d42a`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `e5564bc3d80ed72c63e5eb940b47314ec68227aafba571f011399a2b7733545f`.
 
-The hex-encoded output of `multiKeyCombine` is `0b7a893dc37f7cb8bf963e20121f94029aec577ae77e1b540a440df2f1b3f183`.
+The hex-encoded output of `multiKeyCombine` is `4fa8f45b53b408b284bbcd13019a15f049c920306cfe8354fa3c5931894d6b92`.
 
-The hex-encoded session key is `02da6f1ea752c950fdeb1038210b850994bde7f2489641ce85499dea2eae9a5c`.
+The hex-encoded session key is `873b2a8218a75cf3d570729ba48b88acbeb2d7ce9f993f4228ff37faf785fee5`.
 
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v6-eddsa-sample-message.asc}
 ~~~
 
+## Sample v6 PQC Primary and Subkey Artifacts
+
 Here is a Private Key consisting of:
 
-- A v6 ML-DSA-ipd-65+EdDSA Private-Key packet
+- A v6 ML-DSA-65+EdDSA Private-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `b4713efb190007deef8468ef2f9514124408e0e5cbbe79354554f182802698ab`.
+The primary key has the fingerprint `bf262b24177002ac8ae5dc6da47c056d22ab9906d47d07952b75c358021901ca`.
 
-The subkey has the fingerprint `b86b50d898c93c24ae85cc36bf05c8a8a778978e924276e8fbcec6d4e5ac3eda`.
+The subkey has the fingerprint `48b94bce2f9771788f5feb74122d599989c400cc0f49108bc98e0ea7945e4838`.
 
-{: sourcecode-name="v6-mldsa-sample-sk.asc"}
+{: sourcecode-name="v6-mldsa-65-sample-sk.asc"}
 ~~~ application/pgp-keys
-{::include test-vectors/v6-mldsa-sample-sk.asc}
+{::include test-vectors/v6-mldsa-65-sample-sk.asc}
 ~~~
 
 Here is the corresponding Public Key consisting of:
 
-- A v6 ML-DSA-ipd-65+EdDSA Public-Key packet
+- A v6 ML-DSA-65+EdDSA Public-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-ipd-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
-{: sourcecode-name="v6-mldsa-sample-pk.asc"}
+{: sourcecode-name="v6-mldsa-65-sample-pk.asc"}
 ~~~ application/pgp-keys
-{::include test-vectors/v6-mldsa-sample-pk.asc}
+{::include test-vectors/v6-mldsa-65-sample-pk.asc}
 ~~~
 
 Here is a signed message "Testing\n" encrypted to this key:
@@ -1220,17 +1224,67 @@ Here is a signed message "Testing\n" encrypted to this key:
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `67b591752f895c0edbb990963827b876faf9b72aca33762a422fc9e40712364d`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `b755f49eb910e4e9e5c87eda9d5676a88918f063012f0bf0cc61a70f83232f0c`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `76ec0ced0724c3d8ccbf37eb2b45f80d5794f4ecd05d5f1fc777ffa7601651f2`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `219a49490e65f96c87b7ade46bd65db9fcb96308e217acc5b421accf39217901`.
 
-The hex-encoded output of `multiKeyCombine` is `630addb63c6fae50e2b14afc94ec2b2beb060527ea1ad230f20edd45e43ed59f`.
+The hex-encoded output of `multiKeyCombine` is `e00d037481ade01f4b061d2c81aec8e60072d24fc2bb5806b3358926bb03c7d8`.
 
-The hex-encoded session key is `ae60488175c59579458abe4007a5b781849c2129ff50e8c7d1cc2f32b351f6a4`.
+The hex-encoded session key is `0e210c4027fa4f0be5a4d856cb6a6785b2e8cb48f5a12577f1621c8f8e4452a2`.
 
-{: sourcecode-name="v6-mldsa-sample-message.asc"}
+{: sourcecode-name="v6-mldsa-65-sample-message.asc"}
 ~~~ application/pgp-keys
-{::include test-vectors/v6-mldsa-sample-message.asc}
+{::include test-vectors/v6-mldsa-65-sample-message.asc}
+~~~
+
+Here is a Private Key consisting of:
+
+- A v6 ML-DSA-87+EdDSA Private-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-1024+X448 Private-Subkey packet
+- A v6 subkey binding signature
+
+The primary key has the fingerprint `275c8bea833c5deab538269381b120ebc002b8bca9c19df88740c942343f1462`.
+
+The subkey has the fingerprint `9e5f6087500c4a72b96ad343745360c99a0126dd43545e7e882ca4cdfe107fef`.
+
+{: sourcecode-name="v6-mldsa-87-sample-sk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-87-sample-sk.asc}
+~~~
+
+Here is the corresponding Public Key consisting of:
+
+- A v6 ML-DSA-87+EdDSA Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-1024+X448 Public-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-mldsa-87-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-87-sample-pk.asc}
+~~~
+
+Here is a signed message "Testing\n" encrypted to this key:
+
+- A v6 PKESK
+- A v2 SEIPD
+
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `98d3b185ced0cb4fbdb26e1d1a19a79c98afb1586d72947b5877162b89f6af3f`.
+
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `a09c74f0d55eefbecdbc8a7cdf5a645d6bd1f6630f75ddd9958c25a6bc9d5bd8b9d2f393e98468ff9c267033f14034137ddf07a6fcf49824f3b9d1b97907d77a`.
+
+The hex-encoded output of `multiKeyCombine` is `3bee730ccdc5ab30c1eef9c77c9d1ccd1b2489e3a23ac2b341f7283c5d27b673`.
+
+The hex-encoded session key is `3d14b7f9140091c17ff30c3215284a9dbb7e699633f5d3edf02dba4dcdbd5c6e`.
+
+{: sourcecode-name="v6-mldsa-87-sample-message.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-87-sample-message.asc}
 ~~~
 
 # Acknowledgments
