@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-31T01:23:05.501969+00:00",
+  "timestamp": "2024-11-03T01:27:12.013251+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -14750,19 +14750,82 @@
       "labels": [],
       "body": "This closes #153 and #154",
       "createdAt": "2024-10-30T19:12:34Z",
-      "updatedAt": "2024-10-30T19:28:30Z",
+      "updatedAt": "2024-11-01T07:57:25Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b4c91fd2fe011aa6af4a90b999c10f3c7ee26847",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-v6",
-      "headRefOid": "28b462fbc2e8d2140ddb46c332b841784ecbd493",
+      "headRefOid": "af78ca6f08439de70df33ffbf73a1229a60759f6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think you mixed up some things when committing:\r\n\r\n* you update `test-vectors/v6-eddsa-sample-message.asc` (new recipient) but don't update the keys\r\n* you rename `test-vectors/v6-mldsa-sample-sk.asc` \u2192 `test-vectors/v6-mldsa-65-sample-sk.asc`\r\n\r\nCan you check that everything matches?",
+          "createdAt": "2024-10-31T08:39:24Z",
+          "updatedAt": "2024-10-31T08:39:24Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 I had indeed forgotten to save some files in the editor... Fixed!",
+          "createdAt": "2024-10-31T10:27:50Z",
+          "updatedAt": "2024-10-31T10:27:50Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks! I can decrypt the eddsa and mldsa-65 messages but not the mldsa-87 one. It fails at AES key unwrap.\r\nI will investigate it and try to see where it differs and if the problem is on my side.\r\n\r\nHere my KEM Combiner Output\r\n\r\n```\r\n[LOG] KMAC256 domSeparation: 4f70656e504750436f6d706f736974654b44467631\r\n[LOG] KMAC256 Key_K: \r\n[LOG]  - eccKeyShare: d93876c63890ae0b98a8c1d8a50c134146136152c32988329ca0a70f2a0642812184b631b1faf58bb1def0e3708b0e190ab49893dbead6ea95a3803cb975650f\r\n[LOG]  - mlkemKeyShare: 253a585dc736f372ef5f18b61f61fca6e851bdee9fe8d1fafe8ff2ef5a52d6f5\r\n[LOG] KMAC256 Input_X: \r\n[LOG]  - eccCipherText: 814b988d9a4f5f724a119478839c3d6e26b4905e5d228ae90a7fab6ab7fb0e4e0046c6b83d769a94f9a096b157ab5d87c3e3054ff90caa99\r\n[LOG]  - mlkemCipherText: 22e8216fa7f15d13748f2b35141dba86a77f52ed139d91cac2caa739e5691b2177feb332ec671255ec00028dad04386d669c91703835ddfe5f8cf933b41fa45ea72f04c641acbebe2007cf5505824a2285d71a0dbb140643cd230b2ca013854f5d4c50bc4deac2b87e86e16571946a12bef58f3b18a8a3f01751f5e1f1b555d681838e4fa164783884f04d2fbebe7a034c1a469af688360b62961137f975843034f42c87a4109a7bbe18efd74bb61b3c84a5c28d4351982672790a84e5307e5e9efa0eb3136a17a3f076f1a695d1a594b4b78fef9452a41803467bca4d6cd8a74ac544f4ca686afd0c858894a8c554e2d1f2674a9e1c802a22746208d166cb39b77e6d1630a16404c0848f8c54d14c3dbde9e2b51bd8214626c336aaa0dc147afb7ecf8e8cdb90e24a8b7783db6db0c15a7073c8878854b5fa1a1b840e33af3d9d891d80e53aaa7e9647e0e88685a3bfb416102aa9e52e46eb336fddd2a02fb9068cc562ea665afcc091bb285cd9e3bad646c9f8a0e1fc6ad16d6ef61ce67a7a9c12106c35ac452688ed88eaefe250a5ec93732cff3b12fd323b62d947ceebf4c1e26963efe47928155e50b563727b18a54546bfd5333fd475dc68643e12dc11302aadab166f6ecfc77633115eeefe65387b0fec431bd4930f101bee52dbe60737e71e063f1fe4c80e5ae64dbddc62610dfddadbe7fa1eba736992eb5ccc91f476f7a991af50f46f89cd7eb510db4f1c896dd4e0e4b7de508b03be1de0d7948d60f9398ae7c1b65b68c402cd1a191a89b3bca7ce41cc89666a4b109694bc03f2fc3f0f8497fd7529756096a7449f6d4ce952e43c3685cbfc020d9f1a23ed3610eaf14bb345630e38a32d8ae7d2c8d49c4cbf9ac9b028dbc935ae78e78bba68430f323d8e021159cbb22864d206596e6fb514aa51c43baab8a8b1c9559c92f0bbdc34f2dfad1833ae2a25475ff57ead79af2300a6914809e9ba113cb6366e31ca14f198e83c34ac103d7b1920287862034db50efba04793fc594c55a879d53edf6837b142578efeb301bce6038fe26dff882e61c5f7b7941954e76b4137eb765a5cf10b27b53cc62957bee8a5f74caac7bc2ff2320147a92861ffdbad78073cc5388bf4505a96335d3cca0418fde051de375ebbe3b29a11e808c767d4cce145e226152c4becfaac57835bd6acf60d5f1ac481a8ccaf0f8bdd224ad7a753ab0cc7f69aa58c3f50602cb26e703fff45831339f891ffdb9a96ce5ddbe093c83325228b5779af9f2b4ff96b4c97fa9de8942dc7035693b167c163b8f7360e790f3b66b14a1dfb43eddcc6f73eb4ce3488d57904778093f91e6a527a4fb8026a58d56fde435d496d7da8ce87a6cbfacc8b598ba77475e9fa993bab51752b8e4d7b8a7c5a6ae7aa6cff017a2761373eef3d5ed4d69fb0a7e1b4971b0aa5442c574668223c81a1510edebafd5f8d266901a18e4242287140afc4cd5225ee0c97bee2cc92dab047b612fda17ed746a42abb348462974b0a0581719bb45941c7fafab3ba8e234065595103b2beb007143da9b6f9bd73ab78fc388e6cb1871d2489af24a5309b0b702514d874732c136795d04bbd8103e6825e3ecb4f102f82ada6ca62e6b31376870fba41553ff60e89e146c0f66e9db85e12843040f6301f24f230b89cea7cf083e0a0b56e1102938869a5034252e40558539d82d88b25134109041655e5458bdc0b977eaaaa3a3eae6068c48fcf11d81e894609d675ab88df37deca48acd663dff8c9fd1a72f3dfba78a10c59c5bb4002e06189b55e3ab7534b3a5d130ced40e12f5005ac1ca84a72dfc9ba994017e6d46ed819247544a7e37926e583d763f4cc16eb5eedfec35dd4d24b04043f4fbee30a9cc92918ee5fdd2f70c42c921fc609d5d02d34303da0ce66d19197e8ad976082ce2924a27c58bd777c9b982ef07e4bf2a18fb64796b43e6203e7eef589a7ca4bcb851cf806e9f23b05fa4ed32fd61484b5b8b0838638d208d5e4e0ff014f4e7bb6a389a43b6c248685ee8dbdb19485020d61955c021fd3808fb17cb0e6262016959e31c8b76f3b7f6259a7590f1de1d3d19249cbfcbfa801759ec2df031acf4fc40c581824d584a347c4d854e32ff294af21099be526498b3dbda2b44489145db53160c31b215c1c4e0aae4ae46b6a3a60a7ca7c3ad0e963bf9a2d387f5cf2caf4f81a0a1ef032543c847bb4\r\n[LOG]  - ecdhPublicKey: 38b505d611b4fa8ff56d7cda18d13297ebef42e990774202ce559b3b099f02fd8dd8b916e4f564605cfffe54b257c2438d8b965dddd3a59c\r\n[LOG]  - mlkemPublicKey: 15c6a6f8f79704a75be7476b91b83e40d4b40f575c62b177bad68f9766a10f7ca3fdb354f9e47a760a586ef95adb8384215a3f67a4cc45e971db51b9318182e9a4ce418c8b3cd07f75baac00ea101977b667f9375e4c706aa462e8a624f0a2c668c3597e1c89a9b021e68c6d79e4147927ab58812a46752b8e541da608942cc3b47ecb7008b290662b6f4f1c430bd30b2d079152376e99971dc25c4fcfc55c7fb4bc5106aceff28927da8e00274e0309bfe4f90b33487e1809c264260d811002c676ba8e6219b6b4b69ebc3992daae0873a236665307bc7dff9241fcf923819986ed197a82ab401a09533f4a4dd7933f92b3566679687ecc921c5aa4f8fb0f4b9a349bd725e25243ed890c7da72385db30c2aca78f4b56f9a29beb35c4956c59ad0107a55b7754a204de8776dda7b43999634c0a63ce57b8a24ca63e356561429a58bb1cf9aa39264b89f30581f0188304ba12a7e99d9e994cca0130934c851f73995ba4498a213851cb1f4e3703644a394a5726a2610d7943ac49c00d9b2a1ff6d97c9b999fbbb71e599c90156673b6801ee7327fe7339d285029cda59756a4c4691c041d416f7317ba7a92b08485ab7ea21871463b7e78229a9b4f4ff77414ea4941e69f53ea520620101dc26667f00f19761afc02ae4cdb3011e612fdaa3056c979bf764abb030a46000014aba487092cecd2ce2fbb8cad6388933a8238a50591529de5b93213e422b5e1484f224b7b398ff237450a714fd12c875e280b34892cd3aac622b56907f7327b7bca3e282b3872338d301f3ee86cad3b866aa5a5037249ff3acdd8d4cecfa5647c4667558ca8f202be67f230f3c2776a42bcd33659eda91def9a295ef6bbc5d7406b53472f8ba0e2cbb1b7d56134b39b8d680a3aa23d16960c6b242555e68dcaacabe3a4cfeaf9268548650d5c3dc6882570c92242166390e5a97aa7586a211690294458bb7e6c68b8fb8c41728c2b0838c8ce8ba09900458c0cc337000c0491975df3883cd39bcb7bc90a5847b53c7b5be170891b3fde294616643088e1cc58992e7fca1d8a694a79e50cd60bc163926169442e52b45ece6832c41c11250ac9c99836408983a8623f415890ad3054a88cbdd1885e25cca012a6a4626823901b1e86961d353462ea56a0a1a38647378066a41dcb97761865a4405419c2743325b15608771759f63a65775b52b6a12e664041118bf473acdea40865da8f8a887bfdb32b9dc19d58f8664681c36bbbbaa94518e759c79d48969b075418d287df573b958611f128423ed5b298e68a6f505649040bc7f45103abcac7a366ab489d788210d86c83e995a71b65518bfc0734c8816e139911373128011d31c80509c698c4b66ada7ca8b5008609f78abef748583997360b484309bd6ffb0d94e18c0926b142ca5b0192283ed4435962a5c7e99efe809d80204c14c31afecb75925a6314bc254f0bb4409ccfa7b77ebee0a97ea575f16983b5d83988c17701985f7418b90ba0068d786e87b66bbcf56a8e04b7fdd34c1ab14a650959a61b783ccb0d56a53f6b8a5d6fc76c383cb2e7d7bc46e21963154e6348cc39d0bd178081efc7596e4b6442975e080378d7d8ccb7144dd2615ea0749e43fc46b3b7b1168b2d82976f800ba2d1f4bb3ecbc7cadc0b82e68bfce196058c21e70ac7bac478b29043af92020fe44915044aaf514f3bd1287610460ca9bad16c33f0c36611345753a45345c570cef817e4ac3b397c1b0fd31711d37929d8768eb07fa3f697c8632d822030da294ee10c442b850251254479c56354f91b55243fed7a3fab9a30755a335f2199572372c49bc520b0c5a8a92ee0208005b951f457547b76b498e61a04bb519c71995ec83d856b312b71c248b3c97145a50a47beece75622f27fbcc0640c182dbd731d406b771950a172d3cae7f43fd8a58e055c3fee75bd90c2af3e755a9666a7f1d1a7ac9c4cbb6a5541d2ca8f419832f7cf2dd379752c8ff4e64214fc1ef0a05f57030ddaa12a739a217e21976c8a31cd0b0fee4aae5ec599b0c98d9eb10fc6b141f421c48fe2bb06aba3bcf9297b686ec037c80d035b265aa43cf1b32f662183c7119b843e2571b1e8790b3ac2466e1b85f08370ae94253916be48506c5cb53f7d84baff61898a09cf98a29a6ab7a35dd15e13bb46ccb2b602bd0ae3a8b8ff506addfecf4cabe4a3a9a7c869dd07de011841\r\n[Input_X() /home/jroth/PQC_TB/rnp-dev/src/lib/crypto/kmac.cpp:76]  - algId : 106\r\n[LOG] KMAC256 Output: ae8f3e09f217fdc18e903a45bff198262c040ef4f42b5232157508218053491c\r\n[decrypt() /home/jroth/PQC_TB/rnp-dev/src/lib/crypto/kyber_ecdh_composite.cpp:402] Keyunwrap failed: Invalid authentication tag: NIST key unwrap failed\r\n```",
+          "createdAt": "2024-10-31T12:37:23Z",
+          "updatedAt": "2024-10-31T13:08:02Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looks like the `ecdhKeyShare` differs. Your's looks a bit short considering it's a SHA3-512 hash.",
+          "createdAt": "2024-10-31T13:08:16Z",
+          "updatedAt": "2024-10-31T13:09:48Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Looks like the `ecdhKeyShare` differs. Your's looks a bit short considering it's a SHA3-512 hash.\r\n\r\nYou are right, we are using sha3-256. I'll update this and regenerate the MLKEM 1024 bits vectors",
+          "createdAt": "2024-10-31T14:18:05Z",
+          "updatedAt": "2024-10-31T14:18:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86Pebgx",
+          "commit": {
+            "abbreviatedOid": "28b462f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Blind approval",
+          "createdAt": "2024-10-31T07:22:30Z",
+          "updatedAt": "2024-10-31T07:22:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86PoIVA",
+          "commit": {
+            "abbreviatedOid": "af78ca6"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks, now all seems fine!\r\n\r\nA minor thing that I just noticed is that we should probably be advertising SHA3 in the hash algorithm preferences. But as this is entirely optional and not mandated anywhere, I think it's good for now.",
+          "createdAt": "2024-11-01T07:57:25Z",
+          "updatedAt": "2024-11-01T07:57:25Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
