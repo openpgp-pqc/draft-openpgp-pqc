@@ -1133,9 +1133,11 @@ Andreas Huelsing (TU Eindhoven)
 
 To help implementing this specification a set of non-normative examples follow here.
 
-## Sample v6 PQC Subkey Artifacts
+## Sample Ed25519 with ML-KEM-768+X25519 Data
 
-Here is a Private Key consisting of:
+### Transferable Secret Key {#test-vector-sec-ed25519}
+
+Here is a Transferable Secret Key consisting of:
 
 - A v6 Ed25519 Private-Key packet
 - A v6 direct key self-signature
@@ -1153,7 +1155,9 @@ The subkey has the fingerprint `9521f34e730a005fc5f912b088da710ff2f340c82ce3a552
 {::include test-vectors/v6-eddsa-sample-sk.asc}
 ~~~
 
-Here is the corresponding Public Key consisting of:
+### Transferable Public Key {#test-vector-pub-ed25519}
+
+Here is the corresponding Transferable Public Key for {{test-vector-sec-ed25519}} consisting of:
 
 - A v6 Ed25519 Public-Key packet
 - A v6 direct key self-signature
@@ -1167,7 +1171,9 @@ Here is the corresponding Public Key consisting of:
 {::include test-vectors/v6-eddsa-sample-pk.asc}
 ~~~
 
-Here is a signed message "Testing\n" encrypted to this key:
+### Encrypted and Signed Message
+
+Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-pub-ed25519}} and signed by the secret key {{test-vector-sec-ed25519}}:
 
 - A v6 PKESK
 - A v2 SEIPD
@@ -1185,11 +1191,14 @@ The hex-encoded session key is `873b2a8218a75cf3d570729ba48b88acbeb2d7ce9f993f42
 {::include test-vectors/v6-eddsa-sample-message.asc}
 ~~~
 
-## Sample v6 PQC Primary and Subkey Artifacts
+## Sample ML-DSA-65+Ed25519 with ML-KEM-768+X25519 Data
 
-Here is a Private Key consisting of:
 
-- A v6 ML-DSA-65+EdDSA Private-Key packet
+### Transferable Secret Key {#test-vector-sec-mldsa65}
+
+Here is a Transferable Secret Key consisting of:
+
+- A v6 ML-DSA-65+Ed25519 Private-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
@@ -1205,9 +1214,11 @@ The subkey has the fingerprint `48b94bce2f9771788f5feb74122d599989c400cc0f49108b
 {::include test-vectors/v6-mldsa-65-sample-sk.asc}
 ~~~
 
-Here is the corresponding Public Key consisting of:
+### Transferable Public Key {#test-vector-pub-mldsa65}
 
-- A v6 ML-DSA-65+EdDSA Public-Key packet
+Here is the corresponding Transferable Public Key for {{test-vector-sec-mldsa65}} consisting of:
+
+- A v6 ML-DSA-65+Ed25519 Public-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
@@ -1219,7 +1230,9 @@ Here is the corresponding Public Key consisting of:
 {::include test-vectors/v6-mldsa-65-sample-pk.asc}
 ~~~
 
-Here is a signed message "Testing\n" encrypted to this key:
+### Encrypted and Signed Message
+
+Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-pub-mldsa65}} and signed by the secret key {{test-vector-sec-mldsa65}}:
 
 - A v6 PKESK
 - A v2 SEIPD
@@ -1237,9 +1250,13 @@ The hex-encoded session key is `0e210c4027fa4f0be5a4d856cb6a6785b2e8cb48f5a12577
 {::include test-vectors/v6-mldsa-65-sample-message.asc}
 ~~~
 
-Here is a Private Key consisting of:
+## Sample ML-DSA-87+Ed448 with ML-KEM-1024+X448 Data
 
-- A v6 ML-DSA-87+EdDSA Private-Key packet
+### Transferable Secret Key {#test-vector-sec-mldsa87}
+
+Here is a Transferable Secret Key consisting of:
+
+- A v6 ML-DSA-87+Ed448 Private-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
@@ -1255,9 +1272,11 @@ The subkey has the fingerprint `9e5f6087500c4a72b96ad343745360c99a0126dd43545e7e
 {::include test-vectors/v6-mldsa-87-sample-sk.asc}
 ~~~
 
-Here is the corresponding Public Key consisting of:
+### Transferable Public Key {#test-vector-pub-mldsa87}
 
-- A v6 ML-DSA-87+EdDSA Public-Key packet
+Here is the corresponding Transferable Public Key for {{test-vector-sec-mldsa87}} consisting of:
+
+- A v6 ML-DSA-87+Ed448 Public-Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
@@ -1269,7 +1288,9 @@ Here is the corresponding Public Key consisting of:
 {::include test-vectors/v6-mldsa-87-sample-pk.asc}
 ~~~
 
-Here is a signed message "Testing\n" encrypted to this key:
+### Encrypted and Signed Message
+
+Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-pub-mldsa87}} and signed by the secret key {{test-vector-sec-mldsa87}}:
 
 - A v6 PKESK
 - A v2 SEIPD
