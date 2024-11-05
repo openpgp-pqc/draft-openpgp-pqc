@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-03T01:27:12.013251+00:00",
+  "timestamp": "2024-11-05T01:20:12.996708+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2890,7 +2890,7 @@
       "id": "I_kwDOIrmZ-86cXVuD",
       "title": "Test Vectors: Hash Binding",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/153",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -2899,8 +2899,8 @@
       ],
       "body": "The -05 test vectors do not respect the hash binding that is mandated in https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc-05#tab-mldsa-hash. Instead, SHA256 and SHA512 are used.",
       "createdAt": "2024-10-30T09:12:08Z",
-      "updatedAt": "2024-10-30T16:05:52Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-03T19:08:54Z",
+      "closedAt": "2024-11-03T19:08:54Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -2916,15 +2916,15 @@
       "id": "I_kwDOIrmZ-86ccBX5",
       "title": "Test Vectors: still mentioning \"ipd\"",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/154",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "we have to drop the `-ipd` in the test vector description and the algorithm names",
       "createdAt": "2024-10-30T16:07:06Z",
-      "updatedAt": "2024-10-30T16:07:06Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-03T19:09:04Z",
+      "closedAt": "2024-11-03T19:09:04Z",
       "comments": []
     }
   ],
@@ -14743,24 +14743,26 @@
       "id": "PR_kwDOIrmZ-86Ab5ra",
       "title": "Fix and improve test vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/155",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This closes #153 and #154",
       "createdAt": "2024-10-30T19:12:34Z",
-      "updatedAt": "2024-11-01T07:57:25Z",
+      "updatedAt": "2024-11-03T19:08:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b4c91fd2fe011aa6af4a90b999c10f3c7ee26847",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-v6",
       "headRefOid": "af78ca6f08439de70df33ffbf73a1229a60759f6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-03T19:08:53Z",
+      "mergedAt": "2024-11-03T19:08:53Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "abf64f8af28f6ecdc286f4a0e56e09078556c25c"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -14823,6 +14825,48 @@
           "body": "Thanks, now all seems fine!\r\n\r\nA minor thing that I just noticed is that we should probably be advertising SHA3 in the hash algorithm preferences. But as this is entirely optional and not mandated anywhere, I think it's good for now.",
           "createdAt": "2024-11-01T07:57:25Z",
           "updatedAt": "2024-11-01T07:57:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 156,
+      "id": "PR_kwDOIrmZ-86AyXH4",
+      "title": "restructure test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/156",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "I put every file in its own subsection. It makes it easier to read as well as easier to reference.\r\n\r\nSuggestions are welcome",
+      "createdAt": "2024-11-04T11:31:43Z",
+      "updatedAt": "2024-11-04T11:46:58Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "abf64f8af28f6ecdc286f4a0e56e09078556c25c",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "restructure-test-vectors",
+      "headRefOid": "1db9c46792570c8f76321c5c8066bed4b456179e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86P0Svj",
+          "commit": {
+            "abbreviatedOid": "1db9c46"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-04T11:44:01Z",
+          "updatedAt": "2024-11-04T11:44:01Z",
           "comments": []
         }
       ]
