@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-05T01:20:12.996708+00:00",
+  "timestamp": "2024-11-07T01:20:25.323500+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -14834,7 +14834,7 @@
       "id": "PR_kwDOIrmZ-86AyXH4",
       "title": "restructure test vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/156",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -14843,17 +14843,19 @@
       ],
       "body": "I put every file in its own subsection. It makes it easier to read as well as easier to reference.\r\n\r\nSuggestions are welcome",
       "createdAt": "2024-11-04T11:31:43Z",
-      "updatedAt": "2024-11-04T11:46:58Z",
+      "updatedAt": "2024-11-05T08:16:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "abf64f8af28f6ecdc286f4a0e56e09078556c25c",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "restructure-test-vectors",
       "headRefOid": "1db9c46792570c8f76321c5c8066bed4b456179e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-05T08:16:57Z",
+      "mergedAt": "2024-11-05T08:16:57Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03"
+      },
       "comments": [],
       "reviews": [
         {
@@ -14867,6 +14869,19 @@
           "body": "",
           "createdAt": "2024-11-04T11:44:01Z",
           "updatedAt": "2024-11-04T11:44:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86P7zf8",
+          "commit": {
+            "abbreviatedOid": "1db9c46"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-05T07:29:26Z",
+          "updatedAt": "2024-11-05T07:29:26Z",
           "comments": []
         }
       ]
