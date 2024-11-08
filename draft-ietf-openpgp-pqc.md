@@ -556,8 +556,6 @@ It is given by the following algorithm, which computes the key encryption key `K
     //
     //   Input:
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
-    //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-    //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
@@ -567,14 +565,13 @@ It is given by the following algorithm, which computes the key encryption key `K
     //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
     //                                          6F 73 69 74 65 4B 44 46 76 31
 
-    KEK = KMAC256(mlkemKeyShare || ecdhKeyShare, mlkemCipherText || ecdhCipherText
-                  || mlkemPublicKey || ecdhPublicKey || algId, 256, domSep)
+    KEK = SHA3-256(mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey || domSep)
     return KEK
 
-Here, the parameters to KMAC256 appear in the order as specified in {{SP800-185}}, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S.
 
-Note that the values `ecdhKeyShare` defined in {{ecc-kem}} and `mlkemKeyShare` defined in {{mlkem-ops}} already use the relative ciphertext in the derivation.
-The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.
+Note that the values `ecdhKeyShare` defined in {{ecc-kem}} already uses the relative ciphertext in the derivation.
+The `ecdhCipherText` and `ecdhPublicKey` are by design included again in the key combiner to provide a robust security proof.
+The ML-KEM algorithm already explicitly binds the ML-KEM public key in `ML-KEM.Encaps` (Algorithm 17, line 1 in [FIPS-203]), and implicitly binds the ML-KEM public key and ciphertext in the Fujisaki-Okamoto confirm step of `ML-KEM.Decaps` (Algorithm 18, line 9 in [FIPS-203]) and therefore they are not included in this KEM combiner construction. Due to this, this KEM combiner should be considered to be optimized for ML-KEM and that it does not generatize to be secure over arbitrary other KEMs.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
