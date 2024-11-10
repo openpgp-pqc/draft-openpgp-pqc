@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-07T01:20:25.323500+00:00",
+  "timestamp": "2024-11-10T01:25:10.514868+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2926,6 +2926,37 @@
       "updatedAt": "2024-11-03T19:09:04Z",
       "closedAt": "2024-11-03T19:09:04Z",
       "comments": []
+    },
+    {
+      "number": 158,
+      "id": "I_kwDOIrmZ-86dkaLf",
+      "title": "Add X25519 Subkey for Ed25519 Test Vector",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/158",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently we only have a PQ/T encryption subkey [for the A.1. test vector](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc#appendix-A.1). Wouldn't it make sense to add an X25519 subkey?",
+      "createdAt": "2024-11-08T10:18:41Z",
+      "updatedAt": "2024-11-08T12:52:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For what reason do you want to add the traditional subkey?",
+          "createdAt": "2024-11-08T12:00:14Z",
+          "updatedAt": "2024-11-08T12:00:14Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I suppose the test vector is meant as an illustration of the case that is described in [8.2. Key generation strategies (Point 2)](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc-06#name-key-generation-strategies).\r\n\r\nIn a typical scenario, the owner of the certificate would like to enable PQ(/T) encryption, while remaining compatible with PQ(/T)-incapable clients. Not having a traditional encryption subkey limits the general usability of the certificate for non-PQ(/T) clients. It is therefore not something that I would expect in a typical certificate.\r\n\r\nWhile not critical, I think it's good if the test vectors reflect what we expect to see in the wild.",
+          "createdAt": "2024-11-08T12:52:31Z",
+          "updatedAt": "2024-11-08T12:52:31Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -14882,6 +14913,126 @@
           "body": "",
           "createdAt": "2024-11-05T07:29:26Z",
           "updatedAt": "2024-11-05T07:29:26Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 157,
+      "id": "PR_kwDOIrmZ-86BTHEh",
+      "title": "assign code points 30 - 34 for ML-DSA and SLH-DSA",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/157",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I simply assign code points for the signature algorithms starting with 30 (since 29 is reserved due to LibrePGP).\r\n\r\nI can add updated test vectors to this PR but would suggest waiting for possible KDF changes first.",
+      "createdAt": "2024-11-08T10:10:43Z",
+      "updatedAt": "2024-11-08T12:03:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "assign-sig-codepoints",
+      "headRefOid": "b4aa0afc40cf0c60b1e1032063f451e52789b45e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86QdYKp",
+          "commit": {
+            "abbreviatedOid": "b4aa0af"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-08T12:03:41Z",
+          "updatedAt": "2024-11-08T12:03:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 159,
+      "id": "PR_kwDOIrmZ-86BUoWj",
+      "title": "Aligning KEM Combiner with LAMPS",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/159",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-08T13:30:36Z",
+      "updatedAt": "2024-11-08T16:24:18Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03",
+      "headRepository": "ounsworth/draft-openpgp-pqc",
+      "headRefName": "main",
+      "headRefOid": "7a9788b9f1c48b327a7f2f618344887552a1329b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86QfWmQ",
+          "commit": {
+            "abbreviatedOid": "7a9788b"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-08T15:41:47Z",
+          "updatedAt": "2024-11-08T15:41:48Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "`algId` should be added at the end.",
+              "createdAt": "2024-11-08T15:41:48Z",
+              "updatedAt": "2024-11-08T15:41:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Qf0Eu",
+          "commit": {
+            "abbreviatedOid": "7a9788b"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-08T16:21:43Z",
+          "updatedAt": "2024-11-08T16:21:43Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\nThe ML-KEM algorithm already explicitly binds the ML-KEM public key in `ML-KEM.Encaps` (Algorithm 17, line 1 in [FIPS-203]), and implicitly binds the ML-KEM public key and ciphertext in the Fujisaki-Okamoto confirm step of `ML-KEM.Decaps` (Algorithm 18, line 9 in [FIPS-203]) and therefore they are not included in this KEM combiner construction. Due to this, this KEM combiner should be considered to be optimized for ML-KEM and that it does not generalize to be secure over arbitrary other KEMs.\r\n```",
+              "createdAt": "2024-11-08T16:21:43Z",
+              "updatedAt": "2024-11-08T16:21:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Qf3Lv",
+          "commit": {
+            "abbreviatedOid": "7a9788b"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "This PR will need to\r\n- revise the CCA security considerations for the KEM combiner. They are not adequate if the ML-KEM ciphertext is missing, as the present considerations build upon a modular construction.\r\n- repeat the proposed warning (in the security considerations), that this KEM combiner builds upon specific security properties of ML-KEM and as such is tailored to ML-KEM. That is, extreme care must be taken when another PQ-KEM is discussed (possibly in the future).\r\n- state that the KEM combiner (with missing ML-KEM ciphertext) does not scale beyond 128 Bits of security (due to the birthday bound arguments in the X-Wing paper). Alternatively give scientifically sound arguments why it indeed scales.\r\n\r\nThese aspects must be adressed before we proceed to a merge.\r\n",
+          "createdAt": "2024-11-08T16:23:39Z",
+          "updatedAt": "2024-11-08T16:24:18Z",
           "comments": []
         }
       ]
