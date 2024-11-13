@@ -1119,6 +1119,9 @@ TBD    | ML-KEM-1024+X448    | 56 octets X448 public key ({{tab-ecdh-cfrg-artifa
 ## draft-ietf-openpgp-pqc-06
 - Fixed and improved test vectors.
 
+## draft-ietf-openpgp-pqc-07
+- Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
