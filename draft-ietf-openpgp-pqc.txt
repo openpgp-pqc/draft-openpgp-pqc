@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 9 May 2025                                          F. Strenzke
+Expires: 17 May 2025                                         F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         5 November 2024
+                                                        13 November 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2025.
+   This Internet-Draft will expire on 17 May 2025.
 
 Copyright Notice
 
@@ -157,6 +157,7 @@ Table of Contents
      12.9.  draft-ietf-openpgp-pqc-04
      12.10. draft-ietf-openpgp-pqc-05
      12.11. draft-ietf-openpgp-pqc-06
+     12.12. draft-ietf-openpgp-pqc-07
    13. Contributors
    14. References
      14.1.  Normative References
@@ -350,34 +351,25 @@ Table of Contents
    For signatures, the following (composite) signature schemes are
    specified:
 
-     +==============+====================+=============+============+
-     |           ID | Algorithm          | Requirement | Definition |
-     +==============+====================+=============+============+
-     | TBD (107 for | ML-DSA-65+Ed25519  | MUST        | Section    |
-     |     testing) |                    |             | 5.2        |
-     +--------------+--------------------+-------------+------------+
-     | TBD (108 for | ML-DSA-87+Ed448    | SHOULD      | Section    |
-     |     testing) |                    |             | 5.2        |
-     +--------------+--------------------+-------------+------------+
-     |          TBD | SLH-DSA-SHAKE-128s | MAY         | Section    |
-     |              |                    |             | 6.1        |
-     +--------------+--------------------+-------------+------------+
-     |          TBD | SLH-DSA-SHAKE-128f | MAY         | Section    |
-     |              |                    |             | 6.1        |
-     +--------------+--------------------+-------------+------------+
-     |          TBD | SLH-DSA-SHAKE-256s | MAY         | Section    |
-     |              |                    |             | 6.1        |
-     +--------------+--------------------+-------------+------------+
+          +====+====================+=============+=============+
+          | ID | Algorithm          | Requirement | Definition  |
+          +====+====================+=============+=============+
+          | 30 | ML-DSA-65+Ed25519  | MUST        | Section 5.2 |
+          +----+--------------------+-------------+-------------+
+          | 31 | ML-DSA-87+Ed448    | SHOULD      | Section 5.2 |
+          +----+--------------------+-------------+-------------+
+          | 32 | SLH-DSA-SHAKE-128s | MAY         | Section 6.1 |
+          +----+--------------------+-------------+-------------+
+          | 33 | SLH-DSA-SHAKE-128f | MAY         | Section 6.1 |
+          +----+--------------------+-------------+-------------+
+          | 34 | SLH-DSA-SHAKE-256s | MAY         | Section 6.1 |
+          +----+--------------------+-------------+-------------+
 
-               Table 2: Signature algorithm specifications
+                Table 2: Signature algorithm specifications
 
 2.1.1.  Experimental Codepoints for Interop Testing
 
    [ Note: this section to be removed before publication ]
-
-   Algorithms indicated as MAY are not assigned a codepoint in the
-   current state of the draft in order to leave enough private/
-   experimental code points available for other drafts.
 
    The use of private/experimental codepoints during development are
    intended to be used in non-released software only, for
@@ -867,11 +859,9 @@ return KEK
      | Algorithm ID | Curve   | Field | Public | Secret | Signature |
      |    reference |         | size  | key    | key    |           |
      +==============+=========+=======+========+========+===========+
-     | TBD (107 for | Ed25519 | 32    | 32     | 32     | 64        |
-     |     testing) |         |       |        |        |           |
+     |           30 | Ed25519 | 32    | 32     | 32     | 64        |
      +--------------+---------+-------+--------+--------+-----------+
-     | TBD (108 for | Ed448   | 57    | 57     | 57     | 114       |
-     |     testing) |         |       |        |        |           |
+     |           31 | Ed448   | 57    | 57     | 57     | 114       |
      +--------------+---------+-------+--------+--------+-----------+
 
          Table 6: EdDSA parameters and artifact lengths in octets
@@ -902,9 +892,9 @@ return KEK
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |  TBD (107 for testing) | ML-DSA-65 | 1952   | 32     | 3309      |
+   |                     30 | ML-DSA-65 | 1952   | 32     | 3309      |
    +------------------------+-----------+--------+--------+-----------+
-   |  TBD (108 for testing) | ML-DSA-87 | 2592   | 32     | 4627      |
+   |                     31 | ML-DSA-87 | 2592   | 32     | 4627      |
    +------------------------+-----------+--------+--------+-----------+
 
         Table 7: ML-DSA parameters and artifact lengths in octets
@@ -927,9 +917,9 @@ return KEK
         | Algorithm ID reference | Hash function | Hash function |
         |                        |               | ID reference  |
         +========================+===============+===============+
-        |  TBD (107 for testing) | SHA3-256      | 12            |
+        |                     30 | SHA3-256      | 12            |
         +------------------------+---------------+---------------+
-        |  TBD (108 for testing) | SHA3-512      | 14            |
+        |                     31 | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
           Table 8: Binding between ML-DSA + EdDSA and signature
@@ -1037,14 +1027,11 @@ return KEK
      | Algorithm ID reference | SLH-DSA    | SLH-DSA    | SLH-DSA   |
      |                        | public key | secret key | signature |
      +========================+============+============+===========+
-     |    TBD (SLH-DSA-SHAKE- | 32         | 64         | 7856      |
-     |                  128s) |            |            |           |
+     |                     32 | 32         | 64         | 7856      |
      +------------------------+------------+------------+-----------+
-     |    TBD (SLH-DSA-SHAKE- | 32         | 64         | 17088     |
-     |                  128f) |            |            |           |
+     |                     33 | 32         | 64         | 17088     |
      +------------------------+------------+------------+-----------+
-     |    TBD (SLH-DSA-SHAKE- | 64         | 128        | 29792     |
-     |                  256s) |            |            |           |
+     |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
        Table 9: SLH-DSA algorithm code points and the corresponding
@@ -1066,14 +1053,11 @@ return KEK
         | Algorithm ID reference | Hash function | Hash function |
         |                        |               | ID reference  |
         +========================+===============+===============+
-        |    TBD (SLH-DSA-SHAKE- | SHA3-256      | 12            |
-        |                  128s) |               |               |
+        |                     32 | SHA3-256      | 12            |
         +------------------------+---------------+---------------+
-        |    TBD (SLH-DSA-SHAKE- | SHA3-256      | 12            |
-        |                  128f) |               |               |
+        |                     33 | SHA3-256      | 12            |
         +------------------------+---------------+---------------+
-        |    TBD (SLH-DSA-SHAKE- | SHA3-512      | 14            |
-        |                  256s) |               |               |
+        |                     34 | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
              Table 10: Binding between SLH-DSA algorithm code
@@ -1468,7 +1452,7 @@ return KEK
    |   |            |       |       |         |     (Section |         |
    |   |            |       |       |         |       4.3.1) |         |
    +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
+   |30 | ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
    |   | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
    |   |            |Ed25519|Ed25519|signature|              |         |
    |   |            | public| secret|   (Table|              |         |
@@ -1484,7 +1468,7 @@ return KEK
    |   |            | (Table|     7)|         |              |         |
    |   |            |     7)|       |         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| ML-DSA-    |     57|     57|      114|          N/A |  Section|
+   |31 | ML-DSA-    |     57|     57|      114|          N/A |  Section|
    |   | 87+Ed448   | octets| octets|   octets|              |      5.2|
    |   |            |  Ed448|  Ed448|    Ed448|              |         |
    |   |            | public| secret|signature|              |         |
@@ -1500,21 +1484,21 @@ return KEK
    |   |            | (Table|     7)|         |              |         |
    |   |            |     7)|       |         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
+   |32 | SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
    |   |            |    key|    key|(Table 9)|              |         |
    |   |            | (Table| (Table|         |              |         |
    |   |            |     9)|     9)|         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
+   |33 | SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
    |   |            |    key|    key|(Table 9)|              |         |
    |   |            | (Table| (Table|         |              |         |
    |   |            |     9)|     9)|         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
+   |34 | SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
    |   |            |    key|    key|(Table 9)|              |         |
@@ -1638,6 +1622,10 @@ return KEK
 12.11.  draft-ietf-openpgp-pqc-06
 
    *  Fixed and improved test vectors.
+
+12.12.  draft-ietf-openpgp-pqc-07
+
+   *  Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
 
 13.  Contributors
 
