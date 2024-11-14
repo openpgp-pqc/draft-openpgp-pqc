@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-12T01:19:29.113921+00:00",
+  "timestamp": "2024-11-14T01:21:10.507489+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2939,7 +2939,7 @@
       "labels": [],
       "body": "Currently we only have a PQ/T encryption subkey [for the A.1. test vector](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc#appendix-A.1). Wouldn't it make sense to add an X25519 subkey?",
       "createdAt": "2024-11-08T10:18:41Z",
-      "updatedAt": "2024-11-08T12:52:32Z",
+      "updatedAt": "2024-11-13T13:06:12Z",
       "closedAt": null,
       "comments": [
         {
@@ -2955,6 +2955,13 @@
           "body": "I suppose the test vector is meant as an illustration of the case that is described in [8.2. Key generation strategies (Point 2)](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc-06#name-key-generation-strategies).\r\n\r\nIn a typical scenario, the owner of the certificate would like to enable PQ(/T) encryption, while remaining compatible with PQ(/T)-incapable clients. Not having a traditional encryption subkey limits the general usability of the certificate for non-PQ(/T) clients. It is therefore not something that I would expect in a typical certificate.\r\n\r\nWhile not critical, I think it's good if the test vectors reflect what we expect to see in the wild.",
           "createdAt": "2024-11-08T12:52:31Z",
           "updatedAt": "2024-11-08T12:52:31Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also switch the same test vector to use PKESK v3 and SEIPD v1 for completeness",
+          "createdAt": "2024-11-13T13:06:11Z",
+          "updatedAt": "2024-11-13T13:06:11Z"
         }
       ]
     }
@@ -14922,24 +14929,26 @@
       "id": "PR_kwDOIrmZ-86BTHEh",
       "title": "assign code points 30 - 34 for ML-DSA and SLH-DSA",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/157",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I simply assign code points for the signature algorithms starting with 30 (since 29 is reserved due to LibrePGP).\r\n\r\nI can add updated test vectors to this PR but would suggest waiting for possible KDF changes first.",
       "createdAt": "2024-11-08T10:10:43Z",
-      "updatedAt": "2024-11-08T12:03:41Z",
+      "updatedAt": "2024-11-13T13:03:37Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "assign-sig-codepoints",
-      "headRefOid": "b4aa0afc40cf0c60b1e1032063f451e52789b45e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "f2ab5b73f2d4e6aec3188fa637e01005423b6187",
+      "closedAt": "2024-11-13T13:03:37Z",
+      "mergedAt": "2024-11-13T13:03:37Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -14953,6 +14962,19 @@
           "body": "",
           "createdAt": "2024-11-08T12:03:41Z",
           "updatedAt": "2024-11-08T12:03:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86RAxna",
+          "commit": {
+            "abbreviatedOid": "b4aa0af"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me. Missing changelog entry",
+          "createdAt": "2024-11-13T12:04:02Z",
+          "updatedAt": "2024-11-13T12:04:02Z",
           "comments": []
         }
       ]
