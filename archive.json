@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-14T01:21:10.507489+00:00",
+  "timestamp": "2024-11-17T01:37:11.434826+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -14991,7 +14991,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-11-08T13:30:36Z",
-      "updatedAt": "2024-11-11T14:55:15Z",
+      "updatedAt": "2024-11-15T07:39:18Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03",
@@ -15067,9 +15067,9 @@
           "author": "fluppe2",
           "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
-          "body": "This PR will need to\r\n- revise the CCA security considerations for the KEM combiner. They are not adequate if the ML-KEM ciphertext is missing, as the present considerations build upon a modular construction.\r\n- repeat the proposed warning (in the security considerations), that this KEM combiner builds upon specific security properties of ML-KEM and as such is tailored to ML-KEM. That is, extreme care must be taken when another PQ-KEM is discussed (possibly in the future).\r\n- state that the KEM combiner (with missing ML-KEM ciphertext) does not scale beyond 128 Bits of security (due to the birthday bound arguments in the X-Wing paper). Alternatively give scientifically sound arguments why it indeed scales.\r\n\r\nThese aspects must be adressed before we proceed to a merge.\r\n",
+          "body": "This PR will need to\r\n- revise the CCA security considerations for the KEM combiner. They are not adequate if the ML-KEM ciphertext is missing, as the present considerations build upon a modular construction.\r\n- repeat the proposed info (in the security considerations), that this KEM combiner builds upon specific security properties of ML-KEM and as such is tailored to ML-KEM (or any other PQ-KEM that has those security properties). That is, give guidance as to what someone will have to look at when other PQ-KEMs come up (potentially in the future)\r\n- understand whether this KEM combiner (with missing ML-KEM ciphertext) scales beyond 128 Bits of security (to offer full security for the OpenPGP algorithm ML-KEM-1024+X448) and explain why or give reference to an explanation. ",
           "createdAt": "2024-11-08T16:23:39Z",
-          "updatedAt": "2024-11-08T16:24:18Z",
+          "updatedAt": "2024-11-15T07:39:18Z",
           "comments": []
         }
       ]
