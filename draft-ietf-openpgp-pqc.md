@@ -613,7 +613,7 @@ It is given by the following algorithm, which computes the key encryption key `K
     return KEK
 
 Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep` being
-the OpenPGP specific domain separation.
+the OpenPGP-specific domain separation.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
