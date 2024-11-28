@@ -994,7 +994,7 @@ The proposed construction in {{kem-key-combiner}} preserves IND-CCA2 of any of i
 Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in {{GHP18}}.
 That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in {{GHP18}}. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2 secure KEM.
+In the random oracle setting, the reordering does not influence the arguments in {{GHP18}}. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.
 
 Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in [BCD+24] that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such {{ABH+21}}.
 
