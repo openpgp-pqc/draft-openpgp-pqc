@@ -1252,7 +1252,7 @@ return KEK
    input shared secrets and ciphertexts.  In the random oracle setting,
    the reordering does not influence the arguments in [GHP18].  That is,
    in the post-quantum setting the construction inherits its IND-CCA2
-   security from any ingredient post-quantum IND-CCA2 secure KEM.
+   security from any ingredient post-quantum IND-CCA2-secure KEM.
 
    Note that the ECDH-KEMs described in this specification are not IND-
    CCA2 secure as standalone schemes.  However, regarding the pre-
