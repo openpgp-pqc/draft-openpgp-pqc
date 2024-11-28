@@ -165,17 +165,6 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56C Rev. 2
 
-  SP800-108:
-    target: https://doi.org/10.6028/NIST.SP.800-108r1-upd1
-    title: Recommendation for Key-Derivation Using Pseudorandom Functions
-    author:
-      -
-        ins: L. Chen
-        name: Lily Chen
-    date: August 2022
-    seriesinfo:
-      NIST Special Publication 800-108 Rev. 1
-
   FIPS-203:
       target: https://doi.org/10.6028/NIST.FIPS.203
       title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
@@ -598,21 +587,21 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   Input:
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-    //   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
+    //   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
-    //   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
-    //
-    //  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
-    //                                          6F 73 69 74 65 4B 44 46 76 31
 
-    KEK = SHA3-256(mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-                   || mlkemCipherText || mlkemPublicKey || algId || domSep)
+    KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+                    || mlkemCipherText || mlkemPublicKey || algId || const )
     return KEK
 
-Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep` being
+The value `const` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
+
+    const := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
+
+Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || const` being
 the OpenPGP-specific domain separation.
 
 ### Key generation procedure {#ecc-mlkem-generation}
