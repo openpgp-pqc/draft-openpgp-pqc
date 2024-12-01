@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-28T01:27:22.825812+00:00",
+  "timestamp": "2024-12-01T01:48:21.009195+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2964,6 +2964,22 @@
           "updatedAt": "2024-11-13T13:06:11Z"
         }
       ]
+    },
+    {
+      "number": 160,
+      "id": "I_kwDOIrmZ-86hCkwR",
+      "title": "KEM Combiner Option 2a",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/160",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Prepare a proposal for Option 2a from https://mailarchive.ietf.org/arch/msg/openpgp/NMTCy707LICtxIhP3Xt1U5C8MF0/ with the additions that\r\n- we spell out mlkemCT and mlkemPK to explicitely accomodate the flexibility for the use of future KEMs without rewriting the security considerations but still aligning to https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/\r\n- we add \"OpenPGP\" for domain separation\r\n\r\ni.e.\r\n\r\nKDF ( mlkemSS || tradSS || tradCT || tradPK || mlkemCT || mlkemPK || algid || \"OpenPGP\" )\r\n\r\nAt the same time propose to drop the final hashing step (introduced for CCA conversion) in the encap/decap of X25519 and X448 and adopt the corresponding reasoning in https://eprint.iacr.org/2024/039 in the security considerations. This further aligns with https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/.",
+      "createdAt": "2024-11-28T11:15:57Z",
+      "updatedAt": "2024-11-28T11:23:59Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -15071,6 +15087,151 @@
           "createdAt": "2024-11-08T16:23:39Z",
           "updatedAt": "2024-11-15T07:39:18Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 161,
+      "id": "PR_kwDOIrmZ-86DeaFl",
+      "title": "Align KEM Combiner and drop ECDH-KEM CCA-conversion",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Modified KEM Combiner\r\n- Dropped ECDH-KEM CCA-conversion\r\n- Aligned security considerations\r\n- Removed and added references appropriately\r\n- Added Changelog under -07",
+      "createdAt": "2024-11-28T13:41:58Z",
+      "updatedAt": "2024-11-28T21:30:13Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "160-kem-combiner-option-2a",
+      "headRefOid": "0b160577de858b6a3df56fec1a71cc139a715ec3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86TIUbX",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Looks good to me, only some minor editorial comments.\r\n",
+          "createdAt": "2024-11-28T15:17:57Z",
+          "updatedAt": "2024-11-28T15:23:31Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "Not directly related to your PR but in earlier versions we distinguished \"Input\" and \"Constants\" for `multiKeyCombine`. I'd be in favor of listing `domSep` as constant again.",
+              "createdAt": "2024-11-28T15:17:57Z",
+              "updatedAt": "2024-11-28T15:23:31Z"
+            },
+            {
+              "originalPosition": 218,
+              "body": "```suggestion\r\nthe OpenPGP-specific domain separation.\r\n```\r\n\r\nI think a hyphen is needed here",
+              "createdAt": "2024-11-28T15:18:54Z",
+              "updatedAt": "2024-11-28T15:23:31Z"
+            },
+            {
+              "originalPosition": 257,
+              "body": "```suggestion\r\nIn the random oracle setting, the reordering does not influence the arguments in {{GHP18}}. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.\r\n```\r\n\r\nI think a hyphen is needed here",
+              "createdAt": "2024-11-28T15:19:18Z",
+              "updatedAt": "2024-11-28T15:23:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TIeU6",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-28T15:39:34Z",
+          "updatedAt": "2024-11-28T15:39:35Z",
+          "comments": [
+            {
+              "originalPosition": 160,
+              "body": "We could simply say above\r\n`ecdhKeyShare = X25519(v, R)`.\r\nThat saves one line in each algorithm description just to assign X. But maybe we want to keep `X` for clarity?\r\n",
+              "createdAt": "2024-11-28T15:39:35Z",
+              "updatedAt": "2024-11-28T15:39:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TIiAZ",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "In principle it's fine in my judgement, we should just decide on / process the open comments.",
+          "createdAt": "2024-11-28T15:48:03Z",
+          "updatedAt": "2024-11-28T15:48:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TIwB6",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The PR looks good to me. I'll follow up on the list with a link to this PR",
+          "createdAt": "2024-11-28T16:21:41Z",
+          "updatedAt": "2024-11-28T16:21:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TJzD7",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-28T21:16:07Z",
+          "updatedAt": "2024-11-28T21:16:07Z",
+          "comments": [
+            {
+              "originalPosition": 160,
+              "body": "I think I would prefer it as it is right now, the first steps describe the computational steps and the last \"Set\" statements take the role of a \"return\".",
+              "createdAt": "2024-11-28T21:16:07Z",
+              "updatedAt": "2024-11-28T21:16:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TJ08-",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-28T21:30:12Z",
+          "updatedAt": "2024-11-28T21:30:13Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "I see your point, since it looks odd when it does not appear in the argument listing of the function. I prepared [0b16057](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161/commits/0b160577de858b6a3df56fec1a71cc139a715ec3) to address your concern. At the same time I gave \"domSep\" the new name \"const\" as now we refer to \"mlkemCT || mlkemPK || algId || const\" as being the domain separation. If you have a better idea, please suggest.",
+              "createdAt": "2024-11-28T21:30:13Z",
+              "updatedAt": "2024-11-28T21:30:13Z"
+            }
+          ]
         }
       ]
     }
