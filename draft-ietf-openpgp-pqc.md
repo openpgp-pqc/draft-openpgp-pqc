@@ -973,11 +973,11 @@ It is therefore sufficient to simply process the concatenation of any number of 
 
 More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell SHA3-256 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key `K`, derived from shared keys `K1` and `K2` (with ciphertexts `C1` and `C2` and public keys `P1` and `P2`) as
+Hence, to be able to distinguish a key `K`, derived from shared secrets `SS1` and `SS2` (with ciphertexts `CT1` and `CT2` and public keys `PK1` and `PK2`) as
 
-    K = SHA3-256(K1 || K2 || C2 || P2 || C1 || P1 || algId || domSep)
+    K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
 
-from a random bit string, an adversary has to know (or correctly guess) both key shares `K1` and `K2`, entirely.
+from a random bit string, an adversary has to know (or correctly guess) both secret shares `SS1` and `SS2`, entirely.
 
 The proposed construction in {{kem-key-combiner}} preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
 Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in {{GHP18}}.
