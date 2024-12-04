@@ -594,15 +594,14 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
 
     KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-                    || mlkemCipherText || mlkemPublicKey || algId || const )
+                    || mlkemCipherText || mlkemPublicKey || algId || domSep )
     return KEK
 
-The value `const` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
+The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
 
-    const := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
+    domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
-Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || const` being
-the OpenPGP-specific domain separation.
+Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep` being the OpenPGP-specific context information.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -987,16 +986,15 @@ In the random oracle setting, the reordering does not influence the arguments in
 
 Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in [BCD+24] that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such {{ABH+21}}.
 
-### Domain separation and binding {#sec-fixed-info}
+### Domain separation and context binding {#sec-fixed-info}
 
 The `domSep` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
-This ensures that the input keying material is used to generate a KEK for a specific purpose or context.
+This ensures that the input keying material is used to generate a KEK for a specific purpose.
 
-The algorithm ID, passed as the `algID` paramter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm. The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties.
+The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
-This is in line with the Recommendation for ECC in Section 5.5 of [SP800-56A].
-Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.
+The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.
 
 ## SLH-DSA Message Randomizer {#slhdsa-sec-cons}
 
