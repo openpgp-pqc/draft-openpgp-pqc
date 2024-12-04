@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 1 June 2025                                         F. Strenzke
+Expires: 7 June 2025                                         F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        28 November 2024
+                                                         4 December 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 June 2025.
+   This Internet-Draft will expire on 7 June 2025.
 
 Copyright Notice
 
@@ -1233,13 +1233,13 @@ return KEK
    calls to the permutation to tell SHA3-256 from a random oracle.  For
    a random oracle, a difference in only a single bit gives an
    unrelated, uniformly random output.  Hence, to be able to distinguish
-   a key K, derived from shared keys K1 and K2 (with ciphertexts C1 and
-   C2 and public keys P1 and P2) as
+   a key K, derived from shared secrets SS1 and SS2 (with ciphertexts
+   CT1 and CT2 and public keys PK1 and PK2) as
 
-   K = SHA3-256(K1 || K2 || C2 || P2 || C1 || P1 || algId || domSep)
+ K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
 
    from a random bit string, an adversary has to know (or correctly
-   guess) both key shares K1 and K2, entirely.
+   guess) both secret shares SS1 and SS2, entirely.
 
    The proposed construction in Section 4.2.1 preserves IND-CCA2 of any
    of its ingredient KEMs, i.e. the newly formed combined KEM is IND-
