@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:36:49.192559+00:00",
+  "timestamp": "2024-12-05T01:37:14.086623+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15102,18 +15102,33 @@
       "labels": [],
       "body": "- Modified KEM Combiner\r\n- Dropped ECDH-KEM CCA-conversion\r\n- Aligned security considerations\r\n- Removed and added references appropriately\r\n- Added Changelog under -07",
       "createdAt": "2024-11-28T13:41:58Z",
-      "updatedAt": "2024-11-28T21:30:13Z",
+      "updatedAt": "2024-12-04T10:23:30Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "160-kem-combiner-option-2a",
-      "headRefOid": "0b160577de858b6a3df56fec1a71cc139a715ec3",
+      "headRefOid": "55bea08b450e49dd8cb8a2c9c401fe9e63a37cec",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Looks good to me, although I personally would prefer PK instead of P as that may be read as plaintext by some.\r\n\r\nI agree with Andreas, it should better be \"PK1\" etc.",
+          "createdAt": "2024-12-04T06:42:55Z",
+          "updatedAt": "2024-12-04T06:42:55Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > Looks good to me, although I personally would prefer PK instead of P as that may be read as plaintext by some.\r\n> \r\n> I agree with Andreas, it should better be \"PK1\" etc.\r\n\r\nGood catch, see [88d3fd1](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161/commits/88d3fd148d44ac740e490a4ba6d4039ab41f6c0d).",
+          "createdAt": "2024-12-04T08:04:30Z",
+          "updatedAt": "2024-12-04T08:04:30Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86TIUbX",
@@ -15230,6 +15245,119 @@
               "body": "I see your point, since it looks odd when it does not appear in the argument listing of the function. I prepared [0b16057](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161/commits/0b160577de858b6a3df56fec1a71cc139a715ec3) to address your concern. At the same time I gave \"domSep\" the new name \"const\" as now we refer to \"mlkemCT || mlkemPK || algId || const\" as being the domain separation. If you have a better idea, please suggest.",
               "createdAt": "2024-11-28T21:30:13Z",
               "updatedAt": "2024-11-28T21:30:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86ThWeD",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-03T09:04:05Z",
+          "updatedAt": "2024-12-03T09:04:05Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "I think it's a good idea to rename it to avoid confusion. I'm fine with it being `const`. I can't think of a good alternative with a more descriptive name right now.\r\n\r\nYou forgot to rename `domSep` in 9.2. and 9.2.1.",
+              "createdAt": "2024-12-03T09:04:05Z",
+              "updatedAt": "2024-12-03T09:04:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TmXrm",
+          "commit": {
+            "abbreviatedOid": "0b16057"
+          },
+          "author": "ahuelsing",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Looks good to me, although I personally would prefer PK instead of P as that may be read as plaintext by some.",
+          "createdAt": "2024-12-03T17:08:00Z",
+          "updatedAt": "2024-12-03T17:08:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TraYx",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-04T08:19:21Z",
+          "updatedAt": "2024-12-04T08:19:21Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "I had an idea, see [55bea08](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161/commits/55bea08b450e49dd8cb8a2c9c401fe9e63a37cec).\r\n\r\nThat is:\r\n- Stick to `domSep` (don't rename it to `const`)\r\n- We refer to `mlkemCT || mlkemPK || algId || domSep` as the OpenPGP-specific **context** information (do I remember correctly that we wanted to propose to the composite-kem draft to rename `Domain` to `Context`?)\r\n- Refactored text in Section 9.2.1 to say that the inclusion of the ciphertexts binds the KEK to the specific session\r\n\r\nDo we need the last paragraph in Section 9.2.1 that says something about ECC and SP800-56A? It feels like a leftover from old discussions. I removed it, if you think we need it, include it again.",
+              "createdAt": "2024-12-04T08:19:21Z",
+              "updatedAt": "2024-12-04T08:21:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TsWDQ",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-04T09:44:03Z",
+          "updatedAt": "2024-12-04T09:44:03Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "It's true that we discussed proposing to change the term \"Domain\" in the LAMPS draft. But when I think about it now, I fear that might delay the process. I would suggest to adopt to their terminology and find some other name for our string. Maybe \"domsepString\" or something similar?",
+              "createdAt": "2024-12-04T09:44:03Z",
+              "updatedAt": "2024-12-04T09:44:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86TsaS3",
+          "commit": {
+            "abbreviatedOid": "55bea08"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-04T09:49:48Z",
+          "updatedAt": "2024-12-04T09:49:49Z",
+          "comments": [
+            {
+              "originalPosition": 290,
+              "body": "I think the two previous lines were simply included to show that we are using sufficient context according to SP800-56A. I agree that we don't necessarily need them.",
+              "createdAt": "2024-12-04T09:49:49Z",
+              "updatedAt": "2024-12-04T09:49:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86Ts004",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-04T10:23:30Z",
+          "updatedAt": "2024-12-04T10:23:30Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "Why not leave our version as it is right now with this terminology. It is a only a proposal anyway, and as it is right now consistent in itself.",
+              "createdAt": "2024-12-04T10:23:30Z",
+              "updatedAt": "2024-12-04T10:23:30Z"
             }
           ]
         }
