@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-05T01:37:14.086623+00:00",
+  "timestamp": "2024-12-08T01:42:31.390520+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15102,7 +15102,7 @@
       "labels": [],
       "body": "- Modified KEM Combiner\r\n- Dropped ECDH-KEM CCA-conversion\r\n- Aligned security considerations\r\n- Removed and added references appropriately\r\n- Added Changelog under -07",
       "createdAt": "2024-11-28T13:41:58Z",
-      "updatedAt": "2024-12-04T10:23:30Z",
+      "updatedAt": "2024-12-05T14:26:54Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c",
@@ -15358,6 +15358,46 @@
               "body": "Why not leave our version as it is right now with this terminology. It is a only a proposal anyway, and as it is right now consistent in itself.",
               "createdAt": "2024-12-04T10:23:30Z",
               "updatedAt": "2024-12-04T10:23:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86T64wu",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-05T13:23:27Z",
+          "updatedAt": "2024-12-05T13:23:27Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "I think it's ok this way. We could make it more clear that our additional inputs constitute the \"Domain\" field in the LAMPS draft. Would that work for you, Falko?",
+              "createdAt": "2024-12-05T13:23:27Z",
+              "updatedAt": "2024-12-05T13:23:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86T7knp",
+          "commit": {
+            "abbreviatedOid": "9a578d8"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-05T14:26:54Z",
+          "updatedAt": "2024-12-05T14:26:54Z",
+          "comments": [
+            {
+              "originalPosition": 204,
+              "body": "It's OK for me, if there are complaints, we'll have to react.",
+              "createdAt": "2024-12-05T14:26:54Z",
+              "updatedAt": "2024-12-05T14:26:54Z"
             }
           ]
         }
