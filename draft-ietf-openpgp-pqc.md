@@ -590,7 +590,7 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-    //   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
+    //   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
 
     KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
