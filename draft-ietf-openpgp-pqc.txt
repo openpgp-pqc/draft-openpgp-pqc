@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 17 May 2025                                         F. Strenzke
+Expires: 20 June 2025                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        13 November 2024
+                                                        17 December 2024
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2025.
+   This Internet-Draft will expire on 20 June 2025.
 
 Copyright Notice
 
@@ -135,13 +135,12 @@ Table of Contents
      8.2.  Key generation strategies
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
-     9.2.  Hashing in ECDH-KEM
-     9.3.  Key combiner
-       9.3.1.  Domain separation and binding
-     9.4.  SLH-DSA Message Randomizer
-     9.5.  Binding hashes in signatures with signature algorithms
-     9.6.  Symmetric Algorithms for SEIPD Packets
-     9.7.  Key generation
+     9.2.  Key combiner
+       9.2.1.  Domain separation and context binding
+     9.3.  SLH-DSA Message Randomizer
+     9.4.  Binding hashes in signatures with signature algorithms
+     9.5.  Symmetric Algorithms for SEIPD Packets
+     9.6.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -468,12 +467,8 @@ Table of Contents
    | ECDH ephemeral         | 32 octets             | 56 octets        |
    |                        | [RFC7748]             | [RFC7748]        |
    +------------------------+-----------------------+------------------+
-   | ECDH share             | 32 octets             | 56 octets        |
+   | ECDH key share         | 32 octets             | 56 octets        |
    |                        | [RFC7748]             | [RFC7748]        |
-   +------------------------+-----------------------+------------------+
-   | Key share              | 32 octets             | 64 octets        |
-   +------------------------+-----------------------+------------------+
-   | Hash                   | SHA3-256              | SHA3-512         |
    +------------------------+-----------------------+------------------+
 
          Table 3: Montgomery curves parameters and artifact lengths
@@ -510,16 +505,14 @@ Table of Contents
 
    3.  Set the output ecdhCipherText to V
 
-   4.  Set the output ecdhKeyShare to SHA3-256(X || ecdhCipherText ||
-       ecdhPublicKey)
+   4.  Set the output ecdhKeyShare to X
 
    The operation x25519Kem.Decaps() is defined as follows:
 
    1.  Compute the shared coordinate X = X25519(r, V), where r is the
        ecdhSecretKey and V is the ecdhCipherText
 
-   2.  Set the output ecdhKeyShare to SHA3-256(X || ecdhCipherText ||
-       ecdhPublicKey)
+   2.  Set the output ecdhKeyShare to X
 
 4.1.1.2.  X448-KEM
 
@@ -539,16 +532,14 @@ Table of Contents
 
    3.  Set the output ecdhCipherText to V
 
-   4.  Set the output ecdhKeyShare to SHA3-512(X || ecdhCipherText ||
-       ecdhPublicKey)
+   4.  Set the output ecdhKeyShare to X
 
    The operation x448Kem.Decaps() is defined as follows:
 
    1.  Compute the shared coordinate X = X448(r, V), where r is the
        ecdhSecretKey and V is the ecdhCipherText
 
-   2.  Set the output ecdhKeyShare to SHA3-512(X || ecdhCipherText ||
-       ecdhPublicKey)
+   2.  Set the output ecdhKeyShare to X
 
 4.1.2.  ML-KEM
 
@@ -645,39 +636,34 @@ Table of Contents
    For the composite KEM schemes defined in Table 1 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a key derivation function compliant to
-   [SP800-108], Section 4.4, based on KMAC256.  It is given by the
+   [SP800-56C], Section 4, based on SHA3-256.  It is given by the
    following algorithm, which computes the key encryption key KEK that
    is used to wrap, i.e., encrypt, the session key.
 
-//   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare,
-//                   ecdhCipherText, ecdhPublicKey, algId)
+//   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
+//                   ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)
 //
 //   Input:
 //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-//   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
+//   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
 //   ecdhKeyShare    - the ECDH key share encoded as an octet string
 //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-//   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
+//   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
 //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
-//   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
-//
-//  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
-//                                          6F 73 69 74 65 4B 44 46 76 31
 
-KEK = KMAC256(mlkemKeyShare || ecdhKeyShare, mlkemCipherText || ecdhCipherText
-              || mlkemPublicKey || ecdhPublicKey || algId, 256, domSep)
+KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+                || mlkemCipherText || mlkemPublicKey || algId || domSep )
 return KEK
 
-   Here, the parameters to KMAC256 appear in the order as specified in
-   [SP800-185], Section 4, i.e., the key K, main input data X, requested
-   output length in bits L, and optional customization string S.
+   The value domSep is a constant set to the UTF-8 encoding of the
+   string "OpenPGPCompositeKDFv1", i.e.
 
-   Note that the values ecdhKeyShare defined in Section 4.1.1 and
-   mlkemKeyShare defined in Section 4.1.2 already use the relative
-   ciphertext in the derivation.  The ciphertext and public keys are by
-   design included again in the key combiner to provide a robust
-   security proof.
+domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
+
+   Note that this is in line with [I-D.ietf-lamps-pq-composite-kem] up
+   to mlkemCipherText || mlkemPublicKey || algId || domSep being the
+   OpenPGP-specific context information.
 
 4.2.2.  Key generation procedure
 
@@ -1073,7 +1059,7 @@ return KEK
 
    SLH-DSA signature generation is performed via the algorithm SLH-
    DSA.Sign as specified in [FIPS-205].  The variable opt_rand is set to
-   PK.seed.  See also Section 9.4.
+   PK.seed.  See also Section 9.3.
 
 6.1.4.  Signature Verification
 
@@ -1229,43 +1215,31 @@ return KEK
    each v6 signatures also includes a random salt at the start of the
    hashed meta data, as also specified in the aforementioned reference.
 
-9.2.  Hashing in ECDH-KEM
-
-   Our construction of the ECDH-KEMs, in particular the inclusion of
-   ecdhCipherText in the final hashing step in encapsulation and
-   decapsulation that produces the ecdhKeyShare, is standard and known
-   as hashed ElGamal key encapsulation, a hashed variant of ElGamal
-   encryption.  It ensures IND-CCA2 security in the random oracle model
-   under some Diffie-Hellman intractability assumptions [CS03].  The
-   additional inclusion of ecdhPublicKey follows the security advice in
-   [RFC7748, Section 6.1] (https://www.rfc-editor.org/rfc/
-   rfc7748#section-6.1).
-
-9.3.  Key combiner
+9.2.  Key combiner
 
    For the key combination in Section 4.2.1 this specification limits
-   itself to the use of KMAC256 in a construction following [SP800-108].
-   The sponge construction used by KMAC256 was proven to be
-   indifferentiable from a random oracle [BDPA08].  This means, that in
-   contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-
-   based construction is required for key combination.  It is therefore
-   sufficient to simply process the concatenation of any number of key
-   shares with a domain separation when using a sponge-based
-   construction like KMAC256.
+   itself to the use of SHA3-256 in a construction following
+   [SP800-56C].  The sponge construction used by SHA3-256 was proven to
+   be indifferentiable from a random oracle [BDPA08].  This means, that
+   in contrast to SHA2, which uses a Merkle-Damgard construction, no
+   HMAC-based construction is required for key combination.  It is
+   therefore sufficient to simply process the concatenation of any
+   number of key shares with a domain separation when using a sponge-
+   based construction like SHA3-256.
 
    More precisely, for a given capacity c the indifferentiability proof
    shows that assuming there are no weaknesses found in the Keccak
    permutation, an attacker has to make an expected number of 2^(c/2)
-   calls to the permutation to tell KMAC256 from a random oracle.  For a
-   random oracle, a difference in only a single bit gives an unrelated,
-   uniformly random output.  Hence, to be able to distinguish a key K,
-   derived from shared keys K1 and K2 (with ciphertexts C1 and C2 and
-   public keys P1 and P2) as
+   calls to the permutation to tell SHA3-256 from a random oracle.  For
+   a random oracle, a difference in only a single bit gives an
+   unrelated, uniformly random output.  Hence, to be able to distinguish
+   a key K, derived from shared secrets SS1 and SS2 (with ciphertexts
+   CT1 and CT2 and public keys PK1 and PK2) as
 
-   K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
+ K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
 
    from a random bit string, an adversary has to know (or correctly
-   guess) both key shares K1 and K2, entirely.
+   guess) both secret shares SS1 and SS2, entirely.
 
    The proposed construction in Section 4.2.1 preserves IND-CCA2 of any
    of its ingredient KEMs, i.e. the newly formed combined KEM is IND-
@@ -1277,36 +1251,42 @@ return KEK
    construction can thus be seen as an instantiation of the IND-CCA2
    preserving Example 3 in Figure 1 of [GHP18], up to some reordering of
    input shared secrets and ciphertexts.  In the random oracle setting,
-   the reordering does not influence the arguments in [GHP18].
+   the reordering does not influence the arguments in [GHP18].  That is,
+   in the post-quantum setting the construction inherits its IND-CCA2
+   security from any ingredient post-quantum IND-CCA2-secure KEM.
 
-9.3.1.  Domain separation and binding
+   Note that the ECDH-KEMs described in this specification are not IND-
+   CCA2 secure as standalone schemes.  However, regarding the pre-
+   quantum setting, it is argued in [BCD_24] that the construction
+   ensures IND-CCA2 security under some Diffie-Hellman intractability
+   assumption in a nominal group.  Note that Curve25519 and Curve448
+   qualify as such [ABH_21].
 
-   The domSeparation information defined in Section 4.2.1 provides the
-   domain separation for the key combiner construction.  This ensures
-   that the input keying material is used to generate a KEK for a
-   specific purpose or context.
+9.2.1.  Domain separation and context binding
 
-   The algorithm ID, passed as the algID paramter to multiKeyCombine,
-   binds the derived KEK to the chosen algorithm.  The input of the
-   public keys into multiKeyCombine binds the KEK to the communication
-   parties.  The algorithm ID identifies unequivocally the algorithm,
-   the parameters for its instantiation, and the length of all
-   artifacts, including the derived key.
+   The domSep information defined in Section 4.2.1 provides the domain
+   separation for the key combiner construction.  This ensures that the
+   input keying material is used to generate a KEK for a specific
+   purpose.
 
-   This is in line with the Recommendation for ECC in Section 5.5 of
-   [SP800-56A].  Other fields included in the recommendation are not
-   relevant for the OpenPGP protocol, since the sender is not required
-   to have a key of their own, there are no pre-shared secrets, and all
-   the other parameters are unequivocally defined by the algorithm ID.
+   The algorithm ID, passed as the algID parameter to multiKeyCombine,
+   binds the derived KEK to the chosen algorithm.  The algorithm ID
+   identifies unequivocally the algorithm, the parameters for its
+   instantiation, and the length of all artifacts, including the derived
+   key.
 
-9.4.  SLH-DSA Message Randomizer
+   The input of the public keys into multiKeyCombine binds the KEK to
+   the communication parties.  The input of the ciphertexts binds the
+   KEK to the specific session.
+
+9.3.  SLH-DSA Message Randomizer
 
    The specification of SLH-DSA [FIPS-205] prescribes an optional non-
    deterministic message randomizer.  This is not used in this
    specification, as OpenPGP v6 signatures already provide a salted
    signature data digest of the appropriate size.
 
-9.5.  Binding hashes in signatures with signature algorithms
+9.4.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1324,7 +1304,7 @@ return KEK
    In the case of SLH-DSA the internal hash algorithm varies based on
    the algorithm ID, see Section 6.1.1.
 
-9.6.  Symmetric Algorithms for SEIPD Packets
+9.5.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1339,7 +1319,7 @@ return KEK
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.7.  Key generation
+9.6.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1627,6 +1607,10 @@ return KEK
 
    *  Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
 
+   *  Align KEM combiner with LAMPS
+
+   *  Drop CCA-conversion of X25519/X448
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
@@ -1656,14 +1640,18 @@ return KEK
 
 14.2.  Informative References
 
+   [ABH_21]   Alwen, J., Blanchet, B., Hauck, E., Kiltz, E., Lipp, B.,
+              and D. Riepel, "Analysing the HPKE Standard", 2021,
+              <https://doi.org/10.1007/978-3-030-77870-5_4>.
+
+   [BCD_24]   Barbosa, M., Connolly, D., Duarte, J. D., Kaiser, A.,
+              Schwabe, P., Varner, K., and B. Westerbaan, "X-Wing The
+              Hybrid KEM You’ve Been Looking For", 2024,
+              <https://doi.org/10.62056/a3qj89n4e>.
+
    [BDPA08]   Bertoni, G., Daemen, J., Peters, M., and G. Assche, "On
               the Indifferentiability of the Sponge Construction", 2008,
               <https://doi.org/10.1007/978-3-540-78967-3_11>.
-
-   [CS03]     Cramer, R. and V. Shoup, "Design and Analysis of Practical
-              Public-Key Encryption Schemes Secure against Adaptive
-              Chosen Ciphertext Attack", 2003,
-              <https://doi.org/10.1137/S0097539702403773>.
 
    [FIPS-203] National Institute of Standards and Technology, "Module-
               Lattice-Based Key-Encapsulation Mechanism Standard",
@@ -1680,12 +1668,20 @@ return KEK
    [GHP18]    Giacon, F., Heuer, F., and B. Poettering, "KEM Combiners",
               2018, <https://doi.org/10.1007/978-3-319-76578-5_7>.
 
+   [I-D.ietf-lamps-pq-composite-kem]
+              Ounsworth, M., Gray, J., Pala, M., Klaußner, J., and S.
+              Fluhrer, "Composite ML-KEM for use in X.509 Public Key
+              Infrastructure and CMS", Work in Progress, Internet-Draft,
+              draft-ietf-lamps-pq-composite-kem-05, 21 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
+              pq-composite-kem-05>.
+
    [I-D.ietf-pquip-pqt-hybrid-terminology]
               D, F., P, M., and B. Hale, "Terminology for Post-Quantum
               Traditional Hybrid Schemes", Work in Progress, Internet-
-              Draft, draft-ietf-pquip-pqt-hybrid-terminology-04, 10
-              September 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-pquip-pqt-hybrid-terminology-04>.
+              Draft, draft-ietf-pquip-pqt-hybrid-terminology-05, 11
+              December 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-pquip-pqt-hybrid-terminology-05>.
 
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
@@ -1701,24 +1697,19 @@ return KEK
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
 
-   [SP800-108]
-              Chen, L., "Recommendation for Key-Derivation Using
-              Pseudorandom Functions", NIST Special Publication 800-108
-              Rev. 1 , August 2022,
-              <https://doi.org/10.6028/NIST.SP.800-108r1-upd1>.
-
-   [SP800-185]
-              Kelsey, J., Chang, S., and R. Perlner, "SHA-3 Derived
-              Functions: cSHAKE, KMAC, TupleHash, and ParallelHash",
-              NIST Special Publication 800-185 , December 2016,
-              <https://doi.org/10.6028/NIST.SP.800-185>.
-
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., Vassilev, A., and R.
               Davis, "Recommendation for Pair-Wise Key-Establishment
               Schemes Using Discrete Logarithm Cryptography", NIST
               Special Publication 800-56A Rev. 3 , April 2018,
               <https://doi.org/10.6028/NIST.SP.800-56Ar3>.
+
+   [SP800-56C]
+              Barker, E., Chen, L., Roginsky, A., and R. Davis,
+              "Recommendation for Key-Derivation Methods in Key-
+              Establishment Schemes", NIST Special Publication 800-56C
+              Rev. 2 , August 2020,
+              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
 
 Appendix A.  Test Vectors
 
@@ -3673,7 +3664,7 @@ Authors' Addresses
    Stavros Kousidis
    BSI
    Germany
-   Email: stavros.kousidis@bsi.bund.de
+   Email: kousidis.ietf@gmail.com
 
 
    Johannes Roth

@@ -14,11 +14,11 @@
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="xml2rfc 3.25.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.24.0
+  xml2rfc 3.25.0
     Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -283,6 +283,12 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
   font-weight: 680;
@@ -314,6 +320,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -391,25 +398,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -417,38 +425,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -512,6 +521,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -529,7 +539,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -566,6 +580,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -580,6 +595,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -610,9 +635,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -652,26 +679,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -682,9 +711,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -692,53 +718,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-@media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
   }
 }
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
-}
-
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -746,21 +767,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -782,6 +815,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -792,7 +826,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -803,9 +861,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -818,17 +873,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -839,14 +894,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -854,11 +908,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -887,20 +941,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -943,9 +989,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -968,82 +1011,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1082,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">November 2024</td>
+<td class="right">December 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 17 May 2025</td>
+<td class="center">Expires 20 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1099,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-13" class="published">13 November 2024</time>
+<time datetime="2024-12-17" class="published">17 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-17">17 May 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-20">20 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1167,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1417,27 +1384,24 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-hashing-in-ecdh-kem" class="internal xref">Hashing in ECDH-KEM</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
-                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="auto internal xref">9.3.1</a>.  <a href="#name-domain-separation-and-bindi" class="internal xref">Domain separation and binding</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.1">
+                    <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-9.2.1" class="auto internal xref">9.2.1</a>.  <a href="#name-domain-separation-and-conte" class="internal xref">Domain separation and context binding</a></p>
 </li>
                 </ul>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
+</li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-slh-dsa-message-randomizer" class="internal xref">SLH-DSA Message Randomizer</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.7">
-                <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="auto internal xref">9.7</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
 </li>
             </ul>
 </li>
@@ -1936,21 +1900,11 @@ The artifacts in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">T
 </td>
               </tr>
               <tr>
-                <td class="text-left" rowspan="1" colspan="1">ECDH share</td>
+                <td class="text-left" rowspan="1" colspan="1">ECDH key share</td>
                 <td class="text-left" rowspan="1" colspan="1">32 octets <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">56 octets <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>
 </td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">Key share</td>
-                <td class="text-left" rowspan="1" colspan="1">32 octets</td>
-                <td class="text-left" rowspan="1" colspan="1">64 octets</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">Hash</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-512</td>
               </tr>
             </tbody>
           </table>
@@ -1989,7 +1943,7 @@ Here, <code>U(P)</code> denotes the u-coordinate of the base point of Curve25519
                 <p id="section-4.1.1.1-3.3.1">Set the output <code>ecdhCipherText</code> to <code>V</code><a href="#section-4.1.1.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-4.1.1.1-3.4">
-                <p id="section-4.1.1.1-3.4.1">Set the output <code>ecdhKeyShare</code> to <code>SHA3-256(X || ecdhCipherText || ecdhPublicKey)</code><a href="#section-4.1.1.1-3.4.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1.1.1-3.4.1">Set the output <code>ecdhKeyShare</code> to <code>X</code><a href="#section-4.1.1.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 <p id="section-4.1.1.1-4">The operation <code>x25519Kem.Decaps()</code> is defined as follows:<a href="#section-4.1.1.1-4" class="pilcrow">¶</a></p>
@@ -1998,7 +1952,7 @@ Here, <code>U(P)</code> denotes the u-coordinate of the base point of Curve25519
                 <p id="section-4.1.1.1-5.1.1">Compute the shared coordinate <code>X = X25519(r, V)</code>, where <code>r</code> is the <code>ecdhSecretKey</code> and <code>V</code> is the <code>ecdhCipherText</code><a href="#section-4.1.1.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-4.1.1.1-5.2">
-                <p id="section-4.1.1.1-5.2.1">Set the output <code>ecdhKeyShare</code> to <code>SHA3-256(X || ecdhCipherText || ecdhPublicKey)</code><a href="#section-4.1.1.1-5.2.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1.1.1-5.2.1">Set the output <code>ecdhKeyShare</code> to <code>X</code><a href="#section-4.1.1.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 </section>
@@ -2023,7 +1977,7 @@ Here, <code>U(P)</code> denotes the u-coordinate of the base point of Curve448.<
                 <p id="section-4.1.1.2-3.3.1">Set the output <code>ecdhCipherText</code> to <code>V</code><a href="#section-4.1.1.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-4.1.1.2-3.4">
-                <p id="section-4.1.1.2-3.4.1">Set the output <code>ecdhKeyShare</code> to <code>SHA3-512(X || ecdhCipherText || ecdhPublicKey)</code><a href="#section-4.1.1.2-3.4.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1.1.2-3.4.1">Set the output <code>ecdhKeyShare</code> to <code>X</code><a href="#section-4.1.1.2-3.4.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 <p id="section-4.1.1.2-4">The operation <code>x448Kem.Decaps()</code> is defined as follows:<a href="#section-4.1.1.2-4" class="pilcrow">¶</a></p>
@@ -2032,7 +1986,7 @@ Here, <code>U(P)</code> denotes the u-coordinate of the base point of Curve448.<
                 <p id="section-4.1.1.2-5.1.1">Compute the shared coordinate <code>X = X448(r, V)</code>, where <code>r</code> is the <code>ecdhSecretKey</code> and <code>V</code> is the <code>ecdhCipherText</code><a href="#section-4.1.1.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
               <li id="section-4.1.1.2-5.2">
-                <p id="section-4.1.1.2-5.2.1">Set the output <code>ecdhKeyShare</code> to <code>SHA3-512(X || ecdhCipherText || ecdhPublicKey)</code><a href="#section-4.1.1.2-5.2.1" class="pilcrow">¶</a></p>
+                <p id="section-4.1.1.2-5.2.1">Set the output <code>ecdhKeyShare</code> to <code>X</code><a href="#section-4.1.1.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
             </ol>
 </section>
@@ -2179,34 +2133,34 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key combiner</a>
           </h4>
 <p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to <span>[<a href="#SP800-108" class="cite xref">SP800-108</a>]</span>, Section 4.4, based on KMAC256.
+The construction is a key derivation function compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
 <pre>
-//   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare,
-//                   ecdhCipherText, ecdhPublicKey, algId)
+//   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
+//                   ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)
 //
 //   Input:
 //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
 //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-//   mlkemPublicKey  - The ML-KEM public key of the recipient as an octet string
+//   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
 //   ecdhKeyShare    - the ECDH key share encoded as an octet string
 //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-//   ecdhPublicKey   - The ECDH public key of the recipient as an octet string
+//   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
 //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
-//   domSep          – the UTF-8 encoding of the string "OpenPGPCompositeKDFv1"
-//
-//  domSep given in hexadecimal encoding := 4F 70 65 6E 50 47 50 43 6F 6D 70
-//                                          6F 73 69 74 65 4B 44 46 76 31
 
-KEK = KMAC256(mlkemKeyShare || ecdhKeyShare, mlkemCipherText || ecdhCipherText
-              || mlkemPublicKey || ecdhPublicKey || algId, 256, domSep)
+KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
+                || mlkemCipherText || mlkemPublicKey || algId || domSep )
 return KEK
 </pre><a href="#section-4.2.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2.1-3">Here, the parameters to KMAC256 appear in the order as specified in <span>[<a href="#SP800-185" class="cite xref">SP800-185</a>]</span>, Section 4, i.e., the key K, main input data X, requested output length in bits L, and optional customization string S.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-4">Note that the values <code>ecdhKeyShare</code> defined in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a> and <code>mlkemKeyShare</code> defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a> already use the relative ciphertext in the derivation.
-The ciphertext and public keys are by design included again in the key combiner to provide a robust security proof.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-3">The value <code>domSep</code> is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.1-4">
+<pre>
+domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
+</pre><a href="#section-4.2.1-4" class="pilcrow">¶</a>
+</div>
+<p id="section-4.2.1-5">Note that this is in line with <span>[<a href="#I-D.ietf-lamps-pq-composite-kem" class="cite xref">I-D.ietf-lamps-pq-composite-kem</a>]</span> up to <code>mlkemCipherText || mlkemPublicKey || algId || domSep</code> being the OpenPGP-specific context information.<a href="#section-4.2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-generation">
@@ -2754,7 +2708,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
           </h4>
 <p id="section-6.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.
 The variable <code>opt_rand</code> is set to <code>PK.seed</code>.
-See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.4</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+See also <a href="#slhdsa-sec-cons" class="auto internal xref">Section 9.3</a>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
@@ -2909,95 +2863,85 @@ As a consequence, a component signature taken out of the context of a specific c
 This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="hashing-in-ecdh-kem">
-<section id="section-9.2">
-        <h3 id="name-hashing-in-ecdh-kem">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-hashing-in-ecdh-kem" class="section-name selfRef">Hashing in ECDH-KEM</a>
-        </h3>
-<p id="section-9.2-1">Our construction of the ECDH-KEMs, in particular the inclusion of <code>ecdhCipherText</code> in the final hashing step in encapsulation and decapsulation that produces the <code>ecdhKeyShare</code>, is standard and known as hashed ElGamal key encapsulation, a hashed variant of ElGamal encryption.
-It ensures IND-CCA2 security in the random oracle model under some Diffie-Hellman intractability assumptions <span>[<a href="#CS03" class="cite xref">CS03</a>]</span>.
-The additional inclusion of <code>ecdhPublicKey</code> follows the security advice in <a href="https://www.rfc-editor.org/rfc/rfc7748#section-6.1">[RFC7748, Section 6.1]</a>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="sec-key-combiner">
-<section id="section-9.3">
+<section id="section-9.2">
         <h3 id="name-key-combiner-2">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of KMAC256 in a construction following <span>[<a href="#SP800-108" class="cite xref">SP800-108</a>]</span>.
-The sponge construction used by KMAC256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
+<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
+The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like KMAC256.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell KMAC256 from a random oracle.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA3-256 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key <code>K</code>, derived from shared keys <code>K1</code> and <code>K2</code> (with ciphertexts <code>C1</code> and <code>C2</code> and public keys <code>P1</code> and <code>P2</code>) as<a href="#section-9.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.3-3">
+Hence, to be able to distinguish a key <code>K</code>, derived from shared secrets <code>SS1</code> and <code>SS2</code> (with ciphertexts <code>CT1</code> and <code>CT2</code> and public keys <code>PK1</code> and <code>PK2</code>) as<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-9.2-3">
 <pre>
-K = KMAC256(K1 || K2, C1 || C2 || P1 || P2 || algId, 256, domSep)
-</pre><a href="#section-9.3-3" class="pilcrow">¶</a>
+K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
+</pre><a href="#section-9.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-9.3-4">from a random bit string, an adversary has to know (or correctly guess) both key shares <code>K1</code> and <code>K2</code>, entirely.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
-<p id="section-9.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
+<p id="section-9.2-4">from a random bit string, an adversary has to know (or correctly guess) both secret shares <code>SS1</code> and <code>SS2</code>, entirely.<a href="#section-9.2-4" class="pilcrow">¶</a></p>
+<p id="section-9.2-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
 Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.
 That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
+In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.<a href="#section-9.2-5" class="pilcrow">¶</a></p>
+<p id="section-9.2-6">Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-6" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
-<section id="section-9.3.1">
-          <h4 id="name-domain-separation-and-bindi">
-<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-domain-separation-and-bindi" class="section-name selfRef">Domain separation and binding</a>
+<section id="section-9.2.1">
+          <h4 id="name-domain-separation-and-conte">
+<a href="#section-9.2.1" class="section-number selfRef">9.2.1. </a><a href="#name-domain-separation-and-conte" class="section-name selfRef">Domain separation and context binding</a>
           </h4>
-<p id="section-9.3.1-1">The <code>domSeparation</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
-This ensures that the input keying material is used to generate a KEK for a specific purpose or context.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.3.1-2">The algorithm ID, passed as the <code>algID</code> paramter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm. The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties.
-The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.3.1-3">This is in line with the Recommendation for ECC in Section 5.5 of <span>[<a href="#SP800-56A" class="cite xref">SP800-56A</a>]</span>.
-Other fields included in the recommendation are not relevant for the OpenPGP protocol, since the sender is not required to have a key of their own, there are no pre-shared secrets, and all the other parameters are unequivocally defined by the algorithm ID.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-1">The <code>domSep</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
+This ensures that the input keying material is used to generate a KEK for a specific purpose.<a href="#section-9.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-2">The algorithm ID, passed as the <code>algID</code> parameter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm.
+The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-3">The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.<a href="#section-9.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="slhdsa-sec-cons">
-<section id="section-9.4">
+<section id="section-9.3">
         <h3 id="name-slh-dsa-message-randomizer">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-slh-dsa-message-randomizer" class="section-name selfRef">SLH-DSA Message Randomizer</a>
         </h3>
-<p id="section-9.4-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
-This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-1">The specification of SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> prescribes an optional non-deterministic message randomizer.
+This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-9.5-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
-<p id="section-9.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
+<p id="section-9.4-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
-<p id="section-9.5-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
+This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
+<p id="section-9.4-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.5-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
-<p id="section-9.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-generation-1">
-<section id="section-9.7">
+<section id="section-9.6">
         <h3 id="name-key-generation-2">
-<a href="#section-9.7" class="section-number selfRef">9.7. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
         </h3>
-<p id="section-9.7-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.7-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3378,6 +3322,12 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
 <li class="normal" id="section-12.12-1.1">
             <p id="section-12.12-1.1.1">Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.<a href="#section-12.12-1.1.1" class="pilcrow">¶</a></p>
 </li>
+          <li class="normal" id="section-12.12-1.2">
+            <p id="section-12.12-1.2.1">Align KEM combiner with LAMPS<a href="#section-12.12-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.12-1.3">
+            <p id="section-12.12-1.3.1">Drop CCA-conversion of X25519/X448<a href="#section-12.12-1.3.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
 </section>
 </div>
@@ -3429,13 +3379,17 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <a href="#section-14.2" class="section-number selfRef">14.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="ABH_21">[ABH_21]</dt>
+        <dd>
+<span class="refAuthor">Alwen, J.</span>, <span class="refAuthor">Blanchet, B.</span>, <span class="refAuthor">Hauck, E.</span>, <span class="refAuthor">Kiltz, E.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">D. Riepel</span>, <span class="refTitle">"Analysing the HPKE Standard"</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-030-77870-5_4">https://doi.org/10.1007/978-3-030-77870-5_4</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="BCD_24">[BCD_24]</dt>
+        <dd>
+<span class="refAuthor">Barbosa, M.</span>, <span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Duarte, J. D.</span>, <span class="refAuthor">Kaiser, A.</span>, <span class="refAuthor">Schwabe, P.</span>, <span class="refAuthor">Varner, K.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"X-Wing The Hybrid KEM You’ve Been Looking For"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.62056/a3qj89n4e">https://doi.org/10.62056/a3qj89n4e</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="BDPA08">[BDPA08]</dt>
         <dd>
 <span class="refAuthor">Bertoni, G.</span>, <span class="refAuthor">Daemen, J.</span>, <span class="refAuthor">Peters, M.</span>, and <span class="refAuthor">G. Assche</span>, <span class="refTitle">"On the Indifferentiability of the Sponge Construction"</span>, <time datetime="2008" class="refDate">2008</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-540-78967-3_11">https://doi.org/10.1007/978-3-540-78967-3_11</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="CS03">[CS03]</dt>
-        <dd>
-<span class="refAuthor">Cramer, R.</span> and <span class="refAuthor">V. Shoup</span>, <span class="refTitle">"Design and Analysis of Practical Public-Key Encryption Schemes Secure against Adaptive Chosen Ciphertext Attack"</span>, <time datetime="2003" class="refDate">2003</time>, <span>&lt;<a href="https://doi.org/10.1137/S0097539702403773">https://doi.org/10.1137/S0097539702403773</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="FIPS-203">[FIPS-203]</dt>
         <dd>
@@ -3453,9 +3407,13 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">Giacon, F.</span>, <span class="refAuthor">Heuer, F.</span>, and <span class="refAuthor">B. Poettering</span>, <span class="refTitle">"KEM Combiners"</span>, <time datetime="2018" class="refDate">2018</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-76578-5_7">https://doi.org/10.1007/978-3-319-76578-5_7</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-lamps-pq-composite-kem">[I-D.ietf-lamps-pq-composite-kem]</dt>
+        <dd>
+<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Gray, J.</span>, <span class="refAuthor">Pala, M.</span>, <span class="refAuthor">Klaußner, J.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Composite ML-KEM for use in X.509 Public Key Infrastructure and CMS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-pq-composite-kem-05</span>, <time datetime="2024-10-21" class="refDate">21 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-05">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqt-hybrid-terminology">[I-D.ietf-pquip-pqt-hybrid-terminology]</dt>
         <dd>
-<span class="refAuthor">D, F.</span>, <span class="refAuthor">P, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqt-hybrid-terminology-04</span>, <time datetime="2024-09-10" class="refDate">10 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-04">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-04</a>&gt;</span>. </dd>
+<span class="refAuthor">D, F.</span>, <span class="refAuthor">P, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqt-hybrid-terminology-05</span>, <time datetime="2024-12-11" class="refDate">11 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-05">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-PQC">[NIST-PQC]</dt>
         <dd>
@@ -3465,17 +3423,13 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="SP800-108">[SP800-108]</dt>
-        <dd>
-<span class="refAuthor">Chen, L.</span>, <span class="refTitle">"Recommendation for Key-Derivation Using Pseudorandom Functions"</span>, <span class="seriesInfo">NIST Special Publication 800-108 Rev. 1 </span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-108r1-upd1">https://doi.org/10.6028/NIST.SP.800-108r1-upd1</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SP800-185">[SP800-185]</dt>
-        <dd>
-<span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Chang, S.</span>, and <span class="refAuthor">R. Perlner</span>, <span class="refTitle">"SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash, and ParallelHash"</span>, <span class="seriesInfo">NIST Special Publication 800-185 </span>, <time datetime="2016-12" class="refDate">December 2016</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-185">https://doi.org/10.6028/NIST.SP.800-185</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="SP800-56A">[SP800-56A]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <span class="seriesInfo">NIST Special Publication 800-56A Rev. 3 </span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SP800-56C">[SP800-56C]</dt>
+      <dd>
+<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <span class="seriesInfo">NIST Special Publication 800-56C Rev. 2 </span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -5542,7 +5496,7 @@ blJ0gqdnPik2He+PKxP6lKHLdfYz3Mws
 <div dir="auto" class="left"><span class="country-name">Germany</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:stavros.kousidis@bsi.bund.de" class="email">stavros.kousidis@bsi.bund.de</a>
+<a href="mailto:kousidis.ietf@gmail.com" class="email">kousidis.ietf@gmail.com</a>
 </div>
 </address>
 <address class="vcard">
