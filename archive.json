@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-17T01:36:29.906448+00:00",
+  "timestamp": "2024-12-19T01:26:21.529450+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2970,15 +2970,15 @@
       "id": "I_kwDOIrmZ-86hCkwR",
       "title": "KEM Combiner Option 2a",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/160",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Prepare a proposal for Option 2a from https://mailarchive.ietf.org/arch/msg/openpgp/NMTCy707LICtxIhP3Xt1U5C8MF0/ with the additions that\r\n- we spell out mlkemCT and mlkemPK to explicitely accomodate the flexibility for the use of future KEMs without rewriting the security considerations but still aligning to https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/\r\n- we add \"OpenPGP\" for domain separation\r\n\r\ni.e.\r\n\r\nKDF ( mlkemSS || tradSS || tradCT || tradPK || mlkemCT || mlkemPK || algid || \"OpenPGP\" )\r\n\r\nAt the same time propose to drop the final hashing step (introduced for CCA conversion) in the encap/decap of X25519 and X448 and adopt the corresponding reasoning in https://eprint.iacr.org/2024/039 in the security considerations. This further aligns with https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/.",
       "createdAt": "2024-11-28T11:15:57Z",
-      "updatedAt": "2024-11-28T11:23:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-12-17T08:20:58Z",
+      "closedAt": "2024-12-17T08:20:58Z",
       "comments": []
     }
   ],
@@ -15000,21 +15000,21 @@
       "id": "PR_kwDOIrmZ-86BUoWj",
       "title": "Aligning KEM Combiner with LAMPS",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/159",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ounsworth",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-11-08T13:30:36Z",
-      "updatedAt": "2024-11-15T07:39:18Z",
+      "updatedAt": "2024-12-17T08:21:27Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e31f2b182ef790cb3bf88b837056f1bf635e9c03",
       "headRepository": "ounsworth/draft-openpgp-pqc",
       "headRefName": "main",
       "headRefOid": "7a9788b9f1c48b327a7f2f618344887552a1329b",
-      "closedAt": null,
+      "closedAt": "2024-12-17T08:21:11Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -15032,6 +15032,13 @@
           "body": "Hi Mike, thanks for proposing the concrete change.\r\n\r\nFor context, this came out of a bit of a hallway discussion after the IETF 121 working group meeting.  The motivation is two-fold:\r\n\r\nFirst, don't get hung up on the FIPS compliance question regarding the combiner.  It seems to me that lamps found a compliant combiner, whereas our current proposal has some issues or at least there are open questions regarding where the key shares should go (and indeed this might reverse in the future as FIPS evolves).\r\n\r\nSecond, for me as implementer, SHA3 is more easily available than KMAC.\r\n\r\nI know that I pushed for having a single combiner applicable to all KEMs.  I'm happy to relax this requirement, i.e. I'd be fine if you say that for ML-KEM, use this combiner, and whenever we introduce a new KEM, it might bring its own combiner.",
           "createdAt": "2024-11-11T14:55:13Z",
           "updatedAt": "2024-11-11T14:55:13Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Superseded by #161 ",
+          "createdAt": "2024-12-17T08:21:11Z",
+          "updatedAt": "2024-12-17T08:21:27Z"
         }
       ],
       "reviews": [
@@ -15095,24 +15102,26 @@
       "id": "PR_kwDOIrmZ-86DeaFl",
       "title": "Align KEM Combiner and drop ECDH-KEM CCA-conversion",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/161",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Modified KEM Combiner\r\n- Dropped ECDH-KEM CCA-conversion\r\n- Aligned security considerations\r\n- Removed and added references appropriately\r\n- Added Changelog under -07",
       "createdAt": "2024-11-28T13:41:58Z",
-      "updatedAt": "2024-12-05T14:26:54Z",
+      "updatedAt": "2024-12-17T08:20:58Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "160-kem-combiner-option-2a",
-      "headRefOid": "55bea08b450e49dd8cb8a2c9c401fe9e63a37cec",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e9817777431ee98ec460edc00285bc01068296d3",
+      "closedAt": "2024-12-17T08:20:57Z",
+      "mergedAt": "2024-12-17T08:20:57Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "999921943fe300997ad5b02bb66d5c77b544beb5"
+      },
       "comments": [
         {
           "author": "falko-strenzke",
@@ -15398,6 +15407,39 @@
               "body": "It's OK for me, if there are complaints, we'll have to react.",
               "createdAt": "2024-12-05T14:26:54Z",
               "updatedAt": "2024-12-05T14:26:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86VfxbM",
+          "commit": {
+            "abbreviatedOid": "55bea08"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-17T08:18:56Z",
+          "updatedAt": "2024-12-17T08:18:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86VfyZL",
+          "commit": {
+            "abbreviatedOid": "55bea08"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-17T08:19:54Z",
+          "updatedAt": "2024-12-17T08:19:55Z",
+          "comments": [
+            {
+              "originalPosition": 212,
+              "body": "```suggestion\r\n    //   ecdhPublicKey   - the ECDH public key of the recipient as an octet string\r\n```",
+              "createdAt": "2024-12-17T08:19:55Z",
+              "updatedAt": "2024-12-17T08:19:55Z"
             }
           ]
         }
