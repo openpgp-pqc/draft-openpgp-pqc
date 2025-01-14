@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-12T01:36:16.206306+00:00",
+  "timestamp": "2025-01-14T01:18:33.945085+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15109,7 +15109,7 @@
       "labels": [],
       "body": "- Modified KEM Combiner\r\n- Dropped ECDH-KEM CCA-conversion\r\n- Aligned security considerations\r\n- Removed and added references appropriately\r\n- Added Changelog under -07",
       "createdAt": "2024-11-28T13:41:58Z",
-      "updatedAt": "2024-12-17T08:20:58Z",
+      "updatedAt": "2025-01-12T16:59:00Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "1bbf4e44d06c7eb62a294ad10b1e991b09bdba8c",
@@ -15442,6 +15442,19 @@
               "updatedAt": "2024-12-17T08:19:55Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86XuN1T",
+          "commit": {
+            "abbreviatedOid": "e981777"
+          },
+          "author": "Scutua",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-12T16:59:00Z",
+          "updatedAt": "2025-01-12T16:59:00Z",
+          "comments": []
         }
       ]
     }
