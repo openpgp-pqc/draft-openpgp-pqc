@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-19T01:25:18.912122+00:00",
+  "timestamp": "2025-01-21T01:19:31.074971+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15442,19 +15442,6 @@
               "updatedAt": "2024-12-17T08:19:55Z"
             }
           ]
-        },
-        {
-          "id": "PRR_kwDOIrmZ-86XuN1T",
-          "commit": {
-            "abbreviatedOid": "e981777"
-          },
-          "author": "Scutua",
-          "authorAssociation": "NONE",
-          "state": "APPROVED",
-          "body": "",
-          "createdAt": "2025-01-12T16:59:00Z",
-          "updatedAt": "2025-01-12T16:59:00Z",
-          "comments": []
         }
       ]
     }
