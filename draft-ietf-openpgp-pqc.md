@@ -1170,12 +1170,15 @@ Here is a Transferable Secret Key consisting of:
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
+- A v6 X25519 Private-Subkey packet
+- A v6 subkey binding signature
 - A v6 ML-KEM-768+X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `4a6722225bcd7cb077936b6e1bf7e7b3d8e8f5f49d61257bf79d572faaa792ce`.
+The primary key has the fingerprint `7f81f9d0db7cf905ed375ba0057928075faff433a70b88c0a30a022ddeaf3ac9`.
 
-The subkey has the fingerprint `9521f34e730a005fc5f912b088da710ff2f340c82ce3a5526833bfd7a0050006`.
+The first subkey has the fingerprint `e3ed45a07c5af795b7cc5a156738efb42301c10df886a341ede80fca4c99baa3`.
+The second subkey has the fingerprint `fecb6e4f8a9ad135c6b45e63d9016daf7706d7e8322fd6ed1d8b028f61d57ebe`.
 
 {: sourcecode-name="v6-eddsa-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1190,6 +1193,8 @@ Here is the corresponding Transferable Public Key for {{test-vector-sec-ed25519}
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
+- A v6 X25519 Public-Subkey packet
+- A v6 subkey binding signature
 - A v6 ML-KEM-768+X25519 Public-Subkey packet
 - A v6 subkey binding signature
 
@@ -1202,16 +1207,16 @@ Here is the corresponding Transferable Public Key for {{test-vector-sec-ed25519}
 
 Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-pub-ed25519}} and signed by the secret key {{test-vector-sec-ed25519}}:
 
-- A v6 PKESK
-- A v2 SEIPD
+- A v3 PKESK
+- A v1 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `eb7fcf5ddbc127bc80d83dcb1bb43a1c6b9a1fa67b31752564d9f5fa18d80c64`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `925fd46093bf8a785b89f3757fedaa8dd9190766471d7e68c426630851d9621e`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `e5564bc3d80ed72c63e5eb940b47314ec68227aafba571f011399a2b7733545f`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `d98c39a18dad9840e255c0b34c846089435617ee47f5764fad66e89abede9955`.
 
-The hex-encoded output of `multiKeyCombine` is `4fa8f45b53b408b284bbcd13019a15f049c920306cfe8354fa3c5931894d6b92`.
+The hex-encoded output of `multiKeyCombine` is `64ff5bc957bc99a784d455cb5575ca2898071bc6c0cf0332b269e23e7280e5ae`.
 
-The hex-encoded session key is `873b2a8218a75cf3d570729ba48b88acbeb2d7ce9f993f4228ff37faf785fee5`.
+The hex-encoded session key is `401aee9fa99486b10ee774fc5445ccc997fab51b19e05577304228351ffd5e0e`.
 
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
 ~~~ application/pgp-keys
@@ -1232,9 +1237,9 @@ Here is a Transferable Secret Key consisting of:
 - A v6 ML-KEM-768+X25519 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `bf262b24177002ac8ae5dc6da47c056d22ab9906d47d07952b75c358021901ca`.
+The primary key has the fingerprint `eef4c85ce59af6a4520432960079697ebbcd521dffc500e945209a284f535791`.
 
-The subkey has the fingerprint `48b94bce2f9771788f5feb74122d599989c400cc0f49108bc98e0ea7945e4838`.
+The subkey has the fingerprint `5718270f6330b5482f4f5c24ca8ea2d826650ad202f39c91638c348e20a03aad`.
 
 {: sourcecode-name="v6-mldsa-65-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1264,13 +1269,13 @@ Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `b755f49eb910e4e9e5c87eda9d5676a88918f063012f0bf0cc61a70f83232f0c`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `69d5a76ba5c48cac521607a37d3501c6427a410162b3da81bcce912302f33680`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `219a49490e65f96c87b7ade46bd65db9fcb96308e217acc5b421accf39217901`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `3b193f5868838192f7728ec59a4d4719a01c0984881ad9377cb1ce57d692ca06`.
 
-The hex-encoded output of `multiKeyCombine` is `e00d037481ade01f4b061d2c81aec8e60072d24fc2bb5806b3358926bb03c7d8`.
+The hex-encoded output of `multiKeyCombine` is `fd86a366e4e5acfbb759aedc34b3777ab98a7a8aa4750516c2f9cbd858d37950`.
 
-The hex-encoded session key is `0e210c4027fa4f0be5a4d856cb6a6785b2e8cb48f5a12577f1621c8f8e4452a2`.
+The hex-encoded session key is `ce374c24da35bfe1b351593d139f89f0c50805382ccc3d724bac721bdafc4e14`.
 
 {: sourcecode-name="v6-mldsa-65-sample-message.asc"}
 ~~~ application/pgp-keys
@@ -1290,9 +1295,9 @@ Here is a Transferable Secret Key consisting of:
 - A v6 ML-KEM-1024+X448 Private-Subkey packet
 - A v6 subkey binding signature
 
-The primary key has the fingerprint `275c8bea833c5deab538269381b120ebc002b8bca9c19df88740c942343f1462`.
+The primary key has the fingerprint `ead878caeab3ae40d724cbc913777028e5f0809d393f796f710b7331c49a8ab1`.
 
-The subkey has the fingerprint `9e5f6087500c4a72b96ad343745360c99a0126dd43545e7e882ca4cdfe107fef`.
+The subkey has the fingerprint `d1caef1274b00ede8ce21575250621f96152d4a9aa68b400579be98b4fa0ca68`.
 
 {: sourcecode-name="v6-mldsa-87-sample-sk.asc"}
 ~~~ application/pgp-keys
@@ -1322,18 +1327,80 @@ Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-
 - A v6 PKESK
 - A v2 SEIPD
 
-The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `98d3b185ced0cb4fbdb26e1d1a19a79c98afb1586d72947b5877162b89f6af3f`.
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `d45ee2034337bf424e3541f06d480e7d3adf27732ca0e39a4469b4420fac20d6`.
 
-The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `a09c74f0d55eefbecdbc8a7cdf5a645d6bd1f6630f75ddd9958c25a6bc9d5bd8b9d2f393e98468ff9c267033f14034137ddf07a6fcf49824f3b9d1b97907d77a`.
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `c38db9ecccc983a69978deb54668634d1d5f86ba326de34fbdbbc76fe5d0b442fbbbe952dbe86ddce23cdf2c2acd57802421eb3fb27239b6`.
 
-The hex-encoded output of `multiKeyCombine` is `3bee730ccdc5ab30c1eef9c77c9d1ccd1b2489e3a23ac2b341f7283c5d27b673`.
+The hex-encoded output of `multiKeyCombine` is `d9bc00d8604364aba52cb46bdd30a99f36878c847694f9b87a03ae901fa7abde`.
 
-The hex-encoded session key is `3d14b7f9140091c17ff30c3215284a9dbb7e699633f5d3edf02dba4dcdbd5c6e`.
+The hex-encoded session key is `670c31af0c5224a9d590584c23679cb643860716225e4802fba5db93785a66d8`.
 
 {: sourcecode-name="v6-mldsa-87-sample-message.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v6-mldsa-87-sample-message.asc}
 ~~~
+
+
+
+## Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+
+### Transferable Secret Key {#test-vector-sec-slhdsa-128s}
+
+Here is a Transferable Secret Key consisting of:
+
+- A v6 SLH-DSA-128s Private-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-768+X25519 Private-Subkey packet
+- A v6 subkey binding signature
+
+The primary key has the fingerprint `2e7216dacc6d1c0896901f50eff94d6c071ed7fa246f0cb547f10e22f21896b1`.
+
+The subkey has the fingerprint `1adc9f55f5223a78948522a0f4d1b29aff2ed651d3fa56e234249402000ace41`.
+
+{: sourcecode-name="v6-slhdsa-128s-sample-sk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-128s-sample-sk.asc}
+~~~
+
+### Transferable Public Key {#test-vector-pub-slhdsa-128s}
+
+Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-128s}} consisting of:
+
+- A v6 SLH-DSA-128s Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-slhdsa-128s-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-128s-sample-pk.asc}
+~~~
+
+### Encrypted and Signed Message
+
+Here is a signed message "Testing\n" encrypted to the certificate {{test-vector-pub-slhdsa-128s}} and signed by the secret key {{test-vector-sec-slhdsa-128s}}:
+
+- A v6 PKESK
+- A v2 SEIPD
+
+The hex-encoded `mlkemKeyShare` input to `multiKeyCombine` is `dc96c3899e9bb3394e360f3f0587576f411c1fe20d536921a208c46121ed709d`.
+
+The hex-encoded `ecdhKeyShare` input to `multiKeyCombine` is `16dab4605b17b8096b7c601164fdd1bdc173e5f396dce29e61a994ad61199848`.
+
+The hex-encoded output of `multiKeyCombine` is `baae7950649bcf6df658aae624066da1cb06f06a0b312037abf0b610eee4f8cc`.
+
+The hex-encoded session key is `348581a5a5fea23586dfb428c1911ed903fc4affaacca42b50f5a4c165fa8a98`.
+
+{: sourcecode-name="v6-slhdsa-128s-sample-message.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-87-sample-message.asc}
+~~~
+
+
 
 # Acknowledgments
 {:numbered="false"}
