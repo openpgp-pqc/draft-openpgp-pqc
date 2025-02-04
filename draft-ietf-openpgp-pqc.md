@@ -683,7 +683,7 @@ Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (t
 
 ### Key Material Packets {#mlkem-ecc-key}
 
-The composite ML-KEM + ECDH schemes MUST be used only with v6 keys, as defined in [RFC9580].
+The composite ML-KEM + ECDH schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific public key is this series of values:
 
@@ -798,7 +798,7 @@ As specified in {{composite-signatures}} an implementation MUST validate both si
 
 ### Signature Packet (Tag 2) {#ecc-mldsa-sig-packet}
 
-The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [RFC9580].
+The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures consist of:
 
@@ -808,7 +808,7 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
 ### Key Material Packets
 
-The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580].
+The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:
 
@@ -882,7 +882,7 @@ The algorithm-specific part of a signature packet for an SLH-DSA algorithm code 
 
 ### Key Material Packets
 
-The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in [RFC9580].
+The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific part of the public key consists of:
 
