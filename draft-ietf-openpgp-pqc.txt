@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 20 June 2025                                        F. Strenzke
+Expires: 9 August 2025                                       F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        17 December 2024
+                                                         5 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,11 +57,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2025.
+   This Internet-Draft will expire on 9 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -792,7 +792,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 4.3.2.  Key Material Packets
 
    The composite ML-KEM + ECDH schemes MUST be used only with v6 keys,
-   as defined in [RFC9580].
+   as defined in [RFC9580], or newer versions defined by updates of that
+   document.
 
    The algorithm-specific public key is this series of values:
 
@@ -957,7 +958,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 5.3.1.  Signature Packet (Tag 2)
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6
-   signatures, as defined in [RFC9580].
+   signatures, as defined in [RFC9580], or newer versions defined by
+   updates of that document.
 
    The algorithm-specific v6 signature parameters for ML-DSA + EdDSA
    signatures consist of:
@@ -971,7 +973,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 5.3.2.  Key Material Packets
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys,
-   as defined in [RFC9580].
+   as defined in [RFC9580], or newer versions defined by updates of that
+   document.
 
    The algorithm-specific public key for ML-DSA + EdDSA keys is this
    series of values:
@@ -1084,7 +1087,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 6.2.2.  Key Material Packets
 
    The SLH-DSA algorithms code points MUST be used only with v6 keys, as
-   defined in [RFC9580].
+   defined in [RFC9580], or newer versions defined by updates of that
+   document.
 
    The algorithm-specific part of the public key consists of:
 
@@ -1679,9 +1683,9 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    [I-D.ietf-pquip-pqt-hybrid-terminology]
               D, F., P, M., and B. Hale, "Terminology for Post-Quantum
               Traditional Hybrid Schemes", Work in Progress, Internet-
-              Draft, draft-ietf-pquip-pqt-hybrid-terminology-05, 11
-              December 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-pquip-pqt-hybrid-terminology-05>.
+              Draft, draft-ietf-pquip-pqt-hybrid-terminology-06, 10
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-pquip-pqt-hybrid-terminology-06>.
 
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
