@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 9 August 2025                                       F. Strenzke
+Expires: 10 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         5 February 2025
+                                                         6 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 August 2025.
+   This Internet-Draft will expire on 10 August 2025.
 
 Copyright Notice
 
@@ -137,7 +137,7 @@ Table of Contents
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
-     9.3.  SLH-DSA Message Randomizer
+     9.3.  ML-DSA and SLH-DSA hedged variants
      9.4.  Binding hashes in signatures with signature algorithms
      9.5.  Symmetric Algorithms for SEIPD Packets
      9.6.  Key generation
@@ -855,9 +855,9 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 5.1.2.  ML-DSA signatures
 
-   Throughout this specification ML-DSA refers to the pure version ML-
-   DSA, i.e., in contrast to the pre-hash variant, defined in
-   [FIPS-204].
+   Throughout this specification ML-DSA refers to the default pure and
+   hedged version of ML-DSA, i.e., in contrast to the pre-hash or
+   deterministic variant, defined in [FIPS-204].
 
    For ML-DSA signature generation the default hedged version of ML-
    DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
@@ -1002,8 +1002,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 6.  SLH-DSA
 
-   Throughout this specification SLH-DSA refers to the pure SLH-DSA
-   version defined in [FIPS-205].
+   Throughout this specification SLH-DSA refers to the default pure and
+   hedged version of SLH-DSA defined in [FIPS-205].
 
 6.1.  The SLH-DSA Algorithms
 
@@ -1061,8 +1061,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 6.1.3.  Signature Generation
 
    SLH-DSA signature generation is performed via the algorithm SLH-
-   DSA.Sign as specified in [FIPS-205].  The variable opt_rand is set to
-   PK.seed.  See also Section 9.3.
+   DSA.Sign as specified in [FIPS-205].
 
 6.1.4.  Signature Verification
 
@@ -1283,12 +1282,13 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    the communication parties.  The input of the ciphertexts binds the
    KEK to the specific session.
 
-9.3.  SLH-DSA Message Randomizer
+9.3.  ML-DSA and SLH-DSA hedged variants
 
-   The specification of SLH-DSA [FIPS-205] prescribes an optional non-
-   deterministic message randomizer.  This is not used in this
-   specification, as OpenPGP v6 signatures already provide a salted
-   signature data digest of the appropriate size.
+   This specification makes use of the default "hedged" variants of ML-
+   DSA and SLH-DSA, which mix fresh randomness into the respective
+   signature-generation algorithm's internal hashing step.  This has the
+   advantage of an enhanced side-channel resistance of the signature
+   operations according to [FIPS-204] and [FIPS-205].
 
 9.4.  Binding hashes in signatures with signature algorithms
 
@@ -1614,6 +1614,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    *  Align KEM combiner with LAMPS
 
    *  Drop CCA-conversion of X25519/X448
+
+   *  Switch to hedged variant also for SLH-DSA
 
 13.  Contributors
 
