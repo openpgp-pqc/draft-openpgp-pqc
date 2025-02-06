@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-04T01:20:05.949250+00:00",
+  "timestamp": "2025-02-06T01:21:25.643143+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15457,7 +15457,7 @@
       "labels": [],
       "body": "Closes #158 \r\n- Updates vectors to latest draft\r\n- Changes X25519 vector to use an SEIPD v1\r\n- Adds vectors for SLH-DSA-128s",
       "createdAt": "2025-01-31T11:56:45Z",
-      "updatedAt": "2025-02-03T12:18:30Z",
+      "updatedAt": "2025-02-04T09:25:46Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "999921943fe300997ad5b02bb66d5c77b544beb5",
@@ -15486,9 +15486,9 @@
         {
           "author": "TJ-91",
           "authorAssociation": "COLLABORATOR",
-          "body": "Thanks! That helped. Something is mapped incorrectly somewhere which I will need to fix. Anyway, after applying a quick fix I can import all keys and decrypt the test vectors",
+          "body": "Thanks! That helped. Something is mapped incorrectly somewhere which I will need to fix. Anyway, after applying a quick fix I can import all keys and decrypt the test vectors (Update: fixed it, all seems fine)",
           "createdAt": "2025-02-03T12:18:16Z",
-          "updatedAt": "2025-02-03T12:18:16Z"
+          "updatedAt": "2025-02-04T09:25:46Z"
         }
       ],
       "reviews": [
@@ -15503,6 +15503,61 @@
           "body": "",
           "createdAt": "2025-02-03T12:18:30Z",
           "updatedAt": "2025-02-03T12:18:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 163,
+      "id": "PR_kwDOIrmZ-86KDmPu",
+      "title": "Allow updates to RFC 9580 for version binding",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/163",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR allow version higher than 6 (that update RFC9580) to be used with PQC",
+      "createdAt": "2025-02-04T21:40:59Z",
+      "updatedAt": "2025-02-05T07:50:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "999921943fe300997ad5b02bb66d5c77b544beb5",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "v6-or-newer",
+      "headRefOid": "1daee08de296e692fccf1baaac95429034b00fce",
+      "closedAt": "2025-02-05T07:50:41Z",
+      "mergedAt": "2025-02-05T07:50:41Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "eef165a3f90ae915dbffca71d5dc8273458b81fc"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86aqmEm",
+          "commit": {
+            "abbreviatedOid": "1daee08"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-05T07:41:33Z",
+          "updatedAt": "2025-02-05T07:41:33Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86aqp5R",
+          "commit": {
+            "abbreviatedOid": "1daee08"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-05T07:50:31Z",
+          "updatedAt": "2025-02-05T07:50:31Z",
           "comments": []
         }
       ]
