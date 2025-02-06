@@ -728,7 +728,7 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 
 ### ML-DSA signatures {#mldsa-signature}
 
-Throughout this specification ML-DSA refers to the pure version ML-DSA, i.e., in contrast to the pre-hash variant, defined
+Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA, i.e., in contrast to the pre-hash or deterministic variant, defined
 in [FIPS-204].
 
 For ML-DSA signature generation the default hedged version of `ML-DSA.Sign` given in [FIPS-204] is used.
@@ -827,7 +827,7 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
 
 # SLH-DSA
 
-Throughout this specification SLH-DSA refers to the pure SLH-DSA version defined in [FIPS-205].
+Throughout this specification SLH-DSA refers to the default pure and hedged version of SLH-DSA defined in [FIPS-205].
 
 ## The SLH-DSA Algorithms {#slhdsa}
 
@@ -863,8 +863,6 @@ SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specif
 ### Signature Generation
 
 SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
-The variable `opt_rand` is set to `PK.seed`.
-See also {{slhdsa-sec-cons}}.
 
 ### Signature Verification
 
@@ -996,10 +994,10 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 
 The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.
 
-## SLH-DSA Message Randomizer {#slhdsa-sec-cons}
+## ML-DSA and SLH-DSA hedged variants {#hedged-sec-cons}
 
-The specification of SLH-DSA {{FIPS-205}} prescribes an optional non-deterministic message randomizer.
-This is not used in this specification, as OpenPGP v6 signatures already provide a salted signature data digest of the appropriate size.
+This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
+This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
 
 ## Binding hashes in signatures with signature algorithms
 
@@ -1147,6 +1145,7 @@ TBD    | ML-KEM-1024+X448    | 56 octets X448 public key ({{tab-ecdh-cfrg-artifa
 - Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
 - Align KEM combiner with LAMPS
 - Drop CCA-conversion of X25519/X448
+- Switch to hedged variant also for SLH-DSA
 
 # Contributors
 
