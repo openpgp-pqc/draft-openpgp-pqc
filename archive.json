@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T01:21:25.643143+00:00",
+  "timestamp": "2025-02-09T01:25:06.339476+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2932,15 +2932,15 @@
       "id": "I_kwDOIrmZ-86dkaLf",
       "title": "Add X25519 Subkey for Ed25519 Test Vector",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/158",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Currently we only have a PQ/T encryption subkey [for the A.1. test vector](https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc#appendix-A.1). Wouldn't it make sense to add an X25519 subkey?",
       "createdAt": "2024-11-08T10:18:41Z",
-      "updatedAt": "2024-11-13T13:06:12Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-06T16:13:32Z",
+      "closedAt": "2025-02-06T16:13:32Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -15450,24 +15450,26 @@
       "id": "PR_kwDOIrmZ-86Jn_RB",
       "title": "Update test vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/162",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #158 \r\n- Updates vectors to latest draft\r\n- Changes X25519 vector to use an SEIPD v1\r\n- Adds vectors for SLH-DSA-128s",
       "createdAt": "2025-01-31T11:56:45Z",
-      "updatedAt": "2025-02-04T09:25:46Z",
+      "updatedAt": "2025-02-06T16:13:31Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "999921943fe300997ad5b02bb66d5c77b544beb5",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "07-testvectors",
       "headRefOid": "b3819ed10e4f997f3264f486ebb2a8d642d4d510",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-06T16:13:31Z",
+      "mergedAt": "2025-02-06T16:13:31Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -15503,6 +15505,19 @@
           "body": "",
           "createdAt": "2025-02-03T12:18:30Z",
           "updatedAt": "2025-02-03T12:18:30Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86a66wY",
+          "commit": {
+            "abbreviatedOid": "b3819ed"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-06T16:02:34Z",
+          "updatedAt": "2025-02-06T16:02:34Z",
           "comments": []
         }
       ]
@@ -15558,6 +15573,61 @@
           "body": "",
           "createdAt": "2025-02-05T07:50:31Z",
           "updatedAt": "2025-02-05T07:50:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 164,
+      "id": "PR_kwDOIrmZ-86KRYPQ",
+      "title": "switch to SLH-DSA hedged variant",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/164",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-06T12:33:48Z",
+      "updatedAt": "2025-02-06T13:37:39Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "963422a276ad936e808ad8232f071a2db11caf65",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "slh-dsa-hedged",
+      "headRefOid": "d07d788bc92e5b301dc52d9a5552319e71e52a40",
+      "closedAt": "2025-02-06T13:37:39Z",
+      "mergedAt": "2025-02-06T13:37:39Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "7d2ddedf60a7b7c0fc968aadca3c6cd6668f5e51"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86a42fO",
+          "commit": {
+            "abbreviatedOid": "d07d788"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "looks good to me",
+          "createdAt": "2025-02-06T12:55:55Z",
+          "updatedAt": "2025-02-06T12:55:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86a5Qy2",
+          "commit": {
+            "abbreviatedOid": "d07d788"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-06T13:37:28Z",
+          "updatedAt": "2025-02-06T13:37:28Z",
           "comments": []
         }
       ]
