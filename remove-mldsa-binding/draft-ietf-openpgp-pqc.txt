@@ -111,9 +111,10 @@ Table of Contents
        5.1.1.  EdDSA-Based signatures
        5.1.2.  ML-DSA signatures
      5.2.  Composite Signature Schemes with ML-DSA
-       5.2.1.  Key generation procedure
-       5.2.2.  Signature Generation
-       5.2.3.  Signature Verification
+       5.2.1.  Signature data digest
+       5.2.2.  Key generation procedure
+       5.2.3.  Signature Generation
+       5.2.4.  Signature Verification
      5.3.  Packet Specifications
        5.3.1.  Signature Packet (Tag 2)
        5.3.2.  Key Material Packets
@@ -892,7 +893,14 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 5.2.  Composite Signature Schemes with ML-DSA
 
-5.2.1.  Key generation procedure
+5.2.1.  Signature data digest
+
+   In order not to extend the attack surface, composite ML-DSA + EdDSA
+   signatures SHOULD use SHA3 for the signature data digest because ML-
+   DSA internally uses a SHAKE256 digest.  Implementations MAY allow use
+   of SHA2 for CNSA 2.0 compliance.
+
+5.2.2.  Key generation procedure
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
@@ -902,7 +910,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    artifacts as specified in Section 5.1.1 as fixed-length octet
    strings.
 
-5.2.2.  Signature Generation
+5.2.3.  Signature Generation
 
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
@@ -919,7 +927,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    4.  Encode the EdDSA and ML-DSA signatures according to the packet
        structure given in Section 5.3.1.
 
-5.2.3.  Signature Verification
+5.2.4.  Signature Verification
 
    To verify an ML-DSA + EdDSA signature the following sequence of
    operations has to be performed:

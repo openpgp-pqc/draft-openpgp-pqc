@@ -1296,13 +1296,16 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-composite-signature-schemes-" class="internal xref">Composite Signature Schemes with ML-DSA</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-key-generation-procedure-2" class="internal xref">Key generation procedure</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-signature-data-digest" class="internal xref">Signature data digest</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-key-generation-procedure-2" class="internal xref">Key generation procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.4">
+                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
 </li>
                 </ul>
 </li>
@@ -1326,7 +1329,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-slh-dsa-algorithms" class="internal xref">The SLH-DSA Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
-                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-signature-data-digest" class="internal xref">Signature Data Digest</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-signature-data-digest-2" class="internal xref">Signature Data Digest</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.2">
                     <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-key-generation" class="internal xref">Key generation</a></p>
@@ -2471,53 +2474,62 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
         <h3 id="name-composite-signature-schemes-">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-composite-signature-schemes-" class="section-name selfRef">Composite Signature Schemes with ML-DSA</a>
         </h3>
-<div id="ecc-mldsa-generation">
+<div id="mldsa-sig-data-digest">
 <section id="section-5.2.1">
-          <h4 id="name-key-generation-procedure-2">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key generation procedure</a>
+          <h4 id="name-signature-data-digest">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature data digest</a>
           </h4>
-<p id="section-5.2.1-1">The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
+<p id="section-5.2.1-1">In order not to extend the attack surface, composite ML-DSA + EdDSA signatures SHOULD use SHA3 for the signature data digest because ML-DSA internally uses a SHAKE256 digest.
+Implementations MAY allow use of SHA2 for CNSA 2.0 compliance.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="ecc-mldsa-generation">
+<section id="section-5.2.2">
+          <h4 id="name-key-generation-procedure-2">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key generation procedure</a>
+          </h4>
+<p id="section-5.2.2-1">The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
 ML-DSA key generation follows the specification <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and the artifacts are encoded as fixed-length octet strings as defined in <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a>.
-For EdDSA this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the artifacts as specified in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a> as fixed-length octet strings.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+For EdDSA this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the artifacts as specified in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a> as fixed-length octet strings.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation">
-<section id="section-5.2.2">
+<section id="section-5.2.3">
           <h4 id="name-signature-generation">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-5.2.2-1">To sign a message <code>M</code> with ML-DSA + EdDSA the following sequence of operations has to be performed:<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.2-2">
-<li id="section-5.2.2-2.1">
-              <p id="section-5.2.2-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.2-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2.3-1">To sign a message <code>M</code> with ML-DSA + EdDSA the following sequence of operations has to be performed:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
+<li id="section-5.2.3-2.1">
+              <p id="section-5.2.3-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.2-2.2">
-              <p id="section-5.2.2-2.2.1">Create the EdDSA signature over <code>dataDigest</code> with <code>EdDSA.Sign()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.2-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.3-2.2">
+              <p id="section-5.2.3-2.2.1">Create the EdDSA signature over <code>dataDigest</code> with <code>EdDSA.Sign()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.2-2.3">
-              <p id="section-5.2.2-2.3.1">Create the ML-DSA signature over <code>dataDigest</code> with <code>ML-DSA.Sign()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.2-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.3-2.3">
+              <p id="section-5.2.3-2.3.1">Create the ML-DSA signature over <code>dataDigest</code> with <code>ML-DSA.Sign()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.2-2.4">
-              <p id="section-5.2.2-2.4.1">Encode the EdDSA and ML-DSA signatures according to the packet structure given in <a href="#ecc-mldsa-sig-packet" class="auto internal xref">Section 5.3.1</a>.<a href="#section-5.2.2-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.3-2.4">
+              <p id="section-5.2.3-2.4.1">Encode the EdDSA and ML-DSA signatures according to the packet structure given in <a href="#ecc-mldsa-sig-packet" class="auto internal xref">Section 5.3.1</a>.<a href="#section-5.2.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
 </div>
 <div id="signature-verification">
-<section id="section-5.2.3">
+<section id="section-5.2.4">
           <h4 id="name-signature-verification">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
+<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-5.2.3-1">To verify an ML-DSA + EdDSA signature the following sequence of operations has to be performed:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
-<li id="section-5.2.3-2.1">
-              <p id="section-5.2.3-2.1.1">Verify the EdDSA signature with <code>EdDSA.Verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2.4-1">To verify an ML-DSA + EdDSA signature the following sequence of operations has to be performed:<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.4-2">
+<li id="section-5.2.4-2.1">
+              <p id="section-5.2.4-2.1.1">Verify the EdDSA signature with <code>EdDSA.Verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.3-2.2">
-              <p id="section-5.2.3-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.4-2.2">
+              <p id="section-5.2.4-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.4-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.2.3-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation MUST validate both signatures, i.e. EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.4-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation MUST validate both signatures, i.e. EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2628,8 +2640,8 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
 </div>
 <div id="slhdsa-sig-data-digest">
 <section id="section-6.1.1">
-          <h4 id="name-signature-data-digest">
-<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature Data Digest</a>
+          <h4 id="name-signature-data-digest-2">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
 <p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
 SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 9</a> for the signature data digest.
