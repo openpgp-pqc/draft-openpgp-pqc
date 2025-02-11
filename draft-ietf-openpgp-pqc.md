@@ -753,8 +753,19 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
 ### Signature data digest {#mldsa-sig-data-digest}
-In order not to extend the attack surface, composite ML-DSA + EdDSA signatures SHOULD use SHA3 for the signature data digest because ML-DSA internally uses a SHAKE256 digest.
-Implementations MAY allow use of SHA2 for CNSA 2.0 compliance.
+
+Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
+Composite ML-DSA + EdDSA signatures MUST use an associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest. They SHOULD use SHA3 to match the ML-DSA internal use of SHAKE256. They MAY use SHA2 for CNSA 2.0 compliance. Signatures using other combinations or hash algorithms MUST be considered invalid.
+
+An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithms.
+
+{: title="Binding between ML-DSA + EdDSA and signature data digest" #tab-mldsa-hash}
+Algorithm ID reference | Hash function | Hash function ID reference
+----------------------:| ------------- | --------------------------
+30                     | SHA3-256      | 12
+30                     | SHA2-384      | 9
+31                     | SHA3-512      | 14
+31                     | SHA2-512      | 10
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
@@ -835,7 +846,7 @@ Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA si
 
 Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
 SLH-DSA signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.
+Signatures using other combinations or hash algorithms MUST be considered invalid.
 
 An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.
 
@@ -989,9 +1000,9 @@ The input of the public keys into `multiKeyCombine` binds the KEK to the communi
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
 
-## Binding digest hash in signatures with SLH-DSA
+## Binding data digests and signature algorithms
 
-In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the SLH-DSA signature algorithm, see {{slhdsa-sig-data-digest}}.
+In {{mldsa-sig-data-digest}} We bind a NIST security category 2 hash function (SHA3-256) to a signature algorithm that falls into NIST security category 3 (ML-DSA-65). This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.
 
 ## Symmetric Algorithms for SEIPD Packets
 
