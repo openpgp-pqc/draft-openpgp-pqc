@@ -411,7 +411,6 @@ This is achieved via KEM combination, i.e. both key encapsulations/decapsulation
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
-In {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
 
 ## Composite Signatures
 
@@ -918,17 +917,14 @@ The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature a
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
-## Key preference {#pq-key-preference}
+## Encrypting to Traditional and PQ/T Keys
 
-Implementations SHOULD prefer PQ(/T) keys when multiple options are available.
-When encrypting to a certificate that has both a valid PQ/T and a valid traditional encryption subkey, an implementation SHOULD use the PQ/T subkey only.
-Furthermore, if an application has any means to determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.
-
-As specified in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
+As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
 An implementation SHOULD NOT abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
 
+## Signing with Traditional and PQ(/T) Keys
 
-An implementation MAY sign with both a PQ(/T) and an ECC key using multiple signatures over the same data as described in {{multiple-signatures}}.
+An implementation MAY sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
 
 ## Key generation strategies
@@ -948,6 +944,17 @@ Two migration strategies are recommended:
    This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.
 
 # Security Considerations
+
+## Parallel Encryption to PQ/(T) and Traditional Keys
+
+This document does not specify how implementations should handle encrypting to PQ(/T) keys and traditional keys at the same time, and it is out of scope to define which encryption subkeys should be selected.
+However, implementers should be aware of the implications.
+
+If at least one PKESK packet for an encrypted message uses a traditional public-key algorithm, the message can be decrypted by a cryptographically relevant quantum computer (CRQC).
+While the existence of a CRQC is not yet known to the public at the time of writing this document, they may become a reality in the following years.
+This also affects the confidentiality of messages sent today due to the possibility of storing traditionally-encrypted messages and decrypting them later when a CRQC is available.
+This strategy is commonly referred to as "store now, decrypt later" or "harvest now, decrypt later".
+While ideally all implementations should switch to exclusively encrypting with PQ/T algorithms from a security standpoint, this breaks interoperability with all currently deployed traditional certificates and implementations that do not yet implement the PQ/T algorithms.
 
 ## Security Aspects of Composite Signatures
 
