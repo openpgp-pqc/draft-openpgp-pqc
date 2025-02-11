@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 14 August 2025                                      F. Strenzke
+Expires: 15 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        10 February 2025
+                                                        11 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 August 2025.
+   This Internet-Draft will expire on 15 August 2025.
 
 Copyright Notice
 
@@ -1275,7 +1275,6 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
    internally by the SLH-DSA signature algorithm, see Section 6.1.1.
-   This is not done for ML-DSA to comply with the CNSA 2.0 guideline.
 
 9.5.  Symmetric Algorithms for SEIPD Packets
 
