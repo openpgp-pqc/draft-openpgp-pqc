@@ -738,6 +738,10 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
+### Signature data digest {#mldsa-sig-data-digest}
+In order not to extend the attack surface, composite ML-DSA + EdDSA signatures SHOULD use SHA3 for the signature data digest because ML-DSA internally uses a SHAKE256 digest.
+Implementations MAY allow use of SHA2 for CNSA 2.0 compliance.
+
 ### Key generation procedure {#ecc-mldsa-generation}
 
 The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
