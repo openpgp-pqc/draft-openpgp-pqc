@@ -1395,7 +1395,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="internal xref">ML-DSA and SLH-DSA hedged variants</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-digest-hash-in-sign" class="internal xref">Binding digest hash in signatures with SLH-DSA</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-data-digests-and-si" class="internal xref">Binding data digests and signature algorithms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
                 <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
@@ -2479,8 +2479,46 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
           <h4 id="name-signature-data-digest">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature data digest</a>
           </h4>
-<p id="section-5.2.1-1">In order not to extend the attack surface, composite ML-DSA + EdDSA signatures SHOULD use SHA3 for the signature data digest because ML-DSA internally uses a SHAKE256 digest.
-Implementations MAY allow use of SHA2 for CNSA 2.0 compliance.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
+Composite ML-DSA + EdDSA signatures MUST use an associated hash algorithm as specified in <a href="#tab-mldsa-hash" class="auto internal xref">Table 8</a> for the signature data digest. They SHOULD use SHA3 to match the ML-DSA internal use of SHAKE256. They MAY use SHA2 for CNSA 2.0 compliance. Signatures using other combinations or hash algorithms MUST be considered invalid.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-2">An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithms.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
+<span id="name-binding-between-ml-dsa-edds"></span><div id="tab-mldsa-hash">
+<table class="center" id="table-8">
+            <caption>
+<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#name-binding-between-ml-dsa-edds" class="selfRef">Binding between ML-DSA + EdDSA and signature data digest</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
+                <th class="text-left" rowspan="1" colspan="1">Hash function</th>
+                <th class="text-left" rowspan="1" colspan="1">Hash function ID reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-right" rowspan="1" colspan="1">30</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
+                <td class="text-left" rowspan="1" colspan="1">12</td>
+              </tr>
+              <tr>
+                <td class="text-right" rowspan="1" colspan="1">30</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA2-384</td>
+                <td class="text-left" rowspan="1" colspan="1">9</td>
+              </tr>
+              <tr>
+                <td class="text-right" rowspan="1" colspan="1">31</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA3-512</td>
+                <td class="text-left" rowspan="1" colspan="1">14</td>
+              </tr>
+              <tr>
+                <td class="text-right" rowspan="1" colspan="1">31</td>
+                <td class="text-left" rowspan="1" colspan="1">SHA2-512</td>
+                <td class="text-left" rowspan="1" colspan="1">10</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
 </section>
 </div>
 <div id="ecc-mldsa-generation">
@@ -2603,9 +2641,9 @@ Upon parsing the private key format, or before using the secret key, for the exp
 <p id="section-6.1-1">The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
 This group of algorithms is henceforth referred to as "SLH-DSA code points".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <span id="name-slh-dsa-algorithm-code-poin"></span><div id="slhdsa-artifact-lengths">
-<table class="center" id="table-8">
+<table class="center" id="table-9">
           <caption>
-<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#table-9" class="selfRef">Table 9</a>:
 <a href="#name-slh-dsa-algorithm-code-poin" class="selfRef">SLH-DSA algorithm code points and the corresponding artifact lengths in octets.</a>
           </caption>
 <thead>
@@ -2644,13 +2682,13 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
 <p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 9</a> for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
+Signatures using other combinations or hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
 <span id="name-binding-between-slh-dsa-alg"></span><div id="tab-slhdsa-hash">
-<table class="center" id="table-9">
+<table class="center" id="table-10">
             <caption>
-<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#table-10" class="selfRef">Table 10</a>:
 <a href="#name-binding-between-slh-dsa-alg" class="selfRef">Binding between SLH-DSA algorithm code points and signature data hash algorithms</a>
             </caption>
 <thead>
@@ -2721,7 +2759,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.1-3.1">
-              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2735,13 +2773,13 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-3.1">
-              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-5.1">
-              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2896,12 +2934,12 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="binding-digest-hash-in-signatures-with-slh-dsa">
+<div id="binding-data-digests-and-signature-algorithms">
 <section id="section-9.4">
-        <h3 id="name-binding-digest-hash-in-sign">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-digest-hash-in-sign" class="section-name selfRef">Binding digest hash in signatures with SLH-DSA</a>
+        <h3 id="name-binding-data-digests-and-si">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-data-digests-and-si" class="section-name selfRef">Binding data digests and signature algorithms</a>
         </h3>
-<p id="section-9.4-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the SLH-DSA signature algorithm, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-1">In <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a> We bind a NIST security category 2 hash function (SHA3-256) to a signature algorithm that falls into NIST security category 3 (ML-DSA-65). This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
@@ -2964,12 +3002,12 @@ Based on the performance measurements published in the NIST submissions for SLH-
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 10</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
+<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 11</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
 The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
-<table class="center" id="table-10">
+<table class="center" id="table-11">
         <caption>
-<a href="#table-10" class="selfRef">Table 10</a>:
+<a href="#table-11" class="selfRef">Table 11</a>:
 <a href="#name-iana-updates-for-registry-o" class="selfRef">IANA updates for registry 'OpenPGP Public Key Algorithms'</a>
         </caption>
 <thead>
@@ -3031,9 +3069,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">32</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3042,9 +3080,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">33</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3053,9 +3091,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">34</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>

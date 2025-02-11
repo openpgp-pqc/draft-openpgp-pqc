@@ -138,7 +138,7 @@ Table of Contents
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
      9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Binding digest hash in signatures with SLH-DSA
+     9.4.  Binding data digests and signature algorithms
      9.5.  Symmetric Algorithms for SEIPD Packets
      9.6.  Key generation
    10. Additional considerations
@@ -895,10 +895,33 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 5.2.1.  Signature data digest
 
-   In order not to extend the attack surface, composite ML-DSA + EdDSA
-   signatures SHOULD use SHA3 for the signature data digest because ML-
-   DSA internally uses a SHAKE256 digest.  Implementations MAY allow use
-   of SHA2 for CNSA 2.0 compliance.
+   Signature data (i.e. the data to be signed) is digested prior to
+   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
+   signatures MUST use an associated hash algorithm as specified in
+   Table 8 for the signature data digest.  They SHOULD use SHA3 to match
+   the ML-DSA internal use of SHAKE256.  They MAY use SHA2 for CNSA 2.0
+   compliance.  Signatures using other combinations or hash algorithms
+   MUST be considered invalid.
+
+   An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
+   also support the matching hash algorithms.
+
+        +========================+===============+===============+
+        | Algorithm ID reference | Hash function | Hash function |
+        |                        |               | ID reference  |
+        +========================+===============+===============+
+        |                     30 | SHA3-256      | 12            |
+        +------------------------+---------------+---------------+
+        |                     30 | SHA2-384      | 9             |
+        +------------------------+---------------+---------------+
+        |                     31 | SHA3-512      | 14            |
+        +------------------------+---------------+---------------+
+        |                     31 | SHA2-512      | 10            |
+        +------------------------+---------------+---------------+
+
+          Table 8: Binding between ML-DSA + EdDSA and signature
+                               data digest
 
 5.2.2.  Key generation procedure
 
@@ -1011,7 +1034,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 8: SLH-DSA algorithm code points and the corresponding
+       Table 9: SLH-DSA algorithm code points and the corresponding
                        artifact lengths in octets.
 
 6.1.1.  Signature Data Digest
@@ -1019,9 +1042,9 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    Signature data (i.e. the data to be signed) is digested prior to
    signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
    editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA signatures MUST use
-   the associated hash algorithm as specified in Table 9 for the
-   signature data digest.  Signatures using other hash algorithms MUST
-   be considered invalid.
+   the associated hash algorithm as specified in Table 10 for the
+   signature data digest.  Signatures using other combinations or hash
+   algorithms MUST be considered invalid.
 
    An implementation supporting a specific SLH-DSA algorithm code point
    MUST also support the matching hash algorithm.
@@ -1037,8 +1060,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
         |                     34 | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
-          Table 9: Binding between SLH-DSA algorithm code points
-                    and signature data hash algorithms
+             Table 10: Binding between SLH-DSA algorithm code
+                points and signature data hash algorithms
 
 6.1.2.  Key generation
 
@@ -1069,7 +1092,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 8.
+      Table 9.
 
 6.2.2.  Key Material Packets
 
@@ -1080,12 +1103,12 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 8.
+      whose length depends on the algorithm ID as specified in Table 9.
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 8.
+      whose length depends on the algorithm ID as specified in Table 9.
 
 7.  Notes on Algorithms
 
@@ -1278,11 +1301,15 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Binding digest hash in signatures with SLH-DSA
+9.4.  Binding data digests and signature algorithms
 
-   In order not to extend the attack surface, we bind the hash algorithm
-   used for signature data digestion to the hash algorithm used
-   internally by the SLH-DSA signature algorithm, see Section 6.1.1.
+   In Section 5.2.1 We bind a NIST security category 2 hash function
+   (SHA3-256) to a signature algorithm that falls into NIST security
+   category 3 (ML-DSA-65).  This does not constitute a security
+   bottleneck: because of the unpredictable random salt that is
+   prepended to the digested data in v6 signatures, the hardness
+   assumption is not collision resistance but second-preimage
+   resistance.
 
 9.5.  Symmetric Algorithms for SEIPD Packets
 
@@ -1359,7 +1386,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 10 to the
+   IANA is requested to add the algorithm IDs defined in Table 11 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in brackets for the ML-KEM + ECDH composite
    algorithms denote fields that are only conditionally contained in the
@@ -1447,26 +1474,26 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    |32 | SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 8)|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
    |   |            | (Table| (Table|         |              |         |
-   |   |            |     8)|     8)|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
    |33 | SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 8)|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
    |   |            | (Table| (Table|         |              |         |
-   |   |            |     8)|     8)|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
    |34 | SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 8)|              |         |
+   |   |            |    key|    key|(Table 9)|              |         |
    |   |            | (Table| (Table|         |              |         |
-   |   |            |     8)|     8)|         |              |         |
+   |   |            |     9)|     9)|         |              |         |
    +---+------------+-------+-------+---------+--------------+---------+
 
-    Table 10: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
