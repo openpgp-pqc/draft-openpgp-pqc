@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-09T01:25:06.339476+00:00",
+  "timestamp": "2025-02-11T01:20:57.277849+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2979,6 +2979,22 @@
       "createdAt": "2024-11-28T11:15:57Z",
       "updatedAt": "2024-12-17T08:20:58Z",
       "closedAt": "2024-12-17T08:20:58Z",
+      "comments": []
+    },
+    {
+      "number": 165,
+      "id": "I_kwDOIrmZ-86pacaA",
+      "title": "\u00a78.1 contains normative guidance about key selection",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/165",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In the [interim meeting](https://datatracker.ietf.org/meeting/interim-2025-openpgp-01/session/openpgp) today, some discussion around PQC's \u00a78.1's guidance on key selection.\n\nI think two related concerns were raised:\n\n- The section talks about \"preferring\" PQ/T  keys in the abstract over non-PQ/T keys, but then shifts into talking about encryption; does the same preference apply to signing/verifying?  i don't think it even makes sense to apply to decryption, but i guess that's worth asking as well.\n- The section seems to take a normative stance on selecting a single subkey for encryption, but there may be scenarios where that's not advisable for usability, even if it means giving up on the PQ resistance for the message in question.\n\nPerhaps the right way forward is to remove the normative guidance about key selection entirely, and just leave the note about how the post-quantum resistance only applies *if* a given message has not also been encrypted to a non-PQ key.",
+      "createdAt": "2025-02-10T12:34:56Z",
+      "updatedAt": "2025-02-10T12:34:56Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -15631,6 +15647,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 166,
+      "id": "PR_kwDOIrmZ-86Ktkmo",
+      "title": "Remove hash binding for ML-DSA hybrid signatures",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/166",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
+      "createdAt": "2025-02-10T21:21:33Z",
+      "updatedAt": "2025-02-10T21:21:34Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "remove-mldsa-binding",
+      "headRefOid": "2b91557d55ffb18e64a75eca2f8b80f03d54075b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
