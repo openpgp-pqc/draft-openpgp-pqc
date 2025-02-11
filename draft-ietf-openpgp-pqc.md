@@ -974,7 +974,6 @@ This has the advantage of an enhanced side-channel resistance of the signature o
 ## Binding digest hash in signatures with SLH-DSA
 
 In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the SLH-DSA signature algorithm, see {{slhdsa-sig-data-digest}}.
-This is not done for ML-DSA to comply with the CNSA 2.0 guideline.
 
 ## Symmetric Algorithms for SEIPD Packets
 
