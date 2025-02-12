@@ -953,7 +953,7 @@ However, implementers should be aware of the implications.
 If at least one PKESK packet for an encrypted message uses a traditional public-key algorithm, the message can be decrypted by a cryptographically relevant quantum computer (CRQC).
 While the existence of a CRQC is not yet known to the public at the time of writing this document, they may become a reality in the following years.
 This also affects the confidentiality of messages sent today due to the possibility of storing traditionally-encrypted messages and decrypting them later when a CRQC is available.
-This strategy is commonly referred to as "store now, decrypt later" or "harvest now, decrypt later".
+This attack scenario is commonly referred to as "store now, decrypt later" or "harvest now, decrypt later".
 While ideally all implementations should switch to exclusively encrypting with PQ/T algorithms from a security standpoint, this breaks interoperability with all currently deployed traditional certificates and implementations that do not yet implement the PQ/T algorithms.
 
 ## Security Aspects of Composite Signatures
