@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 15 August 2025                                      F. Strenzke
+Expires: 16 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        11 February 2025
+                                                        12 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 August 2025.
+   This Internet-Draft will expire on 16 August 2025.
 
 Copyright Notice
 
@@ -1208,12 +1208,12 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    writing this document, they may become a reality in the following
    years.  This also affects the confidentiality of messages sent today
    due to the possibility of storing traditionally-encrypted messages
-   and decrypting them later when a CRQC is available.  This strategy is
-   commonly referred to as "store now, decrypt later" or "harvest now,
-   decrypt later".  While ideally all implementations should switch to
-   exclusively encrypting with PQ/T algorithms from a security
-   standpoint, this breaks interoperability with all currently deployed
-   traditional certificates and implementations that do not yet
+   and decrypting them later when a CRQC is available.  This attack
+   scenario is commonly referred to as "store now, decrypt later" or
+   "harvest now, decrypt later".  While ideally all implementations
+   should switch to exclusively encrypting with PQ/T algorithms from a
+   security standpoint, this breaks interoperability with all currently
+   deployed traditional certificates and implementations that do not yet
    implement the PQ/T algorithms.
 
 9.2.  Security Aspects of Composite Signatures
