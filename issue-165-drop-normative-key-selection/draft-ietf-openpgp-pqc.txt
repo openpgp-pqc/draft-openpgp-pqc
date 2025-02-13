@@ -158,6 +158,7 @@ Table of Contents
      12.10. draft-ietf-openpgp-pqc-05
      12.11. draft-ietf-openpgp-pqc-06
      12.12. draft-ietf-openpgp-pqc-07
+     12.13. draft-ietf-openpgp-pqc-08
    13. Contributors
    14. References
      14.1.  Normative References
@@ -1610,11 +1611,16 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
 
-   *  Align KEM combiner with LAMPS
+   *  Align KEM combiner with LAMPS.
 
-   *  Drop CCA-conversion of X25519/X448
+   *  Drop CCA-conversion of X25519/X448.
 
-   *  Switch to hedged variant also for SLH-DSA
+   *  Switch to hedged variant also for SLH-DSA.
+
+12.13.  draft-ietf-openpgp-pqc-08
+
+   *  Remove normative guidance in the migration considerations for
+      selecting PQ(/T) keys.
 
 13.  Contributors
 
