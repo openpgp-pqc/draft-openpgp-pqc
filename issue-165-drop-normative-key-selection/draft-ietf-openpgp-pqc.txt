@@ -1160,7 +1160,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 8.2.  Signing with Traditional and PQ(/T) Keys
 
-   An implementation MAY sign with both a PQ(/T) and a traditional key
+   An implementation may sign with both a PQ(/T) and a traditional key
    using multiple signatures over the same data as described in
    Section 3.3.  Signing only with PQ(/T) key material is not backwards
    compatible.
