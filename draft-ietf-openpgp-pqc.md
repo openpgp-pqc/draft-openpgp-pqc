@@ -1129,10 +1129,8 @@ ID     | Algorithm           | Public Key Format                                
 - Switched to hedged variant also for SLH-DSA
 
 ## draft-ietf-openpgp-pqc-08
-- Removed hash binding for ML-DSA signatures
-
-## draft-ietf-openpgp-pqc-08
 - Assign code points 35 and 36 for ML-KEM algorithms.
+- Removed hash binding for ML-DSA signatures
 
 # Contributors
 
