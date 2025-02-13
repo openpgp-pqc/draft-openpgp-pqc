@@ -1093,14 +1093,14 @@ ID     | Algorithm           | Public Key Format                                
 - Fixed and improved test vectors.
 
 ## draft-ietf-openpgp-pqc-07
-- Assigned code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
-- Aligned KEM combiner with LAMPS
-- Dropped CCA-conversion of X25519/X448
-- Switched to hedged variant also for SLH-DSA
+- Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA algorithms.
+- Aligned KEM combiner with LAMPS.
+- Dropped CCA-conversion of X25519/X448 and adjusted security considerations.
+- Switched to hedged variant also for SLH-DSA.
 
 ## draft-ietf-openpgp-pqc-08
-- Assign code points 35 and 36 for ML-KEM algorithms.
-- Removed hash binding for ML-DSA signatures
+- Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
+- Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 
 # Contributors
 
