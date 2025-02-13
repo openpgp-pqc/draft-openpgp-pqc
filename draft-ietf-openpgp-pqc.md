@@ -1296,7 +1296,7 @@ The hex-encoded session key is `670c31af0c5224a9d590584c23679cb643860716225e4802
 
 
 
-## Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+## Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-128s}
 
