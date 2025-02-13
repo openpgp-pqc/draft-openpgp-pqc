@@ -1139,9 +1139,12 @@ TBD    | ML-KEM-1024+X448    | 56 octets X448 public key ({{tab-ecdh-cfrg-artifa
 
 ## draft-ietf-openpgp-pqc-07
 - Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
-- Align KEM combiner with LAMPS
-- Drop CCA-conversion of X25519/X448
-- Switch to hedged variant also for SLH-DSA
+- Align KEM combiner with LAMPS.
+- Drop CCA-conversion of X25519/X448.
+- Switch to hedged variant also for SLH-DSA.
+
+## draft-ietf-openpgp-pqc-08
+- Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
 
 # Contributors
 
