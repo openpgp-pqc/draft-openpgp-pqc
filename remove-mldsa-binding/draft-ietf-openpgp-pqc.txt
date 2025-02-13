@@ -172,7 +172,7 @@ Table of Contents
        A.3.1.  Transferable Secret Key
        A.3.2.  Transferable Public Key
        A.3.3.  Encrypted and Signed Message
-     A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+     A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
        A.4.1.  Transferable Secret Key
        A.4.2.  Transferable Public Key
        A.4.3.  Encrypted and Signed Message
@@ -3596,7 +3596,7 @@ A.3.3.  Encrypted and Signed Message
    tjRfiOLyEbBRP5Y=
    -----END PGP MESSAGE-----
 
-A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
 
 A.4.1.  Transferable Secret Key
 
