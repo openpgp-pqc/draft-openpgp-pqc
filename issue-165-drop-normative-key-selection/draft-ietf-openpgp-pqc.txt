@@ -1178,8 +1178,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    1.  Generate two independent certificates, one for PQ(/T)-capable
        implementations, and one for legacy implementations.
        Implementations not understanding PQ(/T) certificates can use the
-       legacy certificate, while PQ(/T)-capable implementations will
-       prefer the newer certificate.  This allows having a traditional
+       legacy certificate, while PQ(/T)-capable implementations can also
+       use the newer certificate.  This allows having a traditional
        certificate for compatibility and a v6 PQ(/T) certificate, at a
        greater complexity in key distribution.
 
