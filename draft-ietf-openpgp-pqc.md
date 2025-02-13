@@ -924,7 +924,7 @@ An implementation should not abort the encryption process when encrypting a mess
 
 ## Signing with Traditional and PQ(/T) Keys
 
-An implementation MAY sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
+An implementation may sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
 
 ## Key generation strategies
