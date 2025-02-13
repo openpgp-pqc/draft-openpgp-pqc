@@ -310,11 +310,6 @@ This section describes the individual post-quantum cryptographic schemes.
 All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
 However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.
 
-\[Note to the reader: This specification refers to the NIST PQC draft standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final specification.
-This is a temporary solution until the final versions of these documents are available.
-The goal is to provide a sufficiently precise specification of the algorithms already at the draft stage of this specification, so that it is possible for implementers to create interoperable implementations.
-Furthermore, we want to point out that, depending on possible future changes to the draft standards by NIST, this specification may be updated as soon as corresponding information becomes available.\]
-
 ### ML-KEM {#mlkem-intro}
 
 ML-KEM [FIPS-203] is based on the hardness of solving the Learning with Errors problem in module lattices (MLWE).
@@ -393,14 +388,6 @@ ID | Algorithm                        | Requirement | Definition
 ---| -------------------------------- | ----------- | --------------------
 35 | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
 36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
-
-### Experimental Codepoints for Interop Testing
-
-\[ Note: this section to be removed before publication \]
-
-The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
-An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
-This draft will not be sent to IANA without every listed algorithm having a non-experimental codepoint.
 
 # Algorithm Combinations
 
@@ -1146,6 +1133,9 @@ ID     | Algorithm           | Public Key Format                                
 - Align KEM combiner with LAMPS
 - Drop CCA-conversion of X25519/X448
 - Switch to hedged variant also for SLH-DSA
+
+## draft-ietf-openpgp-pqc-08
+- Assign code points 35 and 36 for ML-KEM algorithms.
 
 # Contributors
 
