@@ -951,7 +951,7 @@ The input of the public keys into `multiKeyCombine` binds the KEK to the communi
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
 
-## Binding hashes in signatures with signature algorithms
+## Binding data digests and signature algorithms
 
 Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
 Binding a NIST security category 2 hash function (e.g. SHA3-256) to a signature algorithm that falls into NIST security category 3 or 5 does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.
