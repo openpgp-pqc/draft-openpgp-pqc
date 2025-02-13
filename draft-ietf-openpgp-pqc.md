@@ -375,14 +375,6 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
 
 ## Algorithm Specifications
 
-For encryption, the following composite KEM schemes are specified:
-
-{: title="KEM algorithm specifications" #kem-alg-specs}
-ID                    | Algorithm                        | Requirement | Definition
----------------------:| -------------------------------- | ----------- | --------------------
-TBD (105 for testing) | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
-TBD (106 for testing) | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
-
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
@@ -393,6 +385,14 @@ ID                    | Algorithm                        | Requirement | Definit
 32                    | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}
 33                    | SLH-DSA-SHAKE-128f               | MAY         | {{slhdsa}}
 34                    | SLH-DSA-SHAKE-256s               | MAY         | {{slhdsa}}
+
+For encryption, the following composite KEM schemes are specified:
+
+{: title="KEM algorithm specifications" #kem-alg-specs}
+ID | Algorithm                        | Requirement | Definition
+---| -------------------------------- | ----------- | --------------------
+35 | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
+36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
 ### Experimental Codepoints for Interop Testing
 
@@ -450,7 +450,7 @@ The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | TBD (105 for testing)                      | TBD (106 for testing)                      |
+| Algorithm ID reference | 35                                         | 36                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
 | ECDH-KEM               | x25519Kem ({{x25519-kem}})                 | x448Kem ({{x448-kem}})                     |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -532,8 +532,8 @@ All artifacts are encoded as defined in [FIPS-203].
 {: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
 Algorithm ID reference | ML-KEM      | Public key | Secret key | Ciphertext | Key share
 ----------------------:| ----------- | ---------- | ---------- | ---------- | ---------
-TBD (105 for testing)  | ML-KEM-768  | 1184       | 64         | 1088       | 32
-TBD (106 for testing)  | ML-KEM-1024 | 1568       | 64         | 1568       | 32
+35                     | ML-KEM-768  | 1184       | 64         | 1088       | 32
+36                     | ML-KEM-1024 | 1568       | 64         | 1568       | 32
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
 
@@ -558,8 +558,8 @@ The procedure to perform `ML-KEM.Decaps()` is as follows:
 {: title="ML-KEM + ECDH composite schemes" #tab-mlkem-ecc-composite}
 Algorithm ID reference                   | ML-KEM       | ECDH-KEM
 ----------------------------------------:| ------------ | ---------
-TBD (105 for testing)                    | ML-KEM-768   | x25519Kem
-TBD (106 for testing)                    | ML-KEM-1024  | x448Kem
+35                                       | ML-KEM-768   | x25519Kem
+36                                       | ML-KEM-1024  | x448Kem
 
 The ML-KEM + ECDH composite public-key encryption schemes are built according to the following principal design:
 
@@ -1060,13 +1060,13 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
 ID     | Algorithm           | Public Key Format                                                                                                      | Secret Key Format                                                                                                      | Signature Format                                                                                                 | PKESK Format                                                                                                                                                                                           | Reference
 ---  : | -----               | ---------:                                                                                                             | --------:                                                                                                              | --------:                                                                                                        | -----:                                                                                                                                                                                                 | -----:
-TBD    | ML-KEM-768+X25519   | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                              | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
-TBD    | ML-KEM-1024+X448    | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}}) | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})  | N/A                                                                                                              | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}})  | {{ecc-mlkem}}
 30     | ML-DSA-65+Ed25519   | 32 octets Ed25519 public key ({{tab-eddsa-artifacts}}), 1952 octets ML-DSA-65 public key ({{tab-mldsa-artifacts}})     | 32 octets Ed25519 secret key ({{tab-eddsa-artifacts}}), 4032  octets ML-DSA-65 secret ({{tab-mldsa-artifacts}})        | 64 octets Ed25519 signature ({{tab-eddsa-artifacts}}), 3293 octets ML-DSA-65 signature ({{tab-mldsa-artifacts}}) | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
 31     | ML-DSA-87+Ed448     | 57 octets Ed448 public key ({{tab-eddsa-artifacts}}),  2592 octets ML-DSA-87 public key ({{tab-mldsa-artifacts}})      | 57 octets Ed448 secret key ({{tab-eddsa-artifacts}}), 4896 octets ML-DSA-87 secret ({{tab-mldsa-artifacts}})           | 114 octets Ed448 signature ({{tab-eddsa-artifacts}}), 4595 octets ML-DSA-87 signature ({{tab-mldsa-artifacts}})  | N/A                                                                                                                                                                                                    | {{ecc-mldsa}}
 32     | SLH-DSA-SHAKE-128s  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 7856 octets signature ({{slhdsa-artifact-lengths}})                                                              | N/A                                                                                                                                                                                                    | {{slhdsa}}
 33     | SLH-DSA-SHAKE-128f  | 32 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 64 octets secret key ({{slhdsa-artifact-lengths}})                                                                     | 17088 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
 34     | SLH-DSA-SHAKE-256s  | 64 octets public key ({{slhdsa-artifact-lengths}})                                                                     | 128 octets secret key ({{slhdsa-artifact-lengths}})                                                                    | 29792 octets signature ({{slhdsa-artifact-lengths}})                                                             | N/A                                                                                                                                                                                                    | {{slhdsa}}
+35     | ML-KEM-768+X25519   | 32 octets X25519 public key ({{tab-ecdh-cfrg-artifacts}}), 1184 octets ML-KEM-768 public key ({{tab-mlkem-artifacts}}) | 32 octets X25519 secret key ({{tab-ecdh-cfrg-artifacts}}), 2400 octets ML-KEM-768 secret-key ({{tab-mlkem-artifacts}}) | N/A                                                                                                              | 32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}}) | {{ecc-mlkem}}
+36     | ML-KEM-1024+X448    | 56 octets X448 public key ({{tab-ecdh-cfrg-artifacts}}), 1568  octets ML-KEM-1024 public key ({{tab-mlkem-artifacts}}) | 56 octets X448 secret key ({{tab-ecdh-cfrg-artifacts}}), 3168 octets ML-KEM-1024 secret-key ({{tab-mlkem-artifacts}})  | N/A                                                                                                              | 56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext \[, 1 octet algorithm ID in case of v3 PKESK\], 1 octet length field of value `n`, `n` octets wrapped session key ({{ecc-mlkem-pkesk}})  | {{ecc-mlkem}}
 
 # Changelog
 
