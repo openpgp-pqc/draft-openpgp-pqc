@@ -826,12 +826,11 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 5.1.2.  ML-DSA signatures
 
    Throughout this specification ML-DSA refers to the default pure and
-   hedged version of ML-DSA, i.e., in contrast to the pre-hash or
-   deterministic variant, defined in [FIPS-204].
+   hedged version of ML-DSA defined in [FIPS-204].
 
-   For ML-DSA signature generation the default hedged version of ML-
-   DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
-   the following operation is defined:
+   For ML-DSA signature generation the default hedged version of the
+   algorithm ML-DSA.Sign given in [FIPS-204] is used.  That is, to sign
+   with ML-DSA the following operation is defined:
 
    (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
@@ -980,8 +979,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 6.1.2.  Signature Generation
 
-   SLH-DSA signature generation is performed via the algorithm SLH-
-   DSA.Sign as specified in [FIPS-205].
+   SLH-DSA signature generation is performed via the default hedged
+   version of the algorithm SLH-DSA.Sign as specified in [FIPS-205].
 
 6.1.3.  Signature Verification
 

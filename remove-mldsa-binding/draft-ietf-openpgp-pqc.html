@@ -2388,16 +2388,15 @@ The following table describes the EdDSA parameters and artifact lengths:<a href=
           <h4 id="name-ml-dsa-signatures">
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-ml-dsa-signatures" class="section-name selfRef">ML-DSA signatures</a>
           </h4>
-<p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA, i.e., in contrast to the pre-hash or deterministic variant, defined
-in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of the algorithm <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
 That is, to sign with ML-DSA the following operation is defined:<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-3">
 <pre>
 (mldsaSignature) &lt;- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 </pre><a href="#section-5.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm ML-DSA.Verify given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm <code>ML-DSA.Verify</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
 That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-5">
 <pre>
@@ -2616,7 +2615,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           <h4 id="name-signature-generation-2">
 <a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-6.1.2-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-1">SLH-DSA signature generation is performed via the default hedged version of the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
