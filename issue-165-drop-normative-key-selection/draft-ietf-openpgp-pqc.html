@@ -1384,30 +1384,27 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-parallel-encryption-to-pq-t" class="internal xref">Parallel Encryption to PQ/(T) and Traditional Keys</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-key-combiner-2" class="internal xref">Key combiner</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
-                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="auto internal xref">9.3.1</a>.  <a href="#name-domain-separation-and-conte" class="internal xref">Domain separation and context binding</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.1">
+                    <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-9.2.1" class="auto internal xref">9.2.1</a>.  <a href="#name-domain-separation-and-conte" class="internal xref">Domain separation and context binding</a></p>
 </li>
                 </ul>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="internal xref">ML-DSA and SLH-DSA hedged variants</a></p>
+</li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="internal xref">ML-DSA and SLH-DSA hedged variants</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.7">
-                <p id="section-toc.1-1.9.2.7.1"><a href="#section-9.7" class="auto internal xref">9.7</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
+                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
 </li>
             </ul>
 </li>
@@ -2869,114 +2866,100 @@ This simplifies key distribution, as only one certificate needs to be communicat
       <h2 id="name-security-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<div id="parallel-encryption-to-pqt-and-traditional-keys">
-<section id="section-9.1">
-        <h3 id="name-parallel-encryption-to-pq-t">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-parallel-encryption-to-pq-t" class="section-name selfRef">Parallel Encryption to PQ/(T) and Traditional Keys</a>
-        </h3>
-<p id="section-9.1-1">This document does not specify how implementations should handle encrypting to PQ(/T) keys and traditional keys at the same time, and it is out of scope to define which encryption subkeys should be selected.
-However, implementers should be aware of the implications.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.1-2">If at least one PKESK packet for an encrypted message uses a traditional public-key algorithm, the message can be decrypted by a cryptographically relevant quantum computer (CRQC).
-While the existence of a CRQC is not yet known to the public at the time of writing this document, they may become a reality in the following years.
-This also affects the confidentiality of messages sent today due to the possibility of storing traditionally-encrypted messages and decrypting them later when a CRQC is available.
-This attack scenario is commonly referred to as "store now, decrypt later" or "harvest now, decrypt later".
-While ideally all implementations should switch to exclusively encrypting with PQ/T algorithms from a security standpoint, this breaks interoperability with all currently deployed traditional certificates and implementations that do not yet implement the PQ/T algorithms.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="security-aspects-of-composite-signatures">
-<section id="section-9.2">
+<section id="section-9.1">
         <h3 id="name-security-aspects-of-composi">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-security-aspects-of-composi" class="section-name selfRef">Security Aspects of Composite Signatures</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-security-aspects-of-composi" class="section-name selfRef">Security Aspects of Composite Signatures</a>
         </h3>
-<p id="section-9.2-1">When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
+<p id="section-9.1-1">When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-<p id="section-9.2-2">Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
-This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
+This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-key-combiner">
-<section id="section-9.3">
+<section id="section-9.2">
         <h3 id="name-key-combiner-2">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.3-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
+<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
 The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
 This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA3-256 from a random oracle.
+It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA3-256 from a random oracle.
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key <code>K</code>, derived from shared secrets <code>SS1</code> and <code>SS2</code> (with ciphertexts <code>CT1</code> and <code>CT2</code> and public keys <code>PK1</code> and <code>PK2</code>) as<a href="#section-9.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9.3-3">
+Hence, to be able to distinguish a key <code>K</code>, derived from shared secrets <code>SS1</code> and <code>SS2</code> (with ciphertexts <code>CT1</code> and <code>CT2</code> and public keys <code>PK1</code> and <code>PK2</code>) as<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-9.2-3">
 <pre>
 K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
-</pre><a href="#section-9.3-3" class="pilcrow">¶</a>
+</pre><a href="#section-9.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-9.3-4">from a random bit string, an adversary has to know (or correctly guess) both secret shares <code>SS1</code> and <code>SS2</code>, entirely.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
-<p id="section-9.3-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
+<p id="section-9.2-4">from a random bit string, an adversary has to know (or correctly guess) both secret shares <code>SS1</code> and <code>SS2</code>, entirely.<a href="#section-9.2-4" class="pilcrow">¶</a></p>
+<p id="section-9.2-5">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
 Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.
 That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
 Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
-<p id="section-9.3-6">Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.3-6" class="pilcrow">¶</a></p>
+In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.<a href="#section-9.2-5" class="pilcrow">¶</a></p>
+<p id="section-9.2-6">Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-6" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
-<section id="section-9.3.1">
+<section id="section-9.2.1">
           <h4 id="name-domain-separation-and-conte">
-<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-domain-separation-and-conte" class="section-name selfRef">Domain separation and context binding</a>
+<a href="#section-9.2.1" class="section-number selfRef">9.2.1. </a><a href="#name-domain-separation-and-conte" class="section-name selfRef">Domain separation and context binding</a>
           </h4>
-<p id="section-9.3.1-1">The <code>domSep</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
-This ensures that the input keying material is used to generate a KEK for a specific purpose.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.3.1-2">The algorithm ID, passed as the <code>algID</code> parameter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm.
-The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.3.1-3">The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-1">The <code>domSep</code> information defined in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> provides the domain separation for the key combiner construction.
+This ensures that the input keying material is used to generate a KEK for a specific purpose.<a href="#section-9.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-2">The algorithm ID, passed as the <code>algID</code> parameter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm.
+The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.2.1-3">The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.<a href="#section-9.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="hedged-sec-cons">
-<section id="section-9.4">
+<section id="section-9.3">
         <h3 id="name-ml-dsa-and-slh-dsa-hedged-v">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="section-name selfRef">ML-DSA and SLH-DSA hedged variants</a>
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="section-name selfRef">ML-DSA and SLH-DSA hedged variants</a>
         </h3>
-<p id="section-9.4-1">This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
-This has the advantage of an enhanced side-channel resistance of the signature operations according to  <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-1">This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
+This has the advantage of an enhanced side-channel resistance of the signature operations according to  <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-binding-hashes-in-signature">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
         </h3>
-<p id="section-9.5-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
-<p id="section-9.5-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
+<p id="section-9.4-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
 Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
-<p id="section-9.5-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.5-3" class="pilcrow">¶</a></p>
+This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
+<p id="section-9.4-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.6-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.5-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
-<p id="section-9.6-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.6-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-generation-1">
-<section id="section-9.7">
+<section id="section-9.6">
         <h3 id="name-key-generation-2">
-<a href="#section-9.7" class="section-number selfRef">9.7. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
+<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
         </h3>
-<p id="section-9.7-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.7-1" class="pilcrow">¶</a></p>
+<p id="section-9.6-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

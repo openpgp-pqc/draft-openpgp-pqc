@@ -135,14 +135,13 @@ Table of Contents
      8.2.  Signing with Traditional and PQ(/T) Keys
      8.3.  Key generation strategies
    9.  Security Considerations
-     9.1.  Parallel Encryption to PQ/(T) and Traditional Keys
-     9.2.  Security Aspects of Composite Signatures
-     9.3.  Key combiner
-       9.3.1.  Domain separation and context binding
-     9.4.  ML-DSA and SLH-DSA hedged variants
-     9.5.  Binding hashes in signatures with signature algorithms
-     9.6.  Symmetric Algorithms for SEIPD Packets
-     9.7.  Key generation
+     9.1.  Security Aspects of Composite Signatures
+     9.2.  Key combiner
+       9.2.1.  Domain separation and context binding
+     9.3.  ML-DSA and SLH-DSA hedged variants
+     9.4.  Binding hashes in signatures with signature algorithms
+     9.5.  Symmetric Algorithms for SEIPD Packets
+     9.6.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -1194,29 +1193,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 9.  Security Considerations
 
-9.1.  Parallel Encryption to PQ/(T) and Traditional Keys
-
-   This document does not specify how implementations should handle
-   encrypting to PQ(/T) keys and traditional keys at the same time, and
-   it is out of scope to define which encryption subkeys should be
-   selected.  However, implementers should be aware of the implications.
-
-   If at least one PKESK packet for an encrypted message uses a
-   traditional public-key algorithm, the message can be decrypted by a
-   cryptographically relevant quantum computer (CRQC).  While the
-   existence of a CRQC is not yet known to the public at the time of
-   writing this document, they may become a reality in the following
-   years.  This also affects the confidentiality of messages sent today
-   due to the possibility of storing traditionally-encrypted messages
-   and decrypting them later when a CRQC is available.  This attack
-   scenario is commonly referred to as "store now, decrypt later" or
-   "harvest now, decrypt later".  While ideally all implementations
-   should switch to exclusively encrypting with PQ/T algorithms from a
-   security standpoint, this breaks interoperability with all currently
-   deployed traditional certificates and implementations that do not yet
-   implement the PQ/T algorithms.
-
-9.2.  Security Aspects of Composite Signatures
+9.1.  Security Aspects of Composite Signatures
 
    When multiple signatures are applied to a message, the question of
    the protocol's resistance against signature stripping attacks
@@ -1240,7 +1217,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    each v6 signatures also includes a random salt at the start of the
    hashed meta data, as also specified in the aforementioned reference.
 
-9.3.  Key combiner
+9.2.  Key combiner
 
    For the key combination in Section 4.2.1 this specification limits
    itself to the use of SHA3-256 in a construction following
@@ -1287,7 +1264,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    assumption in a nominal group.  Note that Curve25519 and Curve448
    qualify as such [ABH_21].
 
-9.3.1.  Domain separation and context binding
+9.2.1.  Domain separation and context binding
 
    The domSep information defined in Section 4.2.1 provides the domain
    separation for the key combiner construction.  This ensures that the
@@ -1304,7 +1281,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    the communication parties.  The input of the ciphertexts binds the
    KEK to the specific session.
 
-9.4.  ML-DSA and SLH-DSA hedged variants
+9.3.  ML-DSA and SLH-DSA hedged variants
 
    This specification makes use of the default "hedged" variants of ML-
    DSA and SLH-DSA, which mix fresh randomness into the respective
@@ -1312,7 +1289,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.5.  Binding hashes in signatures with signature algorithms
+9.4.  Binding hashes in signatures with signature algorithms
 
    In order not to extend the attack surface, we bind the hash algorithm
    used for signature data digestion to the hash algorithm used
@@ -1330,7 +1307,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    In the case of SLH-DSA the internal hash algorithm varies based on
    the algorithm ID, see Section 6.1.1.
 
-9.6.  Symmetric Algorithms for SEIPD Packets
+9.5.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1345,7 +1322,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.7.  Key generation
+9.6.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
