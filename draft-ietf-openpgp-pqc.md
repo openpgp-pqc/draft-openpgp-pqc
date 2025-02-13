@@ -714,15 +714,14 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 
 ### ML-DSA signatures {#mldsa-signature}
 
-Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA, i.e., in contrast to the pre-hash or deterministic variant, defined
-in [FIPS-204].
+Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in [FIPS-204].
 
-For ML-DSA signature generation the default hedged version of `ML-DSA.Sign` given in [FIPS-204] is used.
+For ML-DSA signature generation the default hedged version of the algorithm `ML-DSA.Sign` given in [FIPS-204] is used.
 That is, to sign with ML-DSA the following operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
-For ML-DSA signature verification the algorithm ML-DSA.Verify given in [FIPS-204] is used.
+For ML-DSA signature verification the algorithm `ML-DSA.Verify` given in [FIPS-204] is used.
 That is, to verify with ML-DSA the following operation is defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
@@ -819,7 +818,7 @@ SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specif
 
 ### Signature Generation
 
-SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
+SLH-DSA signature generation is performed via the default hedged version of the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
 
 ### Signature Verification
 
