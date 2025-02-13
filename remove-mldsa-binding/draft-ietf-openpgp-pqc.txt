@@ -1518,19 +1518,21 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 12.12.  draft-ietf-openpgp-pqc-07
 
-   *  Assigned code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
+   *  Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA
+      algorithms.
 
-   *  Aligned KEM combiner with LAMPS
+   *  Aligned KEM combiner with LAMPS.
 
-   *  Dropped CCA-conversion of X25519/X448
+   *  Dropped CCA-conversion of X25519/X448 and adjusted security
+      considerations.
 
-   *  Switched to hedged variant also for SLH-DSA
+   *  Switched to hedged variant also for SLH-DSA.
 
 12.13.  draft-ietf-openpgp-pqc-08
 
-   *  Assign code points 35 and 36 for ML-KEM algorithms.
+   *  Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
 
-   *  Removed hash binding for ML-DSA signatures
+   *  Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 
 13.  Contributors
 
