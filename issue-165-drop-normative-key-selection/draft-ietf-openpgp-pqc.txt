@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 16 August 2025                                      F. Strenzke
+Expires: 17 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        12 February 2025
+                                                        13 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2025.
+   This Internet-Draft will expire on 17 August 2025.
 
 Copyright Notice
 
@@ -131,7 +131,7 @@ Table of Contents
      7.1.  Symmetric Algorithms for SEIPD Packets
      7.2.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
-     8.1.  Encrypting to Traditional and PQ/T Keys
+     8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
      8.3.  Key generation strategies
    9.  Security Considerations
@@ -1150,13 +1150,13 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
-8.1.  Encrypting to Traditional and PQ/T Keys
+8.1.  Encrypting to Traditional and PQ(/T) Keys
 
    As noted in Section 3.1, the confidentiality of a message is not
    post-quantum secure when using multiple PKESKs if at least one does
-   not use PQ/T encryption schemes.  An implementation SHOULD NOT abort
-   the encryption process when encrypting a message to both PQ/T and
-   traditional keys to allow for a smooth transition to post-quantum
+   not use PQ(/T) encryption schemes.  An implementation SHOULD NOT
+   abort the encryption process when encrypting a message to both PQ/T
+   and traditional keys to allow for a smooth transition to post-quantum
    cryptography.
 
 8.2.  Signing with Traditional and PQ(/T) Keys
