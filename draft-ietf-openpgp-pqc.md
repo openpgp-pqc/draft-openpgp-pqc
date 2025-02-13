@@ -398,7 +398,6 @@ This is achieved via KEM combination, i.e. both key encapsulations/decapsulation
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
-In {{pq-key-preference}} it is explained how to deal with multiple key scenarios.
 
 ## Composite Signatures
 
@@ -904,17 +903,14 @@ The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature a
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
-## Key preference {#pq-key-preference}
+## Encrypting to Traditional and PQ(/T) Keys
 
-Implementations SHOULD prefer PQ(/T) keys when multiple options are available.
-When encrypting to a certificate that has both a valid PQ/T and a valid traditional encryption subkey, an implementation SHOULD use the PQ/T subkey only.
-Furthermore, if an application has any means to determine that encrypting to a PQ/T certificate and a traditional certificate is redundant, it should omit encrypting to the traditional certificate.
+As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
+An implementation should not abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
 
-As specified in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
-An implementation SHOULD NOT abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
+## Signing with Traditional and PQ(/T) Keys
 
-
-An implementation MAY sign with both a PQ(/T) and an ECC key using multiple signatures over the same data as described in {{multiple-signatures}}.
+An implementation may sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
 
 ## Key generation strategies
@@ -926,7 +922,7 @@ An OpenPGP certificate is composed of a certification-capable primary key and on
 Two migration strategies are recommended:
 
 1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
-   Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
+   Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations can also use the newer certificate.
    This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
 
 2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
@@ -1129,9 +1125,12 @@ ID     | Algorithm           | Public Key Format                                
 
 ## draft-ietf-openpgp-pqc-07
 - Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
-- Align KEM combiner with LAMPS
-- Drop CCA-conversion of X25519/X448
-- Switch to hedged variant also for SLH-DSA
+- Align KEM combiner with LAMPS.
+- Drop CCA-conversion of X25519/X448.
+- Switch to hedged variant also for SLH-DSA.
+
+## draft-ietf-openpgp-pqc-08
+- Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
 
 ## draft-ietf-openpgp-pqc-08
 - Assign code points 35 and 36 for ML-KEM algorithms.
