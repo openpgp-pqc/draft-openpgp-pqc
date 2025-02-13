@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-11T01:20:57.277849+00:00",
+  "timestamp": "2025-02-13T01:21:44.826291+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15660,19 +15660,397 @@
       "labels": [],
       "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
       "createdAt": "2025-02-10T21:21:33Z",
-      "updatedAt": "2025-02-10T21:21:34Z",
+      "updatedAt": "2025-02-12T22:34:11Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "remove-mldsa-binding",
-      "headRefOid": "2b91557d55ffb18e64a75eca2f8b80f03d54075b",
+      "headRefOid": "0c8d0a1e03f76147f9a8f3778442c0050fca920e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "IMHO the hash bindings should not be dropped, but altered if CNSA 2.0 compliance is of utter importance.\r\n\r\nThat is, the dropped table should state SHA-384 instead of SHA3-256, and likewise SHA-512 instead of SHA3-512. On that basis compliance to CNSA 2.0 should be explicitely claimed in the \"Binding hashes in signatures with signature algorithms\" (keep the previous title).\r\n\r\nDropping the table means less guidance for implementers, which will result in confusion.\r\n\r\nExplicit is better than implicit.",
+          "createdAt": "2025-02-11T07:48:01Z",
+          "updatedAt": "2025-02-11T07:51:25Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Dropping the table means less guidance for implementers, which will result in confusion.\r\n> \r\n> Explicit is better than implicit.\r\n\r\nThis is indeed true, but we don't want to disallow using SHA3 for everyone, that would also be quite nonsense IMO.\r\nNot binding the hashes is consistent with the current OpenPGP behaviour: the choice of the hash algorithm is independent from the choice of the signature one.\r\n\r\nI added a note in the security considerations about this, but maybe we can make it more explicit.\r\n\r\nOther option, is to keep the binding but allow both SHA2 and SHA3:\r\n```\r\n{: title=\"Binding between ML-DSA + EdDSA and signature data digest\" #tab-mldsa-hash}\r\nAlgorithm ID reference | Hash function     | Hash function ID reference\r\n----------------------:| ----------------- | --------------------------\r\n30                     | SHA2-256 SHA3-256 | 8, 12\r\n31                     | SHA2-512 SHA3-512 | 10, 14\r\n```\r\nBut I personally don't see the point that much",
+          "createdAt": "2025-02-11T08:13:38Z",
+          "updatedAt": "2025-02-11T08:14:48Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > Dropping the table means less guidance for implementers, which will result in confusion.\r\n> > Explicit is better than implicit.\r\n> \r\n> This is indeed true, but we don't want to disallow using SHA3 for everyone, that would also be quite nonsense IMO. Not binding the hashes is consistent with the current OpenPGP behaviour: the choice of the hash algorithm is independent from the choice of the signature one.\r\n> \r\n> I added a note in the security considerations about this, but maybe we can make it more explicit.\r\n> \r\n> Other option, is to keep the binding but allow both SHA2 and SHA3:\r\n> \r\n> ```\r\n> {: title=\"Binding between ML-DSA + EdDSA and signature data digest\" #tab-mldsa-hash}\r\n> Algorithm ID reference | Hash function     | Hash function ID reference\r\n> ----------------------:| ----------------- | --------------------------\r\n> 30                     | SHA2-256 SHA3-256 | 8, 12\r\n> 31                     | SHA2-512 SHA3-512 | 10, 14\r\n> ```\r\n> \r\n> But I personally don't see the point that much\r\n\r\nI think we'll indeed have to give some restrictions on the possible hash algorithms. Otherwise implementers might make weird choices. I am in favor of providing a list of allowed hash algorithms like you propose in the table above.",
+          "createdAt": "2025-02-11T08:22:42Z",
+          "updatedAt": "2025-02-11T08:22:42Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As I understand RFC9580 [5.2.4. ](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)[Computing Signatures](https://www.rfc-editor.org/rfc/rfc9580#name-computing-signatures), the hash algorithm ID is part of the trailer.\r\n\r\nTherefore I would rather like to explicitly list the allowed options as you suggested. Keep in mind that CNSA 2.0 states \"Use SHA-384 or SHA-512 for all classification levels.\". I think that means SHA2-384 or SHA2-512 instead of SHA2-256 (for algorithm 30) in the table.\r\n\r\nAlso one line per combination (here with SHA2-384):\r\n30                     | SHA2-384 | 9\r\n30                     | SHA3-256 | 12\r\n31                     | SHA2-512 | 10\r\n31                     | SHA3-512 | 14\r\n\r\n(SHA3-256 looks so odd now :-)",
+          "createdAt": "2025-02-11T08:47:02Z",
+          "updatedAt": "2025-02-11T09:27:09Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Since we deviate from the default OpenPGP behaviour, perhaps we should also add a statement that flexibility in the digest algorithms may hurt security when matching \"too weak\" hash functions. While it historically may have made sense to have flexibility, we do not see a reason to have it with the PQC algorithms.\r\n\r\nFor SLH-DSA we can even enhance the argument why using the matching SHA3 function increases security. In contast to most other signature schemes, its security relies entirely upon the security properties of a hash function and no additional hardness assumptions about other mathematical problems are required. Thus, the attack surface is (relatively speaking) much more affected when using a different hash function.\r\n\r\nThe reason why I think it makes sense to add these things is that previously we had a clear story (\"match the internally used hash algorithms\"), but now we are more lenient with ML-DSA and it's less consistent. However, if you think the current state is sufficient, I'm also fine with it. Also, it can be part of the security considerations, I think.",
+          "createdAt": "2025-02-11T10:01:44Z",
+          "updatedAt": "2025-02-11T10:01:44Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Since we deviate from the default OpenPGP behaviour, perhaps we should also add a statement that flexibility in the digest algorithms may hurt security when matching \"too weak\" hash functions. While it historically may have made sense to have flexibility, we do not see a reason to have it with the PQC algorithms.\r\n> \r\n> For SLH-DSA we can even enhance the argument why using the matching SHA3 function increases security. In contast to most other signature schemes, its security relies entirely upon the security properties of a hash function and no additional hardness assumptions about other mathematical problems are required. Thus, the attack surface is (relatively speaking) much more affected when using a different hash function.\r\n> \r\n> The reason why I think it makes sense to add these things is that previously we had a clear story (\"match the internally used hash algorithms\"), but now we are more lenient with ML-DSA and it's less consistent. However, if you think the current state is sufficient, I'm also fine with it. Also, it can be part of the security considerations, I think.\r\n\r\nWhat I see as a concrete formal loss is that we loose the resistance against digest substitution attacks. But I think this is not an issue that has any practical relevance.",
+          "createdAt": "2025-02-11T10:53:26Z",
+          "updatedAt": "2025-02-11T10:53:26Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/166/commits/0c8d0a1e03f76147f9a8f3778442c0050fca920e for a proposal. I stripped the security considerations down to an essential information.\r\n\r\nLooking at the Pre-Hash Variants for ML-DSA that have received an OID (see https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration), I wonder if we want to settle with SHA3-512 and SHA2-512 for all ML-DSA-composites. That would make the list more comprehensive and we could drop the section \"Binding hashes ...\" in the security considerations completely.",
+          "createdAt": "2025-02-11T14:49:07Z",
+          "updatedAt": "2025-02-11T14:54:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86bcpfA",
+          "commit": {
+            "abbreviatedOid": "2b91557"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T08:15:24Z",
+          "updatedAt": "2025-02-11T08:15:24Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "I would not argue for ML-DSA in the SLH-DSA section. I would either move this to its own section or rename the title s.t. it does not exclude ML-DSA.",
+              "createdAt": "2025-02-11T08:15:24Z",
+              "updatedAt": "2025-02-11T08:15:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bdUu7",
+          "commit": {
+            "abbreviatedOid": "2b91557"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T09:34:05Z",
+          "updatedAt": "2025-02-11T09:34:05Z",
+          "comments": [
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-02-11T09:34:05Z",
+              "updatedAt": "2025-02-11T09:34:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bdVJr",
+          "commit": {
+            "abbreviatedOid": "2b91557"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T09:34:46Z",
+          "updatedAt": "2025-02-11T09:34:47Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\n\r\n### Signature data digest {#mldsa-sig-data-digest}\r\nIn order not to extend the attack surface, composite ML-DSA + EdDSA signatures SHOULD use SHA3 for the signature data digest because ML-DSA internally uses a SHAKE256 digest.\r\nImplementations MAY allow use of SHA2 for CNSA 2.0 compliance.\r\n\r\n```",
+              "createdAt": "2025-02-11T09:34:47Z",
+              "updatedAt": "2025-02-11T09:35:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86beTmH",
+          "commit": {
+            "abbreviatedOid": "5667d3e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T11:16:29Z",
+          "updatedAt": "2025-02-11T11:16:29Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "SHA2-384 and SHA2-512 are internationally approved hash functions and therefore a viable choice to compute a message digest. We should not claim or hint at, that the use of those SHA2 instances for the signature data digest extends the attack surface.",
+              "createdAt": "2025-02-11T11:16:29Z",
+              "updatedAt": "2025-02-11T11:16:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86beVPe",
+          "commit": {
+            "abbreviatedOid": "5667d3e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T11:18:17Z",
+          "updatedAt": "2025-02-11T11:18:17Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Should we move formal recommendations away from the security considerations towards the table where we list the options? E.g. \"Implementations MUST support SHA3.-combinations and SHOULD support SHA2-Combinations\".",
+              "createdAt": "2025-02-11T11:18:17Z",
+              "updatedAt": "2025-02-11T11:18:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86beXG1",
+          "commit": {
+            "abbreviatedOid": "5667d3e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T11:21:07Z",
+          "updatedAt": "2025-02-11T11:21:07Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "It's not about security concerns with SHA2 specifically but about extending the attack surface due to adding an additional hash algorithm from a different algorithm family to the signature operation (if the digest algorithm doesn't match the internally used algorithm). \r\n\r\nMaybe it needs better wording?",
+              "createdAt": "2025-02-11T11:21:07Z",
+              "updatedAt": "2025-02-11T11:21:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bg63v",
+          "commit": {
+            "abbreviatedOid": "0c8d0a1"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T15:22:05Z",
+          "updatedAt": "2025-02-11T15:22:05Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "What is meant by \"cominations or\"? Should it read \"of\" instead of \"or\"?\r\n\r\nAlso with \"of\" I doesn't convince me, as there is no prior combination of hash algorithms defined that this sentence could refer to.",
+              "createdAt": "2025-02-11T15:22:05Z",
+              "updatedAt": "2025-02-11T15:22:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bg7-D",
+          "commit": {
+            "abbreviatedOid": "0c8d0a1"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-11T15:23:20Z",
+          "updatedAt": "2025-02-11T15:23:21Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I would not write anything about CNSA. It we allow SHA-2, we allow it, I don't think it makes sense to put that under further requirements (otherwise it ends up in a weird mixture of conditional MAY and MUST requirements).\r\n\r\n I would write:\r\n> They MAY use SHA2. This can for instance be necessary to satisfy specific regulatory requirements.\r\n\r\n",
+              "createdAt": "2025-02-11T15:23:21Z",
+              "updatedAt": "2025-02-11T15:23:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bxOdP",
+          "commit": {
+            "abbreviatedOid": "0c8d0a1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T22:33:06Z",
+          "updatedAt": "2025-02-12T22:33:06Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\r\n- Changed hash binding for ML-DSA signatures\r\n```",
+              "createdAt": "2025-02-12T22:33:06Z",
+              "updatedAt": "2025-02-12T22:33:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86bxPcL",
+          "commit": {
+            "abbreviatedOid": "0c8d0a1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T22:34:11Z",
+          "updatedAt": "2025-02-12T22:34:11Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nComposite ML-DSA + EdDSA signatures MUST use an associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest. They SHOULD use SHA3 to match the ML-DSA internal use of SHAKE256. They MAY use SHA2, this can for instance be necessary to satisfy specific regulatory requirements. Signatures using other combinations or hash algorithms MUST be considered invalid.\r\n```",
+              "createdAt": "2025-02-12T22:34:11Z",
+              "updatedAt": "2025-02-12T22:34:11Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 167,
+      "id": "PR_kwDOIrmZ-86K1DIM",
+      "title": "Remove normative guidance about key selection",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/167",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "closes #165 \r\n\r\nI split the migration considerations into the signing and encrypting case and remove the normative statements about which keys to prefer.\r\n\r\nFurther, I added some context in the security considerations, especially the \"store now, decrypt later\" attack scenario, since I feel this is the most important aspect in the current situation.\r\n\r\nI am happy for suggestions and improvements\r\n\r\n---\r\n\r\n> An implementation MAY sign with both a PQ(/T) and an ECC key [...]\r\n\r\nHere I changed \"ECC\" to \"traditional\" or did we have any specific reason why we write \"ECC\" instead?\r\n",
+      "createdAt": "2025-02-11T16:20:16Z",
+      "updatedAt": "2025-02-12T12:30:09Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-165-drop-normative-key-selection",
+      "headRefOid": "78433e5473c53b8ffaf7b4a05b0f18b3dc2e480a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86boUEd",
+          "commit": {
+            "abbreviatedOid": "b97bd5d"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T07:32:05Z",
+          "updatedAt": "2025-02-12T07:32:06Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "```suggestion\r\nWhile the existence of a CRQC is not yet known to the public at the time of writing this document, they may become a reality in the not too distant future.\r\n```\r\n\"In the following years\" is too much of a prediction in my view.",
+              "createdAt": "2025-02-12T07:32:06Z",
+              "updatedAt": "2025-02-12T07:32:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86boUcE",
+          "commit": {
+            "abbreviatedOid": "b97bd5d"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T07:32:52Z",
+          "updatedAt": "2025-02-12T07:32:53Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\nThis attack scenario is commonly referred to as \"store now, decrypt later\" or \"harvest now, decrypt later\".\r\n```",
+              "createdAt": "2025-02-12T07:32:53Z",
+              "updatedAt": "2025-02-12T07:32:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86boVfC",
+          "commit": {
+            "abbreviatedOid": "b97bd5d"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T07:35:23Z",
+          "updatedAt": "2025-02-12T07:35:23Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "I think this sentence should better be deleted, too, as it can also be seen as a normative statement about how key selection should be done. Especially if it remains as the only statement about encryption in this section.",
+              "createdAt": "2025-02-12T07:35:23Z",
+              "updatedAt": "2025-02-12T07:35:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86brEy7",
+          "commit": {
+            "abbreviatedOid": "b97bd5d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T12:25:40Z",
+          "updatedAt": "2025-02-12T12:25:40Z",
+          "comments": [
+            {
+              "originalPosition": 40,
+              "body": "For me \"following years\" is less of a prediction than \"not too distant future\". Both are fairly subjective, so how about writing just \"future\" instead of \"not too distant future\"?",
+              "createdAt": "2025-02-12T12:25:40Z",
+              "updatedAt": "2025-02-12T12:30:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86brHRw",
+          "commit": {
+            "abbreviatedOid": "b97bd5d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-12T12:30:09Z",
+          "updatedAt": "2025-02-12T12:30:09Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "I am not 100% decided on this what do the others think?",
+              "createdAt": "2025-02-12T12:30:09Z",
+              "updatedAt": "2025-02-12T12:30:09Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
