@@ -1813,8 +1813,8 @@ In <a href="#pq-key-preference" class="auto internal xref">Section 8.1</a> it is
 <p id="section-3.3-2">An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
 This ensures backwards compatibility due to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.3-5">[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>.]<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
+This is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-requirements">
