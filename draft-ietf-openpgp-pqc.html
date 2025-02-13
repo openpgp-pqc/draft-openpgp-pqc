@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 10 August 2025</td>
+<td class="center">Expires 17 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-06" class="published">6 February 2025</time>
+<time datetime="2025-02-13" class="published">13 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-10">10 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-17">17 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1209,11 +1209,6 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-algorithm-specifications" class="internal xref">Algorithm Specifications</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1.2.1">
-                    <p id="section-toc.1-1.2.2.1.2.1.1"><a href="#section-2.1.1" class="auto internal xref">2.1.1</a>.  <a href="#name-experimental-codepoints-for" class="internal xref">Experimental Codepoints for Interop Testing</a></p>
-</li>
-                </ul>
 </li>
             </ul>
 </li>
@@ -1455,6 +1450,9 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.12">
                 <p id="section-toc.1-1.12.2.12.1"><a href="#section-12.12" class="auto internal xref">12.12</a>. <a href="#name-draft-ietf-openpgp-pqc-07" class="internal xref">draft-ietf-openpgp-pqc-07</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.13">
+                <p id="section-toc.1-1.12.2.13.1"><a href="#section-12.13" class="auto internal xref">12.13</a>. <a href="#name-draft-ietf-openpgp-pqc-08" class="internal xref">draft-ietf-openpgp-pqc-08</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
@@ -1584,10 +1582,6 @@ The short form "PQ(/T)" stands for PQ or PQ/T.<a href="#section-1.1.1-1" class="
 <p id="section-1.2-1">This section describes the individual post-quantum cryptographic schemes.
 All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
 However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.2-2">[Note to the reader: This specification refers to the NIST PQC draft standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final specification.
-This is a temporary solution until the final versions of these documents are available.
-The goal is to provide a sufficiently precise specification of the algorithms already at the draft stage of this specification, so that it is possible for implementers to create interoperable implementations.
-Furthermore, we want to point out that, depending on possible future changes to the draft standards by NIST, this specification may be updated as soon as corresponding information becomes available.]<a href="#section-1.2-2" class="pilcrow">¶</a></p>
 <div id="mlkem-intro">
 <section id="section-1.2.1">
           <h4 id="name-ml-kem">
@@ -1687,46 +1681,11 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
         <h3 id="name-algorithm-specifications">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-algorithm-specifications" class="section-name selfRef">Algorithm Specifications</a>
         </h3>
-<p id="section-2.1-1">For encryption, the following composite KEM schemes are specified:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<span id="name-kem-algorithm-specification"></span><div id="kem-alg-specs">
+<p id="section-2.1-1">For signatures, the following (composite) signature schemes are specified:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<span id="name-signature-algorithm-specifi"></span><div id="sig-alg-specs">
 <table class="center" id="table-1">
           <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
-<a href="#name-kem-algorithm-specification" class="selfRef">KEM algorithm specifications</a>
-          </caption>
-<thead>
-            <tr>
-              <th class="text-right" rowspan="1" colspan="1">ID</th>
-              <th class="text-left" rowspan="1" colspan="1">Algorithm</th>
-              <th class="text-left" rowspan="1" colspan="1">Requirement</th>
-              <th class="text-left" rowspan="1" colspan="1">Definition</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">TBD (105 for testing)</td>
-              <td class="text-left" rowspan="1" colspan="1">ML-KEM-768+X25519</td>
-              <td class="text-left" rowspan="1" colspan="1">MUST</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
-</td>
-            </tr>
-            <tr>
-              <td class="text-right" rowspan="1" colspan="1">TBD (106 for testing)</td>
-              <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024+X448</td>
-              <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
-</td>
-            </tr>
-          </tbody>
-        </table>
-</div>
-<p id="section-2.1-3">For signatures, the following (composite) signature schemes are specified:<a href="#section-2.1-3" class="pilcrow">¶</a></p>
-<span id="name-signature-algorithm-specifi"></span><div id="sig-alg-specs">
-<table class="center" id="table-2">
-          <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-signature-algorithm-specifi" class="selfRef">Signature algorithm specifications</a>
           </caption>
 <thead>
@@ -1781,16 +1740,40 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
           </tbody>
         </table>
 </div>
-<div id="experimental-codepoints-for-interop-testing">
-<section id="section-2.1.1">
-          <h4 id="name-experimental-codepoints-for">
-<a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-experimental-codepoints-for" class="section-name selfRef">Experimental Codepoints for Interop Testing</a>
-          </h4>
-<p id="section-2.1.1-1">[ Note: this section to be removed before publication ]<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1.1-2">The use of private/experimental codepoints during development are intended to be used in non-released software only, for experimentation and interop testing purposes only.
-An OpenPGP implementation MUST NOT produce a formal release using these experimental codepoints.
-This draft will not be sent to IANA without every listed algorithm having a non-experimental codepoint.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
-</section>
+<p id="section-2.1-3">For encryption, the following composite KEM schemes are specified:<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<span id="name-kem-algorithm-specification"></span><div id="kem-alg-specs">
+<table class="center" id="table-2">
+          <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-kem-algorithm-specification" class="selfRef">KEM algorithm specifications</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">ID</th>
+              <th class="text-left" rowspan="1" colspan="1">Algorithm</th>
+              <th class="text-left" rowspan="1" colspan="1">Requirement</th>
+              <th class="text-left" rowspan="1" colspan="1">Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">35</td>
+              <td class="text-left" rowspan="1" colspan="1">ML-KEM-768+X25519</td>
+              <td class="text-left" rowspan="1" colspan="1">MUST</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">36</td>
+              <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024+X448</td>
+              <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
+</td>
+            </tr>
+          </tbody>
+        </table>
 </div>
 </section>
 </div>
@@ -1830,8 +1813,8 @@ In <a href="#pq-key-preference" class="auto internal xref">Section 8.1</a> it is
 <p id="section-3.3-2">An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
 This ensures backwards compatibility due to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.3-5">[Note to the reader: The last requirement, that one valid signature is sufficient to identify a message as correctly signed, is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>.]<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
+This is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5">[RFC9580, Section 5.2.5]</a>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-requirements">
@@ -1879,8 +1862,8 @@ The artifacts in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">T
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">Algorithm ID reference</td>
-                <td class="text-left" rowspan="1" colspan="1">TBD (105 for testing)</td>
-                <td class="text-left" rowspan="1" colspan="1">TBD (106 for testing)</td>
+                <td class="text-left" rowspan="1" colspan="1">35</td>
+                <td class="text-left" rowspan="1" colspan="1">36</td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">Field size</td>
@@ -2046,7 +2029,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
             </thead>
             <tbody>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (105 for testing)</td>
+                <td class="text-right" rowspan="1" colspan="1">35</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
                 <td class="text-left" rowspan="1" colspan="1">1184</td>
                 <td class="text-left" rowspan="1" colspan="1">64</td>
@@ -2054,7 +2037,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
                 <td class="text-left" rowspan="1" colspan="1">32</td>
               </tr>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">TBD (106 for testing)</td>
+                <td class="text-right" rowspan="1" colspan="1">36</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024</td>
                 <td class="text-left" rowspan="1" colspan="1">1568</td>
                 <td class="text-left" rowspan="1" colspan="1">64</td>
@@ -2095,7 +2078,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
         <h3 id="name-composite-encryption-scheme">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-composite-encryption-scheme" class="section-name selfRef">Composite Encryption Schemes with ML-KEM</a>
         </h3>
-<p id="section-4.2-1"><a href="#kem-alg-specs" class="auto internal xref">Table 1</a> specifies the following ML-KEM + ECDH composite public-key encryption schemes:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1"><a href="#kem-alg-specs" class="auto internal xref">Table 2</a> specifies the following ML-KEM + ECDH composite public-key encryption schemes:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-ecdh-composite-schem"></span><div id="tab-mlkem-ecc-composite">
 <table class="center" id="table-5">
           <caption>
@@ -2111,12 +2094,12 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
           </thead>
           <tbody>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">TBD (105 for testing)</td>
+              <td class="text-right" rowspan="1" colspan="1">35</td>
               <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
               <td class="text-left" rowspan="1" colspan="1">x25519Kem</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">TBD (106 for testing)</td>
+              <td class="text-right" rowspan="1" colspan="1">36</td>
               <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024</td>
               <td class="text-left" rowspan="1" colspan="1">x448Kem</td>
             </tr>
@@ -2146,7 +2129,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
           <h4 id="name-key-combiner">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key combiner</a>
           </h4>
-<p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> the following procedure MUST be used to compute the KEK that wraps a session key.
+<p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 2</a> the following procedure MUST be used to compute the KEK that wraps a session key.
 The construction is a key derivation function compliant to <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, Section 4, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap, i.e., encrypt, the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
@@ -2813,7 +2796,7 @@ A receiving implementation MUST treat such a signature as invalid.<a href="#sect
       <h2 id="name-migration-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-migration-considerations" class="section-name selfRef">Migration Considerations</a>
       </h2>
-<p id="section-8-1">The post-quantum KEM algorithms defined in <a href="#kem-alg-specs" class="auto internal xref">Table 1</a> and the signature algorithms defined in <a href="#sig-alg-specs" class="auto internal xref">Table 2</a> are a set of new public key algorithms that extend the algorithm selection of <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
+<p id="section-8-1">The post-quantum KEM algorithms defined in <a href="#kem-alg-specs" class="auto internal xref">Table 2</a> and the signature algorithms defined in <a href="#sig-alg-specs" class="auto internal xref">Table 1</a> are a set of new public key algorithms that extend the algorithm selection of <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <div id="pq-key-preference">
@@ -3015,28 +2998,6 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD</td>
-            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768+X25519</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 2400 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">N/A</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">
-              <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
-</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD</td>
-            <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024+X448</td>
-            <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 3168 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">N/A</td>
-            <td class="text-right" rowspan="1" colspan="1">56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">
-              <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
-</td>
-          </tr>
-          <tr>
             <td class="text-left" rowspan="1" colspan="1">30</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-65+Ed25519</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>)</td>
@@ -3089,6 +3050,28 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">35</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768+X25519</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 2400 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets X25519 ciphertext, 1088 octets ML-KEM-768 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">36</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024+X448</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 3168 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">N/A</td>
+            <td class="text-right" rowspan="1" colspan="1">56 octets X448 ciphertext, 1568 octets ML-KEM-1024 ciphertext [, 1 octet algorithm ID in case of v3 PKESK], 1 octet length field of value <code>n</code>, <code>n</code> octets wrapped session key (<a href="#ecc-mlkem-pkesk" class="auto internal xref">Section 4.3.1</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">
+              <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a>
 </td>
           </tr>
         </tbody>
@@ -3342,6 +3325,18 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
 </li>
           <li class="normal" id="section-12.12-1.4">
             <p id="section-12.12-1.4.1">Switch to hedged variant also for SLH-DSA<a href="#section-12.12-1.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="draft-ietf-openpgp-pqc-08">
+<section id="section-12.13">
+        <h3 id="name-draft-ietf-openpgp-pqc-08">
+<a href="#section-12.13" class="section-number selfRef">12.13. </a><a href="#name-draft-ietf-openpgp-pqc-08" class="section-name selfRef">draft-ietf-openpgp-pqc-08</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.13-1.1">
+            <p id="section-12.13-1.1.1">Assign code points 35 and 36 for ML-KEM algorithms.<a href="#section-12.13-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
