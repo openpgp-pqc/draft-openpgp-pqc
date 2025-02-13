@@ -917,7 +917,7 @@ The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature a
 During the transition period, the post-quantum algorithms will not be supported by all clients.
 Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
-## Encrypting to Traditional and PQ/T Keys
+## Encrypting to Traditional and PQ(/T) Keys
 
 As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ/T encryption schemes.
 An implementation SHOULD NOT abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
