@@ -128,8 +128,9 @@ Table of Contents
      7.1.  Symmetric Algorithms for SEIPD Packets
      7.2.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
-     8.1.  Key preference
-     8.2.  Key generation strategies
+     8.1.  Encrypting to Traditional and PQ(/T) Keys
+     8.2.  Signing with Traditional and PQ(/T) Keys
+     8.3.  Key generation strategies
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key combiner
@@ -370,8 +371,7 @@ Table of Contents
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
    encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.  In Section 8.1 it is explained how to deal
-   with multiple key scenarios.
+   T encryption schemes.
 
 3.2.  Composite Signatures
 
@@ -1064,28 +1064,23 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
-8.1.  Key preference
+8.1.  Encrypting to Traditional and PQ(/T) Keys
 
-   Implementations SHOULD prefer PQ(/T) keys when multiple options are
-   available.  When encrypting to a certificate that has both a valid
-   PQ/T and a valid traditional encryption subkey, an implementation
-   SHOULD use the PQ/T subkey only.  Furthermore, if an application has
-   any means to determine that encrypting to a PQ/T certificate and a
-   traditional certificate is redundant, it should omit encrypting to
-   the traditional certificate.
-
-   As specified in Section 3.1, the confidentiality of a message is not
+   As noted in Section 3.1, the confidentiality of a message is not
    post-quantum secure when using multiple PKESKs if at least one does
-   not use PQ/T encryption schemes.  An implementation SHOULD NOT abort
-   the encryption process when encrypting a message to both PQ/T and
-   traditional keys to allow for a smooth transition to post-quantum
+   not use PQ(/T) encryption schemes.  An implementation should not
+   abort the encryption process when encrypting a message to both PQ/T
+   and traditional keys to allow for a smooth transition to post-quantum
    cryptography.
 
-   An implementation MAY sign with both a PQ(/T) and an ECC key using
-   multiple signatures over the same data as described in Section 3.3.
-   Signing only with PQ(/T) key material is not backwards compatible.
+8.2.  Signing with Traditional and PQ(/T) Keys
 
-8.2.  Key generation strategies
+   An implementation may sign with both a PQ(/T) and a traditional key
+   using multiple signatures over the same data as described in
+   Section 3.3.  Signing only with PQ(/T) key material is not backwards
+   compatible.
+
+8.3.  Key generation strategies
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
@@ -1098,8 +1093,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    1.  Generate two independent certificates, one for PQ(/T)-capable
        implementations, and one for legacy implementations.
        Implementations not understanding PQ(/T) certificates can use the
-       legacy certificate, while PQ(/T)-capable implementations will
-       prefer the newer certificate.  This allows having a traditional
+       legacy certificate, while PQ(/T)-capable implementations can also
+       use the newer certificate.  This allows having a traditional
        certificate for compatibility and a v6 PQ(/T) certificate, at a
        greater complexity in key distribution.
 
