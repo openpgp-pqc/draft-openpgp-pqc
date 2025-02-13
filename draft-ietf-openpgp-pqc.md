@@ -945,17 +945,6 @@ Two migration strategies are recommended:
 
 # Security Considerations
 
-## Parallel Encryption to PQ/(T) and Traditional Keys
-
-This document does not specify how implementations should handle encrypting to PQ(/T) keys and traditional keys at the same time, and it is out of scope to define which encryption subkeys should be selected.
-However, implementers should be aware of the implications.
-
-If at least one PKESK packet for an encrypted message uses a traditional public-key algorithm, the message can be decrypted by a cryptographically relevant quantum computer (CRQC).
-While the existence of a CRQC is not yet known to the public at the time of writing this document, they may become a reality in the following years.
-This also affects the confidentiality of messages sent today due to the possibility of storing traditionally-encrypted messages and decrypting them later when a CRQC is available.
-This attack scenario is commonly referred to as "store now, decrypt later" or "harvest now, decrypt later".
-While ideally all implementations should switch to exclusively encrypting with PQ/T algorithms from a security standpoint, this breaks interoperability with all currently deployed traditional certificates and implementations that do not yet implement the PQ/T algorithms.
-
 ## Security Aspects of Composite Signatures
 
 When multiple signatures are applied to a message, the question of the protocol's resistance against signature stripping attacks naturally arises.
