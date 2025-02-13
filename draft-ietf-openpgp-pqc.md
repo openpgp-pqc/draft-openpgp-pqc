@@ -936,7 +936,7 @@ An OpenPGP certificate is composed of a certification-capable primary key and on
 Two migration strategies are recommended:
 
 1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
-   Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations will prefer the newer certificate.
+   Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations can also use the newer certificate.
    This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
 
 2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
