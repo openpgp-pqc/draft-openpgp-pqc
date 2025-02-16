@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-13T01:21:44.826291+00:00",
+  "timestamp": "2025-02-16T01:34:34.222565+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2986,15 +2986,15 @@
       "id": "I_kwDOIrmZ-86pacaA",
       "title": "\u00a78.1 contains normative guidance about key selection",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/165",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "In the [interim meeting](https://datatracker.ietf.org/meeting/interim-2025-openpgp-01/session/openpgp) today, some discussion around PQC's \u00a78.1's guidance on key selection.\n\nI think two related concerns were raised:\n\n- The section talks about \"preferring\" PQ/T  keys in the abstract over non-PQ/T keys, but then shifts into talking about encryption; does the same preference apply to signing/verifying?  i don't think it even makes sense to apply to decryption, but i guess that's worth asking as well.\n- The section seems to take a normative stance on selecting a single subkey for encryption, but there may be scenarios where that's not advisable for usability, even if it means giving up on the PQ resistance for the message in question.\n\nPerhaps the right way forward is to remove the normative guidance about key selection entirely, and just leave the note about how the post-quantum resistance only applies *if* a given message has not also been encrypted to a non-PQ key.",
       "createdAt": "2025-02-10T12:34:56Z",
-      "updatedAt": "2025-02-10T12:34:56Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-13T19:05:18Z",
+      "closedAt": "2025-02-13T19:05:18Z",
       "comments": []
     }
   ],
@@ -15651,7 +15651,7 @@
     {
       "number": 166,
       "id": "PR_kwDOIrmZ-86Ktkmo",
-      "title": "Remove hash binding for ML-DSA hybrid signatures",
+      "title": "Remove hash binding for signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/166",
       "state": "OPEN",
       "author": "wussler",
@@ -15660,13 +15660,13 @@
       "labels": [],
       "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
       "createdAt": "2025-02-10T21:21:33Z",
-      "updatedAt": "2025-02-12T22:34:11Z",
+      "updatedAt": "2025-02-14T10:20:07Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "remove-mldsa-binding",
-      "headRefOid": "0c8d0a1e03f76147f9a8f3778442c0050fca920e",
+      "headRefOid": "bbaf18ee89210ad5307a5a72bcc011c61a3e90b9",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -15720,6 +15720,13 @@
           "body": "See https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/166/commits/0c8d0a1e03f76147f9a8f3778442c0050fca920e for a proposal. I stripped the security considerations down to an essential information.\r\n\r\nLooking at the Pre-Hash Variants for ML-DSA that have received an OID (see https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration), I wonder if we want to settle with SHA3-512 and SHA2-512 for all ML-DSA-composites. That would make the list more comprehensive and we could drop the section \"Binding hashes ...\" in the security considerations completely.",
           "createdAt": "2025-02-11T14:49:07Z",
           "updatedAt": "2025-02-11T14:54:28Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This looks good to me. Did a rebase (hopefully didn't mess up anything) and some minor cleanups. Please comment and/or approve.\r\n\r\nDo we need to specify now the hash function that has been used for the signature data digest in test vector A.4?",
+          "createdAt": "2025-02-13T17:43:24Z",
+          "updatedAt": "2025-02-13T17:44:00Z"
         }
       ],
       "reviews": [
@@ -15922,6 +15929,72 @@
               "updatedAt": "2025-02-12T22:34:11Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b7LAg",
+          "commit": {
+            "abbreviatedOid": "1e521f0"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T19:04:12Z",
+          "updatedAt": "2025-02-13T19:04:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b8B2b",
+          "commit": {
+            "abbreviatedOid": "bbaf18e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I think the refactor messed it up the display a little, but looking at the diff it looks good to me. Can't approve because am author",
+          "createdAt": "2025-02-13T20:58:02Z",
+          "updatedAt": "2025-02-13T20:58:02Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b_dn9",
+          "commit": {
+            "abbreviatedOid": "bbaf18e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T08:50:27Z",
+          "updatedAt": "2025-02-14T08:50:27Z",
+          "comments": [
+            {
+              "originalPosition": 213,
+              "body": "1. I would not use the term \"binding\" any more.\r\n2. Since we do not change anything in the OpenPGP protocol we do not need to reiterate that signature data is hashed before signing, At least the reference to RFC 9580 is overkill IMO.\r\n3. The section seems to be about NIST security categories and how the salt helps to achieve higher security levels with \"weaker\" hash functions. There is no reference or introduction to the NIST security categories. I think that would be needed.\r\n\r\nSuggestion: Rework the section and title, make it about what NIST security categories are achieved.\r\n\r\nAlternative suggestion: Just remove it entirely. I think the benefit of the salt regarding collision / second preimage resistance is already part of RFC 9580. I'm not sure how relevant the NIST security categories are for this document.\r\n\r\nThird alternative: Just add a one-sentence statement about the salt and second-preimage resistance somewhere. \r\n\r\n",
+              "createdAt": "2025-02-14T08:50:27Z",
+              "updatedAt": "2025-02-14T08:50:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cAaWi",
+          "commit": {
+            "abbreviatedOid": "bbaf18e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T10:20:07Z",
+          "updatedAt": "2025-02-14T10:20:07Z",
+          "comments": [
+            {
+              "originalPosition": 213,
+              "body": "I just boiled down already existing text. But I see that it does not add that much anymore, now that we have removed the bindings. I would go with the alternative suggestion and remove the section completely, so that we simply add new signature algorithms build upon RFC9580.\r\n\r\n@wussler Do you agree to remove this section?",
+              "createdAt": "2025-02-14T10:20:07Z",
+              "updatedAt": "2025-02-14T10:22:18Z"
+            }
+          ]
         }
       ]
     },
@@ -15930,25 +16003,77 @@
       "id": "PR_kwDOIrmZ-86K1DIM",
       "title": "Remove normative guidance about key selection",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/167",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "closes #165 \r\n\r\nI split the migration considerations into the signing and encrypting case and remove the normative statements about which keys to prefer.\r\n\r\nFurther, I added some context in the security considerations, especially the \"store now, decrypt later\" attack scenario, since I feel this is the most important aspect in the current situation.\r\n\r\nI am happy for suggestions and improvements\r\n\r\n---\r\n\r\n> An implementation MAY sign with both a PQ(/T) and an ECC key [...]\r\n\r\nHere I changed \"ECC\" to \"traditional\" or did we have any specific reason why we write \"ECC\" instead?\r\n",
       "createdAt": "2025-02-11T16:20:16Z",
-      "updatedAt": "2025-02-12T12:30:09Z",
+      "updatedAt": "2025-02-13T19:05:17Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-165-drop-normative-key-selection",
-      "headRefOid": "78433e5473c53b8ffaf7b4a05b0f18b3dc2e480a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "9d3f48d08bfbde80144e4c61937da8053c67cfa2",
+      "closedAt": "2025-02-13T19:05:17Z",
+      "mergedAt": "2025-02-13T19:05:17Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "b6ea411a9113fa0e491938a63a31e69fdec5c657"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the input everybody. Do we all agree with the current state or are there still things we need to change?",
+          "createdAt": "2025-02-13T10:41:37Z",
+          "updatedAt": "2025-02-13T10:41:37Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we can have normative statements in that section or can we really not? Since it's not touching anything related to trust model or choosing keys, I would keep it like it is. @wussler what do you think?",
+          "createdAt": "2025-02-13T13:03:11Z",
+          "updatedAt": "2025-02-13T13:03:11Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "in [b0bfefe](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/167/commits/b0bfefe517df67f8aeaffa021f822a5608906e12) I reworded another part s.t. no preference for PQC keys is implied",
+          "createdAt": "2025-02-13T13:09:51Z",
+          "updatedAt": "2025-02-13T13:10:16Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I think we can have normative statements in that section or can we really not? Since it's not touching anything related to trust model or choosing keys, I would keep it like it is. @wussler what do you think?\r\n\r\nI would keep it like it is, that IMO should be normative",
+          "createdAt": "2025-02-13T15:46:23Z",
+          "updatedAt": "2025-02-13T15:46:23Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fine for me.",
+          "createdAt": "2025-02-13T16:30:37Z",
+          "updatedAt": "2025-02-13T16:30:37Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this PR requires a line in the changelog. Rest LGTM",
+          "createdAt": "2025-02-13T16:36:53Z",
+          "updatedAt": "2025-02-13T16:36:53Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@wussler added changelog entry",
+          "createdAt": "2025-02-13T16:42:07Z",
+          "updatedAt": "2025-02-13T16:42:07Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86boUEd",
@@ -16049,6 +16174,288 @@
               "updatedAt": "2025-02-12T12:30:09Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b03jz",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:06:18Z",
+          "updatedAt": "2025-02-13T09:06:18Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n## Encrypting to Traditional and PQ(/T) Keys\r\n```",
+              "createdAt": "2025-02-13T09:06:18Z",
+              "updatedAt": "2025-02-13T09:06:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b036S",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:06:44Z",
+          "updatedAt": "2025-02-13T09:06:45Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\nAs noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.\r\n```",
+              "createdAt": "2025-02-13T09:06:44Z",
+              "updatedAt": "2025-02-13T09:06:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b04nH",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:07:41Z",
+          "updatedAt": "2025-02-13T09:07:41Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "I think we should remove the sentence.",
+              "createdAt": "2025-02-13T09:07:41Z",
+              "updatedAt": "2025-02-13T09:07:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b05KX",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:08:16Z",
+          "updatedAt": "2025-02-13T09:08:16Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "I think that we can omit this section as this is not elaborating on security aspects of this technical specification but a general threat scenario applying to all public-key based encryption schemes. I think the fact stated in the migration considerations that all PKESKs must be PQ(/T) to be quantum safe is enough.",
+              "createdAt": "2025-02-13T09:08:16Z",
+              "updatedAt": "2025-02-13T09:13:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b1Ee9",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:25:11Z",
+          "updatedAt": "2025-02-13T09:25:12Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "The convention in the document seems to be to use `PQ/T` for encryption and `PQ(/T)` for signatures, since all encryption algorithms are `PQ/T` but for signatures we have `PQ` and `PQ/T` algorithms. I'm not sure if that's really necessary and I would not be against changing everything to PQ(/T) (in a separete PR)",
+              "createdAt": "2025-02-13T09:25:11Z",
+              "updatedAt": "2025-02-13T09:25:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b1bPe",
+          "commit": {
+            "abbreviatedOid": "78433e5"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T09:59:14Z",
+          "updatedAt": "2025-02-13T09:59:14Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "I wouldn't refer to \"today\" in an RFC. \r\n```suggestion\r\nThis also affects the confidentiality of messages sent in the pre-quantum era due to the possibility of storing traditionally-encrypted messages and decrypting them later when a CRQC is available.\r\n```",
+              "createdAt": "2025-02-13T09:59:14Z",
+              "updatedAt": "2025-02-13T09:59:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b1lFe",
+          "commit": {
+            "abbreviatedOid": "2604bbf"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T10:14:10Z",
+          "updatedAt": "2025-02-13T10:14:10Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nAn implementation should not abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.\r\n```",
+              "createdAt": "2025-02-13T10:14:10Z",
+              "updatedAt": "2025-02-13T10:14:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b2Ejn",
+          "commit": {
+            "abbreviatedOid": "2791a42"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T11:03:52Z",
+          "updatedAt": "2025-02-13T11:03:52Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nAn implementation may sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.\r\n```\r\nI would also put this in lower case to avoid normative language in the considerations section. This also applies to \"RECOMMENDED\" in the following section.",
+              "createdAt": "2025-02-13T11:03:52Z",
+              "updatedAt": "2025-02-13T11:06:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b2MYy",
+          "commit": {
+            "abbreviatedOid": "6505dbf"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "We have more normative language in the \"Key generation strategies\" section. That is,\r\n\r\n\"It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.\"\r\n\r\nI would propose to put that in lower case also.",
+          "createdAt": "2025-02-13T11:18:21Z",
+          "updatedAt": "2025-02-13T11:18:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b5vmF",
+          "commit": {
+            "abbreviatedOid": "b0bfefe"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T16:30:08Z",
+          "updatedAt": "2025-02-13T16:30:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b6IoA",
+          "commit": {
+            "abbreviatedOid": "9d3f48d"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T17:06:38Z",
+          "updatedAt": "2025-02-13T17:06:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 168,
+      "id": "PR_kwDOIrmZ-86LFfyh",
+      "title": "Assign ML-KEM code points and remove some notes to the reader",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/168",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-13T10:52:52Z",
+      "updatedAt": "2025-02-13T15:35:17Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "assign-encr-code-points",
+      "headRefOid": "cb9f89e22d7dbc60a2cf6734fee5a73f19af5a4f",
+      "closedAt": "2025-02-13T15:35:17Z",
+      "mergedAt": "2025-02-13T15:35:17Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "1824343af5897f07df635e5f90039d30e5087fe4"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I reworded it is that better?",
+          "createdAt": "2025-02-13T11:27:07Z",
+          "updatedAt": "2025-02-13T11:27:07Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, for me it's fine.",
+          "createdAt": "2025-02-13T12:24:32Z",
+          "updatedAt": "2025-02-13T12:24:32Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86b2LPb",
+          "commit": {
+            "abbreviatedOid": "1f8fd97"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Looks good to me.\r\n\r\nWe have another \"Note to the reader\" in section \"3.3. Multiple Signatures\". Is that to be removed as well before merging?\r\n\r\n",
+          "createdAt": "2025-02-13T11:16:13Z",
+          "updatedAt": "2025-02-13T11:16:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b2xSC",
+          "commit": {
+            "abbreviatedOid": "cb9f89e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T12:24:12Z",
+          "updatedAt": "2025-02-13T12:24:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86b5HEu",
+          "commit": {
+            "abbreviatedOid": "cb9f89e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T15:35:09Z",
+          "updatedAt": "2025-02-13T15:35:09Z",
+          "comments": []
         }
       ]
     }
