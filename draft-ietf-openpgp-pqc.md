@@ -676,14 +676,26 @@ The algorithm-specific public key is this series of values:
 
  - A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
-The algorithm-specific secret key is these two values:
+The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
-   The seed format is defined in accordance with [FIPS-203], Section 3.3.
-   Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
+ - A one-octet ML-KEM private key format specifier defined in {{mlkem-privkey-spec}}.
+
+ - An octet string containing the ML-KEM secret key.
+   The length depends on the private key format specifier in the previous field.
+
+#### ML-KEM Private Key Format Specifier {#mlkem-privkey-spec}
+
+{: title="ML-KEM Private Key Format Specifier" #tab-mlkem-privkey-spec}
+Octet Value | Name  | Private Key Size
+-----:| ------------ | ----------
+0x00  | Seed Format  | 64
+
+This document only defines one value for the ML-KEM private key format specifier which is the 64 byte long seed format.
+The seed format is defined in accordance with [FIPS-203], Section 3.3.
+Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
+Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
 # Composite Signature Schemes
 
@@ -795,20 +807,32 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
-The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:
+The algorithm-specific public key is this series of values:
 
  - A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
  - A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of values:
+The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare {{tab-mldsa-artifacts}}).
-   The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
-   Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
+ - A one-octet ML-DSA private key format specifier defined in {{mldsa-privkey-spec}}.
+
+ - An octet string containing the ML-DSA secret key.
+   The length depends on the private key format specifier in the previous field.
+
+#### ML-DSA Private Key Format Specifier {#mldsa-privkey-spec}
+
+{: title="ML-DSA Private Key Format Specifier" #tab-mldsa-privkey-spec}
+Octet Value | Name  | Private Key Size
+-----:| ------------ | ----------
+0x00  | Seed Format  | 32
+
+This document only defines one value for the ML-DSA private key format specifier which is the 32 byte long seed format.
+The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
+Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
+Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
 # SLH-DSA
 
@@ -1130,10 +1154,9 @@ ID     | Algorithm           | Public Key Format                                
 - Switch to hedged variant also for SLH-DSA.
 
 ## draft-ietf-openpgp-pqc-08
-- Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
-
-## draft-ietf-openpgp-pqc-08
 - Assign code points 35 and 36 for ML-KEM algorithms.
+- Add a private key format specifier for ML-DSA and ML-KEM private keys.
+- Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
 
 # Contributors
 
