@@ -713,15 +713,14 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 
 ### ML-DSA signatures {#mldsa-signature}
 
-Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA, i.e., in contrast to the pre-hash or deterministic variant, defined
-in [FIPS-204].
+Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in [FIPS-204].
 
-For ML-DSA signature generation the default hedged version of `ML-DSA.Sign` given in [FIPS-204] is used.
+For ML-DSA signature generation the default hedged version of the algorithm `ML-DSA.Sign` given in [FIPS-204] is used.
 That is, to sign with ML-DSA the following operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
-For ML-DSA signature verification the algorithm ML-DSA.Verify given in [FIPS-204] is used.
+For ML-DSA signature verification the algorithm `ML-DSA.Verify` given in [FIPS-204] is used.
 That is, to verify with ML-DSA the following operation is defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
@@ -736,20 +735,6 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 31                     | ML-DSA-87 | 2592       | 32         | 4627
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
-
-### Signature data digest {#mldsa-sig-data-digest}
-
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
-Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in {{tab-mldsa-hash}} for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.
-
-An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithm.
-
-{: title="Binding between ML-DSA + EdDSA and signature data digest" #tab-mldsa-hash}
-Algorithm ID reference | Hash function | Hash function ID reference
-----------------------:| ------------- | --------------------------
-30                     | SHA3-256      | 12
-31                     | SHA3-512      | 14
 
 ### Key generation procedure {#ecc-mldsa-generation}
 
@@ -826,28 +811,13 @@ Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA si
 33                       |  32                 | 64                 | 17088
 34                       |  64                 | 128                | 29792
 
-### Signature Data Digest {#slhdsa-sig-data-digest}
-
-Signature data (i.e. the data to be signed) is digested prior to signing operations, see [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
-SLH-DSA signatures MUST use the associated hash algorithm as specified in {{tab-slhdsa-hash}} for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.
-
-An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.
-
-{: title="Binding between SLH-DSA algorithm code points and signature data hash algorithms" #tab-slhdsa-hash}
-Algorithm ID reference   |  Hash function | Hash function ID reference
-----------------------:  |  ------------- | --------------------------
-32                       |  SHA3-256      | 12
-33                       |  SHA3-256      | 12
-34                       |  SHA3-512      | 14
-
 ### Key generation
 
 SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings as defined in {{slhdsa}}.
 
 ### Signature Generation
 
-SLH-DSA signature generation is performed via the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
+SLH-DSA signature generation is performed via the default hedged version of the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
 
 ### Signature Verification
 
@@ -980,16 +950,6 @@ The input of the public keys into `multiKeyCombine` binds the KEK to the communi
 
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
-
-## Binding hashes in signatures with signature algorithms
-
-In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.
-
-ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see {{mldsa-sig-data-digest}}.
-Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.
-
-In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see {{slhdsa-sig-data-digest}}.
 
 ## Symmetric Algorithms for SEIPD Packets
 
@@ -1124,16 +1084,14 @@ ID     | Algorithm           | Public Key Format                                
 - Fixed and improved test vectors.
 
 ## draft-ietf-openpgp-pqc-07
-- Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
-- Align KEM combiner with LAMPS.
-- Drop CCA-conversion of X25519/X448.
-- Switch to hedged variant also for SLH-DSA.
+- Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA algorithms.
+- Aligned KEM combiner with LAMPS.
+- Dropped CCA-conversion of X25519/X448 and adjusted security considerations.
+- Switched to hedged variant also for SLH-DSA.
 
 ## draft-ietf-openpgp-pqc-08
-- Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
-
-## draft-ietf-openpgp-pqc-08
-- Assign code points 35 and 36 for ML-KEM algorithms.
+- Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
+- Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 
 # Contributors
 
@@ -1329,7 +1287,7 @@ The hex-encoded session key is `670c31af0c5224a9d590584c23679cb643860716225e4802
 
 
 
-## Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+## Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-128s}
 
