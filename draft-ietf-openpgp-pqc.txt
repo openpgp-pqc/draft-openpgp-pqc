@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 17 August 2025                                      F. Strenzke
+Expires: 22 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        13 February 2025
+                                                        18 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2025.
+   This Internet-Draft will expire on 22 August 2025.
 
 Copyright Notice
 
@@ -110,19 +110,17 @@ Table of Contents
        5.1.1.  EdDSA-Based signatures
        5.1.2.  ML-DSA signatures
      5.2.  Composite Signature Schemes with ML-DSA
-       5.2.1.  Signature data digest
-       5.2.2.  Key generation procedure
-       5.2.3.  Signature Generation
-       5.2.4.  Signature Verification
+       5.2.1.  Key generation procedure
+       5.2.2.  Signature Generation
+       5.2.3.  Signature Verification
      5.3.  Packet Specifications
        5.3.1.  Signature Packet (Tag 2)
        5.3.2.  Key Material Packets
    6.  SLH-DSA
      6.1.  The SLH-DSA Algorithms
-       6.1.1.  Signature Data Digest
-       6.1.2.  Key generation
-       6.1.3.  Signature Generation
-       6.1.4.  Signature Verification
+       6.1.1.  Key generation
+       6.1.2.  Signature Generation
+       6.1.3.  Signature Verification
      6.2.  Packet specifications
        6.2.1.  Signature Packet (Tag 2)
        6.2.2.  Key Material Packets
@@ -138,9 +136,8 @@ Table of Contents
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
      9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Binding hashes in signatures with signature algorithms
-     9.5.  Symmetric Algorithms for SEIPD Packets
-     9.6.  Key generation
+     9.4.  Symmetric Algorithms for SEIPD Packets
+     9.5.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -158,7 +155,6 @@ Table of Contents
      12.11. draft-ietf-openpgp-pqc-06
      12.12. draft-ietf-openpgp-pqc-07
      12.13. draft-ietf-openpgp-pqc-08
-     12.14. draft-ietf-openpgp-pqc-08
    13. Contributors
    14. References
      14.1.  Normative References
@@ -176,7 +172,7 @@ Table of Contents
        A.3.1.  Transferable Secret Key
        A.3.2.  Transferable Public Key
        A.3.3.  Encrypted and Signed Message
-     A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+     A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
        A.4.1.  Transferable Secret Key
        A.4.2.  Transferable Public Key
        A.4.3.  Encrypted and Signed Message
@@ -829,12 +825,11 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 5.1.2.  ML-DSA signatures
 
    Throughout this specification ML-DSA refers to the default pure and
-   hedged version of ML-DSA, i.e., in contrast to the pre-hash or
-   deterministic variant, defined in [FIPS-204].
+   hedged version of ML-DSA defined in [FIPS-204].
 
-   For ML-DSA signature generation the default hedged version of ML-
-   DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
-   the following operation is defined:
+   For ML-DSA signature generation the default hedged version of the
+   algorithm ML-DSA.Sign given in [FIPS-204] is used.  That is, to sign
+   with ML-DSA the following operation is defined:
 
    (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
@@ -861,31 +856,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 5.2.  Composite Signature Schemes with ML-DSA
 
-5.2.1.  Signature data digest
-
-   Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
-   signatures MUST use the associated hash algorithm as specified in
-   Table 8 for the signature data digest.  Signatures using other hash
-   algorithms MUST be considered invalid.
-
-   An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
-   also support the matching hash algorithm.
-
-        +========================+===============+===============+
-        | Algorithm ID reference | Hash function | Hash function |
-        |                        |               | ID reference  |
-        +========================+===============+===============+
-        |                     30 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     31 | SHA3-512      | 14            |
-        +------------------------+---------------+---------------+
-
-          Table 8: Binding between ML-DSA + EdDSA and signature
-                               data digest
-
-5.2.2.  Key generation procedure
+5.2.1.  Key generation procedure
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
@@ -895,7 +866,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    artifacts as specified in Section 5.1.1 as fixed-length octet
    strings.
 
-5.2.3.  Signature Generation
+5.2.2.  Signature Generation
 
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
@@ -912,7 +883,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    4.  Encode the EdDSA and ML-DSA signatures according to the packet
        structure given in Section 5.3.1.
 
-5.2.4.  Signature Verification
+5.2.3.  Signature Verification
 
    To verify an ML-DSA + EdDSA signature the following sequence of
    operations has to be performed:
@@ -996,47 +967,21 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 9: SLH-DSA algorithm code points and the corresponding
+       Table 8: SLH-DSA algorithm code points and the corresponding
                        artifact lengths in octets.
 
-6.1.1.  Signature Data Digest
-
-   Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA signatures MUST use
-   the associated hash algorithm as specified in Table 10 for the
-   signature data digest.  Signatures using other hash algorithms MUST
-   be considered invalid.
-
-   An implementation supporting a specific SLH-DSA algorithm code point
-   MUST also support the matching hash algorithm.
-
-        +========================+===============+===============+
-        | Algorithm ID reference | Hash function | Hash function |
-        |                        |               | ID reference  |
-        +========================+===============+===============+
-        |                     32 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     33 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     34 | SHA3-512      | 14            |
-        +------------------------+---------------+---------------+
-
-             Table 10: Binding between SLH-DSA algorithm code
-                points and signature data hash algorithms
-
-6.1.2.  Key generation
+6.1.1.  Key generation
 
    SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
    as specified in [FIPS-205], and the artifacts are encoded as fixed-
    length octet strings as defined in Section 6.1.
 
-6.1.3.  Signature Generation
+6.1.2.  Signature Generation
 
-   SLH-DSA signature generation is performed via the algorithm SLH-
-   DSA.Sign as specified in [FIPS-205].
+   SLH-DSA signature generation is performed via the default hedged
+   version of the algorithm SLH-DSA.Sign as specified in [FIPS-205].
 
-6.1.4.  Signature Verification
+6.1.3.  Signature Verification
 
    SLH-DSA signature verification is performed via the algorithm SLH-
    DSA.Verify as specified in [FIPS-205].
@@ -1054,7 +999,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 9.
+      Table 8.
 
 6.2.2.  Key Material Packets
 
@@ -1065,12 +1010,12 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
 7.  Notes on Algorithms
 
@@ -1258,25 +1203,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Binding hashes in signatures with signature algorithms
-
-   In order not to extend the attack surface, we bind the hash algorithm
-   used for signature data digestion to the hash algorithm used
-   internally by the signature algorithm.
-
-   ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3
-   in the ML-DSA + EdDSA signature packet, see Section 5.2.1.  Note that
-   we bind a NIST security category 2 hash function to a signature
-   algorithm that falls into NIST security category 3.  This does not
-   constitute a security bottleneck: because of the unpredictable random
-   salt that is prepended to the digested data in v6 signatures, the
-   hardness assumption is not collision resistance but second-preimage
-   resistance.
-
-   In the case of SLH-DSA the internal hash algorithm varies based on
-   the algorithm ID, see Section 6.1.1.
-
-9.5.  Symmetric Algorithms for SEIPD Packets
+9.4.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1291,7 +1218,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.6.  Key generation
+9.5.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1351,7 +1278,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 11 to the
+   IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in brackets for the ML-KEM + ECDH composite
    algorithms denote fields that are only conditionally contained in the
@@ -1397,23 +1324,23 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
    |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
@@ -1454,7 +1381,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    |  |            |       |       |         |       4.3.1) |         |
    +--+------------+-------+-------+---------+--------------+---------+
 
-   Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1573,22 +1500,21 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 12.12.  draft-ietf-openpgp-pqc-07
 
-   *  Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
+   *  Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA
+      algorithms.
 
-   *  Align KEM combiner with LAMPS.
+   *  Aligned KEM combiner with LAMPS.
 
-   *  Drop CCA-conversion of X25519/X448.
+   *  Dropped CCA-conversion of X25519/X448 and adjusted security
+      considerations.
 
-   *  Switch to hedged variant also for SLH-DSA.
+   *  Switched to hedged variant also for SLH-DSA.
 
 12.13.  draft-ietf-openpgp-pqc-08
 
-   *  Remove normative guidance in the migration considerations for
-      selecting PQ(/T) keys.
+   *  Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
 
-12.14.  draft-ietf-openpgp-pqc-08
-
-   *  Assign code points 35 and 36 for ML-KEM algorithms.
+   *  Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 
 13.  Contributors
 
@@ -3654,7 +3580,7 @@ A.3.3.  Encrypted and Signed Message
    tjRfiOLyEbBRP5Y=
    -----END PGP MESSAGE-----
 
-A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
 
 A.4.1.  Transferable Secret Key
 

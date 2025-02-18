@@ -14,12 +14,12 @@
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.26.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -440,7 +440,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 17 August 2025</td>
+<td class="center">Expires 22 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-13" class="published">13 February 2025</time>
+<time datetime="2025-02-18" class="published">18 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-17">17 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-22">22 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1291,16 +1291,13 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-composite-signature-schemes-" class="internal xref">Composite Signature Schemes with ML-DSA</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-signature-data-digest" class="internal xref">Signature data digest</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-key-generation-procedure-2" class="internal xref">Key generation procedure</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-key-generation-procedure-2" class="internal xref">Key generation procedure</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-signature-generation" class="internal xref">Signature Generation</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.4">
-                    <p id="section-toc.1-1.5.2.2.2.4.1"><a href="#section-5.2.4" class="auto internal xref">5.2.4</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
 </li>
                 </ul>
 </li>
@@ -1324,16 +1321,13 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-slh-dsa-algorithms" class="internal xref">The SLH-DSA Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
-                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-signature-data-digest-2" class="internal xref">Signature Data Digest</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-key-generation" class="internal xref">Key generation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.2">
-                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-key-generation" class="internal xref">Key generation</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-signature-generation-2" class="internal xref">Signature Generation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.3">
-                    <p id="section-toc.1-1.6.2.1.2.3.1"><a href="#section-6.1.3" class="auto internal xref">6.1.3</a>.  <a href="#name-signature-generation-2" class="internal xref">Signature Generation</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.4">
-                    <p id="section-toc.1-1.6.2.1.2.4.1"><a href="#section-6.1.4" class="auto internal xref">6.1.4</a>.  <a href="#name-signature-verification-2" class="internal xref">Signature Verification</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.3.1"><a href="#section-6.1.3" class="auto internal xref">6.1.3</a>.  <a href="#name-signature-verification-2" class="internal xref">Signature Verification</a></p>
 </li>
                 </ul>
 </li>
@@ -1393,13 +1387,10 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="internal xref">ML-DSA and SLH-DSA hedged variants</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-hashes-in-signature" class="internal xref">Binding hashes in signatures with signature algorithms</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
 </li>
             </ul>
 </li>
@@ -1455,9 +1446,6 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.13">
                 <p id="section-toc.1-1.12.2.13.1"><a href="#section-12.13" class="auto internal xref">12.13</a>. <a href="#name-draft-ietf-openpgp-pqc-08" class="internal xref">draft-ietf-openpgp-pqc-08</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.14">
-                <p id="section-toc.1-1.12.2.14.1"><a href="#section-12.14" class="auto internal xref">12.14</a>. <a href="#name-draft-ietf-openpgp-pqc-08-2" class="internal xref">draft-ietf-openpgp-pqc-08</a></p>
 </li>
             </ul>
 </li>
@@ -1521,7 +1509,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4">
-                <p id="section-toc.1-1.15.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-sample-slh-dsa-128sed448-wi" class="internal xref">Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data</a></p>
+                <p id="section-toc.1-1.15.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-sample-slh-dsa-128s-with-ml" class="internal xref">Sample SLH-DSA-128s with ML-KEM-768+X25519 Data</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4.2.1">
                     <p id="section-toc.1-1.15.2.4.2.1.1"><a href="#appendix-A.4.1" class="auto internal xref">A.4.1</a>.  <a href="#name-transferable-secret-key-4" class="internal xref">Transferable Secret Key</a></p>
@@ -2399,16 +2387,15 @@ The following table describes the EdDSA parameters and artifact lengths:<a href=
           <h4 id="name-ml-dsa-signatures">
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-ml-dsa-signatures" class="section-name selfRef">ML-DSA signatures</a>
           </h4>
-<p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA, i.e., in contrast to the pre-hash or deterministic variant, defined
-in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of the algorithm <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
 That is, to sign with ML-DSA the following operation is defined:<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-3">
 <pre>
 (mldsaSignature) &lt;- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 </pre><a href="#section-5.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm ML-DSA.Verify given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm <code>ML-DSA.Verify</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
 That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-5">
 <pre>
@@ -2459,91 +2446,53 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
         <h3 id="name-composite-signature-schemes-">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-composite-signature-schemes-" class="section-name selfRef">Composite Signature Schemes with ML-DSA</a>
         </h3>
-<div id="mldsa-sig-data-digest">
-<section id="section-5.2.1">
-          <h4 id="name-signature-data-digest">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature data digest</a>
-          </h4>
-<p id="section-5.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-mldsa-hash" class="auto internal xref">Table 8</a> for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-2">An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithm.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
-<span id="name-binding-between-ml-dsa-edds"></span><div id="tab-mldsa-hash">
-<table class="center" id="table-8">
-            <caption>
-<a href="#table-8" class="selfRef">Table 8</a>:
-<a href="#name-binding-between-ml-dsa-edds" class="selfRef">Binding between ML-DSA + EdDSA and signature data digest</a>
-            </caption>
-<thead>
-              <tr>
-                <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-                <th class="text-left" rowspan="1" colspan="1">Hash function</th>
-                <th class="text-left" rowspan="1" colspan="1">Hash function ID reference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">30</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
-                <td class="text-left" rowspan="1" colspan="1">12</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">31</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-512</td>
-                <td class="text-left" rowspan="1" colspan="1">14</td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-</section>
-</div>
 <div id="ecc-mldsa-generation">
-<section id="section-5.2.2">
+<section id="section-5.2.1">
           <h4 id="name-key-generation-procedure-2">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key generation procedure</a>
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key generation procedure</a>
           </h4>
-<p id="section-5.2.2-1">The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
+<p id="section-5.2.1-1">The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
 ML-DSA key generation follows the specification <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and the artifacts are encoded as fixed-length octet strings as defined in <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a>.
-For EdDSA this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the artifacts as specified in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a> as fixed-length octet strings.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+For EdDSA this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the artifacts as specified in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a> as fixed-length octet strings.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation">
-<section id="section-5.2.3">
+<section id="section-5.2.2">
           <h4 id="name-signature-generation">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-signature-generation" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-5.2.3-1">To sign a message <code>M</code> with ML-DSA + EdDSA the following sequence of operations has to be performed:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
-<li id="section-5.2.3-2.1">
-              <p id="section-5.2.3-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-1">To sign a message <code>M</code> with ML-DSA + EdDSA the following sequence of operations has to be performed:<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.2-2">
+<li id="section-5.2.2-2.1">
+              <p id="section-5.2.2-2.1.1">Generate <code>dataDigest</code> according to <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a><a href="#section-5.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.3-2.2">
-              <p id="section-5.2.3-2.2.1">Create the EdDSA signature over <code>dataDigest</code> with <code>EdDSA.Sign()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.2-2.2">
+              <p id="section-5.2.2-2.2.1">Create the EdDSA signature over <code>dataDigest</code> with <code>EdDSA.Sign()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.3-2.3">
-              <p id="section-5.2.3-2.3.1">Create the ML-DSA signature over <code>dataDigest</code> with <code>ML-DSA.Sign()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.3.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.2-2.3">
+              <p id="section-5.2.2-2.3.1">Create the ML-DSA signature over <code>dataDigest</code> with <code>ML-DSA.Sign()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.3-2.4">
-              <p id="section-5.2.3-2.4.1">Encode the EdDSA and ML-DSA signatures according to the packet structure given in <a href="#ecc-mldsa-sig-packet" class="auto internal xref">Section 5.3.1</a>.<a href="#section-5.2.3-2.4.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.2-2.4">
+              <p id="section-5.2.2-2.4.1">Encode the EdDSA and ML-DSA signatures according to the packet structure given in <a href="#ecc-mldsa-sig-packet" class="auto internal xref">Section 5.3.1</a>.<a href="#section-5.2.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
 </div>
 <div id="signature-verification">
-<section id="section-5.2.4">
+<section id="section-5.2.3">
           <h4 id="name-signature-verification">
-<a href="#section-5.2.4" class="section-number selfRef">5.2.4. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-5.2.4-1">To verify an ML-DSA + EdDSA signature the following sequence of operations has to be performed:<a href="#section-5.2.4-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.2.4-2">
-<li id="section-5.2.4-2.1">
-              <p id="section-5.2.4-2.1.1">Verify the EdDSA signature with <code>EdDSA.Verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.4-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2.3-1">To verify an ML-DSA + EdDSA signature the following sequence of operations has to be performed:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2.3-2">
+<li id="section-5.2.3-2.1">
+              <p id="section-5.2.3-2.1.1">Verify the EdDSA signature with <code>EdDSA.Verify()</code> from <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.2.4-2.2">
-              <p id="section-5.2.4-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.4-2.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.2.3-2.2">
+              <p id="section-5.2.3-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.2.4-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation MUST validate both signatures, i.e. EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.3-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation MUST validate both signatures, i.e. EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2617,9 +2566,9 @@ Upon parsing the private key format, or before using the secret key, for the exp
 <p id="section-6.1-1">The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
 This group of algorithms is henceforth referred to as "SLH-DSA code points".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <span id="name-slh-dsa-algorithm-code-poin"></span><div id="slhdsa-artifact-lengths">
-<table class="center" id="table-9">
+<table class="center" id="table-8">
           <caption>
-<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#table-8" class="selfRef">Table 8</a>:
 <a href="#name-slh-dsa-algorithm-code-poin" class="selfRef">SLH-DSA algorithm code points and the corresponding artifact lengths in octets.</a>
           </caption>
 <thead>
@@ -2652,71 +2601,28 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           </tbody>
         </table>
 </div>
-<div id="slhdsa-sig-data-digest">
-<section id="section-6.1.1">
-          <h4 id="name-signature-data-digest-2">
-<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
-          </h4>
-<p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
-Signatures using other hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
-<span id="name-binding-between-slh-dsa-alg"></span><div id="tab-slhdsa-hash">
-<table class="center" id="table-10">
-            <caption>
-<a href="#table-10" class="selfRef">Table 10</a>:
-<a href="#name-binding-between-slh-dsa-alg" class="selfRef">Binding between SLH-DSA algorithm code points and signature data hash algorithms</a>
-            </caption>
-<thead>
-              <tr>
-                <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-                <th class="text-left" rowspan="1" colspan="1">Hash function</th>
-                <th class="text-left" rowspan="1" colspan="1">Hash function ID reference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">32</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
-                <td class="text-left" rowspan="1" colspan="1">12</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">33</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
-                <td class="text-left" rowspan="1" colspan="1">12</td>
-              </tr>
-              <tr>
-                <td class="text-right" rowspan="1" colspan="1">34</td>
-                <td class="text-left" rowspan="1" colspan="1">SHA3-512</td>
-                <td class="text-left" rowspan="1" colspan="1">14</td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-</section>
-</div>
 <div id="key-generation">
-<section id="section-6.1.2">
+<section id="section-6.1.1">
           <h4 id="name-key-generation">
-<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
           </h4>
-<p id="section-6.1.2-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings as defined in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings as defined in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation-1">
-<section id="section-6.1.3">
+<section id="section-6.1.2">
           <h4 id="name-signature-generation-2">
-<a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
+<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-6.1.3-1">SLH-DSA signature generation is performed via the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-1">SLH-DSA signature generation is performed via the default hedged version of the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
-<section id="section-6.1.4">
+<section id="section-6.1.3">
           <h4 id="name-signature-verification-2">
-<a href="#section-6.1.4" class="section-number selfRef">6.1.4. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
+<a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-6.1.4-1">SLH-DSA signature verification is performed via the algorithm <code>SLH-DSA.Verify</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.3-1">SLH-DSA signature verification is performed via the algorithm <code>SLH-DSA.Verify</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2735,7 +2641,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.1-3.1">
-              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2749,13 +2655,13 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-3.1">
-              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-5.1">
-              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2914,38 +2820,26 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="binding-hashes-in-signatures-with-signature-algorithms">
-<section id="section-9.4">
-        <h3 id="name-binding-hashes-in-signature">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-hashes-in-signature" class="section-name selfRef">Binding hashes in signatures with signature algorithms</a>
-        </h3>
-<p id="section-9.4-1">In order not to extend the attack surface, we bind the hash algorithm used for signature data digestion to the hash algorithm used internally by the signature algorithm.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
-<p id="section-9.4-2">ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3 in the ML-DSA + EdDSA signature packet, see <a href="#mldsa-sig-data-digest" class="auto internal xref">Section 5.2.1</a>.
-Note that we bind a NIST security category 2 hash function to a signature algorithm that falls into NIST security category 3.
-This does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
-<p id="section-9.4-3">In the case of SLH-DSA the internal hash algorithm varies based on the algorithm ID, see <a href="#slhdsa-sig-data-digest" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.5-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.4-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
-<p id="section-9.5-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-generation-1">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-key-generation-2">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
         </h3>
-<p id="section-9.6-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2986,12 +2880,12 @@ Based on the performance measurements published in the NIST submissions for SLH-
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 11</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
+<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 9</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
 The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
-<table class="center" id="table-11">
+<table class="center" id="table-9">
         <caption>
-<a href="#table-11" class="selfRef">Table 11</a>:
+<a href="#table-9" class="selfRef">Table 9</a>:
 <a href="#name-iana-updates-for-registry-o" class="selfRef">IANA updates for registry 'OpenPGP Public Key Algorithms'</a>
         </caption>
 <thead>
@@ -3031,9 +2925,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">32</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3042,9 +2936,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">33</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3053,9 +2947,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">34</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3324,16 +3218,16 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </h3>
 <ul class="normal">
 <li class="normal" id="section-12.12-1.1">
-            <p id="section-12.12-1.1.1">Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.<a href="#section-12.12-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-12.12-1.1.1">Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA algorithms.<a href="#section-12.12-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-12.12-1.2">
-            <p id="section-12.12-1.2.1">Align KEM combiner with LAMPS.<a href="#section-12.12-1.2.1" class="pilcrow">¶</a></p>
+            <p id="section-12.12-1.2.1">Aligned KEM combiner with LAMPS.<a href="#section-12.12-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-12.12-1.3">
-            <p id="section-12.12-1.3.1">Drop CCA-conversion of X25519/X448.<a href="#section-12.12-1.3.1" class="pilcrow">¶</a></p>
+            <p id="section-12.12-1.3.1">Dropped CCA-conversion of X25519/X448 and adjusted security considerations.<a href="#section-12.12-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-12.12-1.4">
-            <p id="section-12.12-1.4.1">Switch to hedged variant also for SLH-DSA.<a href="#section-12.12-1.4.1" class="pilcrow">¶</a></p>
+            <p id="section-12.12-1.4.1">Switched to hedged variant also for SLH-DSA.<a href="#section-12.12-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -3345,19 +3239,10 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </h3>
 <ul class="normal">
 <li class="normal" id="section-12.13-1.1">
-            <p id="section-12.13-1.1.1">Remove normative guidance in the migration considerations for selecting PQ(/T) keys.<a href="#section-12.13-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-12.13-1.1.1">Assign code points 35 and 36 for ML-KEM + ECDH algorithms.<a href="#section-12.13-1.1.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
-</section>
-</div>
-<div id="draft-ietf-openpgp-pqc-08-1">
-<section id="section-12.14">
-        <h3 id="name-draft-ietf-openpgp-pqc-08-2">
-<a href="#section-12.14" class="section-number selfRef">12.14. </a><a href="#name-draft-ietf-openpgp-pqc-08-2" class="section-name selfRef">draft-ietf-openpgp-pqc-08</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-12.14-1.1">
-            <p id="section-12.14-1.1.1">Assign code points 35 and 36 for ML-KEM algorithms.<a href="#section-12.14-1.1.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-12.13-1.2">
+            <p id="section-12.13-1.2.1">Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.<a href="#section-12.13-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -5530,10 +5415,10 @@ tjRfiOLyEbBRP5Y=
 </div>
 </section>
 </div>
-<div id="sample-slh-dsa-128sed448-with-ml-kem-768x25519-data">
+<div id="sample-slh-dsa-128s-with-ml-kem-768x25519-data">
 <section id="appendix-A.4">
-        <h3 id="name-sample-slh-dsa-128sed448-wi">
-<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-sample-slh-dsa-128sed448-wi" class="section-name selfRef">Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data</a>
+        <h3 id="name-sample-slh-dsa-128s-with-ml">
+<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-sample-slh-dsa-128s-with-ml" class="section-name selfRef">Sample SLH-DSA-128s with ML-KEM-768+X25519 Data</a>
         </h3>
 <div id="test-vector-sec-slhdsa-128s">
 <section id="appendix-A.4.1">
