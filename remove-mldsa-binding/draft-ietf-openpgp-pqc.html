@@ -14,12 +14,12 @@
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.26.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -440,7 +440,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 17 August 2025</td>
+<td class="center">Expires 22 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-13" class="published">13 February 2025</time>
+<time datetime="2025-02-18" class="published">18 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-17">17 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-22">22 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1387,13 +1387,10 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-ml-dsa-and-slh-dsa-hedged-v" class="internal xref">ML-DSA and SLH-DSA hedged variants</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-binding-data-digests-and-si" class="internal xref">Binding data digests and signature algorithms</a></p>
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.5">
-                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-symmetric-algorithms-for-sei" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.6">
-                <p id="section-toc.1-1.9.2.6.1"><a href="#section-9.6" class="auto internal xref">9.6</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-9.5" class="auto internal xref">9.5</a>.  <a href="#name-key-generation-2" class="internal xref">Key generation</a></p>
 </li>
             </ul>
 </li>
@@ -2823,35 +2820,26 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="binding-data-digests-and-signature-algorithms">
-<section id="section-9.4">
-        <h3 id="name-binding-data-digests-and-si">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-binding-data-digests-and-si" class="section-name selfRef">Binding data digests and signature algorithms</a>
-        </h3>
-<p id="section-9.4-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-Binding a NIST security category 2 hash function (e.g. SHA3-256) to a signature algorithm that falls into NIST security category 3 or 5 does not constitute a security bottleneck: because of the unpredictable random salt that is prepended to the digested data in v6 signatures, the hardness assumption is not collision resistance but second-preimage resistance.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="symmetric-algorithms-for-seipd-packets-1">
-<section id="section-9.5">
+<section id="section-9.4">
         <h3 id="name-symmetric-algorithms-for-sei">
-<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-symmetric-algorithms-for-sei" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
-<p id="section-9.5-1">This specification mandates support for <code>AES-256</code> for two reasons.
+<p id="section-9.4-1">This specification mandates support for <code>AES-256</code> for two reasons.
 First, <code>AES-KeyWrap</code> with <code>AES-256</code> is already part of the composite KEM construction.
-Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
-<p id="section-9.5-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
+Second, some of the PQ(/T) algorithms target the security level of <code>AES-256</code>.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<p id="section-9.4-2">For the same reasons, this specification further recommends the use of <code>AES-256</code> if it is supported by all recipient certificates, regardless of what the implementation would otherwise choose based on the recipients' preferences.
 This recommendation should be understood as a clear and simple rule for the selection of <code>AES-256</code> for encryption.
-Implementations may also make more nuanced decisions.<a href="#section-9.5-2" class="pilcrow">¶</a></p>
+Implementations may also make more nuanced decisions.<a href="#section-9.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-generation-1">
-<section id="section-9.6">
+<section id="section-9.5">
         <h3 id="name-key-generation-2">
-<a href="#section-9.6" class="section-number selfRef">9.6. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
+<a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-key-generation-2" class="section-name selfRef">Key generation</a>
         </h3>
-<p id="section-9.6-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.6-1" class="pilcrow">¶</a></p>
+<p id="section-9.5-1">When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
