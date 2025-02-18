@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-16T01:34:34.222565+00:00",
+  "timestamp": "2025-02-18T01:21:25.141099+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -2995,6 +2995,40 @@
       "createdAt": "2025-02-10T12:34:56Z",
       "updatedAt": "2025-02-13T19:05:18Z",
       "closedAt": "2025-02-13T19:05:18Z",
+      "comments": []
+    },
+    {
+      "number": 169,
+      "id": "I_kwDOIrmZ-86qTsdY",
+      "title": "ML-KEM and ML-DSA Private Key Format Specifier",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/169",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We plan to go with the seed-only format for now. However, in order to not block future changes, we want to add a one-octet format specifier. For now, only one value for the seed format shall be defined.",
+      "createdAt": "2025-02-17T09:35:54Z",
+      "updatedAt": "2025-02-17T09:35:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 170,
+      "id": "I_kwDOIrmZ-86qTtJa",
+      "title": "Update Test Vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/170",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "wussler"
+      ],
+      "labels": [],
+      "body": "After #169 is resolved",
+      "createdAt": "2025-02-17T09:37:03Z",
+      "updatedAt": "2025-02-17T09:40:11Z",
+      "closedAt": null,
       "comments": []
     }
   ],
