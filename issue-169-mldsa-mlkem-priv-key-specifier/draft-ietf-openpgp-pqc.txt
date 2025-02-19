@@ -797,7 +797,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
              |        0x00 | Seed Format | 64               |
              +-------------+-------------+------------------+
 
-               Table 6: ML-KEM Private Key Format Specifier
+              Table 6: ML-KEM Private Key Format Identifier
 
    This document only defines one value for the ML-KEM private key
    format specifier which is the 64 byte long seed format.  The seed
