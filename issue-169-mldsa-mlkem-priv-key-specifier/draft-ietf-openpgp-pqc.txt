@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 22 August 2025                                      F. Strenzke
+Expires: 23 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        18 February 2025
+                                                        19 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2025.
+   This Internet-Draft will expire on 23 August 2025.
 
 Copyright Notice
 
@@ -782,7 +782,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       encoding and length depend on the algorithm ID as specified in
       Section 4.1.1.
 
-   *  A one-octet ML-KEM private key format specifier defined in
+   *  A one-octet ML-KEM private key format identifier defined in
       Section 4.3.2.1.
 
    *  An octet string containing the ML-KEM secret key.  The length
