@@ -817,8 +817,7 @@ The algorithm-specific secret key is this series of values:
 
  - A one-octet ML-DSA private key format identifier defined in {{mldsa-privkey-spec}}.
 
- - An octet string containing the ML-DSA secret key.
-   The length depends on the private key format specifier in the previous field.
+ - An octet string containing the ML-DSA secret key, whose length depends on the private key format identifier in the previous field.
 
 #### ML-DSA Private Key Format Specifier {#mldsa-privkey-spec}
 
