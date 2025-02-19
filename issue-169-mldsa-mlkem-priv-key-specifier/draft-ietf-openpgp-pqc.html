@@ -2343,8 +2343,7 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
               </tbody>
             </table>
 </div>
-<p id="section-4.3.2.1-2">This document only defines one value for the ML-KEM private key format specifier which is the 64 byte long seed format.
-The seed format is defined in accordance with <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, Section 3.3.
+<p id="section-4.3.2.1-2">The seed format is defined in accordance with <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, Section 3.3.
 Namely, the secret key is given by the concatenation of the values of <code>d</code>  and <code>z</code>, generated in steps 1 and 2 of <code>ML-KEM.KeyGen</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, each of a length of 32 octets.
 Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function <code>ML-KEM.KeyGen_internal</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> has to be invoked with the parsed values of <code>d</code> and <code>z</code> as input.<a href="#section-4.3.2.1-2" class="pilcrow">¶</a></p>
 </section>
@@ -2621,7 +2620,7 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
               <p id="section-5.3.2-5.1.1">A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.2-5.2">
-              <p id="section-5.3.2-5.2.1">A one-octet ML-DSA private key format specifier defined in <a href="#mldsa-privkey-spec" class="auto internal xref">Section 5.3.2.1</a>.<a href="#section-5.3.2-5.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-5.2.1">A one-octet ML-DSA private key format identifier defined in <a href="#mldsa-privkey-spec" class="auto internal xref">Section 5.3.2.1</a>.<a href="#section-5.3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.2-5.3">
               <p id="section-5.3.2-5.3.1">An octet string containing the ML-DSA secret key.
