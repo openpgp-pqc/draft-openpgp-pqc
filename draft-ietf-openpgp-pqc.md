@@ -826,7 +826,6 @@ ID | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 32
 
-This document only defines one value for the ML-DSA private key format specifier which is the 32 byte long seed format.
 The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
 Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
 Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
