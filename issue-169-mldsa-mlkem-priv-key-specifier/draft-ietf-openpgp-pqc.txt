@@ -1613,7 +1613,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Assign code points 35 and 36 for ML-KEM algorithms.
 
-   *  Add a private key format specifier for ML-DSA and ML-KEM private
+   *  Add a private key format identifier for ML-DSA and ML-KEM private
       keys.
 
    *  Remove normative guidance in the migration considerations for
