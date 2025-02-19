@@ -691,7 +691,6 @@ ID | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 64
 
-This document only defines one value for the ML-KEM private key format specifier which is the 64 byte long seed format.
 The seed format is defined in accordance with [FIPS-203], Section 3.3.
 Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
 Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
