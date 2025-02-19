@@ -680,7 +680,7 @@ The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A one-octet ML-KEM private key format specifier defined in {{mlkem-privkey-spec}}.
+ - A one-octet ML-KEM private key format identifier defined in {{mlkem-privkey-spec}}.
 
  - An octet string containing the ML-KEM secret key.
    The length depends on the private key format specifier in the previous field.
