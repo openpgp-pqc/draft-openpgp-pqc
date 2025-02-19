@@ -821,7 +821,7 @@ The algorithm-specific secret key is this series of values:
 
 #### ML-DSA Private Key Format Identifier {#mldsa-privkey-spec}
 
-{: title="ML-DSA Private Key Format Specifier" #tab-mldsa-privkey-spec}
+{: title="ML-DSA Private Key Format Identifier" #tab-mldsa-privkey-spec}
 Octet Value | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 32
