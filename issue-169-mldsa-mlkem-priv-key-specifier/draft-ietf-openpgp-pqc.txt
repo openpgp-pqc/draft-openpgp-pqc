@@ -983,7 +983,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       depends on the private key format identifier in the previous
       field.
 
-5.3.2.1.  ML-DSA Private Key Format Specifier
+5.3.2.1.  ML-DSA Private Key Format Identifier
 
              +=============+=============+==================+
              | Octet Value | Name        | Private Key Size |
@@ -991,7 +991,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
              |        0x00 | Seed Format | 32               |
              +-------------+-------------+------------------+
 
-              Table 10: ML-DSA Private Key Format Specifier
+              Table 10: ML-DSA Private Key Format Identifier
 
    This document only defines one value for the ML-DSA private key
    format specifier which is the 32 byte long seed format.  The seed
