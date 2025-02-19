@@ -680,13 +680,13 @@ The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
- - A one-octet ML-KEM private key format identifier defined in {{mlkem-privkey-spec}}.
+ - A one-octet ML-KEM private key format identifier defined in {{mlkem-privkey-id}}.
 
  - An octet string containing the ML-KEM secret key, whose length depends on the private key format identifier in the previous field.
 
-#### ML-KEM Private Key Format Identifier {#mlkem-privkey-spec}
+#### ML-KEM Private Key Format Identifier {#mlkem-privkey-id}
 
-{: title="ML-KEM Private Key Format Identifier" #tab-mlkem-privkey-spec}
+{: title="ML-KEM Private Key Format Identifier" #tab-mlkem-privkey-id}
 ID | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 64
@@ -815,13 +815,13 @@ The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A one-octet ML-DSA private key format identifier defined in {{mldsa-privkey-spec}}.
+ - A one-octet ML-DSA private key format identifier defined in {{mldsa-privkey-id}}.
 
  - An octet string containing the ML-DSA secret key, whose length depends on the private key format identifier in the previous field.
 
-#### ML-DSA Private Key Format Identifier {#mldsa-privkey-spec}
+#### ML-DSA Private Key Format Identifier {#mldsa-privkey-id}
 
-{: title="ML-DSA Private Key Format Identifier" #tab-mldsa-privkey-spec}
+{: title="ML-DSA Private Key Format Identifier" #tab-mldsa-privkey-id}
 ID | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 32
