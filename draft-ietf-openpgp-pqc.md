@@ -1151,7 +1151,7 @@ ID     | Algorithm           | Public Key Format                                
 
 ## draft-ietf-openpgp-pqc-08
 - Assign code points 35 and 36 for ML-KEM algorithms.
-- Add a private key format specifier for ML-DSA and ML-KEM private keys.
+- Add a private key format identifier for ML-DSA and ML-KEM private keys.
 - Remove normative guidance in the migration considerations for selecting PQ(/T) keys.
 
 # Contributors
