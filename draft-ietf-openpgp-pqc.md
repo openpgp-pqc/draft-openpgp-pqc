@@ -686,7 +686,7 @@ The algorithm-specific secret key is this series of values:
 
 #### ML-KEM Private Key Format Identifier {#mlkem-privkey-spec}
 
-{: title="ML-KEM Private Key Format Specifier" #tab-mlkem-privkey-spec}
+{: title="ML-KEM Private Key Format Identifier" #tab-mlkem-privkey-spec}
 Octet Value | Name  | Private Key Size
 -----:| ------------ | ----------
 0x00  | Seed Format  | 64
