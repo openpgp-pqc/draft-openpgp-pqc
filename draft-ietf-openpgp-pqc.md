@@ -815,7 +815,7 @@ The algorithm-specific secret key is this series of values:
 
  - A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
- - A one-octet ML-DSA private key format specifier defined in {{mldsa-privkey-spec}}.
+ - A one-octet ML-DSA private key format identifier defined in {{mldsa-privkey-spec}}.
 
  - An octet string containing the ML-DSA secret key.
    The length depends on the private key format specifier in the previous field.
