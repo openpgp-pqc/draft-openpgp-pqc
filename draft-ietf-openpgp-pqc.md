@@ -397,7 +397,7 @@ The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM
 This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
-Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.
+Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.
 
 ## Composite Signatures
 
@@ -854,11 +854,11 @@ An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES
 
 A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
-If `AES-256` is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+If `AES-256` is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since `AES-256` is mandatory to implement.
 If `AES-128` is also implicitly added to the list, it is added after `AES-256`.
 
-If the pair `AES-256` with `OCB` is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+If the pair `AES-256` with `OCB` is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since `AES-256` and `OCB` are mandatory to implement.
 If the pair `AES-128` with `OCB` is also implicitly added to the list, it is added after the pair `AES-256` with `OCB`.
 
@@ -876,7 +876,7 @@ Therefore various migration considerations must be taken into account, in partic
 ## Encrypting to Traditional and PQ(/T) Keys
 
 As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
-An implementation should not abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.
+An implementation should not abort the encryption process when encrypting a message to both PQ(/T) and traditional keys to allow for a smooth transition to post-quantum cryptography.
 
 ## Signing with Traditional and PQ(/T) Keys
 
