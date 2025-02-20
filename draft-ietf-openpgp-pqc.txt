@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 22 August 2025                                      F. Strenzke
+Expires: 24 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        18 February 2025
+                                                        20 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2025.
+   This Internet-Draft will expire on 24 August 2025.
 
 Copyright Notice
 
@@ -369,8 +369,8 @@ Table of Contents
    As explained in Section 1.4.2, the OpenPGP protocol inherently
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
-   encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.
+   encrypting to different keys if at least one key does not support
+   PQ(/T) encryption schemes.
 
 3.2.  Composite Signatures
 
@@ -1034,13 +1034,13 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    If AES-256 is not explicitly in the list of the "Preferred Symmetric
    Ciphers for v1 SEIPD" subpacket, and if the certificate contains a
-   PQ/T key, it is implicitly at the end of the list.  This is justified
-   since AES-256 is mandatory to implement.  If AES-128 is also
-   implicitly added to the list, it is added after AES-256.
+   PQ(/T) key, it is implicitly at the end of the list.  This is
+   justified since AES-256 is mandatory to implement.  If AES-128 is
+   also implicitly added to the list, it is added after AES-256.
 
    If the pair AES-256 with OCB is not explicitly in the list of the
    "Preferred AEAD Ciphersuites" subpacket, and if the certificate
-   contains a PQ/T key, it is implicitly at the end of the list.  This
+   contains a PQ(/T) key, it is implicitly at the end of the list.  This
    is justified since AES-256 and OCB are mandatory to implement.  If
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
@@ -1068,7 +1068,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    As noted in Section 3.1, the confidentiality of a message is not
    post-quantum secure when using multiple PKESKs if at least one does
    not use PQ(/T) encryption schemes.  An implementation should not
-   abort the encryption process when encrypting a message to both PQ/T
+   abort the encryption process when encrypting a message to both PQ(/T)
    and traditional keys to allow for a smooth transition to post-quantum
    cryptography.
 

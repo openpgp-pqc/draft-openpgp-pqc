@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 22 August 2025</td>
+<td class="center">Expires 24 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-18" class="published">18 February 2025</time>
+<time datetime="2025-02-20" class="published">20 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-22">22 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-24">24 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1786,7 +1786,7 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
 <p id="section-3.1-1">The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
 This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">As explained in <a href="#non-composite-multi-alg" class="auto internal xref">Section 1.4.2</a>, the OpenPGP protocol inherently supports parallel encryption to different keys.
-Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ/T encryption schemes.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="composite-signatures">
@@ -2683,10 +2683,10 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
 <p id="section-7.1-1">Implementations MUST implement <code>AES-256</code>.
 An implementation SHOULD use <code>AES-256</code> in the case of a v1 SEIPD packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">A certificate that contains a PQ(/T) key SHOULD include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.1-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+<p id="section-7.1-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> is mandatory to implement.
 If <code>AES-128</code> is also implicitly added to the list, it is added after <code>AES-256</code>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
-<p id="section-7.1-4">If the pair <code>AES-256</code> with <code>OCB</code> is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+<p id="section-7.1-4">If the pair <code>AES-256</code> with <code>OCB</code> is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> and <code>OCB</code> are mandatory to implement.
 If the pair <code>AES-128</code> with <code>OCB</code> is also implicitly added to the list, it is added after the pair <code>AES-256</code> with <code>OCB</code>.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 </section>
@@ -2716,7 +2716,7 @@ Therefore various migration considerations must be taken into account, in partic
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-encrypting-to-traditional-a" class="section-name selfRef">Encrypting to Traditional and PQ(/T) Keys</a>
         </h3>
 <p id="section-8.1-1">As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
-An implementation should not abort the encryption process when encrypting a message to both PQ/T and traditional keys to allow for a smooth transition to post-quantum cryptography.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+An implementation should not abort the encryption process when encrypting a message to both PQ(/T) and traditional keys to allow for a smooth transition to post-quantum cryptography.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signing-with-traditional-and-pqt-keys">
