@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-18T01:21:25.141099+00:00",
+  "timestamp": "2025-02-20T01:22:14.117075+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3009,9 +3009,17 @@
       "labels": [],
       "body": "We plan to go with the seed-only format for now. However, in order to not block future changes, we want to add a one-octet format specifier. For now, only one value for the seed format shall be defined.",
       "createdAt": "2025-02-17T09:35:54Z",
-      "updatedAt": "2025-02-17T09:35:54Z",
+      "updatedAt": "2025-02-19T21:32:25Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I quite oppose this change. I feel like offering the both formats is just going to cause troubles and worse UX than offering only seed.\n\n- One implementation starts to to do expanded -> everyone needs to support it\n- If a key is expanded format, the key can't be imported into HSMs that support seed (worse than not exporting because by far more common operation)\n- This opens up to more options, included someone coming up with a completely different storage\n- This increases parsing complexity, adding new error cases (e.g. unexpected value)",
+          "createdAt": "2025-02-19T21:32:23Z",
+          "updatedAt": "2025-02-19T21:32:23Z"
+        }
+      ]
     },
     {
       "number": 170,
@@ -3030,6 +3038,46 @@
       "updatedAt": "2025-02-17T09:40:11Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 172,
+      "id": "I_kwDOIrmZ-86qggiR",
+      "title": "Private key vs. Secret key",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/172",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "Noticed that we use different terminology throughout the text to refer to the secret/private key of the asymmetric schemes. I would rather suggest to focus on either `private key` or `secret key`. I would propose to use `private key` throughout the document as it is \"-----BEGIN PGP PRIVATE KEY BLOCK-----\".",
+      "createdAt": "2025-02-18T14:36:32Z",
+      "updatedAt": "2025-02-19T21:33:17Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "RFC 9580 also seems to use both. I have the impression that \"secret key\" refers to secret key packets and related data and \"private key\" is used when talking directly about specific algorithms. I agree that we should have some consistent usage, preferably also consistent with RFC 9580",
+          "createdAt": "2025-02-18T14:51:00Z",
+          "updatedAt": "2025-02-18T14:51:00Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We only use \"private key\" two times, therefore I would suggest changing that to \"secret key\". This is also the far more dominant usage in RFC 9580. It's a bit inconsistent with `\"-----BEGIN PGP PRIVATE KEY BLOCK-----\"`, I agree. We can't resolve that, though, and OpenPGP calls the related formats \"Secret Key Packets / Transferable Secret Keys\"",
+          "createdAt": "2025-02-19T09:24:35Z",
+          "updatedAt": "2025-02-19T09:24:35Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "No strong opinions, but slight preference for secret key as well",
+          "createdAt": "2025-02-19T21:33:15Z",
+          "updatedAt": "2025-02-19T21:33:15Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -15687,24 +15735,26 @@
       "id": "PR_kwDOIrmZ-86Ktkmo",
       "title": "Remove hash binding for signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/166",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
       "createdAt": "2025-02-10T21:21:33Z",
-      "updatedAt": "2025-02-14T10:20:07Z",
+      "updatedAt": "2025-02-18T16:12:44Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "remove-mldsa-binding",
-      "headRefOid": "bbaf18ee89210ad5307a5a72bcc011c61a3e90b9",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "2ad1ff365aae1a2b33dda0fedc54f13b7d45f2dd",
+      "closedAt": "2025-02-18T16:12:44Z",
+      "mergedAt": "2025-02-18T16:12:44Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "c7508fcfce3b982d864d1a2cf67758df326a321f"
+      },
       "comments": [
         {
           "author": "fluppe2",
@@ -16029,6 +16079,32 @@
               "updatedAt": "2025-02-14T10:22:18Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cYcKv",
+          "commit": {
+            "abbreviatedOid": "2ad1ff3"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-18T13:54:56Z",
+          "updatedAt": "2025-02-18T13:54:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cZJ59",
+          "commit": {
+            "abbreviatedOid": "2ad1ff3"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-18T14:48:46Z",
+          "updatedAt": "2025-02-18T14:48:46Z",
+          "comments": []
         }
       ]
     },
@@ -16489,6 +16565,348 @@
           "body": "",
           "createdAt": "2025-02-13T15:35:09Z",
           "updatedAt": "2025-02-13T15:35:09Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 171,
+      "id": "PR_kwDOIrmZ-86LkU4T",
+      "title": "first proposal for ML-* private key specifier",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/171",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #169 \r\n\r\nthis introduces the private key specifier and defines the seed format",
+      "createdAt": "2025-02-18T09:52:20Z",
+      "updatedAt": "2025-02-19T09:01:29Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b6ea411a9113fa0e491938a63a31e69fdec5c657",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "issue-169-mldsa-mlkem-priv-key-specifier",
+      "headRefOid": "4ec1c4542fb0b9bdf4ae5db529786f5a15be69d0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86cYuad",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:18:02Z",
+          "updatedAt": "2025-02-18T14:18:02Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n - A one-octet ML-KEM private key format identifier defined in {{mlkem-privkey-spec}}.\r\n```\r\nI have the impression that RFC9580 rather uses the terminology `identifier` for such fields/values.",
+              "createdAt": "2025-02-18T14:18:02Z",
+              "updatedAt": "2025-02-18T14:18:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cYx28",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:20:47Z",
+          "updatedAt": "2025-02-18T14:20:48Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\n - An octet string containing the ML-KEM secret key, whose length depends on the private key format identifier in the previous field.\r\n```\r\nLittle closer to the previous sentence.",
+              "createdAt": "2025-02-18T14:20:47Z",
+              "updatedAt": "2025-02-18T14:20:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cYzl9",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:22:01Z",
+          "updatedAt": "2025-02-18T14:22:01Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n#### ML-KEM Private Key Format Identifier {#mlkem-privkey-spec}\r\n```",
+              "createdAt": "2025-02-18T14:22:01Z",
+              "updatedAt": "2025-02-18T14:22:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cYz7J",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:22:22Z",
+          "updatedAt": "2025-02-18T14:22:22Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\n{: title=\"ML-KEM Private Key Format Identifier\" #tab-mlkem-privkey-spec}\r\n```",
+              "createdAt": "2025-02-18T14:22:22Z",
+              "updatedAt": "2025-02-18T14:22:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY0Gz",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:22:36Z",
+          "updatedAt": "2025-02-18T14:22:36Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nID | Name  | Private Key Size\r\n```",
+              "createdAt": "2025-02-18T14:22:36Z",
+              "updatedAt": "2025-02-18T14:22:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY3HB",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:26:36Z",
+          "updatedAt": "2025-02-18T14:26:37Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n```\r\nI think we could remove this sentence as it is clear from the table.",
+              "createdAt": "2025-02-18T14:26:37Z",
+              "updatedAt": "2025-02-18T14:26:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY3sN",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:27:24Z",
+          "updatedAt": "2025-02-18T14:27:25Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "```suggestion\r\n - A one-octet ML-DSA private key format identifier defined in {{mldsa-privkey-spec}}.\r\n```",
+              "createdAt": "2025-02-18T14:27:25Z",
+              "updatedAt": "2025-02-18T14:27:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY4ax",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:28:23Z",
+          "updatedAt": "2025-02-18T14:28:23Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\n - An octet string containing the ML-DSA secret key, whose length depends on the private key format identifier in the previous field.\r\n```",
+              "createdAt": "2025-02-18T14:28:23Z",
+              "updatedAt": "2025-02-18T14:28:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY4sk",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:28:43Z",
+          "updatedAt": "2025-02-18T14:28:44Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\r\n#### ML-DSA Private Key Format Identifier {#mldsa-privkey-spec}\r\n```",
+              "createdAt": "2025-02-18T14:28:43Z",
+              "updatedAt": "2025-02-18T14:28:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY46K",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:28:59Z",
+          "updatedAt": "2025-02-18T14:29:00Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "```suggestion\r\n{: title=\"ML-DSA Private Key Format Identifier\" #tab-mldsa-privkey-spec}\r\n```",
+              "createdAt": "2025-02-18T14:28:59Z",
+              "updatedAt": "2025-02-18T14:29:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY5JW",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:29:15Z",
+          "updatedAt": "2025-02-18T14:29:16Z",
+          "comments": [
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\r\nID | Name  | Private Key Size\r\n```",
+              "createdAt": "2025-02-18T14:29:15Z",
+              "updatedAt": "2025-02-18T14:29:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY5nU",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:29:48Z",
+          "updatedAt": "2025-02-18T14:29:49Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "```suggestion\r\n```\r\nAgain, I think we could remove this sentence.",
+              "createdAt": "2025-02-18T14:29:48Z",
+              "updatedAt": "2025-02-18T14:29:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY52N",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-18T14:30:05Z",
+          "updatedAt": "2025-02-18T14:30:05Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "```suggestion\r\n- Add a private key format identifier for ML-DSA and ML-KEM private keys.\r\n```",
+              "createdAt": "2025-02-18T14:30:05Z",
+              "updatedAt": "2025-02-18T14:30:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86cY9X_",
+          "commit": {
+            "abbreviatedOid": "8960681"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I have some suggestions:\r\n- RFC9580 seems to rather use the term `identifier` than `specifier`\r\n- We could omit saying explicitely that we only define one format, I guess the table is clear",
+          "createdAt": "2025-02-18T14:33:08Z",
+          "updatedAt": "2025-02-18T14:33:08Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 173,
+      "id": "PR_kwDOIrmZ-86Lt4p6",
+      "title": "Use PQ(/T) almost exclusivly instead of PQ/T",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/173",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial"
+      ],
+      "body": "I only left a usage in the introduction were it makes sense and is more specific than PQ(/T):\r\n\r\n```\r\nThis specification introduces new cryptographic schemes, which can be categorized as follows:\r\n\r\n - PQ/T multi-algorithm public-key encryption, namely a composite combination of ML-KEM with an ECDH KEM,\r\n\r\n - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA signature schemes,\r\n\r\n - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.\r\n\r\n```",
+      "createdAt": "2025-02-19T09:18:00Z",
+      "updatedAt": "2025-02-19T21:26:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "c7508fcfce3b982d864d1a2cf67758df326a321f",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "consistent-pq-terminology",
+      "headRefOid": "27b44317a128dc9cae0d0800d60dce090431ca60",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86cpF0V",
+          "commit": {
+            "abbreviatedOid": "27b4431"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-19T21:26:25Z",
+          "updatedAt": "2025-02-19T21:26:25Z",
           "comments": []
         }
       ]
