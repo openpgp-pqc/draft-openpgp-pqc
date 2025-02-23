@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-20T01:22:14.117075+00:00",
+  "timestamp": "2025-02-23T01:27:28.457410+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3053,7 +3053,7 @@
       ],
       "body": "Noticed that we use different terminology throughout the text to refer to the secret/private key of the asymmetric schemes. I would rather suggest to focus on either `private key` or `secret key`. I would propose to use `private key` throughout the document as it is \"-----BEGIN PGP PRIVATE KEY BLOCK-----\".",
       "createdAt": "2025-02-18T14:36:32Z",
-      "updatedAt": "2025-02-19T21:33:17Z",
+      "updatedAt": "2025-02-20T07:11:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -3076,6 +3076,13 @@
           "body": "No strong opinions, but slight preference for secret key as well",
           "createdAt": "2025-02-19T21:33:15Z",
           "updatedAt": "2025-02-19T21:33:15Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let it be `secret key`.",
+          "createdAt": "2025-02-20T07:11:32Z",
+          "updatedAt": "2025-02-20T07:11:32Z"
         }
       ]
     }
@@ -16874,7 +16881,7 @@
       "id": "PR_kwDOIrmZ-86Lt4p6",
       "title": "Use PQ(/T) almost exclusivly instead of PQ/T",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/173",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -16883,17 +16890,19 @@
       ],
       "body": "I only left a usage in the introduction were it makes sense and is more specific than PQ(/T):\r\n\r\n```\r\nThis specification introduces new cryptographic schemes, which can be categorized as follows:\r\n\r\n - PQ/T multi-algorithm public-key encryption, namely a composite combination of ML-KEM with an ECDH KEM,\r\n\r\n - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA signature schemes,\r\n\r\n - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.\r\n\r\n```",
       "createdAt": "2025-02-19T09:18:00Z",
-      "updatedAt": "2025-02-19T21:26:25Z",
+      "updatedAt": "2025-02-20T07:09:57Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "c7508fcfce3b982d864d1a2cf67758df326a321f",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "consistent-pq-terminology",
       "headRefOid": "27b44317a128dc9cae0d0800d60dce090431ca60",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-20T07:09:57Z",
+      "mergedAt": "2025-02-20T07:09:57Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "51f48d124bb67d635d9f4179fa65a6e532d7efba"
+      },
       "comments": [],
       "reviews": [
         {
@@ -16907,6 +16916,19 @@
           "body": "",
           "createdAt": "2025-02-19T21:26:25Z",
           "updatedAt": "2025-02-19T21:26:25Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86csbRD",
+          "commit": {
+            "abbreviatedOid": "27b4431"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-20T07:09:47Z",
+          "updatedAt": "2025-02-20T07:09:47Z",
           "comments": []
         }
       ]
