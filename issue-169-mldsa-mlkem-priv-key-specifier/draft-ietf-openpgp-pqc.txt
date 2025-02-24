@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 August 2025                                      F. Strenzke
+Expires: 28 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        19 February 2025
+                                                        24 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2025.
+   This Internet-Draft will expire on 28 August 2025.
 
 Copyright Notice
 
@@ -127,8 +127,9 @@ Table of Contents
        6.2.1.  Signature Packet (Tag 2)
        6.2.2.  Key Material Packets
    7.  Notes on Algorithms
-     7.1.  Symmetric Algorithms for SEIPD Packets
-     7.2.  Hash Algorithms for Key Binding Signatures
+     7.1.  ML-KEM and ML-DSA Secret Key Formats
+     7.2.  Symmetric Algorithms for SEIPD Packets
+     7.3.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
      8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
@@ -533,16 +534,19 @@ Table of Contents
 
    ML-KEM has the parametrization with the corresponding artifact
    lengths in octets as given in Table 4.  All artifacts are encoded as
-   defined in [FIPS-203].
+   defined in [FIPS-203].  The secret key length depends on the secret
+   key format specified in Section 4.3.2.1.
 
    +==============+=============+========+========+============+=======+
    |    Algorithm | ML-KEM      | Public | Secret | Ciphertext | Key   |
    |           ID |             | key    | key    |            | share |
    |    reference |             |        |        |            |       |
    +==============+=============+========+========+============+=======+
-   |           35 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
+   |           35 | ML-KEM-768  | 1184   | 64 or  | 1088       | 32    |
+   |              |             |        | 2400   |            |       |
    +--------------+-------------+--------+--------+------------+-------+
-   |           36 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
+   |           36 | ML-KEM-1024 | 1568   | 64 or  | 1568       | 32    |
+   |              |             |        | 3168   |            |       |
    +--------------+-------------+--------+--------+------------+-------+
 
            Table 4: ML-KEM parameters artifact lengths in octets
@@ -782,31 +786,51 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       encoding and length depend on the algorithm ID as specified in
       Section 4.1.1.
 
-   *  A one-octet ML-KEM private key format identifier defined in
+   *  A one-octet ML-KEM secret key format identifier defined in
       Section 4.3.2.1.
 
    *  An octet string containing the ML-KEM secret key, whose length
-      depends on the private key format identifier in the previous
-      field.
+      depends on the secret key format identifier in the previous field.
 
-4.3.2.1.  ML-KEM Private Key Format Identifier
+4.3.2.1.  ML-KEM Secret Key Format Identifier
 
-                 +======+=============+==================+
-                 |   ID | Name        | Private Key Size |
-                 +======+=============+==================+
-                 | 0x00 | Seed Format | 64               |
-                 +------+-------------+------------------+
+                      +======+=====================+
+                      |   ID | Name                |
+                      +======+=====================+
+                      | 0x00 | Seed Format         |
+                      +------+---------------------+
+                      | 0x01 | Expanded Key Format |
+                      +------+---------------------+
 
-                     Table 6: ML-KEM Private Key Format
-                                 Identifier
+                        Table 6: ML-KEM Secret Key
+                            Format Identifier
 
    The seed format is defined in accordance with [FIPS-203],
    Section 3.3.  Namely, the secret key is given by the concatenation of
    the values of d and z, generated in steps 1 and 2 of ML-KEM.KeyGen
-   [FIPS-203], each of a length of 32 octets.  Upon parsing the private
-   key format, or before using the secret key, for the expansion of the
-   key, the function ML-KEM.KeyGen_internal [FIPS-203] has to be invoked
-   with the parsed values of d and z as input.
+   [FIPS-203], each of a length of 32 octets.  Upon parsing the seed
+   format, or before using the secret key, for the expansion of the key,
+   the function ML-KEM.KeyGen_internal [FIPS-203] has to be invoked with
+   the parsed values of d and z as input.
+
+   The expanded key format is the value dk that is generated by ML-
+   KEM.KeyGen [FIPS-203].
+
+   The length of the different formats is given in Table 7.
+
+            +=============+=============+=====================+
+            |      ML-KEM | Seed Format | Expanded Key Format |
+            +=============+=============+=====================+
+            |  ML-KEM-768 | 64          | 2400                |
+            +-------------+-------------+---------------------+
+            | ML-KEM-1024 | 64          | 3168                |
+            +-------------+-------------+---------------------+
+
+                Table 7: ML-KEM secret key length in octets
+                 depending on secret key format identifier
+
+   Implementations MUST be able to parse the seed format and MAY
+   implement parsing of the expanded key format.
 
 5.  Composite Signature Schemes
 
@@ -838,7 +862,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
      |           31 | Ed448   | 57    | 57     | 57     | 114       |
      +--------------+---------+-------+--------+--------+-----------+
 
-         Table 7: EdDSA parameters and artifact lengths in octets
+         Table 8: EdDSA parameters and artifact lengths in octets
 
 5.1.2.  ML-DSA signatures
 
@@ -859,19 +883,22 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
  (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
 
    ML-DSA has the parametrization with the corresponding artifact
-   lengths in octets as given in Table 8.  All artifacts are encoded as
-   defined in [FIPS-204].
+   lengths in octets as given in Table 9.  All artifacts are encoded as
+   defined in [FIPS-204].  The secret key length depends on the secret
+   key format specified in Section 5.3.2.1.
 
    +========================+===========+========+========+===========+
    | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
    |                        |           | key    | key    | value     |
    +========================+===========+========+========+===========+
-   |                     30 | ML-DSA-65 | 1952   | 32     | 3309      |
+   |                     30 | ML-DSA-65 | 1952   | 32 or  | 3309      |
+   |                        |           |        | 4032   |           |
    +------------------------+-----------+--------+--------+-----------+
-   |                     31 | ML-DSA-87 | 2592   | 32     | 4627      |
+   |                     31 | ML-DSA-87 | 2592   | 32 or  | 4627      |
+   |                        |           |        | 4896   |           |
    +------------------------+-----------+--------+--------+-----------+
 
-        Table 8: ML-DSA parameters and artifact lengths in octets
+        Table 9: ML-DSA parameters and artifact lengths in octets
 
 5.2.  Composite Signature Schemes with ML-DSA
 
@@ -881,7 +908,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
    editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
    signatures MUST use the associated hash algorithm as specified in
-   Table 9 for the signature data digest.  Signatures using other hash
+   Table 10 for the signature data digest.  Signatures using other hash
    algorithms MUST be considered invalid.
 
    An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
@@ -896,7 +923,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
         |                     31 | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
-          Table 9: Binding between ML-DSA + EdDSA and signature
+          Table 10: Binding between ML-DSA + EdDSA and signature
                                data digest
 
 5.2.2.  Key generation procedure
@@ -952,10 +979,10 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    signatures consist of:
 
    *  A fixed-length octet string representing the EdDSA signature,
-      whose length depends on the algorithm ID as specified in Table 7.
+      whose length depends on the algorithm ID as specified in Table 8.
 
    *  A fixed-length octet string of the ML-DSA signature value, whose
-      length depends on the algorithm ID as specified in Table 8.
+      length depends on the algorithm ID as specified in Table 9.
 
 5.3.2.  Key Material Packets
 
@@ -966,40 +993,60 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    The algorithm-specific public key is this series of values:
 
    *  A fixed-length octet string representing the EdDSA public key,
-      whose length depends on the algorithm ID as specified in Table 7.
+      whose length depends on the algorithm ID as specified in Table 8.
 
    *  A fixed-length octet string containing the ML-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 8.
+      whose length depends on the algorithm ID as specified in Table 9.
 
    The algorithm-specific secret key is this series of values:
 
    *  A fixed-length octet string representing the EdDSA secret key,
-      whose length depends on the algorithm ID as specified in Table 7.
+      whose length depends on the algorithm ID as specified in Table 8.
 
-   *  A one-octet ML-DSA private key format identifier defined in
+   *  A one-octet ML-DSA secret key format identifier defined in
       Section 5.3.2.1.
 
    *  An octet string containing the ML-DSA secret key, whose length
-      depends on the private key format identifier in the previous
-      field.
+      depends on the secret key format identifier in the previous field.
 
-5.3.2.1.  ML-DSA Private Key Format Identifier
+5.3.2.1.  ML-DSA Secret Key Format Identifier
 
-                 +======+=============+==================+
-                 |   ID | Name        | Private Key Size |
-                 +======+=============+==================+
-                 | 0x00 | Seed Format | 32               |
-                 +------+-------------+------------------+
+                      +======+=====================+
+                      |   ID | Name                |
+                      +======+=====================+
+                      | 0x00 | Seed Format         |
+                      +------+---------------------+
+                      | 0x01 | Expanded Key Format |
+                      +------+---------------------+
 
-                    Table 10: ML-DSA Private Key Format
-                                 Identifier
+                         Table 11: ML-DSA Secret
+                          Key Format Identifier
 
    The seed format is defined in accordance with [FIPS-204],
    Section 3.6.3.  Namely, the secret key is given by the value xi
    generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
-   private key format, or before using the secret key, for the expansion
-   of the key, the function ML-DSA.KeyGen_internal [FIPS-204] has to be
-   invoked with the parsed value of xi as input.
+   seed format, or before using the secret key, for the expansion of the
+   key, the function ML-DSA.KeyGen_internal [FIPS-204] has to be invoked
+   with the parsed value of xi as input.
+
+   The expanded key format is the value sk that is generated by ML-
+   DSA.KeyGen [FIPS-204].
+
+   The length of the different formats is given in Table 12.
+
+             +===========+=============+=====================+
+             |    ML-KEM | Seed Format | Expanded Key Format |
+             +===========+=============+=====================+
+             | ML-DSA-65 | 32          | 4032                |
+             +-----------+-------------+---------------------+
+             | ML-DSA-87 | 32          | 4896                |
+             +-----------+-------------+---------------------+
+
+                Table 12: ML-DSA secret key length in octets
+                 depending on secret key format identifier
+
+   Implementations MUST be able to parse the seed format and MAY
+   implement parsing of the expanded key format.
 
 6.  SLH-DSA
 
@@ -1024,7 +1071,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-             Table 11: SLH-DSA algorithm code points and the
+             Table 13: SLH-DSA algorithm code points and the
                 corresponding artifact lengths in octets.
 
 6.1.1.  Signature Data Digest
@@ -1032,7 +1079,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    Signature data (i.e. the data to be signed) is digested prior to
    signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
    editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA signatures MUST use
-   the associated hash algorithm as specified in Table 12 for the
+   the associated hash algorithm as specified in Table 14 for the
    signature data digest.  Signatures using other hash algorithms MUST
    be considered invalid.
 
@@ -1050,7 +1097,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
         |                     34 | SHA3-512      | 14            |
         +------------------------+---------------+---------------+
 
-             Table 12: Binding between SLH-DSA algorithm code
+             Table 14: Binding between SLH-DSA algorithm code
                 points and signature data hash algorithms
 
 6.1.2.  Key generation
@@ -1082,7 +1129,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 11.
+      Table 13.
 
 6.2.2.  Key Material Packets
 
@@ -1093,16 +1140,27 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 11.
+      whose length depends on the algorithm ID as specified in Table 13.
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 11.
+      whose length depends on the algorithm ID as specified in Table 13.
 
 7.  Notes on Algorithms
 
-7.1.  Symmetric Algorithms for SEIPD Packets
+7.1.  ML-KEM and ML-DSA Secret Key Formats
+
+   This document specifies both the seed format and the expanded secret
+   key format for ML-KEM and ML-DSA secret keys.  It should be noted
+   that it is always possible to generate the expanded secret key format
+   from the seed format, but it is not possible the other way around.
+   Therefore, implementations SHOULD choose the seed format whenever
+   possible.  Implementations MAY export a secret key using the expanded
+   key format if this is required for interoperability with another
+   implementation or hardware device.
+
+7.2.  Symmetric Algorithms for SEIPD Packets
 
    Implementations MUST implement AES-256.  An implementation SHOULD use
    AES-256 in the case of a v1 SEIPD packet, or AES-256 with any
@@ -1128,7 +1186,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
 
-7.2.  Hash Algorithms for Key Binding Signatures
+7.3.  Hash Algorithms for Key Binding Signatures
 
    Subkey binding signatures over algorithms described in this document
    and primary key binding signatures made by algorithms described in
@@ -1379,7 +1437,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 13 to the
+   IANA is requested to add the algorithm IDs defined in Table 15 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in brackets for the ML-KEM + ECDH composite
    algorithms denote fields that are only conditionally contained in the
@@ -1394,54 +1452,54 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
    |  |            |Ed25519|Ed25519|signature|              |         |
    |  |            | public| secret|   (Table|              |         |
-   |  |            |    key|    key| 7), 3293|              |         |
+   |  |            |    key|    key| 8), 3293|              |         |
    |  |            | (Table| (Table|   octets|              |         |
-   |  |            |    7),|    7),|ML-DSA-65|              |         |
+   |  |            |    8),|    8),|ML-DSA-65|              |         |
    |  |            |   1952|   4032|signature|              |         |
-   |  |            | octets| octets|(Table 8)|              |         |
+   |  |            | octets| octets|(Table 9)|              |         |
    |  |            |    ML-|    ML-|         |              |         |
    |  |            | DSA-65| DSA-65|         |              |         |
    |  |            | public| secret|         |              |         |
    |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     8)|         |              |         |
-   |  |            |     8)|       |         |              |         |
+   |  |            | (Table|     9)|         |              |         |
+   |  |            |     9)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
    |  | 87+Ed448   | octets| octets|   octets|              |      5.2|
    |  |            |  Ed448|  Ed448|    Ed448|              |         |
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table| 7), 4595|              |         |
-   |  |            |    7),|    7),|   octets|              |         |
+   |  |            | (Table| (Table| 8), 4595|              |         |
+   |  |            |    8),|    8),|   octets|              |         |
    |  |            |   2592|   4896|ML-DSA-87|              |         |
    |  |            | octets| octets|signature|              |         |
-   |  |            |    ML-|    ML-|(Table 8)|              |         |
+   |  |            |    ML-|    ML-|(Table 9)|              |         |
    |  |            | DSA-87| DSA-87|         |              |         |
    |  |            | public| secret|         |              |         |
    |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     8)|         |              |         |
-   |  |            |     8)|       |         |              |         |
+   |  |            | (Table|     9)|         |              |         |
+   |  |            |     9)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table|      11)|              |         |
-   |  |            |    11)|    11)|         |              |         |
+   |  |            | (Table| (Table|      13)|              |         |
+   |  |            |    13)|    13)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table|      11)|              |         |
-   |  |            |    11)|    11)|         |              |         |
+   |  |            | (Table| (Table|      13)|              |         |
+   |  |            |    13)|    13)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table|      11)|              |         |
-   |  |            |    11)|    11)|         |              |         |
+   |  |            | (Table| (Table|      13)|              |         |
+   |  |            |    13)|    13)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
    |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
@@ -1482,7 +1540,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    |  |            |       |       |         |       4.3.1) |         |
    +--+------------+-------+-------+---------+--------------+---------+
 
-   Table 13: IANA updates for registry 'OpenPGP Public Key Algorithms'
+   Table 15: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1613,8 +1671,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Assign code points 35 and 36 for ML-KEM algorithms.
 
-   *  Add a private key format identifier for ML-DSA and ML-KEM private
-      keys.
+   *  Add a secret key format identifier for ML-DSA and ML-KEM secret
+      keys to allow both the seed and expanded key format.
 
    *  Remove normative guidance in the migration considerations for
       selecting PQ(/T) keys.

@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 23 August 2025</td>
+<td class="center">Expires 28 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-19" class="published">19 February 2025</time>
+<time datetime="2025-02-24" class="published">24 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-23">23 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-28">28 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1354,10 +1354,13 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-notes-on-algorithms" class="internal xref">Notes on Algorithms</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-symmetric-algorithms-for-se" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-ml-kem-and-ml-dsa-secret-ke" class="internal xref">ML-KEM and ML-DSA Secret Key Formats</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-hash-algorithms-for-key-bin" class="internal xref">Hash Algorithms for Key Binding Signatures</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-symmetric-algorithms-for-se" class="internal xref">Symmetric Algorithms for SEIPD Packets</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-hash-algorithms-for-key-bin" class="internal xref">Hash Algorithms for Key Binding Signatures</a></p>
 </li>
             </ul>
 </li>
@@ -2012,7 +2015,8 @@ Here, <code>U(P)</code> denotes the u-coordinate of the base point of Curve448.<
 <p id="section-4.1.2-5">The above are the operations <code>ML-KEM.Encaps</code> and <code>ML-KEM.Decaps</code> defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.
 Note that <code>mlkemPublicKey</code> is the encapsulation and <code>mlkemSecretKey</code> is the decapsulation key.<a href="#section-4.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-4.1.2-6">ML-KEM has the parametrization with the corresponding artifact lengths in octets as given in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.
-All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.<a href="#section-4.1.2-6" class="pilcrow">¶</a></p>
+All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.
+The secret key length depends on the secret key format specified in <a href="#mlkem-seckey-id" class="auto internal xref">Section 4.3.2.1</a>.<a href="#section-4.1.2-6" class="pilcrow">¶</a></p>
 <span id="name-ml-kem-parameters-artifact-"></span><div id="tab-mlkem-artifacts">
 <table class="center" id="table-4">
             <caption>
@@ -2034,7 +2038,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
                 <td class="text-right" rowspan="1" colspan="1">35</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
                 <td class="text-left" rowspan="1" colspan="1">1184</td>
-                <td class="text-left" rowspan="1" colspan="1">64</td>
+                <td class="text-left" rowspan="1" colspan="1">64 or 2400</td>
                 <td class="text-left" rowspan="1" colspan="1">1088</td>
                 <td class="text-left" rowspan="1" colspan="1">32</td>
               </tr>
@@ -2042,7 +2046,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
                 <td class="text-right" rowspan="1" colspan="1">36</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024</td>
                 <td class="text-left" rowspan="1" colspan="1">1568</td>
-                <td class="text-left" rowspan="1" colspan="1">64</td>
+                <td class="text-left" rowspan="1" colspan="1">64 or 3168</td>
                 <td class="text-left" rowspan="1" colspan="1">1568</td>
                 <td class="text-left" rowspan="1" colspan="1">32</td>
               </tr>
@@ -2310,42 +2314,74 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
               <p id="section-4.3.2-5.1.1">A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.3.2-5.2">
-              <p id="section-4.3.2-5.2.1">A one-octet ML-KEM private key format identifier defined in <a href="#mlkem-privkey-id" class="auto internal xref">Section 4.3.2.1</a>.<a href="#section-4.3.2-5.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.2-5.2.1">A one-octet ML-KEM secret key format identifier defined in <a href="#mlkem-seckey-id" class="auto internal xref">Section 4.3.2.1</a>.<a href="#section-4.3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.3.2-5.3">
-              <p id="section-4.3.2-5.3.1">An octet string containing the ML-KEM secret key, whose length depends on the private key format identifier in the previous field.<a href="#section-4.3.2-5.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.2-5.3.1">An octet string containing the ML-KEM secret key, whose length depends on the secret key format identifier in the previous field.<a href="#section-4.3.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div id="mlkem-privkey-id">
+<div id="mlkem-seckey-id">
 <section id="section-4.3.2.1">
-            <h5 id="name-ml-kem-private-key-format-i">
-<a href="#section-4.3.2.1" class="section-number selfRef">4.3.2.1. </a><a href="#name-ml-kem-private-key-format-i" class="section-name selfRef">ML-KEM Private Key Format Identifier</a>
+            <h5 id="name-ml-kem-secret-key-format-id">
+<a href="#section-4.3.2.1" class="section-number selfRef">4.3.2.1. </a><a href="#name-ml-kem-secret-key-format-id" class="section-name selfRef">ML-KEM Secret Key Format Identifier</a>
             </h5>
-<span id="name-ml-kem-private-key-format-id"></span><div id="tab-mlkem-privkey-id">
+<span id="name-ml-kem-secret-key-format-ide"></span><div id="tab-mlkem-seckey-id">
 <table class="center" id="table-6">
               <caption>
 <a href="#table-6" class="selfRef">Table 6</a>:
-<a href="#name-ml-kem-private-key-format-id" class="selfRef">ML-KEM Private Key Format Identifier</a>
+<a href="#name-ml-kem-secret-key-format-ide" class="selfRef">ML-KEM Secret Key Format Identifier</a>
               </caption>
 <thead>
                 <tr>
                   <th class="text-right" rowspan="1" colspan="1">ID</th>
                   <th class="text-left" rowspan="1" colspan="1">Name</th>
-                  <th class="text-left" rowspan="1" colspan="1">Private Key Size</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="text-right" rowspan="1" colspan="1">0x00</td>
                   <td class="text-left" rowspan="1" colspan="1">Seed Format</td>
-                  <td class="text-left" rowspan="1" colspan="1">64</td>
+                </tr>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">0x01</td>
+                  <td class="text-left" rowspan="1" colspan="1">Expanded Key Format</td>
                 </tr>
               </tbody>
             </table>
 </div>
 <p id="section-4.3.2.1-2">The seed format is defined in accordance with <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, Section 3.3.
 Namely, the secret key is given by the concatenation of the values of <code>d</code>  and <code>z</code>, generated in steps 1 and 2 of <code>ML-KEM.KeyGen</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, each of a length of 32 octets.
-Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function <code>ML-KEM.KeyGen_internal</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> has to be invoked with the parsed values of <code>d</code> and <code>z</code> as input.<a href="#section-4.3.2.1-2" class="pilcrow">¶</a></p>
+Upon parsing the seed format, or before using the secret key, for the expansion of the key, the function <code>ML-KEM.KeyGen_internal</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> has to be invoked with the parsed values of <code>d</code> and <code>z</code> as input.<a href="#section-4.3.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.3.2.1-3">The expanded key format is the value <code>dk</code> that is generated by <code>ML-KEM.KeyGen</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.<a href="#section-4.3.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.2.1-4">The length of the different formats is given in <a href="#tab-mlkem-sec-size" class="auto internal xref">Table 7</a>.<a href="#section-4.3.2.1-4" class="pilcrow">¶</a></p>
+<span id="name-ml-kem-secret-key-length-in"></span><div id="tab-mlkem-sec-size">
+<table class="center" id="table-7">
+              <caption>
+<a href="#table-7" class="selfRef">Table 7</a>:
+<a href="#name-ml-kem-secret-key-length-in" class="selfRef">ML-KEM secret key length in octets depending on secret key format identifier</a>
+              </caption>
+<thead>
+                <tr>
+                  <th class="text-right" rowspan="1" colspan="1">ML-KEM</th>
+                  <th class="text-left" rowspan="1" colspan="1">Seed Format</th>
+                  <th class="text-left" rowspan="1" colspan="1">Expanded Key Format</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">ML-KEM-768</td>
+                  <td class="text-left" rowspan="1" colspan="1">64</td>
+                  <td class="text-left" rowspan="1" colspan="1">2400</td>
+                </tr>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">ML-KEM-1024</td>
+                  <td class="text-left" rowspan="1" colspan="1">64</td>
+                  <td class="text-left" rowspan="1" colspan="1">3168</td>
+                </tr>
+              </tbody>
+            </table>
+</div>
+<p id="section-4.3.2.1-6">Implementations MUST be able to parse the seed format and MAY implement parsing of the expanded key format.<a href="#section-4.3.2.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2386,9 +2422,9 @@ Upon parsing the private key format, or before using the secret key, for the exp
 <p id="section-5.1.1-6">The public and secret key, as well as the signature MUST be encoded according to <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> as fixed-length octet strings.
 The following table describes the EdDSA parameters and artifact lengths:<a href="#section-5.1.1-6" class="pilcrow">¶</a></p>
 <span id="name-eddsa-parameters-and-artifa"></span><div id="tab-eddsa-artifacts">
-<table class="center" id="table-7">
+<table class="center" id="table-8">
             <caption>
-<a href="#table-7" class="selfRef">Table 7</a>:
+<a href="#table-8" class="selfRef">Table 8</a>:
 <a href="#name-eddsa-parameters-and-artifa" class="selfRef">EdDSA parameters and artifact lengths in octets</a>
             </caption>
 <thead>
@@ -2444,12 +2480,13 @@ That is, to verify with ML-DSA the following operation is defined:<a href="#sect
 (verified) &lt;- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
 </pre><a href="#section-5.1.2-5" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-6">ML-DSA has the parametrization with the corresponding artifact lengths in octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>.
-All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-6">ML-DSA has the parametrization with the corresponding artifact lengths in octets as given in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>.
+All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.
+The secret key length depends on the secret key format specified in <a href="#mldsa-seckey-id" class="auto internal xref">Section 5.3.2.1</a>.<a href="#section-5.1.2-6" class="pilcrow">¶</a></p>
 <span id="name-ml-dsa-parameters-and-artif"></span><div id="tab-mldsa-artifacts">
-<table class="center" id="table-8">
+<table class="center" id="table-9">
             <caption>
-<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#table-9" class="selfRef">Table 9</a>:
 <a href="#name-ml-dsa-parameters-and-artif" class="selfRef">ML-DSA parameters and artifact lengths in octets</a>
             </caption>
 <thead>
@@ -2466,14 +2503,14 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
                 <td class="text-right" rowspan="1" colspan="1">30</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-DSA-65</td>
                 <td class="text-left" rowspan="1" colspan="1">1952</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
+                <td class="text-left" rowspan="1" colspan="1">32 or 4032</td>
                 <td class="text-left" rowspan="1" colspan="1">3309</td>
               </tr>
               <tr>
                 <td class="text-right" rowspan="1" colspan="1">31</td>
                 <td class="text-left" rowspan="1" colspan="1">ML-DSA-87</td>
                 <td class="text-left" rowspan="1" colspan="1">2592</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
+                <td class="text-left" rowspan="1" colspan="1">32 or 4896</td>
                 <td class="text-left" rowspan="1" colspan="1">4627</td>
               </tr>
             </tbody>
@@ -2494,13 +2531,13 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-signature-data-digest" class="section-name selfRef">Signature data digest</a>
           </h4>
 <p id="section-5.2.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-mldsa-hash" class="auto internal xref">Table 9</a> for the signature data digest.
+Composite ML-DSA + EdDSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-mldsa-hash" class="auto internal xref">Table 10</a> for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-2">An implementation supporting a specific ML-DSA + EdDSA algorithm MUST also support the matching hash algorithm.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 <span id="name-binding-between-ml-dsa-edds"></span><div id="tab-mldsa-hash">
-<table class="center" id="table-9">
+<table class="center" id="table-10">
             <caption>
-<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#table-10" class="selfRef">Table 10</a>:
 <a href="#name-binding-between-ml-dsa-edds" class="selfRef">Binding between ML-DSA + EdDSA and signature data digest</a>
             </caption>
 <thead>
@@ -2591,10 +2628,10 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
 <p id="section-5.3.1-2">The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures consist of:<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3.1-3.1">
-              <p id="section-5.3.1-3.1.1">A fixed-length octet string representing the EdDSA signature, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.1-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.1-3.1.1">A fixed-length octet string representing the EdDSA signature, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.1-3.2">
-              <p id="section-5.3.1-3.2.1">A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.1-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.1-3.2.1">A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-5.3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2608,54 +2645,86 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
 <p id="section-5.3.2-2">The algorithm-specific public key is this series of values:<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3.2-3.1">
-              <p id="section-5.3.2-3.1.1">A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-3.1.1">A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.2-3.2">
-              <p id="section-5.3.2-3.2.1">A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-3.2.1">A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>.<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-5.3.2-4">The algorithm-specific secret key is this series of values:<a href="#section-5.3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3.2-5.1">
-              <p id="section-5.3.2-5.1.1">A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-5.1.1">A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>.<a href="#section-5.3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.2-5.2">
-              <p id="section-5.3.2-5.2.1">A one-octet ML-DSA private key format identifier defined in <a href="#mldsa-privkey-id" class="auto internal xref">Section 5.3.2.1</a>.<a href="#section-5.3.2-5.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-5.2.1">A one-octet ML-DSA secret key format identifier defined in <a href="#mldsa-seckey-id" class="auto internal xref">Section 5.3.2.1</a>.<a href="#section-5.3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-5.3.2-5.3">
-              <p id="section-5.3.2-5.3.1">An octet string containing the ML-DSA secret key, whose length depends on the private key format identifier in the previous field.<a href="#section-5.3.2-5.3.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.2-5.3.1">An octet string containing the ML-DSA secret key, whose length depends on the secret key format identifier in the previous field.<a href="#section-5.3.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div id="mldsa-privkey-id">
+<div id="mldsa-seckey-id">
 <section id="section-5.3.2.1">
-            <h5 id="name-ml-dsa-private-key-format-i">
-<a href="#section-5.3.2.1" class="section-number selfRef">5.3.2.1. </a><a href="#name-ml-dsa-private-key-format-i" class="section-name selfRef">ML-DSA Private Key Format Identifier</a>
+            <h5 id="name-ml-dsa-secret-key-format-id">
+<a href="#section-5.3.2.1" class="section-number selfRef">5.3.2.1. </a><a href="#name-ml-dsa-secret-key-format-id" class="section-name selfRef">ML-DSA Secret Key Format Identifier</a>
             </h5>
-<span id="name-ml-dsa-private-key-format-id"></span><div id="tab-mldsa-privkey-id">
-<table class="center" id="table-10">
+<span id="name-ml-dsa-secret-key-format-ide"></span><div id="tab-mldsa-seckey-id">
+<table class="center" id="table-11">
               <caption>
-<a href="#table-10" class="selfRef">Table 10</a>:
-<a href="#name-ml-dsa-private-key-format-id" class="selfRef">ML-DSA Private Key Format Identifier</a>
+<a href="#table-11" class="selfRef">Table 11</a>:
+<a href="#name-ml-dsa-secret-key-format-ide" class="selfRef">ML-DSA Secret Key Format Identifier</a>
               </caption>
 <thead>
                 <tr>
                   <th class="text-right" rowspan="1" colspan="1">ID</th>
                   <th class="text-left" rowspan="1" colspan="1">Name</th>
-                  <th class="text-left" rowspan="1" colspan="1">Private Key Size</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="text-right" rowspan="1" colspan="1">0x00</td>
                   <td class="text-left" rowspan="1" colspan="1">Seed Format</td>
-                  <td class="text-left" rowspan="1" colspan="1">32</td>
+                </tr>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">0x01</td>
+                  <td class="text-left" rowspan="1" colspan="1">Expanded Key Format</td>
                 </tr>
               </tbody>
             </table>
 </div>
 <p id="section-5.3.2.1-2">The seed format is defined in accordance with <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, Section 3.6.3.
 Namely, the secret key is given by the value <code>xi</code> generated in step 1 of <code>ML-DSA.KeyGen</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.
-Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function <code>ML-DSA.KeyGen_internal</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has to be invoked with the parsed value of <code>xi</code> as input.<a href="#section-5.3.2.1-2" class="pilcrow">¶</a></p>
+Upon parsing the seed format, or before using the secret key, for the expansion of the key, the function <code>ML-DSA.KeyGen_internal</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has to be invoked with the parsed value of <code>xi</code> as input.<a href="#section-5.3.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.2.1-3">The expanded key format is the value <code>sk</code> that is generated by <code>ML-DSA.KeyGen</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.3.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.2.1-4">The length of the different formats is given in <a href="#tab-mldsa-sec-size" class="auto internal xref">Table 12</a>.<a href="#section-5.3.2.1-4" class="pilcrow">¶</a></p>
+<span id="name-ml-dsa-secret-key-length-in"></span><div id="tab-mldsa-sec-size">
+<table class="center" id="table-12">
+              <caption>
+<a href="#table-12" class="selfRef">Table 12</a>:
+<a href="#name-ml-dsa-secret-key-length-in" class="selfRef">ML-DSA secret key length in octets depending on secret key format identifier</a>
+              </caption>
+<thead>
+                <tr>
+                  <th class="text-right" rowspan="1" colspan="1">ML-KEM</th>
+                  <th class="text-left" rowspan="1" colspan="1">Seed Format</th>
+                  <th class="text-left" rowspan="1" colspan="1">Expanded Key Format</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">ML-DSA-65</td>
+                  <td class="text-left" rowspan="1" colspan="1">32</td>
+                  <td class="text-left" rowspan="1" colspan="1">4032</td>
+                </tr>
+                <tr>
+                  <td class="text-right" rowspan="1" colspan="1">ML-DSA-87</td>
+                  <td class="text-left" rowspan="1" colspan="1">32</td>
+                  <td class="text-left" rowspan="1" colspan="1">4896</td>
+                </tr>
+              </tbody>
+            </table>
+</div>
+<p id="section-5.3.2.1-6">Implementations MUST be able to parse the seed format and MAY implement parsing of the expanded key format.<a href="#section-5.3.2.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2678,9 +2747,9 @@ Upon parsing the private key format, or before using the secret key, for the exp
 <p id="section-6.1-1">The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
 This group of algorithms is henceforth referred to as "SLH-DSA code points".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <span id="name-slh-dsa-algorithm-code-poin"></span><div id="slhdsa-artifact-lengths">
-<table class="center" id="table-11">
+<table class="center" id="table-13">
           <caption>
-<a href="#table-11" class="selfRef">Table 11</a>:
+<a href="#table-13" class="selfRef">Table 13</a>:
 <a href="#name-slh-dsa-algorithm-code-poin" class="selfRef">SLH-DSA algorithm code points and the corresponding artifact lengths in octets.</a>
           </caption>
 <thead>
@@ -2719,13 +2788,13 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-signature-data-digest-2" class="section-name selfRef">Signature Data Digest</a>
           </h4>
 <p id="section-6.1.1-1">Signature data (i.e. the data to be signed) is digested prior to signing operations, see <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
-SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 12</a> for the signature data digest.
+SLH-DSA signatures MUST use the associated hash algorithm as specified in <a href="#tab-slhdsa-hash" class="auto internal xref">Table 14</a> for the signature data digest.
 Signatures using other hash algorithms MUST be considered invalid.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.1-2">An implementation supporting a specific SLH-DSA algorithm code point MUST also support the matching hash algorithm.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
 <span id="name-binding-between-slh-dsa-alg"></span><div id="tab-slhdsa-hash">
-<table class="center" id="table-12">
+<table class="center" id="table-14">
             <caption>
-<a href="#table-12" class="selfRef">Table 12</a>:
+<a href="#table-14" class="selfRef">Table 14</a>:
 <a href="#name-binding-between-slh-dsa-alg" class="selfRef">Binding between SLH-DSA algorithm code points and signature data hash algorithms</a>
             </caption>
 <thead>
@@ -2796,7 +2865,7 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.1-2">The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.1-3.1">
-              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.1-3.1.1">A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2810,13 +2879,13 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
 <p id="section-6.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-3.1">
-              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.2.2-5.1">
-              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2830,29 +2899,40 @@ Signatures using other hash algorithms MUST be considered invalid.<a href="#sect
       <h2 id="name-notes-on-algorithms">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-notes-on-algorithms" class="section-name selfRef">Notes on Algorithms</a>
       </h2>
-<div id="symmetric-algorithms-for-seipd-packets">
+<div id="ml-kem-and-ml-dsa-secret-key-formats">
 <section id="section-7.1">
-        <h3 id="name-symmetric-algorithms-for-se">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-symmetric-algorithms-for-se" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+        <h3 id="name-ml-kem-and-ml-dsa-secret-ke">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-ml-kem-and-ml-dsa-secret-ke" class="section-name selfRef">ML-KEM and ML-DSA Secret Key Formats</a>
         </h3>
-<p id="section-7.1-1">Implementations MUST implement <code>AES-256</code>.
-An implementation SHOULD use <code>AES-256</code> in the case of a v1 SEIPD packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">A certificate that contains a PQ(/T) key SHOULD include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.1-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+<p id="section-7.1-1">This document specifies both the seed format and the expanded secret key format for ML-KEM and ML-DSA secret keys.
+It should be noted that it is always possible to generate the expanded secret key format from the seed format, but it is not possible the other way around.
+Therefore, implementations SHOULD choose the seed format whenever possible.
+Implementations MAY export a secret key using the expanded key format if this is required for interoperability with another implementation or hardware device.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="symmetric-algorithms-for-seipd-packets">
+<section id="section-7.2">
+        <h3 id="name-symmetric-algorithms-for-se">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-symmetric-algorithms-for-se" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
+        </h3>
+<p id="section-7.2-1">Implementations MUST implement <code>AES-256</code>.
+An implementation SHOULD use <code>AES-256</code> in the case of a v1 SEIPD packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">A certificate that contains a PQ(/T) key SHOULD include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> is mandatory to implement.
-If <code>AES-128</code> is also implicitly added to the list, it is added after <code>AES-256</code>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
-<p id="section-7.1-4">If the pair <code>AES-256</code> with <code>OCB</code> is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
+If <code>AES-128</code> is also implicitly added to the list, it is added after <code>AES-256</code>.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.2-4">If the pair <code>AES-256</code> with <code>OCB</code> is not explicitly in the list of the "Preferred AEAD Ciphersuites" subpacket, and if the certificate contains a PQ/T key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> and <code>OCB</code> are mandatory to implement.
-If the pair <code>AES-128</code> with <code>OCB</code> is also implicitly added to the list, it is added after the pair <code>AES-256</code> with <code>OCB</code>.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
+If the pair <code>AES-128</code> with <code>OCB</code> is also implicitly added to the list, it is added after the pair <code>AES-256</code> with <code>OCB</code>.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="hash-algorithms-for-key-binding-signatures">
-<section id="section-7.2">
+<section id="section-7.3">
         <h3 id="name-hash-algorithms-for-key-bin">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-hash-algorithms-for-key-bin" class="section-name selfRef">Hash Algorithms for Key Binding Signatures</a>
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-hash-algorithms-for-key-bin" class="section-name selfRef">Hash Algorithms for Key Binding Signatures</a>
         </h3>
-<p id="section-7.2-1">Subkey binding signatures over algorithms described in this document and primary key binding signatures made by algorithms described in this document MUST NOT be made with <code>MD5</code>, <code>SHA-1</code>, or <code>RIPEMD-160</code>.
-A receiving implementation MUST treat such a signature as invalid.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-1">Subkey binding signatures over algorithms described in this document and primary key binding signatures made by algorithms described in this document MUST NOT be made with <code>MD5</code>, <code>SHA-1</code>, or <code>RIPEMD-160</code>.
+A receiving implementation MUST treat such a signature as invalid.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3047,12 +3127,12 @@ Based on the performance measurements published in the NIST submissions for SLH-
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 13</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
+<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 15</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.
 The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
-<table class="center" id="table-13">
+<table class="center" id="table-15">
         <caption>
-<a href="#table-13" class="selfRef">Table 13</a>:
+<a href="#table-15" class="selfRef">Table 15</a>:
 <a href="#name-iana-updates-for-registry-o" class="selfRef">IANA updates for registry 'OpenPGP Public Key Algorithms'</a>
         </caption>
 <thead>
@@ -3070,9 +3150,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">30</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-65+Ed25519</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>), 4032  octets ML-DSA-65 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets Ed25519 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>), 3293 octets ML-DSA-65 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4032  octets ML-DSA-65 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets Ed25519 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 3293 octets ML-DSA-65 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#ecc-mldsa" class="auto internal xref">Section 5.2</a>
@@ -3081,9 +3161,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">31</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-87+Ed448</td>
-            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>), 4896 octets ML-DSA-87 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">114 octets Ed448 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 7</a>), 4595 octets ML-DSA-87 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 8</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4896 octets ML-DSA-87 secret (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">114 octets Ed448 signature (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 8</a>), 4595 octets ML-DSA-87 signature (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 9</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#ecc-mldsa" class="auto internal xref">Section 5.2</a>
@@ -3092,9 +3172,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">32</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">7856 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3103,9 +3183,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">33</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
-            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">17088 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3114,9 +3194,9 @@ The field specifications enclosed in brackets for the ML-KEM + ECDH composite al
           <tr>
             <td class="text-left" rowspan="1" colspan="1">34</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
-            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
-            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 11</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
+            <td class="text-right" rowspan="1" colspan="1">29792 octets signature (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 13</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">N/A</td>
             <td class="text-right" rowspan="1" colspan="1">
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a>
@@ -3409,7 +3489,7 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
             <p id="section-12.13-1.1.1">Assign code points 35 and 36 for ML-KEM algorithms.<a href="#section-12.13-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-12.13-1.2">
-            <p id="section-12.13-1.2.1">Add a private key format identifier for ML-DSA and ML-KEM private keys.<a href="#section-12.13-1.2.1" class="pilcrow">¶</a></p>
+            <p id="section-12.13-1.2.1">Add a secret key format identifier for ML-DSA and ML-KEM secret keys to allow both the seed and expanded key format.<a href="#section-12.13-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-12.13-1.3">
             <p id="section-12.13-1.3.1">Remove normative guidance in the migration considerations for selecting PQ(/T) keys.<a href="#section-12.13-1.3.1" class="pilcrow">¶</a></p>
