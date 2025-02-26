@@ -691,7 +691,7 @@ The algorithm-specific secret key is this series of values:
 ID | Name
 -----:| ------------
 0x00  | Seed Format
-0x01  | Expanded Key Format
+0x01  | Expanded Format
 
 The seed format is defined in accordance with [FIPS-203], Section 3.3.
 Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
