@@ -1034,16 +1034,17 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    The length of the different formats is given in Table 12.
 
-             +===========+=============+=====================+
-             |    ML-KEM | Seed Format | Expanded Key Format |
-             +===========+=============+=====================+
-             | ML-DSA-65 | 32          | 4032                |
-             +-----------+-------------+---------------------+
-             | ML-DSA-87 | 32          | 4896                |
-             +-----------+-------------+---------------------+
+               +===========+=============+=================+
+               |    ML-KEM | Seed Format | Expanded Format |
+               +===========+=============+=================+
+               | ML-DSA-65 | 32          | 4032            |
+               +-----------+-------------+-----------------+
+               | ML-DSA-87 | 32          | 4896            |
+               +-----------+-------------+-----------------+
 
-                Table 12: ML-DSA secret key length in octets
-                 depending on secret key format identifier
+                   Table 12: ML-DSA secret key length in
+                   octets depending on secret key format
+                                 identifier
 
    Implementations MUST be able to parse the seed format and MAY
    implement parsing of the expanded key format.
