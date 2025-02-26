@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 28 August 2025                                      F. Strenzke
+Expires: 30 August 2025                                      F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        24 February 2025
+                                                        26 February 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2025.
+   This Internet-Draft will expire on 30 August 2025.
 
 Copyright Notice
 
@@ -1151,14 +1151,14 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 7.1.  ML-KEM and ML-DSA Secret Key Formats
 
-   This document specifies both the seed format and the expanded secret
-   key format for ML-KEM and ML-DSA secret keys.  It should be noted
-   that it is always possible to generate the expanded secret key format
-   from the seed format, but it is not possible the other way around.
-   Therefore, implementations SHOULD choose the seed format whenever
-   possible.  Implementations MAY export a secret key using the expanded
-   key format if this is required for interoperability with another
-   implementation or hardware device.
+   This document specifies both the seed and expanded format for ML-KEM
+   and ML-DSA secret keys.  It should be noted that it is always
+   possible to generate the expanded secret key format from the seed
+   format, but it is not possible the other way around.  Therefore,
+   implementations SHOULD choose the seed format whenever possible.
+   Implementations MAY export a secret key using the expanded key format
+   if this is required for interoperability with another implementation
+   or hardware device.
 
 7.2.  Symmetric Algorithms for SEIPD Packets
 
