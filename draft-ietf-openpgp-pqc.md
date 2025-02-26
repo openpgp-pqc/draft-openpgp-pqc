@@ -840,7 +840,7 @@ The algorithm-specific secret key is this series of values:
 ID | Name
 -----:| ------------
 0x00  | Seed Format
-0x01  | Expanded Key Format
+0x01  | Expanded Format
 
 The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
 Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
