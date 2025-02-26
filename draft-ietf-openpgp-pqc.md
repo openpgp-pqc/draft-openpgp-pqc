@@ -927,7 +927,7 @@ The algorithm-specific part of the secret key consists of:
 
 ## ML-KEM and ML-DSA Secret Key Formats
 
-This document specifies both the seed format and the expanded secret key format for ML-KEM and ML-DSA secret keys.
+This document specifies both the seed and expanded format for ML-KEM and ML-DSA secret keys.
 It should be noted that it is always possible to generate the expanded secret key format from the seed format, but it is not possible the other way around.
 Therefore, implementations SHOULD choose the seed format whenever possible.
 Implementations MAY export a secret key using the expanded key format if this is required for interoperability with another implementation or hardware device.
