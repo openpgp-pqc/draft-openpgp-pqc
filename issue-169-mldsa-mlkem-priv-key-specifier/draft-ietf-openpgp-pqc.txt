@@ -794,16 +794,16 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 4.3.2.1.  ML-KEM Secret Key Format Identifier
 
-                      +======+=====================+
-                      |   ID | Name                |
-                      +======+=====================+
-                      | 0x00 | Seed Format         |
-                      +------+---------------------+
-                      | 0x01 | Expanded Key Format |
-                      +------+---------------------+
+                        +======+=================+
+                        |   ID | Name            |
+                        +======+=================+
+                        | 0x00 | Seed Format     |
+                        +------+-----------------+
+                        | 0x01 | Expanded Format |
+                        +------+-----------------+
 
-                        Table 6: ML-KEM Secret Key
-                            Format Identifier
+                          Table 6: ML-KEM Secret
+                          Key Format Identifier
 
    The seed format is defined in accordance with [FIPS-203],
    Section 3.3.  Namely, the secret key is given by the concatenation of
