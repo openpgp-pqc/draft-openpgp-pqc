@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T01:24:03.861105+00:00",
+  "timestamp": "2025-02-27T01:23:50.630851+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3009,7 +3009,7 @@
       "labels": [],
       "body": "We plan to go with the seed-only format for now. However, in order to not block future changes, we want to add a one-octet format specifier. For now, only one value for the seed format shall be defined.",
       "createdAt": "2025-02-17T09:35:54Z",
-      "updatedAt": "2025-02-19T21:32:25Z",
+      "updatedAt": "2025-02-25T11:16:10Z",
       "closedAt": null,
       "comments": [
         {
@@ -3018,6 +3018,13 @@
           "body": "I quite oppose this change. I feel like offering the both formats is just going to cause troubles and worse UX than offering only seed.\n\n- One implementation starts to to do expanded -> everyone needs to support it\n- If a key is expanded format, the key can't be imported into HSMs that support seed (worse than not exporting because by far more common operation)\n- This opens up to more options, included someone coming up with a completely different storage\n- This increases parsing complexity, adding new error cases (e.g. unexpected value)",
           "createdAt": "2025-02-19T21:32:23Z",
           "updatedAt": "2025-02-19T21:32:23Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We now want to decide between the two options:\n\n1. leave it as it is\n2. specify both formats, prefer seed format, see #171 ",
+          "createdAt": "2025-02-25T11:16:07Z",
+          "updatedAt": "2025-02-25T11:16:07Z"
         }
       ]
     },
@@ -16588,13 +16595,13 @@
       "labels": [],
       "body": "resolves #169 \r\n\r\nthis introduces the secret key format identifier and in addition to the secret key seed format defines the expanded secret key format",
       "createdAt": "2025-02-18T09:52:20Z",
-      "updatedAt": "2025-02-24T15:48:05Z",
+      "updatedAt": "2025-02-26T08:58:29Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b6ea411a9113fa0e491938a63a31e69fdec5c657",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-169-mldsa-mlkem-priv-key-specifier",
-      "headRefOid": "8403d5df5904a4a2cbdf111511caf4c6141c4a33",
+      "headRefOid": "8aafc5d26b9eb7c084b5894f32550a3383286c06",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -16873,6 +16880,106 @@
           "createdAt": "2025-02-18T14:33:08Z",
           "updatedAt": "2025-02-18T14:33:08Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86djCWU",
+          "commit": {
+            "abbreviatedOid": "8403d5d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-26T06:18:00Z",
+          "updatedAt": "2025-02-26T06:18:00Z",
+          "comments": [
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\n0x01  | Expanded Format\r\n```\r\nI thin `Key` is superfluous here.",
+              "createdAt": "2025-02-26T06:18:00Z",
+              "updatedAt": "2025-02-26T06:18:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86djCjA",
+          "commit": {
+            "abbreviatedOid": "8403d5d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-26T06:18:25Z",
+          "updatedAt": "2025-02-26T06:18:25Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "```suggestion\r\nML-KEM       | Seed Format | Expanded Format\r\n```",
+              "createdAt": "2025-02-26T06:18:25Z",
+              "updatedAt": "2025-02-26T06:18:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86djCun",
+          "commit": {
+            "abbreviatedOid": "8403d5d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-26T06:18:47Z",
+          "updatedAt": "2025-02-26T06:18:48Z",
+          "comments": [
+            {
+              "originalPosition": 105,
+              "body": "```suggestion\r\n0x01  | Expanded Format\r\n```",
+              "createdAt": "2025-02-26T06:18:48Z",
+              "updatedAt": "2025-02-26T06:18:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86djCyu",
+          "commit": {
+            "abbreviatedOid": "8403d5d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-26T06:18:59Z",
+          "updatedAt": "2025-02-26T06:19:00Z",
+          "comments": [
+            {
+              "originalPosition": 116,
+              "body": "```suggestion\r\nML-KEM       | Seed Format | Expanded Format\r\n```",
+              "createdAt": "2025-02-26T06:19:00Z",
+              "updatedAt": "2025-02-26T06:19:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86djDFg",
+          "commit": {
+            "abbreviatedOid": "8403d5d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-26T06:19:29Z",
+          "updatedAt": "2025-02-26T06:19:29Z",
+          "comments": [
+            {
+              "originalPosition": 131,
+              "body": "```suggestion\r\nThis document specifies both the seed and expanded format for ML-KEM and ML-DSA secret keys.\r\n```",
+              "createdAt": "2025-02-26T06:19:29Z",
+              "updatedAt": "2025-02-26T06:19:29Z"
+            }
+          ]
         }
       ]
     },
