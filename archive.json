@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-13T01:26:23.442278+00:00",
+  "timestamp": "2025-03-16T01:38:52.878599+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -16595,7 +16595,7 @@
       "labels": [],
       "body": "resolves #169 \r\n\r\nthis introduces the secret key format identifier and in addition to the secret key seed format defines the expanded secret key format",
       "createdAt": "2025-02-18T09:52:20Z",
-      "updatedAt": "2025-02-26T08:58:29Z",
+      "updatedAt": "2025-03-13T07:41:55Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b6ea411a9113fa0e491938a63a31e69fdec5c657",
@@ -16978,6 +16978,26 @@
               "body": "```suggestion\r\nThis document specifies both the seed and expanded format for ML-KEM and ML-DSA secret keys.\r\n```",
               "createdAt": "2025-02-26T06:19:29Z",
               "updatedAt": "2025-02-26T06:19:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86fyjZY",
+          "commit": {
+            "abbreviatedOid": "8aafc5d"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-13T07:41:54Z",
+          "updatedAt": "2025-03-13T07:41:55Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "I would keep all requirements regarding reading and writing secret keys to together. So far, requirements reading and writing and in three different places.",
+              "createdAt": "2025-03-13T07:41:55Z",
+              "updatedAt": "2025-03-13T07:41:55Z"
             }
           ]
         }
