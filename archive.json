@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-16T01:38:52.878599+00:00",
+  "timestamp": "2025-03-18T01:26:13.836506+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -16595,7 +16595,7 @@
       "labels": [],
       "body": "resolves #169 \r\n\r\nthis introduces the secret key format identifier and in addition to the secret key seed format defines the expanded secret key format",
       "createdAt": "2025-02-18T09:52:20Z",
-      "updatedAt": "2025-03-13T07:41:55Z",
+      "updatedAt": "2025-03-17T07:14:11Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b6ea411a9113fa0e491938a63a31e69fdec5c657",
@@ -16998,6 +16998,46 @@
               "body": "I would keep all requirements regarding reading and writing secret keys to together. So far, requirements reading and writing and in three different places.",
               "createdAt": "2025-03-13T07:41:55Z",
               "updatedAt": "2025-03-13T07:41:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86gS-pU",
+          "commit": {
+            "abbreviatedOid": "8aafc5d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-17T07:07:50Z",
+          "updatedAt": "2025-03-17T07:07:50Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "Since the key format is tied to the algorithm, I think we have to address it in the two algorithm specific sections. And since this part that you replied to is relevant for both, I chose to move it here in order to not duplicate.\r\n\r\nDo you have an idea how I should keep it all together?",
+              "createdAt": "2025-03-17T07:07:50Z",
+              "updatedAt": "2025-03-17T07:07:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86gTBbF",
+          "commit": {
+            "abbreviatedOid": "8aafc5d"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-17T07:14:10Z",
+          "updatedAt": "2025-03-17T07:14:11Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "Let's wait with this PR for now. Currently we assume that we stick to the seed-only format and thus won't need this one.",
+              "createdAt": "2025-03-17T07:14:10Z",
+              "updatedAt": "2025-03-17T07:14:11Z"
             }
           ]
         }
