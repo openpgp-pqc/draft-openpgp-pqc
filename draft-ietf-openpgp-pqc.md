@@ -422,8 +422,11 @@ Even though the zero point, also called the point at infinity, may occur as a re
 Furthermore, when performing the explicitly listed operations in {{x25519-kem}} or {{x448-kem}} it is REQUIRED to follow the specification and security advisory mandated from the respective elliptic curve specification.
 
 ## Key version binding
-These asymmetric algorithms are to be used only in v6 TPKs and TSKs, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).
-Algorithm 35 is also permitted for use in v4 TPKs and TSKs for the purpose of defending OpenPGP messages encrypted to existing certificates against store-now, decrypt-later attacks that use quantum computing machinery.
+
+All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).
+For existing certificates, algorithm 35 is also permitted for use in v4 encryption-capable subkeys.
+This permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.
+New keys and certificates should use v6 for the full range of post-quantum algorithms.
 
 # Composite KEM schemes
 
