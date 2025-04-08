@@ -668,7 +668,9 @@ Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (t
 
 ### Key Material Packets {#mlkem-ecc-key}
 
-The composite ML-KEM + ECDH schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
+The composite ML-KEM-768 + X25519 (algorithm ID 35) MUST be used only with v4 or v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
+
+The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document
 
 The algorithm-specific public key is this series of values:
 
@@ -1092,6 +1094,7 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-08
 - Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
+- Allow usage of ML-KEM-768 + X25519 with v4 keys
 
 # Contributors
 
