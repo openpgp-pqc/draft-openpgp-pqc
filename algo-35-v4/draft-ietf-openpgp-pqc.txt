@@ -364,7 +364,12 @@ Table of Contents
    via KEM combination, i.e. both key encapsulations/decapsulations are
    performed in parallel, and the resulting key shares are fed into a
    key combiner to produce a single shared secret for message
-   encryption.
+   encryption.  These asymmetric algorithms should be used only in v6
+   TPKs and TSKs, with the single exception of ML-KEM-768+X25519
+   (algorithm ID 35).  Algorithm 35 is also permitted for use in v4 TPKs
+   and TSKs for the purpose of defending OpenPGP messages encrypted to
+   existing certificates against store-now, decrypt-later attacks that
+   use quantum computing machinery.
 
    As explained in Section 1.4.2, the OpenPGP protocol inherently
    supports parallel encryption to different keys.  Note that the

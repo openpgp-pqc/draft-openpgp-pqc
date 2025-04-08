@@ -1784,7 +1784,9 @@ All of these schemes are fully specified via their algorithm ID, i.e., they are 
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-composite-kems" class="section-name selfRef">Composite KEMs</a>
         </h3>
 <p id="section-3.1-1">The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
-This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
+These asymmetric algorithms should be used only in v6 TPKs and TSKs, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).
+Algorithm 35 is also permitted for use in v4 TPKs and TSKs for the purpose of defending OpenPGP messages encrypted to existing certificates against store-now, decrypt-later attacks that use quantum computing machinery.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">As explained in <a href="#non-composite-multi-alg" class="auto internal xref">Section 1.4.2</a>, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
