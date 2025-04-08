@@ -93,6 +93,7 @@ Table of Contents
      3.2.  Composite Signatures
      3.3.  Multiple Signatures
      3.4.  ECC requirements
+     3.5.  Key version binding
    4.  Composite KEM schemes
      4.1.  Building Blocks
        4.1.1.  ECDH KEMs
@@ -364,12 +365,7 @@ Table of Contents
    via KEM combination, i.e. both key encapsulations/decapsulations are
    performed in parallel, and the resulting key shares are fed into a
    key combiner to produce a single shared secret for message
-   encryption.  These asymmetric algorithms should be used only in v6
-   TPKs and TSKs, with the single exception of ML-KEM-768+X25519
-   (algorithm ID 35).  Algorithm 35 is also permitted for use in v4 TPKs
-   and TSKs for the purpose of defending OpenPGP messages encrypted to
-   existing certificates against store-now, decrypt-later attacks that
-   use quantum computing machinery.
+   encryption.
 
    As explained in Section 1.4.2, the OpenPGP protocol inherently
    supports parallel encryption to different keys.  Note that the
@@ -413,6 +409,15 @@ Table of Contents
    Section 4.1.1.1 or Section 4.1.1.2 it is REQUIRED to follow the
    specification and security advisory mandated from the respective
    elliptic curve specification.
+
+3.5.  Key version binding
+
+   These asymmetric algorithms are to be used only in v6 TPKs and TSKs,
+   with the single exception of ML-KEM-768+X25519 (algorithm ID 35).
+   Algorithm 35 is also permitted for use in v4 TPKs and TSKs for the
+   purpose of defending OpenPGP messages encrypted to existing
+   certificates against store-now, decrypt-later attacks that use
+   quantum computing machinery.
 
 4.  Composite KEM schemes
 
