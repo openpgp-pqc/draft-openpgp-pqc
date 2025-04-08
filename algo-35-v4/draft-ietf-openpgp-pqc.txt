@@ -88,7 +88,6 @@ Table of Contents
        1.4.2.  Non-Composite Algorithm Combinations
    2.  Supported Public Key Algorithms
      2.1.  Algorithm Specifications
-       2.1.1.  Experimental Codepoints for Interop Testing
    3.  Algorithm Combinations
      3.1.  Composite KEMs
      3.2.  Composite Signatures
@@ -111,19 +110,17 @@ Table of Contents
        5.1.1.  EdDSA-Based signatures
        5.1.2.  ML-DSA signatures
      5.2.  Composite Signature Schemes with ML-DSA
-       5.2.1.  Signature data digest
-       5.2.2.  Key generation procedure
-       5.2.3.  Signature Generation
-       5.2.4.  Signature Verification
+       5.2.1.  Key generation procedure
+       5.2.2.  Signature Generation
+       5.2.3.  Signature Verification
      5.3.  Packet Specifications
        5.3.1.  Signature Packet (Tag 2)
        5.3.2.  Key Material Packets
    6.  SLH-DSA
      6.1.  The SLH-DSA Algorithms
-       6.1.1.  Signature Data Digest
-       6.1.2.  Key generation
-       6.1.3.  Signature Generation
-       6.1.4.  Signature Verification
+       6.1.1.  Key generation
+       6.1.2.  Signature Generation
+       6.1.3.  Signature Verification
      6.2.  Packet specifications
        6.2.1.  Signature Packet (Tag 2)
        6.2.2.  Key Material Packets
@@ -131,16 +128,16 @@ Table of Contents
      7.1.  Symmetric Algorithms for SEIPD Packets
      7.2.  Hash Algorithms for Key Binding Signatures
    8.  Migration Considerations
-     8.1.  Key preference
-     8.2.  Key generation strategies
+     8.1.  Encrypting to Traditional and PQ(/T) Keys
+     8.2.  Signing with Traditional and PQ(/T) Keys
+     8.3.  Key generation strategies
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
      9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Binding hashes in signatures with signature algorithms
-     9.5.  Symmetric Algorithms for SEIPD Packets
-     9.6.  Key generation
+     9.4.  Symmetric Algorithms for SEIPD Packets
+     9.5.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -157,6 +154,7 @@ Table of Contents
      12.10. draft-ietf-openpgp-pqc-05
      12.11. draft-ietf-openpgp-pqc-06
      12.12. draft-ietf-openpgp-pqc-07
+     12.13. draft-ietf-openpgp-pqc-08
    13. Contributors
    14. References
      14.1.  Normative References
@@ -174,7 +172,7 @@ Table of Contents
        A.3.1.  Transferable Secret Key
        A.3.2.  Transferable Public Key
        A.3.3.  Encrypted and Signed Message
-     A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+     A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
        A.4.1.  Transferable Secret Key
        A.4.2.  Transferable Public Key
        A.4.3.  Encrypted and Signed Message
@@ -238,17 +236,6 @@ Table of Contents
    SLH-DSA are based, are fundamentally different, and accordingly the
    level of trust commonly placed in them as well as their performance
    characteristics vary.
-
-   [Note to the reader: This specification refers to the NIST PQC draft
-   standards FIPS 203, FIPS 204, and FIPS 205 as if they were a final
-   specification.  This is a temporary solution until the final versions
-   of these documents are available.  The goal is to provide a
-   sufficiently precise specification of the algorithms already at the
-   draft stage of this specification, so that it is possible for
-   implementers to create interoperable implementations.  Furthermore,
-   we want to point out that, depending on possible future changes to
-   the draft standards by NIST, this specification may be updated as
-   soon as corresponding information becomes available.]
 
 1.2.1.  ML-KEM
 
@@ -337,20 +324,6 @@ Table of Contents
 
 2.1.  Algorithm Specifications
 
-   For encryption, the following composite KEM schemes are specified:
-
-      +==============+===================+=============+============+
-      |           ID | Algorithm         | Requirement | Definition |
-      +==============+===================+=============+============+
-      | TBD (105 for | ML-KEM-768+X25519 | MUST        | Section    |
-      |     testing) |                   |             | 4.2        |
-      +--------------+-------------------+-------------+------------+
-      | TBD (106 for | ML-KEM-1024+X448  | SHOULD      | Section    |
-      |     testing) |                   |             | 4.2        |
-      +--------------+-------------------+-------------+------------+
-
-                   Table 1: KEM algorithm specifications
-
    For signatures, the following (composite) signature schemes are
    specified:
 
@@ -368,18 +341,19 @@ Table of Contents
           | 34 | SLH-DSA-SHAKE-256s | MAY         | Section 6.1 |
           +----+--------------------+-------------+-------------+
 
-                Table 2: Signature algorithm specifications
+                Table 1: Signature algorithm specifications
 
-2.1.1.  Experimental Codepoints for Interop Testing
+   For encryption, the following composite KEM schemes are specified:
 
-   [ Note: this section to be removed before publication ]
+          +====+===================+=============+=============+
+          | ID | Algorithm         | Requirement | Definition  |
+          +====+===================+=============+=============+
+          | 35 | ML-KEM-768+X25519 | MUST        | Section 4.2 |
+          +----+-------------------+-------------+-------------+
+          | 36 | ML-KEM-1024+X448  | SHOULD      | Section 4.2 |
+          +----+-------------------+-------------+-------------+
 
-   The use of private/experimental codepoints during development are
-   intended to be used in non-released software only, for
-   experimentation and interop testing purposes only.  An OpenPGP
-   implementation MUST NOT produce a formal release using these
-   experimental codepoints.  This draft will not be sent to IANA without
-   every listed algorithm having a non-experimental codepoint.
+                  Table 2: KEM algorithm specifications
 
 3.  Algorithm Combinations
 
@@ -395,9 +369,8 @@ Table of Contents
    As explained in Section 1.4.2, the OpenPGP protocol inherently
    supports parallel encryption to different keys.  Note that the
    confidentiality of a message is not post-quantum secure when
-   encrypting to different keys if at least one key does not support PQ/
-   T encryption schemes.  In Section 8.1 it is explained how to deal
-   with multiple key scenarios.
+   encrypting to different keys if at least one key does not support
+   PQ(/T) encryption schemes.
 
 3.2.  Composite Signatures
 
@@ -420,12 +393,9 @@ Table of Contents
    signature(s) during validation.
 
    Implementations SHOULD consider the message correctly signed if at
-   least one of the non-ignored signatures validates successfully.
-
-   [Note to the reader: The last requirement, that one valid signature
-   is sufficient to identify a message as correctly signed, is an
-   interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.5).]
+   least one of the non-ignored signatures validates successfully.  This
+   is an interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
+   editor.org/rfc/rfc9580#section-5.2.5).
 
 3.4.  ECC requirements
 
@@ -451,29 +421,28 @@ Table of Contents
    Table 3 describes the ECDH-KEM parameters and artifact lengths.  The
    artifacts in Table 3 follow the encodings described in [RFC7748].
 
-   +========================+=======================+==================+
-   |                        | X25519                | X448             |
-   +========================+=======================+==================+
-   | Algorithm ID reference | TBD (105 for          | TBD (106 for     |
-   |                        | testing)              | testing)         |
-   +------------------------+-----------------------+------------------+
-   | Field size             | 32 octets             | 56 octets        |
-   +------------------------+-----------------------+------------------+
-   | ECDH-KEM               | x25519Kem             | x448Kem (Section |
-   |                        | (Section 4.1.1.1)     | 4.1.1.2)         |
-   +------------------------+-----------------------+------------------+
-   | ECDH public key        | 32 octets             | 56 octets        |
-   |                        | [RFC7748]             | [RFC7748]        |
-   +------------------------+-----------------------+------------------+
-   | ECDH secret key        | 32 octets             | 56 octets        |
-   |                        | [RFC7748]             | [RFC7748]        |
-   +------------------------+-----------------------+------------------+
-   | ECDH ephemeral         | 32 octets             | 56 octets        |
-   |                        | [RFC7748]             | [RFC7748]        |
-   +------------------------+-----------------------+------------------+
-   | ECDH key share         | 32 octets             | 56 octets        |
-   |                        | [RFC7748]             | [RFC7748]        |
-   +------------------------+-----------------------+------------------+
+     +========================+===================+==================+
+     |                        | X25519            | X448             |
+     +========================+===================+==================+
+     | Algorithm ID reference | 35                | 36               |
+     +------------------------+-------------------+------------------+
+     | Field size             | 32 octets         | 56 octets        |
+     +------------------------+-------------------+------------------+
+     | ECDH-KEM               | x25519Kem         | x448Kem (Section |
+     |                        | (Section 4.1.1.1) | 4.1.1.2)         |
+     +------------------------+-------------------+------------------+
+     | ECDH public key        | 32 octets         | 56 octets        |
+     |                        | [RFC7748]         | [RFC7748]        |
+     +------------------------+-------------------+------------------+
+     | ECDH secret key        | 32 octets         | 56 octets        |
+     |                        | [RFC7748]         | [RFC7748]        |
+     +------------------------+-------------------+------------------+
+     | ECDH ephemeral         | 32 octets         | 56 octets        |
+     |                        | [RFC7748]         | [RFC7748]        |
+     +------------------------+-------------------+------------------+
+     | ECDH key share         | 32 octets         | 56 octets        |
+     |                        | [RFC7748]         | [RFC7748]        |
+     +------------------------+-------------------+------------------+
 
          Table 3: Montgomery curves parameters and artifact lengths
 
@@ -568,13 +537,9 @@ Table of Contents
    |           ID |             | key    | key    |            | share |
    |    reference |             |        |        |            |       |
    +==============+=============+========+========+============+=======+
-   |     TBD (105 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
-   |          for |             |        |        |            |       |
-   |     testing) |             |        |        |            |       |
+   |           35 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
    +--------------+-------------+--------+--------+------------+-------+
-   |     TBD (106 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
-   |          for |             |        |        |            |       |
-   |     testing) |             |        |        |            |       |
+   |           36 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
    +--------------+-------------+--------+--------+------------+-------+
 
            Table 4: ML-KEM parameters artifact lengths in octets
@@ -601,15 +566,15 @@ Table of Contents
 
 4.2.  Composite Encryption Schemes with ML-KEM
 
-   Table 1 specifies the following ML-KEM + ECDH composite public-key
+   Table 2 specifies the following ML-KEM + ECDH composite public-key
    encryption schemes:
 
            +========================+=============+===========+
            | Algorithm ID reference | ML-KEM      | ECDH-KEM  |
            +========================+=============+===========+
-           |  TBD (105 for testing) | ML-KEM-768  | x25519Kem |
+           |                     35 | ML-KEM-768  | x25519Kem |
            +------------------------+-------------+-----------+
-           |  TBD (106 for testing) | ML-KEM-1024 | x448Kem   |
+           |                     36 | ML-KEM-1024 | x448Kem   |
            +------------------------+-------------+-----------+
 
                  Table 5: ML-KEM + ECDH composite schemes
@@ -637,7 +602,7 @@ Table of Contents
 
 4.2.1.  Key combiner
 
-   For the composite KEM schemes defined in Table 1 the following
+   For the composite KEM schemes defined in Table 2 the following
    procedure MUST be used to compute the KEK that wraps a session key.
    The construction is a key derivation function compliant to
    [SP800-56C], Section 4, based on SHA3-256.  It is given by the
@@ -864,12 +829,11 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 5.1.2.  ML-DSA signatures
 
    Throughout this specification ML-DSA refers to the default pure and
-   hedged version of ML-DSA, i.e., in contrast to the pre-hash or
-   deterministic variant, defined in [FIPS-204].
+   hedged version of ML-DSA defined in [FIPS-204].
 
-   For ML-DSA signature generation the default hedged version of ML-
-   DSA.Sign given in [FIPS-204] is used.  That is, to sign with ML-DSA
-   the following operation is defined:
+   For ML-DSA signature generation the default hedged version of the
+   algorithm ML-DSA.Sign given in [FIPS-204] is used.  That is, to sign
+   with ML-DSA the following operation is defined:
 
    (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
@@ -896,31 +860,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 5.2.  Composite Signature Schemes with ML-DSA
 
-5.2.1.  Signature data digest
-
-   Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.4).  Composite ML-DSA + EdDSA
-   signatures MUST use the associated hash algorithm as specified in
-   Table 8 for the signature data digest.  Signatures using other hash
-   algorithms MUST be considered invalid.
-
-   An implementation supporting a specific ML-DSA + EdDSA algorithm MUST
-   also support the matching hash algorithm.
-
-        +========================+===============+===============+
-        | Algorithm ID reference | Hash function | Hash function |
-        |                        |               | ID reference  |
-        +========================+===============+===============+
-        |                     30 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     31 | SHA3-512      | 14            |
-        +------------------------+---------------+---------------+
-
-          Table 8: Binding between ML-DSA + EdDSA and signature
-                               data digest
-
-5.2.2.  Key generation procedure
+5.2.1.  Key generation procedure
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
@@ -930,7 +870,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    artifacts as specified in Section 5.1.1 as fixed-length octet
    strings.
 
-5.2.3.  Signature Generation
+5.2.2.  Signature Generation
 
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
@@ -947,7 +887,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    4.  Encode the EdDSA and ML-DSA signatures according to the packet
        structure given in Section 5.3.1.
 
-5.2.4.  Signature Verification
+5.2.3.  Signature Verification
 
    To verify an ML-DSA + EdDSA signature the following sequence of
    operations has to be performed:
@@ -1031,47 +971,21 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 9: SLH-DSA algorithm code points and the corresponding
+       Table 8: SLH-DSA algorithm code points and the corresponding
                        artifact lengths in octets.
 
-6.1.1.  Signature Data Digest
-
-   Signature data (i.e. the data to be signed) is digested prior to
-   signing operations, see [RFC9580, Section 5.2.4] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.4).  SLH-DSA signatures MUST use
-   the associated hash algorithm as specified in Table 10 for the
-   signature data digest.  Signatures using other hash algorithms MUST
-   be considered invalid.
-
-   An implementation supporting a specific SLH-DSA algorithm code point
-   MUST also support the matching hash algorithm.
-
-        +========================+===============+===============+
-        | Algorithm ID reference | Hash function | Hash function |
-        |                        |               | ID reference  |
-        +========================+===============+===============+
-        |                     32 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     33 | SHA3-256      | 12            |
-        +------------------------+---------------+---------------+
-        |                     34 | SHA3-512      | 14            |
-        +------------------------+---------------+---------------+
-
-             Table 10: Binding between SLH-DSA algorithm code
-                points and signature data hash algorithms
-
-6.1.2.  Key generation
+6.1.1.  Key generation
 
    SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
    as specified in [FIPS-205], and the artifacts are encoded as fixed-
    length octet strings as defined in Section 6.1.
 
-6.1.3.  Signature Generation
+6.1.2.  Signature Generation
 
-   SLH-DSA signature generation is performed via the algorithm SLH-
-   DSA.Sign as specified in [FIPS-205].
+   SLH-DSA signature generation is performed via the default hedged
+   version of the algorithm SLH-DSA.Sign as specified in [FIPS-205].
 
-6.1.4.  Signature Verification
+6.1.3.  Signature Verification
 
    SLH-DSA signature verification is performed via the algorithm SLH-
    DSA.Verify as specified in [FIPS-205].
@@ -1089,7 +1003,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 9.
+      Table 8.
 
 6.2.2.  Key Material Packets
 
@@ -1100,12 +1014,12 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
 7.  Notes on Algorithms
 
@@ -1124,13 +1038,13 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    If AES-256 is not explicitly in the list of the "Preferred Symmetric
    Ciphers for v1 SEIPD" subpacket, and if the certificate contains a
-   PQ/T key, it is implicitly at the end of the list.  This is justified
-   since AES-256 is mandatory to implement.  If AES-128 is also
-   implicitly added to the list, it is added after AES-256.
+   PQ(/T) key, it is implicitly at the end of the list.  This is
+   justified since AES-256 is mandatory to implement.  If AES-128 is
+   also implicitly added to the list, it is added after AES-256.
 
    If the pair AES-256 with OCB is not explicitly in the list of the
    "Preferred AEAD Ciphersuites" subpacket, and if the certificate
-   contains a PQ/T key, it is implicitly at the end of the list.  This
+   contains a PQ(/T) key, it is implicitly at the end of the list.  This
    is justified since AES-256 and OCB are mandatory to implement.  If
    the pair AES-128 with OCB is also implicitly added to the list, it is
    added after the pair AES-256 with OCB.
@@ -1144,8 +1058,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 8.  Migration Considerations
 
-   The post-quantum KEM algorithms defined in Table 1 and the signature
-   algorithms defined in Table 2 are a set of new public key algorithms
+   The post-quantum KEM algorithms defined in Table 2 and the signature
+   algorithms defined in Table 1 are a set of new public key algorithms
    that extend the algorithm selection of [RFC9580].  During the
    transition period, the post-quantum algorithms will not be supported
    by all clients.  Therefore various migration considerations must be
@@ -1153,28 +1067,23 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    implementations that have not yet been updated to support the post-
    quantum algorithms.
 
-8.1.  Key preference
+8.1.  Encrypting to Traditional and PQ(/T) Keys
 
-   Implementations SHOULD prefer PQ(/T) keys when multiple options are
-   available.  When encrypting to a certificate that has both a valid
-   PQ/T and a valid traditional encryption subkey, an implementation
-   SHOULD use the PQ/T subkey only.  Furthermore, if an application has
-   any means to determine that encrypting to a PQ/T certificate and a
-   traditional certificate is redundant, it should omit encrypting to
-   the traditional certificate.
-
-   As specified in Section 3.1, the confidentiality of a message is not
+   As noted in Section 3.1, the confidentiality of a message is not
    post-quantum secure when using multiple PKESKs if at least one does
-   not use PQ/T encryption schemes.  An implementation SHOULD NOT abort
-   the encryption process when encrypting a message to both PQ/T and
-   traditional keys to allow for a smooth transition to post-quantum
+   not use PQ(/T) encryption schemes.  An implementation should not
+   abort the encryption process when encrypting a message to both PQ(/T)
+   and traditional keys to allow for a smooth transition to post-quantum
    cryptography.
 
-   An implementation MAY sign with both a PQ(/T) and an ECC key using
-   multiple signatures over the same data as described in Section 3.3.
-   Signing only with PQ(/T) key material is not backwards compatible.
+8.2.  Signing with Traditional and PQ(/T) Keys
 
-8.2.  Key generation strategies
+   An implementation may sign with both a PQ(/T) and a traditional key
+   using multiple signatures over the same data as described in
+   Section 3.3.  Signing only with PQ(/T) key material is not backwards
+   compatible.
+
+8.3.  Key generation strategies
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
@@ -1187,8 +1096,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    1.  Generate two independent certificates, one for PQ(/T)-capable
        implementations, and one for legacy implementations.
        Implementations not understanding PQ(/T) certificates can use the
-       legacy certificate, while PQ(/T)-capable implementations will
-       prefer the newer certificate.  This allows having a traditional
+       legacy certificate, while PQ(/T)-capable implementations can also
+       use the newer certificate.  This allows having a traditional
        certificate for compatibility and a v6 PQ(/T) certificate, at a
        greater complexity in key distribution.
 
@@ -1298,25 +1207,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Binding hashes in signatures with signature algorithms
-
-   In order not to extend the attack surface, we bind the hash algorithm
-   used for signature data digestion to the hash algorithm used
-   internally by the signature algorithm.
-
-   ML-DSA internally uses a SHAKE256 digest, therefore we require SHA3
-   in the ML-DSA + EdDSA signature packet, see Section 5.2.1.  Note that
-   we bind a NIST security category 2 hash function to a signature
-   algorithm that falls into NIST security category 3.  This does not
-   constitute a security bottleneck: because of the unpredictable random
-   salt that is prepended to the digested data in v6 signatures, the
-   hardness assumption is not collision resistance but second-preimage
-   resistance.
-
-   In the case of SLH-DSA the internal hash algorithm varies based on
-   the algorithm ID, see Section 6.1.1.
-
-9.5.  Symmetric Algorithms for SEIPD Packets
+9.4.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1331,7 +1222,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.6.  Key generation
+9.5.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1391,114 +1282,110 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 11 to the
+   IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in brackets for the ML-KEM + ECDH composite
    algorithms denote fields that are only conditionally contained in the
    data structure.
 
-   +===+============+=======+=======+=========+==============+=========+
-   |ID | Algorithm  | Public| Secret|Signature|        PKESK |Reference|
-   |   |            |    Key|    Key|   Format|       Format |         |
-   |   |            | Format| Format|         |              |         |
-   +===+============+=======+=======+=========+==============+=========+
-   |TBD| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
-   |   | 768+X25519 | octets| octets|         |       X25519 |      4.2|
-   |   |            | X25519| X25519|         |  ciphertext, |         |
-   |   |            | public| secret|         |  1088 octets |         |
-   |   |            |    key|    key|         |   ML-KEM-768 |         |
-   |   |            | (Table| (Table|         |   ciphertext |         |
-   |   |            |    3),|    3),|         |   [, 1 octet |         |
-   |   |            |   1184|   2400|         |    algorithm |         |
-   |   |            | octets| octets|         |   ID in case |         |
-   |   |            |    ML-|    ML-|         |        of v3 |         |
-   |   |            |KEM-768|KEM-768|         |    PKESK], 1 |         |
-   |   |            | public|secret-|         |        octet |         |
-   |   |            |    key|    key|         |       length |         |
-   |   |            | (Table| (Table|         |     field of |         |
-   |   |            |     4)|     4)|         |   value n, n |         |
-   |   |            |       |       |         |       octets |         |
-   |   |            |       |       |         |      wrapped |         |
-   |   |            |       |       |         |  session key |         |
-   |   |            |       |       |         |     (Section |         |
-   |   |            |       |       |         |       4.3.1) |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |TBD| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
-   |   | 1024+X448  | octets| octets|         |         X448 |      4.2|
-   |   |            |   X448|   X448|         |  ciphertext, |         |
-   |   |            | public| secret|         |  1568 octets |         |
-   |   |            |    key|    key|         |  ML-KEM-1024 |         |
-   |   |            | (Table| (Table|         |   ciphertext |         |
-   |   |            |    3),|    3),|         |   [, 1 octet |         |
-   |   |            |   1568|   3168|         |    algorithm |         |
-   |   |            | octets| octets|         |   ID in case |         |
-   |   |            |ML-KEM-|ML-KEM-|         |        of v3 |         |
-   |   |            |   1024|   1024|         |    PKESK], 1 |         |
-   |   |            | public|secret-|         |        octet |         |
-   |   |            |    key|    key|         |       length |         |
-   |   |            | (Table| (Table|         |     field of |         |
-   |   |            |     4)|     4)|         |   value n, n |         |
-   |   |            |       |       |         |       octets |         |
-   |   |            |       |       |         |      wrapped |         |
-   |   |            |       |       |         |  session key |         |
-   |   |            |       |       |         |     (Section |         |
-   |   |            |       |       |         |       4.3.1) |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |30 | ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
-   |   | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
-   |   |            |Ed25519|Ed25519|signature|              |         |
-   |   |            | public| secret|   (Table|              |         |
-   |   |            |    key|    key| 6), 3293|              |         |
-   |   |            | (Table| (Table|   octets|              |         |
-   |   |            |    6),|    6),|ML-DSA-65|              |         |
-   |   |            |   1952|   4032|signature|              |         |
-   |   |            | octets| octets|(Table 7)|              |         |
-   |   |            |    ML-|    ML-|         |              |         |
-   |   |            | DSA-65| DSA-65|         |              |         |
-   |   |            | public| secret|         |              |         |
-   |   |            |    key| (Table|         |              |         |
-   |   |            | (Table|     7)|         |              |         |
-   |   |            |     7)|       |         |              |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |31 | ML-DSA-    |     57|     57|      114|          N/A |  Section|
-   |   | 87+Ed448   | octets| octets|   octets|              |      5.2|
-   |   |            |  Ed448|  Ed448|    Ed448|              |         |
-   |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|   (Table|              |         |
-   |   |            | (Table| (Table| 6), 4595|              |         |
-   |   |            |    6),|    6),|   octets|              |         |
-   |   |            |   2592|   4896|ML-DSA-87|              |         |
-   |   |            | octets| octets|signature|              |         |
-   |   |            |    ML-|    ML-|(Table 7)|              |         |
-   |   |            | DSA-87| DSA-87|         |              |         |
-   |   |            | public| secret|         |              |         |
-   |   |            |    key| (Table|         |              |         |
-   |   |            | (Table|     7)|         |              |         |
-   |   |            |     7)|       |         |              |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |32 | SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
-   |   | SHAKE-128s | octets| octets|   octets|              |      6.1|
-   |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 9)|              |         |
-   |   |            | (Table| (Table|         |              |         |
-   |   |            |     9)|     9)|         |              |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |33 | SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
-   |   | SHAKE-128f | octets| octets|   octets|              |      6.1|
-   |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 9)|              |         |
-   |   |            | (Table| (Table|         |              |         |
-   |   |            |     9)|     9)|         |              |         |
-   +---+------------+-------+-------+---------+--------------+---------+
-   |34 | SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
-   |   | SHAKE-256s | octets| octets|   octets|              |      6.1|
-   |   |            | public| secret|signature|              |         |
-   |   |            |    key|    key|(Table 9)|              |         |
-   |   |            | (Table| (Table|         |              |         |
-   |   |            |     9)|     9)|         |              |         |
-   +---+------------+-------+-------+---------+--------------+---------+
+   +==+============+=======+=======+=========+==============+=========+
+   |ID| Algorithm  | Public| Secret|Signature| PKESK Format |Reference|
+   |  |            |    Key|    Key|   Format|              |         |
+   |  |            | Format| Format|         |              |         |
+   +==+============+=======+=======+=========+==============+=========+
+   |30| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
+   |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
+   |  |            |Ed25519|Ed25519|signature|              |         |
+   |  |            | public| secret|   (Table|              |         |
+   |  |            |    key|    key| 6), 3293|              |         |
+   |  |            | (Table| (Table|   octets|              |         |
+   |  |            |    6),|    6),|ML-DSA-65|              |         |
+   |  |            |   1952|   4032|signature|              |         |
+   |  |            | octets| octets|(Table 7)|              |         |
+   |  |            |    ML-|    ML-|         |              |         |
+   |  |            | DSA-65| DSA-65|         |              |         |
+   |  |            | public| secret|         |              |         |
+   |  |            |    key| (Table|         |              |         |
+   |  |            | (Table|     7)|         |              |         |
+   |  |            |     7)|       |         |              |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
+   |  | 87+Ed448   | octets| octets|   octets|              |      5.2|
+   |  |            |  Ed448|  Ed448|    Ed448|              |         |
+   |  |            | public| secret|signature|              |         |
+   |  |            |    key|    key|   (Table|              |         |
+   |  |            | (Table| (Table| 6), 4595|              |         |
+   |  |            |    6),|    6),|   octets|              |         |
+   |  |            |   2592|   4896|ML-DSA-87|              |         |
+   |  |            | octets| octets|signature|              |         |
+   |  |            |    ML-|    ML-|(Table 7)|              |         |
+   |  |            | DSA-87| DSA-87|         |              |         |
+   |  |            | public| secret|         |              |         |
+   |  |            |    key| (Table|         |              |         |
+   |  |            | (Table|     7)|         |              |         |
+   |  |            |     7)|       |         |              |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
+   |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
+   |  |            | public| secret|signature|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
+   |  |            | (Table| (Table|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
+   |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
+   |  |            | public| secret|signature|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
+   |  |            | (Table| (Table|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
+   |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
+   |  |            | public| secret|signature|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
+   |  |            | (Table| (Table|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
+   |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
+   |  |            | X25519| X25519|         |  ciphertext, |         |
+   |  |            | public| secret|         |  1088 octets |         |
+   |  |            |    key|    key|         |   ML-KEM-768 |         |
+   |  |            | (Table| (Table|         |   ciphertext |         |
+   |  |            |    3),|    3),|         |   [, 1 octet |         |
+   |  |            |   1184|   2400|         | algorithm ID |         |
+   |  |            | octets| octets|         |   in case of |         |
+   |  |            |    ML-|    ML-|         | v3 PKESK], 1 |         |
+   |  |            |KEM-768|KEM-768|         | octet length |         |
+   |  |            | public|secret-|         |     field of |         |
+   |  |            |    key|    key|         |   value n, n |         |
+   |  |            | (Table| (Table|         |       octets |         |
+   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            |       |       |         |  session key |         |
+   |  |            |       |       |         |     (Section |         |
+   |  |            |       |       |         |       4.3.1) |         |
+   +--+------------+-------+-------+---------+--------------+---------+
+   |36| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
+   |  | 1024+X448  | octets| octets|         |         X448 |      4.2|
+   |  |            |   X448|   X448|         |  ciphertext, |         |
+   |  |            | public| secret|         |  1568 octets |         |
+   |  |            |    key|    key|         |  ML-KEM-1024 |         |
+   |  |            | (Table| (Table|         |   ciphertext |         |
+   |  |            |    3),|    3),|         |   [, 1 octet |         |
+   |  |            |   1568|   3168|         | algorithm ID |         |
+   |  |            | octets| octets|         |   in case of |         |
+   |  |            |ML-KEM-|ML-KEM-|         | v3 PKESK], 1 |         |
+   |  |            |   1024|   1024|         | octet length |         |
+   |  |            | public|secret-|         |     field of |         |
+   |  |            |    key|    key|         |   value n, n |         |
+   |  |            | (Table| (Table|         |       octets |         |
+   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            |       |       |         |  session key |         |
+   |  |            |       |       |         |     (Section |         |
+   |  |            |       |       |         |       4.3.1) |         |
+   +--+------------+-------+-------+---------+--------------+---------+
 
-    Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
@@ -1617,13 +1504,23 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 12.12.  draft-ietf-openpgp-pqc-07
 
-   *  Assign code points 30 - 34 for ML-DSA and SLH-DSA algorithms.
+   *  Assigned code points 30 - 34 for ML-DSA + EdDSA and SLH-DSA
+      algorithms.
 
-   *  Align KEM combiner with LAMPS
+   *  Aligned KEM combiner with LAMPS.
 
-   *  Drop CCA-conversion of X25519/X448
+   *  Dropped CCA-conversion of X25519/X448 and adjusted security
+      considerations.
 
-   *  Switch to hedged variant also for SLH-DSA
+   *  Switched to hedged variant also for SLH-DSA.
+
+12.13.  draft-ietf-openpgp-pqc-08
+
+   *  Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
+
+   *  Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
+
+   *  Allow usage of ML-KEM-768 + X25519 with v4 keys
 
 13.  Contributors
 
@@ -3689,7 +3586,7 @@ A.3.3.  Encrypted and Signed Message
    tjRfiOLyEbBRP5Y=
    -----END PGP MESSAGE-----
 
-A.4.  Sample SLH-DSA-128s+Ed448 with ML-KEM-768+X25519 Data
+A.4.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
 
 A.4.1.  Transferable Secret Key
 
