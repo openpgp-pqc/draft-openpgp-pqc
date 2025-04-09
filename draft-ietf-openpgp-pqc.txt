@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 24 August 2025                                      F. Strenzke
+Expires: 11 October 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        20 February 2025
+                                                            9 April 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2025.
+   This Internet-Draft will expire on 11 October 2025.
 
 Copyright Notice
 
@@ -1577,9 +1577,9 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
               Ounsworth, M., Gray, J., Pala, M., Klaußner, J., and S.
               Fluhrer, "Composite ML-KEM for use in X.509 Public Key
               Infrastructure and CMS", Work in Progress, Internet-Draft,
-              draft-ietf-lamps-pq-composite-kem-05, 21 October 2024,
+              draft-ietf-lamps-pq-composite-kem-06, 17 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
-              pq-composite-kem-05>.
+              pq-composite-kem-06>.
 
    [I-D.ietf-pquip-pqt-hybrid-terminology]
               D, F., P, M., and B. Hale, "Terminology for Post-Quantum
