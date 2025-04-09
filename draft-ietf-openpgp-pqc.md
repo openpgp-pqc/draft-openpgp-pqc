@@ -579,14 +579,16 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
 
     KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-                    || mlkemCipherText || mlkemPublicKey || algId || domSep )
+                    || mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep) )
     return KEK
 
 The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
 
     domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
-Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep` being the OpenPGP-specific context information.
+`len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal `21`.
+
+Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep)` being the OpenPGP-specific context information.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -924,7 +926,7 @@ More precisely, for a given capacity `c` the indifferentiability proof shows tha
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
 Hence, to be able to distinguish a key `K`, derived from shared secrets `SS1` and `SS2` (with ciphertexts `CT1` and `CT2` and public keys `PK1` and `PK2`) as
 
-    K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep)
+    K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep || len(domSep))
 
 from a random bit string, an adversary has to know (or correctly guess) both secret shares `SS1` and `SS2`, entirely.
 
@@ -940,6 +942,8 @@ Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure 
 
 The `domSep` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose.
+Appending the length octet ensures that no collisions can result accross different domains, which might be defined in the future.
+Without the appended length octet, it would have to be ensured that the set of values of `domSep` is suffix-free.
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
