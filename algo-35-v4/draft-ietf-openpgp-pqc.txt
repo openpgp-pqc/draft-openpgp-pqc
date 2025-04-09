@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 10 October 2025                                     F. Strenzke
+Expires: 11 October 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                            8 April 2025
+                                                            9 April 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 October 2025.
+   This Internet-Draft will expire on 11 October 2025.
 
 Copyright Notice
 
@@ -414,13 +414,11 @@ Table of Contents
 
    All (PQ/T) asymmetric algorithms are to be used only in v6 (and
    newer) keys and certificates, with the single exception of ML-KEM-
-   768+X25519 (algorithm ID 35).  For existing certificates, algorithm
-   35 is also permitted for use in v4 encryption-capable subkeys.  This
-   permits the keyholder of an existing v4 certificate to add such a
-   subkey to defend against store-now, decrypt-later attacks from
-   quantum computers without moving to a new primary key.  New keys and
-   certificates should use v6 for the full range of post-quantum
-   algorithms.
+   768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-
+   capable subkeys.  This permits the keyholder of an existing v4
+   certificate to add such a subkey to defend against store-now,
+   decrypt-later attacks from quantum computers without moving to a new
+   primary key.
 
 4.  Composite KEM schemes
 
@@ -779,7 +777,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only
    with v6 keys, as defined in [RFC9580], or newer versions defined by
-   updates of that document
+   updates of that document.
 
    The algorithm-specific public key is this series of values:
 
