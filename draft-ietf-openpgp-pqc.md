@@ -423,10 +423,8 @@ Furthermore, when performing the explicitly listed operations in {{x25519-kem}} 
 
 ## Key version binding
 
-All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).
-For existing certificates, algorithm 35 is also permitted for use in v4 encryption-capable subkeys.
+All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
 This permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.
-New keys and certificates should use v6 for the full range of post-quantum algorithms.
 
 # Composite KEM schemes
 
@@ -677,7 +675,7 @@ Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (t
 
 The composite ML-KEM-768 + X25519 (algorithm ID 35) MUST be used only with v4 or v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
-The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document
+The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific public key is this series of values:
 
