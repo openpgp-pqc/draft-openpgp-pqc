@@ -586,7 +586,7 @@ The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPG
 
     domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
-`len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
+Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
 
 Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep)` being the OpenPGP-specific context information.
 
