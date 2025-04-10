@@ -1030,9 +1030,9 @@ ID     | Algorithm           | Public Key Format                                
 - Switched to hedged variant also for SLH-DSA.
 
 ## draft-ietf-openpgp-pqc-08
-- Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
+- Assigned code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
-- Allow usage of ML-KEM-768 + X25519 with v4 keys
+- Allowed usage of ML-KEM-768 + X25519 with v4 keys
 - Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
 
 # Contributors
