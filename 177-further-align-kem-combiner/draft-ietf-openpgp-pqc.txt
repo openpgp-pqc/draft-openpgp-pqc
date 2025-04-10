@@ -802,7 +802,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       Namely, the secret key is given by the concatenation of the values
       of d and z, generated in steps 1 and 2 of ML-KEM.KeyGen
       [FIPS-203], each of a length of 32 octets.  Upon parsing the
-      private key format, or before using the secret key, for the
+      secret key format, or before using the secret key, for the
       expansion of the key, the function ML-KEM.KeyGen_internal
       [FIPS-203] has to be invoked with the parsed values of d and z as
       input.
@@ -957,7 +957,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       seed format is defined in accordance with [FIPS-204],
       Section 3.6.3.  Namely, the secret key is given by the value xi
       generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
-      private key format, or before using the secret key, for the
+      secret key format, or before using the secret key, for the
       expansion of the key, the function ML-DSA.KeyGen_internal
       [FIPS-204] has to be invoked with the parsed value of xi as input.
 
@@ -1429,7 +1429,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    *  Swapped the optional v3 PKESK algorithm identifier with length
       octet in order to align with X25519 and X448.
 
-   *  Fixed ML-DSA private key size.
+   *  Fixed ML-DSA secret key size.
 
    *  Added test vectors.
 
@@ -1474,7 +1474,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Mandated v6 keys for ML-KEM + ECDH algorithms.
 
-   *  Defined private key seed format for ML-KEM and ML-DSA.
+   *  Defined secret key seed format for ML-KEM and ML-DSA.
 
    *  Added key generation security considerations.
 
