@@ -55,7 +55,6 @@ normative:
 informative:
 
   I-D.ietf-pquip-pqt-hybrid-terminology:
-  I-D.ietf-lamps-pq-composite-kem:
 
   NIST-PQC:
     target: https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization
@@ -122,29 +121,6 @@ informative:
     seriesinfo:
       NIST IR 8413
 
-  SP800-56A:
-    target: https://doi.org/10.6028/NIST.SP.800-56Ar3
-    title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
-    author:
-      -
-        ins: E. Barker
-        name: Elaine Barker
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: A. Roginsky
-        name: Allen Roginsky
-      -
-        ins: A. Vassilev
-        name: Apostol Vassilev
-      -
-        ins: R. Davis
-        name: Richard Davis
-    date: April 2018
-    seriesinfo:
-      NIST Special Publication 800-56A Rev. 3
-
   SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
     title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
@@ -185,39 +161,6 @@ informative:
       author:
         - org: National Institute of Standards and Technology
       date: August 2024
-
-  GHP18:
-    target: https://doi.org/10.1007/978-3-319-76578-5_7
-    title: KEM Combiners
-    date: 2018
-    author:
-      -
-        ins: F. Giacon
-        name: Federico Giacon
-      -
-        ins: F. Heuer
-        name: Felix Heuer
-      -
-        ins: B. Poettering
-        name: Bertram Poettering
-
-  BDPA08:
-    target: https://doi.org/10.1007/978-3-540-78967-3_11
-    title: On the Indifferentiability of the Sponge Construction
-    author:
-      -
-        ins: G. Bertoni
-        name: Guido Bertoni
-      -
-        ins: J. Daemen
-        name: Joan Daemen
-      -
-        ins: M. Peters
-        name: Michael Peters
-      -
-        ins: G. Assche
-        name: Gilles van Assche
-    date: 2008
 
   BCD+24:
     target: https://doi.org/10.62056/a3qj89n4e
@@ -926,25 +869,9 @@ This is due to the fact that each v6 signatures also includes a random salt at t
 
 ## Key combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
-The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle {{BDPA08}}.
-This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.
+A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
-More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell SHA3-256 from a random oracle.
-For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key `K`, derived from shared secrets `SS1` and `SS2` (with ciphertexts `CT1` and `CT2` and public keys `PK1` and `PK2`) as
-
-
-from a random bit string, an adversary has to know (or correctly guess) both secret shares `SS1` and `SS2`, entirely.
-
-The proposed construction in {{kem-key-combiner}} preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
-Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in {{GHP18}}.
-That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
-Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in {{GHP18}}. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.
-
-Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in [BCD+24] that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such {{ABH+21}}.
+Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
 
 ### Domain separation and context binding {#sec-fixed-info}
 
@@ -957,8 +884,6 @@ Thus this property ensures unambiguous parsing of a word from the rear of a stri
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
-
-The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.
 
 ## ML-DSA and SLH-DSA hedged variants {#hedged-sec-cons}
 
@@ -1107,6 +1032,7 @@ ID     | Algorithm           | Public Key Format                                
 - Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 - Allow usage of ML-KEM-768 + X25519 with v4 keys
+- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
 
 # Contributors
 
