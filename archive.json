@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:41:51.198679+00:00",
+  "timestamp": "2025-04-10T01:36:22.186798+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3002,15 +3002,15 @@
       "id": "I_kwDOIrmZ-86qTsdY",
       "title": "ML-KEM and ML-DSA Private Key Format Specifier",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/169",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "We plan to go with the seed-only format for now. However, in order to not block future changes, we want to add a one-octet format specifier. For now, only one value for the seed format shall be defined.",
       "createdAt": "2025-02-17T09:35:54Z",
-      "updatedAt": "2025-02-25T11:16:10Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-09T12:00:34Z",
+      "closedAt": "2025-04-09T12:00:34Z",
       "comments": [
         {
           "author": "wussler",
@@ -3025,6 +3025,13 @@
           "body": "We now want to decide between the two options:\n\n1. leave it as it is\n2. specify both formats, prefer seed format, see #171 ",
           "createdAt": "2025-02-25T11:16:07Z",
           "updatedAt": "2025-02-25T11:16:07Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The issue seems to be decided on leaveing it as it is",
+          "createdAt": "2025-04-09T12:00:34Z",
+          "updatedAt": "2025-04-09T12:00:34Z"
         }
       ]
     },
@@ -16588,21 +16595,21 @@
       "id": "PR_kwDOIrmZ-86LkU4T",
       "title": "Define seed and expanded key format and introduce secret key identifier for ML-*",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/171",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "resolves #169 \r\n\r\nthis introduces the secret key format identifier and in addition to the secret key seed format defines the expanded secret key format",
       "createdAt": "2025-02-18T09:52:20Z",
-      "updatedAt": "2025-03-17T07:14:11Z",
+      "updatedAt": "2025-04-09T07:33:26Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b6ea411a9113fa0e491938a63a31e69fdec5c657",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "issue-169-mldsa-mlkem-priv-key-specifier",
       "headRefOid": "8aafc5d26b9eb7c084b5894f32550a3383286c06",
-      "closedAt": null,
+      "closedAt": "2025-04-09T07:33:26Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -17097,6 +17104,409 @@
           "createdAt": "2025-02-20T07:09:47Z",
           "updatedAt": "2025-02-20T07:09:47Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 174,
+      "id": "PR_kwDOIrmZ-86R0sXb",
+      "title": "Allow algorithm 35 with v4 keys",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/174",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed at the OpenPGP summit, allow ML-KEM-768 + X25519 to be used with v4 keys",
+      "createdAt": "2025-04-08T17:16:42Z",
+      "updatedAt": "2025-04-09T15:52:11Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "51f48d124bb67d635d9f4179fa65a6e532d7efba",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "algo-35-v4",
+      "headRefOid": "0ef55dc7c908337f64577fbaccf41d12a22b6fc1",
+      "closedAt": "2025-04-09T15:52:11Z",
+      "mergedAt": "2025-04-09T15:52:11Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "35a8336a61c7537864c530e20572df69efbb4c09"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86j-K-d",
+          "commit": {
+            "abbreviatedOid": "2a3e1a3"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "i've left a few nitpicky cleanup comments, but the overall proposal here LGTM.",
+          "createdAt": "2025-04-08T18:10:20Z",
+          "updatedAt": "2025-04-08T18:26:21Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "what is this hunk doing in the diff?",
+              "createdAt": "2025-04-08T18:10:20Z",
+              "updatedAt": "2025-04-08T18:26:21Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "This seems clunky, but i think the text is correct.\r\n\r\nIf you want to be friendlier, you could also put a note at the top of the draft (in the introduction?) that says something like \"these asymmetric algorithms should be used only in v6 TPKs and TSKs, with the single exception of algorithm ID 35.  Algo 35 is also permitted for use in v4 TPKs and TSKs for the purpose of defending OpenPGP messages encrypted to existing certificates against store-now, decrypt-later attacks that use quantum computing machinery.\"",
+              "createdAt": "2025-04-08T18:25:39Z",
+              "updatedAt": "2025-04-08T18:26:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86j-lRy",
+          "commit": {
+            "abbreviatedOid": "2a3e1a3"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-08T18:46:55Z",
+          "updatedAt": "2025-04-08T18:46:55Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "Rebase artifact. I'll include it in a separate PR",
+              "createdAt": "2025-04-08T18:46:55Z",
+              "updatedAt": "2025-04-08T18:46:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86j-pcV",
+          "commit": {
+            "abbreviatedOid": "2a3e1a3"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-08T18:54:38Z",
+          "updatedAt": "2025-04-08T18:54:38Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I pushed a version of this suggestion. We'll discuss it tomorrow morning",
+              "createdAt": "2025-04-08T18:54:38Z",
+              "updatedAt": "2025-04-08T18:54:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86j-tyJ",
+          "commit": {
+            "abbreviatedOid": "91c595c"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I've tweaked the intro justification text a bit.  with (something like) these changes, i'd be fine with this revision.",
+          "createdAt": "2025-04-08T19:02:27Z",
+          "updatedAt": "2025-04-08T19:12:24Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThese asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).\r\n```",
+              "createdAt": "2025-04-08T19:02:27Z",
+              "updatedAt": "2025-04-08T19:12:24Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nFor existing certificates, algorithm 35 is also permitted for use in v4 encryption-capable subkeys.\r\nThis permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.\r\nNew keys and certificates should use v6 for the full range of post-quantum algorithms. \r\n```",
+              "createdAt": "2025-04-08T19:09:03Z",
+              "updatedAt": "2025-04-08T19:12:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86j-5SX",
+          "commit": {
+            "abbreviatedOid": "91c595c"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-08T19:25:40Z",
+          "updatedAt": "2025-04-08T19:25:40Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nAll (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35).\r\n```",
+              "createdAt": "2025-04-08T19:25:40Z",
+              "updatedAt": "2025-04-08T19:25:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDayb",
+          "commit": {
+            "abbreviatedOid": "da4e8eb"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-09T07:19:39Z",
+          "updatedAt": "2025-04-09T07:19:40Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nAll (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.\r\nThis permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.\r\n```",
+              "createdAt": "2025-04-09T07:19:39Z",
+              "updatedAt": "2025-04-09T07:19:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDdGb",
+          "commit": {
+            "abbreviatedOid": "da4e8eb"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-09T07:22:28Z",
+          "updatedAt": "2025-04-09T07:22:28Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-04-09T07:22:28Z",
+              "updatedAt": "2025-04-09T07:22:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDeac",
+          "commit": {
+            "abbreviatedOid": "da4e8eb"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-09T07:24:01Z",
+          "updatedAt": "2025-04-09T07:24:02Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nThe composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.\r\n```",
+              "createdAt": "2025-04-09T07:24:01Z",
+              "updatedAt": "2025-04-09T07:24:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDsXN",
+          "commit": {
+            "abbreviatedOid": "0ef55dc"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T07:42:29Z",
+          "updatedAt": "2025-04-09T07:42:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDxf7",
+          "commit": {
+            "abbreviatedOid": "0ef55dc"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T07:50:06Z",
+          "updatedAt": "2025-04-09T07:50:06Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kFlye",
+          "commit": {
+            "abbreviatedOid": "0ef55dc"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T10:09:12Z",
+          "updatedAt": "2025-04-09T10:09:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kJh5k",
+          "commit": {
+            "abbreviatedOid": "0ef55dc"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T15:47:40Z",
+          "updatedAt": "2025-04-09T15:47:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 175,
+      "id": "PR_kwDOIrmZ-86R1ht5",
+      "title": "Add .includes.mk file",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/175",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-08T18:57:28Z",
+      "updatedAt": "2025-04-09T08:08:11Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "51f48d124bb67d635d9f4179fa65a6e532d7efba",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "includes-file",
+      "headRefOid": "fe1cfb6e3e390c9b5095095ccf5ccde924afc8e9",
+      "closedAt": "2025-04-09T08:08:11Z",
+      "mergedAt": "2025-04-09T08:08:11Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "cf4d7eac1750d9809e5923ecd6fc37f5c65bd337"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86kDw0d",
+          "commit": {
+            "abbreviatedOid": "fe1cfb6"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-04-09T07:49:04Z",
+          "updatedAt": "2025-04-09T07:49:04Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kDyIX",
+          "commit": {
+            "abbreviatedOid": "fe1cfb6"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T07:51:07Z",
+          "updatedAt": "2025-04-09T07:51:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 176,
+      "id": "PR_kwDOIrmZ-86R7lPb",
+      "title": "Improve domain separation guidance",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/176",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I had forgotten to mention this in our meeting. It would of course require to change the test vectors again.\r\n\r\nAs an alternative to appending the length octet, we could say in the security considerations that any new domain has to be chosen so that the resulting set is suffix-free. Since I don't expect many, that seems acceptable.",
+      "createdAt": "2025-04-09T11:16:56Z",
+      "updatedAt": "2025-04-09T16:59:20Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "cf4d7eac1750d9809e5923ecd6fc37f5c65bd337",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "domain-length",
+      "headRefOid": "b1cad417d32bdc88dca23ecb240c00480cf73adb",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I personally think it's sufficient to require suffix-free, I don't think that there will be that many KEM combiners.\r\n\r\nThe domain separator is also very specific, and adding an encoded length is the same issue all over. If someone just reuses the length value without looking at the past structure we will incur in a suffix conflict anyway. (ASCII 21 is a weird char to use anywhere, but nevertheless)",
+          "createdAt": "2025-04-09T11:47:16Z",
+          "updatedAt": "2025-04-09T11:47:16Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I personally think it's sufficient to require suffix-free, I don't think that there will be that many KEM combiners.\r\n> \r\n> The domain separator is also very specific, and adding an encoded length is the same issue all over. If someone just reuses the length value without looking at the past structure we will incur in a suffix conflict anyway. (ASCII 21 is a weird char to use anywhere, but nevertheless)\r\n\r\nAgreed, I will rework it accordingly.",
+          "createdAt": "2025-04-09T11:55:35Z",
+          "updatedAt": "2025-04-09T11:55:35Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> It might be clearer to also give the reason why this matters (to ensure unique/distinct encoding of kem combiner input across different domains and algorithms). Anyway, I'm approving and am also fine if we leave it like it is.\r\n\r\nWe could be more explicit, but on the other hand, for an expert it should be clear. And I hope that a change to the combiner will only be made by an expert. \r\n\r\nIf any reviewer asks for it, we can still add it.",
+          "createdAt": "2025-04-09T14:38:32Z",
+          "updatedAt": "2025-04-09T14:38:32Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86kIov2",
+          "commit": {
+            "abbreviatedOid": "b1cad41"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "It might be clearer to also give the reason why this matters (to ensure unique/distinct encoding of kem combiner input across different domains and algorithms). Anyway, I'm approving and am also fine if we leave it like it is.",
+          "createdAt": "2025-04-09T14:34:29Z",
+          "updatedAt": "2025-04-09T14:34:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kJko9",
+          "commit": {
+            "abbreviatedOid": "b1cad41"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-09T15:51:39Z",
+          "updatedAt": "2025-04-09T15:51:39Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kKSA2",
+          "commit": {
+            "abbreviatedOid": "b1cad41"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-09T16:59:19Z",
+          "updatedAt": "2025-04-09T16:59:20Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I think this is clearer:\r\n\r\n```suggestion\r\nWhen defining new values of `domSep` in the future, the set of all `domSep` values must be suffix-free.\r\n```\r\n\r\nBut still not clear enough.  what does \"suffix-free\" actually mean?\r\n\r\n- they must not share a suffix? or\r\n- no `domSep` value can be a suffix of any other?\r\n\r\nIs there some registry of all `domSep` values somewhere that we could add this guidance to?",
+              "createdAt": "2025-04-09T16:59:20Z",
+              "updatedAt": "2025-04-09T17:00:01Z"
+            }
+          ]
         }
       ]
     }
