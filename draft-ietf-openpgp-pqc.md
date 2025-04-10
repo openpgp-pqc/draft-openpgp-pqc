@@ -869,6 +869,7 @@ This is due to the fact that each v6 signatures also includes a random salt at t
 
 ## Key combiner {#sec-key-combiner}
 
+For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
 A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
 Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
