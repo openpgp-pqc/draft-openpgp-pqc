@@ -1150,11 +1150,14 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 9.2.  Key combiner
 
-   A central security notion of a key combiner is IND-CCA2-security.  It
-   is argued in [BCD_24] that the key combiner specified in
-   Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the
-   Strong Diffie-Hellman problem in a nominal group holds.  Note that
-   Curve25519 and Curve448 qualify as such nominal groups [ABH_21].
+   For the key combination in Section 4.2.1 this specification limits
+   itself to the use of SHA3-256 in a construction following
+   [SP800-56C].  A central security notion of a key combiner is IND-
+   CCA2-security.  It is argued in [BCD_24] that the key combiner
+   specified in Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-
+   CCA2-secure or the Strong Diffie-Hellman problem in a nominal group
+   holds.  Note that Curve25519 and Curve448 qualify as such nominal
+   groups [ABH_21].
 
    Note that the inclusion of the EC public key in the key combiner also
    accounts for multi-target attacks against X25519 and X448.

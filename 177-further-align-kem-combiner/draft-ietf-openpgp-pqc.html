@@ -2795,7 +2795,8 @@ This is due to the fact that each v6 signatures also includes a random salt at t
         <h3 id="name-key-combiner-2">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.2-1">A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
+A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.2-2">Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
 <section id="section-9.2.1">
