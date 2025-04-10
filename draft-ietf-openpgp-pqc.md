@@ -571,20 +571,24 @@ The construction is a key derivation function compliant to {{SP800-56C}}, Sectio
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
 
-    //   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-    //                   ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)
+    //   multiKeyCombine(
+    //       mlkemKeyShare, ecdhKeyShare,
+    //       ecdhCipherText, ecdhPublicKey,
+    //       algId
+    //   )
     //
     //   Input:
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
-    //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-    //   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
 
-    KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-                    || mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep) )
+    KEK = SHA3-256(
+              mlkemKeyShare || ecdhKeyShare ||
+              ecdhCipherText || ecdhPublicKey ||
+              algId || domSep || len(domSep)
+          )
     return KEK
 
 The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
@@ -592,8 +596,6 @@ The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPG
     domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
-
-Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep)` being the OpenPGP-specific context information.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -617,7 +619,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)`
 
- 7. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId, 256)` as defined in {{kem-key-combiner}}
+ 7. Compute `KEK := multiKeyCombine(mlkemKeyShare, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  8. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -643,7 +645,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
- 9. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
+ 9. Compute `KEK := multiKeyCombine(mlkemKeyShare, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  10. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
@@ -933,7 +935,6 @@ More precisely, for a given capacity `c` the indifferentiability proof shows tha
 For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
 Hence, to be able to distinguish a key `K`, derived from shared secrets `SS1` and `SS2` (with ciphertexts `CT1` and `CT2` and public keys `PK1` and `PK2`) as
 
-    K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep || len(domSep))
 
 from a random bit string, an adversary has to know (or correctly guess) both secret shares `SS1` and `SS2`, entirely.
 
