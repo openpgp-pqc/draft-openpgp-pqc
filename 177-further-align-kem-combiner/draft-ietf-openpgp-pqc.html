@@ -2795,20 +2795,8 @@ This is due to the fact that each v6 signatures also includes a random salt at t
         <h3 id="name-key-combiner-2">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key combiner</a>
         </h3>
-<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
-The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle <span>[<a href="#BDPA08" class="cite xref">BDPA08</a>]</span>.
-This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-<p id="section-9.2-2">More precisely, for a given capacity <code>c</code> the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of <code>2^(c/2)</code> calls to the permutation to tell SHA3-256 from a random oracle.
-For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key <code>K</code>, derived from shared secrets <code>SS1</code> and <code>SS2</code> (with ciphertexts <code>CT1</code> and <code>CT2</code> and public keys <code>PK1</code> and <code>PK2</code>) as<a href="#section-9.2-2" class="pilcrow">¶</a></p>
-<p id="section-9.2-3">from a random bit string, an adversary has to know (or correctly guess) both secret shares <code>SS1</code> and <code>SS2</code>, entirely.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
-<p id="section-9.2-4">The proposed construction in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
-Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>.
-That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
-Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in <span>[<a href="#GHP18" class="cite xref">GHP18</a>]</span>. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.<a href="#section-9.2-4" class="pilcrow">¶</a></p>
-<p id="section-9.2-5">Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-5" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
 <section id="section-9.2.1">
           <h4 id="name-domain-separation-and-conte">
@@ -2822,7 +2810,6 @@ The term "suffix-free" applied to a set of words indicates that no word is the s
 Thus this property ensures unambiguous parsing of a word from the rear of a string. Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.<a href="#section-9.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.2.1-2">The algorithm ID, passed as the <code>algID</code> parameter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.2.1-3">The input of the public keys into <code>multiKeyCombine</code> binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.<a href="#section-9.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3263,6 +3250,9 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
           <li class="normal" id="section-12.13-1.3">
             <p id="section-12.13-1.3.1">Allow usage of ML-KEM-768 + X25519 with v4 keys<a href="#section-12.13-1.3.1" class="pilcrow">¶</a></p>
 </li>
+          <li class="normal" id="section-12.13-1.4">
+            <p id="section-12.13-1.4.1">Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator<a href="#section-12.13-1.4.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
 </section>
 </div>
@@ -3322,10 +3312,6 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">Barbosa, M.</span>, <span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Duarte, J. D.</span>, <span class="refAuthor">Kaiser, A.</span>, <span class="refAuthor">Schwabe, P.</span>, <span class="refAuthor">Varner, K.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"X-Wing The Hybrid KEM You’ve Been Looking For"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.62056/a3qj89n4e">https://doi.org/10.62056/a3qj89n4e</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="BDPA08">[BDPA08]</dt>
-        <dd>
-<span class="refAuthor">Bertoni, G.</span>, <span class="refAuthor">Daemen, J.</span>, <span class="refAuthor">Peters, M.</span>, and <span class="refAuthor">G. Assche</span>, <span class="refTitle">"On the Indifferentiability of the Sponge Construction"</span>, <time datetime="2008" class="refDate">2008</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-540-78967-3_11">https://doi.org/10.1007/978-3-540-78967-3_11</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="FIPS-203">[FIPS-203]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Module-Lattice-Based Key-Encapsulation Mechanism Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.203">https://doi.org/10.6028/NIST.FIPS.203</a>&gt;</span>. </dd>
@@ -3338,14 +3324,6 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205">https://doi.org/10.6028/NIST.FIPS.205</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="GHP18">[GHP18]</dt>
-        <dd>
-<span class="refAuthor">Giacon, F.</span>, <span class="refAuthor">Heuer, F.</span>, and <span class="refAuthor">B. Poettering</span>, <span class="refTitle">"KEM Combiners"</span>, <time datetime="2018" class="refDate">2018</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-76578-5_7">https://doi.org/10.1007/978-3-319-76578-5_7</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-lamps-pq-composite-kem">[I-D.ietf-lamps-pq-composite-kem]</dt>
-        <dd>
-<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Gray, J.</span>, <span class="refAuthor">Pala, M.</span>, <span class="refAuthor">Klaußner, J.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Composite ML-KEM for use in X.509 Public Key Infrastructure and CMS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-pq-composite-kem-06</span>, <time datetime="2025-03-17" class="refDate">17 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-06">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-pq-composite-kem-06</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqt-hybrid-terminology">[I-D.ietf-pquip-pqt-hybrid-terminology]</dt>
         <dd>
 <span class="refAuthor">D, F.</span>, <span class="refAuthor">P, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqt-hybrid-terminology-06</span>, <time datetime="2025-01-10" class="refDate">10 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-06">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqt-hybrid-terminology-06</a>&gt;</span>. </dd>
@@ -3357,10 +3335,6 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dt id="NISTIR-8413">[NISTIR-8413]</dt>
         <dd>
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SP800-56A">[SP800-56A]</dt>
-        <dd>
-<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, <span class="refAuthor">Vassilev, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <span class="seriesInfo">NIST Special Publication 800-56A Rev. 3 </span>, <time datetime="2018-04" class="refDate">April 2018</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Ar3">https://doi.org/10.6028/NIST.SP.800-56Ar3</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SP800-56C">[SP800-56C]</dt>
       <dd>
