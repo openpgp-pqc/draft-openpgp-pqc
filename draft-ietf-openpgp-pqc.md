@@ -942,8 +942,10 @@ Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure 
 
 The `domSep` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose.
-Appending the length octet ensures that no collisions can result accross different domains, which might be defined in the future.
-Without the appended length octet, it would have to be ensured that the set of values of `domSep` is suffix-free.
+Appending the length octet ensures that no collisions can result across different domains, which might be defined in the future.
+This is because `domSep || len(domSep)` is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for `dompSep`.
+The term "suffix-free" applied to a set of words indicates that no word is the suffix of another.
+Thus this property ensures unambiguous parsing of a word from the rear of a string. Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
