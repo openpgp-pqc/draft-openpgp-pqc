@@ -637,7 +637,7 @@ The algorithm-specific secret key is these two values:
  - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
    The seed format is defined in accordance with [FIPS-203], Section 3.3.
    Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
+   Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
 # Composite Signature Schemes
 
@@ -747,7 +747,7 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
  - A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare {{tab-mldsa-artifacts}}).
    The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
    Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
+   Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
 # SLH-DSA
 
@@ -990,7 +990,7 @@ ID     | Algorithm           | Public Key Format                                
 - Added `AES-256` / `AES-128` with `OCB` implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
 - Added a recommendation to use `AES-256` when possible.
 - Swapped the optional v3 PKESK algorithm identifier with length octet in order to align with X25519 and X448.
-- Fixed ML-DSA private key size.
+- Fixed ML-DSA secret key size.
 - Added test vectors.
 - Correction and completion of IANA instructions.
 
@@ -1015,7 +1015,7 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-05
 - Reworked KEM combiner for the purpose of NIST-compliance.
 - Mandated v6 keys for ML-KEM + ECDH algorithms.
-- Defined private key seed format for ML-KEM and ML-DSA.
+- Defined secret key seed format for ML-KEM and ML-DSA.
 - Added key generation security considerations.
 - Replaced initial public drafts with FIPS 203, 204, 205.
 
