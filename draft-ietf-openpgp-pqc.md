@@ -55,7 +55,6 @@ normative:
 informative:
 
   I-D.ietf-pquip-pqt-hybrid-terminology:
-  I-D.ietf-lamps-pq-composite-kem:
 
   NIST-PQC:
     target: https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization
@@ -122,29 +121,6 @@ informative:
     seriesinfo:
       NIST IR 8413
 
-  SP800-56A:
-    target: https://doi.org/10.6028/NIST.SP.800-56Ar3
-    title: Recommendation for Pair-Wise Key-Establishment Schemes Using Discrete Logarithm Cryptography
-    author:
-      -
-        ins: E. Barker
-        name: Elaine Barker
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: A. Roginsky
-        name: Allen Roginsky
-      -
-        ins: A. Vassilev
-        name: Apostol Vassilev
-      -
-        ins: R. Davis
-        name: Richard Davis
-    date: April 2018
-    seriesinfo:
-      NIST Special Publication 800-56A Rev. 3
-
   SP800-56C:
     target: https://doi.org/10.6028/NIST.SP.800-56Cr2
     title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
@@ -185,39 +161,6 @@ informative:
       author:
         - org: National Institute of Standards and Technology
       date: August 2024
-
-  GHP18:
-    target: https://doi.org/10.1007/978-3-319-76578-5_7
-    title: KEM Combiners
-    date: 2018
-    author:
-      -
-        ins: F. Giacon
-        name: Federico Giacon
-      -
-        ins: F. Heuer
-        name: Felix Heuer
-      -
-        ins: B. Poettering
-        name: Bertram Poettering
-
-  BDPA08:
-    target: https://doi.org/10.1007/978-3-540-78967-3_11
-    title: On the Indifferentiability of the Sponge Construction
-    author:
-      -
-        ins: G. Bertoni
-        name: Guido Bertoni
-      -
-        ins: J. Daemen
-        name: Joan Daemen
-      -
-        ins: M. Peters
-        name: Michael Peters
-      -
-        ins: G. Assche
-        name: Gilles van Assche
-    date: 2008
 
   BCD+24:
     target: https://doi.org/10.62056/a3qj89n4e
@@ -571,20 +514,24 @@ The construction is a key derivation function compliant to {{SP800-56C}}, Sectio
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
 
-    //   multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey,
-    //                   ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)
+    //   multiKeyCombine(
+    //       mlkemKeyShare, ecdhKeyShare,
+    //       ecdhCipherText, ecdhPublicKey,
+    //       algId
+    //   )
     //
     //   Input:
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
-    //   mlkemCipherText - the ML-KEM ciphertext encoded as an octet string
-    //   mlkemPublicKey  - the ML-KEM public key of the recipient as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
     //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
 
-    KEK = SHA3-256( mlkemKeyShare || ecdhKeyShare || ecdhCipherText || ecdhPublicKey
-                    || mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep) )
+    KEK = SHA3-256(
+              mlkemKeyShare || ecdhKeyShare ||
+              ecdhCipherText || ecdhPublicKey ||
+              algId || domSep || len(domSep)
+          )
     return KEK
 
 The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
@@ -592,8 +539,6 @@ The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPG
     domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
-
-Note that this is in line with {{I-D.ietf-lamps-pq-composite-kem}} up to `mlkemCipherText || mlkemPublicKey || algId || domSep || len(domSep)` being the OpenPGP-specific context information.
 
 ### Key generation procedure {#ecc-mlkem-generation}
 
@@ -617,7 +562,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  6. Compute `(mlkemCipherText, mlkemKeyShare) := ML-KEM.Encaps(mlkemPublicKey)`
 
- 7. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId, 256)` as defined in {{kem-key-combiner}}
+ 7. Compute `KEK := multiKeyCombine(mlkemKeyShare, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  8. Compute `C := AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
@@ -643,7 +588,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  8. Compute `(mlkemKeyShare) := ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
- 9. Compute `KEK := multiKeyCombine(mlkemKeyShare, mlkemCipherText, mlkemPublicKey, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
+ 9. Compute `KEK := multiKeyCombine(mlkemKeyShare, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
  10. Compute `sessionKey := AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
@@ -692,7 +637,7 @@ The algorithm-specific secret key is these two values:
  - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
    The seed format is defined in accordance with [FIPS-203], Section 3.3.
    Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
+   Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
 # Composite Signature Schemes
 
@@ -802,7 +747,7 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
  - A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare {{tab-mldsa-artifacts}}).
    The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
    Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
-   Upon parsing the private key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
+   Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
 # SLH-DSA
 
@@ -925,25 +870,9 @@ This is due to the fact that each v6 signatures also includes a random salt at t
 ## Key combiner {#sec-key-combiner}
 
 For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
-The sponge construction used by SHA3-256 was proven to be indifferentiable from a random oracle {{BDPA08}}.
-This means, that in contrast to SHA2, which uses a Merkle-Damgard construction, no HMAC-based construction is required for key combination.
-It is therefore sufficient to simply process the concatenation of any number of key shares with a domain separation when using a sponge-based construction like SHA3-256.
+A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
-More precisely, for a given capacity `c` the indifferentiability proof shows that assuming there are no weaknesses found in the Keccak permutation, an attacker has to make an expected number of `2^(c/2)` calls to the permutation to tell SHA3-256 from a random oracle.
-For a random oracle, a difference in only a single bit gives an unrelated, uniformly random output.
-Hence, to be able to distinguish a key `K`, derived from shared secrets `SS1` and `SS2` (with ciphertexts `CT1` and `CT2` and public keys `PK1` and `PK2`) as
-
-    K = SHA3-256(SS1 || SS2 || CT2 || PK2 || CT1 || PK1 || algId || domSep || len(domSep))
-
-from a random bit string, an adversary has to know (or correctly guess) both secret shares `SS1` and `SS2`, entirely.
-
-The proposed construction in {{kem-key-combiner}} preserves IND-CCA2 of any of its ingredient KEMs, i.e. the newly formed combined KEM is IND-CCA2 secure as long as at least one of the ingredient KEMs is.
-Indeed, the above stated indifferentiability from a random oracle qualifies Keccak as a split-key pseudorandom function as defined in {{GHP18}}.
-That is, Keccak behaves like a random function if at least one input shared secret is picked uniformly at random.
-Our construction can thus be seen as an instantiation of the IND-CCA2 preserving Example 3 in Figure 1 of {{GHP18}}, up to some reordering of input shared secrets and ciphertexts.
-In the random oracle setting, the reordering does not influence the arguments in {{GHP18}}. That is, in the post-quantum setting the construction inherits its IND-CCA2 security from any ingredient post-quantum IND-CCA2-secure KEM.
-
-Note that the ECDH-KEMs described in this specification are not IND-CCA2 secure as standalone schemes. However, regarding the pre-quantum setting, it is argued in [BCD+24] that the construction ensures IND-CCA2 security under some Diffie-Hellman intractability assumption in a nominal group. Note that Curve25519 and Curve448 qualify as such {{ABH+21}}.
+Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
 
 ### Domain separation and context binding {#sec-fixed-info}
 
@@ -956,8 +885,6 @@ Thus this property ensures unambiguous parsing of a word from the rear of a stri
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
-
-The input of the public keys into `multiKeyCombine` binds the KEK to the communication parties. The input of the ciphertexts binds the KEK to the specific session.
 
 ## ML-DSA and SLH-DSA hedged variants {#hedged-sec-cons}
 
@@ -1064,7 +991,7 @@ ID     | Algorithm           | Public Key Format                                
 - Added `AES-256` / `AES-128` with `OCB` implicitly to v1/v2 SEIPD preferences of "PQ(/T) certificates".
 - Added a recommendation to use `AES-256` when possible.
 - Swapped the optional v3 PKESK algorithm identifier with length octet in order to align with X25519 and X448.
-- Fixed ML-DSA private key size.
+- Fixed ML-DSA secret key size.
 - Added test vectors.
 - Correction and completion of IANA instructions.
 
@@ -1089,7 +1016,7 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-05
 - Reworked KEM combiner for the purpose of NIST-compliance.
 - Mandated v6 keys for ML-KEM + ECDH algorithms.
-- Defined private key seed format for ML-KEM and ML-DSA.
+- Defined secret key seed format for ML-KEM and ML-DSA.
 - Added key generation security considerations.
 - Replaced initial public drafts with FIPS 203, 204, 205.
 
@@ -1103,9 +1030,10 @@ ID     | Algorithm           | Public Key Format                                
 - Switched to hedged variant also for SLH-DSA.
 
 ## draft-ietf-openpgp-pqc-08
-- Assign code points 35 and 36 for ML-KEM + ECDH algorithms.
+- Assigned code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
-- Allow usage of ML-KEM-768 + X25519 with v4 keys
+- Allowed usage of ML-KEM-768 + X25519 with v4 keys
+- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
 
 # Contributors
 
