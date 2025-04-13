@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-10T01:36:22.186798+00:00",
+  "timestamp": "2025-04-13T02:56:07.685602+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3047,9 +3047,9 @@
         "wussler"
       ],
       "labels": [],
-      "body": "After #169 is resolved",
+      "body": "After #177 is resolved",
       "createdAt": "2025-02-17T09:37:03Z",
-      "updatedAt": "2025-02-17T09:40:11Z",
+      "updatedAt": "2025-04-10T11:59:52Z",
       "closedAt": null,
       "comments": []
     },
@@ -3058,7 +3058,7 @@
       "id": "I_kwDOIrmZ-86qggiR",
       "title": "Private key vs. Secret key",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/172",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -3067,8 +3067,8 @@
       ],
       "body": "Noticed that we use different terminology throughout the text to refer to the secret/private key of the asymmetric schemes. I would rather suggest to focus on either `private key` or `secret key`. I would propose to use `private key` throughout the document as it is \"-----BEGIN PGP PRIVATE KEY BLOCK-----\".",
       "createdAt": "2025-02-18T14:36:32Z",
-      "updatedAt": "2025-02-20T07:11:34Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-11T11:48:34Z",
+      "closedAt": "2025-04-11T11:48:33Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -3097,8 +3097,31 @@
           "body": "Let it be `secret key`.",
           "createdAt": "2025-02-20T07:11:32Z",
           "updatedAt": "2025-02-20T07:11:32Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed by #178 ",
+          "createdAt": "2025-04-11T11:48:33Z",
+          "updatedAt": "2025-04-11T11:48:33Z"
         }
       ]
+    },
+    {
+      "number": 177,
+      "id": "I_kwDOIrmZ-86x4lRm",
+      "title": "Further align KEM Combiner",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/177",
+      "state": "CLOSED",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Drop ML-KEM ciphertext and public key and adjust the security considerations.",
+      "createdAt": "2025-04-10T04:14:03Z",
+      "updatedAt": "2025-04-11T11:48:02Z",
+      "closedAt": "2025-04-11T11:48:02Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -17420,24 +17443,26 @@
       "id": "PR_kwDOIrmZ-86R7lPb",
       "title": "Improve domain separation guidance",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/176",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I had forgotten to mention this in our meeting. It would of course require to change the test vectors again.\r\n\r\nAs an alternative to appending the length octet, we could say in the security considerations that any new domain has to be chosen so that the resulting set is suffix-free. Since I don't expect many, that seems acceptable.",
       "createdAt": "2025-04-09T11:16:56Z",
-      "updatedAt": "2025-04-09T16:59:20Z",
+      "updatedAt": "2025-04-10T11:52:11Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "cf4d7eac1750d9809e5923ecd6fc37f5c65bd337",
+      "baseRefOid": "35a8336a61c7537864c530e20572df69efbb4c09",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "domain-length",
-      "headRefOid": "b1cad417d32bdc88dca23ecb240c00480cf73adb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "3c2e53cc2b92000aeabe029a5fe90c433d5a115f",
+      "closedAt": "2025-04-10T11:52:11Z",
+      "mergedAt": "2025-04-10T11:52:11Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "16738633416c3c730cc2c319a5a2200e442c5492"
+      },
       "comments": [
         {
           "author": "wussler",
@@ -17459,6 +17484,34 @@
           "body": "> It might be clearer to also give the reason why this matters (to ensure unique/distinct encoding of kem combiner input across different domains and algorithms). Anyway, I'm approving and am also fine if we leave it like it is.\r\n\r\nWe could be more explicit, but on the other hand, for an expert it should be clear. And I hope that a change to the combiner will only be made by an expert. \r\n\r\nIf any reviewer asks for it, we can still add it.",
           "createdAt": "2025-04-09T14:38:32Z",
           "updatedAt": "2025-04-09T14:38:32Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I get the impression that people might not be capable of adding a fixed-width byte length encoding to the end of a (future) `domSep` value but instead will manage to keep track of a suffix-free set of words.\r\n\r\nMy feeling is, that guiding towards a suffix-free encoding method (like fixed-width byte length appendix) is much less error-prone and much more future proof then having people managing tables and keeping track of values for `domSep` values used in the past.\r\n\r\n:-) We could also take a mathematically more interesting suffix-free encoding method for the ASCII character table like the concatenation of the reversed Elias gamma encodings of the ASCII values. But I guess the fixed-width byte length appendix should do fine.\r\n\r\n ",
+          "createdAt": "2025-04-10T04:12:13Z",
+          "updatedAt": "2025-04-10T04:15:01Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I get the impression that people might not be capable of adding a fixed-width byte length encoding to the end of a (future) `domSep` value but instead will manage to keep track of a suffix-free set of words.\r\n> \r\n> My feeling is, that guiding towards a suffix-free encoding method (like fixed-width byte length appendix) is much less error-prone and much more future proof then having people managing tables and keeping track of values for `domSep` values used in the past.\r\n> \r\n> :-) We could also take a mathematically more interesting suffix-free encoding method for the ASCII character table like the concatenation of the reversed Elias gamma encodings of the ASCII values. But I guess the fixed-width byte length appendix should do fine.\r\n\r\nI agree that length-encoding is better. Actually, the text about the suffix-free set of strings was in spirit that the need for engineering new KEM combiners is not expected and thus is only meant for a very unprobable case. If we assume that this assumption isn't justified or that this clause will cause confusion (for reviewers of the draft for instance), then I am also clearly voting for length encoding.",
+          "createdAt": "2025-04-10T06:51:46Z",
+          "updatedAt": "2025-04-10T06:52:37Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I still feel like adding a byte encoding, while it can make conflicts harder, will not change the problem of having to look at all past values to avoid a collision. I am not strongly opposed to a byte encoding, just keep the construction simple.",
+          "createdAt": "2025-04-10T08:28:25Z",
+          "updatedAt": "2025-04-10T08:28:25Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I personally think it's sufficient to require suffix-free, I don't think that there will be that many KEM combiners.\r\n> \r\n> The domain separator is also very specific, and adding an encoded length is the same issue all over. If someone just reuses the length value without looking at the past structure we will incur in a suffix conflict anyway. (ASCII 21 is a weird char to use anywhere, but nevertheless)\r\n\r\nFYI: There is no ASCII 21 in my proposal. We denote the byte with value decimal 21 directly.",
+          "createdAt": "2025-04-10T11:43:00Z",
+          "updatedAt": "2025-04-10T11:43:00Z"
         }
       ],
       "reviews": [
@@ -17507,8 +17560,350 @@
               "updatedAt": "2025-04-09T17:00:01Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kPZds",
+          "commit": {
+            "abbreviatedOid": "b1cad41"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T06:36:45Z",
+          "updatedAt": "2025-04-10T06:36:45Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "A suffix-free language is one in which no word is the suffix of another. This means that in a language with this property, when parsing for a word from the rear end of a string, when finding a word, one can be sure that the found word isn't actually part of another longer word. Thus there is no ambiguity in when parsing a word of this language from the rear end. (A prefix-free language gives the according property when parsing a word from the start of a string.)",
+              "createdAt": "2025-04-10T06:36:45Z",
+              "updatedAt": "2025-04-10T07:13:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kPn7J",
+          "commit": {
+            "abbreviatedOid": "b1cad41"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T07:02:42Z",
+          "updatedAt": "2025-04-10T07:02:42Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "@dkg Do you think we need a registry in any case or only in the case that we are requiring to ensure a suffix-free set of all values of domSep? Could we possibly postpone the setting up of a registry for this field until for the first time a new KEM combiner with the requirement for new value of domSep is defined?",
+              "createdAt": "2025-04-10T07:02:42Z",
+              "updatedAt": "2025-04-10T07:02:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kRKpP",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T09:16:37Z",
+          "updatedAt": "2025-04-10T09:16:37Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\r\nThe value `len(domSep)` is the one-octet hexadecimal encoding of the octet length of `domSep`, i.e.\r\n\r\n    len(domSep) := 15\r\n```\r\nIt should be hexadecimal I guess. Also deleted this \"we aligned to lamps\" sentence as we will not need this anymore.",
+              "createdAt": "2025-04-10T09:16:37Z",
+              "updatedAt": "2025-04-10T09:16:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kRsg2",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T09:59:22Z",
+          "updatedAt": "2025-04-10T09:59:22Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "As written in my mail, \"is the one-octet hexadecimal encoding\" makes no sense to me. How should the byte value differ when it is encoded in one way or the other? The difference does not exist. \r\n\r\nIf you should mean to encode it in ASCII it's not a single octet any more.",
+              "createdAt": "2025-04-10T09:59:22Z",
+              "updatedAt": "2025-04-10T09:59:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kRupL",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T10:02:30Z",
+          "updatedAt": "2025-04-10T10:02:30Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "When saying: \"len(domSep) := 15\" it does not become clear that \"15\" is meant to be in hex. When changing it to \"0x15\", we should apply that pattern document-wide.",
+              "createdAt": "2025-04-10T10:02:30Z",
+              "updatedAt": "2025-04-10T10:02:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kRxOu",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T10:06:20Z",
+          "updatedAt": "2025-04-10T10:06:20Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "> Also deleted this \"we aligned to lamps\" sentence as we will not need this anymore.\r\n\r\nI think this rather belongs into the PR that changes the combiner inputs.",
+              "createdAt": "2025-04-10T10:06:20Z",
+              "updatedAt": "2025-04-10T10:06:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kSURJ",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T10:59:15Z",
+          "updatedAt": "2025-04-10T10:59:15Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "I would also keep it like Falko suggested with decimal `21`.",
+              "createdAt": "2025-04-10T10:59:15Z",
+              "updatedAt": "2025-04-10T10:59:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kSyA4",
+          "commit": {
+            "abbreviatedOid": "6891321"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T11:47:09Z",
+          "updatedAt": "2025-04-10T11:47:09Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "I understand, I agree with \"decimal 21\".",
+              "createdAt": "2025-04-10T11:47:09Z",
+              "updatedAt": "2025-04-10T11:47:09Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 178,
+      "id": "PR_kwDOIrmZ-86SGiwD",
+      "title": "Aligned spec of multiKeyCombine to X-Wing",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/178",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Dropped ML-KEM ciphertext and public key from the key combiner, see #177. Security Considerations refactored.\r\n\r\nAlso adressed #172.",
+      "createdAt": "2025-04-10T13:30:55Z",
+      "updatedAt": "2025-04-11T11:48:01Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "16738633416c3c730cc2c319a5a2200e442c5492",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "177-further-align-kem-combiner",
+      "headRefOid": "73fe678cd9a035303ab0359ebaa21fa0be8d5bb6",
+      "closedAt": "2025-04-11T11:48:01Z",
+      "mergedAt": "2025-04-11T11:48:01Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "4bff5cf0e0f0fe2993d474f08a5579c3190a45ef"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86kZXTo",
+          "commit": {
+            "abbreviatedOid": "da75084"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T19:26:01Z",
+          "updatedAt": "2025-04-10T19:30:14Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "Why removing this? This aligns us even further",
+              "createdAt": "2025-04-10T19:26:01Z",
+              "updatedAt": "2025-04-10T19:30:14Z"
+            },
+            {
+              "originalPosition": 166,
+              "body": "This is still SP800-56C compatible, I would not remove this mention\r\n\r\n```suggestion\r\nFor the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.\r\nA central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.\r\n```",
+              "createdAt": "2025-04-10T19:28:26Z",
+              "updatedAt": "2025-04-10T19:30:14Z"
+            },
+            {
+              "originalPosition": 214,
+              "body": "```suggestion\r\n- Assigned code points 35 and 36 for ML-KEM + ECDH algorithms.\r\n- Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.\r\n- Allowed usage of ML-KEM-768 + X25519 with v4 keys\r\n- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator\r\n```",
+              "createdAt": "2025-04-10T19:30:01Z",
+              "updatedAt": "2025-04-10T19:30:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kaEmv",
+          "commit": {
+            "abbreviatedOid": "da75084"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T20:28:28Z",
+          "updatedAt": "2025-04-10T20:28:28Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "Yes, therefore I think that we don't have to mention this anymore, especially since we cite the scientific paper in the security considerations and it is clear from the spec itself.",
+              "createdAt": "2025-04-10T20:28:28Z",
+              "updatedAt": "2025-04-10T20:30:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kaHRp",
+          "commit": {
+            "abbreviatedOid": "73fe678"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-10T20:32:58Z",
+          "updatedAt": "2025-04-10T20:32:58Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "Good for me then, also not the biggest fan of keeping a reference to a WIP draft",
+              "createdAt": "2025-04-10T20:32:58Z",
+              "updatedAt": "2025-04-10T20:32:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86kaH2u",
+          "commit": {
+            "abbreviatedOid": "73fe678"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-10T20:33:49Z",
+          "updatedAt": "2025-04-10T20:33:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86keEAV",
+          "commit": {
+            "abbreviatedOid": "73fe678"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-11T07:00:25Z",
+          "updatedAt": "2025-04-11T07:00:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 179,
+      "id": "PR_kwDOIrmZ-86SKL2C",
+      "title": "Update test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/179",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Updates existing test vectors\r\n- Adds v4 test vectors\r\n- Adds missing SLH-DSA test vectors\r\n\r\nCloses #170 ",
+      "createdAt": "2025-04-10T20:14:00Z",
+      "updatedAt": "2025-04-11T19:04:10Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "16738633416c3c730cc2c319a5a2200e442c5492",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "test-vectors-ietf-08",
+      "headRefOid": "851274969e6071508cf123137980d17b1272f76c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for taking care of this! I can import all keys and decrypt all messages correctly.\r\n\r\nSome remarks:\r\n\r\n* For v6 eddsa we should now switch to v2 SEIPD, I think, since we have v1 SEIPD with v4 eddsa already.\r\n* For SLH-DSA 128f and 256s we only have the sk as test data. Maybe we agreed on doing it like this, I don't remember, butI want to make sure it's not an accident. Having only the sk is probably enough to confirm a correct implementation given we already have full test vectors for 128s. I would still prefer to also include the pk and a message. Of course this roughly doubles the document size.",
+          "createdAt": "2025-04-11T07:56:43Z",
+          "updatedAt": "2025-04-11T07:56:43Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please don't worry about doubling the document size for test vectors.  Just make sure they're tucked neatly into a well-labeled appendix.\r\n\r\nYou might consider commenting over on https://github.com/ietf-tools/datatracker/issues/5457 if you think the increased page count might deter people from considering the draft.",
+          "createdAt": "2025-04-11T14:51:39Z",
+          "updatedAt": "2025-04-11T14:51:39Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> For v6 eddsa we should now switch to v2 SEIPD, I think, since we have v1 SEIPD with v4 eddsa already.\r\n\r\nI had considered this, but there is already a v2 SEIPD for the same algorithm, and it is still a valid case to have V6+SEIPDv1\r\n\r\n>For SLH-DSA 128f and 256s we only have the sk as test data. Maybe we agreed on doing it like this, I don't remember, butI want to make sure it's not an accident. Having only the sk is probably enough to confirm a correct implementation given we already have full test vectors for 128s. I would still prefer to also include the pk and a message. Of course this roughly doubles the document size.\r\n\r\nI am not worried about the size, but this vectors are already complete IMO. \r\nThe keys contain already signatures for these algorithms, and the encrypted messages would be a repetition of what we had already in the previous vectors. The SKs contain also the PK data.\r\n\r\nIf you (@TJ-91 and @dkg) believe it adds value to generate also PKs and messages, happy to do so.\r\n",
+          "createdAt": "2025-04-11T18:34:27Z",
+          "updatedAt": "2025-04-11T18:34:27Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think for signing keys it is useful to have an explicit form of:\r\n\r\n- secret key material (TSKs)\r\n- public key material (TPKs)\r\n- detached signature over a simple message\r\n\r\nThis makes it so that any implementer can immediately test, directly from the draft, using some invocations like:\r\n\r\n- `sopv verify msg.sig sample.cert < msg`\r\n- `sop extract-cert < sample.key > sample2.cert`\r\n- `cmp <(sop dearmor < sample.cert) <(sop dearmor < sample2.cert)`",
+          "createdAt": "2025-04-11T19:04:09Z",
+          "updatedAt": "2025-04-11T19:04:09Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
