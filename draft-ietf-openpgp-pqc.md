@@ -1113,6 +1113,11 @@ Stephan Ehlen (BSI)<br>
 Carl-Daniel Hailfinger (BSI)<br>
 Andreas Huelsing (TU Eindhoven)
 
+# Acknowledgments
+{:numbered="false"}
+
+Thanks to Daniel Huigens and Evangelos Karatsiolis for the early review and feedback on this document.
+
 --- back
 
 # Test Vectors
@@ -1309,6 +1314,18 @@ The hex-encoded session key is `e3b55fda0b17b52825146f3c547c60b5aa7cfdaf0fc3b573
 {::include test-vectors/v6-mldsa-65-sample-message.asc}
 ~~~
 
+### Detached signature
+
+Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-mldsa65}}:
+
+- A v6 signature packet
+
+{: sourcecode-name="v6-mldsa-65-sample-signature.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-65-sample-signature.asc}
+~~~
+
+
 ## Sample ML-DSA-87+Ed448 with ML-KEM-1024+X448 Data
 
 ### Transferable Secret Key {#test-vector-sec-mldsa87}
@@ -1367,6 +1384,16 @@ The hex-encoded session key is `b53d7bd20c351ed89af94d091f69ece4ccec3bb9d000387f
 {::include test-vectors/v6-mldsa-87-sample-message.asc}
 ~~~
 
+### Detached signature
+
+Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-mldsa87}}:
+
+- A v6 signature packet
+
+{: sourcecode-name="v6-mldsa-87-sample-signature.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-mldsa-87-sample-signature.asc}
+~~~
 
 
 ## Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
@@ -1427,6 +1454,18 @@ The hex-encoded session key is `2c2cc21a9a2f765af36e9e767d6c3aebd81e1b93d6b9bee3
 {::include test-vectors/v6-slhdsa-128s-sample-message.asc}
 ~~~
 
+### Detached signature
+
+Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-128s}}:
+
+- A v6 signature packet
+
+{: sourcecode-name="v6-slhdsa-128s-sample-signature.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-128s-sample-signature.asc}
+~~~
+
+
 ## Sample SLH-DSA-128f with ML-KEM-768+X25519 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-128f}
@@ -1447,6 +1486,33 @@ The subkey has the fingerprint `cea501a4831757a33b9fa03973b81656cf2ecac6f705daf1
 {: sourcecode-name="v6-slhdsa-128f-sample-sk.asc"}
 ~~~ application/pgp-keys
 {::include test-vectors/v6-slhdsa-128f-sample-sk.asc}
+~~~
+
+### Transferable Public Key {#test-vector-pub-slhdsa-128f}
+
+Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-128f}} consisting of:
+
+- A v6 SLH-DSA-128f Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 subkey binding signature
+
+{: sourcecode-name="v6-slhdsa-128f-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-128f-sample-pk.asc}
+~~~
+
+### Detached signature
+
+Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-128f}}:
+
+- A v6 signature packet
+
+{: sourcecode-name="v6-slhdsa-128f-sample-signature.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-128f-sample-signature.asc}
 ~~~
 
 ## Sample SLH-DSA-256s with ML-KEM-1024+X448 Data
@@ -1471,9 +1537,30 @@ The subkey has the fingerprint `6e8bbbed8d24472510941bf18639f7f799f86e8d8f3a8f49
 {::include test-vectors/v6-slhdsa-256s-sample-sk.asc}
 ~~~
 
+### Transferable Public Key {#test-vector-pub-slhdsa-256s}
 
+Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-256s}} consisting of:
 
-# Acknowledgments
-{:numbered="false"}
+- A v6 SLH-DSA-256s Public-Key packet
+- A v6 direct key self-signature
+- A User ID packet
+- A v6 positive certification self-signature
+- A v6 ML-KEM-1024+X448 Public-Subkey packet
+- A v6 subkey binding signature
 
-Thanks to Daniel Huigens and Evangelos Karatsiolis for the early review and feedback on this document.
+{: sourcecode-name="v6-slhdsa-256s-sample-pk.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-256s-sample-pk.asc}
+~~~
+
+### Detached signature
+
+Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-256s}}:
+
+- A v6 signature packet
+
+{: sourcecode-name="v6-slhdsa-256s-sample-signature.asc"}
+~~~ application/pgp-keys
+{::include test-vectors/v6-slhdsa-256s-sample-signature.asc}
+~~~
+
