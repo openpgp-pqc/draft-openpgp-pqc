@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-13T02:56:07.685602+00:00",
+  "timestamp": "2025-04-15T01:39:43.443068+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -15786,7 +15786,7 @@
       "labels": [],
       "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
       "createdAt": "2025-02-10T21:21:33Z",
-      "updatedAt": "2025-02-18T16:12:44Z",
+      "updatedAt": "2025-04-13T11:44:51Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
@@ -15855,6 +15855,13 @@
           "body": "This looks good to me. Did a rebase (hopefully didn't mess up anything) and some minor cleanups. Please comment and/or approve.\r\n\r\nDo we need to specify now the hash function that has been used for the signature data digest in test vector A.4?",
           "createdAt": "2025-02-13T17:43:24Z",
           "updatedAt": "2025-02-13T17:44:00Z"
+        },
+        {
+          "author": "dignifiedquire",
+          "authorAssociation": "NONE",
+          "body": "I just want to note that from an implementors and users perspective, switching to full hash agility is very disappointing..",
+          "createdAt": "2025-04-13T11:44:50Z",
+          "updatedAt": "2025-04-13T11:44:50Z"
         }
       ],
       "reviews": [
@@ -17862,13 +17869,13 @@
       "labels": [],
       "body": "- Updates existing test vectors\r\n- Adds v4 test vectors\r\n- Adds missing SLH-DSA test vectors\r\n\r\nCloses #170 ",
       "createdAt": "2025-04-10T20:14:00Z",
-      "updatedAt": "2025-04-11T19:04:10Z",
+      "updatedAt": "2025-04-14T23:47:42Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "16738633416c3c730cc2c319a5a2200e442c5492",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-ietf-08",
-      "headRefOid": "851274969e6071508cf123137980d17b1272f76c",
+      "headRefOid": "3da1ff2aefbfe8b39ed0e83f69248cba0ac98232",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -17901,6 +17908,34 @@
           "body": "I think for signing keys it is useful to have an explicit form of:\r\n\r\n- secret key material (TSKs)\r\n- public key material (TPKs)\r\n- detached signature over a simple message\r\n\r\nThis makes it so that any implementer can immediately test, directly from the draft, using some invocations like:\r\n\r\n- `sopv verify msg.sig sample.cert < msg`\r\n- `sop extract-cert < sample.key > sample2.cert`\r\n- `cmp <(sop dearmor < sample.cert) <(sop dearmor < sample2.cert)`",
           "createdAt": "2025-04-11T19:04:09Z",
           "updatedAt": "2025-04-11T19:04:09Z"
+        },
+        {
+          "author": "hko-s",
+          "authorAssociation": "NONE",
+          "body": "I just updated to these test vectors in an rPGP PQC branch (see https://github.com/rpgp/rpgp/pull/533/).\r\n\r\nBased on this, I'd say these new vectors look good.\r\nSpecifically, the rPGP tests check:\r\n\r\n- fingerprints of all primaries and subkeys as shown in the updated draft text\r\n- validity of binding self-signatures (including for the two new SLH-DSA TSKs)\r\n- message decryption and data signature verification\r\n\r\nHowever, the rPGP tests do not verify the intermediate hex values (key shares, key combiner output, session keys)!\r\nSo I can't comment on the correctness of those values in the text.",
+          "createdAt": "2025-04-13T15:31:54Z",
+          "updatedAt": "2025-04-13T15:31:54Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thank you for your feedback @dkg and @hko-s!\r\n\r\nI will\r\n- add the public key material (TPKs) for the SLH-DSA keys (where missing)\r\n- add a detached signature over a simple message for all PQ signing keys\r\n\r\nTo test the intermediate values, we'll rely on @TJ-91's testing",
+          "createdAt": "2025-04-14T06:42:43Z",
+          "updatedAt": "2025-04-14T06:42:43Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Added the missing test vectors. Please @TJ-91 and @falko-strenzke have a look!",
+          "createdAt": "2025-04-14T17:51:48Z",
+          "updatedAt": "2025-04-14T17:51:48Z"
+        },
+        {
+          "author": "hko-s",
+          "authorAssociation": "NONE",
+          "body": "> Added the missing test vectors. Please @TJ-91 and @falko-strenzke have a look!\r\n\r\nI tested these vectors in https://github.com/rpgp/rpgp/pull/534 and found no issues",
+          "createdAt": "2025-04-14T23:47:41Z",
+          "updatedAt": "2025-04-14T23:47:41Z"
         }
       ],
       "reviews": []
