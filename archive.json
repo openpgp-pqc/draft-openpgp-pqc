@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-15T01:39:43.443068+00:00",
+  "timestamp": "2025-04-17T01:37:44.831546+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3040,7 +3040,7 @@
       "id": "I_kwDOIrmZ-86qTtJa",
       "title": "Update Test Vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/170",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3049,8 +3049,8 @@
       "labels": [],
       "body": "After #177 is resolved",
       "createdAt": "2025-02-17T09:37:03Z",
-      "updatedAt": "2025-04-10T11:59:52Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-15T08:02:36Z",
+      "closedAt": "2025-04-15T08:02:36Z",
       "comments": []
     },
     {
@@ -15786,7 +15786,7 @@
       "labels": [],
       "body": "Proposal following discussion on the list: https://mailarchive.ietf.org/arch/msg/openpgp/8qr7qJdo6N_4eGklR6hTovtWltU/",
       "createdAt": "2025-02-10T21:21:33Z",
-      "updatedAt": "2025-04-13T11:44:51Z",
+      "updatedAt": "2025-04-15T14:03:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "f1ed028d1b38c6d39766643f8e602ef28c207c4b",
@@ -15862,6 +15862,27 @@
           "body": "I just want to note that from an implementors and users perspective, switching to full hash agility is very disappointing..",
           "createdAt": "2025-04-13T11:44:50Z",
           "updatedAt": "2025-04-13T11:44:50Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I just want to note that from an implementors and users perspective, switching to full hash agility is very disappointing..\r\n\r\nCan you say what is your exact \u2013 security-related I assume \u2013 concern? ",
+          "createdAt": "2025-04-15T05:00:38Z",
+          "updatedAt": "2025-04-15T05:00:38Z"
+        },
+        {
+          "author": "dignifiedquire",
+          "authorAssociation": "NONE",
+          "body": "- Security wise this is a clear weakening (assuming Sha3 is at least as secure as Sha2)\r\n- from an ecosystem perspective this makes artifacts more scattered and increases the  risk of combinations not working\r\n- the reason for doing so is based on NSA guidance...",
+          "createdAt": "2025-04-15T13:33:08Z",
+          "updatedAt": "2025-04-15T13:33:08Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It is a principle weakening, that is correct. However, the random salt that precedes the signed message in v6 signatures mitigates that to a large extent: Hash collision attacks are prevented by this. With the salt, even the use of MD5 would be secure as of today. What remains is only the threat of 2nd-preimage attacks. Such attacks are not known for any practically relevant hash functions. \r\n\r\nWith the second point about interoperability that is probably true. But in any case with the change the situation for post-quantum signatures is as it is for traditional signatures... I think signers and verifiers simply have to set reasonable rules for the acceptable hash functions anyway.",
+          "createdAt": "2025-04-15T14:03:51Z",
+          "updatedAt": "2025-04-15T14:03:51Z"
         }
       ],
       "reviews": [
@@ -17862,24 +17883,26 @@
       "id": "PR_kwDOIrmZ-86SKL2C",
       "title": "Update test vectors",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/179",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- Updates existing test vectors\r\n- Adds v4 test vectors\r\n- Adds missing SLH-DSA test vectors\r\n\r\nCloses #170 ",
       "createdAt": "2025-04-10T20:14:00Z",
-      "updatedAt": "2025-04-14T23:47:42Z",
+      "updatedAt": "2025-04-15T08:02:36Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "16738633416c3c730cc2c319a5a2200e442c5492",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-ietf-08",
       "headRefOid": "3da1ff2aefbfe8b39ed0e83f69248cba0ac98232",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-15T08:02:35Z",
+      "mergedAt": "2025-04-15T08:02:35Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -17938,7 +17961,34 @@
           "updatedAt": "2025-04-14T23:47:41Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86k8IJH",
+          "commit": {
+            "abbreviatedOid": "3da1ff2"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me! I also checked the intermediate KEM combiner values and fingerprints etc.\r\n\r\nAlso, thanks for checking with rpgp!",
+          "createdAt": "2025-04-15T07:52:37Z",
+          "updatedAt": "2025-04-15T07:52:37Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86k8QSb",
+          "commit": {
+            "abbreviatedOid": "3da1ff2"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Approving in trust of Johannes' results.",
+          "createdAt": "2025-04-15T08:01:04Z",
+          "updatedAt": "2025-04-15T08:01:04Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
