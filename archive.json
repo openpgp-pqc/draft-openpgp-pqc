@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-17T01:37:44.831546+00:00",
+  "timestamp": "2025-04-24T01:39:02.179650+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3122,6 +3122,37 @@
       "updatedAt": "2025-04-11T11:48:02Z",
       "closedAt": "2025-04-11T11:48:02Z",
       "comments": []
+    },
+    {
+      "number": 180,
+      "id": "I_kwDOIrmZ-86za2D9",
+      "title": "Message in A.1.3. uses PKESKv3/SEIPDv1",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/180",
+      "state": "OPEN",
+      "author": "teythoon",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The message in A.1.3. uses PKESKv3/SEIPDv1, even though the recipient, the cert in A.1.2. is a v6 certificate and advertises support for SEIPDv2.",
+      "createdAt": "2025-04-22T07:21:12Z",
+      "updatedAt": "2025-04-23T06:34:23Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "teythoon",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The message in A.2.3. uses PKESKv3/SEIPDv1, even though the recipient, the cert in A.2.2. is advertises support for SEIPDv2.",
+          "createdAt": "2025-04-22T13:30:22Z",
+          "updatedAt": "2025-04-22T13:30:22Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It makes sense to have test vectors for PKESKv3/SEIPDv1 in our opinion, that's why we have included them. For A2 we have a v4 key and it seemed natural to include a PKESKv3/SEIPDv1 message here, but I agree that the SEIPDv2 flag should overrule this, if we want the test vectors \"to be a role model\". However, creating PKESKv3/SEIPDv1 messages is also valid (and in some cases necessary even in the presence of SEIPDv2 features flag).\n\nIf you or anyone else has a strong opinion about changing this, I would propose to add both a PKESKv3/SEIPDv1 and PKESKv6/SEIPDv2 message for at least one of the keys (most naturally the v4 key, IMO).\n",
+          "createdAt": "2025-04-22T16:33:39Z",
+          "updatedAt": "2025-04-23T06:34:22Z"
+        }
+      ]
     }
   ],
   "pulls": [
