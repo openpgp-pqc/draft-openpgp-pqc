@@ -842,7 +842,7 @@ Signing only with PQ(/T) key material is not backwards compatible.
 It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.
 
-An OpenPGP certificate is composed of a certification-capable primary key and one or more subkeys for signature, encryption, and authentication.
+An OpenPGP certificate is composed of a primary key which is often marked as capable of issuing third-party certifications, and possibly other additional capabilities, and one or more subkeys for data signatures, encryption, and authentication.
 Two migration strategies are recommended:
 
 1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
