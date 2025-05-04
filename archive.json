@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-24T01:39:02.179650+00:00",
+  "timestamp": "2025-05-04T01:48:34.241600+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -18020,6 +18020,58 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 181,
+      "id": "PR_kwDOIrmZ-86UwNDQ",
+      "title": "typo fixes",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/181",
+      "state": "OPEN",
+      "author": "hko-s",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-02T13:18:53Z",
+      "updatedAt": "2025-05-02T13:18:54Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
+      "headRepository": "hko-s/draft-openpgp-pqc",
+      "headRefName": "typo",
+      "headRefOid": "cf40094edce3449e2ca96d799ae42c50cea401d3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 182,
+      "id": "PR_kwDOIrmZ-86UwW0u",
+      "title": "Attempt at clarifying certificate structure",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/182",
+      "state": "OPEN",
+      "author": "hko-s",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "A primary key is implicitly capable of issuing self-signatures for certificate formation and life cycle management (this might be best omitted in this text)\r\n\r\nIt may be marked \"certification\"-capable, which allows it to issue valid third-party certifications (however, primary keys may exist without this capability)\r\n\r\nThe primary can in principle fulfill all capabilities (however, except for the case of RSA, it can't in practice be used for encryption, when its asymmetric mechanism only supports signing operations). Still, even with modern keys, the primary may be used for data signatures and authentication (and at least in some special-purposes scenarios, this may be a reasonable approach)",
+      "createdAt": "2025-05-02T13:35:50Z",
+      "updatedAt": "2025-05-02T13:35:51Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
+      "headRepository": "hko-s/draft-openpgp-pqc",
+      "headRefName": "certificate-structure",
+      "headRefOid": "a3250d6ebc633d69d00c0a22fe3a7e79564d6ead",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
