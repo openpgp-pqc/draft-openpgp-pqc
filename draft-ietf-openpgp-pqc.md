@@ -598,7 +598,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
 ### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-mlkem-pkesk}
 
-The algorithm-specific fields consists of the output of the encryption procedure described in {{ecc-mlkem-encryption}}:
+The algorithm-specific fields consist of the output of the encryption procedure described in {{ecc-mlkem-encryption}}:
 
  - A fixed-length octet string representing an ECDH ephemeral public key in the format associated with the curve as specified in {{ecc-kem}}.
 
@@ -865,7 +865,7 @@ This is due to the fact that in any OpenPGP signature, the hashed meta data incl
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
-This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
+This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
 
 ## Key combiner {#sec-key-combiner}
 
