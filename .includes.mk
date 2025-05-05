@@ -3,7 +3,8 @@ draft-ietf-openpgp-pqc.xml: test-vectors/v6-eddsa-sample-pk.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v6-eddsa-sample-message.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v4-eddsa-sample-sk.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v4-eddsa-sample-pk.asc
-draft-ietf-openpgp-pqc.xml: test-vectors/v4-eddsa-sample-message.asc
+draft-ietf-openpgp-pqc.xml: test-vectors/v4-eddsa-sample-message-v1.asc
+draft-ietf-openpgp-pqc.xml: test-vectors/v4-eddsa-sample-message-v2.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v6-mldsa-65-sample-sk.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v6-mldsa-65-sample-pk.asc
 draft-ietf-openpgp-pqc.xml: test-vectors/v6-mldsa-65-sample-message.asc
