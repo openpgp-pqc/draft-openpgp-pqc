@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 6 November 2025                                     F. Strenzke
+Expires: 7 November 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                              5 May 2025
+                                                              6 May 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2025.
+   This Internet-Draft will expire on 7 November 2025.
 
 Copyright Notice
 
