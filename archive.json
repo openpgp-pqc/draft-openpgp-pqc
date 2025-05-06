@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-04T01:48:34.241600+00:00",
+  "timestamp": "2025-05-06T01:41:11.027826+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3135,7 +3135,7 @@
       "labels": [],
       "body": "The message in A.1.3. uses PKESKv3/SEIPDv1, even though the recipient, the cert in A.1.2. is a v6 certificate and advertises support for SEIPDv2.",
       "createdAt": "2025-04-22T07:21:12Z",
-      "updatedAt": "2025-04-23T06:34:23Z",
+      "updatedAt": "2025-05-05T12:00:01Z",
       "closedAt": null,
       "comments": [
         {
@@ -3148,9 +3148,9 @@
         {
           "author": "TJ-91",
           "authorAssociation": "COLLABORATOR",
-          "body": "It makes sense to have test vectors for PKESKv3/SEIPDv1 in our opinion, that's why we have included them. For A2 we have a v4 key and it seemed natural to include a PKESKv3/SEIPDv1 message here, but I agree that the SEIPDv2 flag should overrule this, if we want the test vectors \"to be a role model\". However, creating PKESKv3/SEIPDv1 messages is also valid (and in some cases necessary even in the presence of SEIPDv2 features flag).\n\nIf you or anyone else has a strong opinion about changing this, I would propose to add both a PKESKv3/SEIPDv1 and PKESKv6/SEIPDv2 message for at least one of the keys (most naturally the v4 key, IMO).\n",
+          "body": "**Update**: As Aron clarified on the mailing list, all messages will be changed to SEIPDv2 and the v4 certificate will also contain a SEIPDv1 sample message\n\n---\n\nIt makes sense to have test vectors for PKESKv3/SEIPDv1 in our opinion, that's why we have included them. For A2 we have a v4 key and it seemed natural to include a PKESKv3/SEIPDv1 message here, but I agree that the SEIPDv2 flag should overrule this, if we want the test vectors \"to be a role model\". However, creating PKESKv3/SEIPDv1 messages is also valid (and in some cases necessary even in the presence of SEIPDv2 features flag).\n\nIf you or anyone else has a strong opinion about changing this, I would propose to add both a PKESKv3/SEIPDv1 and PKESKv6/SEIPDv2 message for at least one of the keys (most naturally the v4 key, IMO).\n",
           "createdAt": "2025-04-22T16:33:39Z",
-          "updatedAt": "2025-04-23T06:34:22Z"
+          "updatedAt": "2025-05-05T12:00:00Z"
         }
       ]
     }
@@ -18026,26 +18026,78 @@
       "id": "PR_kwDOIrmZ-86UwNDQ",
       "title": "typo fixes",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/181",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hko-s",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "editorial"
+      ],
       "body": "",
       "createdAt": "2025-05-02T13:18:53Z",
-      "updatedAt": "2025-05-02T13:18:54Z",
+      "updatedAt": "2025-05-05T13:14:58Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
       "headRepository": "hko-s/draft-openpgp-pqc",
       "headRefName": "typo",
       "headRefOid": "cf40094edce3449e2ca96d799ae42c50cea401d3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "closedAt": "2025-05-05T13:14:58Z",
+      "mergedAt": "2025-05-05T13:14:58Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "73890d57f30ad00dcefd9d704b29d8893d5a231f"
+      },
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for fixing these typos.",
+          "createdAt": "2025-05-05T05:55:29Z",
+          "updatedAt": "2025-05-05T05:55:29Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86nt_lN",
+          "commit": {
+            "abbreviatedOid": "cf40094"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-05T05:55:04Z",
+          "updatedAt": "2025-05-05T05:55:04Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86nughh",
+          "commit": {
+            "abbreviatedOid": "cf40094"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-05T07:21:18Z",
+          "updatedAt": "2025-05-05T07:21:18Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86nxhEq",
+          "commit": {
+            "abbreviatedOid": "cf40094"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-05T13:14:41Z",
+          "updatedAt": "2025-05-05T13:14:41Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 182,
@@ -18054,18 +18106,91 @@
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/182",
       "state": "OPEN",
       "author": "hko-s",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "A primary key is implicitly capable of issuing self-signatures for certificate formation and life cycle management (this might be best omitted in this text)\r\n\r\nIt may be marked \"certification\"-capable, which allows it to issue valid third-party certifications (however, primary keys may exist without this capability)\r\n\r\nThe primary can in principle fulfill all capabilities (however, except for the case of RSA, it can't in practice be used for encryption, when its asymmetric mechanism only supports signing operations). Still, even with modern keys, the primary may be used for data signatures and authentication (and at least in some special-purposes scenarios, this may be a reasonable approach)",
       "createdAt": "2025-05-02T13:35:50Z",
-      "updatedAt": "2025-05-02T13:35:51Z",
+      "updatedAt": "2025-05-05T12:01:10Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
       "headRepository": "hko-s/draft-openpgp-pqc",
       "headRefName": "certificate-structure",
       "headRefOid": "a3250d6ebc633d69d00c0a22fe3a7e79564d6ead",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86nuA28",
+          "commit": {
+            "abbreviatedOid": "a3250d6"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-05T05:59:35Z",
+          "updatedAt": "2025-05-05T05:59:36Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nAn OpenPGP certificate is composed of a primary key which is often marked as capable of issuing third-party certifications, and possibly other additional capabilities, and one or more subkeys for data signatures, encryption, and authentication.\r\n```",
+              "createdAt": "2025-05-05T05:59:36Z",
+              "updatedAt": "2025-05-05T05:59:36Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 183,
+      "id": "PR_kwDOIrmZ-86U5bjL",
+      "title": "attaching PQC subkey also considers v4 certificates",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/183",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This was pointed out by Daniel Huigens on the mailing list",
+      "createdAt": "2025-05-05T08:04:54Z",
+      "updatedAt": "2025-05-05T08:05:10Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-v4v6-key-gen-stategies",
+      "headRefOid": "b0544ec3dc7da845152c7586bf29d4748ac06193",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 184,
+      "id": "PR_kwDOIrmZ-86U9774",
+      "title": "Update test vectors",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/184",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed on the list, this MR updates the test vectors:\r\n- Removing the ECDH subkeys\r\n- Adding an SEIPDv2 to the V4 test vectors to cover both cases\r\n- Replacing the SEIPDv1 with an SEIPDv2 for the V6 ECC test vector\r\n\r\nFurthermore, we update the key creation time with something more reasonable",
+      "createdAt": "2025-05-05T16:50:22Z",
+      "updatedAt": "2025-05-05T16:50:23Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "73890d57f30ad00dcefd9d704b29d8893d5a231f",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "test-vectors-ietf-09",
+      "headRefOid": "8158ec2b523b3d4c00b99f879453b014447c49b4",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
