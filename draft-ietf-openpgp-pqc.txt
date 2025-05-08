@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 6 November 2025                                     F. Strenzke
+Expires: 9 November 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                              5 May 2025
+                                                              8 May 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2025.
+   This Internet-Draft will expire on 9 November 2025.
 
 Copyright Notice
 
@@ -131,7 +131,7 @@ Table of Contents
    8.  Migration Considerations
      8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
-     8.3.  Key generation strategies
+     8.3.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key combiner
@@ -156,6 +156,7 @@ Table of Contents
      12.11. draft-ietf-openpgp-pqc-06
      12.12. draft-ietf-openpgp-pqc-07
      12.13. draft-ietf-openpgp-pqc-08
+     12.14. draft-ietf-openpgp-pqc-09
    13. Contributors
    Acknowledgments
    References
@@ -430,10 +431,7 @@ Table of Contents
    All (PQ/T) asymmetric algorithms are to be used only in v6 (and
    newer) keys and certificates, with the single exception of ML-KEM-
    768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-
-   capable subkeys.  This permits the keyholder of an existing v4
-   certificate to add such a subkey to defend against store-now,
-   decrypt-later attacks from quantum computers without moving to a new
-   primary key.
+   capable subkeys.
 
 4.  Composite KEM schemes
 
@@ -1111,31 +1109,11 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    Section 3.3.  Signing only with PQ(/T) key material is not backwards
    compatible.
 
-8.3.  Key generation strategies
+8.3.  Generating PQ(/T) Keys
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
    PQ(/T) keys does not provide backwards compatibility.
-
-   An OpenPGP certificate is composed of a certification-capable primary
-   key and one or more subkeys for signature, encryption, and
-   authentication.  Two migration strategies are recommended:
-
-   1.  Generate two independent certificates, one for PQ(/T)-capable
-       implementations, and one for legacy implementations.
-       Implementations not understanding PQ(/T) certificates can use the
-       legacy certificate, while PQ(/T)-capable implementations can also
-       use the newer certificate.  This allows having a traditional
-       certificate for compatibility and a v6 PQ(/T) certificate, at a
-       greater complexity in key distribution.
-
-   2.  Attach PQ(/T) encryption or signature subkeys to an existing
-       traditional v6 OpenPGP certificate.  Implementations
-       understanding PQ(/T) will be able to parse and use the subkeys,
-       while PQ(/T)-incapable implementations can gracefully ignore
-       them.  This simplifies key distribution, as only one certificate
-       needs to be communicated and verified, but leaves the primary key
-       vulnerable to quantum computer attacks.
 
 9.  Security Considerations
 
@@ -1524,6 +1502,10 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Aligned KEM combiner to X-Wing and switched to suffix-free
       encoding of the domain separator
+
+12.14.  draft-ietf-openpgp-pqc-09
+
+   *  Removed subkey semantics related guidance
 
 13.  Contributors
 
