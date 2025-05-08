@@ -182,16 +182,16 @@ Table of Contents
        A.4.2.  Transferable Public Key
        A.4.3.  Encrypted and Signed Message
        A.4.4.  Detached signature
-     A.5.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
+     A.5.  Sample SLH-DSA-SHAKE-128s with ML-KEM-768+X25519 Data
        A.5.1.  Transferable Secret Key
        A.5.2.  Transferable Public Key
        A.5.3.  Encrypted and Signed Message
        A.5.4.  Detached signature
-     A.6.  Sample SLH-DSA-128f with ML-KEM-768+X25519 Data
+     A.6.  Sample SLH-DSA-SHAKE-128f with ML-KEM-768+X25519 Data
        A.6.1.  Transferable Secret Key
        A.6.2.  Transferable Public Key
        A.6.3.  Detached signature
-     A.7.  Sample SLH-DSA-256s with ML-KEM-1024+X448 Data
+     A.7.  Sample SLH-DSA-SHAKE-256s with ML-KEM-1024+X448 Data
        A.7.1.  Transferable Secret Key
        A.7.2.  Transferable Public Key
        A.7.3.  Detached signature
@@ -3962,7 +3962,7 @@ A.4.4.  Detached signature
    Bw4/Xqbj8PgAAAAAAAAAAAAAAAAAAAAABQ0XHycvMzs=
    -----END PGP SIGNATURE-----
 
-A.5.  Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
+A.5.  Sample SLH-DSA-SHAKE-128s with ML-KEM-768+X25519 Data
 
 A.5.1.  Transferable Secret Key
 
@@ -5459,7 +5459,7 @@ A.5.4.  Detached signature
    qys5KeAY2ZFOKBA=
    -----END PGP SIGNATURE-----
 
-A.6.  Sample SLH-DSA-128f with ML-KEM-768+X25519 Data
+A.6.  Sample SLH-DSA-SHAKE-128f with ML-KEM-768+X25519 Data
 
 A.6.1.  Transferable Secret Key
 
@@ -8083,7 +8083,7 @@ A.6.3.  Detached signature
    hgMI/DPj9GwtRRmTTCSGd0JqdMISbvsek1ddQQ5Y
    -----END PGP SIGNATURE-----
 
-A.7.  Sample SLH-DSA-256s with ML-KEM-1024+X448 Data
+A.7.  Sample SLH-DSA-SHAKE-256s with ML-KEM-1024+X448 Data
 
 A.7.1.  Transferable Secret Key
 
