@@ -1023,6 +1023,9 @@ ID     | Algorithm           | Public Key Format                                
 - Allowed usage of ML-KEM-768 + X25519 with v4 keys
 - Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
 
+## draft-ietf-openpgp-pqc-09
+- Removed subkey semantics related guidance
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
