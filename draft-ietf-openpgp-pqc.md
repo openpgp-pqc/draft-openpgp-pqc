@@ -367,7 +367,6 @@ Furthermore, when performing the explicitly listed operations in {{x25519-kem}} 
 ## Key version binding
 
 All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
-This permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.
 
 # Composite KEM schemes
 
@@ -837,21 +836,10 @@ An implementation should not abort the encryption process when encrypting a mess
 An implementation may sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
 
-## Key generation strategies
+## Generating PQ(/T) Keys
 
 It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.
-
-An OpenPGP certificate is composed of a certification-capable primary key and one or more subkeys for signature, encryption, and authentication.
-Two migration strategies are recommended:
-
-1. Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
-   Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations can also use the newer certificate.
-   This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.
-
-2. Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
-   Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
-   This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.
 
 # Security Considerations
 
