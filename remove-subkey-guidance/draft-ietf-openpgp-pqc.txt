@@ -156,6 +156,7 @@ Table of Contents
      12.11. draft-ietf-openpgp-pqc-06
      12.12. draft-ietf-openpgp-pqc-07
      12.13. draft-ietf-openpgp-pqc-08
+     12.14. draft-ietf-openpgp-pqc-09
    13. Contributors
    Acknowledgments
    References
@@ -1501,6 +1502,10 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    *  Aligned KEM combiner to X-Wing and switched to suffix-free
       encoding of the domain separator
+
+12.14.  draft-ietf-openpgp-pqc-09
+
+   *  Removed subkey semantics related guidance
 
 13.  Contributors
 
