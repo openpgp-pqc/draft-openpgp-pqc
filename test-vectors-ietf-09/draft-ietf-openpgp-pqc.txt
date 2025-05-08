@@ -1789,8 +1789,6 @@ A.2.1.  Transferable Secret Key
 
    *  A v4 Ed25519 Private-Key packet
 
-   *  A v4 direct key self-signature
-
    *  A User ID packet
 
    *  A v4 positive certification self-signature
@@ -1853,8 +1851,6 @@ A.2.2.  Transferable Public Key
    consisting of:
 
    *  A v4 Ed25519 Public-Key packet
-
-   *  A v4 direct key self-signature
 
    *  A User ID packet
 
