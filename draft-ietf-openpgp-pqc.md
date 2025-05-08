@@ -1323,7 +1323,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 ~~~
 
 
-## Sample SLH-DSA-128s with ML-KEM-768+X25519 Data
+## Sample SLH-DSA-SHAKE-128s with ML-KEM-768+X25519 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-128s}
 
@@ -1393,7 +1393,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 ~~~
 
 
-## Sample SLH-DSA-128f with ML-KEM-768+X25519 Data
+## Sample SLH-DSA-SHAKE-128f with ML-KEM-768+X25519 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-128f}
 
@@ -1442,7 +1442,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 {::include test-vectors/v6-slhdsa-128f-sample-signature.asc}
 ~~~
 
-## Sample SLH-DSA-256s with ML-KEM-1024+X448 Data
+## Sample SLH-DSA-SHAKE-256s with ML-KEM-1024+X448 Data
 
 ### Transferable Secret Key {#test-vector-sec-slhdsa-256s}
 
