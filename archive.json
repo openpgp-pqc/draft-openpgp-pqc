@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-06T01:41:11.027826+00:00",
+  "timestamp": "2025-05-08T01:41:59.441345+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -18111,18 +18111,33 @@
       "labels": [],
       "body": "A primary key is implicitly capable of issuing self-signatures for certificate formation and life cycle management (this might be best omitted in this text)\r\n\r\nIt may be marked \"certification\"-capable, which allows it to issue valid third-party certifications (however, primary keys may exist without this capability)\r\n\r\nThe primary can in principle fulfill all capabilities (however, except for the case of RSA, it can't in practice be used for encryption, when its asymmetric mechanism only supports signing operations). Still, even with modern keys, the primary may be used for data signatures and authentication (and at least in some special-purposes scenarios, this may be a reasonable approach)",
       "createdAt": "2025-05-02T13:35:50Z",
-      "updatedAt": "2025-05-05T12:01:10Z",
+      "updatedAt": "2025-05-07T09:47:09Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
+      "baseRefOid": "73890d57f30ad00dcefd9d704b29d8893d5a231f",
       "headRepository": "hko-s/draft-openpgp-pqc",
       "headRefName": "certificate-structure",
-      "headRefOid": "a3250d6ebc633d69d00c0a22fe3a7e79564d6ead",
+      "headRefOid": "6fac07f6da819b3bda70c7947978ac8261ea2fd1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think \"one or more subkeys\" is technically wrong since subkeys are entirely optional.\r\n\r\nAside from that I'm not sure whether there really is a benefit in reiterating the certificate structure here and going into this level of detail about the key capabilities. We might just drop the sentence to keep it simple.",
+          "createdAt": "2025-05-07T08:40:58Z",
+          "updatedAt": "2025-05-07T08:40:58Z"
+        },
+        {
+          "author": "hko-s",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I think \"one or more subkeys\" is technically wrong since subkeys are entirely optional.\r\n\r\nAgreed, that should actually read \"zero or more\".\r\n\r\n> Aside from that I'm not sure whether there really is a benefit in reiterating the certificate structure here and going into this level of detail about the key capabilities. We might just drop the sentence to keep it simple.\r\n\r\nI have no strong feelings against dropping the sentence. I was mainly concerned by having an explanation that could confuse readers. \r\n\r\nHowever, it does seem helpful to remind readers that an OpenPGP certificate is a complex data structure that often contains multiple keys, whose mutual relationships have some implications for migration. But keeping this as brief as possible sounds good to me.",
+          "createdAt": "2025-05-07T09:47:07Z",
+          "updatedAt": "2025-05-07T09:47:07Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86nuA28",
@@ -18143,6 +18158,26 @@
               "updatedAt": "2025-05-05T05:59:36Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86oCDZY",
+          "commit": {
+            "abbreviatedOid": "a3250d6"
+          },
+          "author": "hko-s",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-06T17:30:50Z",
+          "updatedAt": "2025-05-06T17:30:50Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I changed this, thanks!",
+              "createdAt": "2025-05-06T17:30:50Z",
+              "updatedAt": "2025-05-06T17:30:50Z"
+            }
+          ]
         }
       ]
     },
@@ -18158,7 +18193,7 @@
       "labels": [],
       "body": "This was pointed out by Daniel Huigens on the mailing list",
       "createdAt": "2025-05-05T08:04:54Z",
-      "updatedAt": "2025-05-05T08:05:10Z",
+      "updatedAt": "2025-05-06T05:29:26Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "5dd172c35cb4d1c192f746c1ac6e0989cfbbe7c0",
@@ -18170,7 +18205,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86n5qEl",
+          "commit": {
+            "abbreviatedOid": "b0544ec"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-06T05:29:26Z",
+          "updatedAt": "2025-05-06T05:29:26Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 184,
@@ -18184,18 +18233,61 @@
       "labels": [],
       "body": "As discussed on the list, this MR updates the test vectors:\r\n- Removing the ECDH subkeys\r\n- Adding an SEIPDv2 to the V4 test vectors to cover both cases\r\n- Replacing the SEIPDv1 with an SEIPDv2 for the V6 ECC test vector\r\n\r\nFurthermore, we update the key creation time with something more reasonable",
       "createdAt": "2025-05-05T16:50:22Z",
-      "updatedAt": "2025-05-05T16:50:23Z",
+      "updatedAt": "2025-05-07T17:57:32Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "73890d57f30ad00dcefd9d704b29d8893d5a231f",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "test-vectors-ietf-09",
-      "headRefOid": "8158ec2b523b3d4c00b99f879453b014447c49b4",
+      "headRefOid": "da2d94edcfcc02ba71b31390eb67d83cc5043432",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I took the liberty to add trailing newlines to the files since RNP is a bit picky.\r\nI checked and everything verifies. The intermediate values match and I could not see anything amiss except for the following two things:\r\n\r\nFor `Sample v4 Ed25519 with ML-KEM-768+X25519 Data` it says there is a v4 direct key self-signature for the sk and pk. There is no direct key signature, though.\r\n\r\n----\r\n\r\n> Sample SLH-DSA-128s with ML-KEM-768+X25519 Data\r\n\r\n> Sample SLH-DSA-128f with ML-KEM-768+X25519 Data\r\n\r\n> Sample SLH-DSA-256s with ML-KEM-1024+X448 Data\r\n\r\n\r\nThe algorithm names include \"SHAKE\":\r\n* SLH-DSA-SHAKE-128s\r\n* SLH-DSA-SHAKE-128f\r\n* SLH-DSA-SHAKE-256s\r\n\r\nTherefore I would include it here too.",
+          "createdAt": "2025-05-06T08:37:14Z",
+          "updatedAt": "2025-05-06T08:38:46Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> As discussed on the list, this MR updates the test vectors:\r\n> \r\n>     * Removing the ECDH subkeys\r\n>\r\n\r\nWhy are removing the ECDH subkeys? As far as I can see, their presence was not a concern for Justus. In my view, the ECDH subkeys allow an important test: namely whether a legacy implementation can work with the certificates containing PQC encryption subkeys.\r\n",
+          "createdAt": "2025-05-06T08:48:23Z",
+          "updatedAt": "2025-05-06T08:48:23Z"
+        },
+        {
+          "author": "twiss",
+          "authorAssociation": "NONE",
+          "body": "My main concern with the current draft and/or test vectors as I wrote [here](https://mailarchive.ietf.org/arch/msg/openpgp/ipOOKb5TKii_xtNxe3gifF50d2w/) is that the expected behavior for _new_ implementations (that do support PQC) is not specified anywhere. Are they supposed to encrypt to the PQC subkey, the ECC subkey, or both? It's obvious that only the first option gives post-quantum security, and some parts of the draft seem to imply that it should be possible to achieve that, but it's not spelled out (since draft-08) and the implementations are not consistent.\r\nI would like to be able to encode, in the interop test suite, what the expected behavior when using the test vectors is, so that we can aim at a more consistent behavior.\r\nMy preferred solution is (now) to add back some guidance (i.e. option 2 in the email linked above) but updating the test vectors and changing the text of the draft (option 1) is also possible.",
+          "createdAt": "2025-05-07T12:42:56Z",
+          "updatedAt": "2025-05-07T12:42:56Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> My main concern with the current draft and/or test vectors as I wrote [here](https://mailarchive.ietf.org/arch/msg/openpgp/ipOOKb5TKii_xtNxe3gifF50d2w/) is that the expected behavior for _new_ implementations (that do support PQC) is not specified anywhere. Are they supposed to encrypt to the PQC subkey, the ECC subkey, or both?\r\n\r\nWe had reached consenus in the WG that this draft should not specify the encryption subkey selection, as this was intended to be covered by seperate specifications. This is why all (concrete) guidance on subkey selection was removed (maybe even still more has to be removed, that's possible) in version 08 (admitedly, this change is missing from the changelog in the draft) . I don't think I have to collect the references to the disussion here. Otherwise I can do so, but I assume we all remember this decision well. As a natural result, the draft intentionally does *not* specify the subkey selection.\r\n\r\nIf you hereby want to declare that you now disagree with this choice, the logical consequence is that we must seek a new consensus. But we can't simply move the draft in the direction that you request now, as other WG members obviously have stated a different opinion before.\r\n\r\n> It's obvious that only the first option gives post-quantum security, and some parts of the draft seem to imply that it should be possible to achieve that, but it's not spelled out (since draft-08) and the implementations are not consistent.\r\n\r\nAs I explained above, based on the (at least previously existing) consensus, implementers can't expect concrete guidance from the PQC draft in this respect.\r\n\r\n> I would like to be able to encode, in the interop test suite, what the expected behavior when using the test vectors is, so that we can aim at a more consistent behavior. My preferred solution is (now) to add back some guidance (i.e. option 2 in the email linked above) but updating the test vectors and changing the text of the draft (option 1) is also possible.\r\n\r\nAs I said above, this requires to find a new consensus in the WG. If you uphold this aim on the list, I assume that the chairs will be dealing with this question at the end of the WGLC.",
+          "createdAt": "2025-05-07T13:52:41Z",
+          "updatedAt": "2025-05-07T13:52:41Z"
+        },
+        {
+          "author": "twiss",
+          "authorAssociation": "NONE",
+          "body": "The main point of my email was to point out an inconsistency between the draft and what we had decided. There are two obvious solutions: change the draft or change the decision. I won't insist on one of the two; I expressed my preference but that's all it is. If you insist on the former I won't object formally.\r\n\r\n> maybe even still more has to be removed, that's possible\r\n\r\nI'm not sure why you say \"maybe\", I clearly quoted the inconsistent passages in my email, no?",
+          "createdAt": "2025-05-07T14:48:47Z",
+          "updatedAt": "2025-05-07T14:52:34Z"
+        },
+        {
+          "author": "twiss",
+          "authorAssociation": "NONE",
+          "body": "Back to the main topic of the test vectors: if you go the route of removing all (references to) key selection guidance, then IMO the test vectors with multiple subkeys are a bit meaningless because it's not clear what to test there or how a new implementation should behave when using them.\r\n\r\nYou said:\r\n\r\n> In my view, the ECDH subkeys allow an important test: namely whether a legacy implementation can work with the certificates containing PQC encryption subkeys.\r\n\r\nHowever, IMO this is not the primary purpose of test vectors in the draft, those should serve new implementations that are trying to implement the draft.\r\n\r\nTo test how legacy implementations behave (when using mixed test vectors, for example) we can add additional test vectors to the interoperability test suite, beyond those in the draft (as we already do today).",
+          "createdAt": "2025-05-07T15:06:10Z",
+          "updatedAt": "2025-05-07T17:57:32Z"
+        }
+      ],
       "reviews": []
     }
   ]
