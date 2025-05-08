@@ -131,7 +131,7 @@ Table of Contents
    8.  Migration Considerations
      8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
-     8.3.  Key generation strategies
+     8.3.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key combiner
@@ -432,10 +432,7 @@ Table of Contents
    All (PQ/T) asymmetric algorithms are to be used only in v6 (and
    newer) keys and certificates, with the single exception of ML-KEM-
    768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-
-   capable subkeys.  This permits the keyholder of an existing v4
-   certificate to add such a subkey to defend against store-now,
-   decrypt-later attacks from quantum computers without moving to a new
-   primary key.
+   capable subkeys.
 
 4.  Composite KEM schemes
 
@@ -754,8 +751,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
 4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
 
-   The algorithm-specific fields consists of the output of the
-   encryption procedure described in Section 4.2.3:
+   The algorithm-specific fields consist of the output of the encryption
+   procedure described in Section 4.2.3:
 
    *  A fixed-length octet string representing an ECDH ephemeral public
       key in the format associated with the curve as specified in
@@ -1113,31 +1110,11 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    Section 3.3.  Signing only with PQ(/T) key material is not backwards
    compatible.
 
-8.3.  Key generation strategies
+8.3.  Generating PQ(/T) Keys
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
    PQ(/T) keys does not provide backwards compatibility.
-
-   An OpenPGP certificate is composed of a certification-capable primary
-   key and one or more subkeys for signature, encryption, and
-   authentication.  Two migration strategies are recommended:
-
-   1.  Generate two independent certificates, one for PQ(/T)-capable
-       implementations, and one for legacy implementations.
-       Implementations not understanding PQ(/T) certificates can use the
-       legacy certificate, while PQ(/T)-capable implementations can also
-       use the newer certificate.  This allows having a traditional
-       certificate for compatibility and a v6 PQ(/T) certificate, at a
-       greater complexity in key distribution.
-
-   2.  Attach PQ(/T) encryption or signature subkeys to an existing
-       traditional v6 OpenPGP certificate.  Implementations
-       understanding PQ(/T) will be able to parse and use the subkeys,
-       while PQ(/T)-incapable implementations can gracefully ignore
-       them.  This simplifies key distribution, as only one certificate
-       needs to be communicated and verified, but leaves the primary key
-       vulnerable to quantum computer attacks.
 
 9.  Security Considerations
 
@@ -1162,7 +1139,7 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
    message that was signed twice with a composite algorithm by
    interchanging (i.e., remixing) the component signatures, which would
    classify as a weak existential forgery.  This is due to the fact that
-   each v6 signatures also includes a random salt at the start of the
+   each v6 signature also includes a random salt at the start of the
    hashed meta data, as also specified in the aforementioned reference.
 
 9.2.  Key combiner
@@ -1528,6 +1505,8 @@ domSep := 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
       encoding of the domain separator
 
 12.14.  draft-ietf-openpgp-pqc-09
+
+   *  Removed subkey semantics related guidance
 
    *  Updated test vectors
 

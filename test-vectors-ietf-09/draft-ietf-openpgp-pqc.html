@@ -1368,7 +1368,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-signing-with-traditional-an" class="internal xref">Signing with Traditional and PQ(/T) Keys</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-key-generation-strategies" class="internal xref">Key generation strategies</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-generating-pq-t-keys" class="internal xref">Generating PQ(/T) Keys</a></p>
 </li>
             </ul>
 </li>
@@ -1884,8 +1884,7 @@ This is an interpretation of <a href="https://www.rfc-editor.org/rfc/rfc9580#sec
         <h3 id="name-key-version-binding">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-key-version-binding" class="section-name selfRef">Key version binding</a>
         </h3>
-<p id="section-3.5-1">All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
-This permits the keyholder of an existing v4 certificate to add such a subkey to defend against store-now, decrypt-later attacks from quantum computers without moving to a new primary key.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2328,7 +2327,7 @@ For ECDH this is done following the relative specification in <span>[<a href="#R
           <h4 id="name-public-key-encrypted-sessio">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-public-key-encrypted-sessio" class="section-name selfRef">Public-Key Encrypted Session Key Packets (Tag 1)</a>
           </h4>
-<p id="section-4.3.1-1">The algorithm-specific fields consists of the output of the encryption procedure described in <a href="#ecc-mlkem-encryption" class="auto internal xref">Section 4.2.3</a>:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">The algorithm-specific fields consist of the output of the encryption procedure described in <a href="#ecc-mlkem-encryption" class="auto internal xref">Section 4.2.3</a>:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3.1-2.1">
               <p id="section-4.3.1-2.1.1">A fixed-length octet string representing an ECDH ephemeral public key in the format associated with the curve as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.1-2.1.1" class="pilcrow">¶</a></p>
@@ -2802,27 +2801,13 @@ An implementation should not abort the encryption process when encrypting a mess
 Signing only with PQ(/T) key material is not backwards compatible.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="key-generation-strategies">
+<div id="generating-pqt-keys">
 <section id="section-8.3">
-        <h3 id="name-key-generation-strategies">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-key-generation-strategies" class="section-name selfRef">Key generation strategies</a>
+        <h3 id="name-generating-pq-t-keys">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-generating-pq-t-keys" class="section-name selfRef">Generating PQ(/T) Keys</a>
         </h3>
 <p id="section-8.3-1">It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
-<p id="section-8.3-2">An OpenPGP certificate is composed of a certification-capable primary key and one or more subkeys for signature, encryption, and authentication.
-Two migration strategies are recommended:<a href="#section-8.3-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-8.3-3">
-<li id="section-8.3-3.1">
-            <p id="section-8.3-3.1.1">Generate two independent certificates, one for PQ(/T)-capable implementations, and one for legacy implementations.
-Implementations not understanding PQ(/T) certificates can use the legacy certificate, while PQ(/T)-capable implementations can also use the newer certificate.
-This allows having a traditional certificate for compatibility and a v6 PQ(/T) certificate, at a greater complexity in key distribution.<a href="#section-8.3-3.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="section-8.3-3.2">
-            <p id="section-8.3-3.2.1">Attach PQ(/T) encryption or signature subkeys to an existing traditional v6 OpenPGP certificate.
-Implementations understanding PQ(/T) will be able to parse and use the subkeys, while PQ(/T)-incapable implementations can gracefully ignore them.
-This simplifies key distribution, as only one certificate needs to be communicated and verified, but leaves the primary key vulnerable to quantum computer attacks.<a href="#section-8.3-3.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ol>
 </section>
 </div>
 </section>
@@ -2844,7 +2829,7 @@ It should be noted that the composite signature schemes specified in this draft 
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <a href="https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4">[RFC9580, Section 5.2.4]</a>.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
-This is due to the fact that each v6 signatures also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-key-combiner">
@@ -3321,7 +3306,10 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </h3>
 <ul class="normal">
 <li class="normal" id="section-12.14-1.1">
-            <p id="section-12.14-1.1.1">Updated test vectors<a href="#section-12.14-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-12.14-1.1.1">Removed subkey semantics related guidance<a href="#section-12.14-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.14-1.2">
+            <p id="section-12.14-1.2.1">Updated test vectors<a href="#section-12.14-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
