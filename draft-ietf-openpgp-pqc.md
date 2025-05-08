@@ -1111,7 +1111,6 @@ The hex-encoded session key is `94a3b8c9784463bb96b682cddf549adb23579b75bcb646f9
 Here is a Transferable Secret Key consisting of:
 
 - A v4 Ed25519 Private-Key packet
-- A v4 direct key self-signature
 - A User ID packet
 - A v4 positive certification self-signature
 - A v4 ML-KEM-768+X25519 Private-Subkey packet
@@ -1131,7 +1130,6 @@ The subkey has the fingerprint `e51dbfea51936988b5428fffa4f95f985ed61a51`.
 Here is the corresponding Transferable Public Key for {{test-vector-sec-v4-ed25519}} consisting of:
 
 - A v4 Ed25519 Public-Key packet
-- A v4 direct key self-signature
 - A User ID packet
 - A v4 positive certification self-signature
 - A v4 ML-KEM-768+X25519 Public-Subkey packet
