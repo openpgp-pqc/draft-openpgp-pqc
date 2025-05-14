@@ -333,9 +333,10 @@ ID | Algorithm                        | Requirement | Definition
 36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
 
-The selection features the higher two security levels of ML-DSA and ML-KEM in order to allow users to make a trade-off between security and efficiency. At the same time, it makes a preselection that of favors the higher security levels.
-For SLH-DSA, which due to its challenging performance characteristics will often require a higher degree of trade-off between security and efficiency, the "fast" and "small" parameter sets for the lowest security level have been chosen.
-For a very conservative choice in terms of security, the "small" variant of the highest security level has also been chosen.
+The specified algorithm IDs feature the higher two security levels of ML-DSA and ML-KEM in order to allow users to make a certain trade-off between security and efficiency. At the same time, it makes a preselection that of favors the higher security levels.
+For SLH-DSA, which due to its challenging performance characteristics will often require a higher degree of trade-off between security and efficiency, the "fast" and "small" parameter sets for the lowest security level are supported.
+For a very conservative choice in terms of security, which at the same time keeps the signature size in reasonable bounds as much as possible, the "small" variant of the highest security level of SLH-DSA is also available.
+See also {{performance-considerations}} for further considerations about parameter choices.
 
 # Algorithm Combinations
 
