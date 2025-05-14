@@ -844,7 +844,7 @@ The user creates a new key for the same cryptographic algorithm and security lev
 The second key may, however, differ in the algorithm ID due to being used in a different mode with respect to standalone usage or usage in a composite key.
 This case may for instance be given when a user has an ECC key from their certificate on a hardware token and they want to create a composite ML-KEM or ML-DSA key in combination with the existing ECC key.
 
-However, private key material, MUST NOT be reused across different cryptographic algorithms or different security levels of the same algorithm.
+However, private key material MUST NOT be reused across different cryptographic algorithms or different security levels of the same algorithm.
 
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.
 
