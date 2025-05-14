@@ -332,6 +332,11 @@ ID | Algorithm                        | Requirement | Definition
 35 | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
 36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
+
+The selection features the higher two security levels of ML-DSA and ML-KEM in order to allow users to make a trade-off between security and efficiency. At the same time, it makes a preselection that of favors the higher security levels.
+For SLH-DSA, which due to its challenging performance characteristics will often require a higher degree of trade-off between security and efficiency, the "fast" and "small" parameter sets for the lowest security level have been chosen.
+For a very conservative choice in terms of security, the "small" variant of the highest security level has also been chosen.
+
 # Algorithm Combinations
 
 ## Composite KEMs {#composite-kem}
