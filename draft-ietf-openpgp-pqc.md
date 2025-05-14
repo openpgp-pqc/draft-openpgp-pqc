@@ -839,6 +839,11 @@ Signing only with PQ(/T) key material is not backwards compatible.
 ## Generating PQ(/T) Keys
 
 It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
+A secret key MAY be reused in the case that it resides on a hardware token and its reuse allows the user to benefit from the greater security of that token in contrast to a "software" key.
+This case may for instance be given when a user has an ECC key from their certificate on a hardware token and they want to create a composite ML-KEM or ML-DSA key in combination with the existing ECC key.
+
+However, private key seeds, as they are specified here for ML-KEM, ML-DSA, and SLH-DSA, MUST NOT be reused across different algorithm IDs defined in this specification.
+
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.
 
 # Security Considerations
