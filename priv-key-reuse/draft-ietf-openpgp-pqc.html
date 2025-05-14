@@ -2811,7 +2811,7 @@ A secret key MAY be reused in the following case: A user holds already a secret 
 The user creates a new key for the same cryptographic algorithm and security level as the first key.
 The second key may, however, differ in the algorithm ID due to being used in a different mode with respect to standalone usage or usage in a composite key.
 This case may for instance be given when a user has an ECC key from their certificate on a hardware token and they want to create a composite ML-KEM or ML-DSA key in combination with the existing ECC key.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
-<p id="section-8.3-2">However, private key seeds, as they are specified here for ML-KEM, ML-DSA, and SLH-DSA, MUST NOT be reused across different cryptographic algorithms or different security levels of the same algorithm.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">However, private key material, MUST NOT be reused across different cryptographic algorithms or different security levels of the same algorithm.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
 <p id="section-8.3-3">Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.<a href="#section-8.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
