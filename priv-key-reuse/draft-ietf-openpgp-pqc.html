@@ -2807,9 +2807,11 @@ Signing only with PQ(/T) key material is not backwards compatible.<a href="#sect
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-generating-pq-t-keys" class="section-name selfRef">Generating PQ(/T) Keys</a>
         </h3>
 <p id="section-8.3-1">It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
-A secret key MAY be reused in the case that it resides on a hardware token and its reuse allows the user to benefit from the greater security of that token in contrast to a "software" key.
+A secret key MAY be reused in the following case: A user holds already a secret key that is part of their certificate on a hardware token.
+The user creates a new key for the same cryptographic algorithm and security level as the first key.
+The second key may, however, differ in the algorithm ID due to being used in a different mode with respect to standalone usage or usage in a composite key.
 This case may for instance be given when a user has an ECC key from their certificate on a hardware token and they want to create a composite ML-KEM or ML-DSA key in combination with the existing ECC key.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
-<p id="section-8.3-2">However, private key seeds, as they are specified here for ML-KEM, ML-DSA, and SLH-DSA, MUST NOT be reused across different algorithm IDs defined in this specification.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">However, private key seeds, as they are specified here for ML-KEM, ML-DSA, and SLH-DSA, MUST NOT be reused across different cryptographic algorithms or different security levels of the same algorithm.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
 <p id="section-8.3-3">Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.<a href="#section-8.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
