@@ -1032,7 +1032,7 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-09
 - Removed subkey semantics related guidance
 - Updated test vectors
-- Added non-normative algorithm guidance
+- Added non-normative algorithm explanation
 
 # Contributors
 
