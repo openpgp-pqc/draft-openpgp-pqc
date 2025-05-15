@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-11T01:46:37.106687+00:00",
+  "timestamp": "2025-05-15T01:40:10.681099+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -18420,6 +18420,46 @@
           "body": "",
           "createdAt": "2025-05-08T08:35:02Z",
           "updatedAt": "2025-05-08T08:35:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 186,
+      "id": "PR_kwDOIrmZ-86WNH68",
+      "title": "Use = instead of :=  (Suggested by Stephen Farrell)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/186",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "see https://mailarchive.ietf.org/arch/msg/openpgp/71Q_cL5F_VSPhm3hdWOK6hP-cU8",
+      "createdAt": "2025-05-14T18:08:57Z",
+      "updatedAt": "2025-05-14T19:41:27Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "7dae6998e5bad41f5ef67df7a16494cb84fe34fd",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "assignment",
+      "headRefOid": "a73c8540d53284aa822f4284ca46662123323bc4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86pWv03",
+          "commit": {
+            "abbreviatedOid": "a73c854"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-14T19:41:27Z",
+          "updatedAt": "2025-05-14T19:41:27Z",
           "comments": []
         }
       ]
