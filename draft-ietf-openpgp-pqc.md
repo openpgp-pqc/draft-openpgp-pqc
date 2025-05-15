@@ -334,7 +334,7 @@ ID | Algorithm                        | Requirement | Definition
 
 
 The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-SLH-DSA is further offered in a "fast" and a "small" variant to allow for further tradeoffs.
+SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
 See also {{performance-considerations}} for further considerations about parameter choices.
 
