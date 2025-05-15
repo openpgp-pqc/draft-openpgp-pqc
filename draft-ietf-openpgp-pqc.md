@@ -332,6 +332,12 @@ ID | Algorithm                        | Requirement | Definition
 35 | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
 36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
+
+The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
+SLH-DSA is further offered in a "fast" and a "small" variant to allow for further tradeoffs.
+For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
+See also {{performance-considerations}} for further considerations about parameter choices.
+
 # Algorithm Combinations
 
 ## Composite KEMs {#composite-kem}
@@ -1026,6 +1032,7 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-09
 - Removed subkey semantics related guidance
 - Updated test vectors
+- Added non-normative algorithm guidance
 
 # Contributors
 
