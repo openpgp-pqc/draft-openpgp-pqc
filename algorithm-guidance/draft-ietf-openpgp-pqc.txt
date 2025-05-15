@@ -1517,6 +1517,8 @@ return KEK
 
    *  Updated test vectors
 
+   *  Added non-normative algorithm guidance
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
