@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-15T01:40:10.681099+00:00",
+  "timestamp": "2025-05-18T01:48:09.104176+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -18429,24 +18429,26 @@
       "id": "PR_kwDOIrmZ-86WNH68",
       "title": "Use = instead of :=  (Suggested by Stephen Farrell)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/186",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "see https://mailarchive.ietf.org/arch/msg/openpgp/71Q_cL5F_VSPhm3hdWOK6hP-cU8",
       "createdAt": "2025-05-14T18:08:57Z",
-      "updatedAt": "2025-05-14T19:41:27Z",
+      "updatedAt": "2025-05-15T06:48:13Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "7dae6998e5bad41f5ef67df7a16494cb84fe34fd",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "assignment",
       "headRefOid": "a73c8540d53284aa822f4284ca46662123323bc4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-05-15T06:48:12Z",
+      "mergedAt": "2025-05-15T06:48:12Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "451bedd930ad70fa5147d942b528acd6ec989c8a"
+      },
       "comments": [],
       "reviews": [
         {
@@ -18460,6 +18462,134 @@
           "body": "",
           "createdAt": "2025-05-14T19:41:27Z",
           "updatedAt": "2025-05-14T19:41:27Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86pbIvQ",
+          "commit": {
+            "abbreviatedOid": "a73c854"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-15T06:47:58Z",
+          "updatedAt": "2025-05-15T06:47:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 187,
+      "id": "PR_kwDOIrmZ-86WSWij",
+      "title": "Add non-normative algorithm guidance",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/187",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-15T08:44:28Z",
+      "updatedAt": "2025-05-15T13:30:06Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "451bedd930ad70fa5147d942b528acd6ec989c8a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "algorithm-guidance",
+      "headRefOid": "1be7719fc5d4e0c16373fede28960db6e301d69a",
+      "closedAt": "2025-05-15T13:30:06Z",
+      "mergedAt": "2025-05-15T13:30:06Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "137ebb00f37a7a6e82c948ae6b64e8012f0ddd59"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86pcjOb",
+          "commit": {
+            "abbreviatedOid": "64e8ee4"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-15T08:50:51Z",
+          "updatedAt": "2025-05-15T08:50:52Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nSLH-DSA is also offered in a \"fast\" and a \"small\" variant to allow for further tradeoffs.\r\n```\r\n\r\nThis might read better",
+              "createdAt": "2025-05-15T08:50:52Z",
+              "updatedAt": "2025-05-15T08:50:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86pclaE",
+          "commit": {
+            "abbreviatedOid": "64e8ee4"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-15T08:53:29Z",
+          "updatedAt": "2025-05-15T08:53:29Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I think it's not a guidance, just an explanation / justification for including the different algorithms",
+              "createdAt": "2025-05-15T08:53:29Z",
+              "updatedAt": "2025-05-15T08:53:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86pdQ1f",
+          "commit": {
+            "abbreviatedOid": "64e8ee4"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-15T09:46:35Z",
+          "updatedAt": "2025-05-15T09:46:36Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n- Added non-normative algorithm explanation\r\n```",
+              "createdAt": "2025-05-15T09:46:35Z",
+              "updatedAt": "2025-05-15T09:46:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86pdTwp",
+          "commit": {
+            "abbreviatedOid": "1be7719"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-15T09:50:01Z",
+          "updatedAt": "2025-05-15T09:50:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86pfRjq",
+          "commit": {
+            "abbreviatedOid": "1be7719"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-15T12:41:19Z",
+          "updatedAt": "2025-05-15T12:41:19Z",
           "comments": []
         }
       ]
