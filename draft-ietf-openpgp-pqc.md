@@ -1045,13 +1045,13 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-08
 - Assigned code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
-- Allowed usage of ML-KEM-768 + X25519 with v4 keys
-- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
+- Allowed usage of ML-KEM-768 + X25519 with v4 keys.
+- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator.
 
 ## draft-ietf-openpgp-pqc-09
-- Removed subkey semantics related guidance
-- Updated test vectors
-- Added non-normative algorithm explanation
+- Removed subkey semantics related guidance.
+- Updated test vectors.
+- Added non-normative algorithm explanation.
 
 ## draft-ietf-openpgp-pqc-10
 - Specified minumum requirements for signature digest sizes.
