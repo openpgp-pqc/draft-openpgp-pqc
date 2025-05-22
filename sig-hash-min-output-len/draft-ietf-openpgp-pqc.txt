@@ -959,17 +959,17 @@ return KEK
    reject any composite ML-DSA + EdDSA signature that uses a hash
    algorithm with a smaller digest size.
 
-               +=====================+=====================+
-               | Signature algorithm | Minimum digest size |
-               +=====================+=====================+
-               | ML-DSA-65+Ed25519   | 384                 |
-               +---------------------+---------------------+
-               | ML-DSA-87+Ed448     | 512                 |
-               +---------------------+---------------------+
+             +====+===================+=====================+
+             | ID | Algorithm         | Minimum digest size |
+             +====+===================+=====================+
+             | 30 | ML-DSA-65+Ed25519 | 384                 |
+             +----+-------------------+---------------------+
+             | 31 | ML-DSA-87+Ed448   | 512                 |
+             +----+-------------------+---------------------+
 
-                   Table 8: Minimum hash algorithm digest
-                     size for composite ML-DSA + EdDSA
-                             signatures in bits
+               Table 8: Minimum hash algorithm digest size
+                for composite ML-DSA + EdDSA signatures in
+                                   bits
 
 5.3.2.  Key Material Packets
 
@@ -1064,18 +1064,18 @@ return KEK
    SLH-DSA signature that uses a hash algorithm with a smaller digest
    size.
 
-               +=====================+=====================+
-               | Signature algorithm | Minimum digest size |
-               +=====================+=====================+
-               | SLH-DSA-SHAKE-128s  | 256                 |
-               +---------------------+---------------------+
-               | SLH-DSA-SHAKE-128f  | 256                 |
-               +---------------------+---------------------+
-               | SLH-DSA-SHAKE-256s  | 512                 |
-               +---------------------+---------------------+
+             +====+====================+=====================+
+             | ID | Algorithm          | Minimum digest size |
+             +====+====================+=====================+
+             | 32 | SLH-DSA-SHAKE-128s | 256                 |
+             +----+--------------------+---------------------+
+             | 33 | SLH-DSA-SHAKE-128f | 256                 |
+             +----+--------------------+---------------------+
+             | 34 | SLH-DSA-SHAKE-256s | 512                 |
+             +----+--------------------+---------------------+
 
-                  Table 10: Minimum hash algorithm digest
-                    size for SLH-DSA signatures in bits
+                Table 10: Minimum hash algorithm digest size
+                       for SLH-DSA signatures in bits
 
 6.2.2.  Key Material Packets
 
