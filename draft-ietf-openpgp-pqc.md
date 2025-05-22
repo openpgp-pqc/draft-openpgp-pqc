@@ -735,6 +735,15 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
  - A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
+A composite ML-DSA + EdDSA signature MUST use a hash algorithm whose digest size meets or exceeds the minimum digest size specified for the signature algorithm in {{tab-min-mldsa-eddsa-digest-size}}.
+A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.
+
+{: title="Minimum hash algorithm digest size for composite ML-DSA + EdDSA signatures in bits" #tab-min-mldsa-eddsa-digest-size}
+Signature algorithm | Minimum digest size
+:-------------------| ------------------
+ML-DSA-65+Ed25519   | 256
+ML-DSA-87+Ed448     | 512
+
 ### Key Material Packets
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
@@ -791,6 +800,16 @@ The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in [[RFC
 The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:
 
  - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
+
+An SLH-DSA signature MUST use a hash algorithm whose digest size meets or exceeds the minimum digest size specified for the signature algorithm in {{tab-min-slhdsa-digest-size}}.
+A verifying implementation MUST reject any SLH-DSA signature that uses a hash algorithm with a smaller digest size.
+
+{: title="Minimum hash algorithm digest size for SLH-DSA signatures in bits" #tab-min-slhdsa-digest-size}
+Signature algorithm | Minimum digest size
+:-------------------| ------------------
+SLH-DSA-SHAKE-128s  | 256
+SLH-DSA-SHAKE-128f  | 256
+SLH-DSA-SHAKE-256s  | 512
 
 ### Key Material Packets
 
@@ -1033,6 +1052,9 @@ ID     | Algorithm           | Public Key Format                                
 - Removed subkey semantics related guidance
 - Updated test vectors
 - Added non-normative algorithm explanation
+
+## draft-ietf-openpgp-pqc-10
+- Specified minumum requirements for signature digest sizes.
 
 # Contributors
 
