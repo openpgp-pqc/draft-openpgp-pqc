@@ -739,10 +739,10 @@ A composite ML-DSA + EdDSA signature MUST use a hash algorithm whose digest size
 A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.
 
 {: title="Minimum hash algorithm digest size for composite ML-DSA + EdDSA signatures in bits" #tab-min-mldsa-eddsa-digest-size}
-Signature algorithm | Minimum digest size
-:-------------------| ------------------
-ML-DSA-65+Ed25519   | 384
-ML-DSA-87+Ed448     | 512
+ID | Algorithm         | Minimum digest size
+:--|:------------------|--------------------
+30 | ML-DSA-65+Ed25519 | 384
+31 | ML-DSA-87+Ed448   | 512
 
 ### Key Material Packets
 
@@ -805,11 +805,11 @@ An SLH-DSA signature MUST use a hash algorithm whose digest size meets or exceed
 A verifying implementation MUST reject any SLH-DSA signature that uses a hash algorithm with a smaller digest size.
 
 {: title="Minimum hash algorithm digest size for SLH-DSA signatures in bits" #tab-min-slhdsa-digest-size}
-Signature algorithm | Minimum digest size
-:-------------------| ------------------
-SLH-DSA-SHAKE-128s  | 256
-SLH-DSA-SHAKE-128f  | 256
-SLH-DSA-SHAKE-256s  | 512
+ID | Algorithm           | Minimum digest size
+:--|:--------------------| ------------------
+32 | SLH-DSA-SHAKE-128s  | 256
+33 | SLH-DSA-SHAKE-128f  | 256
+34 | SLH-DSA-SHAKE-256s  | 512
 
 ### Key Material Packets
 
