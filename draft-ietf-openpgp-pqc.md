@@ -741,7 +741,7 @@ A verifying implementation MUST reject any composite ML-DSA + EdDSA signature th
 {: title="Minimum hash algorithm digest size for composite ML-DSA + EdDSA signatures in bits" #tab-min-mldsa-eddsa-digest-size}
 Signature algorithm | Minimum digest size
 :-------------------| ------------------
-ML-DSA-65+Ed25519   | 256
+ML-DSA-65+Ed25519   | 384
 ML-DSA-87+Ed448     | 512
 
 ### Key Material Packets
