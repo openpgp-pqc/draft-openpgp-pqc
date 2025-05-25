@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-18T01:48:09.104176+00:00",
+  "timestamp": "2025-05-25T01:50:16.902599+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -18591,6 +18591,166 @@
           "createdAt": "2025-05-15T12:41:19Z",
           "updatedAt": "2025-05-15T12:41:19Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 188,
+      "id": "PR_kwDOIrmZ-86XMfTK",
+      "title": "Specify minimum requirements for signature digest sizes",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/188",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "restrict hash algorithms for PQC signature algorithms similar to what RFC 9580 specifies, based on Daniel Huigen's suggestion in https://mailarchive.ietf.org/arch/msg/openpgp/r0C-dXz35BKx5rDsznt4rGcS6pM/",
+      "createdAt": "2025-05-22T09:43:18Z",
+      "updatedAt": "2025-05-23T14:35:13Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "137ebb00f37a7a6e82c948ae6b64e8012f0ddd59",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sig-hash-min-output-len",
+      "headRefOid": "15b8e335001b3c7b43737832298f69a691f4b412",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86qi0Jq",
+          "commit": {
+            "abbreviatedOid": "bb6368f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-22T13:32:34Z",
+          "updatedAt": "2025-05-22T13:32:34Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Maybe the algorithm IDs should be given in a first column.",
+              "createdAt": "2025-05-22T13:32:34Z",
+              "updatedAt": "2025-05-22T13:32:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qi47C",
+          "commit": {
+            "abbreviatedOid": "bb6368f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I agree with this proposal. If the other authors come to the conclusion that the digest size should be reduced to 256 bits for ML-DSA-65, I could also live with that. I don't see that a digest size greater than the security level is relevant to v6 signatures at all. But I agree that it makes sense to align to what RFC 9580 specifies for EdDSA. In any case to have a minimum requirement is good to hedge against digest substition attacks (which require breaking the 2nd-preimage resistance).",
+          "createdAt": "2025-05-22T13:37:36Z",
+          "updatedAt": "2025-05-22T13:38:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qkNQ6",
+          "commit": {
+            "abbreviatedOid": "15b8e33"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-22T15:07:24Z",
+          "updatedAt": "2025-05-22T15:07:25Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Given this is a minimum requirement, I would enforce 256 bit. This matches the MUST bitsize also with the hashing algorithms.\r\n\r\nNote that SHA-256 corresponds to security level 2, and SHA-384 to level 4. We are dealing here with level 3, and I value more interoperability and availability of SHA(2/3)-256.\r\n\r\nAlso, SHA3-384 is not defined in RFC9580, and therefore if someone wants to use SHA3 they would be bound to use SHA3-512.\r\n\r\nPre-image attacks on hashes seem to be quite unrealistic. Given we're using only salted signatures, the applicability of collision attacks is limited.",
+              "createdAt": "2025-05-22T15:07:24Z",
+              "updatedAt": "2025-05-22T15:08:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qqznc",
+          "commit": {
+            "abbreviatedOid": "15b8e33"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-23T06:34:31Z",
+          "updatedAt": "2025-05-23T06:34:31Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "I'm fine with going for SHA-256. However, regarding the justification: The salt doesn't help against pre-image attacks. But SHA-256 offers a 256 bit pre-image resistance, so there is still a security margin from the 192 bit level of the algorithm. On the list our justification should be that \r\n  a) the salt prevents hash-collision attacks anyway and that \r\n  b) the (2nd) pre-image resistance of SHA-256 is still higher than what is required for this level and \r\n  c) SHA-256 is MUST in RFC 9580",
+              "createdAt": "2025-05-23T06:34:31Z",
+              "updatedAt": "2025-05-23T06:34:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qrPHy",
+          "commit": {
+            "abbreviatedOid": "15b8e33"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-23T07:23:30Z",
+          "updatedAt": "2025-05-23T07:23:30Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "The predefined pre-hash variants of ML-DSA in the NIST Computer Security Objects Register all go with SHA-512.\r\n\r\nSee https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration#DSA.\r\n\r\nIt would make sense to follow that and just go with 512 for the two ML-DSA hybrids.\r\n\r\nBTW, our minimum digest sizes for SLH-DSA are compatible with the predefined pre-hash variants there.\r\n\r\nFollowing the NIST CSOR would make the choice less arbitrary.\r\n\r\nHowever, I could live with 256 bits minimum for ML-DSA-65+Ed25519 due to the presence of the salt and since it is still a \"minimum\" requirement.",
+              "createdAt": "2025-05-23T07:23:30Z",
+              "updatedAt": "2025-05-23T07:23:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qryHh",
+          "commit": {
+            "abbreviatedOid": "15b8e33"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-23T08:16:00Z",
+          "updatedAt": "2025-05-23T08:16:00Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "If we want to be consistent with RFC 9580 I would say going with 384 bits is the most natural choice that is easy to justify. As Falko pointed out: ML-DSA is the relevant longterm-secure component and then following RFC 9580 the requirement should be 384 bits. Most of the arguments for going with 256 bits could be applied to reducing the requirements for other signature algorithms as well, so it doesn't seem very logical to me to use them only for this case.\r\n\r\nThat there is no SHA3-384 is unfortunate but IMO it's not a big deal. I would opt for 384 bits, or, we define our own but consistent reasoning for all 5 signature schemes (like Stavros suggests with NIST CSOR)",
+              "createdAt": "2025-05-23T08:16:00Z",
+              "updatedAt": "2025-05-23T08:16:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86qvyAU",
+          "commit": {
+            "abbreviatedOid": "15b8e33"
+          },
+          "author": "twiss",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-23T14:35:12Z",
+          "updatedAt": "2025-05-23T14:35:13Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "IMHO, using SHA256 could be justified by saying:\r\n\r\n- For ML-DSA-65+Ed25519, we target security level 2, _but_ we are less confident in ML-DSA than the other components, due to it being a newer algorithm, therefore we bump that component to the next security level (without claiming that we actually achieve the higher security level, due to the other components not being bumped, and aforementioned uncertainty)\r\n- For ML-DSA-87+Ed448, we target security level 5, but there is no higher level of ML-DSA so we didn't bump it\r\n  (it's perhaps also debatable whether Ed448 achieves it, so maybe it's more accurate to say that this one sits between security level 4 and 5?)\r\n- In SLH-DSA we have more confidence that it matches the stated security level, therefore we match it straightforwardly (as this PR already does)\r\n\r\nFor me, this would also be most consistent with RFC9580, which requires 256 bits for Ed25519 and 512 bits for Ed448.",
+              "createdAt": "2025-05-23T14:35:12Z",
+              "updatedAt": "2025-05-23T14:35:13Z"
+            }
+          ]
         }
       ]
     }
