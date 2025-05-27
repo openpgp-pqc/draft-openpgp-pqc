@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 16 November 2025                                    F. Strenzke
+Expires: 28 November 2025                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             15 May 2025
+                                                             27 May 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 November 2025.
+   This Internet-Draft will expire on 28 November 2025.
 
 Copyright Notice
 
@@ -137,8 +137,9 @@ Table of Contents
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
      9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Symmetric Algorithms for SEIPD Packets
-     9.5.  Key generation
+     9.4.  Minimum digest size for PQ(/T)-signatures
+     9.5.  Symmetric Algorithms for SEIPD Packets
+     9.6.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -157,6 +158,7 @@ Table of Contents
      12.12. draft-ietf-openpgp-pqc-07
      12.13. draft-ietf-openpgp-pqc-08
      12.14. draft-ietf-openpgp-pqc-09
+     12.15. draft-ietf-openpgp-pqc-10
    13. Contributors
    Acknowledgments
    References
@@ -952,6 +954,12 @@ return KEK
    *  A fixed-length octet string of the ML-DSA signature value, whose
       length depends on the algorithm ID as specified in Table 7.
 
+   A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a
+   digest size of at least 256 bits for the computation of the message
+   digest.  A verifying implementation MUST reject any composite ML-DSA
+   + EdDSA signature that uses a hash algorithm with a smaller digest
+   size.
+
 5.3.2.  Key Material Packets
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys,
@@ -1038,6 +1046,11 @@ return KEK
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
       Table 8.
+
+   An SLH-DSA signature MUST use a hash algorithm with a digest size of
+   at least 256 bits for the computation of the message digest.  A
+   verifying implementation MUST reject any SLH-DSA signature that uses
+   a hash algorithm with a smaller digest size.
 
 6.2.2.  Key Material Packets
 
@@ -1193,7 +1206,19 @@ return KEK
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Symmetric Algorithms for SEIPD Packets
+9.4.  Minimum digest size for PQ(/T)-signatures
+
+   This specification requires that all PQ(/T) signatures defined in
+   this document are made on message digests computed with a hash
+   algorithm with at least 256 bits of digest size.  Since all signature
+   algorithms defined in this document require version 6 (or newer)
+   signature packets, which currently include a leading random salt
+   value in the hashed data, the required property is not collision but
+   (2nd) preimage resistance.  Therefore, a hash algorithm with a digest
+   size of at least 256 bits is sufficient to match the targeted
+   security levels of all PQ(/T) algorithms defined in this document.
+
+9.5.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1208,7 +1233,7 @@ return KEK
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.5.  Key generation
+9.6.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1506,18 +1531,24 @@ return KEK
 
    *  Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
 
-   *  Allowed usage of ML-KEM-768 + X25519 with v4 keys
+   *  Allowed usage of ML-KEM-768 + X25519 with v4 keys.
 
    *  Aligned KEM combiner to X-Wing and switched to suffix-free
-      encoding of the domain separator
+      encoding of the domain separator.
 
 12.14.  draft-ietf-openpgp-pqc-09
 
-   *  Removed subkey semantics related guidance
+   *  Removed subkey semantics related guidance.
 
-   *  Updated test vectors
+   *  Updated test vectors.
 
-   *  Added non-normative algorithm explanation
+   *  Added non-normative algorithm explanation.
+
+12.15.  draft-ietf-openpgp-pqc-10
+
+   *  Specified minimum requirements for signature message digest sizes.
+
+   *  Added security considerations for signature message digest sizes.
 
 13.  Contributors
 
