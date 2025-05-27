@@ -735,14 +735,8 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
  - A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-A composite ML-DSA + EdDSA signature MUST use a hash algorithm whose digest size meets or exceeds the minimum digest size specified for the signature algorithm in {{tab-min-mldsa-eddsa-digest-size}}.
+A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits.
 A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.
-
-{: title="Minimum hash algorithm digest size for composite ML-DSA + EdDSA signatures in bits" #tab-min-mldsa-eddsa-digest-size}
-ID | Algorithm         | Minimum digest size
-:--|:------------------|--------------------
-30 | ML-DSA-65+Ed25519 | 384
-31 | ML-DSA-87+Ed448   | 512
 
 ### Key Material Packets
 
@@ -801,15 +795,8 @@ The algorithm-specific part of a signature packet for an SLH-DSA algorithm code 
 
  - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
 
-An SLH-DSA signature MUST use a hash algorithm whose digest size meets or exceeds the minimum digest size specified for the signature algorithm in {{tab-min-slhdsa-digest-size}}.
+An SLH-DSA signature MUST use a hash algorithm with a digest size of at least 256 bits.
 A verifying implementation MUST reject any SLH-DSA signature that uses a hash algorithm with a smaller digest size.
-
-{: title="Minimum hash algorithm digest size for SLH-DSA signatures in bits" #tab-min-slhdsa-digest-size}
-ID | Algorithm           | Minimum digest size
-:--|:--------------------| ------------------
-32 | SLH-DSA-SHAKE-128s  | 256
-33 | SLH-DSA-SHAKE-128f  | 256
-34 | SLH-DSA-SHAKE-256s  | 512
 
 ### Key Material Packets
 
@@ -903,6 +890,14 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
+
+## Minimum digest size for PQ(/T)-signatures
+
+This specification requires that all PQ(/T) signatures defined in this document are made in combination with a hash algorithm of at least 256 bits digest size.
+The relevant security property is preimage resistance, since all signature algorithms defined in this document require signature packets of version 6 or higher, which include a random salt value.
+Therefore, a hash algorithm with 256 bits digest size is sufficient to match the targeted security level of all PQ(/T) algorithms defined in this document.
+Note that the minimum hash algorithm digest size requirement is different for signature schemes that are defined in [RFC9580], where signature algorithms are also allowed to be used with non-salted v4 signatures.
+In such cases, the relevant security property is collision resistance.
 
 ## Symmetric Algorithms for SEIPD Packets
 
