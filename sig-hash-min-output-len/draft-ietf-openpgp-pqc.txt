@@ -1218,8 +1218,7 @@ return KEK
    algorithm with a digest size of 256 bits is sufficient to match the
    targeted security level of all PQ(/T) algorithms defined in this
    document, as it achieves a preimage and second preimage security of
-   256 bits.  In such cases, the relevant security property is collision
-   resistance.
+   256 bits.
 
 9.5.  Symmetric Algorithms for SEIPD Packets
 
