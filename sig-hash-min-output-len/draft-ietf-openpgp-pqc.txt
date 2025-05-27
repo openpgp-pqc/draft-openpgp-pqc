@@ -1048,8 +1048,9 @@ return KEK
       Table 8.
 
    An SLH-DSA signature MUST use a hash algorithm with a digest size of
-   at least 256 bits.  A verifying implementation MUST reject any SLH-
-   DSA signature that uses a hash algorithm with a smaller digest size.
+   at least 256 bits for the computation of the message digest.  A
+   verifying implementation MUST reject any SLH-DSA signature that uses
+   a hash algorithm with a smaller digest size.
 
 6.2.2.  Key Material Packets
 
