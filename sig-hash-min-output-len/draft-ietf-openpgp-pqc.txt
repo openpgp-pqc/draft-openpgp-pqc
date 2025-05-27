@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 23 November 2025                                    F. Strenzke
+Expires: 28 November 2025                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             22 May 2025
+                                                             27 May 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 November 2025.
+   This Internet-Draft will expire on 28 November 2025.
 
 Copyright Notice
 
@@ -137,8 +137,9 @@ Table of Contents
      9.2.  Key combiner
        9.2.1.  Domain separation and context binding
      9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Symmetric Algorithms for SEIPD Packets
-     9.5.  Key generation
+     9.4.  Minimum digest size for PQ(/T)-signatures
+     9.5.  Symmetric Algorithms for SEIPD Packets
+     9.6.  Key generation
    10. Additional considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -953,23 +954,10 @@ return KEK
    *  A fixed-length octet string of the ML-DSA signature value, whose
       length depends on the algorithm ID as specified in Table 7.
 
-   A composite ML-DSA + EdDSA signature MUST use a hash algorithm whose
-   digest size meets or exceeds the minimum digest size specified for
-   the signature algorithm in Table 8.  A verifying implementation MUST
+   A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a
+   digest size of at least 256 bits.  A verifying implementation MUST
    reject any composite ML-DSA + EdDSA signature that uses a hash
    algorithm with a smaller digest size.
-
-             +====+===================+=====================+
-             | ID | Algorithm         | Minimum digest size |
-             +====+===================+=====================+
-             | 30 | ML-DSA-65+Ed25519 | 384                 |
-             +----+-------------------+---------------------+
-             | 31 | ML-DSA-87+Ed448   | 512                 |
-             +----+-------------------+---------------------+
-
-               Table 8: Minimum hash algorithm digest size
-                for composite ML-DSA + EdDSA signatures in
-                                   bits
 
 5.3.2.  Key Material Packets
 
@@ -1024,7 +1012,7 @@ return KEK
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 9: SLH-DSA algorithm code points and the corresponding
+       Table 8: SLH-DSA algorithm code points and the corresponding
                        artifact lengths in octets.
 
 6.1.1.  Key generation
@@ -1056,26 +1044,11 @@ return KEK
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 9.
+      Table 8.
 
-   An SLH-DSA signature MUST use a hash algorithm whose digest size
-   meets or exceeds the minimum digest size specified for the signature
-   algorithm in Table 10.  A verifying implementation MUST reject any
-   SLH-DSA signature that uses a hash algorithm with a smaller digest
-   size.
-
-             +====+====================+=====================+
-             | ID | Algorithm          | Minimum digest size |
-             +====+====================+=====================+
-             | 32 | SLH-DSA-SHAKE-128s | 256                 |
-             +----+--------------------+---------------------+
-             | 33 | SLH-DSA-SHAKE-128f | 256                 |
-             +----+--------------------+---------------------+
-             | 34 | SLH-DSA-SHAKE-256s | 512                 |
-             +----+--------------------+---------------------+
-
-                Table 10: Minimum hash algorithm digest size
-                       for SLH-DSA signatures in bits
+   An SLH-DSA signature MUST use a hash algorithm with a digest size of
+   at least 256 bits.  A verifying implementation MUST reject any SLH-
+   DSA signature that uses a hash algorithm with a smaller digest size.
 
 6.2.2.  Key Material Packets
 
@@ -1086,12 +1059,12 @@ return KEK
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 9.
+      whose length depends on the algorithm ID as specified in Table 8.
 
 7.  Notes on Algorithms
 
@@ -1231,7 +1204,23 @@ return KEK
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Symmetric Algorithms for SEIPD Packets
+9.4.  Minimum digest size for PQ(/T)-signatures
+
+   This specification requires that all PQ(/T) signatures defined in
+   this document are made in combination with a hash algorithm of at
+   least 256 bits digest size.  The relevant security property is
+   preimage resistance, since all signature algorithms defined in this
+   document require signature packets of version 6 or higher, which
+   include a random salt value.  Therefore, a hash algorithm with 256
+   bits digest size is sufficient to match the targeted security level
+   of all PQ(/T) algorithms defined in this document.  Note that the
+   minimum hash algorithm digest size requirement is different for
+   signature schemes that are defined in [RFC9580], where signature
+   algorithms are also allowed to be used with non-salted v4 signatures.
+   In such cases, the relevant security property is collision
+   resistance.
+
+9.5.  Symmetric Algorithms for SEIPD Packets
 
    This specification mandates support for AES-256 for two reasons.
    First, AES-KeyWrap with AES-256 is already part of the composite KEM
@@ -1246,7 +1235,7 @@ return KEK
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.5.  Key generation
+9.6.  Key generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1306,7 +1295,7 @@ return KEK
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 11 to the
+   IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in brackets for the ML-KEM + ECDH composite
    algorithms denote fields that are only conditionally contained in the
@@ -1352,23 +1341,23 @@ return KEK
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 9)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     9)|     9)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
    |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
@@ -1409,7 +1398,7 @@ return KEK
    |  |            |       |       |         |       4.3.1) |         |
    +--+------------+-------+-------+---------+--------------+---------+
 
-   Table 11: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
