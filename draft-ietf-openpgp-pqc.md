@@ -1047,7 +1047,8 @@ ID     | Algorithm           | Public Key Format                                
 - Added non-normative algorithm explanation.
 
 ## draft-ietf-openpgp-pqc-10
-- Specified minumum requirements for signature digest sizes.
+- Specified minimum requirements for signature message digest sizes.
+- Added security considerations for signature message digest sizes.
 
 # Contributors
 
