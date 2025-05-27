@@ -1218,11 +1218,8 @@ return KEK
    algorithm with a digest size of 256 bits is sufficient to match the
    targeted security level of all PQ(/T) algorithms defined in this
    document, as it achieves a preimage and second preimage security of
-   256 bits.  Note that the minimum hash algorithm digest size
-   requirement is different for signature schemes that are defined in
-   [RFC9580], where signature algorithms are also allowed to be used
-   with non-salted v4 signatures.  In such cases, the relevant security
-   property is collision resistance.
+   256 bits.  In such cases, the relevant security property is collision
+   resistance.
 
 9.5.  Symmetric Algorithms for SEIPD Packets
 
