@@ -795,7 +795,7 @@ The algorithm-specific part of a signature packet for an SLH-DSA algorithm code 
 
  - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
 
-An SLH-DSA signature MUST use a hash algorithm with a digest size of at least 256 bits.
+An SLH-DSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.
 A verifying implementation MUST reject any SLH-DSA signature that uses a hash algorithm with a smaller digest size.
 
 ### Key Material Packets
