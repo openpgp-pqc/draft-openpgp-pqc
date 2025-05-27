@@ -1548,7 +1548,9 @@ return KEK
 
 12.15.  draft-ietf-openpgp-pqc-10
 
-   *  Specified minumum requirements for signature digest sizes.
+   *  Specified minimum requirements for signature message digest sizes.
+
+   *  Added security considerations for signature message digest sizes.
 
 13.  Contributors
 
