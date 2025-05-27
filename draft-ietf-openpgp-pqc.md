@@ -735,7 +735,7 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
  - A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
-A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits.
+A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.
 A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.
 
 ### Key Material Packets
