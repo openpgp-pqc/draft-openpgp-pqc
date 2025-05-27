@@ -894,7 +894,7 @@ This has the advantage of an enhanced side-channel resistance of the signature o
 ## Minimum digest size for PQ(/T)-signatures
 
 This specification requires that all PQ(/T) signatures defined in this document are made in combination with a hash algorithm of at least 256 bits digest size.
-The relevant security property is preimage resistance, since all signature algorithms defined in this document require signature packets of version 6 or higher, which include a random salt value.
+The relevant security property is preimage resistance, since all signature algorithms defined in this document require signature packets of version 6 or higher, which currently include a random salt prefix.
 Therefore, a hash algorithm with 256 bits digest size is sufficient to match the targeted security level of all PQ(/T) algorithms defined in this document.
 Note that the minimum hash algorithm digest size requirement is different for signature schemes that are defined in [RFC9580], where signature algorithms are also allowed to be used with non-salted v4 signatures.
 In such cases, the relevant security property is collision resistance.
