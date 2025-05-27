@@ -735,6 +735,9 @@ The algorithm-specific v6 signature parameters for ML-DSA + EdDSA signatures con
 
  - A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
 
+A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.
+A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.
+
 ### Key Material Packets
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
@@ -791,6 +794,9 @@ The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in [[RFC
 The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:
 
  - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
+
+An SLH-DSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.
+A verifying implementation MUST reject any SLH-DSA signature that uses a hash algorithm with a smaller digest size.
 
 ### Key Material Packets
 
@@ -884,6 +890,12 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
+
+## Minimum digest size for PQ(/T)-signatures
+
+This specification requires that all PQ(/T) signatures defined in this document are made on message digests computed with a hash algorithm with at least 256 bits of digest size.
+Since all signature algorithms defined in this document require version 6 (or newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.
+Therefore, a hash algorithm with a digest size of at least 256 bits is sufficient to match the targeted security levels of all PQ(/T) algorithms defined in this document.
 
 ## Symmetric Algorithms for SEIPD Packets
 
@@ -1026,13 +1038,17 @@ ID     | Algorithm           | Public Key Format                                
 ## draft-ietf-openpgp-pqc-08
 - Assigned code points 35 and 36 for ML-KEM + ECDH algorithms.
 - Removed hash binding for ML-DSA + EdDSA and SLH-DSA algorithms.
-- Allowed usage of ML-KEM-768 + X25519 with v4 keys
-- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator
+- Allowed usage of ML-KEM-768 + X25519 with v4 keys.
+- Aligned KEM combiner to X-Wing and switched to suffix-free encoding of the domain separator.
 
 ## draft-ietf-openpgp-pqc-09
-- Removed subkey semantics related guidance
-- Updated test vectors
-- Added non-normative algorithm explanation
+- Removed subkey semantics related guidance.
+- Updated test vectors.
+- Added non-normative algorithm explanation.
+
+## draft-ietf-openpgp-pqc-10
+- Specified minimum requirements for signature message digest sizes.
+- Added security considerations for signature message digest sizes.
 
 # Contributors
 
