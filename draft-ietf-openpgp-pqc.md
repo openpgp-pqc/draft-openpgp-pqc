@@ -894,7 +894,7 @@ This has the advantage of an enhanced side-channel resistance of the signature o
 ## Minimum digest size for PQ(/T)-signatures
 
 This specification requires that all PQ(/T) signatures defined in this document are made on message digests computed with a hash algorithm with at least 256 bits of digest size.
-Since all signature algorithms defined in this document require version 6 (and newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.
+Since all signature algorithms defined in this document require version 6 (or newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.
 Therefore, a hash algorithm with a digest size of at least 256 bits is sufficient to match the targeted security levels of all PQ(/T) algorithms defined in this document.
 
 ## Symmetric Algorithms for SEIPD Packets
