@@ -2600,7 +2600,7 @@ For EdDSA this is done following the relative specification in <span>[<a href="#
               <p id="section-5.3.1-3.2.1">A fixed-length octet string of the ML-DSA signature value, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-5.3.1-4">A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits.
+<p id="section-5.3.1-4">A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.
 A verifying implementation MUST reject any composite ML-DSA + EdDSA signature that uses a hash algorithm with a smaller digest size.<a href="#section-5.3.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>

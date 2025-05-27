@@ -955,9 +955,10 @@ return KEK
       length depends on the algorithm ID as specified in Table 7.
 
    A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a
-   digest size of at least 256 bits.  A verifying implementation MUST
-   reject any composite ML-DSA + EdDSA signature that uses a hash
-   algorithm with a smaller digest size.
+   digest size of at least 256 bits for the computation of the message
+   digest.  A verifying implementation MUST reject any composite ML-DSA
+   + EdDSA signature that uses a hash algorithm with a smaller digest
+   size.
 
 5.3.2.  Key Material Packets
 
