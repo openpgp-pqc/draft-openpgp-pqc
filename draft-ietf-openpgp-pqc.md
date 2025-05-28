@@ -164,7 +164,7 @@ informative:
 
   BCD+24:
     target: https://doi.org/10.62056/a3qj89n4e
-    title: X-Wing The Hybrid KEM You’ve Been Looking For
+    title: X-Wing The Hybrid KEM You've Been Looking For
     author:
       -
         ins: M. Barbosa
