@@ -359,12 +359,12 @@ The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA signatures
 The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.
 
 An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
-This ensures backwards compatibility due to [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
+This ensures backwards compatibility due to {{Section 5.2.5 of RFC9580}}, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
 
 Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.
 
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
-This is an interpretation of [[RFC9580, Section 5.2.5]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.5).
+This is an interpretation of {{Section 5.2.5 of RFC9580}}.
 
 ## ECC requirements
 
@@ -711,7 +711,7 @@ For EdDSA this is done following the relative specification in {{RFC7748}}, and 
 
 To sign a message `M` with ML-DSA + EdDSA the following sequence of operations has to be performed:
 
- 1. Generate `dataDigest` according to [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
+ 1. Generate `dataDigest` according to {{Section 5.2.4 of RFC9580}}.
 
  2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from {{eddsa-signature}}
 
@@ -795,7 +795,7 @@ SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` a
 
 ###  Signature Packet (Tag 2)
 
-The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in [[RFC9580, Section 5.2.3]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.3).
+The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in {{Section 5.2.3 of RFC9580}}.
 
 The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:
 
@@ -867,7 +867,7 @@ When multiple signatures are applied to a message, the question of the protocol'
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in [[RFC9580, Section 5.2.4]](https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4).
+This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
