@@ -387,7 +387,7 @@ In this section we define the encryption, decryption, and data formats for the E
 {{tab-ecdh-cfrg-artifacts}} describes the ECDH-KEM parameters and artifact lengths.
 The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [RFC7748].
 
-{: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
+{: title="Montgomery curve parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
 | Algorithm ID reference | 35                                         | 36                                         |
