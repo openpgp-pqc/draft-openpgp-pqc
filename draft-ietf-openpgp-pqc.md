@@ -948,7 +948,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
 # IANA Considerations
 
 IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`.
-The field specifications enclosed in brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.
+The field specifications enclosed in square brackets for the ML-KEM + ECDH composite algorithms denote fields that are only conditionally contained in the data structure.
 
 
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
