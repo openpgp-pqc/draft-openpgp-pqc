@@ -403,7 +403,9 @@ Specifically, each of these subsections defines the instances of the following o
 
 and
 
-    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText, ecdhPublicKey)
+    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey,
+                                      ecdhCipherText,
+                                      ecdhPublicKey)
 
 To instantiate `ECDH-KEM`, one must select a parameter set from {{tab-ecdh-cfrg-artifacts}}.
 
@@ -529,8 +531,10 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
     //   ecdhKeyShare    - the ECDH key share encoded as an octet string
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-    //   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
-    //   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
+    //   ecdhPublicKey   - the ECDH public key of the recipient as an
+    //                     octet string
+    //   algId           - the OpenPGP algorithm ID of the public-key
+    //                     encryption algorithm
 
     KEK = SHA3-256(
               mlkemKeyShare || ecdhKeyShare ||
