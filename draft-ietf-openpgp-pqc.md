@@ -374,7 +374,7 @@ Furthermore, when performing the explicitly listed operations in {{x25519-kem}} 
 
 ## Key Version Binding
 
-All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
+All PQ(/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
 
 # Composite KEM Schemes
 
