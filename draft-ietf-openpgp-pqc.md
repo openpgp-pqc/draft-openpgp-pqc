@@ -519,7 +519,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 ### Key combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to {{SP800-56C}}, Section 4, based on SHA3-256.
+The construction is a key derivation function compliant to Section 4 of {{SP800-56C}}, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
 
 
@@ -646,7 +646,7 @@ The algorithm-specific secret key is these two values:
  - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
  - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
-   The seed format is defined in accordance with [FIPS-203], Section 3.3.
+   The seed format is defined in accordance with Section 3.3 of [FIPS-203].
    Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
    Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
@@ -759,7 +759,7 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
  - A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
  - A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare {{tab-mldsa-artifacts}}).
-   The seed format is defined in accordance with [FIPS-204], Section 3.6.3.
+   The seed format is defined in accordance with Section 3.6.3 of [FIPS-204].
    Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
    Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
