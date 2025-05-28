@@ -239,6 +239,8 @@ The document specifies the conventions for interoperability between compliant Op
 
 ## Conventions used in this Document
 
+{::boilerplate bcp14-tagged}
+
 ### Terminology for Multi-Algorithm Schemes
 
 The terminology in this document is oriented towards the definitions in {{I-D.ietf-pquip-pqt-hybrid-terminology}}.
