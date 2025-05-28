@@ -366,17 +366,17 @@ Newer implementations with PQ(/T) support MAY ignore the traditional signature(s
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
 This is an interpretation of {{Section 5.2.5 of RFC9580}}.
 
-## ECC requirements
+## ECC Requirements
 
 Even though the zero point, also called the point at infinity, may occur as a result of arithmetic operations on points of an elliptic curve, it MUST NOT appear in any ECC data structure defined in this document.
 
 Furthermore, when performing the explicitly listed operations in {{x25519-kem}} or {{x448-kem}} it is REQUIRED to follow the specification and security advisory mandated from the respective elliptic curve specification.
 
-## Key version binding
+## Key Version Binding
 
 All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
 
-# Composite KEM schemes
+# Composite KEM Schemes
 
 ## Building Blocks
 
@@ -516,7 +516,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
  - The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
 
-### Key combiner {#kem-key-combiner}
+### Key Combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
 The construction is a key derivation function compliant to Section 4 of {{SP800-56C}}, based on SHA3-256.
@@ -551,13 +551,13 @@ The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPG
 
 Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
 
-### Key generation procedure {#ecc-mlkem-generation}
+### Key Generation Procedure {#ecc-mlkem-generation}
 
 The implementation MUST generate the ML-KEM and the ECDH component keys independently.
 ML-KEM key generation follows the specification [FIPS-203] and the artifacts are encoded as fixed-length octet strings as defined in {{mlkem-ops}}.
 For ECDH this is done following the relative specification in {{RFC7748}}, and encoding the outputs as fixed-length octet strings in the format specified in {{tab-ecdh-cfrg-artifacts}}.
 
-### Encryption procedure {#ecc-mlkem-encryption}
+### Encryption Procedure {#ecc-mlkem-encryption}
 
 The procedure to perform public-key encryption with an ML-KEM + ECDH composite scheme is as follows:
 
@@ -579,7 +579,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  9. Output the algorithm specific part of the PKESK as `ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C`, where both `symAlgId` and `len(C, symAlgId)` are single octet fields, `symAlgId` denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and `len(C, symAlgId)` denotes the combined octet length of the fields specified as the arguments.
 
-### Decryption procedure
+### Decryption Procedure
 
 The procedure to perform public-key decryption with an ML-KEM + ECDH composite scheme is as follows:
 
@@ -605,7 +605,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  11. Output `sessionKey`
 
-## Packet specifications
+## Packet Specifications
 
 ### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-mlkem-pkesk}
 
@@ -652,9 +652,9 @@ The algorithm-specific secret key is these two values:
 
 # Composite Signature Schemes
 
-## Building blocks
+## Building Blocks
 
-### EdDSA-Based signatures {#eddsa-signature}
+### EdDSA-Based Signatures {#eddsa-signature}
 
 Throughout this specification EdDSA refers to the PureEdDSA variant defined in
 [RFC8032].
@@ -676,7 +676,7 @@ Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signat
 30                     | Ed25519 | 32         | 32         | 32         | 64
 31                     | Ed448   | 57         | 57         | 57         | 114
 
-### ML-DSA signatures {#mldsa-signature}
+### ML-DSA Signatures {#mldsa-signature}
 
 Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in [FIPS-204].
 
@@ -701,7 +701,7 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
-### Key generation procedure {#ecc-mldsa-generation}
+### Key Generation Procedure {#ecc-mldsa-generation}
 
 The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
 ML-DSA key generation follows the specification [FIPS-204] and the artifacts are encoded as fixed-length octet strings as defined in {{mldsa-signature}}.
@@ -779,7 +779,7 @@ Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA si
 33                       |  32                 | 64                 | 17088
 34                       |  64                 | 128                | 29792
 
-### Key generation
+### Key Generation
 
 SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings as defined in {{slhdsa}}.
 
@@ -791,7 +791,7 @@ SLH-DSA signature generation is performed via the default hedged version of the 
 
 SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` as specified in {{FIPS-205}}.
 
-## Packet specifications
+## Packet Specifications
 
 ###  Signature Packet (Tag 2)
 
@@ -873,14 +873,14 @@ As a consequence, a component signature taken out of the context of a specific c
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
 This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
 
-## Key combiner {#sec-key-combiner}
+## Key Combiner {#sec-key-combiner}
 
 For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
 A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
 Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
 
-### Domain separation and context binding {#sec-fixed-info}
+### Domain Separation and Context Binding {#sec-fixed-info}
 
 The `domSep` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose.
@@ -892,12 +892,12 @@ Thus this property ensures unambiguous parsing of a word from the rear of a stri
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
 
-## ML-DSA and SLH-DSA hedged variants {#hedged-sec-cons}
+## ML-DSA and SLH-DSA Hedged Variants {#hedged-sec-cons}
 
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
 This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
 
-## Minimum digest size for PQ(/T)-signatures
+## Minimum Digest Size for PQ(/T) Signatures
 
 This specification requires that all PQ(/T) signatures defined in this document are made on message digests computed with a hash algorithm with at least 256 bits of digest size.
 Since all signature algorithms defined in this document require version 6 (or newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.
@@ -913,12 +913,12 @@ For the same reasons, this specification further recommends the use of `AES-256`
 This recommendation should be understood as a clear and simple rule for the selection of `AES-256` for encryption.
 Implementations may also make more nuanced decisions.
 
-## Key generation
+## Key Generation
 
 When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
 Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.
 
-# Additional considerations
+# Additional Considerations
 
 ## Performance Considerations for SLH-DSA {#performance-considerations}
 
@@ -1270,7 +1270,7 @@ The hex-encoded session key is `adee68618b302d4bfd7ae3d432bc63a1c1ad7f5fd6e7fd7b
 {::include test-vectors/v6-mldsa-65-sample-message.asc}
 ~~~
 
-### Detached signature
+### Detached Signature
 
 Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-mldsa65}}:
 
@@ -1340,7 +1340,7 @@ The hex-encoded session key is `0588ce40b038aac353d1cf8c67a674b41298510579482101
 {::include test-vectors/v6-mldsa-87-sample-message.asc}
 ~~~
 
-### Detached signature
+### Detached Signature
 
 Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-mldsa87}}:
 
@@ -1410,7 +1410,7 @@ The hex-encoded session key is `e87567cad8fee5738f92090feed009d8af95437fa664f94d
 {::include test-vectors/v6-slhdsa-128s-sample-message.asc}
 ~~~
 
-### Detached signature
+### Detached Signature
 
 Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-128s}}:
 
@@ -1460,7 +1460,7 @@ Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-1
 {::include test-vectors/v6-slhdsa-128f-sample-pk.asc}
 ~~~
 
-### Detached signature
+### Detached Signature
 
 Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-128f}}:
 
@@ -1509,7 +1509,7 @@ Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-2
 {::include test-vectors/v6-slhdsa-256s-sample-pk.asc}
 ~~~
 
-### Detached signature
+### Detached Signature
 
 Here is a detached signature for the message "Testing\n" made by the secret key {{test-vector-sec-slhdsa-256s}}:
 
