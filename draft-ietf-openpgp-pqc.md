@@ -311,7 +311,7 @@ Furthermore, the OpenPGP protocol also allows parallel encryption to different k
 # Supported Public Key Algorithms
 
 This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA schemes as well as the standalone SLH-DSA signature scheme.
-All of these schemes are fully specified via their algorithm ID, i.e., they are not parametrized.
+All of these schemes are fully specified via their algorithm ID, that is, they are not parametrized.
 
 ## Algorithm Specifications
 
@@ -345,7 +345,7 @@ See also {{performance-considerations}} for further considerations about paramet
 ## Composite KEMs {#composite-kem}
 
 The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
-This is achieved via KEM combination, i.e. both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
+This is achieved via KEM combination, that is, both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
 Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.
@@ -356,7 +356,7 @@ The ML-DSA + EdDSA signature consists of independent ML-DSA and EdDSA signatures
 
 ## Multiple Signatures {#multiple-signatures}
 
-The OpenPGP message format allows multiple signatures of a message, i.e. the attachment of multiple signature packets.
+The OpenPGP message format allows multiple signatures of a message, that is, the attachment of multiple signature packets.
 
 An implementation MAY sign a message with a traditional key and a PQ(/T) key from the same sender.
 This ensures backwards compatibility due to {{Section 5.2.5 of RFC9580}}, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.
@@ -520,7 +520,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
 The construction is a key derivation function compliant to Section 4 of {{SP800-56C}}, based on SHA3-256.
-It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap, i.e., encrypt, the session key.
+It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap (that is, encrypt) the session key.
 
 
     //   multiKeyCombine(
@@ -545,11 +545,11 @@ It is given by the following algorithm, which computes the key encryption key `K
           )
     return KEK
 
-The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", i.e.
+The value `domSep` is a constant set to the UTF-8 encoding of the string "OpenPGPCompositeKDFv1", that is:
 
     domSep = 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
-Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, i.e., decimal 21.
+Here `len(domSep)` is the single octet with the value equal to the octet-length of `domSep`, that is, decimal 21.
 
 ### Key Generation Procedure {#ecc-mlkem-generation}
 
@@ -726,7 +726,7 @@ To verify an ML-DSA + EdDSA signature the following sequence of operations has t
 
  2. Verify the ML-DSA signature with `ML-DSA.Verify()` from {{mldsa-signature}}
 
-As specified in {{composite-signatures}} an implementation MUST validate both signatures, i.e. EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.
+As specified in {{composite-signatures}} an implementation MUST validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.
 
 ## Packet Specifications
 
@@ -869,7 +869,7 @@ It should be noted that the composite signature schemes specified in this draft 
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
 
-Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (i.e., remixing) the component signatures, which would classify as a weak existential forgery.
+Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (that is, remixing) the component signatures, which would classify as a weak existential forgery.
 This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
 
 ## Key Combiner {#sec-key-combiner}
