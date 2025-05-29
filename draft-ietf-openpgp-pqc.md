@@ -932,7 +932,7 @@ Implementers may want to offer SLH-DSA for applications where the weaker securit
 However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.
 
 Pertaining to the execution time, the particularly costly operation in SLH-DSA is the signature generation.
-Depending on the parameter set, it can range from approximately the one hundred fold to more than the two thousand fold of that of ML-DSA-87.
+Depending on the parameter set, it can range from approximately one hundred to more than two thousand times that of ML-DSA-87.
 These numbers are based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA.
 In order to achieve fast signature generation times, the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast") should be chosen.
 This comes at the expense of a larger signature size.
