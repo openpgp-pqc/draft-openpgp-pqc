@@ -884,7 +884,7 @@ Note that the inclusion of the EC public key in the key combiner also accounts f
 The `domSep` information defined in {{kem-key-combiner}} provides the domain separation for the key combiner construction.
 This ensures that the input keying material is used to generate a KEK for a specific purpose.
 Appending the length octet ensures that no collisions can result across different domains, which might be defined in the future.
-This is because `domSep || len(domSep)` is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for `dompSep`.
+This is because `domSep || len(domSep)` is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for `domSep`.
 The term "suffix-free" applied to a set of words indicates that no word is the suffix of another.
 Thus this property ensures unambiguous parsing of a word from the rear of a string.
 Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.
