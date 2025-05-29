@@ -378,7 +378,7 @@ All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and 
 
 ## Building Blocks
 
-### ECDH KEMs {#ecc-kem}
+### ECDH-KEM {#ecc-kem}
 
 In this section we define the encryption, decryption, and data formats for the ECDH component of the composite algorithms.
 
@@ -390,7 +390,7 @@ The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [
 |------------------------|--------------------------------------------|--------------------------------------------|
 | Algorithm ID reference | 35                                         | 36                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
-| ECDH-KEM               | x25519Kem ({{x25519-kem}})                 | x448Kem ({{x448-kem}})                     |
+| ECDH-KEM               | X25519-KEM ({{x25519-kem}})                 | X448-KEM ({{x448-kem}})                     |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -409,11 +409,11 @@ To instantiate `ECDH-KEM`, one must select a parameter set from {{tab-ecdh-cfrg-
 
 #### X25519-KEM {#x25519-kem}
 
-The encapsulation and decapsulation operations of `x25519kem` are described using the function `X25519()` and encodings defined in [RFC7748].
+The encapsulation and decapsulation operations of `X25519-KEM` are described using the function `X25519()` and encodings defined in [RFC7748].
 The `ecdhSecretKey` is denoted as `r`, the `ecdhPublicKey` as `R`, they are subject to the equation `R = X25519(r, U(P))`.
 Here, `U(P)` denotes the u-coordinate of the base point of Curve25519.
 
-The operation `x25519Kem.Encaps()` is defined as follows:
+The operation `X25519-KEM.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X25519(v,U(P))` where `v` is a randomly generated octet string with a length of 32 octets
 
@@ -423,7 +423,7 @@ The operation `x25519Kem.Encaps()` is defined as follows:
 
  4. Set the output `ecdhKeyShare` to `X`
 
-The operation `x25519Kem.Decaps()` is defined as follows:
+The operation `X25519-KEM.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X25519(r, V)`, where `r` is the `ecdhSecretKey` and `V` is the `ecdhCipherText`
 
@@ -431,11 +431,11 @@ The operation `x25519Kem.Decaps()` is defined as follows:
 
 #### X448-KEM {#x448-kem}
 
-The encapsulation and decapsulation operations of `x448kem` are described using the function `X448()` and encodings defined in [RFC7748].
+The encapsulation and decapsulation operations of `X448-KEM` are described using the function `X448()` and encodings defined in [RFC7748].
 The `ecdhSecretKey` is denoted as `r`, the `ecdhPublicKey` as `R`, they are subject to the equation `R = X25519(r, U(P))`.
 Here, `U(P)` denotes the u-coordinate of the base point of Curve448.
 
-The operation `x448.Encaps()` is defined as follows:
+The operation `X448-KEM.Encaps()` is defined as follows:
 
  1. Generate an ephemeral key pair {`v`, `V`} via `V = X448(v,U(P))` where `v` is a randomly generated octet string with a length of 56 octets
 
@@ -445,7 +445,7 @@ The operation `x448.Encaps()` is defined as follows:
 
  4. Set the output `ecdhKeyShare` to `X`
 
-The operation `x448Kem.Decaps()` is defined as follows:
+The operation `X448-KEM.Decaps()` is defined as follows:
 
  1. Compute the shared coordinate `X = X448(r, V)`, where `r` is the `ecdhSecretKey` and `V` is the `ecdhCipherText`
 
@@ -496,14 +496,14 @@ The procedure to perform `ML-KEM.Decaps()` is as follows:
 {: title="ML-KEM + ECDH composite schemes" #tab-mlkem-ecc-composite}
 Algorithm ID reference                   | ML-KEM       | ECDH-KEM
 ----------------------------------------:| ------------ | ---------
-35                                       | ML-KEM-768   | x25519Kem
-36                                       | ML-KEM-1024  | x448Kem
+35                                       | ML-KEM-768   | X25519-KEM
+36                                       | ML-KEM-1024  | X448-KEM
 
 The ML-KEM + ECDH composite public-key encryption schemes are built according to the following principal design:
 
  - The ML-KEM encapsulation algorithm is invoked to create an ML-KEM ciphertext together with an ML-KEM symmetric key share.
 
- - The encapsulation algorithm of an ECDH KEM, namely X25519-KEM or X448-KEM, is invoked to create an ECDH ciphertext together with an ECDH symmetric key share.
+ - The encapsulation algorithm of an ECDH-KEM, namely X25519-KEM or X448-KEM, is invoked to create an ECDH ciphertext together with an ECDH symmetric key share.
 
  - A Key-Encryption-Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares and the protocol binding information.
 
