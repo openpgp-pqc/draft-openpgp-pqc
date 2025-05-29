@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-25T01:50:16.902599+00:00",
+  "timestamp": "2025-05-29T01:43:16.529911+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3160,6 +3160,86 @@
           "updatedAt": "2025-05-08T08:42:12Z"
         }
       ]
+    },
+    {
+      "number": 190,
+      "id": "I_kwDOIrmZ-864socz",
+      "title": "Why does `ECDH-KEM.Decaps()` take an `ecdhPublicKey` as a parameter?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/190",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think the definition in the \"ECDH KEMs\" section (`{#ecc-kem}` in markdown) has a superfluous parameter in its generic definition of `ECDH-KEM.Decaps()`.\n\nIt asks for an `ecdhPublicKey` parameter, but that parameter is not used for either `X25519-KEM` or `X448-KEM`.",
+      "createdAt": "2025-05-28T22:34:46Z",
+      "updatedAt": "2025-05-28T22:34:46Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 191,
+      "id": "I_kwDOIrmZ-864sqyp",
+      "title": "What is the difference between `X25519-KEM` and `x25519kem` and `x25519Kem`? (likewise for x448)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/191",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The draft shows at least three different variants of what appears to be the same thing: a name for the ECDH KEM algorithm itself.\n\n- `X25519-KEM`\n- `x25519kem`\n- `x25519Kem`\n\nLikewise for curve448:\n\n- `X448-KEM`\n- `x448kem`\n- `x448Kem`\n\n(and the section tags are themselves a fourth variant: `x25519-kem` and `x448-kem`)\n\n```\n$ for x in x448kem X448-KEM x448Kem x25519kem X25519-KEM x25519Kem; do printf \"% 10s % 2d\\n\" $x $(grep -c $x draft-ietf-openpgp-pqc.md); done\n   x448kem  1\n  X448-KEM  2\n   x448Kem  3\n x25519kem  1\nX25519-KEM  2\n x25519Kem  4\n$ \n```\n\nIf they are supposed to indicate something different from each other, please describe it in the terminology section.  If they're supposed to be the same thing, please stick to one orthography.",
+      "createdAt": "2025-05-28T22:42:41Z",
+      "updatedAt": "2025-05-28T22:42:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 192,
+      "id": "I_kwDOIrmZ-864stmL",
+      "title": "Normalize KEM artifact tables",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/192",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The two KEM artifact tables labeled as `tab-ecdh-cfrg-artifacts` and `tab-mlkem-artifacts` seem to contain roughly analogous data, but one of them has rows as properties and columns as algorithm choices; while the other has rows as algorithm choices and columns as properties.\n\nIt would be nice for the reader to normalize the two tables so that they are shaped the same way.  I'd typically expect to see the columns as properties and the rows as algorithm choices.",
+      "createdAt": "2025-05-28T22:52:02Z",
+      "updatedAt": "2025-05-28T22:52:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 193,
+      "id": "I_kwDOIrmZ-864svfr",
+      "title": "why do the ECDH and EdDSA tables need the \"Field size\" property?",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/193",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I don't see any reference to \"field size\" anywhere else in the document, but it is present in the tables labeled `tab-ecdh-cfrg-artifacts` and `tab-eddsa-artifacts`.  can we drop it?\n\nField size is mentioned in [\u00a79.2 of RFC 9580](https://www.rfc-editor.org/rfc/rfc9580.html#section-9.2-4) but only because that specification is juggling the historic complexity introduced by the different possible formats for point formats in the OID-parameterized \"ECDH\" and \"ECDSA\" legacy from RFC 6637.\n\nI don't think \"field size\" is relevant for the PQC document.",
+      "createdAt": "2025-05-28T22:59:02Z",
+      "updatedAt": "2025-05-28T22:59:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 194,
+      "id": "I_kwDOIrmZ-864sx9X",
+      "title": "Trim `mlkem-ops` section",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/194",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The subsection labeled `mlkem-ops` contains what appears to be superfluous text:\n\n```\nThe procedure to perform `ML-KEM.Encaps()` is as follows:\n\n 1. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`, where `mlkemPublicKey` is the recipient's public key\n\n 2. Set `mlkemCipherText` as the ML-KEM ciphertext\n\n 3. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n\nThe procedure to perform `ML-KEM.Decaps()` is as follows:\n\n 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`\n\n 2. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n```\n\nIf it's not superfluous, then it seems tautological: To do `ML-KEM.Decaps()`, invoke `ML-KEM.Decaps()`. \ud83d\ude02\n\nCan we just cut it?",
+      "createdAt": "2025-05-28T23:06:56Z",
+      "updatedAt": "2025-05-28T23:06:56Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -18599,25 +18679,42 @@
       "id": "PR_kwDOIrmZ-86XMfTK",
       "title": "Specify minimum requirements for signature digest sizes",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/188",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "restrict hash algorithms for PQC signature algorithms similar to what RFC 9580 specifies, based on Daniel Huigen's suggestion in https://mailarchive.ietf.org/arch/msg/openpgp/r0C-dXz35BKx5rDsznt4rGcS6pM/",
       "createdAt": "2025-05-22T09:43:18Z",
-      "updatedAt": "2025-05-23T14:35:13Z",
+      "updatedAt": "2025-05-27T15:47:31Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "137ebb00f37a7a6e82c948ae6b64e8012f0ddd59",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sig-hash-min-output-len",
-      "headRefOid": "15b8e335001b3c7b43737832298f69a691f4b412",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "0a60f8c31875418c80f3f8da50e67df613835134",
+      "closedAt": "2025-05-27T15:47:31Z",
+      "mergedAt": "2025-05-27T15:47:31Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I changed the text to now require 256 bits instead. I welcome improvements to the text since I was struggling a bit to find a good wording.\r\n\r\nAlso I noticed we have two things we might have to address / circumvent somehow:\r\n\r\n1. Technically, we can't speak about signature packets >v6 and claim they will have a random salt. How could we avoid this?\r\n2. Using 256 bits for signature algorithms where 128/192 bits would suffice is not motivated. Since we do not have any such hash algorithms in OpenPGP (at least currently) it seems a bit silly to make the distinction, but of course new hash algorithms could be introduced at any time. What do you prefer here?",
+          "createdAt": "2025-05-27T12:28:31Z",
+          "updatedAt": "2025-05-27T12:28:31Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Technically, we can't speak about signature packets >v6 and claim they will have a random salt. How could we avoid this?\r\n\r\nI added a currently, that might be enough",
+          "createdAt": "2025-05-27T12:55:39Z",
+          "updatedAt": "2025-05-27T12:55:39Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-86qi0Jq",
@@ -18751,8 +18848,417 @@
               "updatedAt": "2025-05-23T14:35:13Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rHu0b",
+          "commit": {
+            "abbreviatedOid": "adeea29"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T12:45:10Z",
+          "updatedAt": "2025-05-27T12:53:36Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\nA composite ML-DSA + EdDSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.\r\n```\r\n\r\nBetter we clarify that as there are other hash algorithms involved in the algorithms (at least for SLH-DSA under a certain view).",
+              "createdAt": "2025-05-27T12:45:10Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nAn SLH-DSA signature MUST use a hash algorithm with a digest size of at least 256 bits for the computation of the message digest.\r\n```",
+              "createdAt": "2025-05-27T12:45:34Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\nThis specification requires that all PQ(/T) signatures defined in this document are made on message digests computed with a hash algorithm with at least 256 bits of digest size.\r\n```",
+              "createdAt": "2025-05-27T12:46:37Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nSince all signature algorithms defined in this document require signature packets of version 6 or higher, which include a leading random salt value in the hashed data, hash-collision attacks do not apply to the signature schemes defined in this specification.\r\n```",
+              "createdAt": "2025-05-27T12:48:06Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\nTherefore, a hash algorithm with a digest size of 256 bits is sufficient to match the targeted security level of all PQ(/T) algorithms defined in this document, as it achieves a preimage and second preimage security of 256 bits.\r\n```",
+              "createdAt": "2025-05-27T12:49:35Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "```suggestion\r\n```\r\nNo need to explain this in my view.",
+              "createdAt": "2025-05-27T12:50:12Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            },
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\r\n```\r\nDito.",
+              "createdAt": "2025-05-27T12:50:28Z",
+              "updatedAt": "2025-05-27T12:53:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rHg6d",
+          "commit": {
+            "abbreviatedOid": "adeea29"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T12:30:20Z",
+          "updatedAt": "2025-05-27T12:55:49Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nThe relevant security property is preimage resistance, since all signature algorithms defined in this document require signature packets of version 6 or higher, which currently include a random salt prefix.\r\n```",
+              "createdAt": "2025-05-27T12:30:21Z",
+              "updatedAt": "2025-05-27T12:55:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rH4CO",
+          "commit": {
+            "abbreviatedOid": "adeea29"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T12:56:57Z",
+          "updatedAt": "2025-05-27T12:56:57Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "This conflicts with my review, but the message is the same. Both \"leading random salt value\" or \"random salt prefix\" are good for me",
+              "createdAt": "2025-05-27T12:56:57Z",
+              "updatedAt": "2025-05-27T12:56:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rIMA2",
+          "commit": {
+            "abbreviatedOid": "adeea29"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T13:18:12Z",
+          "updatedAt": "2025-05-27T13:18:12Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "I agree, it's certainly optional. Is anyone in favor for keeping/rewriting it or should I just drop it? @wussler @fluppe2 ",
+              "createdAt": "2025-05-27T13:18:12Z",
+              "updatedAt": "2025-05-27T13:18:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rISXj",
+          "commit": {
+            "abbreviatedOid": "adeea29"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T13:25:18Z",
+          "updatedAt": "2025-05-27T13:25:18Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "I think Falko's text better explains the reason than my version.\r\nDue to the conflict I manually added the change in 698d8598, and also added the word \"currently\" as in Aron's proposal.\r\n\r\n",
+              "createdAt": "2025-05-27T13:25:18Z",
+              "updatedAt": "2025-05-27T13:25:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rImvS",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T13:44:58Z",
+          "updatedAt": "2025-05-27T13:44:58Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "This sounds more like a \"mailing list justification\" rather than something that should live in the draft, but I am not strongly opposed to it",
+              "createdAt": "2025-05-27T13:44:58Z",
+              "updatedAt": "2025-05-27T13:44:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rIztD",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-27T13:58:38Z",
+          "updatedAt": "2025-05-27T13:58:38Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rI_6s",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-05-27T14:10:57Z",
+          "updatedAt": "2025-05-27T14:10:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJIXZ",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:19:32Z",
+          "updatedAt": "2025-05-27T14:19:33Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "I would also be in favour of dropping this.",
+              "createdAt": "2025-05-27T14:19:33Z",
+              "updatedAt": "2025-05-27T14:19:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJIzL",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:20:04Z",
+          "updatedAt": "2025-05-27T14:20:04Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Yep, also drop this one.",
+              "createdAt": "2025-05-27T14:20:04Z",
+              "updatedAt": "2025-05-27T14:20:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJUv4",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:32:23Z",
+          "updatedAt": "2025-05-27T14:32:24Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\nSince all signature algorithms defined in this document require version 6 (and newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.\r\nTherefore, a hash algorithm with a digest size of at least 256 bits is sufficient to match the targeted security levels of all PQ(/T) algorithms defined in this document.\r\n```\r\nTried to simplify a little. Dropped mentioning 256 bits security since it might be confusing to people that this implicitely means classical attacks and I guess we would like to avoid citing NIST security category 5.",
+              "createdAt": "2025-05-27T14:32:23Z",
+              "updatedAt": "2025-05-27T15:00:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJWB7",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:33:52Z",
+          "updatedAt": "2025-05-27T14:33:53Z",
+          "comments": [
+            {
+              "originalPosition": 53,
+              "body": "```suggestion\r\n- Specified minimum requirements for signature message digest sizes.\r\n- Added security considerations for signature message digest sizes.\r\n```",
+              "createdAt": "2025-05-27T14:33:53Z",
+              "updatedAt": "2025-05-27T14:33:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJnyA",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:51:14Z",
+          "updatedAt": "2025-05-27T14:51:14Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "> include a random salt\r\n\r\nshould be \r\n\r\n> include a **leading** random salt **value**\r\n\r\n---\r\n\r\n> match the targeted security level of all PQ(/T) algorithms\r\n\r\nI think should be\r\n\r\n> match the targeted security level**s** of all PQ(/T) algorithms\r\n\r\n---\r\n\r\nAlso, we have one line per sentence :)\r\nOther than that I am fine with this (it's closer to my original text again without Falko's additions)",
+              "createdAt": "2025-05-27T14:51:14Z",
+              "updatedAt": "2025-05-27T14:51:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJv2g",
+          "commit": {
+            "abbreviatedOid": "698d859"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T14:59:44Z",
+          "updatedAt": "2025-05-27T14:59:45Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "Ok, I added your suggestions.",
+              "createdAt": "2025-05-27T14:59:44Z",
+              "updatedAt": "2025-05-27T14:59:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rJygT",
+          "commit": {
+            "abbreviatedOid": "c77e4b1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-05-27T15:02:12Z",
+          "updatedAt": "2025-05-27T15:02:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86rKD9-",
+          "commit": {
+            "abbreviatedOid": "c77e4b1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-27T15:20:58Z",
+          "updatedAt": "2025-05-27T15:20:58Z",
+          "comments": [
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nSince all signature algorithms defined in this document require version 6 (or newer) signature packets, which currently include a leading random salt value in the hashed data, the required property is not collision but (2nd) preimage resistance.\r\n```\r\n\r\nlast nitpick",
+              "createdAt": "2025-05-27T15:20:58Z",
+              "updatedAt": "2025-05-27T15:20:59Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 189,
+      "id": "PR_kwDOIrmZ-86X_pvH",
+      "title": "Fix some nits",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/189",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "These changes address two [complaints from the idnits tool](https://author-tools.ietf.org/api/idnits?url=https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-10.txt):\r\n\r\n```\r\n  ** There are 3 instances of too long lines in the document, the longest one\r\n     being 14 characters in excess of 72.\r\n\r\n  ** The document seems to lack a both a reference to RFC 2119 and the\r\n     recommended RFC 2119 boilerplate, even if it appears to use RFC 2119\r\n     keywords. \r\n\r\n     RFC 2119 keyword, line 348: '...SA-65+Ed25519  | MUST        | Section...'\r\n     RFC 2119 keyword, line 350: '...SA-87+Ed448    | SHOULD      | Section...'\r\n     RFC 2119 keyword, line 352: '...DSA-SHAKE-128s | MAY         | Section...'\r\n     RFC 2119 keyword, line 354: '...DSA-SHAKE-128f | MAY         | Section...'\r\n     RFC 2119 keyword, line 356: '...DSA-SHAKE-256s | MAY         | Section...'\r\n     (32 more instances...)\r\n```",
+      "createdAt": "2025-05-28T16:28:50Z",
+      "updatedAt": "2025-05-28T23:17:28Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "cleanup",
+      "headRefOid": "9f0b395342ddc666814441ca43ac196f1557532c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "just pushed one more little nit warning cleanup to avoid a superfluous non-ascii character.  that leaves two U+2013 EN DASH characters in the textual output (derived from a literal `--` in the kramdown sources), but i am fine with leaving those alone.",
+          "createdAt": "2025-05-28T16:46:15Z",
+          "updatedAt": "2025-05-28T16:46:15Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "and one spelling error fixed too :)",
+          "createdAt": "2025-05-28T17:04:04Z",
+          "updatedAt": "2025-05-28T17:04:04Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "added cleanups/normalization to Section-level references",
+          "createdAt": "2025-05-28T18:53:54Z",
+          "updatedAt": "2025-05-28T18:53:54Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 195,
+      "id": "PR_kwDOIrmZ-86YCgBt",
+      "title": "KEK combiner takes ECDH pubkey and ciphertext as input",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/195",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This just aligns the textual description with the pseudocode.",
+      "createdAt": "2025-05-28T23:15:12Z",
+      "updatedAt": "2025-05-28T23:15:13Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "clarify-combiner",
+      "headRefOid": "795b1c4cc65e913cd2edcdf0d02e7e40bb32dbe3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
