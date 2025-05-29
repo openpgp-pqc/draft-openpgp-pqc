@@ -489,7 +489,7 @@ The procedure to perform `ML-KEM.Encaps()` is as follows:
 
 The procedure to perform `ML-KEM.Decaps()` is as follows:
 
- 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
+ 1. Invoke `mlkemKeyShare <- ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
  2. Set `mlkemKeyShare` as the ML-KEM symmetric key share
 
@@ -601,7 +601,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  9. Compute `KEK = multiKeyCombine(mlkemKeyShare, ecdhKeyShare, ecdhCipherText, ecdhPublicKey, algId)` as defined in {{kem-key-combiner}}
 
- 10. Compute `sessionKey = AESKeyUnwrap(KEK, C)`  with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
+ 10. Compute `sessionKey = AESKeyUnwrap(KEK, C)` with AES-256 as per {{RFC3394}}, aborting if the 64 bit integrity check fails
 
  11. Output `sessionKey`
 
@@ -647,7 +647,7 @@ The algorithm-specific secret key is these two values:
 
  - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
    The seed format is defined in accordance with Section 3.3 of [FIPS-203].
-   Namely, the secret key is given by the concatenation of the values of `d`  and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
+   Namely, the secret key is given by the concatenation of the values of `d` and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
    Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
 # Composite Signature Schemes
@@ -792,7 +792,7 @@ SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` a
 
 ## Packet Specifications
 
-###  Signature Packet (Packet Type ID 2)
+### Signature Packet (Packet Type ID 2)
 
 The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in {{Section 5.2.3 of RFC9580}}.
 
@@ -895,7 +895,7 @@ The algorithm ID identifies unequivocally the algorithm, the parameters for its 
 ## ML-DSA and SLH-DSA Hedged Variants {#hedged-sec-cons}
 
 This specification makes use of the default "hedged" variants of ML-DSA and SLH-DSA, which mix fresh randomness into the respective signature-generation algorithm's internal hashing step.
-This has the advantage of an enhanced side-channel resistance of the signature operations according to  {{FIPS-204}} and {{FIPS-205}}.
+This has the advantage of an enhanced side-channel resistance of the signature operations according to {{FIPS-204}} and {{FIPS-205}}.
 
 ## Minimum Digest Size for PQ(/T) Signatures
 
