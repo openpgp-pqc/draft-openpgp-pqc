@@ -656,8 +656,7 @@ The algorithm-specific secret key is these two values:
 
 ### EdDSA-Based Signatures {#eddsa-signature}
 
-Throughout this specification EdDSA refers to the PureEdDSA variant defined in
-[RFC8032].
+Throughout this specification EdDSA refers to the PureEdDSA variant defined in [RFC8032].
 
 To sign and verify with EdDSA the following operations are defined:
 
@@ -887,7 +886,8 @@ This ensures that the input keying material is used to generate a KEK for a spec
 Appending the length octet ensures that no collisions can result across different domains, which might be defined in the future.
 This is because `domSep || len(domSep)` is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for `dompSep`.
 The term "suffix-free" applied to a set of words indicates that no word is the suffix of another.
-Thus this property ensures unambiguous parsing of a word from the rear of a string. Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.
+Thus this property ensures unambiguous parsing of a word from the rear of a string.
+Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.
@@ -916,7 +916,8 @@ Implementations may also make more nuanced decisions.
 ## Key Generation
 
 When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
-Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries. Generally, reusing a key for different purposes may lead to subtle vulnerabilities.
+Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries.
+Generally, reusing a key for different purposes may lead to subtle vulnerabilities.
 
 # Additional Considerations
 
