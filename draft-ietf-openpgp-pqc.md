@@ -607,7 +607,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
 ## Packet Specifications
 
-### Public-Key Encrypted Session Key Packets (Tag 1) {#ecc-mlkem-pkesk}
+### Public-Key Encrypted Session Key Packets (Packet Type ID 1) {#ecc-mlkem-pkesk}
 
 The algorithm-specific fields consist of the output of the encryption procedure described in {{ecc-mlkem-encryption}}:
 
@@ -627,7 +627,7 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
 
 In the case of a v3 PKESK, a receiving implementation MUST check if the length of the unwrapped symmetric key matches the symmetric algorithm identifier, and abort if this is not the case.
 
-Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (tag 9) to encrypt data protected with the algorithms described in this document.
+Implementations MUST NOT use the obsolete Symmetrically Encrypted Data packet (Packet Type ID 9) to encrypt data protected with the algorithms described in this document.
 
 ### Key Material Packets {#mlkem-ecc-key}
 
@@ -731,7 +731,7 @@ As specified in {{composite-signatures}} an implementation MUST validate both si
 
 ## Packet Specifications
 
-### Signature Packet (Tag 2) {#ecc-mldsa-sig-packet}
+### Signature Packet (Packet Type ID 2) {#ecc-mldsa-sig-packet}
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 signatures, as defined in [RFC9580], or newer versions defined by updates of that document.
 
@@ -793,7 +793,7 @@ SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` a
 
 ## Packet Specifications
 
-###  Signature Packet (Tag 2)
+###  Signature Packet (Packet Type ID 2)
 
 The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in {{Section 5.2.3 of RFC9580}}.
 
@@ -1015,7 +1015,7 @@ ID     | Algorithm           | Public Key Format                                
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
 - Updated KDF as proposed at IETF 119.
 - Removed whitespaces from composite algorithm names.
-- Explicitly disallowed SED (tag 9) and weak hashes when using PQ algorithms.
+- Explicitly disallowed SED (packet type ID 9) and weak hashes when using PQ algorithms.
 
 ## draft-ietf-openpgp-pqc-04
 - Fixed ML-DSA signature size.
