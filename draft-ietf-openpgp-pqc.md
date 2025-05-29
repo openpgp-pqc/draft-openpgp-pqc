@@ -643,7 +643,7 @@ The algorithm-specific public key is this series of values:
 
 The algorithm-specific secret key is these two values:
 
- - A fixed-length octet string of the encoded secret scalar, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
+ - A fixed-length octet string of the encoded ECDH secret key, whose encoding and length depend on the algorithm ID as specified in {{ecc-kem}}.
 
  - A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare {{tab-mlkem-artifacts}}).
    The seed format is defined in accordance with Section 3.3 of [FIPS-203].
