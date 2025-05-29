@@ -771,7 +771,7 @@ Throughout this specification SLH-DSA refers to the default pure and hedged vers
 The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
 This group of algorithms is henceforth referred to as "SLH-DSA code points".
 
-{: title="SLH-DSA algorithm code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
+{: title="SLH-DSA code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
 Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA signature
 ----------------------:  |  ------------------ | ------------------ | ------------------
 32                       |  32                 | 64                 | 7856
@@ -796,7 +796,7 @@ SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` a
 
 The SLH-DSA algorithms MUST be used only with v6 signatures, as defined in {{Section 5.2.3 of RFC9580}}.
 
-The algorithm-specific part of a signature packet for an SLH-DSA algorithm code point consists of:
+The algorithm-specific part of a signature packet for an SLH-DSA code point consists of:
 
  - A fixed-length octet string of the SLH-DSA signature value, whose length depends on the algorithm ID in the format specified in {{slhdsa-artifact-lengths}}.
 
@@ -805,7 +805,7 @@ A verifying implementation MUST reject any SLH-DSA signature that uses a hash al
 
 ### Key Material Packets
 
-The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
+The SLH-DSA code points MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
 The algorithm-specific part of the public key consists of:
 
