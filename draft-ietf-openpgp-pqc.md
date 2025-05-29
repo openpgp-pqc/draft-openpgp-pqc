@@ -944,7 +944,7 @@ In particular, SLH-DSA-SHAKE-128s achieves the smallest possible signature size,
 Where a higher security level than 128 bit is needed, SLH-DSA-SHAKE-256s can be used.
 
 Unlike the signature generation time, the signature verification time of SLH-DSA is not that much larger than that of other PQC schemes.
-Based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA, the verification time of the SLH-DSA is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).
+Based on the performance measurements published in the NIST submissions for SLH-DSA and ML-DSA, the verification time of SLH-DSA is, for the parameters covered by this specification, larger than that of ML-DSA-87 by a factor ranging from four (for -128s) over nine (for -256s) to twelve (for -128f).
 
 # IANA Considerations
 
