@@ -629,11 +629,15 @@ The composite ML-KEM-768 + X25519 (algorithm ID 35) MUST be used only with v4 or
 
 The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
+#### Public Key Packets (Packet Type IDs 6 and 14)
+
 The algorithm-specific public key is this series of values:
 
  - A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in {{ecc-kem}}.
 
  - A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
+
+#### Secret Key Packets (Packet Type IDs 5 and 7)
 
 The algorithm-specific secret key is these two values:
 
@@ -742,11 +746,15 @@ A verifying implementation MUST reject any composite ML-DSA + EdDSA signature th
 
 The composite ML-DSA + EdDSA schemes MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
+#### Public Key Packets (Packet Type IDs 6 and 14)
+
 The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:
 
  - A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in {{tab-eddsa-artifacts}}.
 
  - A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in {{tab-mldsa-artifacts}}.
+
+#### Secret Key Packets (Packet Type IDs 5 and 7)
 
 The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of values:
 
@@ -802,9 +810,13 @@ A verifying implementation MUST reject any SLH-DSA signature that uses a hash al
 
 The SLH-DSA algorithms code points MUST be used only with v6 keys, as defined in [RFC9580], or newer versions defined by updates of that document.
 
+#### Public Key Packets (Packet Type IDs 6 and 14)
+
 The algorithm-specific part of the public key consists of:
 
  - A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in {{slhdsa-artifact-lengths}}.
+
+#### Secret Key Packets (Packet Type IDs 5 and 7)
 
 The algorithm-specific part of the secret key consists of:
 
