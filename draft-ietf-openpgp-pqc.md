@@ -867,7 +867,7 @@ In a signature stripping attack, an adversary removes one or more of the signatu
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
-As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid signature for any message.
+As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid OpenPGP signature for any message.
 
 Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (that is, remixing) the component signatures, which would classify as a weak existential forgery.
 This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
