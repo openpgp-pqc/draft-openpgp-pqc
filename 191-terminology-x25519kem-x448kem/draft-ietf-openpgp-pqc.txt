@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 30 November 2025                                    F. Strenzke
+Expires: 1 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             29 May 2025
+                                                             30 May 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 November 2025.
+   This Internet-Draft will expire on 1 December 2025.
 
 Copyright Notice
 
@@ -96,7 +96,7 @@ Table of Contents
      3.5.  Key version binding
    4.  Composite KEM schemes
      4.1.  Building Blocks
-       4.1.1.  ECDH-KEM
+       4.1.1.  ECDH KEM
        4.1.2.  ML-KEM
      4.2.  Composite Encryption Schemes with ML-KEM
        4.2.1.  Key combiner
@@ -303,10 +303,10 @@ Table of Contents
    categorized as follows:
 
    *  PQ/T multi-algorithm public-key encryption, namely a composite
-      combination of ML-KEM with an ECDH KEM,
+      combination of ML-KEM with ECDH,
 
    *  PQ/T multi-algorithm digital signature, namely composite
-      combinations of ML-DSA with EdDSA signature schemes,
+      combinations of ML-DSA with EdDSA,
 
    *  PQ digital signature, namely SLH-DSA as a standalone cryptographic
       algorithm.
@@ -447,12 +447,12 @@ Table of Contents
 
 4.1.  Building Blocks
 
-4.1.1.  ECDH-KEM
+4.1.1.  ECDH KEM
 
    In this section we define the encryption, decryption, and data
    formats for the ECDH component of the composite algorithms.
 
-   Table 3 describes the ECDH-KEM parameters and artifact lengths.  The
+   Table 3 describes the ECDH KEM parameters and artifact lengths.  The
    artifacts in Table 3 follow the encodings described in [RFC7748].
 
     +========================+===================+===================+
@@ -619,7 +619,7 @@ Table of Contents
    *  The ML-KEM encapsulation algorithm is invoked to create an ML-KEM
       ciphertext together with an ML-KEM symmetric key share.
 
-   *  The encapsulation algorithm of an ECDH-KEM, namely X25519-KEM or
+   *  The encapsulation algorithm of an ECDH KEM, namely X25519-KEM or
       X448-KEM, is invoked to create an ECDH ciphertext together with an
       ECDH symmetric key share.
 
