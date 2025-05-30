@@ -287,9 +287,9 @@ This section provides a categorization of the new algorithms and their combinati
 
 This specification introduces new cryptographic schemes, which can be categorized as follows:
 
- - PQ/T multi-algorithm public-key encryption, namely a composite combination of ML-KEM with an ECDH KEM,
+ - PQ/T multi-algorithm public-key encryption, namely a composite combination of ML-KEM with ECDH,
 
- - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA signature schemes,
+ - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA,
 
  - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.
 
@@ -378,11 +378,11 @@ All (PQ/T) asymmetric algorithms are to be used only in v6 (and newer) keys and 
 
 ## Building Blocks
 
-### ECDH-KEM {#ecc-kem}
+### ECDH KEM {#ecc-kem}
 
 In this section we define the encryption, decryption, and data formats for the ECDH component of the composite algorithms.
 
-{{tab-ecdh-cfrg-artifacts}} describes the ECDH-KEM parameters and artifact lengths.
+{{tab-ecdh-cfrg-artifacts}} describes the ECDH KEM parameters and artifact lengths.
 The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [RFC7748].
 
 {: title="Montgomery curves parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
@@ -390,7 +390,7 @@ The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [
 |------------------------|--------------------------------------------|--------------------------------------------|
 | Algorithm ID reference | 35                                         | 36                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
-| ECDH-KEM               | X25519-KEM ({{x25519-kem}})                 | X448-KEM ({{x448-kem}})                     |
+| ECDH-KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -503,7 +503,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 
  - The ML-KEM encapsulation algorithm is invoked to create an ML-KEM ciphertext together with an ML-KEM symmetric key share.
 
- - The encapsulation algorithm of an ECDH-KEM, namely X25519-KEM or X448-KEM, is invoked to create an ECDH ciphertext together with an ECDH symmetric key share.
+ - The encapsulation algorithm of an ECDH KEM, namely X25519-KEM or X448-KEM, is invoked to create an ECDH ciphertext together with an ECDH symmetric key share.
 
  - A Key-Encryption-Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares and the protocol binding information.
 
