@@ -699,7 +699,7 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 
 The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
 ML-DSA key generation follows the specification in [FIPS-204], and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{mldsa-signature}}.
-EdDSA key generation follows the specification in {{RFC7748}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{eddsa-signature}}.
+EdDSA key generation follows the specification in {{RFC8032}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{eddsa-signature}}.
 
 ### Signature Generation
 
