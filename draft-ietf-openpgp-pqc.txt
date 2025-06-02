@@ -92,38 +92,39 @@ Table of Contents
      3.1.  Composite KEMs
      3.2.  Composite Signatures
      3.3.  Multiple Signatures
-     3.4.  ECC requirements
-     3.5.  Key version binding
-   4.  Composite KEM schemes
+     3.4.  ECC Requirements
+     3.5.  Key Version Binding
+   4.  Composite KEM Schemes
      4.1.  Building Blocks
        4.1.1.  ECDH KEMs
        4.1.2.  ML-KEM
      4.2.  Composite Encryption Schemes with ML-KEM
-       4.2.1.  Key combiner
-       4.2.2.  Key generation procedure
-       4.2.3.  Encryption procedure
-       4.2.4.  Decryption procedure
-     4.3.  Packet specifications
-       4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+       4.2.1.  Key Combiner
+       4.2.2.  Key Generation Procedure
+       4.2.3.  Encryption Procedure
+       4.2.4.  Decryption Procedure
+     4.3.  Packet Specifications
+       4.3.1.  Public-Key Encrypted Session Key Packets (Packet Type
+               ID 1)
        4.3.2.  Key Material Packets
    5.  Composite Signature Schemes
-     5.1.  Building blocks
-       5.1.1.  EdDSA-Based signatures
-       5.1.2.  ML-DSA signatures
+     5.1.  Building Blocks
+       5.1.1.  EdDSA-Based Signatures
+       5.1.2.  ML-DSA Signatures
      5.2.  Composite Signature Schemes with ML-DSA
-       5.2.1.  Key generation procedure
+       5.2.1.  Key Generation Procedure
        5.2.2.  Signature Generation
        5.2.3.  Signature Verification
      5.3.  Packet Specifications
-       5.3.1.  Signature Packet (Tag 2)
+       5.3.1.  Signature Packet (Packet Type ID 2)
        5.3.2.  Key Material Packets
    6.  SLH-DSA
      6.1.  The SLH-DSA Algorithms
-       6.1.1.  Key generation
+       6.1.1.  Key Generation
        6.1.2.  Signature Generation
        6.1.3.  Signature Verification
-     6.2.  Packet specifications
-       6.2.1.  Signature Packet (Tag 2)
+     6.2.  Packet Specifications
+       6.2.1.  Signature Packet (Packet Type ID 2)
        6.2.2.  Key Material Packets
    7.  Notes on Algorithms
      7.1.  Symmetric Algorithms for SEIPD Packets
@@ -134,13 +135,13 @@ Table of Contents
      8.3.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
-     9.2.  Key combiner
-       9.2.1.  Domain separation and context binding
-     9.3.  ML-DSA and SLH-DSA hedged variants
-     9.4.  Minimum digest size for PQ(/T)-signatures
+     9.2.  Key Combiner
+       9.2.1.  Domain Separation and Context Binding
+     9.3.  ML-DSA and SLH-DSA Hedged Variants
+     9.4.  Minimum Digest Size for PQ(/T) Signatures
      9.5.  Symmetric Algorithms for SEIPD Packets
-     9.6.  Key generation
-   10. Additional considerations
+     9.6.  Key Generation
+   10. Additional Considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
    12. Changelog
@@ -178,25 +179,25 @@ Table of Contents
        A.3.1.  Transferable Secret Key
        A.3.2.  Transferable Public Key
        A.3.3.  Encrypted and Signed Message
-       A.3.4.  Detached signature
+       A.3.4.  Detached Signature
      A.4.  Sample ML-DSA-87+Ed448 with ML-KEM-1024+X448 Data
        A.4.1.  Transferable Secret Key
        A.4.2.  Transferable Public Key
        A.4.3.  Encrypted and Signed Message
-       A.4.4.  Detached signature
+       A.4.4.  Detached Signature
      A.5.  Sample SLH-DSA-SHAKE-128s with ML-KEM-768+X25519 Data
        A.5.1.  Transferable Secret Key
        A.5.2.  Transferable Public Key
        A.5.3.  Encrypted and Signed Message
-       A.5.4.  Detached signature
+       A.5.4.  Detached Signature
      A.6.  Sample SLH-DSA-SHAKE-128f with ML-KEM-768+X25519 Data
        A.6.1.  Transferable Secret Key
        A.6.2.  Transferable Public Key
-       A.6.3.  Detached signature
+       A.6.3.  Detached Signature
      A.7.  Sample SLH-DSA-SHAKE-256s with ML-KEM-1024+X448 Data
        A.7.1.  Transferable Secret Key
        A.7.2.  Transferable Public Key
-       A.7.3.  Detached signature
+       A.7.3.  Detached Signature
    Authors' Addresses
 
 1.  Introduction
@@ -236,6 +237,12 @@ Table of Contents
    the newly defined algorithms or algorithm combinations.
 
 1.1.  Conventions used in this Document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
@@ -339,8 +346,8 @@ Table of Contents
 
    This section specifies the composite ML-KEM + ECDH and ML-DSA + EdDSA
    schemes as well as the standalone SLH-DSA signature scheme.  All of
-   these schemes are fully specified via their algorithm ID, i.e., they
-   are not parametrized.
+   these schemes are fully specified via their algorithm ID, that is,
+   they are not parametrized.
 
 2.1.  Algorithm Specifications
 
@@ -388,9 +395,9 @@ Table of Contents
 
    The ML-KEM + ECDH public-key encryption involves both the ML-KEM and
    an ECDH KEM in an a priori non-separable manner.  This is achieved
-   via KEM combination, i.e. both key encapsulations/decapsulations are
-   performed in parallel, and the resulting key shares are fed into a
-   key combiner to produce a single shared secret for message
+   via KEM combination, that is, both key encapsulations/decapsulations
+   are performed in parallel, and the resulting key shares are fed into
+   a key combiner to produce a single shared secret for message
    encryption.
 
    As explained in Section 1.4.2, the OpenPGP protocol inherently
@@ -408,23 +415,22 @@ Table of Contents
 3.3.  Multiple Signatures
 
    The OpenPGP message format allows multiple signatures of a message,
-   i.e. the attachment of multiple signature packets.
+   that is, the attachment of multiple signature packets.
 
    An implementation MAY sign a message with a traditional key and a
    PQ(/T) key from the same sender.  This ensures backwards
-   compatibility due to [RFC9580, Section 5.2.5] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.5), since a legacy implementation
-   without PQ(/T) support can fall back on the traditional signature.
+   compatibility due to Section 5.2.5 of [RFC9580], since a legacy
+   implementation without PQ(/T) support can fall back on the
+   traditional signature.
 
    Newer implementations with PQ(/T) support MAY ignore the traditional
    signature(s) during validation.
 
    Implementations SHOULD consider the message correctly signed if at
    least one of the non-ignored signatures validates successfully.  This
-   is an interpretation of [RFC9580, Section 5.2.5] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.5).
+   is an interpretation of Section 5.2.5 of [RFC9580].
 
-3.4.  ECC requirements
+3.4.  ECC Requirements
 
    Even though the zero point, also called the point at infinity, may
    occur as a result of arithmetic operations on points of an elliptic
@@ -436,14 +442,14 @@ Table of Contents
    specification and security advisory mandated from the respective
    elliptic curve specification.
 
-3.5.  Key version binding
+3.5.  Key Version Binding
 
-   All (PQ/T) asymmetric algorithms are to be used only in v6 (and
+   All PQ(/T) asymmetric algorithms are to be used only in v6 (and
    newer) keys and certificates, with the single exception of ML-KEM-
    768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-
    capable subkeys.
 
-4.  Composite KEM schemes
+4.  Composite KEM Schemes
 
 4.1.  Building Blocks
 
@@ -478,7 +484,7 @@ Table of Contents
      |                        | [RFC7748]         | [RFC7748]        |
      +------------------------+-------------------+------------------+
 
-         Table 3: Montgomery curves parameters and artifact lengths
+         Table 3: Montgomery curve parameters and artifact lengths
 
    The various procedures to perform the operations of an ECDH KEM are
    defined in the following subsections.  Specifically, each of these
@@ -488,7 +494,9 @@ Table of Contents
 
    and
 
-(ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText, ecdhPublicKey)
+   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey,
+                                     ecdhCipherText,
+                                     ecdhPublicKey)
 
    To instantiate ECDH-KEM, one must select a parameter set from
    Table 3.
@@ -635,44 +643,46 @@ Table of Contents
    *  The PKESK packet's algorithm-specific parts are made up of the ML-
       KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
-4.2.1.  Key combiner
+4.2.1.  Key Combiner
 
    For the composite KEM schemes defined in Table 2 the following
    procedure MUST be used to compute the KEK that wraps a session key.
-   The construction is a key derivation function compliant to
-   [SP800-56C], Section 4, based on SHA3-256.  It is given by the
-   following algorithm, which computes the key encryption key KEK that
-   is used to wrap, i.e., encrypt, the session key.
+   The construction is a key derivation function compliant to Section 4
+   of [SP800-56C], based on SHA3-256.  It is given by the following
+   algorithm, which computes the key encryption key KEK that is used to
+   wrap (that is, encrypt) the session key.
 
-//   multiKeyCombine(
-//       mlkemKeyShare, ecdhKeyShare,
-//       ecdhCipherText, ecdhPublicKey,
-//       algId
-//   )
-//
-//   Input:
-//   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
-//   ecdhKeyShare    - the ECDH key share encoded as an octet string
-//   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
-//   ecdhPublicKey   - the ECDH public key of the recipient as an octet string
-//   algId           - the OpenPGP algorithm ID of the public-key encryption algorithm
+  //   multiKeyCombine(
+  //       mlkemKeyShare, ecdhKeyShare,
+  //       ecdhCipherText, ecdhPublicKey,
+  //       algId
+  //   )
+  //
+  //   Input:
+  //   mlkemKeyShare   - the ML-KEM key share encoded as an octet string
+  //   ecdhKeyShare    - the ECDH key share encoded as an octet string
+  //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
+  //   ecdhPublicKey   - the ECDH public key of the recipient as an
+  //                     octet string
+  //   algId           - the OpenPGP algorithm ID of the public-key
+  //                     encryption algorithm
 
-KEK = SHA3-256(
-          mlkemKeyShare || ecdhKeyShare ||
-          ecdhCipherText || ecdhPublicKey ||
-          algId || domSep || len(domSep)
-      )
-return KEK
+  KEK = SHA3-256(
+            mlkemKeyShare || ecdhKeyShare ||
+            ecdhCipherText || ecdhPublicKey ||
+            algId || domSep || len(domSep)
+        )
+  return KEK
 
    The value domSep is a constant set to the UTF-8 encoding of the
-   string "OpenPGPCompositeKDFv1", i.e.
+   string "OpenPGPCompositeKDFv1", that is:
 
  domSep = 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 
    Here len(domSep) is the single octet with the value equal to the
-   octet-length of domSep, i.e., decimal 21.
+   octet-length of domSep, that is, decimal 21.
 
-4.2.2.  Key generation procedure
+4.2.2.  Key Generation Procedure
 
    The implementation MUST generate the ML-KEM and the ECDH component
    keys independently.  ML-KEM key generation follows the specification
@@ -681,7 +691,7 @@ return KEK
    the relative specification in [RFC7748], and encoding the outputs as
    fixed-length octet strings in the format specified in Table 3.
 
-4.2.3.  Encryption procedure
+4.2.3.  Encryption Procedure
 
    The procedure to perform public-key encryption with an ML-KEM + ECDH
    composite scheme is as follows:
@@ -718,7 +728,7 @@ return KEK
        denotes the combined octet length of the fields specified as the
        arguments.
 
-4.2.4.  Decryption procedure
+4.2.4.  Decryption Procedure
 
    The procedure to perform public-key decryption with an ML-KEM + ECDH
    composite scheme is as follows:
@@ -757,9 +767,9 @@ return KEK
 
    11.  Output sessionKey
 
-4.3.  Packet specifications
+4.3.  Packet Specifications
 
-4.3.1.  Public-Key Encrypted Session Key Packets (Tag 1)
+4.3.1.  Public-Key Encrypted Session Key Packets (Packet Type ID 1)
 
    The algorithm-specific fields consist of the output of the encryption
    procedure described in Section 4.2.3:
@@ -792,8 +802,8 @@ return KEK
    algorithm identifier, and abort if this is not the case.
 
    Implementations MUST NOT use the obsolete Symmetrically Encrypted
-   Data packet (tag 9) to encrypt data protected with the algorithms
-   described in this document.
+   Data packet (Packet Type ID 9) to encrypt data protected with the
+   algorithms described in this document.
 
 4.3.2.  Key Material Packets
 
@@ -816,26 +826,26 @@ return KEK
 
    The algorithm-specific secret key is these two values:
 
-   *  A fixed-length octet string of the encoded secret scalar, whose
+   *  A fixed-length octet string of the encoded ECDH secret key, whose
       encoding and length depend on the algorithm ID as specified in
       Section 4.1.1.
 
    *  A fixed-length octet string containing the ML-KEM secret key in
       seed format, whose length is 64 octets (compare Table 4).  The
-      seed format is defined in accordance with [FIPS-203], Section 3.3.
-      Namely, the secret key is given by the concatenation of the values
-      of d and z, generated in steps 1 and 2 of ML-KEM.KeyGen
-      [FIPS-203], each of a length of 32 octets.  Upon parsing the
-      secret key format, or before using the secret key, for the
-      expansion of the key, the function ML-KEM.KeyGen_internal
+      seed format is defined in accordance with Section 3.3 of
+      [FIPS-203].  Namely, the secret key is given by the concatenation
+      of the values of d and z, generated in steps 1 and 2 of ML-
+      KEM.KeyGen [FIPS-203], each of a length of 32 octets.  Upon
+      parsing the secret key format, or before using the secret key, for
+      the expansion of the key, the function ML-KEM.KeyGen_internal
       [FIPS-203] has to be invoked with the parsed values of d and z as
       input.
 
 5.  Composite Signature Schemes
 
-5.1.  Building blocks
+5.1.  Building Blocks
 
-5.1.1.  EdDSA-Based signatures
+5.1.1.  EdDSA-Based Signatures
 
    Throughout this specification EdDSA refers to the PureEdDSA variant
    defined in [RFC8032].
@@ -863,7 +873,7 @@ return KEK
 
          Table 6: EdDSA parameters and artifact lengths in octets
 
-5.1.2.  ML-DSA signatures
+5.1.2.  ML-DSA Signatures
 
    Throughout this specification ML-DSA refers to the default pure and
    hedged version of ML-DSA defined in [FIPS-204].
@@ -897,7 +907,7 @@ return KEK
 
 5.2.  Composite Signature Schemes with ML-DSA
 
-5.2.1.  Key generation procedure
+5.2.1.  Key Generation Procedure
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
@@ -912,8 +922,7 @@ return KEK
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
 
-   1.  Generate dataDigest according to [RFC9580, Section 5.2.4]
-       (https://www.rfc-editor.org/rfc/rfc9580#section-5.2.4)
+   1.  Generate dataDigest according to Section 5.2.4 of [RFC9580].
 
    2.  Create the EdDSA signature over dataDigest with EdDSA.Sign() from
        Section 5.1.1
@@ -935,12 +944,12 @@ return KEK
        Section 5.1.2
 
    As specified in Section 3.2 an implementation MUST validate both
-   signatures, i.e. EdDSA and ML-DSA, successfully to state that a
+   signatures, that is, EdDSA and ML-DSA, successfully to state that a
    composite ML-DSA + EdDSA signature is valid.
 
 5.3.  Packet Specifications
 
-5.3.1.  Signature Packet (Tag 2)
+5.3.1.  Signature Packet (Packet Type ID 2)
 
    The composite ML-DSA + EdDSA schemes MUST be used only with v6
    signatures, as defined in [RFC9580], or newer versions defined by
@@ -984,8 +993,8 @@ return KEK
 
    *  A fixed-length octet string containing the ML-DSA secret key in
       seed format, whose length is 32 octets (compare Table 7).  The
-      seed format is defined in accordance with [FIPS-204],
-      Section 3.6.3.  Namely, the secret key is given by the value xi
+      seed format is defined in accordance with Section 3.6.3 of
+      [FIPS-204].  Namely, the secret key is given by the value xi
       generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
       secret key format, or before using the secret key, for the
       expansion of the key, the function ML-DSA.KeyGen_internal
@@ -1014,10 +1023,10 @@ return KEK
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 8: SLH-DSA algorithm code points and the corresponding
-                       artifact lengths in octets.
+       Table 8: SLH-DSA code points and the corresponding artifact
+                            lengths in octets.
 
-6.1.1.  Key generation
+6.1.1.  Key Generation
 
    SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
    as specified in [FIPS-205], and the artifacts are encoded as fixed-
@@ -1033,16 +1042,15 @@ return KEK
    SLH-DSA signature verification is performed via the algorithm SLH-
    DSA.Verify as specified in [FIPS-205].
 
-6.2.  Packet specifications
+6.2.  Packet Specifications
 
-6.2.1.  Signature Packet (Tag 2)
+6.2.1.  Signature Packet (Packet Type ID 2)
 
    The SLH-DSA algorithms MUST be used only with v6 signatures, as
-   defined in [RFC9580, Section 5.2.3] (https://www.rfc-editor.org/rfc/
-   rfc9580#section-5.2.3).
+   defined in Section 5.2.3 of [RFC9580].
 
-   The algorithm-specific part of a signature packet for an SLH-DSA
-   algorithm code point consists of:
+   The algorithm-specific part of a signature packet for an SLH-DSA code
+   point consists of:
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
@@ -1055,9 +1063,8 @@ return KEK
 
 6.2.2.  Key Material Packets
 
-   The SLH-DSA algorithms code points MUST be used only with v6 keys, as
-   defined in [RFC9580], or newer versions defined by updates of that
-   document.
+   The SLH-DSA code points MUST be used only with v6 keys, as defined in
+   [RFC9580], or newer versions defined by updates of that document.
 
    The algorithm-specific part of the public key consists of:
 
@@ -1151,19 +1158,19 @@ return KEK
    schemes specified in this draft are not subject to a signature
    stripping vulnerability.  This is due to the fact that in any OpenPGP
    signature, the hashed meta data includes the signature algorithm ID,
-   as specified in [RFC9580, Section 5.2.4] (https://www.rfc-
-   editor.org/rfc/rfc9580#section-5.2.4).  As a consequence, a component
-   signature taken out of the context of a specific composite algorithm
-   is not a valid signature for any message.
+   as specified in Section 5.2.4 of [RFC9580].  As a consequence, a
+   component signature taken out of the context of a specific composite
+   algorithm is not a valid OpenPGP signature for any message.
 
    Furthermore, it is also not possible to craft a new signature for a
    message that was signed twice with a composite algorithm by
-   interchanging (i.e., remixing) the component signatures, which would
-   classify as a weak existential forgery.  This is due to the fact that
-   each v6 signature also includes a random salt at the start of the
-   hashed meta data, as also specified in the aforementioned reference.
+   interchanging (that is, remixing) the component signatures, which
+   would classify as a weak existential forgery.  This is due to the
+   fact that each v6 signature also includes a random salt at the start
+   of the hashed meta data, as also specified in the aforementioned
+   reference.
 
-9.2.  Key combiner
+9.2.  Key Combiner
 
    For the key combination in Section 4.2.1 this specification limits
    itself to the use of SHA3-256 in a construction following
@@ -1177,7 +1184,7 @@ return KEK
    Note that the inclusion of the EC public key in the key combiner also
    accounts for multi-target attacks against X25519 and X448.
 
-9.2.1.  Domain separation and context binding
+9.2.1.  Domain Separation and Context Binding
 
    The domSep information defined in Section 4.2.1 provides the domain
    separation for the key combiner construction.  This ensures that the
@@ -1186,7 +1193,7 @@ return KEK
    result across different domains, which might be defined in the
    future.  This is because domSep || len(domSep) is guaranteed to
    result in a suffix-free set of octet strings even if further values
-   should be defined for dompSep.  The term "suffix-free" applied to a
+   should be defined for domSep.  The term "suffix-free" applied to a
    set of words indicates that no word is the suffix of another.  Thus
    this property ensures unambiguous parsing of a word from the rear of
    a string.  Unambiguous parseability, in turn, ensures that no
@@ -1199,7 +1206,7 @@ return KEK
    instantiation, and the length of all artifacts, including the derived
    key.
 
-9.3.  ML-DSA and SLH-DSA hedged variants
+9.3.  ML-DSA and SLH-DSA Hedged Variants
 
    This specification makes use of the default "hedged" variants of ML-
    DSA and SLH-DSA, which mix fresh randomness into the respective
@@ -1207,7 +1214,7 @@ return KEK
    advantage of an enhanced side-channel resistance of the signature
    operations according to [FIPS-204] and [FIPS-205].
 
-9.4.  Minimum digest size for PQ(/T)-signatures
+9.4.  Minimum Digest Size for PQ(/T) Signatures
 
    This specification requires that all PQ(/T) signatures defined in
    this document are made on message digests computed with a hash
@@ -1234,7 +1241,7 @@ return KEK
    for encryption.  Implementations may also make more nuanced
    decisions.
 
-9.6.  Key generation
+9.6.  Key Generation
 
    When generating keys, this specification requires component keys to
    be generated independently, and recommends not to reuse existing keys
@@ -1243,7 +1250,7 @@ return KEK
    formally classify as signature forgeries.  Generally, reusing a key
    for different purposes may lead to subtle vulnerabilities.
 
-10.  Additional considerations
+10.  Additional Considerations
 
 10.1.  Performance Considerations for SLH-DSA
 
@@ -1267,14 +1274,14 @@ return KEK
 
    Pertaining to the execution time, the particularly costly operation
    in SLH-DSA is the signature generation.  Depending on the parameter
-   set, it can range from approximately the one hundred fold to more
-   than the two thousand fold of that of ML-DSA-87.  These number are
-   based on the performance measurements published in the NIST
-   submissions for SLH-DSA and ML-DSA.  In order to achieve fast
-   signature generation times, the algorithm SLH-DSA-SHAKE-128f ("f"
-   standing for "fast") should be chosen.  This comes at the expense of
-   a larger signature size.  This choice can be relevant in applications
-   where mass signing occurs or a small latency is required.
+   set, it can range from approximately one hundred to more than two
+   thousand times that of ML-DSA-87.  These numbers are based on the
+   performance measurements published in the NIST submissions for SLH-
+   DSA and ML-DSA.  In order to achieve fast signature generation times,
+   the algorithm SLH-DSA-SHAKE-128f ("f" standing for "fast") should be
+   chosen.  This comes at the expense of a larger signature size.  This
+   choice can be relevant in applications where mass signing occurs or a
+   small latency is required.
 
    In order to minimize the space requirements of an SLH-DSA signature,
    an algorithm ID with the name ending in "s" for "small" should be
@@ -1287,8 +1294,8 @@ return KEK
    Unlike the signature generation time, the signature verification time
    of SLH-DSA is not that much larger than that of other PQC schemes.
    Based on the performance measurements published in the NIST
-   submissions for SLH-DSA and ML-DSA, the verification time of the SLH-
-   DSA is, for the parameters covered by this specification, larger than
+   submissions for SLH-DSA and ML-DSA, the verification time of SLH-DSA
+   is, for the parameters covered by this specification, larger than
    that of ML-DSA-87 by a factor ranging from four (for -128s) over nine
    (for -256s) to twelve (for -128f).
 
@@ -1296,9 +1303,9 @@ return KEK
 
    IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.  The field
-   specifications enclosed in brackets for the ML-KEM + ECDH composite
-   algorithms denote fields that are only conditionally contained in the
-   data structure.
+   specifications enclosed in square brackets for the ML-KEM + ECDH
+   composite algorithms denote fields that may or may not be present,
+   depending on the version of the PKESK packet.
 
    +==+============+=======+=======+=========+==============+=========+
    |ID| Algorithm  | Public| Secret|Signature| PKESK Format |Reference|
@@ -1481,8 +1488,8 @@ return KEK
 
    *  Removed whitespaces from composite algorithm names.
 
-   *  Explicitly disallowed SED (tag 9) and weak hashes when using PQ
-      algorithms.
+   *  Explicitly disallowed SED (Packet Type ID 9) and weak hashes when
+      using PQ algorithms.
 
 12.9.  draft-ietf-openpgp-pqc-04
 
@@ -1494,7 +1501,7 @@ return KEK
 
    *  Improved parallel encryption guidance.
 
-   *  Improved SED deprecation decscription.
+   *  Improved SED deprecation description.
 
    *  Added ML-DSA test vectors.
 
@@ -1566,6 +1573,11 @@ References
 
 Normative References
 
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
    [RFC3394]  Schaad, J. and R. Housley, "Advanced Encryption Standard
               (AES) Key Wrap Algorithm", RFC 3394, DOI 10.17487/RFC3394,
               September 2002, <https://www.rfc-editor.org/rfc/rfc3394>.
@@ -1579,6 +1591,10 @@ Normative References
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
 
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
    [RFC9580]  Wouters, P., Ed., Huigens, D., Winter, J., and Y. Niibe,
               "OpenPGP", RFC 9580, DOI 10.17487/RFC9580, July 2024,
               <https://www.rfc-editor.org/rfc/rfc9580>.
@@ -1591,7 +1607,7 @@ Informative References
 
    [BCD_24]   Barbosa, M., Connolly, D., Duarte, J. D., Kaiser, A.,
               Schwabe, P., Varner, K., and B. Westerbaan, "X-Wing The
-              Hybrid KEM You’ve Been Looking For", 2024,
+              Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
 
    [FIPS-203] National Institute of Standards and Technology, "Module-
@@ -2800,7 +2816,7 @@ A.3.3.  Encrypted and Signed Message
    ak/MpQwGKTcC2WrrqWhgq/WTs+8NCk5Vfa2P
    -----END PGP MESSAGE-----
 
-A.3.4.  Detached signature
+A.3.4.  Detached Signature
 
    Here is a detached signature for the message "Testing\n" made by the
    secret key Appendix A.3.1:
@@ -3891,7 +3907,7 @@ A.4.3.  Encrypted and Signed Message
    r9dO/yldgvycbQA=
    -----END PGP MESSAGE-----
 
-A.4.4.  Detached signature
+A.4.4.  Detached Signature
 
    Here is a detached signature for the message "Testing\n" made by the
    secret key Appendix A.4.1:
@@ -5323,7 +5339,7 @@ A.5.3.  Encrypted and Signed Message
    sKUHCp9weZuzUrfClgkH4bZCGsmzmDfJX1dWn2yAJq+7LDlFXDWr5JSm2pM1Pw==
    -----END PGP MESSAGE-----
 
-A.5.4.  Detached signature
+A.5.4.  Detached Signature
 
    Here is a detached signature for the message "Testing\n" made by the
    secret key Appendix A.5.1:
@@ -7755,7 +7771,7 @@ A.6.2.  Transferable Public Key
    In+iXahZ2PurUj62toNQAOMnB+fi6GCkoROG7TctcYbgYed4BSOqtT6as1tfAWyg
    -----END PGP PUBLIC KEY BLOCK-----
 
-A.6.3.  Detached signature
+A.6.3.  Detached Signature
 
    Here is a detached signature for the message "Testing\n" made by the
    secret key Appendix A.6.1:
@@ -11990,7 +12006,7 @@ A.7.2.  Transferable Public Key
    TontEOLGO7U+
    -----END PGP PUBLIC KEY BLOCK-----
 
-A.7.3.  Detached signature
+A.7.3.  Detached Signature
 
    Here is a detached signature for the message "Testing\n" made by the
    secret key Appendix A.7.1:
