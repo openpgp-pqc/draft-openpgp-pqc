@@ -631,7 +631,7 @@ The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 key
 
 The algorithm-specific public key is this series of values:
 
- - A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in {{ecc-kem}}.
+ - A fixed-length octet string representing an ECC point public key, in the point format associated with the curve specified in {{ecc-kem}}.
 
  - A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
@@ -872,7 +872,7 @@ This is due to the fact that each v6 signature also includes a random salt at th
 For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
 A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
-Note that the inclusion of the EC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
+Note that the inclusion of the ECC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
 
 ### Domain separation and context binding {#sec-fixed-info}
 
@@ -919,7 +919,7 @@ Note that reusing a key across different protocols may lead to signature confusi
 This specification introduces both ML-DSA + EdDSA as well as SLH-DSA as PQ(/T) signature schemes.
 
 Generally, it can be said that ML-DSA + EdDSA provides a performance in terms of execution time requirements that is close to that of traditional ECC signature schemes.
-Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like EC-based or even RSA signature schemes.
+Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like ECC-based or even RSA signature schemes.
 
 Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
 However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.
