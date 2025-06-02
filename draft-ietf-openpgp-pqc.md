@@ -1016,7 +1016,7 @@ ID     | Algorithm           | Public Key Format                                
 - Removed NIST and Brainpool curve hybrids, dropped ECDSA from the current specification.
 - Updated KDF as proposed at IETF 119.
 - Removed whitespaces from composite algorithm names.
-- Explicitly disallowed SED (packet type ID 9) and weak hashes when using PQ algorithms.
+- Explicitly disallowed SED (Packet Type ID 9) and weak hashes when using PQ algorithms.
 
 ## draft-ietf-openpgp-pqc-04
 - Fixed ML-DSA signature size.
