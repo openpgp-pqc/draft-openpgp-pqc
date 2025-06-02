@@ -593,7 +593,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
 
- 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey)`
+ 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)`
 
  8. Compute `(mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
