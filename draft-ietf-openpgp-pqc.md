@@ -631,7 +631,7 @@ The composite ML-KEM-1024 + X448 (algorithm ID 36) MUST be used only with v6 key
 
 The algorithm-specific public key is this series of values:
 
- - A fixed-length octet string representing an ECC point public key, in the point format associated with the curve specified in {{ecc-kem}}.
+ - A fixed-length octet string representing an ECC public key, in the point format associated with the curve specified in {{ecc-kem}}.
 
  - A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in {{tab-mlkem-artifacts}}.
 
