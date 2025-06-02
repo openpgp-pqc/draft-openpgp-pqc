@@ -1328,16 +1328,16 @@ Table of Contents
    |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
    |  |            |Ed25519|Ed25519|signature|              |         |
    |  |            | public| secret|   (Table|              |         |
-   |  |            |    key|    key| 6), 3293|              |         |
+   |  |            |    key|    key| 6), 3309|              |         |
    |  |            | (Table| (Table|   octets|              |         |
-   |  |            |    6),|    6),|ML-DSA-65|              |         |
-   |  |            |   1952|   4032|signature|              |         |
-   |  |            | octets| octets|(Table 7)|              |         |
-   |  |            |    ML-|    ML-|         |              |         |
-   |  |            | DSA-65| DSA-65|         |              |         |
-   |  |            | public| secret|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
+   |  |            |    6),| 6), 32|ML-DSA-65|              |         |
+   |  |            |   1952| octets|signature|              |         |
+   |  |            | octets|    ML-|(Table 7)|              |         |
+   |  |            |    ML-| DSA-65|         |              |         |
+   |  |            | DSA-65| secret|         |              |         |
+   |  |            | public| (Table|         |              |         |
+   |  |            |    key|     7)|         |              |         |
+   |  |            | (Table|       |         |              |         |
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
@@ -1345,15 +1345,15 @@ Table of Contents
    |  |            |  Ed448|  Ed448|    Ed448|              |         |
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table| 6), 4595|              |         |
-   |  |            |    6),|    6),|   octets|              |         |
-   |  |            |   2592|   4896|ML-DSA-87|              |         |
-   |  |            | octets| octets|signature|              |         |
-   |  |            |    ML-|    ML-|(Table 7)|              |         |
-   |  |            | DSA-87| DSA-87|         |              |         |
-   |  |            | public| secret|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
+   |  |            | (Table| (Table| 6), 4627|              |         |
+   |  |            |    6),| 6), 32|   octets|              |         |
+   |  |            |   2592| octets|ML-DSA-87|              |         |
+   |  |            | octets|    ML-|signature|              |         |
+   |  |            |    ML-| DSA-87|(Table 7)|              |         |
+   |  |            | DSA-87| secret|         |              |         |
+   |  |            | public| (Table|         |              |         |
+   |  |            |    key|     7)|         |              |         |
+   |  |            | (Table|       |         |              |         |
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
@@ -1382,16 +1382,16 @@ Table of Contents
    |  |            | X25519| X25519|         |  ciphertext, |         |
    |  |            | public| secret|         |  1088 octets |         |
    |  |            |    key|    key|         |   ML-KEM-768 |         |
-   |  |            | (Table| (Table|         |   ciphertext |         |
-   |  |            |    3),|    3),|         |   [, 1 octet |         |
-   |  |            |   1184|   2400|         | algorithm ID |         |
-   |  |            | octets| octets|         |   in case of |         |
-   |  |            |    ML-|    ML-|         | v3 PKESK], 1 |         |
-   |  |            |KEM-768|KEM-768|         | octet length |         |
-   |  |            | public|secret-|         |     field of |         |
-   |  |            |    key|    key|         |   value n, n |         |
-   |  |            | (Table| (Table|         |       octets |         |
-   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            | (Table| (Table|         |  ciphertext, |         |
+   |  |            |    3),| 3), 64|         |      1 octet |         |
+   |  |            |   1184| octets|         |    remaining |         |
+   |  |            | octets|    ML-|         |   length, [1 |         |
+   |  |            |    ML-|KEM-768|         |        octet |         |
+   |  |            |KEM-768|secret-|         | algorithm ID |         |
+   |  |            | public|    key|         |   in case of |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
@@ -1401,16 +1401,16 @@ Table of Contents
    |  |            |   X448|   X448|         |  ciphertext, |         |
    |  |            | public| secret|         |  1568 octets |         |
    |  |            |    key|    key|         |  ML-KEM-1024 |         |
-   |  |            | (Table| (Table|         |   ciphertext |         |
-   |  |            |    3),|    3),|         |   [, 1 octet |         |
-   |  |            |   1568|   3168|         | algorithm ID |         |
-   |  |            | octets| octets|         |   in case of |         |
-   |  |            |ML-KEM-|ML-KEM-|         | v3 PKESK], 1 |         |
-   |  |            |   1024|   1024|         | octet length |         |
-   |  |            | public|secret-|         |     field of |         |
-   |  |            |    key|    key|         |   value n, n |         |
-   |  |            | (Table| (Table|         |       octets |         |
-   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            | (Table| (Table|         |  ciphertext, |         |
+   |  |            |    3),| 3), 64|         |      1 octet |         |
+   |  |            |   1568| octets|         |    remaining |         |
+   |  |            | octets|ML-KEM-|         |   length, [1 |         |
+   |  |            |ML-KEM-|   1024|         |        octet |         |
+   |  |            |   1024|secret-|         | algorithm ID |         |
+   |  |            | public|    key|         |   in case of |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
