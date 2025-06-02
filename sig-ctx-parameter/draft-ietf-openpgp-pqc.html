@@ -2500,7 +2500,7 @@ That is, to sign with ML-DSA the following operation is defined:<a href="#sectio
 (mldsaSignature) &lt;- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 </pre><a href="#section-5.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-4">For ML-DSA signature verification, the <code>ML-DSA.Verify</code> algorithm, as specified in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, is used with an empty context string <code>ctx</code>.
+<p id="section-5.1.2-4">ML-DSA signature verification is performed using the <code>ML-DSA.Verify</code> algorithm, as specified in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, with an empty context string <code>ctx</code>.
 That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-5">
 <pre>
