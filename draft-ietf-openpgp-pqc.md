@@ -658,6 +658,7 @@ The algorithm-specific secret key is these two values:
 ### EdDSA-Based Signatures {#eddsa-signature}
 
 Throughout this specification EdDSA refers to the PureEdDSA variant defined in [RFC8032].
+The context is always empty.
 
 To sign and verify with EdDSA the following operations are defined:
 
@@ -665,7 +666,7 @@ To sign and verify with EdDSA the following operations are defined:
 
 and
 
-    (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
+    (verified) <- EdDSA.Verify(eddsaPublicKey, dataDigest, eddsaSignature)
 
 The public and secret key, as well as the signature MUST be encoded according to [RFC8032] as fixed-length octet strings.
 The following table describes the EdDSA parameters and artifact lengths:
@@ -680,12 +681,12 @@ Algorithm ID reference | Curve   | Public key | Secret key | Signature
 
 Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in [FIPS-204].
 
-For ML-DSA signature generation the default hedged version of the algorithm `ML-DSA.Sign` given in [FIPS-204] is used.
+For ML-DSA signature generation, the default hedged version of the `ML-DSA.Sign` algorithm, as specified in [FIPS-204], is used with an empty context string `ctx`.
 That is, to sign with ML-DSA the following operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
-For ML-DSA signature verification the algorithm `ML-DSA.Verify` given in [FIPS-204] is used.
+For ML-DSA signature verification, the `ML-DSA.Verify` algorithm, as specified in [FIPS-204], is used with an empty context string `ctx`.
 That is, to verify with ML-DSA the following operation is defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
@@ -785,15 +786,15 @@ Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA si
 
 ### Key Generation
 
-SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{slhdsa}}.
+SLH-DSA key generation is performed via the algorithm `slh_keygen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{slhdsa}}.
 
 ### Signature Generation
 
-SLH-DSA signature generation is performed via the default hedged version of the algorithm `SLH-DSA.Sign` as specified in {{FIPS-205}}.
+SLH-DSA signature generation is performed using the default hedged version of the `slh_sign` algorithm, as specified in {{FIPS-205}}, with an empty context string `ctx`.
 
 ### Signature Verification
 
-SLH-DSA signature verification is performed via the algorithm `SLH-DSA.Verify` as specified in {{FIPS-205}}.
+SLH-DSA signature verification is performed using the `slh_verify` algorithm, as specified in {{FIPS-205}}, with an empty context string `ctx`.
 
 ## Packet Specifications
 
