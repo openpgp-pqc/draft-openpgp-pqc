@@ -681,7 +681,7 @@ Algorithm ID reference | Curve   | Public key | Secret key | Signature
 
 Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in [FIPS-204].
 
-For ML-DSA signature generation, the default hedged version of the `ML-DSA.Sign` algorithm, as specified in [FIPS-204], is used with an empty context string `ctx`.
+ML-DSA signature generation is performed using the default hedged version of the `ML-DSA.Sign` algorithm, as specified in [FIPS-204], with an empty context string `ctx`.
 That is, to sign with ML-DSA the following operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
