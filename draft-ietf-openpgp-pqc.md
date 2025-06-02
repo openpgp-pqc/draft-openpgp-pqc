@@ -554,8 +554,8 @@ Here `len(domSep)` is the single octet with the value equal to the octet-length 
 ### Key Generation Procedure {#ecc-mlkem-generation}
 
 The implementation MUST generate the ML-KEM and the ECDH component keys independently.
-ML-KEM key generation follows the specification [FIPS-203] and the artifacts are encoded as fixed-length octet strings as defined in {{mlkem-ops}}.
-For ECDH this is done following the relative specification in {{RFC7748}}, and encoding the outputs as fixed-length octet strings in the format specified in {{tab-ecdh-cfrg-artifacts}}.
+ML-KEM key generation follows the specification in [FIPS-203], and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{mlkem-ops}}.
+ECDH key generation follows the specification in {{RFC7748}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{tab-ecdh-cfrg-artifacts}}.
 
 ### Encryption Procedure {#ecc-mlkem-encryption}
 
@@ -707,8 +707,8 @@ Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
 ### Key Generation Procedure {#ecc-mldsa-generation}
 
 The implementation MUST generate the ML-DSA and the EdDSA component keys independently.
-ML-DSA key generation follows the specification [FIPS-204] and the artifacts are encoded as fixed-length octet strings as defined in {{mldsa-signature}}.
-For EdDSA this is done following the relative specification in {{RFC7748}}, and encoding the artifacts as specified in {{eddsa-signature}} as fixed-length octet strings.
+ML-DSA key generation follows the specification in [FIPS-204], and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{mldsa-signature}}.
+EdDSA key generation follows the specification in {{RFC8032}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{eddsa-signature}}.
 
 ### Signature Generation
 
@@ -788,7 +788,7 @@ Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA si
 
 ### Key Generation
 
-SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings as defined in {{slhdsa}}.
+SLH-DSA key generation is performed via the algorithm `SLH-DSA.KeyGen` as specified in {{FIPS-205}}, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in {{slhdsa}}.
 
 ### Signature Generation
 
