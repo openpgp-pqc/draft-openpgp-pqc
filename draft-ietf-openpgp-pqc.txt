@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 28 November 2025                                    F. Strenzke
+Expires: 4 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             27 May 2025
+                                                             2 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2025.
+   This Internet-Draft will expire on 4 December 2025.
 
 Copyright Notice
 
@@ -625,7 +625,8 @@ Table of Contents
 
    *  A Key-Encryption-Key (KEK) is computed as the output of a key
       combiner that receives as input both of the above created
-      symmetric key shares and the protocol binding information.
+      symmetric key shares, the ECDH ciphertext, the ECDH public key,
+      and the protocol binding information.
 
    *  The session key for content encryption is then wrapped as
       described in [RFC3394] using AES-256 as algorithm and the KEK as
