@@ -404,9 +404,7 @@ Specifically, each of these subsections defines the instances of the following o
 
 and
 
-    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey,
-                                      ecdhCipherText,
-                                      ecdhPublicKey)
+    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)
 
 To instantiate `ECDH-KEM`, one must select a parameter set from {{tab-ecdh-cfrg-artifacts}}.
 
@@ -594,7 +592,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
 
- 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey, ecdhPublicKey)`
+ 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)`
 
  8. Compute `(mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
