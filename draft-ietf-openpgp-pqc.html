@@ -2391,27 +2391,41 @@ In the case of v3 PKESK packets for ML-KEM composite schemes, the symmetric algo
           </h4>
 <p id="section-4.3.2-1">The composite ML-KEM-768 + X25519 (algorithm ID 35) <span class="bcp14">MUST</span> be used only with v4 or v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, or newer versions defined by updates of that document.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-2">The composite ML-KEM-1024 + X448 (algorithm ID 36) <span class="bcp14">MUST</span> be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, or newer versions defined by updates of that document.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-3">The algorithm-specific public key is this series of values:<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
+<div id="public-key-packets-packet-type-ids-6-and-14">
+<section id="section-4.3.2.1">
+            <h5 id="name-public-key-packets-packet-t">
+<a href="#section-4.3.2.1" class="section-number selfRef">4.3.2.1. </a><a href="#name-public-key-packets-packet-t" class="section-name selfRef">Public Key Packets (Packet Type IDs 6 and 14)</a>
+            </h5>
+<p id="section-4.3.2.1-1">The algorithm-specific public key is this series of values:<a href="#section-4.3.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.3.2-4.1">
-              <p id="section-4.3.2-4.1.1">A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.3.2.1-2.1">
+                <p id="section-4.3.2.1-2.1.1">A fixed-length octet string representing an EC point public key, in the point format associated with the curve specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4.3.2-4.2">
-              <p id="section-4.3.2-4.2.1">A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2-4.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-4.3.2.1-2.2">
+                <p id="section-4.3.2.1-2.2.1">A fixed-length octet string containing the ML-KEM public key, whose length depends on the algorithm ID as specified in <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>.<a href="#section-4.3.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
-<p id="section-4.3.2-5">The algorithm-specific secret key is these two values:<a href="#section-4.3.2-5" class="pilcrow">¶</a></p>
+            </ul>
+</section>
+</div>
+<div id="secret-key-packets-packet-type-ids-5-and-7">
+<section id="section-4.3.2.2">
+            <h5 id="name-secret-key-packets-packet-t">
+<a href="#section-4.3.2.2" class="section-number selfRef">4.3.2.2. </a><a href="#name-secret-key-packets-packet-t" class="section-name selfRef">Secret Key Packets (Packet Type IDs 5 and 7)</a>
+            </h5>
+<p id="section-4.3.2.2-1">The algorithm-specific secret key is these two values:<a href="#section-4.3.2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.3.2-6.1">
-              <p id="section-4.3.2-6.1.1">A fixed-length octet string of the encoded ECDH secret key, whose encoding and length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.3.2.2-2.1">
+                <p id="section-4.3.2.2-2.1.1">A fixed-length octet string of the encoded ECDH secret key, whose encoding and length depend on the algorithm ID as specified in <a href="#ecc-kem" class="auto internal xref">Section 4.1.1</a>.<a href="#section-4.3.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-4.3.2-6.2">
-              <p id="section-4.3.2-6.2.1">A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>).
+              <li class="normal" id="section-4.3.2.2-2.2">
+                <p id="section-4.3.2.2-2.2.1">A fixed-length octet string containing the ML-KEM secret key in seed format, whose length is 64 octets (compare <a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>).
 The seed format is defined in accordance with Section 3.3 of <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>.
 Namely, the secret key is given by the concatenation of the values of <code>d</code> and <code>z</code>, generated in steps 1 and 2 of <code>ML-KEM.KeyGen</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, each of a length of 32 octets.
-Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function <code>ML-KEM.KeyGen_internal</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> has to be invoked with the parsed values of <code>d</code> and <code>z</code> as input.<a href="#section-4.3.2-6.2.1" class="pilcrow">¶</a></p>
+Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function <code>ML-KEM.KeyGen_internal</code> <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> has to be invoked with the parsed values of <code>d</code> and <code>z</code> as input.<a href="#section-4.3.2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
+            </ul>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2631,27 +2645,41 @@ A verifying implementation <span class="bcp14">MUST</span> reject any composite 
 <a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-key-material-packets-2" class="section-name selfRef">Key Material Packets</a>
           </h4>
 <p id="section-5.3.2-1">The composite ML-DSA + EdDSA schemes <span class="bcp14">MUST</span> be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, or newer versions defined by updates of that document.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.2-2">The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
+<div id="public-key-packets-packet-type-ids-6-and-14-1">
+<section id="section-5.3.2.1">
+            <h5 id="name-public-key-packets-packet-ty">
+<a href="#section-5.3.2.1" class="section-number selfRef">5.3.2.1. </a><a href="#name-public-key-packets-packet-ty" class="section-name selfRef">Public Key Packets (Packet Type IDs 6 and 14)</a>
+            </h5>
+<p id="section-5.3.2.1-1">The algorithm-specific public key for ML-DSA + EdDSA keys is this series of values:<a href="#section-5.3.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3.2-3.1">
-              <p id="section-5.3.2-3.1.1">A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3.2.1-2.1">
+                <p id="section-5.3.2.1-2.1.1">A fixed-length octet string representing the EdDSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.3.2-3.2">
-              <p id="section-5.3.2-3.2.1">A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-5.3.2.1-2.2">
+                <p id="section-5.3.2.1-2.2.1">A fixed-length octet string containing the ML-DSA public key, whose length depends on the algorithm ID as specified in <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>.<a href="#section-5.3.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
-<p id="section-5.3.2-4">The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of values:<a href="#section-5.3.2-4" class="pilcrow">¶</a></p>
+            </ul>
+</section>
+</div>
+<div id="secret-key-packets-packet-type-ids-5-and-7-1">
+<section id="section-5.3.2.2">
+            <h5 id="name-secret-key-packets-packet-ty">
+<a href="#section-5.3.2.2" class="section-number selfRef">5.3.2.2. </a><a href="#name-secret-key-packets-packet-ty" class="section-name selfRef">Secret Key Packets (Packet Type IDs 5 and 7)</a>
+            </h5>
+<p id="section-5.3.2.2-1">The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of values:<a href="#section-5.3.2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3.2-5.1">
-              <p id="section-5.3.2-5.1.1">A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3.2.2-2.1">
+                <p id="section-5.3.2.2-2.1.1">A fixed-length octet string representing the EdDSA secret key, whose length depends on the algorithm ID as specified in <a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>.<a href="#section-5.3.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-5.3.2-5.2">
-              <p id="section-5.3.2-5.2.1">A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>).
+              <li class="normal" id="section-5.3.2.2-2.2">
+                <p id="section-5.3.2.2-2.2.1">A fixed-length octet string containing the ML-DSA secret key in seed format, whose length is 32 octets (compare <a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>).
 The seed format is defined in accordance with Section 3.6.3 of <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.
 Namely, the secret key is given by the value <code>xi</code> generated in step 1 of <code>ML-DSA.KeyGen</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.
-Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function <code>ML-DSA.KeyGen_internal</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has to be invoked with the parsed value of <code>xi</code> as input.<a href="#section-5.3.2-5.2.1" class="pilcrow">¶</a></p>
+Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function <code>ML-DSA.KeyGen_internal</code> <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> has to be invoked with the parsed value of <code>xi</code> as input.<a href="#section-5.3.2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
+            </ul>
+</section>
+</div>
 </section>
 </div>
 </section>
@@ -2760,18 +2788,32 @@ A verifying implementation <span class="bcp14">MUST</span> reject any SLH-DSA si
 <a href="#section-6.2.2" class="section-number selfRef">6.2.2. </a><a href="#name-key-material-packets-3" class="section-name selfRef">Key Material Packets</a>
           </h4>
 <p id="section-6.2.2-1">The SLH-DSA code points <span class="bcp14">MUST</span> be used only with v6 keys, as defined in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, or newer versions defined by updates of that document.<a href="#section-6.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2.2-2">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2-2" class="pilcrow">¶</a></p>
+<div id="public-key-packets-packet-type-ids-6-and-14-2">
+<section id="section-6.2.2.1">
+            <h5 id="name-public-key-packets-packet-typ">
+<a href="#section-6.2.2.1" class="section-number selfRef">6.2.2.1. </a><a href="#name-public-key-packets-packet-typ" class="section-name selfRef">Public Key Packets (Packet Type IDs 6 and 14)</a>
+            </h5>
+<p id="section-6.2.2.1-1">The algorithm-specific part of the public key consists of:<a href="#section-6.2.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-3.1">
-              <p id="section-6.2.2-3.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2.1-2.1">
+                <p id="section-6.2.2.1-2.1.1">A fixed-length octet string containing the SLH-DSA public key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
-<p id="section-6.2.2-4">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2-4" class="pilcrow">¶</a></p>
+            </ul>
+</section>
+</div>
+<div id="secret-key-packets-packet-type-ids-5-and-7-2">
+<section id="section-6.2.2.2">
+            <h5 id="name-secret-key-packets-packet-typ">
+<a href="#section-6.2.2.2" class="section-number selfRef">6.2.2.2. </a><a href="#name-secret-key-packets-packet-typ" class="section-name selfRef">Secret Key Packets (Packet Type IDs 5 and 7)</a>
+            </h5>
+<p id="section-6.2.2.2-1">The algorithm-specific part of the secret key consists of:<a href="#section-6.2.2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2.2-5.1">
-              <p id="section-6.2.2-5.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-6.2.2.2-2.1">
+                <p id="section-6.2.2.2-2.1.1">A fixed-length octet string containing the SLH-DSA secret key, whose length depends on the algorithm ID as specified in <a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>.<a href="#section-6.2.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          </ul>
+            </ul>
+</section>
+</div>
 </section>
 </div>
 </section>

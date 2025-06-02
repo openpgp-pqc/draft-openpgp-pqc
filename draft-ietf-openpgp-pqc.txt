@@ -815,6 +815,8 @@ Table of Contents
    with v6 keys, as defined in [RFC9580], or newer versions defined by
    updates of that document.
 
+4.3.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific public key is this series of values:
 
    *  A fixed-length octet string representing an EC point public key,
@@ -823,6 +825,8 @@ Table of Contents
 
    *  A fixed-length octet string containing the ML-KEM public key,
       whose length depends on the algorithm ID as specified in Table 4.
+
+4.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific secret key is these two values:
 
@@ -976,6 +980,8 @@ Table of Contents
    as defined in [RFC9580], or newer versions defined by updates of that
    document.
 
+5.3.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific public key for ML-DSA + EdDSA keys is this
    series of values:
 
@@ -984,6 +990,8 @@ Table of Contents
 
    *  A fixed-length octet string containing the ML-DSA public key,
       whose length depends on the algorithm ID as specified in Table 7.
+
+5.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific secret key for ML-DSA + EdDSA keys is this
    series of values:
@@ -1066,10 +1074,14 @@ Table of Contents
    The SLH-DSA code points MUST be used only with v6 keys, as defined in
    [RFC9580], or newer versions defined by updates of that document.
 
+6.2.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
       whose length depends on the algorithm ID as specified in Table 8.
+
+6.2.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific part of the secret key consists of:
 
