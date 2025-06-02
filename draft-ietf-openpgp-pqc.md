@@ -686,7 +686,7 @@ That is, to sign with ML-DSA the following operation is defined:
 
     (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
-For ML-DSA signature verification, the `ML-DSA.Verify` algorithm, as specified in [FIPS-204], is used with an empty context string `ctx`.
+ML-DSA signature verification is performed using the `ML-DSA.Verify` algorithm, as specified in [FIPS-204], with an empty context string `ctx`.
 That is, to verify with ML-DSA the following operation is defined:
 
     (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
