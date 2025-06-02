@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 28 November 2025                                    F. Strenzke
+Expires: 4 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             27 May 2025
+                                                             2 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2025.
+   This Internet-Draft will expire on 4 December 2025.
 
 Copyright Notice
 
@@ -460,8 +460,6 @@ Table of Contents
      +========================+===================+==================+
      | Algorithm ID reference | 35                | 36               |
      +------------------------+-------------------+------------------+
-     | Field size             | 32 octets         | 56 octets        |
-     +------------------------+-------------------+------------------+
      | ECDH-KEM               | x25519Kem         | x448Kem (Section |
      |                        | (Section 4.1.1.1) | 4.1.1.2)         |
      +------------------------+-------------------+------------------+
@@ -851,14 +849,14 @@ return KEK
    according to [RFC8032] as fixed-length octet strings.  The following
    table describes the EdDSA parameters and artifact lengths:
 
-     +==============+=========+=======+========+========+===========+
-     | Algorithm ID | Curve   | Field | Public | Secret | Signature |
-     |    reference |         | size  | key    | key    |           |
-     +==============+=========+=======+========+========+===========+
-     |           30 | Ed25519 | 32    | 32     | 32     | 64        |
-     +--------------+---------+-------+--------+--------+-----------+
-     |           31 | Ed448   | 57    | 57     | 57     | 114       |
-     +--------------+---------+-------+--------+--------+-----------+
+    +========================+=========+========+========+===========+
+    | Algorithm ID reference | Curve   | Public | Secret | Signature |
+    |                        |         | key    | key    |           |
+    +========================+=========+========+========+===========+
+    |                     30 | Ed25519 | 32     | 32     | 64        |
+    +------------------------+---------+--------+--------+-----------+
+    |                     31 | Ed448   | 57     | 57     | 114       |
+    +------------------------+---------+--------+--------+-----------+
 
          Table 6: EdDSA parameters and artifact lengths in octets
 
