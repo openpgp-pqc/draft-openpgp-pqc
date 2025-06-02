@@ -391,7 +391,6 @@ The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [
 |                        | X25519                                     | X448                                       |
 |------------------------|--------------------------------------------|--------------------------------------------|
 | Algorithm ID reference | 35                                         | 36                                         |
-| Field size             | 32 octets                                  | 56 octets                                  |
 | ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
@@ -674,10 +673,10 @@ The public and secret key, as well as the signature MUST be encoded according to
 The following table describes the EdDSA parameters and artifact lengths:
 
 {: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
-Algorithm ID reference | Curve   | Field size | Public key | Secret key | Signature
-----------------------:| ------- | ---------- | ---------- | ---------- | ---------
-30                     | Ed25519 | 32         | 32         | 32         | 64
-31                     | Ed448   | 57         | 57         | 57         | 114
+Algorithm ID reference | Curve   | Public key | Secret key | Signature
+----------------------:| ------- | ---------- | ---------- | ---------
+30                     | Ed25519 | 32         | 32         | 64
+31                     | Ed448   | 57         | 57         | 114
 
 ### ML-DSA Signatures {#mldsa-signature}
 
