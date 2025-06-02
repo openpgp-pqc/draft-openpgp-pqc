@@ -686,10 +686,10 @@ Table of Contents
 
    The implementation MUST generate the ML-KEM and the ECDH component
    keys independently.  ML-KEM key generation follows the specification
-   [FIPS-203] and the artifacts are encoded as fixed-length octet
-   strings as defined in Section 4.1.2.  For ECDH this is done following
-   the relative specification in [RFC7748], and encoding the outputs as
-   fixed-length octet strings in the format specified in Table 3.
+   in [FIPS-203], and the artifacts are encoded as fixed-length octet
+   strings whose sizes are listed in Section 4.1.2.  ECDH key generation
+   follows the specification in [RFC7748], and the artifacts are encoded
+   as fixed-length octet strings whose sizes are listed in Table 3.
 
 4.2.3.  Encryption Procedure
 
@@ -915,11 +915,11 @@ Table of Contents
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
-   [FIPS-204] and the artifacts are encoded as fixed-length octet
-   strings as defined in Section 5.1.2.  For EdDSA this is done
-   following the relative specification in [RFC7748], and encoding the
-   artifacts as specified in Section 5.1.1 as fixed-length octet
-   strings.
+   in [FIPS-204], and the artifacts are encoded as fixed-length octet
+   strings whose sizes are listed in Section 5.1.2.  EdDSA key
+   generation follows the specification in [RFC8032], and the artifacts
+   are encoded as fixed-length octet strings whose sizes are listed in
+   Section 5.1.1.
 
 5.2.2.  Signature Generation
 
@@ -1038,7 +1038,7 @@ Table of Contents
 
    SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
    as specified in [FIPS-205], and the artifacts are encoded as fixed-
-   length octet strings as defined in Section 6.1.
+   length octet strings whose sizes are listed in Section 6.1.
 
 6.1.2.  Signature Generation
 

@@ -2263,8 +2263,8 @@ domSep = 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31
 <a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-key-generation-procedure" class="section-name selfRef">Key Generation Procedure</a>
           </h4>
 <p id="section-4.2.2-1">The implementation <span class="bcp14">MUST</span> generate the ML-KEM and the ECDH component keys independently.
-ML-KEM key generation follows the specification <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> and the artifacts are encoded as fixed-length octet strings as defined in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a>.
-For ECDH this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the outputs as fixed-length octet strings in the format specified in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+ML-KEM key generation follows the specification in <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#mlkem-ops" class="auto internal xref">Section 4.1.2</a>.
+ECDH key generation follows the specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-mlkem-encryption">
@@ -2570,8 +2570,8 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-key-generation-procedure-2" class="section-name selfRef">Key Generation Procedure</a>
           </h4>
 <p id="section-5.2.1-1">The implementation <span class="bcp14">MUST</span> generate the ML-DSA and the EdDSA component keys independently.
-ML-DSA key generation follows the specification <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and the artifacts are encoded as fixed-length octet strings as defined in <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a>.
-For EdDSA this is done following the relative specification in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>, and encoding the artifacts as specified in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a> as fixed-length octet strings.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+ML-DSA key generation follows the specification in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a>.
+EdDSA key generation follows the specification in <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#eddsa-signature" class="auto internal xref">Section 5.1.1</a>.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation">
@@ -2740,7 +2740,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           <h4 id="name-key-generation">
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-key-generation" class="section-name selfRef">Key Generation</a>
           </h4>
-<p id="section-6.1.1-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings as defined in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation-1">
