@@ -390,7 +390,7 @@ The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [
 |------------------------|--------------------------------------------|--------------------------------------------|
 | Algorithm ID reference | 35                                         | 36                                         |
 | Field size             | 32 octets                                  | 56 octets                                  |
-| ECDH-KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
+| ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
 | ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
 | ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
