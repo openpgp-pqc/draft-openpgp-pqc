@@ -492,9 +492,7 @@ Table of Contents
 
    and
 
-   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey,
-                                     ecdhCipherText,
-                                     ecdhPublicKey)
+   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)
 
    To instantiate ECDH-KEM, one must select a parameter set from
    Table 3.
@@ -750,8 +748,8 @@ Table of Contents
         (|| symAlgId) || C as specified in Section 4.3.1, where symAlgId
         is present only in the case of a v3 PKESK.
 
-   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText,
-        ecdhSecretKey, ecdhPublicKey)
+   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey,
+        ecdhCipherText)
 
    8.   Compute (mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
