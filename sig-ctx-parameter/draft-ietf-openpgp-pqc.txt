@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 4 December 2025                                     F. Strenzke
+Expires: 5 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             2 June 2025
+                                                             3 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 December 2025.
+   This Internet-Draft will expire on 5 December 2025.
 
 Copyright Notice
 
@@ -96,7 +96,7 @@ Table of Contents
      3.5.  Key Version Binding
    4.  Composite KEM Schemes
      4.1.  Building Blocks
-       4.1.1.  ECDH KEMs
+       4.1.1.  ECDH KEM
        4.1.2.  ML-KEM
      4.2.  Composite Encryption Schemes with ML-KEM
        4.2.1.  Key Combiner
@@ -310,10 +310,10 @@ Table of Contents
    categorized as follows:
 
    *  PQ/T multi-algorithm public-key encryption, namely a composite
-      combination of ML-KEM with an ECDH KEM,
+      combination of ML-KEM with ECDH,
 
    *  PQ/T multi-algorithm digital signature, namely composite
-      combinations of ML-DSA with EdDSA signature schemes,
+      combinations of ML-DSA with EdDSA,
 
    *  PQ digital signature, namely SLH-DSA as a standalone cryptographic
       algorithm.
@@ -453,38 +453,36 @@ Table of Contents
 
 4.1.  Building Blocks
 
-4.1.1.  ECDH KEMs
+4.1.1.  ECDH KEM
 
    In this section we define the encryption, decryption, and data
    formats for the ECDH component of the composite algorithms.
 
-   Table 3 describes the ECDH-KEM parameters and artifact lengths.  The
+   Table 3 describes the ECDH KEM parameters and artifact lengths.  The
    artifacts in Table 3 follow the encodings described in [RFC7748].
 
-     +========================+===================+==================+
-     |                        | X25519            | X448             |
-     +========================+===================+==================+
-     | Algorithm ID reference | 35                | 36               |
-     +------------------------+-------------------+------------------+
-     | Field size             | 32 octets         | 56 octets        |
-     +------------------------+-------------------+------------------+
-     | ECDH-KEM               | x25519Kem         | x448Kem (Section |
-     |                        | (Section 4.1.1.1) | 4.1.1.2)         |
-     +------------------------+-------------------+------------------+
-     | ECDH public key        | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH secret key        | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH ephemeral         | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
-     | ECDH key share         | 32 octets         | 56 octets        |
-     |                        | [RFC7748]         | [RFC7748]        |
-     +------------------------+-------------------+------------------+
+    +========================+===================+===================+
+    |                        | X25519            | X448              |
+    +========================+===================+===================+
+    | Algorithm ID reference | 35                | 36                |
+    +------------------------+-------------------+-------------------+
+    | ECDH KEM               | X25519-KEM        | X448-KEM          |
+    |                        | (Section 4.1.1.1) | (Section 4.1.1.2) |
+    +------------------------+-------------------+-------------------+
+    | ECDH public key        | 32 octets         | 56 octets         |
+    |                        | [RFC7748]         | [RFC7748]         |
+    +------------------------+-------------------+-------------------+
+    | ECDH secret key        | 32 octets         | 56 octets         |
+    |                        | [RFC7748]         | [RFC7748]         |
+    +------------------------+-------------------+-------------------+
+    | ECDH ephemeral         | 32 octets         | 56 octets         |
+    |                        | [RFC7748]         | [RFC7748]         |
+    +------------------------+-------------------+-------------------+
+    | ECDH key share         | 32 octets         | 56 octets         |
+    |                        | [RFC7748]         | [RFC7748]         |
+    +------------------------+-------------------+-------------------+
 
-         Table 3: Montgomery curve parameters and artifact lengths
+        Table 3: Montgomery curve parameters and artifact lengths
 
    The various procedures to perform the operations of an ECDH KEM are
    defined in the following subsections.  Specifically, each of these
@@ -494,22 +492,20 @@ Table of Contents
 
    and
 
-   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey,
-                                     ecdhCipherText,
-                                     ecdhPublicKey)
+   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)
 
    To instantiate ECDH-KEM, one must select a parameter set from
    Table 3.
 
 4.1.1.1.  X25519-KEM
 
-   The encapsulation and decapsulation operations of x25519kem are
+   The encapsulation and decapsulation operations of X25519-KEM are
    described using the function X25519() and encodings defined in
    [RFC7748].  The ecdhSecretKey is denoted as r, the ecdhPublicKey as
    R, they are subject to the equation R = X25519(r, U(P)).  Here, U(P)
    denotes the u-coordinate of the base point of Curve25519.
 
-   The operation x25519Kem.Encaps() is defined as follows:
+   The operation X25519-KEM.Encaps() is defined as follows:
 
    1.  Generate an ephemeral key pair {v, V} via V = X25519(v,U(P))
        where v is a randomly generated octet string with a length of 32
@@ -522,7 +518,7 @@ Table of Contents
 
    4.  Set the output ecdhKeyShare to X
 
-   The operation x25519Kem.Decaps() is defined as follows:
+   The operation X25519-KEM.Decaps() is defined as follows:
 
    1.  Compute the shared coordinate X = X25519(r, V), where r is the
        ecdhSecretKey and V is the ecdhCipherText
@@ -531,13 +527,13 @@ Table of Contents
 
 4.1.1.2.  X448-KEM
 
-   The encapsulation and decapsulation operations of x448kem are
+   The encapsulation and decapsulation operations of X448-KEM are
    described using the function X448() and encodings defined in
    [RFC7748].  The ecdhSecretKey is denoted as r, the ecdhPublicKey as
    R, they are subject to the equation R = X25519(r, U(P)).  Here, U(P)
    denotes the u-coordinate of the base point of Curve448.
 
-   The operation x448.Encaps() is defined as follows:
+   The operation X448-KEM.Encaps() is defined as follows:
 
    1.  Generate an ephemeral key pair {v, V} via V = X448(v,U(P)) where
        v is a randomly generated octet string with a length of 56 octets
@@ -549,7 +545,7 @@ Table of Contents
 
    4.  Set the output ecdhKeyShare to X
 
-   The operation x448Kem.Decaps() is defined as follows:
+   The operation X448-KEM.Decaps() is defined as follows:
 
    1.  Compute the shared coordinate X = X448(r, V), where r is the
        ecdhSecretKey and V is the ecdhCipherText
@@ -611,15 +607,15 @@ Table of Contents
    Table 2 specifies the following ML-KEM + ECDH composite public-key
    encryption schemes:
 
-           +========================+=============+===========+
-           | Algorithm ID reference | ML-KEM      | ECDH-KEM  |
-           +========================+=============+===========+
-           |                     35 | ML-KEM-768  | x25519Kem |
-           +------------------------+-------------+-----------+
-           |                     36 | ML-KEM-1024 | x448Kem   |
-           +------------------------+-------------+-----------+
+           +========================+=============+============+
+           | Algorithm ID reference | ML-KEM      | ECDH-KEM   |
+           +========================+=============+============+
+           |                     35 | ML-KEM-768  | X25519-KEM |
+           +------------------------+-------------+------------+
+           |                     36 | ML-KEM-1024 | X448-KEM   |
+           +------------------------+-------------+------------+
 
-                 Table 5: ML-KEM + ECDH composite schemes
+                  Table 5: ML-KEM + ECDH composite schemes
 
    The ML-KEM + ECDH composite public-key encryption schemes are built
    according to the following principal design:
@@ -686,10 +682,10 @@ Table of Contents
 
    The implementation MUST generate the ML-KEM and the ECDH component
    keys independently.  ML-KEM key generation follows the specification
-   [FIPS-203] and the artifacts are encoded as fixed-length octet
-   strings as defined in Section 4.1.2.  For ECDH this is done following
-   the relative specification in [RFC7748], and encoding the outputs as
-   fixed-length octet strings in the format specified in Table 3.
+   in [FIPS-203], and the artifacts are encoded as fixed-length octet
+   strings whose sizes are listed in Section 4.1.2.  ECDH key generation
+   follows the specification in [RFC7748], and the artifacts are encoded
+   as fixed-length octet strings whose sizes are listed in Table 3.
 
 4.2.3.  Encryption Procedure
 
@@ -752,8 +748,8 @@ Table of Contents
         (|| symAlgId) || C as specified in Section 4.3.1, where symAlgId
         is present only in the case of a v3 PKESK.
 
-   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText,
-        ecdhSecretKey, ecdhPublicKey)
+   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey,
+        ecdhCipherText)
 
    8.   Compute (mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
@@ -815,14 +811,17 @@ Table of Contents
    with v6 keys, as defined in [RFC9580], or newer versions defined by
    updates of that document.
 
+4.3.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific public key is this series of values:
 
-   *  A fixed-length octet string representing an EC point public key,
-      in the point format associated with the curve specified in
-      Section 4.1.1.
+   *  A fixed-length octet string representing an ECC public key, in the
+      point format associated with the curve specified in Section 4.1.1.
 
    *  A fixed-length octet string containing the ML-KEM public key,
       whose length depends on the algorithm ID as specified in Table 4.
+
+4.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific secret key is these two values:
 
@@ -862,14 +861,14 @@ Table of Contents
    according to [RFC8032] as fixed-length octet strings.  The following
    table describes the EdDSA parameters and artifact lengths:
 
-     +==============+=========+=======+========+========+===========+
-     | Algorithm ID | Curve   | Field | Public | Secret | Signature |
-     |    reference |         | size  | key    | key    |           |
-     +==============+=========+=======+========+========+===========+
-     |           30 | Ed25519 | 32    | 32     | 32     | 64        |
-     +--------------+---------+-------+--------+--------+-----------+
-     |           31 | Ed448   | 57    | 57     | 57     | 114       |
-     +--------------+---------+-------+--------+--------+-----------+
+    +========================+=========+========+========+===========+
+    | Algorithm ID reference | Curve   | Public | Secret | Signature |
+    |                        |         | key    | key    |           |
+    +========================+=========+========+========+===========+
+    |                     30 | Ed25519 | 32     | 32     | 64        |
+    +------------------------+---------+--------+--------+-----------+
+    |                     31 | Ed448   | 57     | 57     | 114       |
+    +------------------------+---------+--------+--------+-----------+
 
          Table 6: EdDSA parameters and artifact lengths in octets
 
@@ -913,11 +912,11 @@ Table of Contents
 
    The implementation MUST generate the ML-DSA and the EdDSA component
    keys independently.  ML-DSA key generation follows the specification
-   [FIPS-204] and the artifacts are encoded as fixed-length octet
-   strings as defined in Section 5.1.2.  For EdDSA this is done
-   following the relative specification in [RFC7748], and encoding the
-   artifacts as specified in Section 5.1.1 as fixed-length octet
-   strings.
+   in [FIPS-204], and the artifacts are encoded as fixed-length octet
+   strings whose sizes are listed in Section 5.1.2.  EdDSA key
+   generation follows the specification in [RFC8032], and the artifacts
+   are encoded as fixed-length octet strings whose sizes are listed in
+   Section 5.1.1.
 
 5.2.2.  Signature Generation
 
@@ -978,6 +977,8 @@ Table of Contents
    as defined in [RFC9580], or newer versions defined by updates of that
    document.
 
+5.3.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific public key for ML-DSA + EdDSA keys is this
    series of values:
 
@@ -986,6 +987,8 @@ Table of Contents
 
    *  A fixed-length octet string containing the ML-DSA public key,
       whose length depends on the algorithm ID as specified in Table 7.
+
+5.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific secret key for ML-DSA + EdDSA keys is this
    series of values:
@@ -1032,7 +1035,7 @@ Table of Contents
 
    SLH-DSA key generation is performed via the algorithm slh_keygen as
    specified in [FIPS-205], and the artifacts are encoded as fixed-
-   length octet strings as defined in Section 6.1.
+   length octet strings whose sizes are listed in Section 6.1.
 
 6.1.2.  Signature Generation
 
@@ -1070,10 +1073,14 @@ Table of Contents
    The SLH-DSA code points MUST be used only with v6 keys, as defined in
    [RFC9580], or newer versions defined by updates of that document.
 
+6.2.2.1.  Public Key Packets (Packet Type IDs 6 and 14)
+
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
       whose length depends on the algorithm ID as specified in Table 8.
+
+6.2.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific part of the secret key consists of:
 
@@ -1111,9 +1118,8 @@ Table of Contents
 7.2.  Hash Algorithms for Key Binding Signatures
 
    Subkey binding signatures over algorithms described in this document
-   and primary key binding signatures made by algorithms described in
-   this document MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A
-   receiving implementation MUST treat such a signature as invalid.
+   MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A receiving
+   implementation MUST treat such a signature as invalid.
 
 8.  Migration Considerations
 
@@ -1185,8 +1191,8 @@ Table of Contents
    holds.  Note that Curve25519 and Curve448 qualify as such nominal
    groups [ABH_21].
 
-   Note that the inclusion of the EC public key in the key combiner also
-   accounts for multi-target attacks against X25519 and X448.
+   Note that the inclusion of the ECC public key in the key combiner
+   also accounts for multi-target attacks against X25519 and X448.
 
 9.2.1.  Domain Separation and Context Binding
 
@@ -1265,7 +1271,7 @@ Table of Contents
    in terms of execution time requirements that is close to that of
    traditional ECC signature schemes.  Regarding the size of signatures
    and public keys, though, ML-DSA has far greater requirements than
-   traditional schemes like EC-based or even RSA signature schemes.
+   traditional schemes like ECC-based or even RSA signature schemes.
 
    Implementers may want to offer SLH-DSA for applications where the
    weaker security assumptions of a hash-based signature scheme are
@@ -1320,16 +1326,16 @@ Table of Contents
    |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
    |  |            |Ed25519|Ed25519|signature|              |         |
    |  |            | public| secret|   (Table|              |         |
-   |  |            |    key|    key| 6), 3293|              |         |
+   |  |            |    key|    key| 6), 3309|              |         |
    |  |            | (Table| (Table|   octets|              |         |
-   |  |            |    6),|    6),|ML-DSA-65|              |         |
-   |  |            |   1952|   4032|signature|              |         |
-   |  |            | octets| octets|(Table 7)|              |         |
-   |  |            |    ML-|    ML-|         |              |         |
-   |  |            | DSA-65| DSA-65|         |              |         |
-   |  |            | public| secret|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
+   |  |            |    6),| 6), 32|ML-DSA-65|              |         |
+   |  |            |   1952| octets|signature|              |         |
+   |  |            | octets|    ML-|(Table 7)|              |         |
+   |  |            |    ML-| DSA-65|         |              |         |
+   |  |            | DSA-65| secret|         |              |         |
+   |  |            | public| (Table|         |              |         |
+   |  |            |    key|     7)|         |              |         |
+   |  |            | (Table|       |         |              |         |
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
@@ -1337,15 +1343,15 @@ Table of Contents
    |  |            |  Ed448|  Ed448|    Ed448|              |         |
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table| 6), 4595|              |         |
-   |  |            |    6),|    6),|   octets|              |         |
-   |  |            |   2592|   4896|ML-DSA-87|              |         |
-   |  |            | octets| octets|signature|              |         |
-   |  |            |    ML-|    ML-|(Table 7)|              |         |
-   |  |            | DSA-87| DSA-87|         |              |         |
-   |  |            | public| secret|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
+   |  |            | (Table| (Table| 6), 4627|              |         |
+   |  |            |    6),| 6), 32|   octets|              |         |
+   |  |            |   2592| octets|ML-DSA-87|              |         |
+   |  |            | octets|    ML-|signature|              |         |
+   |  |            |    ML-| DSA-87|(Table 7)|              |         |
+   |  |            | DSA-87| secret|         |              |         |
+   |  |            | public| (Table|         |              |         |
+   |  |            |    key|     7)|         |              |         |
+   |  |            | (Table|       |         |              |         |
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
@@ -1374,16 +1380,16 @@ Table of Contents
    |  |            | X25519| X25519|         |  ciphertext, |         |
    |  |            | public| secret|         |  1088 octets |         |
    |  |            |    key|    key|         |   ML-KEM-768 |         |
-   |  |            | (Table| (Table|         |   ciphertext |         |
-   |  |            |    3),|    3),|         |   [, 1 octet |         |
-   |  |            |   1184|   2400|         | algorithm ID |         |
-   |  |            | octets| octets|         |   in case of |         |
-   |  |            |    ML-|    ML-|         | v3 PKESK], 1 |         |
-   |  |            |KEM-768|KEM-768|         | octet length |         |
-   |  |            | public|secret-|         |     field of |         |
-   |  |            |    key|    key|         |   value n, n |         |
-   |  |            | (Table| (Table|         |       octets |         |
-   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            | (Table| (Table|         |  ciphertext, |         |
+   |  |            |    3),| 3), 64|         |      1 octet |         |
+   |  |            |   1184| octets|         |    remaining |         |
+   |  |            | octets|    ML-|         |   length, [1 |         |
+   |  |            |    ML-|KEM-768|         |        octet |         |
+   |  |            |KEM-768|secret-|         | algorithm ID |         |
+   |  |            | public|    key|         |   in case of |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
@@ -1393,16 +1399,16 @@ Table of Contents
    |  |            |   X448|   X448|         |  ciphertext, |         |
    |  |            | public| secret|         |  1568 octets |         |
    |  |            |    key|    key|         |  ML-KEM-1024 |         |
-   |  |            | (Table| (Table|         |   ciphertext |         |
-   |  |            |    3),|    3),|         |   [, 1 octet |         |
-   |  |            |   1568|   3168|         | algorithm ID |         |
-   |  |            | octets| octets|         |   in case of |         |
-   |  |            |ML-KEM-|ML-KEM-|         | v3 PKESK], 1 |         |
-   |  |            |   1024|   1024|         | octet length |         |
-   |  |            | public|secret-|         |     field of |         |
-   |  |            |    key|    key|         |   value n, n |         |
-   |  |            | (Table| (Table|         |       octets |         |
-   |  |            |     4)|     4)|         |      wrapped |         |
+   |  |            | (Table| (Table|         |  ciphertext, |         |
+   |  |            |    3),| 3), 64|         |      1 octet |         |
+   |  |            |   1568| octets|         |    remaining |         |
+   |  |            | octets|ML-KEM-|         |   length, [1 |         |
+   |  |            |ML-KEM-|   1024|         |        octet |         |
+   |  |            |   1024|secret-|         | algorithm ID |         |
+   |  |            | public|    key|         |   in case of |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
