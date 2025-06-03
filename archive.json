@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-01T02:00:19.695129+00:00",
+  "timestamp": "2025-06-03T01:45:00.049164+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3173,7 +3173,7 @@
       "id": "I_kwDOIrmZ-864socz",
       "title": "Why does `ECDH-KEM.Decaps()` take an `ecdhPublicKey` as a parameter?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/190",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3182,8 +3182,8 @@
       "labels": [],
       "body": "I think the definition in the \"ECDH KEMs\" section (`{#ecc-kem}` in markdown) has a superfluous parameter in its generic definition of `ECDH-KEM.Decaps()`.\n\nIt asks for an `ecdhPublicKey` parameter, but that parameter is not used for either `X25519-KEM` or `X448-KEM`.",
       "createdAt": "2025-05-28T22:34:46Z",
-      "updatedAt": "2025-05-29T14:16:20Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-02T11:07:32Z",
+      "closedAt": "2025-06-02T11:07:32Z",
       "comments": []
     },
     {
@@ -3191,7 +3191,7 @@
       "id": "I_kwDOIrmZ-864sqyp",
       "title": "What is the difference between `X25519-KEM` and `x25519kem` and `x25519Kem`? (likewise for x448)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/191",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3200,8 +3200,8 @@
       "labels": [],
       "body": "The draft shows at least three different variants of what appears to be the same thing: a name for the ECDH KEM algorithm itself.\n\n- `X25519-KEM`\n- `x25519kem`\n- `x25519Kem`\n\nLikewise for curve448:\n\n- `X448-KEM`\n- `x448kem`\n- `x448Kem`\n\n(and the section tags are themselves a fourth variant: `x25519-kem` and `x448-kem`)\n\n```\n$ for x in x448kem X448-KEM x448Kem x25519kem X25519-KEM x25519Kem; do printf \"% 10s % 2d\\n\" $x $(grep -c $x draft-ietf-openpgp-pqc.md); done\n   x448kem  1\n  X448-KEM  2\n   x448Kem  3\n x25519kem  1\nX25519-KEM  2\n x25519Kem  4\n$ \n```\n\nIf they are supposed to indicate something different from each other, please describe it in the terminology section.  If they're supposed to be the same thing, please stick to one orthography.",
       "createdAt": "2025-05-28T22:42:41Z",
-      "updatedAt": "2025-05-29T13:43:52Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-02T09:54:15Z",
+      "closedAt": "2025-06-02T09:54:15Z",
       "comments": []
     },
     {
@@ -3225,16 +3225,26 @@
       "id": "I_kwDOIrmZ-864svfr",
       "title": "why do the ECDH and EdDSA tables need the \"Field size\" property?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/193",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "I don't see any reference to \"field size\" anywhere else in the document, but it is present in the tables labeled `tab-ecdh-cfrg-artifacts` and `tab-eddsa-artifacts`.  can we drop it?\n\nField size is mentioned in [\u00a79.2 of RFC 9580](https://www.rfc-editor.org/rfc/rfc9580.html#section-9.2-4) but only because that specification is juggling the historic complexity introduced by the different possible formats for point formats in the OID-parameterized \"ECDH\" and \"ECDSA\" legacy from RFC 6637.\n\nI don't think \"field size\" is relevant for the PQC document.",
       "createdAt": "2025-05-28T22:59:02Z",
-      "updatedAt": "2025-05-28T22:59:02Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-06-02T10:16:52Z",
+      "closedAt": "2025-06-02T10:16:52Z",
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think it was just mentioned as additional information. I agree that it is not needed and better to be removed",
+          "createdAt": "2025-06-02T07:55:27Z",
+          "updatedAt": "2025-06-02T07:55:27Z"
+        }
+      ]
     },
     {
       "number": 194,
@@ -3244,13 +3254,23 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "The subsection labeled `mlkem-ops` contains what appears to be superfluous text:\n\n```\nThe procedure to perform `ML-KEM.Encaps()` is as follows:\n\n 1. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`, where `mlkemPublicKey` is the recipient's public key\n\n 2. Set `mlkemCipherText` as the ML-KEM ciphertext\n\n 3. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n\nThe procedure to perform `ML-KEM.Decaps()` is as follows:\n\n 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`\n\n 2. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n```\n\nIf it's not superfluous, then it seems tautological: To do `ML-KEM.Decaps()`, invoke `ML-KEM.Decaps()`. \ud83d\ude02\n\nCan we just cut it?",
       "createdAt": "2025-05-28T23:06:56Z",
-      "updatedAt": "2025-05-28T23:06:56Z",
+      "updatedAt": "2025-06-02T07:56:58Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To clarify: You want the whole quoted text to be removed, right? At least that makes the most sense to me and I'll do a PR.",
+          "createdAt": "2025-06-02T07:56:57Z",
+          "updatedAt": "2025-06-02T07:56:57Z"
+        }
+      ]
     },
     {
       "number": 198,
@@ -3260,29 +3280,56 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "\"**Hash Algorithms for Key Binding Signatures**\" says that primary key binding signatures from PQ(/T) subkeys must be rejected when made using `MD5`, `SHA1`, or `RIPEMD160`.\n\n\"**Minimum Digest Size for PQ(/T) Signatures**\" says that *any* PQ(/T) signature must be rejected when made using a digest with less than 256 bits.  If we only count specified OpenPGP digest algorithms, this covers all of the above algorithms plus `SHA2-224`.\n\nThere are two ways to read this situation:\n\n1. the \"key binding signature\" guidance for primary key binding signatures  is irrelevant since it is subsumed by the broader guidance.\n\n2. Or, an exception is being made, to allow verification of `SHA2-224` primary key binding signatures from PQ(/T) subkeys.  \n\nIt'd be great to avoid the ambiguity.  I personally prefer the first interpretation, as i think it's easier to understand and implement (fewer exceptions is better).  Maybe we drop the guidance about primary key binding signatures from the document?\n\n---\n\nSeparately, the \"key binding signature\" guidance for *subkey* binding signatures made *over* PQ(/T) subkeys is not subsumed by the broader guidance because it is intended to cover non-PQ(/T) signatures (e.g. from a traditional primary key).  Should we allow `SHA2-224` for traditional subkey bindings over PQ(/T) subkeys?  I can break this out as a separate issue if you'd like.",
       "createdAt": "2025-05-29T18:31:20Z",
-      "updatedAt": "2025-05-29T18:37:45Z",
+      "updatedAt": "2025-06-02T08:16:01Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good catch. We added the MD5/SHA1/RIPEMD160 restrictions in order to be somewhat independent from the (then) crypto refresh / RFC 9580\n\nI also favor option 1 and dropping the primary key binding part to remove any ambiguity. I will create a PR.\n\n---\n\n> Separately, the \"key binding signature\" guidance for subkey binding signatures made over PQ(/T) subkeys is not subsumed by the broader guidance because it is intended to cover non-PQ(/T) signatures (e.g. from a traditional primary key). Should we allow SHA2-224 for traditional subkey bindings over PQ(/T) subkeys? I can break this out as a separate issue if you'd like.\n\nIf you like you can break this out into a separate issue. My preference would be to not touch this. Then it is allowed to have a v4 key using a sha224 subkey binding sig over an ML-KEM subkey.",
+          "createdAt": "2025-06-02T08:08:46Z",
+          "updatedAt": "2025-06-02T08:16:01Z"
+        }
+      ]
     },
     {
       "number": 199,
       "id": "I_kwDOIrmZ-8642H2Q",
       "title": "is it \"EC\" or \"ECC\"?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/199",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "The current document, when talking about material related to elliptic curve cryptography says:\n\n- EC point public key\n- EC public key\n\nBut also:\n\n- ECC Requirements\n- ECC data structure\n- ECC key\n- ECC signature\n- ECC key derivation function\n\nIs the reader supposed to infer something different from \"EC\" versus \"ECC\"?  if not, can we pick either EC or ECC and use it consistently throughout?",
       "createdAt": "2025-05-29T18:47:17Z",
-      "updatedAt": "2025-05-29T18:47:17Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-06-02T11:09:11Z",
+      "closedAt": "2025-06-02T11:09:10Z",
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we can just use \"ECC\" everywhere. However, to me it seems quite normal to use both terms. RFC 9580 also uses both.\n\nI will create a PR that changes EC to ECC and we can decide if we want to go with that.",
+          "createdAt": "2025-06-02T08:24:58Z",
+          "updatedAt": "2025-06-02T08:24:58Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed with #210 ",
+          "createdAt": "2025-06-02T11:09:10Z",
+          "updatedAt": "2025-06-02T11:09:10Z"
+        }
+      ]
     },
     {
       "number": 200,
@@ -3292,11 +3339,13 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "The current draft says:\n\n-  `EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)`\n- `ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)`\n\nWhy are the final two parameters in different positions?\n\nIn [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032) there is no formal declaration of `EdDSA.Verify`, but [the python example](https://datatracker.ietf.org/doc/html/rfc8032#page-23) says `verify(public, message, signature)`, which is not the order that appears here.",
       "createdAt": "2025-05-29T19:21:03Z",
-      "updatedAt": "2025-05-29T19:21:03Z",
+      "updatedAt": "2025-06-02T09:11:41Z",
       "closedAt": null,
       "comments": []
     },
@@ -3308,11 +3357,13 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "The document says `ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)`, but [FIPS204](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) declares `ML-DSA.Verify(\ud835\udc5d\ud835\udc58, \ud835\udc40, \ud835\udf0e, \ud835\udc50\ud835\udc61\ud835\udc65)`, where `\ud835\udc40` is the message, `\ud835\udf0e` is the signature, and `\ud835\udc50\ud835\udc61\ud835\udc65` is the context.\n\nLikewise, the document says `ML-DSA.Sign(mldsaSecretKey, dataDigest)`, but FIPS204 declares `ML-DSA.Sign(\ud835\udc60\ud835\udc58, \ud835\udc40, \ud835\udc50\ud835\udc61\ud835\udc65)`.\n\nBoth Ed448 and Ed25519 as defined in [RFC8032](https://datatracker.ietf.org/doc/html/rfc8032) have context parameters, as does `slh_verify` and `slh_sign` in [FIPS205](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf).\n\nBut the term `context` comes up only twice in the document, and not about signatures at all.  And the string `ctx` appears nowhere either.\n\nI think this means that the context is always the empty string.  It might be nice to say that explicitly somewhere.",
       "createdAt": "2025-05-29T19:50:49Z",
-      "updatedAt": "2025-05-29T19:52:31Z",
+      "updatedAt": "2025-06-02T09:11:28Z",
       "closedAt": null,
       "comments": [
         {
@@ -3332,11 +3383,13 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "The document currently claims that the functions are named `SLH-DSA.sign` and `SLH-DSA.verify`, but those names are not present in FIPS 205.\n\nWhile [FIPS204](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) does name its functions `ML-DSA.sign` and `ML-DSA.verify`, [FIPS205](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) appears to name its functions `slh_sign` and `slh_verify` (or `hash_slh_sign` and `_hash_slh_verify`, but i don't think OpenPGP is aiming to use those).\n\nWhere this document refers to functions found in FIPS 205, it should use the literal function names that appear in that documet.",
       "createdAt": "2025-05-29T19:57:14Z",
-      "updatedAt": "2025-05-29T19:57:14Z",
+      "updatedAt": "2025-06-02T09:11:37Z",
       "closedAt": null,
       "comments": []
     },
@@ -19306,24 +19359,26 @@
       "id": "PR_kwDOIrmZ-86X_pvH",
       "title": "Fix some nits",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/189",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "These changes address two [complaints from the idnits tool](https://author-tools.ietf.org/api/idnits?url=https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-10.txt):\r\n\r\n```\r\n  ** There are 3 instances of too long lines in the document, the longest one\r\n     being 14 characters in excess of 72.\r\n\r\n  ** The document seems to lack a both a reference to RFC 2119 and the\r\n     recommended RFC 2119 boilerplate, even if it appears to use RFC 2119\r\n     keywords. \r\n\r\n     RFC 2119 keyword, line 348: '...SA-65+Ed25519  | MUST        | Section...'\r\n     RFC 2119 keyword, line 350: '...SA-87+Ed448    | SHOULD      | Section...'\r\n     RFC 2119 keyword, line 352: '...DSA-SHAKE-128s | MAY         | Section...'\r\n     RFC 2119 keyword, line 354: '...DSA-SHAKE-128f | MAY         | Section...'\r\n     RFC 2119 keyword, line 356: '...DSA-SHAKE-256s | MAY         | Section...'\r\n     (32 more instances...)\r\n```",
       "createdAt": "2025-05-28T16:28:50Z",
-      "updatedAt": "2025-05-29T21:05:32Z",
+      "updatedAt": "2025-06-02T08:54:12Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "cleanup",
-      "headRefOid": "40bed1256c50a02b8ffcbe0beb9a39d8db00f9a8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "c69c3da26233aaf0ad81c861597999a18b314ae3",
+      "closedAt": "2025-06-02T08:54:12Z",
+      "mergedAt": "2025-06-02T08:54:12Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "801572cba21451583bd3771376fd85006433c69a"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -19360,6 +19415,52 @@
           "createdAt": "2025-05-29T06:04:28Z",
           "updatedAt": "2025-05-29T06:04:28Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGf-v",
+          "commit": {
+            "abbreviatedOid": "40bed12"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T08:49:18Z",
+          "updatedAt": "2025-06-02T08:49:18Z",
+          "comments": [
+            {
+              "originalPosition": 406,
+              "body": "```suggestion\r\n- Explicitly disallowed SED (Packet Type ID 9) and weak hashes when using PQ algorithms.\r\n```\r\n\r\nEverywhere else it's capitalized",
+              "createdAt": "2025-06-02T08:49:18Z",
+              "updatedAt": "2025-06-02T08:49:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGhDM",
+          "commit": {
+            "abbreviatedOid": "40bed12"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Big thumb up, for this thorough review.",
+          "createdAt": "2025-06-02T08:50:29Z",
+          "updatedAt": "2025-06-02T08:50:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGiwF",
+          "commit": {
+            "abbreviatedOid": "c69c3da"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T08:52:44Z",
+          "updatedAt": "2025-06-02T08:52:44Z",
+          "comments": []
         }
       ]
     },
@@ -19368,24 +19469,26 @@
       "id": "PR_kwDOIrmZ-86YCgBt",
       "title": "KEK combiner takes ECDH pubkey and ciphertext as input",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/195",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This just aligns the textual description with the pseudocode.",
       "createdAt": "2025-05-28T23:15:12Z",
-      "updatedAt": "2025-05-29T05:53:28Z",
+      "updatedAt": "2025-06-02T08:50:48Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "clarify-combiner",
       "headRefOid": "795b1c4cc65e913cd2edcdf0d02e7e40bb32dbe3",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-02T08:50:48Z",
+      "mergedAt": "2025-06-02T08:50:48Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "372c4cd626ce43fd64671c9427b8de243fcca576"
+      },
       "comments": [],
       "reviews": [
         {
@@ -19400,6 +19503,19 @@
           "createdAt": "2025-05-29T05:53:28Z",
           "updatedAt": "2025-05-29T05:53:28Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGhEw",
+          "commit": {
+            "abbreviatedOid": "795b1c4"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T08:50:31Z",
+          "updatedAt": "2025-06-02T08:50:31Z",
+          "comments": []
         }
       ]
     },
@@ -19408,24 +19524,26 @@
       "id": "PR_kwDOIrmZ-86YISun",
       "title": "Unified terminology: X25519-KEM and X448-KEM",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/196",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The terms\r\n\r\n- X25519-KEM\r\n- x25519kem\r\n- x25519Kem\r\n- X448-KEM\r\n- x448kem\r\n- x448Kem\r\n\r\nappear to me to mean the same thing. I chose to unify them to X25519-KEM and X448-KEM as this variant is the closest one to \"ML-KEM\".\r\n\r\nI noticed that we also use ECDH, ECDH KEM and ECDH-KEM, which I left (mostly) untouched but leaves me unsatisfied. In the paragraph \"1.3 Elliptic Curve Cryptography\" we say:\r\n\r\n\"The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [[RFC7748](file:///home/boba/repos/draft-openpgp-pqc/draft-ietf-openpgp-pqc.html#RFC7748)].\"\r\n\r\nI guess we could as well just simplify to ECDH throughout the text.\r\n\r\n",
       "createdAt": "2025-05-29T14:03:47Z",
-      "updatedAt": "2025-05-30T19:43:47Z",
+      "updatedAt": "2025-06-02T09:54:14Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "191-terminology-x25519kem-x448kem",
-      "headRefOid": "0d8a76304f5cb131c71bb28955c8a8b7705ddc66",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "75d6e4ec31976653a7909fddb71849afdf03d9f1",
+      "closedAt": "2025-06-02T09:54:14Z",
+      "mergedAt": "2025-06-02T09:54:14Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "e582288fb1f8292c84e5258b862d99c042427192"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -19482,6 +19600,39 @@
               "updatedAt": "2025-05-30T19:43:47Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGjvP",
+          "commit": {
+            "abbreviatedOid": "0d8a763"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T08:53:57Z",
+          "updatedAt": "2025-06-02T08:53:58Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\n| ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |\r\n```",
+              "createdAt": "2025-06-02T08:53:58Z",
+              "updatedAt": "2025-06-02T08:53:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHXFN",
+          "commit": {
+            "abbreviatedOid": "75d6e4e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T09:53:36Z",
+          "updatedAt": "2025-06-02T09:53:36Z",
+          "comments": []
         }
       ]
     },
@@ -19490,24 +19641,26 @@
       "id": "PR_kwDOIrmZ-86YIgHy",
       "title": "Cleanup ecdhPublicKey in ECDH-KEM.Decaps()",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/197",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "@dkg Nice catch!\r\n\r\nThis is a leftover from our previous Cramer-Shoup IND-CCA2 conversion which was present up to version 6 of the draft (see https://datatracker.ietf.org/doc/html/draft-ietf-openpgp-pqc-06#name-ecdh-kems).\r\n\r\nNow removed from `ECDH-KEM.Decaps()` in sections \"ECDH KEMs\" and \"Decryption Procedure\" (subsection of \"Composite Encryption Schemes with ML-KEM\").",
       "createdAt": "2025-05-29T14:27:14Z",
-      "updatedAt": "2025-05-29T17:38:54Z",
+      "updatedAt": "2025-06-02T11:07:31Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
+      "baseRefOid": "e582288fb1f8292c84e5258b862d99c042427192",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "190-why-does-ecdh-kemdecaps-take-an-ecdhpublickey-as-a-parameter",
-      "headRefOid": "8eb0c241de63f6e9d92888b1938a53ee505d479c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e9bd6262127a85ddcc144b53ecb6a84e0596d3c7",
+      "closedAt": "2025-06-02T11:07:31Z",
+      "mergedAt": "2025-06-02T11:07:31Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "05874038d7622598750dcd8d3578876849ca3ad6"
+      },
       "comments": [],
       "reviews": [
         {
@@ -19522,6 +19675,52 @@
           "createdAt": "2025-05-29T17:38:54Z",
           "updatedAt": "2025-05-29T17:38:54Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sG5kl",
+          "commit": {
+            "abbreviatedOid": "8eb0c24"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-02T09:19:08Z",
+          "updatedAt": "2025-06-02T09:19:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHXcA",
+          "commit": {
+            "abbreviatedOid": "8eb0c24"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T09:53:55Z",
+          "updatedAt": "2025-06-02T09:53:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHbuA",
+          "commit": {
+            "abbreviatedOid": "730231d"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T09:58:10Z",
+          "updatedAt": "2025-06-02T09:58:10Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\n 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)`\r\n```\r\n\r\nParameter order should be consistent",
+              "createdAt": "2025-06-02T09:58:10Z",
+              "updatedAt": "2025-06-02T09:58:10Z"
+            }
+          ]
         }
       ]
     },
@@ -19530,50 +19729,81 @@
       "id": "PR_kwDOIrmZ-86YL12O",
       "title": "Add sub-section headers for key material formats",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/203",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The document already has subsections for signature and PKESK packets that list the packet type IDs, etc.  This change aims to make it easier to reference the public and secret key material formats for the different algorithms.",
       "createdAt": "2025-05-29T21:11:09Z",
-      "updatedAt": "2025-05-29T21:11:10Z",
+      "updatedAt": "2025-06-02T09:58:59Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "key-material-subsections",
       "headRefOid": "fbbae0ad44ed8212a09378c9dde634b71af11110",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-02T09:58:59Z",
+      "mergedAt": "2025-06-02T09:58:59Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "bcf4fb673d770e16cdc52ecdc39c3ca1ce4545ba"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sG7Zv",
+          "commit": {
+            "abbreviatedOid": "fbbae0a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "this makes sense",
+          "createdAt": "2025-06-02T09:21:40Z",
+          "updatedAt": "2025-06-02T09:21:40Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHcVW",
+          "commit": {
+            "abbreviatedOid": "fbbae0a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T09:58:52Z",
+          "updatedAt": "2025-06-02T09:58:52Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 204,
       "id": "PR_kwDOIrmZ-86YL3iz",
       "title": "Normalize text in Key Generation Procedure sections",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/204",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "It's not clear why the ML-* key generation sentences were sigificantly different from the ECC key generation sentences.\r\n\r\nIt was also not clear to me what \"the relative specification\" meant, so i've dropped that term.\r\n\r\nThe sections referenced don't seem to actually \"specify formats\", rather they describe the sizes of the objects, so i've adjusted that text too.",
       "createdAt": "2025-05-29T21:14:55Z",
-      "updatedAt": "2025-05-31T08:30:55Z",
+      "updatedAt": "2025-06-02T10:07:25Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "normalize-keygen",
       "headRefOid": "9d4baa9be0806a7282af43ffad65b1b801748a22",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-02T10:07:25Z",
+      "mergedAt": "2025-06-02T10:07:25Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "7e7f257e38ba877028fd85f2e7f8764451ab3129"
+      },
       "comments": [],
       "reviews": [
         {
@@ -19641,6 +19871,32 @@
           "createdAt": "2025-05-31T08:30:55Z",
           "updatedAt": "2025-05-31T08:30:55Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sG-ek",
+          "commit": {
+            "abbreviatedOid": "9d4baa9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-02T09:24:49Z",
+          "updatedAt": "2025-06-02T09:24:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHjkc",
+          "commit": {
+            "abbreviatedOid": "9d4baa9"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T10:07:19Z",
+          "updatedAt": "2025-06-02T10:07:19Z",
+          "comments": []
         }
       ]
     },
@@ -19649,24 +19905,26 @@
       "id": "PR_kwDOIrmZ-86YL_Nm",
       "title": "Correct octet lengths in the IANA table",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/205",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This fixes three things:\r\n\r\n- uses the seed-style secret key for ML-KEM\r\n- uses the seed-style secret key for ML-DSA\r\n- updates the lengths of the ML-DSA signatures\r\n\r\nI think i've got it right here, but please double-check!",
       "createdAt": "2025-05-29T21:35:05Z",
-      "updatedAt": "2025-05-29T22:20:12Z",
+      "updatedAt": "2025-06-02T10:13:01Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "fix-iana-table",
       "headRefOid": "c08d709394e4734fd92148a90b717d8c3fd7005c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-02T10:13:01Z",
+      "mergedAt": "2025-06-02T10:13:01Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "5defe9317bff549bb956e741f297ceb11a5cea2d"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -19676,7 +19934,378 @@
           "updatedAt": "2025-05-29T22:20:11Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sHJft",
+          "commit": {
+            "abbreviatedOid": "c08d709"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "This looks correct to me. Thanks for checking!",
+          "createdAt": "2025-06-02T09:35:58Z",
+          "updatedAt": "2025-06-02T09:35:58Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHqCG",
+          "commit": {
+            "abbreviatedOid": "c08d709"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Double checked all the sizes, looks correct to me",
+          "createdAt": "2025-06-02T10:12:53Z",
+          "updatedAt": "2025-06-02T10:12:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 207,
+      "id": "PR_kwDOIrmZ-86YkT5L",
+      "title": "remove superfluous field size from tables (issue #193)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/207",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #193",
+      "createdAt": "2025-06-02T07:53:29Z",
+      "updatedAt": "2025-06-02T10:16:51Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5defe9317bff549bb956e741f297ceb11a5cea2d",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "remove-field-size",
+      "headRefOid": "91b4cfa8ba65e2156419e3fdc98abca791d19a9d",
+      "closedAt": "2025-06-02T10:16:51Z",
+      "mergedAt": "2025-06-02T10:16:51Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "0884db9c10f6853d20551513bc0165c2c0997d71"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sGYvW",
+          "commit": {
+            "abbreviatedOid": "abd7242"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-02T08:41:05Z",
+          "updatedAt": "2025-06-02T08:41:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sHquV",
+          "commit": {
+            "abbreviatedOid": "abd7242"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T10:13:36Z",
+          "updatedAt": "2025-06-02T10:13:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 208,
+      "id": "PR_kwDOIrmZ-86YkYBc",
+      "title": "Trim mlkem ops",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/208",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #194 ",
+      "createdAt": "2025-06-02T07:59:49Z",
+      "updatedAt": "2025-06-02T11:19:17Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "801572cba21451583bd3771376fd85006433c69a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "trim-mlkem-ops",
+      "headRefOid": "5aa1a1afe2d4a63bc5380cce39006a76623bc0df",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "(sorry for the mess, accidently commited an unrelated change as well to that branch)",
+          "createdAt": "2025-06-02T08:13:34Z",
+          "updatedAt": "2025-06-02T08:13:34Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sIjjN",
+          "commit": {
+            "abbreviatedOid": "5aa1a1a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T11:19:17Z",
+          "updatedAt": "2025-06-02T11:19:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 209,
+      "id": "PR_kwDOIrmZ-86Ykkvf",
+      "title": "drop signature algorithm constraints for PQ(/T) primary key binding sigs",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/209",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #198",
+      "createdAt": "2025-06-02T08:18:19Z",
+      "updatedAt": "2025-06-02T18:16:09Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "align-digest-algorithm-constraints",
+      "headRefOid": "4400394b884009b3acdf550e1da0395afca5634a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sIYxF",
+          "commit": {
+            "abbreviatedOid": "4400394"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T11:03:37Z",
+          "updatedAt": "2025-06-02T11:09:35Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I believe we could drop this section entirely. We forbid PQC signatures in general for hashes <256 bit\r\n\r\nEdit: Nevermind, the PK may not be PQ...",
+              "createdAt": "2025-06-02T11:03:37Z",
+              "updatedAt": "2025-06-02T11:21:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sImBb",
+          "commit": {
+            "abbreviatedOid": "4400394"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T11:21:56Z",
+          "updatedAt": "2025-06-02T11:21:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sOetm",
+          "commit": {
+            "abbreviatedOid": "4400394"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-02T18:16:09Z",
+          "updatedAt": "2025-06-02T18:16:09Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 210,
+      "id": "PR_kwDOIrmZ-86Ykqhp",
+      "title": "use ECC instead of EC consistently",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/210",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "addresses #199",
+      "createdAt": "2025-06-02T08:27:14Z",
+      "updatedAt": "2025-06-02T11:05:34Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "use-ecc-over-ec-consistently",
+      "headRefOid": "988c8c1dc4458e15111ffad15c092d4fc6fed666",
+      "closedAt": "2025-06-02T11:05:34Z",
+      "mergedAt": "2025-06-02T11:05:34Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "18d4913fcdf3adb89f491f532c2ec48836e86a7d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sGc16",
+          "commit": {
+            "abbreviatedOid": "c869df1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T08:45:34Z",
+          "updatedAt": "2025-06-02T08:45:35Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n - A fixed-length octet string representing an ECC public key, in the point format associated with the curve specified in {{ecc-kem}}.\r\n```\r\nThere is no such thing as an \"ECC point\".",
+              "createdAt": "2025-06-02T08:45:34Z",
+              "updatedAt": "2025-06-02T08:45:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sGd2s",
+          "commit": {
+            "abbreviatedOid": "c869df1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Apart from the one \"ECC point public key\" -> \"ECC public key\", LGTM.",
+          "createdAt": "2025-06-02T08:46:29Z",
+          "updatedAt": "2025-06-02T08:46:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sIZYv",
+          "commit": {
+            "abbreviatedOid": "988c8c1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T11:04:29Z",
+          "updatedAt": "2025-06-02T11:04:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sIaAL",
+          "commit": {
+            "abbreviatedOid": "988c8c1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "GTG",
+          "createdAt": "2025-06-02T11:05:25Z",
+          "updatedAt": "2025-06-02T11:05:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 211,
+      "id": "PR_kwDOIrmZ-86YlJmE",
+      "title": "Clarify context parameter; rename SLH-DSA algorithms to match FIPS 205; change input order of EdDSA.Verify",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/211",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #201, #202, #200\r\n\r\nI chose to do this in one PR since it's related and to avoid conflicts.\r\n\r\nI am not sure about repeating the statement about the context, but I felt it's most clear to mention it when introducing each of the algorithms.",
+      "createdAt": "2025-06-02T09:11:17Z",
+      "updatedAt": "2025-06-02T15:12:35Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "801572cba21451583bd3771376fd85006433c69a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "sig-ctx-parameter",
+      "headRefOid": "8c8d83911b6815fa67a87bd6bc55ed110ee87330",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sIgVe",
+          "commit": {
+            "abbreviatedOid": "7c95d19"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T11:15:02Z",
+          "updatedAt": "2025-06-02T11:15:02Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\nML-DSA signature generation is performed using the default hedged version of the `ML-DSA.Sign` algorithm, as specified in [FIPS-204], with an empty context string `ctx`.\r\n```\r\n\r\nI feel like with less subordinate clauses it reads a bit smoother",
+              "createdAt": "2025-06-02T11:15:02Z",
+              "updatedAt": "2025-06-02T11:17:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sIgwa",
+          "commit": {
+            "abbreviatedOid": "7c95d19"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-02T11:15:46Z",
+          "updatedAt": "2025-06-02T11:15:46Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\nML-DSA signature verification is performed using the `ML-DSA.Verify` algorithm, as specified in [FIPS-204], with an empty context string `ctx`.\r\n```",
+              "createdAt": "2025-06-02T11:15:46Z",
+              "updatedAt": "2025-06-02T11:16:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sMOqv",
+          "commit": {
+            "abbreviatedOid": "8c8d839"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-02T15:12:35Z",
+          "updatedAt": "2025-06-02T15:12:35Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
