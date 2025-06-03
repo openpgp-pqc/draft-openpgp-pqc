@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 4 December 2025                                     F. Strenzke
+Expires: 5 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             2 June 2025
+                                                             3 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 December 2025.
+   This Internet-Draft will expire on 5 December 2025.
 
 Copyright Notice
 
@@ -1114,9 +1114,8 @@ Table of Contents
 7.2.  Hash Algorithms for Key Binding Signatures
 
    Subkey binding signatures over algorithms described in this document
-   and primary key binding signatures made by algorithms described in
-   this document MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A
-   receiving implementation MUST treat such a signature as invalid.
+   MUST NOT be made with MD5, SHA-1, or RIPEMD-160.  A receiving
+   implementation MUST treat such a signature as invalid.
 
 8.  Migration Considerations
 
