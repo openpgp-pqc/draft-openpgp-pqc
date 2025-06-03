@@ -1113,7 +1113,7 @@ Table of Contents
 
 7.2.  Hash Algorithms for Key Binding Signatures
 
-   Subkey binding signatures (signature type 0x18) over algorithms
+   Subkey binding signatures (Signature Type 0x18) over algorithms
    described in this document MUST NOT be made with MD5, SHA-1, or
    RIPEMD-160.  A receiving implementation MUST treat such a signature
    as invalid.
