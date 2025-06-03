@@ -843,7 +843,7 @@ If the pair `AES-128` with `OCB` is also implicitly added to the list, it is add
 
 ## Hash Algorithms for Key Binding Signatures
 
-Subkey binding signatures over algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.
+Subkey binding signatures (signature type 0x18) over algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.
 A receiving implementation MUST treat such a signature as invalid.
 
 # Migration Considerations
