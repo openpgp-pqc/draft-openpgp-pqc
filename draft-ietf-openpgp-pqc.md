@@ -468,11 +468,15 @@ Note that `mlkemPublicKey` is the encapsulation and `mlkemSecretKey` is the deca
 ML-KEM has the parametrization with the corresponding artifact lengths in octets as given in {{tab-mlkem-artifacts}}.
 All artifacts are encoded as defined in [FIPS-203].
 
-{: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
-Algorithm ID reference | ML-KEM      | Public key | Secret key | Ciphertext | Key share
-----------------------:| ----------- | ---------- | ---------- | ---------- | ---------
-35                     | ML-KEM-768  | 1184       | 64         | 1088       | 32
-36                     | ML-KEM-1024 | 1568       | 64         | 1568       | 32
+{: title="ML-KEM parameters and artifact lengths" #tab-mlkem-artifacts}
+                       | ML-KEM-768  | ML-KEM-1024 |
+----------------------:| ----------- | ----------- |
+Algorithm ID reference | 35          | 36          |
+Public key             | 1184 octets | 1568 octets |
+Secret key             | 64 octets   | 64 octets   |
+Ciphertext             | 1088 octets | 1568 octets |
+Key share              | 32 octets   | 32 octets   |
+
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
 
