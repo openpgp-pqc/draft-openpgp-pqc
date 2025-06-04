@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 5 December 2025                                     F. Strenzke
+Expires: 6 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             3 June 2025
+                                                             4 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2025.
+   This Internet-Draft will expire on 6 December 2025.
 
 Copyright Notice
 
@@ -584,23 +584,6 @@ Table of Contents
 
    To instantiate ML-KEM, one must select a parameter set from the
    column "ML-KEM" of Table 4.
-
-   The procedure to perform ML-KEM.Encaps() is as follows:
-
-   1.  Invoke (mlkemCipherText, mlkemKeyShare) <- ML-
-       KEM.Encaps(mlkemPublicKey), where mlkemPublicKey is the
-       recipient's public key
-
-   2.  Set mlkemCipherText as the ML-KEM ciphertext
-
-   3.  Set mlkemKeyShare as the ML-KEM symmetric key share
-
-   The procedure to perform ML-KEM.Decaps() is as follows:
-
-   1.  Invoke mlkemKeyShare <- ML-KEM.Decaps(mlkemCipherText,
-       mlkemSecretKey)
-
-   2.  Set mlkemKeyShare as the ML-KEM symmetric key share
 
 4.2.  Composite Encryption Schemes with ML-KEM
 
