@@ -469,13 +469,13 @@ ML-KEM has the parametrization with the corresponding artifact lengths in octets
 All artifacts are encoded as defined in [FIPS-203].
 
 {: title="ML-KEM parameters and artifact lengths" #tab-mlkem-artifacts}
-                       | ML-KEM-768  | ML-KEM-1024 |
-----------------------:| ----------- | ----------- |
-Algorithm ID reference | 35          | 36          |
-Public key             | 1184 octets | 1568 octets |
-Secret key             | 64 octets   | 64 octets   |
-Ciphertext             | 1088 octets | 1568 octets |
-Key share              | 32 octets   | 32 octets   |
+|                        | ML-KEM-768  | ML-KEM-1024 |
+|------------------------| ----------- | ----------- |
+| Algorithm ID reference | 35          | 36          |
+| Public key             | 1184 octets | 1568 octets |
+| Secret key             | 64 octets   | 64 octets   |
+| Ciphertext             | 1088 octets | 1568 octets |
+| Key share              | 32 octets   | 32 octets   |
 
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
