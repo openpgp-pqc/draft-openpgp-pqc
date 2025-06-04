@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 5 December 2025                                     F. Strenzke
+Expires: 6 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             3 June 2025
+                                                             4 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2025.
+   This Internet-Draft will expire on 6 December 2025.
 
 Copyright Notice
 
@@ -567,15 +567,27 @@ Table of Contents
    mlkemSecretKey is the decapsulation key.
 
    ML-KEM has the parametrization with the corresponding artifact
-   lengths in octets as given in Figure 1.  All artifacts are encoded as
+   lengths in octets as given in Table 4.  All artifacts are encoded as
    defined in [FIPS-203].
 
-                   | ML-KEM-768  | ML-KEM-1024 | ----------------------:| ----------- | ----------- | Algorithm ID reference | 35          | 36          | Public key             | 1184 octets | 1568 octets | Secret key             | 64 octets   | 64 octets   | Ciphertext             | 1088 octets | 1568 octets | Key share              | 32 octets   | 32 octets   |
+          +========================+=============+=============+
+          |                        | ML-KEM-768  | ML-KEM-1024 |
+          +========================+=============+=============+
+          | Algorithm ID reference | 35          | 36          |
+          +------------------------+-------------+-------------+
+          | Public key             | 1184 octets | 1568 octets |
+          +------------------------+-------------+-------------+
+          | Secret key             | 64 octets   | 64 octets   |
+          +------------------------+-------------+-------------+
+          | Ciphertext             | 1088 octets | 1568 octets |
+          +------------------------+-------------+-------------+
+          | Key share              | 32 octets   | 32 octets   |
+          +------------------------+-------------+-------------+
 
-           Figure 1: ML-KEM parameters and artifact lengths
+             Table 4: ML-KEM parameters and artifact lengths
 
    To instantiate ML-KEM, one must select a parameter set from the
-   column "ML-KEM" of Figure 1.
+   column "ML-KEM" of Table 4.
 
    The procedure to perform ML-KEM.Encaps() is as follows:
 
@@ -607,7 +619,7 @@ Table of Contents
            |                     36 | ML-KEM-1024 | X448-KEM   |
            +------------------------+-------------+------------+
 
-                  Table 4: ML-KEM + ECDH composite schemes
+                  Table 5: ML-KEM + ECDH composite schemes
 
    The ML-KEM + ECDH composite public-key encryption schemes are built
    according to the following principal design:
@@ -694,7 +706,7 @@ Table of Contents
        specified in Section 4.3.2.
 
    4.  Instantiate the ECDH-KEM and the ML-KEM depending on the
-       algorithm ID according to Table 4
+       algorithm ID according to Table 5
 
    5.  Compute (ecdhCipherText, ecdhKeyShare) = ECDH-
        KEM.Encaps(ecdhPublicKey)
@@ -733,7 +745,7 @@ Table of Contents
         specified in Section 4.3.2
 
    5.   Instantiate the ECDH-KEM and the ML-KEM depending on the
-        algorithm ID according to Table 4
+        algorithm ID according to Table 5
 
    6.   Parse ecdhCipherText, mlkemCipherText, and C from encryptedKey
         encoded as ecdhCipherText || mlkemCipherText || len(C,symAlgId)
@@ -767,7 +779,7 @@ Table of Contents
       Section 4.1.1.
 
    *  A fixed-length octet string of the ML-KEM ciphertext, whose length
-      depends on the algorithm ID as specified in Figure 1.
+      depends on the algorithm ID as specified in Table 4.
 
    *  A one-octet size of the following fields.
 
@@ -811,7 +823,7 @@ Table of Contents
       point format associated with the curve specified in Section 4.1.1.
 
    *  A fixed-length octet string containing the ML-KEM public key,
-      whose length depends on the algorithm ID as specified in Figure 1.
+      whose length depends on the algorithm ID as specified in Table 4.
 
 4.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
@@ -822,7 +834,7 @@ Table of Contents
       Section 4.1.1.
 
    *  A fixed-length octet string containing the ML-KEM secret key in
-      seed format, whose length is 64 octets (compare Figure 1).  The
+      seed format, whose length is 64 octets (compare Table 4).  The
       seed format is defined in accordance with Section 3.3 of
       [FIPS-203].  Namely, the secret key is given by the concatenation
       of the values of d and z, generated in steps 1 and 2 of ML-
@@ -862,7 +874,7 @@ Table of Contents
     |                     31 | Ed448   | 57     | 57     | 114       |
     +------------------------+---------+--------+--------+-----------+
 
-         Table 5: EdDSA parameters and artifact lengths in octets
+         Table 6: EdDSA parameters and artifact lengths in octets
 
 5.1.2.  ML-DSA Signatures
 
@@ -882,7 +894,7 @@ Table of Contents
  (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
 
    ML-DSA has the parametrization with the corresponding artifact
-   lengths in octets as given in Table 6.  All artifacts are encoded as
+   lengths in octets as given in Table 7.  All artifacts are encoded as
    defined in [FIPS-204].
 
    +========================+===========+========+========+===========+
@@ -894,7 +906,7 @@ Table of Contents
    |                     31 | ML-DSA-87 | 2592   | 32     | 4627      |
    +------------------------+-----------+--------+--------+-----------+
 
-        Table 6: ML-DSA parameters and artifact lengths in octets
+        Table 7: ML-DSA parameters and artifact lengths in octets
 
 5.2.  Composite Signature Schemes with ML-DSA
 
@@ -950,10 +962,10 @@ Table of Contents
    signatures consist of:
 
    *  A fixed-length octet string representing the EdDSA signature,
-      whose length depends on the algorithm ID as specified in Table 5.
+      whose length depends on the algorithm ID as specified in Table 6.
 
    *  A fixed-length octet string of the ML-DSA signature value, whose
-      length depends on the algorithm ID as specified in Table 6.
+      length depends on the algorithm ID as specified in Table 7.
 
    A composite ML-DSA + EdDSA signature MUST use a hash algorithm with a
    digest size of at least 256 bits for the computation of the message
@@ -973,10 +985,10 @@ Table of Contents
    series of values:
 
    *  A fixed-length octet string representing the EdDSA public key,
-      whose length depends on the algorithm ID as specified in Table 5.
+      whose length depends on the algorithm ID as specified in Table 6.
 
    *  A fixed-length octet string containing the ML-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 6.
+      whose length depends on the algorithm ID as specified in Table 7.
 
 5.3.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
@@ -984,10 +996,10 @@ Table of Contents
    series of values:
 
    *  A fixed-length octet string representing the EdDSA secret key,
-      whose length depends on the algorithm ID as specified in Table 5.
+      whose length depends on the algorithm ID as specified in Table 6.
 
    *  A fixed-length octet string containing the ML-DSA secret key in
-      seed format, whose length is 32 octets (compare Table 6).  The
+      seed format, whose length is 32 octets (compare Table 7).  The
       seed format is defined in accordance with Section 3.6.3 of
       [FIPS-204].  Namely, the secret key is given by the value xi
       generated in step 1 of ML-DSA.KeyGen [FIPS-204].  Upon parsing the
@@ -1018,7 +1030,7 @@ Table of Contents
      |                     34 | 64         | 128        | 29792     |
      +------------------------+------------+------------+-----------+
 
-       Table 7: SLH-DSA code points and the corresponding artifact
+       Table 8: SLH-DSA code points and the corresponding artifact
                             lengths in octets.
 
 6.1.1.  Key Generation
@@ -1049,7 +1061,7 @@ Table of Contents
 
    *  A fixed-length octet string of the SLH-DSA signature value, whose
       length depends on the algorithm ID in the format specified in
-      Table 7.
+      Table 8.
 
    An SLH-DSA signature MUST use a hash algorithm with a digest size of
    at least 256 bits for the computation of the message digest.  A
@@ -1066,14 +1078,14 @@ Table of Contents
    The algorithm-specific part of the public key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA public key,
-      whose length depends on the algorithm ID as specified in Table 7.
+      whose length depends on the algorithm ID as specified in Table 8.
 
 6.2.2.2.  Secret Key Packets (Packet Type IDs 5 and 7)
 
    The algorithm-specific part of the secret key consists of:
 
    *  A fixed-length octet string containing the SLH-DSA secret key,
-      whose length depends on the algorithm ID as specified in Table 7.
+      whose length depends on the algorithm ID as specified in Table 8.
 
 7.  Notes on Algorithms
 
@@ -1299,7 +1311,7 @@ Table of Contents
 
 11.  IANA Considerations
 
-   IANA is requested to add the algorithm IDs defined in Table 8 to the
+   IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.  The field
    specifications enclosed in square brackets for the ML-KEM + ECDH
    composite algorithms denote fields that may or may not be present,
@@ -1314,54 +1326,54 @@ Table of Contents
    |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
    |  |            |Ed25519|Ed25519|signature|              |         |
    |  |            | public| secret|   (Table|              |         |
-   |  |            |    key|    key| 5), 3309|              |         |
+   |  |            |    key|    key| 6), 3309|              |         |
    |  |            | (Table| (Table|   octets|              |         |
-   |  |            |    5),| 5), 32|ML-DSA-65|              |         |
+   |  |            |    6),| 6), 32|ML-DSA-65|              |         |
    |  |            |   1952| octets|signature|              |         |
-   |  |            | octets|    ML-|(Table 6)|              |         |
+   |  |            | octets|    ML-|(Table 7)|              |         |
    |  |            |    ML-| DSA-65|         |              |         |
    |  |            | DSA-65| secret|         |              |         |
    |  |            | public| (Table|         |              |         |
-   |  |            |    key|     6)|         |              |         |
+   |  |            |    key|     7)|         |              |         |
    |  |            | (Table|       |         |              |         |
-   |  |            |     6)|       |         |              |         |
+   |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
    |  | 87+Ed448   | octets| octets|   octets|              |      5.2|
    |  |            |  Ed448|  Ed448|    Ed448|              |         |
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table| 5), 4627|              |         |
-   |  |            |    5),| 5), 32|   octets|              |         |
+   |  |            | (Table| (Table| 6), 4627|              |         |
+   |  |            |    6),| 6), 32|   octets|              |         |
    |  |            |   2592| octets|ML-DSA-87|              |         |
    |  |            | octets|    ML-|signature|              |         |
-   |  |            |    ML-| DSA-87|(Table 6)|              |         |
+   |  |            |    ML-| DSA-87|(Table 7)|              |         |
    |  |            | DSA-87| secret|         |              |         |
    |  |            | public| (Table|         |              |         |
-   |  |            |    key|     6)|         |              |         |
+   |  |            |    key|     7)|         |              |         |
    |  |            | (Table|       |         |              |         |
-   |  |            |     6)|       |         |              |         |
+   |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
    |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 7)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     7)|     7)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
    |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 7)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     7)|     7)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
    |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
    |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|(Table 7)|              |         |
+   |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
-   |  |            |     7)|     7)|         |              |         |
+   |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
    |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
@@ -1375,9 +1387,9 @@ Table of Contents
    |  |            |    ML-|KEM-768|         |        octet |         |
    |  |            |KEM-768|secret-|         | algorithm ID |         |
    |  |            | public|    key|         |   in case of |         |
-   |  |            |    key|(Figure|         | v3 PKESK,] n |         |
-   |  |            |(Figure|     1)|         |       octets |         |
-   |  |            |     1)|       |         |      wrapped |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
@@ -1394,15 +1406,15 @@ Table of Contents
    |  |            |ML-KEM-|   1024|         |        octet |         |
    |  |            |   1024|secret-|         | algorithm ID |         |
    |  |            | public|    key|         |   in case of |         |
-   |  |            |    key|(Figure|         | v3 PKESK,] n |         |
-   |  |            |(Figure|     1)|         |       octets |         |
-   |  |            |     1)|       |         |      wrapped |         |
+   |  |            |    key| (Table|         | v3 PKESK,] n |         |
+   |  |            | (Table|     4)|         |       octets |         |
+   |  |            |     4)|       |         |      wrapped |         |
    |  |            |       |       |         |  session key |         |
    |  |            |       |       |         |     (Section |         |
    |  |            |       |       |         |       4.3.1) |         |
    +--+------------+-------+-------+---------+--------------+---------+
 
-    Table 8: IANA updates for registry 'OpenPGP Public Key Algorithms'
+    Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
 12.  Changelog
 
