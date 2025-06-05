@@ -1041,8 +1041,7 @@ Table of Contents
    |Signature|7856 octets       |17088 octets      |29792 octets      |
    +---------+------------------+------------------+------------------+
 
-       Table 8: SLH-DSA code points and the corresponding artifact
-                            lengths in octets.
+   Table 8: SLH-DSA code points and the corresponding artifact lengths.
 
 6.1.1.  Key Generation
 
