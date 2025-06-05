@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-03T01:45:00.049164+00:00",
+  "timestamp": "2025-06-05T01:44:05.287401+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3212,11 +3212,13 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "wussler"
+      ],
       "labels": [],
       "body": "The two KEM artifact tables labeled as `tab-ecdh-cfrg-artifacts` and `tab-mlkem-artifacts` seem to contain roughly analogous data, but one of them has rows as properties and columns as algorithm choices; while the other has rows as algorithm choices and columns as properties.\n\nIt would be nice for the reader to normalize the two tables so that they are shaped the same way.  I'd typically expect to see the columns as properties and the rows as algorithm choices.",
       "createdAt": "2025-05-28T22:52:02Z",
-      "updatedAt": "2025-05-28T22:52:02Z",
+      "updatedAt": "2025-06-03T09:26:37Z",
       "closedAt": null,
       "comments": []
     },
@@ -3251,7 +3253,7 @@
       "id": "I_kwDOIrmZ-864sx9X",
       "title": "Trim `mlkem-ops` section",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/194",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3260,8 +3262,8 @@
       "labels": [],
       "body": "The subsection labeled `mlkem-ops` contains what appears to be superfluous text:\n\n```\nThe procedure to perform `ML-KEM.Encaps()` is as follows:\n\n 1. Invoke `(mlkemCipherText, mlkemKeyShare) <- ML-KEM.Encaps(mlkemPublicKey)`, where `mlkemPublicKey` is the recipient's public key\n\n 2. Set `mlkemCipherText` as the ML-KEM ciphertext\n\n 3. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n\nThe procedure to perform `ML-KEM.Decaps()` is as follows:\n\n 1. Invoke `mlkemKeyShare <-  ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`\n\n 2. Set `mlkemKeyShare` as the ML-KEM symmetric key share\n```\n\nIf it's not superfluous, then it seems tautological: To do `ML-KEM.Decaps()`, invoke `ML-KEM.Decaps()`. \ud83d\ude02\n\nCan we just cut it?",
       "createdAt": "2025-05-28T23:06:56Z",
-      "updatedAt": "2025-06-02T07:56:58Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-04T04:05:19Z",
+      "closedAt": "2025-06-04T04:05:19Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -3277,7 +3279,7 @@
       "id": "I_kwDOIrmZ-864180d",
       "title": "Align digest algorithm constraints: \"Key Binding Signatures\" and \"Minimum Digest Size for PQ(/T) Signatures\"",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/198",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3286,8 +3288,8 @@
       "labels": [],
       "body": "\"**Hash Algorithms for Key Binding Signatures**\" says that primary key binding signatures from PQ(/T) subkeys must be rejected when made using `MD5`, `SHA1`, or `RIPEMD160`.\n\n\"**Minimum Digest Size for PQ(/T) Signatures**\" says that *any* PQ(/T) signature must be rejected when made using a digest with less than 256 bits.  If we only count specified OpenPGP digest algorithms, this covers all of the above algorithms plus `SHA2-224`.\n\nThere are two ways to read this situation:\n\n1. the \"key binding signature\" guidance for primary key binding signatures  is irrelevant since it is subsumed by the broader guidance.\n\n2. Or, an exception is being made, to allow verification of `SHA2-224` primary key binding signatures from PQ(/T) subkeys.  \n\nIt'd be great to avoid the ambiguity.  I personally prefer the first interpretation, as i think it's easier to understand and implement (fewer exceptions is better).  Maybe we drop the guidance about primary key binding signatures from the document?\n\n---\n\nSeparately, the \"key binding signature\" guidance for *subkey* binding signatures made *over* PQ(/T) subkeys is not subsumed by the broader guidance because it is intended to cover non-PQ(/T) signatures (e.g. from a traditional primary key).  Should we allow `SHA2-224` for traditional subkey bindings over PQ(/T) subkeys?  I can break this out as a separate issue if you'd like.",
       "createdAt": "2025-05-29T18:31:20Z",
-      "updatedAt": "2025-06-02T08:16:01Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-03T09:27:06Z",
+      "closedAt": "2025-06-03T09:27:06Z",
       "comments": [
         {
           "author": "TJ-91",
@@ -3401,11 +3403,13 @@
       "state": "OPEN",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "TJ-91"
+      ],
       "labels": [],
       "body": "In \"**Hash Algorithms for Key Binding Signatures**\", it says \"subkey binding signatures\" and \"primary key binding signatures\".  Perhaps it would be cleaner to include a parenthetical aside like \"(signature type 0x18)\" in the relevant place.\n\nNote that #198 probably needs to be resolved first.",
       "createdAt": "2025-05-29T21:43:15Z",
-      "updatedAt": "2025-05-29T21:43:15Z",
+      "updatedAt": "2025-06-03T12:33:11Z",
       "closedAt": null,
       "comments": []
     }
@@ -20023,24 +20027,26 @@
       "id": "PR_kwDOIrmZ-86YkYBc",
       "title": "Trim mlkem ops",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/208",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "resolves #194 ",
       "createdAt": "2025-06-02T07:59:49Z",
-      "updatedAt": "2025-06-02T11:19:17Z",
+      "updatedAt": "2025-06-04T04:05:19Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "801572cba21451583bd3771376fd85006433c69a",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "trim-mlkem-ops",
       "headRefOid": "5aa1a1afe2d4a63bc5380cce39006a76623bc0df",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-04T04:05:19Z",
+      "mergedAt": "2025-06-04T04:05:18Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "faefbc4846c5a09a2671b0555a7cb4159f5cb00c"
+      },
       "comments": [
         {
           "author": "TJ-91",
@@ -20063,6 +20069,19 @@
           "createdAt": "2025-06-02T11:19:17Z",
           "updatedAt": "2025-06-02T11:19:17Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sXARQ",
+          "commit": {
+            "abbreviatedOid": "5aa1a1a"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM\r\n\r\n(IMHO once removed the text becomes more consistent, in particular when looking at the straightforward EdDSA and ML-DSA description)",
+          "createdAt": "2025-06-03T10:30:38Z",
+          "updatedAt": "2025-06-03T10:30:38Z",
+          "comments": []
         }
       ]
     },
@@ -20071,24 +20090,26 @@
       "id": "PR_kwDOIrmZ-86Ykkvf",
       "title": "drop signature algorithm constraints for PQ(/T) primary key binding sigs",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/209",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "resolves #198",
       "createdAt": "2025-06-02T08:18:19Z",
-      "updatedAt": "2025-06-02T18:16:09Z",
+      "updatedAt": "2025-06-03T09:27:05Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a3e106ea7dee0ae4ed7ba4579d56d312f08b7dbb",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "align-digest-algorithm-constraints",
       "headRefOid": "4400394b884009b3acdf550e1da0395afca5634a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-03T09:27:05Z",
+      "mergedAt": "2025-06-03T09:27:05Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37"
+      },
       "comments": [],
       "reviews": [
         {
@@ -20239,13 +20260,13 @@
       "labels": [],
       "body": "resolves #201, #202, #200\r\n\r\nI chose to do this in one PR since it's related and to avoid conflicts.\r\n\r\nI am not sure about repeating the statement about the context, but I felt it's most clear to mention it when introducing each of the algorithms.",
       "createdAt": "2025-06-02T09:11:17Z",
-      "updatedAt": "2025-06-02T15:12:35Z",
+      "updatedAt": "2025-06-04T04:19:24Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "801572cba21451583bd3771376fd85006433c69a",
+      "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sig-ctx-parameter",
-      "headRefOid": "8c8d83911b6815fa67a87bd6bc55ed110ee87330",
+      "headRefOid": "dda763eca8a9b022638a3cb4e5ea4a370286320e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -20303,6 +20324,140 @@
           "body": "",
           "createdAt": "2025-06-02T15:12:35Z",
           "updatedAt": "2025-06-02T15:12:35Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sj33q",
+          "commit": {
+            "abbreviatedOid": "dda763e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-04T04:19:24Z",
+          "updatedAt": "2025-06-04T04:19:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 212,
+      "id": "PR_kwDOIrmZ-86Y0Gu3",
+      "title": "identify signature type for subkey binding signature",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/212",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "resolves #206",
+      "createdAt": "2025-06-03T12:33:57Z",
+      "updatedAt": "2025-06-04T04:21:58Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "identify-signature-types",
+      "headRefOid": "1ab12b473d2f7eef17ed3b4b6cc42d52f1243f85",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sZQSG",
+          "commit": {
+            "abbreviatedOid": "f830716"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-03T13:12:21Z",
+          "updatedAt": "2025-06-03T13:12:21Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nSubkey binding signatures (Signature Type 0x18) over algorithms described in this document MUST NOT be made with `MD5`, `SHA-1`, or `RIPEMD-160`.\r\n```\r\n\r\nAll the \"Packet Type\" are capitalized. Do we want consistency?",
+              "createdAt": "2025-06-03T13:12:21Z",
+              "updatedAt": "2025-06-03T13:12:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sj5Tu",
+          "commit": {
+            "abbreviatedOid": "1ab12b4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-04T04:21:58Z",
+          "updatedAt": "2025-06-04T04:21:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 213,
+      "id": "PR_kwDOIrmZ-86Y0jAZ",
+      "title": "Rotate ML-KEM table",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/213",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This closes issues #192 ",
+      "createdAt": "2025-06-03T13:09:32Z",
+      "updatedAt": "2025-06-04T04:17:22Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "rotate-mlkem-table",
+      "headRefOid": "c703c009f0fb70ffcf76015710e0511dd0eac074",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I thought this way around looks cleaner, uses the space better IMO",
+          "createdAt": "2025-06-03T14:46:51Z",
+          "updatedAt": "2025-06-03T14:46:51Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86sbL5Q",
+          "commit": {
+            "abbreviatedOid": "5ac579f"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Tbh I don't understand whether DKG wanted it this way or the other way around but at least it's consistent now",
+          "createdAt": "2025-06-03T14:44:41Z",
+          "updatedAt": "2025-06-03T14:44:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86sj2-t",
+          "commit": {
+            "abbreviatedOid": "c703c00"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I fixed the missing `|` in the rotated ML-KEM table. The table didn't have line breaks in my compile without it.\r\n\r\nShould we also rotate the EdDSA and ML-DSA tables wo be generally consistent? ",
+          "createdAt": "2025-06-04T04:17:22Z",
+          "updatedAt": "2025-06-04T04:17:22Z",
           "comments": []
         }
       ]
