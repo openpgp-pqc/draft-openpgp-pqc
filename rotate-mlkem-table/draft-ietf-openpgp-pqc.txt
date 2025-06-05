@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 6 December 2025                                     F. Strenzke
+Expires: 7 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             4 June 2025
+                                                             5 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2025.
+   This Internet-Draft will expire on 7 December 2025.
 
 Copyright Notice
 
@@ -865,16 +865,19 @@ Table of Contents
    according to [RFC8032] as fixed-length octet strings.  The following
    table describes the EdDSA parameters and artifact lengths:
 
-    +========================+=========+========+========+===========+
-    | Algorithm ID reference | Curve   | Public | Secret | Signature |
-    |                        |         | key    | key    |           |
-    +========================+=========+========+========+===========+
-    |                     30 | Ed25519 | 32     | 32     | 64        |
-    +------------------------+---------+--------+--------+-----------+
-    |                     31 | Ed448   | 57     | 57     | 114       |
-    +------------------------+---------+--------+--------+-----------+
+            +========================+===========+============+
+            |                        | Ed25519   | Ed448      |
+            +========================+===========+============+
+            | Algorithm ID reference | 30        | 31         |
+            +------------------------+-----------+------------+
+            | Public key             | 32 octets | 57 octets  |
+            +------------------------+-----------+------------+
+            | Secret key             | 32 octets | 57 octets  |
+            +------------------------+-----------+------------+
+            | Signature              | 64 octets | 114 octets |
+            +------------------------+-----------+------------+
 
-         Table 6: EdDSA parameters and artifact lengths in octets
+               Table 6: EdDSA parameters and artifact lengths
 
 5.1.2.  ML-DSA Signatures
 
@@ -897,16 +900,19 @@ Table of Contents
    lengths in octets as given in Table 7.  All artifacts are encoded as
    defined in [FIPS-204].
 
-   +========================+===========+========+========+===========+
-   | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
-   |                        |           | key    | key    | value     |
-   +========================+===========+========+========+===========+
-   |                     30 | ML-DSA-65 | 1952   | 32     | 3309      |
-   +------------------------+-----------+--------+--------+-----------+
-   |                     31 | ML-DSA-87 | 2592   | 32     | 4627      |
-   +------------------------+-----------+--------+--------+-----------+
+          +========================+=============+=============+
+          |                        | ML-DSA-65   | ML-DSA-87   |
+          +========================+=============+=============+
+          | Algorithm ID reference | 30          | 31          |
+          +------------------------+-------------+-------------+
+          | Public key             | 1952 octets | 2592 octets |
+          +------------------------+-------------+-------------+
+          | Secret key             | 32 octets   | 57 octets   |
+          +------------------------+-------------+-------------+
+          | Signature              | 3309 octets | 4627 octets |
+          +------------------------+-------------+-------------+
 
-        Table 7: ML-DSA parameters and artifact lengths in octets
+             Table 7: ML-DSA parameters and artifact lengths
 
 5.2.  Composite Signature Schemes with ML-DSA
 
@@ -1019,16 +1025,21 @@ Table of Contents
    This group of algorithms is henceforth referred to as "SLH-DSA code
    points".
 
-     +========================+============+============+===========+
-     | Algorithm ID reference | SLH-DSA    | SLH-DSA    | SLH-DSA   |
-     |                        | public key | secret key | signature |
-     +========================+============+============+===========+
-     |                     32 | 32         | 64         | 7856      |
-     +------------------------+------------+------------+-----------+
-     |                     33 | 32         | 64         | 17088     |
-     +------------------------+------------+------------+-----------+
-     |                     34 | 64         | 128        | 29792     |
-     +------------------------+------------+------------+-----------+
+   +=========+==================+==================+==================+
+   |         |SLH-DSA-SHAKE-128s|SLH-DSA-SHAKE-128f|SLH-DSA-SHAKE-256s|
+   +=========+==================+==================+==================+
+   |Algorithm|32                |33                |34                |
+   |ID       |                  |                  |                  |
+   |reference|                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Public   |32 octets         |32 octets         |64 octets         |
+   |key      |                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Secret   |64 octets         |64 octets         |64 octets         |
+   |key      |                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Signature|7856 octets       |17088 octets      |29792 octets      |
+   +---------+------------------+------------------+------------------+
 
        Table 8: SLH-DSA code points and the corresponding artifact
                             lengths in octets.

@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 6 December 2025</td>
+<td class="center">Expires 7 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-04" class="published">4 June 2025</time>
+<time datetime="2025-06-05" class="published">5 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-06">6 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-07">7 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2465,31 +2465,35 @@ The following table describes the EdDSA parameters and artifact lengths:<a href=
 <table class="center" id="table-6">
             <caption>
 <a href="#table-6" class="selfRef">Table 6</a>:
-<a href="#name-eddsa-parameters-and-artifa" class="selfRef">EdDSA parameters and artifact lengths in octets</a>
+<a href="#name-eddsa-parameters-and-artifa" class="selfRef">EdDSA parameters and artifact lengths</a>
             </caption>
 <thead>
               <tr>
-                <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-                <th class="text-left" rowspan="1" colspan="1">Curve</th>
-                <th class="text-left" rowspan="1" colspan="1">Public key</th>
-                <th class="text-left" rowspan="1" colspan="1">Secret key</th>
-                <th class="text-left" rowspan="1" colspan="1">Signature</th>
+                <th class="text-left" rowspan="1" colspan="1"> </th>
+                <th class="text-left" rowspan="1" colspan="1">Ed25519</th>
+                <th class="text-left" rowspan="1" colspan="1">Ed448</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">30</td>
-                <td class="text-left" rowspan="1" colspan="1">Ed25519</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
-                <td class="text-left" rowspan="1" colspan="1">64</td>
+                <td class="text-left" rowspan="1" colspan="1">Algorithm ID reference</td>
+                <td class="text-left" rowspan="1" colspan="1">30</td>
+                <td class="text-left" rowspan="1" colspan="1">31</td>
               </tr>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">31</td>
-                <td class="text-left" rowspan="1" colspan="1">Ed448</td>
-                <td class="text-left" rowspan="1" colspan="1">57</td>
-                <td class="text-left" rowspan="1" colspan="1">57</td>
-                <td class="text-left" rowspan="1" colspan="1">114</td>
+                <td class="text-left" rowspan="1" colspan="1">Public key</td>
+                <td class="text-left" rowspan="1" colspan="1">32 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">57 octets</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Secret key</td>
+                <td class="text-left" rowspan="1" colspan="1">32 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">57 octets</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Signature</td>
+                <td class="text-left" rowspan="1" colspan="1">64 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">114 octets</td>
               </tr>
             </tbody>
           </table>
@@ -2522,31 +2526,35 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-204" class="cite x
 <table class="center" id="table-7">
             <caption>
 <a href="#table-7" class="selfRef">Table 7</a>:
-<a href="#name-ml-dsa-parameters-and-artif" class="selfRef">ML-DSA parameters and artifact lengths in octets</a>
+<a href="#name-ml-dsa-parameters-and-artif" class="selfRef">ML-DSA parameters and artifact lengths</a>
             </caption>
 <thead>
               <tr>
-                <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-                <th class="text-left" rowspan="1" colspan="1">ML-DSA</th>
-                <th class="text-left" rowspan="1" colspan="1">Public key</th>
-                <th class="text-left" rowspan="1" colspan="1">Secret key</th>
-                <th class="text-left" rowspan="1" colspan="1">Signature value</th>
+                <th class="text-left" rowspan="1" colspan="1"> </th>
+                <th class="text-left" rowspan="1" colspan="1">ML-DSA-65</th>
+                <th class="text-left" rowspan="1" colspan="1">ML-DSA-87</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">30</td>
-                <td class="text-left" rowspan="1" colspan="1">ML-DSA-65</td>
-                <td class="text-left" rowspan="1" colspan="1">1952</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
-                <td class="text-left" rowspan="1" colspan="1">3309</td>
+                <td class="text-left" rowspan="1" colspan="1">Algorithm ID reference</td>
+                <td class="text-left" rowspan="1" colspan="1">30</td>
+                <td class="text-left" rowspan="1" colspan="1">31</td>
               </tr>
               <tr>
-                <td class="text-right" rowspan="1" colspan="1">31</td>
-                <td class="text-left" rowspan="1" colspan="1">ML-DSA-87</td>
-                <td class="text-left" rowspan="1" colspan="1">2592</td>
-                <td class="text-left" rowspan="1" colspan="1">32</td>
-                <td class="text-left" rowspan="1" colspan="1">4627</td>
+                <td class="text-left" rowspan="1" colspan="1">Public key</td>
+                <td class="text-left" rowspan="1" colspan="1">1952 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">2592 octets</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Secret key</td>
+                <td class="text-left" rowspan="1" colspan="1">32 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">57 octets</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Signature</td>
+                <td class="text-left" rowspan="1" colspan="1">3309 octets</td>
+                <td class="text-left" rowspan="1" colspan="1">4627 octets</td>
               </tr>
             </tbody>
           </table>
@@ -2703,30 +2711,36 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           </caption>
 <thead>
             <tr>
-              <th class="text-right" rowspan="1" colspan="1">Algorithm ID reference</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA public key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA secret key</th>
-              <th class="text-left" rowspan="1" colspan="1">SLH-DSA signature</th>
+              <th class="text-left" rowspan="1" colspan="1"> </th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</th>
+              <th class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">32</td>
+              <td class="text-left" rowspan="1" colspan="1">Algorithm ID reference</td>
               <td class="text-left" rowspan="1" colspan="1">32</td>
-              <td class="text-left" rowspan="1" colspan="1">64</td>
-              <td class="text-left" rowspan="1" colspan="1">7856</td>
+              <td class="text-left" rowspan="1" colspan="1">33</td>
+              <td class="text-left" rowspan="1" colspan="1">34</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">33</td>
-              <td class="text-left" rowspan="1" colspan="1">32</td>
-              <td class="text-left" rowspan="1" colspan="1">64</td>
-              <td class="text-left" rowspan="1" colspan="1">17088</td>
+              <td class="text-left" rowspan="1" colspan="1">Public key</td>
+              <td class="text-left" rowspan="1" colspan="1">32 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">32 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">64 octets</td>
             </tr>
             <tr>
-              <td class="text-right" rowspan="1" colspan="1">34</td>
-              <td class="text-left" rowspan="1" colspan="1">64</td>
-              <td class="text-left" rowspan="1" colspan="1">128</td>
-              <td class="text-left" rowspan="1" colspan="1">29792</td>
+              <td class="text-left" rowspan="1" colspan="1">Secret key</td>
+              <td class="text-left" rowspan="1" colspan="1">64 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">64 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">64 octets</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Signature</td>
+              <td class="text-left" rowspan="1" colspan="1">7856 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">17088 octets</td>
+              <td class="text-left" rowspan="1" colspan="1">29792 octets</td>
             </tr>
           </tbody>
         </table>
