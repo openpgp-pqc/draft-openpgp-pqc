@@ -1053,6 +1053,9 @@ ID     | Algorithm           | Public Key Format                                
 - Specified minimum requirements for signature message digest sizes.
 - Added security considerations for signature message digest sizes.
 
+## draft-ietf-openpgp-pqc-11
+- Cleaned up inconsistencies and editorial changes.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
