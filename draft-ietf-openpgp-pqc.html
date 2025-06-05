@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 6 December 2025</td>
+<td class="center">Expires 7 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-04" class="published">4 June 2025</time>
+<time datetime="2025-06-05" class="published">5 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-06">6 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-07">7 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2419,7 +2419,8 @@ Upon parsing the secret key format, or before using the secret key, for the expa
           <h4 id="name-eddsa-based-signatures">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-eddsa-based-signatures" class="section-name selfRef">EdDSA-Based Signatures</a>
           </h4>
-<p id="section-5.1.1-1">Throughout this specification EdDSA refers to the PureEdDSA variant defined in <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-1">Throughout this specification EdDSA refers to the PureEdDSA variant defined in <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>.
+The context is always empty.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.1-2">To sign and verify with EdDSA the following operations are defined:<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.1-3">
 <pre>
@@ -2429,7 +2430,7 @@ Upon parsing the secret key format, or before using the secret key, for the expa
 <p id="section-5.1.1-4">and<a href="#section-5.1.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.1-5">
 <pre>
-(verified) &lt;- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
+(verified) &lt;- EdDSA.Verify(eddsaPublicKey, dataDigest, eddsaSignature)
 </pre><a href="#section-5.1.1-5" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1.1-6">The public and secret key, as well as the signature <span class="bcp14">MUST</span> be encoded according to <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> as fixed-length octet strings.
@@ -2475,14 +2476,14 @@ The following table describes the EdDSA parameters and artifact lengths:<a href=
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-ml-dsa-signatures" class="section-name selfRef">ML-DSA Signatures</a>
           </h4>
 <p id="section-5.1.2-1">Throughout this specification ML-DSA refers to the default pure and hedged version of ML-DSA defined in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">For ML-DSA signature generation the default hedged version of the algorithm <code>ML-DSA.Sign</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-2">ML-DSA signature generation is performed using the default hedged version of the <code>ML-DSA.Sign</code> algorithm, as specified in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, with an empty context string <code>ctx</code>.
 That is, to sign with ML-DSA the following operation is defined:<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-3">
 <pre>
 (mldsaSignature) &lt;- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 </pre><a href="#section-5.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1.2-4">For ML-DSA signature verification the algorithm <code>ML-DSA.Verify</code> given in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> is used.
+<p id="section-5.1.2-4">ML-DSA signature verification is performed using the <code>ML-DSA.Verify</code> algorithm, as specified in <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, with an empty context string <code>ctx</code>.
 That is, to verify with ML-DSA the following operation is defined:<a href="#section-5.1.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1.2-5">
 <pre>
@@ -2709,7 +2710,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           <h4 id="name-key-generation">
 <a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-key-generation" class="section-name selfRef">Key Generation</a>
           </h4>
-<p id="section-6.1.1-1">SLH-DSA key generation is performed via the algorithm <code>SLH-DSA.KeyGen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-1">SLH-DSA key generation is performed via the algorithm <code>slh_keygen</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and the artifacts are encoded as fixed-length octet strings whose sizes are listed in <a href="#slhdsa" class="auto internal xref">Section 6.1</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-generation-1">
@@ -2717,7 +2718,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           <h4 id="name-signature-generation-2">
 <a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
           </h4>
-<p id="section-6.1.2-1">SLH-DSA signature generation is performed via the default hedged version of the algorithm <code>SLH-DSA.Sign</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-1">SLH-DSA signature generation is performed using the default hedged version of the <code>slh_sign</code> algorithm, as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, with an empty context string <code>ctx</code>.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-verification-1">
@@ -2725,7 +2726,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".<a h
           <h4 id="name-signature-verification-2">
 <a href="#section-6.1.3" class="section-number selfRef">6.1.3. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
           </h4>
-<p id="section-6.1.3-1">SLH-DSA signature verification is performed via the algorithm <code>SLH-DSA.Verify</code> as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.1.3-1">SLH-DSA signature verification is performed using the <code>slh_verify</code> algorithm, as specified in <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, with an empty context string <code>ctx</code>.<a href="#section-6.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

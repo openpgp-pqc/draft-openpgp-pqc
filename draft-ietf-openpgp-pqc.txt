@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 6 December 2025                                     F. Strenzke
+Expires: 7 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             4 June 2025
+                                                             5 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2025.
+   This Internet-Draft will expire on 7 December 2025.
 
 Copyright Notice
 
@@ -830,7 +830,7 @@ Table of Contents
 5.1.1.  EdDSA-Based Signatures
 
    Throughout this specification EdDSA refers to the PureEdDSA variant
-   defined in [RFC8032].
+   defined in [RFC8032].  The context is always empty.
 
    To sign and verify with EdDSA the following operations are defined:
 
@@ -838,7 +838,7 @@ Table of Contents
 
    and
 
-  (verified) <- EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)
+  (verified) <- EdDSA.Verify(eddsaPublicKey, dataDigest, eddsaSignature)
 
    The public and secret key, as well as the signature MUST be encoded
    according to [RFC8032] as fixed-length octet strings.  The following
@@ -860,15 +860,17 @@ Table of Contents
    Throughout this specification ML-DSA refers to the default pure and
    hedged version of ML-DSA defined in [FIPS-204].
 
-   For ML-DSA signature generation the default hedged version of the
-   algorithm ML-DSA.Sign given in [FIPS-204] is used.  That is, to sign
-   with ML-DSA the following operation is defined:
+   ML-DSA signature generation is performed using the default hedged
+   version of the ML-DSA.Sign algorithm, as specified in [FIPS-204],
+   with an empty context string ctx.  That is, to sign with ML-DSA the
+   following operation is defined:
 
    (mldsaSignature) <- ML-DSA.Sign(mldsaSecretKey, dataDigest)
 
-   For ML-DSA signature verification the algorithm ML-DSA.Verify given
-   in [FIPS-204] is used.  That is, to verify with ML-DSA the following
-   operation is defined:
+   ML-DSA signature verification is performed using the ML-DSA.Verify
+   algorithm, as specified in [FIPS-204], with an empty context string
+   ctx.  That is, to verify with ML-DSA the following operation is
+   defined:
 
  (verified) <- ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)
 
@@ -1014,19 +1016,21 @@ Table of Contents
 
 6.1.1.  Key Generation
 
-   SLH-DSA key generation is performed via the algorithm SLH-DSA.KeyGen
-   as specified in [FIPS-205], and the artifacts are encoded as fixed-
+   SLH-DSA key generation is performed via the algorithm slh_keygen as
+   specified in [FIPS-205], and the artifacts are encoded as fixed-
    length octet strings whose sizes are listed in Section 6.1.
 
 6.1.2.  Signature Generation
 
-   SLH-DSA signature generation is performed via the default hedged
-   version of the algorithm SLH-DSA.Sign as specified in [FIPS-205].
+   SLH-DSA signature generation is performed using the default hedged
+   version of the slh_sign algorithm, as specified in [FIPS-205], with
+   an empty context string ctx.
 
 6.1.3.  Signature Verification
 
-   SLH-DSA signature verification is performed via the algorithm SLH-
-   DSA.Verify as specified in [FIPS-205].
+   SLH-DSA signature verification is performed using the slh_verify
+   algorithm, as specified in [FIPS-205], with an empty context string
+   ctx.
 
 6.2.  Packet Specifications
 
