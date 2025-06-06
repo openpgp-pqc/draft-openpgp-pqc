@@ -388,14 +388,14 @@ In this section we define the encryption, decryption, and data formats for the E
 The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [RFC7748].
 
 {: title="Montgomery curve parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
-|                        | X25519                                     | X448                                       |
-|------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | 35                                         | 36                                         |
-| ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
-| ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH key share         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+|                        | X25519                      | X448                    |
+|------------------------|-----------------------------|-------------------------|
+| Algorithm ID reference | 35                          | 36                      |
+| ECDH KEM               | X25519-KEM ({{x25519-kem}}) | X448-KEM ({{x448-kem}}) |
+| ECDH public key        | 32 octets                   | 56 octets               |
+| ECDH secret key        | 32 octets                   | 56 octets               |
+| ECDH ephemeral         | 32 octets                   | 56 octets               |
+| ECDH key share         | 32 octets                   | 56 octets               |
 
 The various procedures to perform the operations of an ECDH KEM are defined in the following subsections.
 Specifically, each of these subsections defines the instances of the following operations:
@@ -468,11 +468,15 @@ Note that `mlkemPublicKey` is the encapsulation and `mlkemSecretKey` is the deca
 ML-KEM has the parametrization with the corresponding artifact lengths in octets as given in {{tab-mlkem-artifacts}}.
 All artifacts are encoded as defined in [FIPS-203].
 
-{: title="ML-KEM parameters artifact lengths in octets" #tab-mlkem-artifacts}
-Algorithm ID reference | ML-KEM      | Public key | Secret key | Ciphertext | Key share
-----------------------:| ----------- | ---------- | ---------- | ---------- | ---------
-35                     | ML-KEM-768  | 1184       | 64         | 1088       | 32
-36                     | ML-KEM-1024 | 1568       | 64         | 1568       | 32
+{: title="ML-KEM parameters and artifact lengths" #tab-mlkem-artifacts}
+|                        | ML-KEM-768  | ML-KEM-1024 |
+|------------------------| ----------- | ----------- |
+| Algorithm ID reference | 35          | 36          |
+| Public key             | 1184 octets | 1568 octets |
+| Secret key             | 64 octets   | 64 octets   |
+| Ciphertext             | 1088 octets | 1568 octets |
+| Key share              | 32 octets   | 32 octets   |
+
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
 
@@ -657,11 +661,14 @@ and
 The public and secret key, as well as the signature MUST be encoded according to [RFC8032] as fixed-length octet strings.
 The following table describes the EdDSA parameters and artifact lengths:
 
-{: title="EdDSA parameters and artifact lengths in octets" #tab-eddsa-artifacts}
-Algorithm ID reference | Curve   | Public key | Secret key | Signature
-----------------------:| ------- | ---------- | ---------- | ---------
-30                     | Ed25519 | 32         | 32         | 64
-31                     | Ed448   | 57         | 57         | 114
+{: title="EdDSA parameters and artifact lengths" #tab-eddsa-artifacts}
+|                        | Ed25519   | Ed448      |
+|------------------------| --------- | ---------- |
+| Algorithm ID reference | 30        | 31         |
+| Public key             | 32 octets | 57 octets  |
+| Secret key             | 32 octets | 57 octets  |
+| Signature              | 64 octets | 114 octets |
+
 
 ### ML-DSA Signatures {#mldsa-signature}
 
@@ -680,11 +687,14 @@ That is, to verify with ML-DSA the following operation is defined:
 ML-DSA has the parametrization with the corresponding artifact lengths in octets as given in {{tab-mldsa-artifacts}}.
 All artifacts are encoded as defined in [FIPS-204].
 
-{: title="ML-DSA parameters and artifact lengths in octets" #tab-mldsa-artifacts}
-Algorithm ID reference | ML-DSA    | Public key | Secret key | Signature value
-----------------------:| --------- | -----------| ---------- | ---------------
-30                     | ML-DSA-65 | 1952       | 32         | 3309
-31                     | ML-DSA-87 | 2592       | 32         | 4627
+{: title="ML-DSA parameters and artifact lengths" #tab-mldsa-artifacts}
+|                        | ML-DSA-65   | ML-DSA-87   |
+|------------------------| ----------- | ----------- |
+| Algorithm ID reference | 30          | 31          |
+| Public key             | 1952 octets | 2592 octets |
+| Secret key             | 32 octets   | 32 octets   |
+| Signature              | 3309 octets | 4627 octets |
+
 
 ## Composite Signature Schemes with ML-DSA {#ecc-mldsa}
 
@@ -763,12 +773,14 @@ Throughout this specification SLH-DSA refers to the default pure and hedged vers
 The following table lists the group of algorithm code points for the SLH-DSA signature scheme and the corresponding artifact lengths.
 This group of algorithms is henceforth referred to as "SLH-DSA code points".
 
-{: title="SLH-DSA code points and the corresponding artifact lengths in octets." #slhdsa-artifact-lengths}
-Algorithm ID reference   |  SLH-DSA public key | SLH-DSA secret key | SLH-DSA signature
-----------------------:  |  ------------------ | ------------------ | ------------------
-32                       |  32                 | 64                 | 7856
-33                       |  32                 | 64                 | 17088
-34                       |  64                 | 128                | 29792
+{: title="SLH-DSA code points and the corresponding artifact lengths." #slhdsa-artifact-lengths}
+|                        | SLH-DSA-SHAKE-128s | SLH-DSA-SHAKE-128f | SLH-DSA-SHAKE-256s |
+|------------------------| ------------------ | ------------------ | -------------------|
+| Algorithm ID reference | 32                 | 33                 | 34                 |
+| Public key             | 32 octets          | 32 octets          | 64 octets          |
+| Secret key             | 64 octets          | 64 octets          | 128 octets          |
+| Signature              | 7856 octets        | 17088 octets       | 29792 octets       |
+
 
 ### Key Generation
 
