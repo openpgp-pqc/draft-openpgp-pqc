@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 7 December 2025                                     F. Strenzke
+Expires: 8 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             5 June 2025
+                                                             6 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 December 2025.
+   This Internet-Draft will expire on 8 December 2025.
 
 Copyright Notice
 
@@ -907,7 +907,7 @@ Table of Contents
           +------------------------+-------------+-------------+
           | Public key             | 1952 octets | 2592 octets |
           +------------------------+-------------+-------------+
-          | Secret key             | 32 octets   | 57 octets   |
+          | Secret key             | 32 octets   | 32 octets   |
           +------------------------+-------------+-------------+
           | Signature              | 3309 octets | 4627 octets |
           +------------------------+-------------+-------------+
@@ -1035,7 +1035,7 @@ Table of Contents
    |Public   |32 octets         |32 octets         |64 octets         |
    |key      |                  |                  |                  |
    +---------+------------------+------------------+------------------+
-   |Secret   |64 octets         |64 octets         |64 octets         |
+   |Secret   |64 octets         |64 octets         |128 octets        |
    |key      |                  |                  |                  |
    +---------+------------------+------------------+------------------+
    |Signature|7856 octets       |17088 octets      |29792 octets      |
