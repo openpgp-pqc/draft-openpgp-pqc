@@ -388,14 +388,14 @@ In this section we define the encryption, decryption, and data formats for the E
 The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [RFC7748].
 
 {: title="Montgomery curve parameters and artifact lengths" #tab-ecdh-cfrg-artifacts}
-|                        | X25519                                     | X448                                       |
-|------------------------|--------------------------------------------|--------------------------------------------|
-| Algorithm ID reference | 35                                         | 36                                         |
-| ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |
-| ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
-| ECDH key share         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |
+|                        | X25519                      | X448                    |
+|------------------------|-----------------------------|-------------------------|
+| Algorithm ID reference | 35                          | 36                      |
+| ECDH KEM               | X25519-KEM ({{x25519-kem}}) | X448-KEM ({{x448-kem}}) |
+| ECDH public key        | 32 octets                   | 56 octets               |
+| ECDH secret key        | 32 octets                   | 56 octets               |
+| ECDH ephemeral         | 32 octets                   | 56 octets               |
+| ECDH key share         | 32 octets                   | 56 octets               |
 
 The various procedures to perform the operations of an ECDH KEM are defined in the following subsections.
 Specifically, each of these subsections defines the instances of the following operations:
