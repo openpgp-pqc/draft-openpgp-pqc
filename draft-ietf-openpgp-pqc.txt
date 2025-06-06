@@ -471,16 +471,12 @@ Table of Contents
     |                        | (Section 4.1.1.1) | (Section 4.1.1.2) |
     +------------------------+-------------------+-------------------+
     | ECDH public key        | 32 octets         | 56 octets         |
-    |                        | [RFC7748]         | [RFC7748]         |
     +------------------------+-------------------+-------------------+
     | ECDH secret key        | 32 octets         | 56 octets         |
-    |                        | [RFC7748]         | [RFC7748]         |
     +------------------------+-------------------+-------------------+
     | ECDH ephemeral         | 32 octets         | 56 octets         |
-    |                        | [RFC7748]         | [RFC7748]         |
     +------------------------+-------------------+-------------------+
     | ECDH key share         | 32 octets         | 56 octets         |
-    |                        | [RFC7748]         | [RFC7748]         |
     +------------------------+-------------------+-------------------+
 
         Table 3: Montgomery curve parameters and artifact lengths
@@ -571,17 +567,21 @@ Table of Contents
    lengths in octets as given in Table 4.  All artifacts are encoded as
    defined in [FIPS-203].
 
-   +==============+=============+========+========+============+=======+
-   |    Algorithm | ML-KEM      | Public | Secret | Ciphertext | Key   |
-   |           ID |             | key    | key    |            | share |
-   |    reference |             |        |        |            |       |
-   +==============+=============+========+========+============+=======+
-   |           35 | ML-KEM-768  | 1184   | 64     | 1088       | 32    |
-   +--------------+-------------+--------+--------+------------+-------+
-   |           36 | ML-KEM-1024 | 1568   | 64     | 1568       | 32    |
-   +--------------+-------------+--------+--------+------------+-------+
+          +========================+=============+=============+
+          |                        | ML-KEM-768  | ML-KEM-1024 |
+          +========================+=============+=============+
+          | Algorithm ID reference | 35          | 36          |
+          +------------------------+-------------+-------------+
+          | Public key             | 1184 octets | 1568 octets |
+          +------------------------+-------------+-------------+
+          | Secret key             | 64 octets   | 64 octets   |
+          +------------------------+-------------+-------------+
+          | Ciphertext             | 1088 octets | 1568 octets |
+          +------------------------+-------------+-------------+
+          | Key share              | 32 octets   | 32 octets   |
+          +------------------------+-------------+-------------+
 
-           Table 4: ML-KEM parameters artifact lengths in octets
+             Table 4: ML-KEM parameters and artifact lengths
 
    To instantiate ML-KEM, one must select a parameter set from the
    column "ML-KEM" of Table 4.
@@ -845,16 +845,19 @@ Table of Contents
    according to [RFC8032] as fixed-length octet strings.  The following
    table describes the EdDSA parameters and artifact lengths:
 
-    +========================+=========+========+========+===========+
-    | Algorithm ID reference | Curve   | Public | Secret | Signature |
-    |                        |         | key    | key    |           |
-    +========================+=========+========+========+===========+
-    |                     30 | Ed25519 | 32     | 32     | 64        |
-    +------------------------+---------+--------+--------+-----------+
-    |                     31 | Ed448   | 57     | 57     | 114       |
-    +------------------------+---------+--------+--------+-----------+
+            +========================+===========+============+
+            |                        | Ed25519   | Ed448      |
+            +========================+===========+============+
+            | Algorithm ID reference | 30        | 31         |
+            +------------------------+-----------+------------+
+            | Public key             | 32 octets | 57 octets  |
+            +------------------------+-----------+------------+
+            | Secret key             | 32 octets | 57 octets  |
+            +------------------------+-----------+------------+
+            | Signature              | 64 octets | 114 octets |
+            +------------------------+-----------+------------+
 
-         Table 6: EdDSA parameters and artifact lengths in octets
+               Table 6: EdDSA parameters and artifact lengths
 
 5.1.2.  ML-DSA Signatures
 
@@ -879,16 +882,19 @@ Table of Contents
    lengths in octets as given in Table 7.  All artifacts are encoded as
    defined in [FIPS-204].
 
-   +========================+===========+========+========+===========+
-   | Algorithm ID reference | ML-DSA    | Public | Secret | Signature |
-   |                        |           | key    | key    | value     |
-   +========================+===========+========+========+===========+
-   |                     30 | ML-DSA-65 | 1952   | 32     | 3309      |
-   +------------------------+-----------+--------+--------+-----------+
-   |                     31 | ML-DSA-87 | 2592   | 32     | 4627      |
-   +------------------------+-----------+--------+--------+-----------+
+          +========================+=============+=============+
+          |                        | ML-DSA-65   | ML-DSA-87   |
+          +========================+=============+=============+
+          | Algorithm ID reference | 30          | 31          |
+          +------------------------+-------------+-------------+
+          | Public key             | 1952 octets | 2592 octets |
+          +------------------------+-------------+-------------+
+          | Secret key             | 32 octets   | 32 octets   |
+          +------------------------+-------------+-------------+
+          | Signature              | 3309 octets | 4627 octets |
+          +------------------------+-------------+-------------+
 
-        Table 7: ML-DSA parameters and artifact lengths in octets
+             Table 7: ML-DSA parameters and artifact lengths
 
 5.2.  Composite Signature Schemes with ML-DSA
 
@@ -1001,19 +1007,23 @@ Table of Contents
    This group of algorithms is henceforth referred to as "SLH-DSA code
    points".
 
-     +========================+============+============+===========+
-     | Algorithm ID reference | SLH-DSA    | SLH-DSA    | SLH-DSA   |
-     |                        | public key | secret key | signature |
-     +========================+============+============+===========+
-     |                     32 | 32         | 64         | 7856      |
-     +------------------------+------------+------------+-----------+
-     |                     33 | 32         | 64         | 17088     |
-     +------------------------+------------+------------+-----------+
-     |                     34 | 64         | 128        | 29792     |
-     +------------------------+------------+------------+-----------+
+   +=========+==================+==================+==================+
+   |         |SLH-DSA-SHAKE-128s|SLH-DSA-SHAKE-128f|SLH-DSA-SHAKE-256s|
+   +=========+==================+==================+==================+
+   |Algorithm|32                |33                |34                |
+   |ID       |                  |                  |                  |
+   |reference|                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Public   |32 octets         |32 octets         |64 octets         |
+   |key      |                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Secret   |64 octets         |64 octets         |128 octets        |
+   |key      |                  |                  |                  |
+   +---------+------------------+------------------+------------------+
+   |Signature|7856 octets       |17088 octets      |29792 octets      |
+   +---------+------------------+------------------+------------------+
 
-       Table 8: SLH-DSA code points and the corresponding artifact
-                            lengths in octets.
+   Table 8: SLH-DSA code points and the corresponding artifact lengths.
 
 6.1.1.  Key Generation
 
