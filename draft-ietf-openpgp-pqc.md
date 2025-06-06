@@ -1054,7 +1054,7 @@ ID     | Algorithm           | Public Key Format                                
 - Added security considerations for signature message digest sizes.
 
 ## draft-ietf-openpgp-pqc-11
-- Cleaned up inconsistencies and editorial changes.
+- Editorial changes and fixes of inconsistencies.
 
 # Contributors
 
