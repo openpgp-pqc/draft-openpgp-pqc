@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 7 December 2025                                     F. Strenzke
+Expires: 8 December 2025                                     F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             5 June 2025
+                                                             6 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 December 2025.
+   This Internet-Draft will expire on 8 December 2025.
 
 Copyright Notice
 
@@ -160,6 +160,7 @@ Table of Contents
      12.13. draft-ietf-openpgp-pqc-08
      12.14. draft-ietf-openpgp-pqc-09
      12.15. draft-ietf-openpgp-pqc-10
+     12.16. draft-ietf-openpgp-pqc-11
    13. Contributors
    Acknowledgments
    References
@@ -1551,6 +1552,10 @@ Table of Contents
    *  Specified minimum requirements for signature message digest sizes.
 
    *  Added security considerations for signature message digest sizes.
+
+12.16.  draft-ietf-openpgp-pqc-11
+
+   *  Editorial changes and fixes of inconsistencies.
 
 13.  Contributors
 
