@@ -705,7 +705,7 @@ All artifacts are encoded as defined in [FIPS-204].
 |------------------------| ----------- | ----------- |
 | Algorithm ID reference | 30          | 31          |
 | Public key             | 1952 octets | 2592 octets |
-| Secret key             | 32 octets   | 57 octets   |
+| Secret key             | 32 octets   | 32 octets   |
 | Signature              | 3309 octets | 4627 octets |
 
 
@@ -791,7 +791,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".
 |------------------------| ------------------ | ------------------ | -------------------|
 | Algorithm ID reference | 32                 | 33                 | 34                 |
 | Public key             | 32 octets          | 32 octets          | 64 octets          |
-| Secret key             | 64 octets          | 64 octets          | 64 octets          |
+| Secret key             | 64 octets          | 64 octets          | 128 octets          |
 | Signature              | 7856 octets        | 17088 octets       | 29792 octets       |
 
 
