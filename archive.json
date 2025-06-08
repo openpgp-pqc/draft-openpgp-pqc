@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-05T01:44:05.287401+00:00",
+  "timestamp": "2025-06-08T01:52:32.557889+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3209,7 +3209,7 @@
       "id": "I_kwDOIrmZ-864stmL",
       "title": "Normalize KEM artifact tables",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/192",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3218,8 +3218,8 @@
       "labels": [],
       "body": "The two KEM artifact tables labeled as `tab-ecdh-cfrg-artifacts` and `tab-mlkem-artifacts` seem to contain roughly analogous data, but one of them has rows as properties and columns as algorithm choices; while the other has rows as algorithm choices and columns as properties.\n\nIt would be nice for the reader to normalize the two tables so that they are shaped the same way.  I'd typically expect to see the columns as properties and the rows as algorithm choices.",
       "createdAt": "2025-05-28T22:52:02Z",
-      "updatedAt": "2025-06-03T09:26:37Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-06T08:30:27Z",
+      "closedAt": "2025-06-06T08:30:27Z",
       "comments": []
     },
     {
@@ -3338,7 +3338,7 @@
       "id": "I_kwDOIrmZ-8642aRw",
       "title": "normalize order of arguments `EdDSA.Verify` and `ML-DSA.Verify`",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/200",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3347,16 +3347,31 @@
       "labels": [],
       "body": "The current draft says:\n\n-  `EdDSA.Verify(eddsaPublicKey, eddsaSignature, dataDigest)`\n- `ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)`\n\nWhy are the final two parameters in different positions?\n\nIn [RFC 8032](https://datatracker.ietf.org/doc/html/rfc8032) there is no formal declaration of `EdDSA.Verify`, but [the python example](https://datatracker.ietf.org/doc/html/rfc8032#page-23) says `verify(public, message, signature)`, which is not the order that appears here.",
       "createdAt": "2025-05-29T19:21:03Z",
-      "updatedAt": "2025-06-02T09:11:41Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-06-05T09:36:34Z",
+      "closedAt": "2025-06-05T09:36:32Z",
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Should be resolved already by https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/211/files",
+          "createdAt": "2025-06-05T09:33:00Z",
+          "updatedAt": "2025-06-05T09:33:15Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "indeed, I did not properly format the text for auto closing on merge",
+          "createdAt": "2025-06-05T09:36:33Z",
+          "updatedAt": "2025-06-05T09:36:33Z"
+        }
+      ]
     },
     {
       "number": 201,
       "id": "I_kwDOIrmZ-8642piS",
       "title": "signature context parameters",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/201",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3365,8 +3380,8 @@
       "labels": [],
       "body": "The document says `ML-DSA.Verify(mldsaPublicKey, dataDigest, mldsaSignature)`, but [FIPS204](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) declares `ML-DSA.Verify(\ud835\udc5d\ud835\udc58, \ud835\udc40, \ud835\udf0e, \ud835\udc50\ud835\udc61\ud835\udc65)`, where `\ud835\udc40` is the message, `\ud835\udf0e` is the signature, and `\ud835\udc50\ud835\udc61\ud835\udc65` is the context.\n\nLikewise, the document says `ML-DSA.Sign(mldsaSecretKey, dataDigest)`, but FIPS204 declares `ML-DSA.Sign(\ud835\udc60\ud835\udc58, \ud835\udc40, \ud835\udc50\ud835\udc61\ud835\udc65)`.\n\nBoth Ed448 and Ed25519 as defined in [RFC8032](https://datatracker.ietf.org/doc/html/rfc8032) have context parameters, as does `slh_verify` and `slh_sign` in [FIPS205](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf).\n\nBut the term `context` comes up only twice in the document, and not about signatures at all.  And the string `ctx` appears nowhere either.\n\nI think this means that the context is always the empty string.  It might be nice to say that explicitly somewhere.",
       "createdAt": "2025-05-29T19:50:49Z",
-      "updatedAt": "2025-06-02T09:11:28Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-05T04:30:16Z",
+      "closedAt": "2025-06-05T04:30:16Z",
       "comments": [
         {
           "author": "dkg",
@@ -3382,7 +3397,7 @@
       "id": "I_kwDOIrmZ-8642sj4",
       "title": "names of SLH functions",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/202",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3391,16 +3406,24 @@
       "labels": [],
       "body": "The document currently claims that the functions are named `SLH-DSA.sign` and `SLH-DSA.verify`, but those names are not present in FIPS 205.\n\nWhile [FIPS204](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf) does name its functions `ML-DSA.sign` and `ML-DSA.verify`, [FIPS205](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf) appears to name its functions `slh_sign` and `slh_verify` (or `hash_slh_sign` and `_hash_slh_verify`, but i don't think OpenPGP is aiming to use those).\n\nWhere this document refers to functions found in FIPS 205, it should use the literal function names that appear in that documet.",
       "createdAt": "2025-05-29T19:57:14Z",
-      "updatedAt": "2025-06-02T09:11:37Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-06-05T09:36:46Z",
+      "closedAt": "2025-06-05T09:36:45Z",
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "resolved by #211 ",
+          "createdAt": "2025-06-05T09:36:45Z",
+          "updatedAt": "2025-06-05T09:36:45Z"
+        }
+      ]
     },
     {
       "number": 206,
       "id": "I_kwDOIrmZ-8643fln",
       "title": "Identify signature types",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/206",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3409,8 +3432,8 @@
       "labels": [],
       "body": "In \"**Hash Algorithms for Key Binding Signatures**\", it says \"subkey binding signatures\" and \"primary key binding signatures\".  Perhaps it would be cleaner to include a parenthetical aside like \"(signature type 0x18)\" in the relevant place.\n\nNote that #198 probably needs to be resolved first.",
       "createdAt": "2025-05-29T21:43:15Z",
-      "updatedAt": "2025-06-03T12:33:11Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-05T12:06:29Z",
+      "closedAt": "2025-06-05T12:06:29Z",
       "comments": []
     }
   ],
@@ -20253,24 +20276,26 @@
       "id": "PR_kwDOIrmZ-86YlJmE",
       "title": "Clarify context parameter; rename SLH-DSA algorithms to match FIPS 205; change input order of EdDSA.Verify",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/211",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "resolves #201, #202, #200\r\n\r\nI chose to do this in one PR since it's related and to avoid conflicts.\r\n\r\nI am not sure about repeating the statement about the context, but I felt it's most clear to mention it when introducing each of the algorithms.",
       "createdAt": "2025-06-02T09:11:17Z",
-      "updatedAt": "2025-06-04T04:19:24Z",
+      "updatedAt": "2025-06-05T04:30:16Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sig-ctx-parameter",
       "headRefOid": "dda763eca8a9b022638a3cb4e5ea4a370286320e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-05T04:30:15Z",
+      "mergedAt": "2025-06-05T04:30:15Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "6cb2588147a6ab0fa395a3efe8e630b2cb41cb14"
+      },
       "comments": [],
       "reviews": [
         {
@@ -20346,24 +20371,26 @@
       "id": "PR_kwDOIrmZ-86Y0Gu3",
       "title": "identify signature type for subkey binding signature",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/212",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "resolves #206",
       "createdAt": "2025-06-03T12:33:57Z",
-      "updatedAt": "2025-06-04T04:21:58Z",
+      "updatedAt": "2025-06-05T12:06:28Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "identify-signature-types",
       "headRefOid": "1ab12b473d2f7eef17ed3b4b6cc42d52f1243f85",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-05T12:06:28Z",
+      "mergedAt": "2025-06-05T12:06:28Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "3762bce890db3e1583b92aa67cd38b9f040fe57b"
+      },
       "comments": [],
       "reviews": [
         {
@@ -20398,32 +20425,47 @@
           "createdAt": "2025-06-04T04:21:58Z",
           "updatedAt": "2025-06-04T04:21:58Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s20oN",
+          "commit": {
+            "abbreviatedOid": "1ab12b4"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-05T12:06:22Z",
+          "updatedAt": "2025-06-05T12:06:22Z",
+          "comments": []
         }
       ]
     },
     {
       "number": 213,
       "id": "PR_kwDOIrmZ-86Y0jAZ",
-      "title": "Rotate ML-KEM table",
+      "title": "Normalize all algorithm tables",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/213",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This closes issues #192 ",
       "createdAt": "2025-06-03T13:09:32Z",
-      "updatedAt": "2025-06-04T04:17:22Z",
+      "updatedAt": "2025-06-06T08:30:14Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "d82ba917e86f47709b984c6c3bd8bd2c6b4cfb37",
+      "baseRefOid": "3762bce890db3e1583b92aa67cd38b9f040fe57b",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "rotate-mlkem-table",
-      "headRefOid": "c703c009f0fb70ffcf76015710e0511dd0eac074",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "546aa83ef0ca561cfe0d66cc755a80feea566156",
+      "closedAt": "2025-06-06T08:30:14Z",
+      "mergedAt": "2025-06-06T08:30:14Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "cf475926f9aea694769c1678bf5c393b66a508eb"
+      },
       "comments": [
         {
           "author": "wussler",
@@ -20431,6 +20473,20 @@
           "body": "I thought this way around looks cleaner, uses the space better IMO",
           "createdAt": "2025-06-03T14:46:51Z",
           "updatedAt": "2025-06-03T14:46:51Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Should we also rotate the EdDSA and ML-DSA tables wo be generally consistent?\r\n\r\nSeems to be the logical conclusion to me.",
+          "createdAt": "2025-06-05T09:43:24Z",
+          "updatedAt": "2025-06-05T09:43:24Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Should we also remove the repeated citation `[RFC7748]` after the octet counts in the table below? It seems to me that this is not needed as the sentence right before the table already cites RFC7748.\r\n\r\n`[Table 3](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/213#tab-ecdh-cfrg-artifacts) describes the ECDH KEM parameters and artifact lengths. The artifacts in [Table 3](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/213#tab-ecdh-cfrg-artifacts) follow the encodings described in [[RFC7748](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/213#RFC7748)].\r\n\r\n{: title=\"Montgomery curve parameters and artifact lengths\" #tab-ecdh-cfrg-artifacts}\r\n|                        | X25519                                     | X448                                       |\r\n|------------------------|--------------------------------------------|--------------------------------------------|\r\n| Algorithm ID reference | 35                                         | 36                                         |\r\n| ECDH KEM               | X25519-KEM ({{x25519-kem}})                | X448-KEM ({{x448-kem}})                    |\r\n| ECDH public key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |\r\n| ECDH secret key        | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |\r\n| ECDH ephemeral         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |\r\n| ECDH key share         | 32 octets [RFC7748]                        | 56 octets [RFC7748]                        |`\r\n\r\n(Didn't manage to submit a suggestion in this unchanged part of the text.)",
+          "createdAt": "2025-06-05T14:35:46Z",
+          "updatedAt": "2025-06-05T14:36:47Z"
         }
       ],
       "reviews": [
@@ -20458,6 +20514,302 @@
           "body": "I fixed the missing `|` in the rotated ML-KEM table. The table didn't have line breaks in my compile without it.\r\n\r\nShould we also rotate the EdDSA and ML-DSA tables wo be generally consistent? ",
           "createdAt": "2025-06-04T04:17:22Z",
           "updatedAt": "2025-06-04T04:17:22Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s3_IL",
+          "commit": {
+            "abbreviatedOid": "762a4ee"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-05T13:32:12Z",
+          "updatedAt": "2025-06-05T13:32:13Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\n| Secret key             | 32 octets   | 32 octets   |\r\n```",
+              "createdAt": "2025-06-05T13:32:12Z",
+              "updatedAt": "2025-06-05T13:32:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s4Bko",
+          "commit": {
+            "abbreviatedOid": "762a4ee"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-05T13:34:59Z",
+          "updatedAt": "2025-06-05T13:35:00Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "```suggestion\r\n| Secret key             | 64 octets          | 64 octets          | 128 octets          |\r\n```",
+              "createdAt": "2025-06-05T13:34:59Z",
+              "updatedAt": "2025-06-05T13:35:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s4DnF",
+          "commit": {
+            "abbreviatedOid": "762a4ee"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "It seems to me two numbers have to be corrected as marked in my suggested changes.",
+          "createdAt": "2025-06-05T13:37:08Z",
+          "updatedAt": "2025-06-05T13:37:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tFPGH",
+          "commit": {
+            "abbreviatedOid": "762a4ee"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-06T05:32:19Z",
+          "updatedAt": "2025-06-06T05:32:19Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "The numbers Falko suggested are correct.",
+              "createdAt": "2025-06-06T05:32:19Z",
+              "updatedAt": "2025-06-06T05:32:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tFPTP",
+          "commit": {
+            "abbreviatedOid": "762a4ee"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-06T05:32:39Z",
+          "updatedAt": "2025-06-06T05:32:39Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "Yes, the numbers Falko suggested are correct.",
+              "createdAt": "2025-06-06T05:32:39Z",
+              "updatedAt": "2025-06-06T05:32:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tGfWW",
+          "commit": {
+            "abbreviatedOid": "546aa83"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The tables LGTM",
+          "createdAt": "2025-06-06T08:20:32Z",
+          "updatedAt": "2025-06-06T08:20:32Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 214,
+      "id": "PR_kwDOIrmZ-86ZM__v",
+      "title": "Update codeowners",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/214",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-05T13:26:15Z",
+      "updatedAt": "2025-06-05T14:38:21Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "3762bce890db3e1583b92aa67cd38b9f040fe57b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "update-codeowners",
+      "headRefOid": "7a1e498286e1ede0f13f1ac1e54636413310ce7e",
+      "closedAt": "2025-06-05T14:38:21Z",
+      "mergedAt": "2025-06-05T14:38:21Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "eb18c9ed15e54b02ab72ef79833b955a5f63fd32"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86s4GoX",
+          "commit": {
+            "abbreviatedOid": "7a1e498"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-05T13:40:27Z",
+          "updatedAt": "2025-06-05T13:40:27Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s5ARk",
+          "commit": {
+            "abbreviatedOid": "7a1e498"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-05T14:38:12Z",
+          "updatedAt": "2025-06-05T14:38:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 215,
+      "id": "PR_kwDOIrmZ-86ZNANn",
+      "title": "Add changelog for draft-11",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/215",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-05T13:26:33Z",
+      "updatedAt": "2025-06-06T08:22:27Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "3762bce890db3e1583b92aa67cd38b9f040fe57b",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "changelog-v11",
+      "headRefOid": "06c377cdb07370035f381b618c18d70eeb5e1c45",
+      "closedAt": "2025-06-06T08:22:27Z",
+      "mergedAt": "2025-06-06T08:22:27Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "cc593c3035fa4f4ffdb8000b35e563cc7fd38ad2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86s4E2t",
+          "commit": {
+            "abbreviatedOid": "a6d8d2f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-05T13:38:27Z",
+          "updatedAt": "2025-06-05T13:38:27Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n- Editorial changes and fixes of inconsistencies.\r\n```",
+              "createdAt": "2025-06-05T13:38:27Z",
+              "updatedAt": "2025-06-05T13:38:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s4FcM",
+          "commit": {
+            "abbreviatedOid": "a6d8d2f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-05T13:39:02Z",
+          "updatedAt": "2025-06-05T13:39:02Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "In the original form it could be read as if the editorial changes were also \"cleaned up\".",
+              "createdAt": "2025-06-05T13:39:02Z",
+              "updatedAt": "2025-06-05T13:39:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86s4GHb",
+          "commit": {
+            "abbreviatedOid": "a6d8d2f"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-05T13:39:50Z",
+          "updatedAt": "2025-06-05T13:39:50Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I'm not sure if it should be \"fixes of\" or \"fixes for\".",
+              "createdAt": "2025-06-05T13:39:50Z",
+              "updatedAt": "2025-06-05T13:39:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tFR5X",
+          "commit": {
+            "abbreviatedOid": "a6d8d2f"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-06-06T05:37:49Z",
+          "updatedAt": "2025-06-06T05:37:49Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Suggestion LGTM",
+              "createdAt": "2025-06-06T05:37:49Z",
+              "updatedAt": "2025-06-06T05:37:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tF22b",
+          "commit": {
+            "abbreviatedOid": "06c377c"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-06T07:06:01Z",
+          "updatedAt": "2025-06-06T07:06:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86tGfgv",
+          "commit": {
+            "abbreviatedOid": "06c377c"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-06T08:20:51Z",
+          "updatedAt": "2025-06-06T08:20:51Z",
           "comments": []
         }
       ]
