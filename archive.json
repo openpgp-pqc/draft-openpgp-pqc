@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-08T01:52:32.557889+00:00",
+  "timestamp": "2025-06-10T01:46:31.673679+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -20813,6 +20813,92 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 216,
+      "id": "PR_kwDOIrmZ-86Zs82r",
+      "title": "FIPS references should be normative",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/216",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "No implementer can implement this draft without either the mathematics or the serialization formats described in the FIPS documents.  They are effectively normative.",
+      "createdAt": "2025-06-09T15:18:24Z",
+      "updatedAt": "2025-06-09T15:18:25Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "cf475926f9aea694769c1678bf5c393b66a508eb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "fips-references",
+      "headRefOid": "666bd311887de77c96ef901ac80ab9418c9d79cc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 217,
+      "id": "PR_kwDOIrmZ-86ZwUQD",
+      "title": "Indicate that this updates RFC 9580",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/217",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think it's fair to say that this updates 9580 just like 5581 updated 4880.\r\n\r\nAnd, this changef will make it so that anyone looking at RFC 9580 will be pointed toward this document as well by the datatracker.",
+      "createdAt": "2025-06-09T22:09:27Z",
+      "updatedAt": "2025-06-09T22:09:28Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "cf475926f9aea694769c1678bf5c393b66a508eb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "updates",
+      "headRefOid": "9c89eb905cf553fdfd673d26447608e319256562",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 218,
+      "id": "PR_kwDOIrmZ-86Zwf46",
+      "title": "Include the IANA specification commentary as notes for the field.",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/218",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Looking at the IANA table at\r\nhttps://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms i notice that X25519 and X448 PKESK entries should also be updated to include the comparable fields, but that doesn't need to happen here.",
+      "createdAt": "2025-06-09T22:38:59Z",
+      "updatedAt": "2025-06-09T22:41:05Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "cf475926f9aea694769c1678bf5c393b66a508eb",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "iana-cleanup",
+      "headRefOid": "cc73336cdf4496885fdfd78df22a6bc07519620c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I offer this just so it's clear precisely what we're asking IANA to do.  the textual explanation doesn't mean anything to IANA -- but it should mean something to someone looking at the registry.  so explicitly tell IANA to put it in the notes field for the registry.\r\n\r\nThe fact that X25519 and X448's PKESK column isn't spelled out as clearly in the registry is a separate bug in the registry, which is not the job of this draft to fix.",
+          "createdAt": "2025-06-09T22:41:04Z",
+          "updatedAt": "2025-06-09T22:41:04Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
