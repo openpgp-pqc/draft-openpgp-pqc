@@ -1307,10 +1307,7 @@ Table of Contents
 11.  IANA Considerations
 
    IANA is requested to add the algorithm IDs defined in Table 9 to the
-   existing registry OpenPGP Public Key Algorithms.  The field
-   specifications enclosed in square brackets for the ML-KEM + ECDH
-   composite algorithms denote fields that may or may not be present,
-   depending on the version of the PKESK packet.
+   existing registry OpenPGP Public Key Algorithms.
 
    +==+============+=======+=======+=========+==============+=========+
    |ID| Algorithm  | Public| Secret|Signature| PKESK Format |Reference|
@@ -1410,6 +1407,12 @@ Table of Contents
    +--+------------+-------+-------+---------+--------------+---------+
 
     Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
+
+   IANA is asked to add the following note to this registry:
+
+      The field specifications enclosed in square brackets for PKESK
+      Format represent fields that may or may not be present, depending
+      on the PKESK version.
 
 12.  Changelog
 
