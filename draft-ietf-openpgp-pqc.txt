@@ -4,9 +4,9 @@
 
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
-Intended status: Informational                                   J. Roth
-Expires: 13 December 2025                                    F. Strenzke
-                                                                  MTG AG
+Updates: 9580 (if approved)                                      J. Roth
+Intended status: Informational                               F. Strenzke
+Expires: 13 December 2025                                         MTG AG
                                                               A. Wussler
                                                                Proton AG
                                                             11 June 2025
