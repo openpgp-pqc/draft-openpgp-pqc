@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Informational                                   J. Roth
-Expires: 8 December 2025                                     F. Strenzke
+Expires: 13 December 2025                                    F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             6 June 2025
+                                                            11 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2025.
+   This Internet-Draft will expire on 13 December 2025.
 
 Copyright Notice
 
@@ -1582,6 +1582,18 @@ References
 
 Normative References
 
+   [FIPS-203] National Institute of Standards and Technology, "Module-
+              Lattice-Based Key-Encapsulation Mechanism Standard",
+              August 2024, <https://doi.org/10.6028/NIST.FIPS.203>.
+
+   [FIPS-204] National Institute of Standards and Technology, "Module-
+              Lattice-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.204>.
+
+   [FIPS-205] National Institute of Standards and Technology, "Stateless
+              Hash-Based Digital Signature Standard", August 2024,
+              <https://doi.org/10.6028/NIST.FIPS.205>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1618,18 +1630,6 @@ Informative References
               Schwabe, P., Varner, K., and B. Westerbaan, "X-Wing The
               Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
-
-   [FIPS-203] National Institute of Standards and Technology, "Module-
-              Lattice-Based Key-Encapsulation Mechanism Standard",
-              August 2024, <https://doi.org/10.6028/NIST.FIPS.203>.
-
-   [FIPS-204] National Institute of Standards and Technology, "Module-
-              Lattice-Based Digital Signature Standard", August 2024,
-              <https://doi.org/10.6028/NIST.FIPS.204>.
-
-   [FIPS-205] National Institute of Standards and Technology, "Stateless
-              Hash-Based Digital Signature Standard", August 2024,
-              <https://doi.org/10.6028/NIST.FIPS.205>.
 
    [I-D.ietf-pquip-pqt-hybrid-terminology]
               D, F., P, M., and B. Hale, "Terminology for Post-Quantum
