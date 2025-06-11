@@ -52,6 +52,27 @@ normative:
 
   RFC9580:
 
+  FIPS-203:
+      target: https://doi.org/10.6028/NIST.FIPS.203
+      title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2024
+
+  FIPS-204:
+      target: https://doi.org/10.6028/NIST.FIPS.204
+      title: Module-Lattice-Based Digital Signature Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2024
+
+  FIPS-205:
+      target: https://doi.org/10.6028/NIST.FIPS.205
+      title: Stateless Hash-Based Digital Signature Standard
+      author:
+        - org: National Institute of Standards and Technology
+      date: August 2024
+
 informative:
 
   I-D.ietf-pquip-pqt-hybrid-terminology:
@@ -140,27 +161,6 @@ informative:
     date: August 2020
     seriesinfo:
       NIST Special Publication 800-56C Rev. 2
-
-  FIPS-203:
-      target: https://doi.org/10.6028/NIST.FIPS.203
-      title: Module-Lattice-Based Key-Encapsulation Mechanism Standard
-      author:
-        - org: National Institute of Standards and Technology
-      date: August 2024
-
-  FIPS-204:
-      target: https://doi.org/10.6028/NIST.FIPS.204
-      title: Module-Lattice-Based Digital Signature Standard
-      author:
-        - org: National Institute of Standards and Technology
-      date: August 2024
-
-  FIPS-205:
-      target: https://doi.org/10.6028/NIST.FIPS.205
-      title: Stateless Hash-Based Digital Signature Standard
-      author:
-        - org: National Institute of Standards and Technology
-      date: August 2024
 
   BCD+24:
     target: https://doi.org/10.62056/a3qj89n4e
