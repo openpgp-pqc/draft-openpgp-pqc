@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-12T01:44:41.536272+00:00",
+  "timestamp": "2025-06-17T01:46:18.362168+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21025,6 +21025,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 219,
+      "id": "PR_kwDOIrmZ-86ayQX9",
+      "title": "Move from informational to standards-track",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/219",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "RFC 9580 (OpenPGP) is marked as a Proposed Standard, as was RFC 4880 (OpenPGP) and RFC 6637 (ECC in OpenPGP).\r\n\r\nBy contrast, RFC 5581 (Camellia in OpenPGP) is marked informational.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc2026.html#section-4.1 says:\r\n\r\n   A Proposed Standard specification is generally stable, has resolved\r\n   known design choices, is believed to be well-understood, has received\r\n   significant community review, and appears to enjoy enough community\r\n   interest to be considered valuable.  However, further experience\r\n   might result in a change or even retraction of the specification\r\n   before it advances.\r\n\r\nwhile https://www.rfc-editor.org/rfc/rfc2026.html#section-4.2.2 says:\r\n\r\n   An \"Informational\" specification is published for the general\r\n   information of the Internet community, and does not represent an\r\n   Internet community consensus or recommendation.  The Informational\r\n   designation is intended to provide for the timely publication of a\r\n   very broad range of responsible informational documents from many\r\n   sources, subject only to editorial considerations and to verification\r\n   that there has been adequate coordination with the standards process\r\n   (see section 4.2.3).\r\n\r\nI recommend marking this as standards-track, and indicating that its aimed at \"Proposed Standard\".",
+      "createdAt": "2025-06-16T20:45:50Z",
+      "updatedAt": "2025-06-16T20:45:51Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "09e08a8d5956638d077b7845905b5e28e56d0207",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "standards-track",
+      "headRefOid": "20239c073e80b2de33b8b1f54d6cdea4d10aa430",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
