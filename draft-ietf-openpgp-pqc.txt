@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 19 December 2025                                         MTG AG
+Expires: 20 December 2025                                         MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                            17 June 2025
+                                                            18 June 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 December 2025.
+   This Internet-Draft will expire on 20 December 2025.
 
 Copyright Notice
 
@@ -248,12 +248,12 @@ Table of Contents
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
    The terminology in this document is oriented towards the definitions
-   in [I-D.ietf-pquip-pqt-hybrid-terminology].  Specifically, the terms
-   "multi-algorithm", "composite" and "non-composite" are used in
-   correspondence with the definitions therein.  The abbreviation "PQ"
-   is used for post-quantum schemes.  To denote the combination of post-
-   quantum and traditional schemes, the abbreviation "PQ/T" is used.
-   The short form "PQ(/T)" stands for PQ or PQ/T.
+   in [RFC9794].  Specifically, the terms "multi-algorithm", "composite"
+   and "non-composite" are used in correspondence with the definitions
+   therein.  The abbreviation "PQ" is used for post-quantum schemes.  To
+   denote the combination of post-quantum and traditional schemes, the
+   abbreviation "PQ/T" is used.  The short form "PQ(/T)" stands for PQ
+   or PQ/T.
 
 1.2.  Post-Quantum Cryptography
 
@@ -1634,13 +1634,6 @@ Informative References
               Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
 
-   [I-D.ietf-pquip-pqt-hybrid-terminology]
-              D, F., P, M., and B. Hale, "Terminology for Post-Quantum
-              Traditional Hybrid Schemes", Work in Progress, Internet-
-              Draft, draft-ietf-pquip-pqt-hybrid-terminology-06, 10
-              January 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-pquip-pqt-hybrid-terminology-06>.
-
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
               <https://csrc.nist.gov/projects/post-quantum-cryptography/
@@ -1654,6 +1647,11 @@ Informative References
               Post-Quantum Cryptography Standardization Process", NIST
               IR 8413 , September 2022,
               <https://doi.org/10.6028/NIST.IR.8413-upd1>.
+
+   [RFC9794]  Driscoll, F., Parsons, M., and B. Hale, "Terminology for
+              Post-Quantum Traditional Hybrid Schemes", RFC 9794,
+              DOI 10.17487/RFC9794, June 2025,
+              <https://www.rfc-editor.org/rfc/rfc9794>.
 
    [SP800-56C]
               Barker, E., Chen, L., Roginsky, A., and R. Davis,
