@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-17T01:46:18.362168+00:00",
+  "timestamp": "2025-06-19T01:46:27.986683+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3435,6 +3435,37 @@
       "updatedAt": "2025-06-05T12:06:29Z",
       "closedAt": "2025-06-05T12:06:29Z",
       "comments": []
+    },
+    {
+      "number": 220,
+      "id": "I_kwDOIrmZ-8676u_b",
+      "title": "ML-DSA only (non-composite) signature",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/220",
+      "state": "OPEN",
+      "author": "robertohueso",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Cryptography newbie here, so this proposal might not make sense at this stage \ud83d\ude05 \n\nThe use case is: Signing messages and software using ML-DSA-87 to comply with [CNSA 2.0](https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF) (see `Table: Commercial National Security Algorithm Suite 2.0`) using keys stored in an HSM.\n\nIn its current stage, this draft forces us to use a composite signature `ML-DSA-87+Ed448`.\n\nA significant portion of HSMs are not able to sign using `Ed448`.\n\nIn this particular use case, continuing to use RSA signing because of software/HSM compatibility reasons is a \"must\", so that means that triple signing would be needed (i.e. `ML-DSA-87+Ed448` and `RSA-4096`). Also for compliance reasons with [CNSA 1.0](https://media.defense.gov/2021/Oct/15/2002874275/-1/-1/0/CNSA_WORKSHEET_20211015.PDF).\n\nAnother concern is that, according to [section 3.3](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-11.html#name-multiple-signatures), `Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.` but there is no ML-DSA-only signature scheme defined. \n\nWould it make sense to have an `ML-DSA-87` only (non-composite) signature in this draft where you also advice to use it together with a classical signature algorithm but don't specify which one? (i.e. 2 independent OpenPGP signatures)\n\nBeyond this particular use case, I believe it adds some flexibility to OpenPGP.",
+      "createdAt": "2025-06-17T09:16:46Z",
+      "updatedAt": "2025-06-18T06:22:23Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The list of code points in the current draft is the consensus the WG arrived at. The draft is currently in WGLC, and the addition of a further code point presumably will incur a greater WG discussion. If you really see the need for for your use case to request a change you will have to bring this to the OpenPGP mailing list. Otherwise I suggest to close the issue.\n\nNote that there is also the possibility to hold only the ML-DSA key in the HSM and the Ed448 key in software.",
+          "createdAt": "2025-06-17T12:42:49Z",
+          "updatedAt": "2025-06-17T12:42:49Z"
+        },
+        {
+          "author": "robertohueso",
+          "authorAssociation": "NONE",
+          "body": "@falko-strenzke thank you! I opened discussion in the mailing list",
+          "createdAt": "2025-06-18T06:22:23Z",
+          "updatedAt": "2025-06-18T06:22:23Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -21031,26 +21062,136 @@
       "id": "PR_kwDOIrmZ-86ayQX9",
       "title": "Move from informational to standards-track",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/219",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "RFC 9580 (OpenPGP) is marked as a Proposed Standard, as was RFC 4880 (OpenPGP) and RFC 6637 (ECC in OpenPGP).\r\n\r\nBy contrast, RFC 5581 (Camellia in OpenPGP) is marked informational.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc2026.html#section-4.1 says:\r\n\r\n   A Proposed Standard specification is generally stable, has resolved\r\n   known design choices, is believed to be well-understood, has received\r\n   significant community review, and appears to enjoy enough community\r\n   interest to be considered valuable.  However, further experience\r\n   might result in a change or even retraction of the specification\r\n   before it advances.\r\n\r\nwhile https://www.rfc-editor.org/rfc/rfc2026.html#section-4.2.2 says:\r\n\r\n   An \"Informational\" specification is published for the general\r\n   information of the Internet community, and does not represent an\r\n   Internet community consensus or recommendation.  The Informational\r\n   designation is intended to provide for the timely publication of a\r\n   very broad range of responsible informational documents from many\r\n   sources, subject only to editorial considerations and to verification\r\n   that there has been adequate coordination with the standards process\r\n   (see section 4.2.3).\r\n\r\nI recommend marking this as standards-track, and indicating that its aimed at \"Proposed Standard\".",
       "createdAt": "2025-06-16T20:45:50Z",
-      "updatedAt": "2025-06-16T20:45:51Z",
+      "updatedAt": "2025-06-17T13:18:32Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "09e08a8d5956638d077b7845905b5e28e56d0207",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "standards-track",
       "headRefOid": "20239c073e80b2de33b8b1f54d6cdea4d10aa430",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-17T13:18:32Z",
+      "mergedAt": "2025-06-17T13:18:32Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "444e66f91eb6fafa2b6b1b492ff4a5e593f09eba"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86u6GB2",
+          "commit": {
+            "abbreviatedOid": "20239c0"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-17T07:29:26Z",
+          "updatedAt": "2025-06-17T07:29:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86u7mY6",
+          "commit": {
+            "abbreviatedOid": "20239c0"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I agree with this change and \"Proposed Standard\" makes sense for this draft.",
+          "createdAt": "2025-06-17T09:20:11Z",
+          "updatedAt": "2025-06-17T09:20:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86u8eST",
+          "commit": {
+            "abbreviatedOid": "20239c0"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-17T10:26:27Z",
+          "updatedAt": "2025-06-17T10:26:27Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86u-iIF",
+          "commit": {
+            "abbreviatedOid": "20239c0"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-17T13:13:35Z",
+          "updatedAt": "2025-06-17T13:13:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 221,
+      "id": "PR_kwDOIrmZ-86a_Dkp",
+      "title": "draft-ietf-pquip-pqt-hybrid-terminology is now RFC 9794",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/221",
+      "state": "MERGED",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-18T00:53:59Z",
+      "updatedAt": "2025-06-18T12:34:47Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "444e66f91eb6fafa2b6b1b492ff4a5e593f09eba",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "pquip-terminology",
+      "headRefOid": "d9cdad210282d6b624d54791e9bf850a46d576f3",
+      "closedAt": "2025-06-18T12:34:47Z",
+      "mergedAt": "2025-06-18T12:34:47Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "83a980afe8d90abd370498a8531143c1a1cb0d69"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86vHCoJ",
+          "commit": {
+            "abbreviatedOid": "d9cdad2"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks dkg. I suggest we wait now a little bit with the publication of a new version to see if more corrections surface in the next days.",
+          "createdAt": "2025-06-18T06:12:35Z",
+          "updatedAt": "2025-06-18T06:12:35Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86vLdtj",
+          "commit": {
+            "abbreviatedOid": "d9cdad2"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-18T12:31:42Z",
+          "updatedAt": "2025-06-18T12:31:42Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
