@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-26T01:45:57.662190+00:00",
+  "timestamp": "2025-06-29T01:56:07.576991+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21207,7 +21207,7 @@
       ],
       "body": "",
       "createdAt": "2025-06-24T08:41:11Z",
-      "updatedAt": "2025-06-25T11:48:22Z",
+      "updatedAt": "2025-06-27T14:31:16Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "83a980afe8d90abd370498a8531143c1a1cb0d69",
@@ -21219,7 +21219,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86w1gYD",
+          "commit": {
+            "abbreviatedOid": "2b03854"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-06-27T14:31:16Z",
+          "updatedAt": "2025-06-27T14:31:16Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
