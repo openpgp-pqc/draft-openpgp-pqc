@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-29T01:56:07.576991+00:00",
+  "timestamp": "2025-07-01T01:57:19.261798+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21198,7 +21198,7 @@
       "id": "PR_kwDOIrmZ-86b0KB0",
       "title": "update acknowledgements",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/222",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "TJ-91",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -21207,17 +21207,19 @@
       ],
       "body": "",
       "createdAt": "2025-06-24T08:41:11Z",
-      "updatedAt": "2025-06-27T14:31:16Z",
+      "updatedAt": "2025-06-30T15:55:50Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "83a980afe8d90abd370498a8531143c1a1cb0d69",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "update-acknowledgements",
       "headRefOid": "2b03854de8989dfa82bfad90d52386817facbf23",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-30T15:55:50Z",
+      "mergedAt": "2025-06-30T15:55:50Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "218d3c46d97b4096d1a0420e8e457a32bfbaf408"
+      },
       "comments": [],
       "reviews": [
         {
@@ -21231,6 +21233,19 @@
           "body": "LGTM",
           "createdAt": "2025-06-27T14:31:16Z",
           "updatedAt": "2025-06-27T14:31:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86xG3F-",
+          "commit": {
+            "abbreviatedOid": "2b03854"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-30T14:01:35Z",
+          "updatedAt": "2025-06-30T14:01:35Z",
           "comments": []
         }
       ]
