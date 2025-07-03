@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-01T01:57:19.261798+00:00",
+  "timestamp": "2025-07-03T01:46:40.627212+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21246,6 +21246,46 @@
           "body": "",
           "createdAt": "2025-06-30T14:01:35Z",
           "updatedAt": "2025-06-30T14:01:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 223,
+      "id": "PR_kwDOIrmZ-86c7qg_",
+      "title": "fixed typo in IANA table (missing word 'key')",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/223",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-01T15:35:39Z",
+      "updatedAt": "2025-07-02T14:10:26Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "218d3c46d97b4096d1a0420e8e457a32bfbaf408",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "iana-table-secret",
+      "headRefOid": "c10240a0102d3acd14bda8874771dcbea0a02c11",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-86xlPZM",
+          "commit": {
+            "abbreviatedOid": "c10240a"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-02T14:10:26Z",
+          "updatedAt": "2025-07-02T14:10:26Z",
           "comments": []
         }
       ]
