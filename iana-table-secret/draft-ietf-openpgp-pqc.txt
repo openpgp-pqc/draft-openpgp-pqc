@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 2 January 2026                                           MTG AG
+Expires: 5 January 2026                                           MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             1 July 2025
+                                                             4 July 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 5 January 2026.
 
 Copyright Notice
 
@@ -489,7 +489,7 @@ Table of Contents
 
    and
 
-   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)
+   (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey)
 
    To instantiate ECDH-KEM, one must select a parameter set from
    Table 3.
@@ -728,12 +728,12 @@ Table of Contents
         algorithm ID according to Table 5
 
    6.   Parse ecdhCipherText, mlkemCipherText, and C from encryptedKey
-        encoded as ecdhCipherText || mlkemCipherText || len(C,symAlgId)
+        encoded as ecdhCipherText || mlkemCipherText || len(C, symAlgId)
         (|| symAlgId) || C as specified in Section 4.3.1, where symAlgId
         is present only in the case of a v3 PKESK.
 
-   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey,
-        ecdhCipherText)
+   7.   Compute (ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText,
+        ecdhSecretKey)
 
    8.   Compute (mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText,
         mlkemSecretKey)
@@ -913,7 +913,7 @@ Table of Contents
    To sign a message M with ML-DSA + EdDSA the following sequence of
    operations has to be performed:
 
-   1.  Generate dataDigest according to Section 5.2.4 of [RFC9580].
+   1.  Generate dataDigest according to Section 5.2.4 of [RFC9580]
 
    2.  Create the EdDSA signature over dataDigest with EdDSA.Sign() from
        Section 5.1.1
@@ -922,7 +922,7 @@ Table of Contents
        from Section 5.1.2
 
    4.  Encode the EdDSA and ML-DSA signatures according to the packet
-       structure given in Section 5.3.1.
+       structure given in Section 5.3.1
 
 5.2.3.  Signature Verification
 
