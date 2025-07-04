@@ -403,7 +403,7 @@ Specifically, each of these subsections defines the instances of the following o
 
 and
 
-    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)
+    (ecdhKeyShare) <- ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey)
 
 To instantiate `ECDH-KEM`, one must select a parameter set from {{tab-ecdh-cfrg-artifacts}}.
 
@@ -563,7 +563,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
  8. Compute `C = AESKeyWrap(KEK, sessionKey)` with AES-256 as per {{RFC3394}} that includes a 64 bit integrity check
 
- 9. Output the algorithm specific part of the PKESK as `ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId)  || C`, where both `symAlgId` and `len(C, symAlgId)` are single octet fields, `symAlgId` denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and `len(C, symAlgId)` denotes the combined octet length of the fields specified as the arguments.
+ 9. Output the algorithm specific part of the PKESK as `ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId) || C`, where both `symAlgId` and `len(C, symAlgId)` are single octet fields, `symAlgId` denotes the symmetric algorithm ID used and is present only for a v3 PKESK, and `len(C, symAlgId)` denotes the combined octet length of the fields specified as the arguments.
 
 ### Decryption Procedure
 
@@ -579,9 +579,9 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
  5. Instantiate the ECDH-KEM and the ML-KEM depending on the algorithm ID according to {{tab-mlkem-ecc-composite}}
 
- 6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText || len(C,symAlgId) (|| symAlgId) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
+ 6. Parse `ecdhCipherText`, `mlkemCipherText`, and `C` from `encryptedKey` encoded as `ecdhCipherText || mlkemCipherText || len(C, symAlgId) (|| symAlgId) || C` as specified in {{ecc-mlkem-pkesk}}, where `symAlgId` is present only in the case of a v3 PKESK.
 
- 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhSecretKey, ecdhCipherText)`
+ 7. Compute `(ecdhKeyShare) = ECDH-KEM.Decaps(ecdhCipherText, ecdhSecretKey)`
 
  8. Compute `(mlkemKeyShare) = ML-KEM.Decaps(mlkemCipherText, mlkemSecretKey)`
 
@@ -707,13 +707,13 @@ EdDSA key generation follows the specification in {{RFC8032}}, and the artifacts
 
 To sign a message `M` with ML-DSA + EdDSA the following sequence of operations has to be performed:
 
- 1. Generate `dataDigest` according to {{Section 5.2.4 of RFC9580}}.
+ 1. Generate `dataDigest` according to {{Section 5.2.4 of RFC9580}}
 
  2. Create the EdDSA signature over `dataDigest` with `EdDSA.Sign()` from {{eddsa-signature}}
 
  3. Create the ML-DSA signature over `dataDigest` with `ML-DSA.Sign()` from {{mldsa-signature}}
 
- 4. Encode the EdDSA and ML-DSA signatures according to the packet structure given in {{ecc-mldsa-sig-packet}}.
+ 4. Encode the EdDSA and ML-DSA signatures according to the packet structure given in {{ecc-mldsa-sig-packet}}
 
 ### Signature Verification
 
@@ -777,7 +777,7 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".
 |------------------------| ------------------ | ------------------ | -------------------|
 | Algorithm ID reference | 32                 | 33                 | 34                 |
 | Public key             | 32 octets          | 32 octets          | 64 octets          |
-| Secret key             | 64 octets          | 64 octets          | 128 octets          |
+| Secret key             | 64 octets          | 64 octets          | 128 octets         |
 | Signature              | 7856 octets        | 17088 octets       | 29792 octets       |
 
 
