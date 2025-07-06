@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-03T01:46:40.627212+00:00",
+  "timestamp": "2025-07-06T01:54:33.445722+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21253,26 +21253,28 @@
     {
       "number": 223,
       "id": "PR_kwDOIrmZ-86c7qg_",
-      "title": "fixed typo in IANA table (missing word 'key')",
+      "title": "Fixed typos",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/223",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-07-01T15:35:39Z",
-      "updatedAt": "2025-07-02T14:10:26Z",
+      "updatedAt": "2025-07-04T19:52:46Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "218d3c46d97b4096d1a0420e8e457a32bfbaf408",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "iana-table-secret",
-      "headRefOid": "c10240a0102d3acd14bda8874771dcbea0a02c11",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "114027af0766c99dcea57ad988080a7df137dcdf",
+      "closedAt": "2025-07-04T19:52:46Z",
+      "mergedAt": "2025-07-04T19:52:46Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "14dea4149a816146863a338a183b5aca896c01d5"
+      },
       "comments": [],
       "reviews": [
         {
@@ -21286,6 +21288,32 @@
           "body": "",
           "createdAt": "2025-07-02T14:10:26Z",
           "updatedAt": "2025-07-02T14:10:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86yFoZH",
+          "commit": {
+            "abbreviatedOid": "114027a"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I fixed some further typos and switched order of inputs in ECDH-KEM.Decaps() to match the order of ML-KEM.Decaps().\r\n\r\nSee [114027a](https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/223/commits/114027af0766c99dcea57ad988080a7df137dcdf)).",
+          "createdAt": "2025-07-04T16:32:18Z",
+          "updatedAt": "2025-07-04T16:33:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-86yHPYi",
+          "commit": {
+            "abbreviatedOid": "114027a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-04T19:52:30Z",
+          "updatedAt": "2025-07-04T19:52:30Z",
           "comments": []
         }
       ]
