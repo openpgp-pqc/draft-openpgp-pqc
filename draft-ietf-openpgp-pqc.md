@@ -1078,7 +1078,7 @@ Andreas Huelsing (TU Eindhoven)
 # Acknowledgments
 {:numbered="false"}
 
-Thanks to Daniel Kahn Gillmor, Justus Winter, Daniel Huigens, Evangelos Karatsiolis, and early implementors of the draft for their reviews and feedback on this document.
+Thanks to Daniel Kahn Gillmor, Justus Winter, Daniel Huigens, Evangelos Karatsiolis, and early implementers of the draft for their reviews and feedback on this document.
 
 --- back
 
