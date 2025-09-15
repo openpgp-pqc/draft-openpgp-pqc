@@ -240,6 +240,8 @@ The document specifies the conventions for interoperability between compliant Op
 
 {::boilerplate bcp14-tagged}
 
+In wire format descriptions, the operator "`||`" is used to indicate concatenation of groups of octets.
+
 ### Terminology for Multi-Algorithm Schemes
 
 The terminology in this document is oriented towards the definitions in {{?RFC9794}}.
