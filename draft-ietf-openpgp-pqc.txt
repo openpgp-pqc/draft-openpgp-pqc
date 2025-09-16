@@ -245,6 +245,9 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   In wire format descriptions, the operator "||" is used to indicate
+   concatenation of groups of octets.
+
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
    The terminology in this document is oriented towards the definitions
