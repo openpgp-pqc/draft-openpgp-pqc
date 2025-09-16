@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 5 January 2026                                           MTG AG
+Expires: 20 March 2026                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                             4 July 2025
+                                                       16 September 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2026.
+   This Internet-Draft will expire on 20 March 2026.
 
 Copyright Notice
 
@@ -1315,8 +1315,8 @@ Table of Contents
    |  |            | Format| Format|         |              |         |
    +==+============+=======+=======+=========+==============+=========+
    |30| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
-   |  | 65+Ed25519 | octets| octets|  Ed25519|              |      5.2|
-   |  |            |Ed25519|Ed25519|signature|              |         |
+   |  | 65+Ed25519 | octets| octets|  Ed25519|              |   5.2 of|
+   |  |            |Ed25519|Ed25519|signature|              |  RFC TBD|
    |  |            | public| secret|   (Table|              |         |
    |  |            |    key|    key| 6), 3309|              |         |
    |  |            | (Table| (Table|   octets|              |         |
@@ -1331,8 +1331,8 @@ Table of Contents
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
-   |  | 87+Ed448   | octets| octets|   octets|              |      5.2|
-   |  |            |  Ed448|  Ed448|    Ed448|              |         |
+   |  | 87+Ed448   | octets| octets|   octets|              |   5.2 of|
+   |  |            |  Ed448|  Ed448|    Ed448|              |  RFC TBD|
    |  |            | public| secret|signature|              |         |
    |  |            |    key|    key|   (Table|              |         |
    |  |            | (Table| (Table| 6), 4627|              |         |
@@ -1347,29 +1347,29 @@ Table of Contents
    |  |            |     7)|       |         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
-   |  | SHAKE-128s | octets| octets|   octets|              |      6.1|
-   |  |            | public| secret|signature|              |         |
+   |  | SHAKE-128s | octets| octets|   octets|              |   6.1 of|
+   |  |            | public| secret|signature|              |  RFC TBD|
    |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
    |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
-   |  | SHAKE-128f | octets| octets|   octets|              |      6.1|
-   |  |            | public| secret|signature|              |         |
+   |  | SHAKE-128f | octets| octets|   octets|              |   6.1 of|
+   |  |            | public| secret|signature|              |  RFC TBD|
    |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
    |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
-   |  | SHAKE-256s | octets| octets|   octets|              |      6.1|
-   |  |            | public| secret|signature|              |         |
+   |  | SHAKE-256s | octets| octets|   octets|              |   6.1 of|
+   |  |            | public| secret|signature|              |  RFC TBD|
    |  |            |    key|    key|(Table 8)|              |         |
    |  |            | (Table| (Table|         |              |         |
    |  |            |     8)|     8)|         |              |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
-   |  | 768+X25519 | octets| octets|         |       X25519 |      4.2|
-   |  |            | X25519| X25519|         |  ciphertext, |         |
+   |  | 768+X25519 | octets| octets|         |       X25519 |   4.2 of|
+   |  |            | X25519| X25519|         |  ciphertext, |  RFC TBD|
    |  |            | public| secret|         |  1088 octets |         |
    |  |            |    key|    key|         |   ML-KEM-768 |         |
    |  |            | (Table| (Table|         |  ciphertext, |         |
@@ -1387,8 +1387,8 @@ Table of Contents
    |  |            |       |       |         |       4.3.1) |         |
    +--+------------+-------+-------+---------+--------------+---------+
    |36| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
-   |  | 1024+X448  | octets| octets|         |         X448 |      4.2|
-   |  |            |   X448|   X448|         |  ciphertext, |         |
+   |  | 1024+X448  | octets| octets|         |         X448 |   4.2 of|
+   |  |            |   X448|   X448|         |  ciphertext, |  RFC TBD|
    |  |            | public| secret|         |  1568 octets |         |
    |  |            |    key|    key|         |  ML-KEM-1024 |         |
    |  |            | (Table| (Table|         |  ciphertext, |         |
