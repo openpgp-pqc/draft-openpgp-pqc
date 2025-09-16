@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T01:54:33.445722+00:00",
+  "timestamp": "2025-09-16T01:25:25.736934+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -21317,6 +21317,205 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 224,
+      "id": "PR_kwDOIrmZ-86orD5F",
+      "title": "Fix spelling of \"implementers\"",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/224",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-15T16:18:06Z",
+      "updatedAt": "2025-09-15T18:14:49Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "14dea4149a816146863a338a183b5aca896c01d5",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "spelling",
+      "headRefOid": "a7c863bead7f797cbc956c45129f76d9b96b17bc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87ARYZO",
+          "commit": {
+            "abbreviatedOid": "a7c863b"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Ok for me.",
+          "createdAt": "2025-09-15T18:14:49Z",
+          "updatedAt": "2025-09-15T18:14:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 225,
+      "id": "PR_kwDOIrmZ-86orF-4",
+      "title": "Explain that || means concatenation.",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/225",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-15T16:21:11Z",
+      "updatedAt": "2025-09-15T19:56:30Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "14dea4149a816146863a338a183b5aca896c01d5",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "concatenate",
+      "headRefOid": "40668f42a90ffa735717aa13d75ad54474649a6e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87ARfR_",
+          "commit": {
+            "abbreviatedOid": "adaff50"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T18:25:09Z",
+          "updatedAt": "2025-09-15T18:25:09Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\nIn wire format descriptions, the operator \"`||`\" is used to indicate concatenation of groups of octets.\r\n```\r\nQuotation mark overflow?",
+              "createdAt": "2025-09-15T18:25:09Z",
+              "updatedAt": "2025-09-15T18:25:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87ARgU8",
+          "commit": {
+            "abbreviatedOid": "adaff50"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Good for me, after quotation mark cleanup.",
+          "createdAt": "2025-09-15T18:26:31Z",
+          "updatedAt": "2025-09-15T18:26:31Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87ARqNG",
+          "commit": {
+            "abbreviatedOid": "adaff50"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-15T18:40:57Z",
+          "updatedAt": "2025-09-15T18:40:57Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "ha ha whoops!  thanks for catching that.",
+              "createdAt": "2025-09-15T18:40:57Z",
+              "updatedAt": "2025-09-15T18:40:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87ASd06",
+          "commit": {
+            "abbreviatedOid": "40668f4"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-15T19:56:30Z",
+          "updatedAt": "2025-09-15T19:56:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 226,
+      "id": "PR_kwDOIrmZ-86orPQ5",
+      "title": "IANA considerations: Add \"of RFC TBD\" to References column",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/226",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Prompted by Paul Wouters message\r\nhttps://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc",
+      "createdAt": "2025-09-15T16:34:22Z",
+      "updatedAt": "2025-09-15T18:33:04Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "14dea4149a816146863a338a183b5aca896c01d5",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "references",
+      "headRefOid": "1bc37f2d1dd4b9bc787a45c25c5562f423d171db",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87ARlBZ",
+          "commit": {
+            "abbreviatedOid": "1bc37f2"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-09-15T18:33:04Z",
+          "updatedAt": "2025-09-15T18:33:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 227,
+      "id": "PR_kwDOIrmZ-86osGUF",
+      "title": "Migration: explicitly discuss verification separately from signing",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/227",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-15T17:54:11Z",
+      "updatedAt": "2025-09-15T17:54:12Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "14dea4149a816146863a338a183b5aca896c01d5",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "verification-migration",
+      "headRefOid": "b3a92732c693345a6743bb56cf441d6fba5327ae",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
