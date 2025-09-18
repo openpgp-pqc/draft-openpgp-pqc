@@ -223,13 +223,14 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 # Introduction
 
 The OpenPGP protocol supports various traditional public-key algorithms based on the factoring or discrete logarithm problem.
-As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of quantum computers.
+As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
 
-Such cryptographic algorithms are referred to as post-quantum cryptography.
+Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
 The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
 Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
+Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
@@ -253,13 +254,13 @@ The short form "PQ(/T)" stands for PQ or PQ/T.
 ## Post-Quantum Cryptography
 
 This section describes the individual post-quantum cryptographic schemes.
-All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
+All schemes listed here are believed to provide security in the presence of a CRQC.
 However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.
 
 ### ML-KEM {#mlkem-intro}
 
 ML-KEM [FIPS-203] is based on the hardness of solving the Learning with Errors problem in module lattices (MLWE).
-The scheme is believed to provide security against cryptanalytic attacks by classical as well as quantum computers.
+The scheme is believed to provide security against cryptanalytic attacks based on classical as well as quantum algorithms.
 This specification defines ML-KEM only in composite combination with ECDH encryption schemes in order to provide a pre-quantum security fallback.
 
 ### ML-DSA {#mldsa-intro}
@@ -371,7 +372,7 @@ This is an interpretation of {{Section 5.2.5 of RFC9580}}.
 
 Even though the zero point, also called the point at infinity, may occur as a result of arithmetic operations on points of an elliptic curve, it MUST NOT appear in any ECC data structure defined in this document.
 
-Furthermore, when performing the explicitly listed operations in {{x25519-kem}} or {{x448-kem}} it is REQUIRED to follow the specification and security advisory mandated from the respective elliptic curve specification.
+Furthermore, when performing the explicitly listed operations in {{x25519-kem}} or {{x448-kem}} it is REQUIRED to follow the specification and security advisory mandated from the respective elliptic curve specification [RFC7748].
 
 ## Key Version Binding
 
