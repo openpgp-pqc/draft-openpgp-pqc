@@ -878,8 +878,7 @@ It should be noted that the composite signature schemes specified in this draft 
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid OpenPGP signature for any message.
 
-Furthermore, it is also not possible to craft a new signature for a message that was signed twice with a composite algorithm by interchanging (that is, remixing) the component signatures, which would classify as a weak existential forgery.
-This is due to the fact that each v6 signature also includes a random salt at the start of the hashed meta data, as also specified in the aforementioned reference.
+An attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.
 
 ## Key Combiner {#sec-key-combiner}
 
