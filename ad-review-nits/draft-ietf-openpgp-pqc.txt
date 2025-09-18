@@ -226,7 +226,7 @@ Table of Contents
    strategy to deploy post-quantum in combination with traditional
    schemes such that the security is retained even if all schemes but
    one in the combination are broken.  Such combinations are referred to
-   as "multi-algorithm" "post-quantum/traditional" (PQ/T) hybrid
+   as multi-algorithm "post-quantum/traditional" (PQ/T) hybrid
    algorithms.  In contrast, the stateless hash-based signature scheme
    SLH-DSA is considered to be sufficiently well understood with respect
    to its security assumptions in order to be used standalone.  To this
