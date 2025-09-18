@@ -1612,11 +1612,12 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">The OpenPGP protocol supports various traditional public-key algorithms based on the factoring or discrete logarithm problem.
-As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of quantum computers.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography.
+As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
 The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
 Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
+Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1651,7 +1652,7 @@ The short form "PQ(/T)" stands for PQ or PQ/T.<a href="#section-1.1.1-1" class="
 <a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-post-quantum-cryptography" class="section-name selfRef">Post-Quantum Cryptography</a>
         </h3>
 <p id="section-1.2-1">This section describes the individual post-quantum cryptographic schemes.
-All schemes listed here are believed to provide security in the presence of a cryptographically relevant quantum computer.
+All schemes listed here are believed to provide security in the presence of a CRQC.
 However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <div id="mlkem-intro">
 <section id="section-1.2.1">
@@ -1659,7 +1660,7 @@ However, the mathematical problems on which the two ML-* schemes and SLH-DSA are
 <a href="#section-1.2.1" class="section-number selfRef">1.2.1. </a><a href="#name-ml-kem" class="section-name selfRef">ML-KEM</a>
           </h4>
 <p id="section-1.2.1-1">ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> is based on the hardness of solving the Learning with Errors problem in module lattices (MLWE).
-The scheme is believed to provide security against cryptanalytic attacks by classical as well as quantum computers.
+The scheme is believed to provide security against cryptanalytic attacks based on classical as well as quantum algorithms.
 This specification defines ML-KEM only in composite combination with ECDH encryption schemes in order to provide a pre-quantum security fallback.<a href="#section-1.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1911,7 +1912,7 @@ This is an interpretation of <span><a href="https://rfc-editor.org/rfc/rfc9580#s
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-ecc-requirements" class="section-name selfRef">ECC Requirements</a>
         </h3>
 <p id="section-3.4-1">Even though the zero point, also called the point at infinity, may occur as a result of arithmetic operations on points of an elliptic curve, it <span class="bcp14">MUST NOT</span> appear in any ECC data structure defined in this document.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">Furthermore, when performing the explicitly listed operations in <a href="#x25519-kem" class="auto internal xref">Section 4.1.1.1</a> or <a href="#x448-kem" class="auto internal xref">Section 4.1.1.2</a> it is <span class="bcp14">REQUIRED</span> to follow the specification and security advisory mandated from the respective elliptic curve specification.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">Furthermore, when performing the explicitly listed operations in <a href="#x25519-kem" class="auto internal xref">Section 4.1.1.1</a> or <a href="#x448-kem" class="auto internal xref">Section 4.1.1.2</a> it is <span class="bcp14">REQUIRED</span> to follow the specification and security advisory mandated from the respective elliptic curve specification <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-version-binding">
