@@ -863,6 +863,11 @@ An implementation should not abort the encryption process when encrypting a mess
 An implementation may sign with both a PQ(/T) and a traditional key using multiple signatures over the same data as described in {{multiple-signatures}}.
 Signing only with PQ(/T) key material is not backwards compatible.
 
+## Verifying with Traditional and PQ(/T) Keys
+
+When verifying, an implementation MAY be willing to accept signatures PQ(/T) keys and from traditional keys.
+A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.
+
 ## Generating PQ(/T) Keys
 
 It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
