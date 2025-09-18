@@ -1371,7 +1371,10 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-signing-with-traditional-an" class="internal xref">Signing with Traditional and PQ(/T) Keys</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-generating-pq-t-keys" class="internal xref">Generating PQ(/T) Keys</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-verifying-with-traditional-" class="internal xref">Verifying with Traditional and PQ(/T) Keys</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-generating-pq-t-keys" class="internal xref">Generating PQ(/T) Keys</a></p>
 </li>
             </ul>
 </li>
@@ -2868,13 +2871,22 @@ An implementation should not abort the encryption process when encrypting a mess
 Signing only with PQ(/T) key material is not backwards compatible.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="generating-pqt-keys">
+<div id="verifying-with-traditional-and-pqt-keys">
 <section id="section-8.3">
-        <h3 id="name-generating-pq-t-keys">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-generating-pq-t-keys" class="section-name selfRef">Generating PQ(/T) Keys</a>
+        <h3 id="name-verifying-with-traditional-">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-verifying-with-traditional-" class="section-name selfRef">Verifying with Traditional and PQ(/T) Keys</a>
         </h3>
-<p id="section-8.3-1">It is <span class="bcp14">RECOMMENDED</span> to generate fresh secrets when generating PQ(/T) keys.
-Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">When verifying, an implementation <span class="bcp14">MAY</span> be willing to accept signatures PQ(/T) keys and from traditional keys.
+A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key <span class="bcp14">MAY</span> prefer instead to ignore all traditional signatures from that peer.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="generating-pqt-keys">
+<section id="section-8.4">
+        <h3 id="name-generating-pq-t-keys">
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-generating-pq-t-keys" class="section-name selfRef">Generating PQ(/T) Keys</a>
+        </h3>
+<p id="section-8.4-1">It is <span class="bcp14">RECOMMENDED</span> to generate fresh secrets when generating PQ(/T) keys.
+Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

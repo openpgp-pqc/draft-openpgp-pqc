@@ -132,7 +132,8 @@ Table of Contents
    8.  Migration Considerations
      8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
-     8.3.  Generating PQ(/T) Keys
+     8.3.  Verifying with Traditional and PQ(/T) Keys
+     8.4.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
      9.2.  Key Combiner
@@ -1149,7 +1150,15 @@ Table of Contents
    Section 3.3.  Signing only with PQ(/T) key material is not backwards
    compatible.
 
-8.3.  Generating PQ(/T) Keys
+8.3.  Verifying with Traditional and PQ(/T) Keys
+
+   When verifying, an implementation MAY be willing to accept signatures
+   PQ(/T) keys and from traditional keys.  A verifier concerned with a
+   cryptographically relevant quantum computer with knowledge of a peer
+   that has a PQ(/T) signing key MAY prefer instead to ignore all
+   traditional signatures from that peer.
+
+8.4.  Generating PQ(/T) Keys
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
