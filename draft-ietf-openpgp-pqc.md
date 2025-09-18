@@ -863,7 +863,7 @@ Signing only with PQ(/T) key material is not backwards compatible.
 ## Verifying with Traditional and PQ(/T) Keys
 
 When verifying, an implementation MAY be willing to accept signatures PQ(/T) keys and from traditional keys.
-A verifier particularly concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.
+A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.
 
 ## Generating PQ(/T) Keys
 
