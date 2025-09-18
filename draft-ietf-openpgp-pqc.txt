@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 20 March 2026                                            MTG AG
+Expires: 22 March 2026                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                       16 September 2025
+                                                       18 September 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2026.
+   This Internet-Draft will expire on 22 March 2026.
 
 Copyright Notice
 
@@ -1170,13 +1170,16 @@ Table of Contents
    component signature taken out of the context of a specific composite
    algorithm is not a valid OpenPGP signature for any message.
 
-   Furthermore, it is also not possible to craft a new signature for a
-   message that was signed twice with a composite algorithm by
-   interchanging (that is, remixing) the component signatures, which
-   would classify as a weak existential forgery.  This is due to the
-   fact that each v6 signature also includes a random salt at the start
-   of the hashed meta data, as also specified in the aforementioned
-   reference.
+   An attacker cannot generate a fresh valid signature for a message
+   that has already been signed twice with the composite algorithm;
+   being able to do so would violate Strong Unforgeability under Chosen
+   Message Attack (SUF-CMA).  Specifically, an attacker might try to
+   construct a new signature by remixing the component parts of two
+   legitimate composite signatures.  That is impossible because each v6
+   signature embeds a random salt at the start of its hashed metadata.
+   The two legitimate signatures use different salts, so their
+   components are not interchangeable and cannot be recombined into a
+   valid signature.
 
 9.2.  Key Combiner
 
