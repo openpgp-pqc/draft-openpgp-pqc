@@ -856,7 +856,8 @@ Therefore various migration considerations must be taken into account, in partic
 ## Encrypting to Traditional and PQ(/T) Keys
 
 As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
-An implementation should not abort the encryption process when encrypting a message to both PQ(/T) and traditional keys to allow for a smooth transition to post-quantum cryptography.
+During the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys should generally proceed by default (perhaps logging a warning) to avoid disruption to communications.
+A future revision of this specification may prohibit encrypting a given message to both PQ(/T) and traditional keys.
 
 ## Signing with Traditional and PQ(/T) Keys
 
