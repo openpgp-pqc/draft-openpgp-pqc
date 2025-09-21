@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-18T01:25:11.247268+00:00",
+  "timestamp": "2025-09-21T01:41:56.982385+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3421,7 +3421,7 @@
       "id": "I_kwDOIrmZ-8676u_b",
       "title": "ML-DSA only (non-composite) signature",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/220",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "robertohueso",
       "authorAssociation": "NONE",
       "assignees": [
@@ -3432,8 +3432,8 @@
       ],
       "body": "Cryptography newbie here, so this proposal might not make sense at this stage \ud83d\ude05 \n\nThe use case is: Signing messages and software using ML-DSA-87 to comply with [CNSA 2.0](https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF) (see `Table: Commercial National Security Algorithm Suite 2.0`) using keys stored in an HSM.\n\nIn its current stage, this draft forces us to use a composite signature `ML-DSA-87+Ed448`.\n\nA significant portion of HSMs are not able to sign using `Ed448`.\n\nIn this particular use case, continuing to use RSA signing because of software/HSM compatibility reasons is a \"must\", so that means that triple signing would be needed (i.e. `ML-DSA-87+Ed448` and `RSA-4096`). Also for compliance reasons with [CNSA 1.0](https://media.defense.gov/2021/Oct/15/2002874275/-1/-1/0/CNSA_WORKSHEET_20211015.PDF).\n\nAnother concern is that, according to [section 3.3](https://www.ietf.org/archive/id/draft-ietf-openpgp-pqc-11.html#name-multiple-signatures), `Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.` but there is no ML-DSA-only signature scheme defined. \n\nWould it make sense to have an `ML-DSA-87` only (non-composite) signature in this draft where you also advice to use it together with a classical signature algorithm but don't specify which one? (i.e. 2 independent OpenPGP signatures)\n\nBeyond this particular use case, I believe it adds some flexibility to OpenPGP.",
       "createdAt": "2025-06-17T09:16:46Z",
-      "updatedAt": "2025-09-16T19:53:12Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-18T15:37:29Z",
+      "closedAt": "2025-09-18T15:37:29Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -3547,7 +3547,7 @@
       "labels": [],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-09-16T19:54:33Z",
+      "updatedAt": "2025-09-19T19:07:07Z",
       "closedAt": null,
       "comments": [
         {
@@ -3563,6 +3563,20 @@
           "body": "Note that changing this would be a functional difference from the current draft, and would mean rewriting the test vectors and interop testing.",
           "createdAt": "2025-09-16T19:54:32Z",
           "updatedAt": "2025-09-16T19:54:32Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The use of the context parameter had been discussed in this issue: https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/137",
+          "createdAt": "2025-09-18T15:26:38Z",
+          "updatedAt": "2025-09-18T15:26:38Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the pointer, @falko-strenzke .  The framing in #137 suggested that some crypto APIs don't appear to support the context string for ML-DSA or SLH-DSA.  Can we enumerate those APIs?\n\nFor example:\n\n- OK [RustCrypto's `ml_dsa` crate](https://github.com/RustCrypto/signatures/blob/master/ml-dsa/src/lib.rs#L476) offers `sign_randomized` with a `ctx` parameter.\n- OK [RustCrypto's `slh_dsa` crate](https://github.com/RustCrypto/signatures/blob/master/slh-dsa/src/signing_key.rs#L169) offers `try_sign_with_context`.\n- OK OpenSSL's `EVP_PKEY_sign` can pass a context parameter via the `OSSL_PARAM` array for both [ML-DSA](https://docs.openssl.org/master/man7/EVP_SIGNATURE-ML-DSA/#ml-dsa-signature-parameters) and [SLH-DSA](https://docs.openssl.org/master/man7/EVP_SIGNATURE-SLH-DSA/#slh-dsa-signature-parameters) _(this seems kind of unergonomic to me, but \ud83e\udd37 it's OpenSSL)_\n- OK [`fips204` crate](https://github.com/integritychain/fips204/blob/main/src/traits.rs#L156): `try_sign(message, ctx)`\n- OK [`fips205` crate](https://github.com/integritychain/fips205/blob/main/src/traits.rs#L221): `try_sign(message, ctx)`\n\nWhat other implementations do we need to be concerned about?",
+          "createdAt": "2025-09-19T16:27:46Z",
+          "updatedAt": "2025-09-19T19:07:07Z"
         }
       ]
     },
@@ -3704,16 +3718,31 @@
       "id": "I_kwDOIrmZ-87L52w8",
       "title": "AD Review: Comments / NITS",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/237",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Comments / NITS\n> \n> Abstract:\n> \n>  \tadvent of quantum computers\n> \n>  \tin the presence of quantum computers.\n> \n> Can we use the same terminology as PQUIP recommends? eg here we should use\n> cryptographically relevant quantum computer (CRQC) and \"protect against CRQCs\"\n> \n> (see https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers)\n> \n> \n> Introduction:\n> \n>  \tSuch cryptographic algorithms are referred to as post-quantum cryptography. Th\n> \n> Perhaps introduce the acronym here, too eg post-quantum cryptography (PQC) to align it\n> with PQUIP?\n> \n> \n>  \tFor the two ML-* schemes, this document follows the conservative\n>  \tstrategy to deploy post-quantum in combination with traditional\n>  \tschemes such that the security is retained even if all schemes\n>  \tbut one in the combination are broken.\n> \n> Maybe add a sentence that this is called a hybrid? (you do refer to I-D.ietf-pquip-pqt-hybrid-terminology\n> later on int the document but not yet here)\n> \n> \n>  \tfrom the respective elliptic curve specification.\n> \n> Can this get a normative reference appended?",
+      "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\nComments / NITS\n \nAbstract:\n\n>  \tadvent of quantum computers\n> \n>  \tin the presence of quantum computers.\n \nCan we use the same terminology as PQUIP recommends? eg here we should use\ncryptographically relevant quantum computer (CRQC) and \"protect against CRQCs\"\n \n(see https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers)\n\n \n Introduction:\n \n>  \tSuch cryptographic algorithms are referred to as post-quantum cryptography. Th\n \nPerhaps introduce the acronym here, too eg post-quantum cryptography (PQC) to align it\nwith PQUIP?\n\n \n>  \tFor the two ML-* schemes, this document follows the conservative\n>  \tstrategy to deploy post-quantum in combination with traditional\n>  \tschemes such that the security is retained even if all schemes\n>  \tbut one in the combination are broken.\n \nMaybe add a sentence that this is called a hybrid? (you do refer to I-D.ietf-pquip-pqt-hybrid-terminology\nlater on int the document but not yet here)\n \n \n>  \tfrom the respective elliptic curve specification.\n \nCan this get a normative reference appended?",
       "createdAt": "2025-09-16T07:52:32Z",
-      "updatedAt": "2025-09-16T07:52:32Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-09-18T15:45:47Z",
+      "closedAt": "2025-09-18T15:45:47Z",
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Abstract:\n> \n> > advent of quantum computers\n> > in the presence of quantum computers.\n\nI prefer to leave \"advent\" here beause it describes the situation better in my view: the ultimate threat comes from a CRQC, but we are in the time of the advent of quantum computers, which is characterized by a continually increasing risk of a CRQC coming into existence in the near future. ",
+          "createdAt": "2025-09-18T15:12:22Z",
+          "updatedAt": "2025-09-18T15:12:22Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The other points I addressed in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/242",
+          "createdAt": "2025-09-18T15:15:40Z",
+          "updatedAt": "2025-09-18T15:15:40Z"
+        }
+      ]
     },
     {
       "number": 238,
@@ -3753,7 +3782,7 @@
       "id": "I_kwDOIrmZ-87L54Zl",
       "title": "AD Review: Re-use of signature salt",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/239",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -3762,8 +3791,8 @@
       "labels": [],
       "body": "[Paul Wouters review comments](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) were:\n\nSection 9.1\n\n> \tFurthermore, it is also not possible to craft a new signature\n> \tfor a message that was signed twice with a composite algorithm\n> \tby interchanging (that is, remixing) the component signatures,\n> \twhich would classify as a weak existential forgery. This is due\n> \tto the fact that each v6 signature also includes a random salt\n> \tat the start of the hashed meta data, as also specified in the\n> \taforementioned reference.\n\nCouldn't I simply choose to use the same \"random salt\" ?",
       "createdAt": "2025-09-16T07:54:11Z",
-      "updatedAt": "2025-09-16T16:11:10Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-18T15:39:54Z",
+      "closedAt": "2025-09-18T15:39:54Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -21886,24 +21915,26 @@
       "id": "PR_kwDOIrmZ-86osGUF",
       "title": "Migration: explicitly discuss verification separately from signing",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/227",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-09-15T17:54:11Z",
-      "updatedAt": "2025-09-16T19:48:08Z",
+      "updatedAt": "2025-09-18T15:46:03Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "14dea4149a816146863a338a183b5aca896c01d5",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "verification-migration",
-      "headRefOid": "b3a92732c693345a6743bb56cf441d6fba5327ae",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "adce7720e619216a52d32226edfa2e2c34640491",
+      "closedAt": "2025-09-18T15:46:03Z",
+      "mergedAt": "2025-09-18T15:46:03Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "b207d239b114632955777acfeffb3b18c5cb0294"
+      },
       "comments": [],
       "reviews": [
         {
@@ -21920,9 +21951,9 @@
           "comments": [
             {
               "originalPosition": 7,
-              "body": "```suggestion\r\nA verifier with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.\r\n```\r\nI think it is ok if one deletes the mentioning of being concerned with a CRQC.",
+              "body": "```suggestion\r\nA verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.\r\n```\r\n\r\n@wussler droped `particularly`\r\n@dkg ok?",
               "createdAt": "2025-09-16T07:25:25Z",
-              "updatedAt": "2025-09-16T07:25:38Z"
+              "updatedAt": "2025-09-18T15:31:55Z"
             }
           ]
         },
@@ -21960,9 +21991,9 @@
           "comments": [
             {
               "originalPosition": 7,
-              "body": "> If read and implemented too literally, this would mean the verifier can't process a valid traditional certificate (if the cert owner also is known to have a PQ(/T) cert), since no signatures are present (all are ignored).\r\n\r\nI think this is what DKG intends, and this also makes some sense: If I know someone could have signed with PQC, then I insist on seeing a PQC signature on each of his signed documents. Otherwise, if a CRQC should already exist, I might be unnecessarily fall for a forged signature.",
+              "body": "> If read and implemented too literally, this would mean the verifier can't process a valid traditional certificate (if the cert owner also is known to have a PQ(/T) cert), since no signatures are present (all are ignored).\r\n\r\nI think this is what DKG intends, and this also makes some sense: If I know someone could have signed with PQC, then I insist on seeing a PQC signature on each of his signed documents. Otherwise, if a CRQC should already exist, I might be unnecessarily falling for a forged signature.",
               "createdAt": "2025-09-16T13:57:03Z",
-              "updatedAt": "2025-09-16T13:57:03Z"
+              "updatedAt": "2025-09-18T13:27:36Z"
             }
           ]
         },
@@ -22005,6 +22036,52 @@
               "updatedAt": "2025-09-16T19:48:08Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BFEv3",
+          "commit": {
+            "abbreviatedOid": "b3a9273"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-18T12:23:35Z",
+          "updatedAt": "2025-09-18T12:23:35Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I see your point @dkg but would still drop the `particularly`",
+              "createdAt": "2025-09-18T12:23:35Z",
+              "updatedAt": "2025-09-18T12:23:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJyEF",
+          "commit": {
+            "abbreviatedOid": "adce772"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T15:40:49Z",
+          "updatedAt": "2025-09-18T15:40:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJ5My",
+          "commit": {
+            "abbreviatedOid": "adce772"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T15:45:23Z",
+          "updatedAt": "2025-09-18T15:45:23Z",
+          "comments": []
         }
       ]
     },
@@ -22013,24 +22090,26 @@
       "id": "PR_kwDOIrmZ-86o3hIO",
       "title": "clarification of SUF-CMA resistance of hybrid signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/241",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "",
+      "body": "Closes #239",
       "createdAt": "2025-09-16T13:36:18Z",
-      "updatedAt": "2025-09-16T19:51:30Z",
+      "updatedAt": "2025-09-18T15:39:53Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b3ce4e465c4e8290cbd9c2b7fde0a75b17161d20",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "sig-remix-clarify",
-      "headRefOid": "1f7c8d4c4be34ea80f3deb777bd4bd80370fd915",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e57282e75105684c5427fb8235e72247cccfcee1",
+      "closedAt": "2025-09-18T15:39:53Z",
+      "mergedAt": "2025-09-18T15:39:53Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "f63e7748d156056324e70dcaa82c4817ac7087f2"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -22067,8 +22146,208 @@
               "updatedAt": "2025-09-16T15:57:50Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BETtm",
+          "commit": {
+            "abbreviatedOid": "1f7c8d4"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-18T11:46:05Z",
+          "updatedAt": "2025-09-18T11:46:18Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I also prefer this version",
+              "createdAt": "2025-09-18T11:46:05Z",
+              "updatedAt": "2025-09-18T11:46:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BIYvt",
+          "commit": {
+            "abbreviatedOid": "1f7c8d4"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-18T14:40:59Z",
+          "updatedAt": "2025-09-18T14:41:00Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nAn attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.\r\n```\r\nI suggest a just few modifiations here.",
+              "createdAt": "2025-09-18T14:41:00Z",
+              "updatedAt": "2025-09-18T14:41:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BIeYf",
+          "commit": {
+            "abbreviatedOid": "e57282e"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T14:44:53Z",
+          "updatedAt": "2025-09-18T14:44:53Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJH9P",
+          "commit": {
+            "abbreviatedOid": "e57282e"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T15:12:57Z",
+          "updatedAt": "2025-09-18T15:12:57Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJnUq",
+          "commit": {
+            "abbreviatedOid": "e57282e"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T15:33:02Z",
+          "updatedAt": "2025-09-18T15:33:02Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 242,
+      "id": "PR_kwDOIrmZ-86pUYTo",
+      "title": "addressed nits from AD Review (#237)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/242",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #237 ",
+      "createdAt": "2025-09-18T15:15:12Z",
+      "updatedAt": "2025-09-18T15:45:46Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "2e9106c4b0ff579006ec0b79e93b92711d2a6669",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "ad-review-nits",
+      "headRefOid": "610365cc07f5aa4540eef5dd42a6f2c33064946b",
+      "closedAt": "2025-09-18T15:45:46Z",
+      "mergedAt": "2025-09-18T15:45:46Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "f5e13b864187c163a7e358fce5aa3c97a4a96ed4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87BJbTh",
+          "commit": {
+            "abbreviatedOid": "e69d446"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-18T15:24:43Z",
+          "updatedAt": "2025-09-18T15:24:50Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nFor the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.\r\nSuch combinations are referred to as multi-algorithm \"post-quantum/traditional\" (PQ/T) hybrid algorithms.\r\n```",
+              "createdAt": "2025-09-18T15:24:43Z",
+              "updatedAt": "2025-09-18T15:24:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJmRm",
+          "commit": {
+            "abbreviatedOid": "6a17770"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-18T15:32:17Z",
+          "updatedAt": "2025-09-18T15:32:17Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nSuch combinations are referred to as multi-algorithm or \"post-quantum/traditional\" (PQ/T) hybrid algorithms.\r\n```",
+              "createdAt": "2025-09-18T15:32:17Z",
+              "updatedAt": "2025-09-18T15:32:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJswl",
+          "commit": {
+            "abbreviatedOid": "610365c"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-09-18T15:37:01Z",
+          "updatedAt": "2025-09-18T15:37:01Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87BJzPy",
+          "commit": {
+            "abbreviatedOid": "610365c"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-18T15:41:41Z",
+          "updatedAt": "2025-09-18T15:41:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 243,
+      "id": "PR_kwDOIrmZ-86peNOP",
+      "title": "AD Review: fallback to traditional encryption",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/243",
+      "state": "OPEN",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I simply applied DKG's suggestion from #234\r\n\r\ncloses #234",
+      "createdAt": "2025-09-19T09:59:26Z",
+      "updatedAt": "2025-09-19T09:59:27Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b207d239b114632955777acfeffb3b18c5cb0294",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fallback-trad-encr",
+      "headRefOid": "81b9bb163ac32f8e37b4e5effc05ce37f96c85f4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
