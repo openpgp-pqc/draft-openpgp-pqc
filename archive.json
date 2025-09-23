@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-21T01:41:56.982385+00:00",
+  "timestamp": "2025-09-23T01:26:11.629324+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3547,7 +3547,7 @@
       "labels": [],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-09-19T19:07:07Z",
+      "updatedAt": "2025-09-22T08:11:36Z",
       "closedAt": null,
       "comments": [
         {
@@ -3577,6 +3577,20 @@
           "body": "Thanks for the pointer, @falko-strenzke .  The framing in #137 suggested that some crypto APIs don't appear to support the context string for ML-DSA or SLH-DSA.  Can we enumerate those APIs?\n\nFor example:\n\n- OK [RustCrypto's `ml_dsa` crate](https://github.com/RustCrypto/signatures/blob/master/ml-dsa/src/lib.rs#L476) offers `sign_randomized` with a `ctx` parameter.\n- OK [RustCrypto's `slh_dsa` crate](https://github.com/RustCrypto/signatures/blob/master/slh-dsa/src/signing_key.rs#L169) offers `try_sign_with_context`.\n- OK OpenSSL's `EVP_PKEY_sign` can pass a context parameter via the `OSSL_PARAM` array for both [ML-DSA](https://docs.openssl.org/master/man7/EVP_SIGNATURE-ML-DSA/#ml-dsa-signature-parameters) and [SLH-DSA](https://docs.openssl.org/master/man7/EVP_SIGNATURE-SLH-DSA/#slh-dsa-signature-parameters) _(this seems kind of unergonomic to me, but \ud83e\udd37 it's OpenSSL)_\n- OK [`fips204` crate](https://github.com/integritychain/fips204/blob/main/src/traits.rs#L156): `try_sign(message, ctx)`\n- OK [`fips205` crate](https://github.com/integritychain/fips205/blob/main/src/traits.rs#L221): `try_sign(message, ctx)`\n\nWhat other implementations do we need to be concerned about?",
           "createdAt": "2025-09-19T16:27:46Z",
           "updatedAt": "2025-09-19T19:07:07Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Botan doesn't yet support the context parameter for ML-DSA: https://github.com/randombit/botan/blob/master/src/lib/pubkey/dilithium/dilithium_common/dilithium.cpp#LC150\n\nBut since there is already a general signature parameter in the create_signature_op function (see src/lib/pubkey/dilithium/dilithium_common/dilithium.h, the general interface with the paramter argument is defined in src/lib/pubkey/pk_keys.h for signature generation and verification operation), adding support should be possible without too much effort.",
+          "createdAt": "2025-09-22T08:06:30Z",
+          "updatedAt": "2025-09-22T08:06:30Z"
+        },
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "But on the other hand, the FFI interface, which is think is used by RNP (@TJ-91 can you confirm?) doesn't seem to support specifying the parameter function argument: https://botan.randombit.net/handbook/api_ref/ffi.html#signature-generation\n\nFor the Rust binding that Sequoia is using, I can't say.\n\n@dkg ",
+          "createdAt": "2025-09-22T08:11:36Z",
+          "updatedAt": "2025-09-22T08:11:36Z"
         }
       ]
     },
@@ -22335,7 +22349,7 @@
       "labels": [],
       "body": "I simply applied DKG's suggestion from #234\r\n\r\ncloses #234",
       "createdAt": "2025-09-19T09:59:26Z",
-      "updatedAt": "2025-09-19T09:59:27Z",
+      "updatedAt": "2025-09-22T08:16:04Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b207d239b114632955777acfeffb3b18c5cb0294",
