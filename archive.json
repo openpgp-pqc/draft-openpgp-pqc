@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-23T01:26:11.629324+00:00",
+  "timestamp": "2025-09-25T01:27:29.757141+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -42,6 +42,11 @@
       "name": "suggest-close",
       "description": "It seems this can be closed",
       "color": "8015f0"
+    },
+    {
+      "name": "ad-review",
+      "description": "",
+      "color": "8ad695"
     }
   ],
   "issues": [
@@ -3463,17 +3468,18 @@
       "id": "I_kwDOIrmZ-87L5m75",
       "title": "AD Review: Multiple Signature Packets vs. Composite Signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/228",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "\nAD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 3.2 / 3.3 \n>\n> Why are multiple signature packets not treated the same as composite signatures?\n> That is, if both traditional and PQ signature packets by the same sender are\n> availablle, why not require them both just like if they were send as a composite\n> signature in the same signature packet? (eg the 3.2 MUST vs the 3.3 MAY). Especially\n> if this is needed as claimed in 3.2 to support legacy clients. Otherwise, one would\n> have to include a legacy signature packet, and a signature packet with legacy+PQ\n> coposite to accomplish the same?",
       "createdAt": "2025-09-16T07:34:21Z",
-      "updatedAt": "2025-09-16T16:10:34Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-23T12:47:46Z",
+      "closedAt": "2025-09-23T12:47:46Z",
       "comments": [
         {
           "author": "fluppe2",
@@ -3489,35 +3495,45 @@
       "id": "I_kwDOIrmZ-87L5oMy",
       "title": "AD Review: ML-KEM allowed for v4",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/229",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "Paul Wouters review comment was:\n\n\n>    with the single exception of ML-KEM-768+X25519 (algorithm ID 35),\n>   which is also allowed in v4 encryption-capable subkeys.\n> What is the reason / justification of this exception? (this also appears in 4.3.2) \n\n[DKG answered on the list](https://mailarchive.ietf.org/arch/msg/openpgp/_ctOM_FAgzEcoztV-Ly8-wMCgUk/):\n\n> As noted in on 2025-04-15 in\n>    https://mailarchive.ietf.org/arch/msg/openpgp/02A6UOphJwk0npU_qOZ6IppwaTc\n>  this decision was made \"to allow for a pq-upgrade path without rotating the primary key\".\n> Prior to the exception, PQC was only available in v6 certificates.\n",
       "createdAt": "2025-09-16T07:35:46Z",
-      "updatedAt": "2025-09-16T16:06:54Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-09-23T12:57:00Z",
+      "closedAt": "2025-09-23T12:57:00Z",
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Prior to announcing allowing v4 PQC encryption with this one code point on the mailing list and getting confirmation form the WG, it was discussed and decided on during the OpenPGP Email Summit 2025:\n- https://www.openpgp.org/community/email-summit/2025/minutes/#plans-for-the-future\n- https://www.openpgp.org/community/email-summit/2025/minutes/#wrap-up-action-items",
+          "createdAt": "2025-09-23T12:53:42Z",
+          "updatedAt": "2025-09-23T12:53:42Z"
+        }
+      ]
     },
     {
       "number": 230,
       "id": "I_kwDOIrmZ-87L5q3J",
       "title": "AD Review: Domain Separation string encoding",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/230",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "Paul Wouters review commend was:\n\n>  \tThe value domSep is a constant set to the UTF-8 encoding of the string \"OpenPGPCompositeKDFv1\", that is:\n>\n>  \tdomSep = 4F 70 65 6E 50 47 50 43 6F 6D 70 6F 73 69 74 65 4B 44 46 76 31\n>\n>\n> $ echo -n OpenPGPCompositeKDFv1| hexdump\n> 0000000 704f 6e65 4750 4350 6d6f 6f70 6973 6574\n> 0000010 444b 7646 0031\n>\n> Should a note be added about the byte string being network/host order ?\n\n",
       "createdAt": "2025-09-16T07:38:48Z",
-      "updatedAt": "2025-09-16T16:07:19Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-23T12:41:50Z",
+      "closedAt": "2025-09-23T12:41:50Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -3544,10 +3560,12 @@
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "ad-review"
+      ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-09-22T08:11:36Z",
+      "updatedAt": "2025-09-23T12:40:56Z",
       "closedAt": null,
       "comments": [
         {
@@ -3591,6 +3609,20 @@
           "body": "But on the other hand, the FFI interface, which is think is used by RNP (@TJ-91 can you confirm?) doesn't seem to support specifying the parameter function argument: https://botan.randombit.net/handbook/api_ref/ffi.html#signature-generation\n\nFor the Rust binding that Sequoia is using, I can't say.\n\n@dkg ",
           "createdAt": "2025-09-22T08:11:36Z",
           "updatedAt": "2025-09-22T08:11:36Z"
+        },
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> But on the other hand, the FFI interface, which is think is used by RNP ([@TJ-91](https://github.com/TJ-91) can you confirm?) doesn't seem to support specifying the parameter function argument: https://botan.randombit.net/handbook/api_ref/ffi.html#signature-generation\n\nRNP, historically being a C implementation, uses the Botan FFI interface. However, nothing prevents RNP from using the C++ interface via `#include <botan/dilithium.h>` and `#include <botan/pubkey.h>` and I'm already doing that for the PQC code.\n\n",
+          "createdAt": "2025-09-23T08:32:40Z",
+          "updatedAt": "2025-09-23T08:32:40Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We have tackled this in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/147 by discouraging key reuse, mostly because of library support.\n\nOpenPGP has a very specific message structure, and generating a valid signature on a message requires a lot of flexibility in the \"other protocol\", on top of key reuse.\n\nThe implementation situation has since then changed (except Botan), but I would prefer not introducing a breaking change at this point if not strictly necessary.",
+          "createdAt": "2025-09-23T12:40:56Z",
+          "updatedAt": "2025-09-23T12:40:56Z"
         }
       ]
     },
@@ -3604,11 +3636,12 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "duplicate"
+        "duplicate",
+        "ad-review"
       ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 7\n> \n> Why is AES-256 specifically bound to certificates that contains a PQ(/T) key ?\n> Why that might be appropriate for a CCNSA profile, why would it be done in\n> the generic PQ case? [I see this is answered in Section 8.5]",
       "createdAt": "2025-09-16T07:41:57Z",
-      "updatedAt": "2025-09-16T16:09:49Z",
+      "updatedAt": "2025-09-23T12:41:18Z",
       "closedAt": "2025-09-16T16:09:49Z",
       "comments": [
         {
@@ -3625,17 +3658,18 @@
       "id": "I_kwDOIrmZ-87L5u6H",
       "title": "AD Review: Binding of AES-256 to PQ(/T) keys",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/233",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "[Paul Wouters review comment](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) was:\n\n> Section 7\n>\n> Why is AES-256 specifically bound to certificates that contains a PQ(/T) key ?\n> Why that might be appropriate for a CCNSA profile, why would it be done in\n> the generic PQ case? [I see this is answered in Section 8.5]",
       "createdAt": "2025-09-16T07:43:37Z",
-      "updatedAt": "2025-09-17T11:30:47Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-23T12:57:48Z",
+      "closedAt": "2025-09-23T12:57:48Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -3650,6 +3684,13 @@
           "body": "The general view on the security of symmetric key sizes in view of a CRQC is that 128 bit keys should remain secure for a long time. But generally recommendations are given to transition to 256 bit keys for all applications.",
           "createdAt": "2025-09-17T11:30:47Z",
           "updatedAt": "2025-09-17T11:30:47Z"
+        },
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The current state of the specification is:\n- AES 128 support is mandated in RFC9580\n- AES 256 support is mandated in this draft: we require AES-256 hardcoded in the keywrap, so there is no implementation overhead\n\nIn this draft we recommend (SHOULD) encrypting with AES-256 (for the reason that @falko-strenzke pointed out before) but still allow AES-128 (for instance if multiple recipients, one traditional that does not signal AES-256 support)",
+          "createdAt": "2025-09-23T12:28:11Z",
+          "updatedAt": "2025-09-23T12:28:11Z"
         }
       ]
     },
@@ -3662,10 +3703,13 @@
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "editorial",
+        "ad-review"
+      ],
       "body": "[Paul Wouters review comment](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) was:\n\n> Section 8.1\n>\n>  \tAn implementation should not abort the encryption process when\n>  \tencrypting a message to both PQ(/T) and traditional keys to\n>  \tallow for a smooth transition to post-quantum cryptography.\n>\n> I think this really depends on the usage/profile and I am not sure if\n> this generic advise is best or even allowable in some cases. As with\n> other migrations, people sometimes implement these separately, and in\n> this case it might make sense to not allow a hybrid to fall back to\n> encrypting to one participant with only classic encryption.\n",
       "createdAt": "2025-09-16T07:47:29Z",
-      "updatedAt": "2025-09-16T07:48:21Z",
+      "updatedAt": "2025-09-23T13:02:06Z",
       "closedAt": null,
       "comments": [
         {
@@ -3686,18 +3730,21 @@
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
-      "body": "[Paul Wouters review comments](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) were:\n\nSection 8.1\n\n[...]\n\nI am also confused by the lowercase \"should not\" for an \"implementation\".\nUsually we use strict RFC 2119 language for implementations and lower\ncase guidance for (human) process/choices during operations.\n\nSection 8.2\nSimilar with the lowercase \"may\" here.\n",
+      "labels": [
+        "editorial",
+        "ad-review"
+      ],
+      "body": "[Paul Wouters review comments](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) were:\n\nSection 8.1\n\n[...]\n\nI am also confused by the lowercase \"should not\" for an \"implementation\".\nUsually we use strict RFC 2119 language for implementations and lower\ncase guidance for (human) process/choices during operations.",
       "createdAt": "2025-09-16T07:50:06Z",
-      "updatedAt": "2025-09-16T13:45:48Z",
+      "updatedAt": "2025-09-23T13:59:59Z",
       "closedAt": null,
       "comments": [
         {
           "author": "falko-strenzke",
           "authorAssociation": "COLLABORATOR",
-          "body": "[DKG answered on the list](https://mailarchive.ietf.org/arch/msg/openpgp/XkBIoIXVdOtzWmtBRq-phhoYJBM/):\n\n \n> I am also confused by the lowercase \"should not\" for an \"implementation\". Usually we use strict RFC 2119 language for implementations and lower case guidance for (human) process/choices during operations.\n\nI could see this using RFC 2119 SHOULD instead of \"should\", since we are\nconcerned it will effect interoperability.  The document uses 2119\nRECOMMENDED in section 8.3.\n\n> \n> Section 8.2 Similar with the lowercase \"may\" here.\n\nSure, i wouldn't object to MAY here.\n\nRe-reading these sections in the migration considerations section, it\noccurs to me that verification nuance is subtly different from signing\nnuance during the transition period.  I've proposed some text that might\naccount for that nuance here:\n\n  https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/227",
+          "body": "[DKG answered on the list](https://mailarchive.ietf.org/arch/msg/openpgp/XkBIoIXVdOtzWmtBRq-phhoYJBM/):\n\n \n> I am also confused by the lowercase \"should not\" for an \"implementation\". Usually we use strict RFC 2119 language for implementations and lower case guidance for (human) process/choices during operations.\n\nI could see this using RFC 2119 SHOULD instead of \"should\", since we are\nconcerned it will effect interoperability.  The document uses 2119\nRECOMMENDED in section 8.3.\n\n",
           "createdAt": "2025-09-16T07:51:29Z",
-          "updatedAt": "2025-09-16T13:43:26Z"
+          "updatedAt": "2025-09-23T13:32:48Z"
         }
       ]
     },
@@ -3706,17 +3753,18 @@
       "id": "I_kwDOIrmZ-87L506a",
       "title": "AD Review: Two independent Implementations for Test Vector Verification",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/236",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Appendix A\n> \n> As I cannot verify these test vectors myself, did the WG have at least two\n> independent implementations confirm these vectors are correct?",
       "createdAt": "2025-09-16T07:50:38Z",
-      "updatedAt": "2025-09-16T16:07:48Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-23T12:18:52Z",
+      "closedAt": "2025-09-23T12:18:52Z",
       "comments": [
         {
           "author": "fluppe2",
@@ -3736,10 +3784,12 @@
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "ad-review"
+      ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\nComments / NITS\n \nAbstract:\n\n>  \tadvent of quantum computers\n> \n>  \tin the presence of quantum computers.\n \nCan we use the same terminology as PQUIP recommends? eg here we should use\ncryptographically relevant quantum computer (CRQC) and \"protect against CRQCs\"\n \n(see https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers)\n\n \n Introduction:\n \n>  \tSuch cryptographic algorithms are referred to as post-quantum cryptography. Th\n \nPerhaps introduce the acronym here, too eg post-quantum cryptography (PQC) to align it\nwith PQUIP?\n\n \n>  \tFor the two ML-* schemes, this document follows the conservative\n>  \tstrategy to deploy post-quantum in combination with traditional\n>  \tschemes such that the security is retained even if all schemes\n>  \tbut one in the combination are broken.\n \nMaybe add a sentence that this is called a hybrid? (you do refer to I-D.ietf-pquip-pqt-hybrid-terminology\nlater on int the document but not yet here)\n \n \n>  \tfrom the respective elliptic curve specification.\n \nCan this get a normative reference appended?",
       "createdAt": "2025-09-16T07:52:32Z",
-      "updatedAt": "2025-09-18T15:45:47Z",
+      "updatedAt": "2025-09-23T12:41:14Z",
       "closedAt": "2025-09-18T15:45:47Z",
       "comments": [
         {
@@ -3763,17 +3813,18 @@
       "id": "I_kwDOIrmZ-87L528B",
       "title": "AD Review: Sec. 8.3 \u2013 RECOMMENDED to MUST ?",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/238",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "suggest-close"
+        "suggest-close",
+        "ad-review"
       ],
       "body": "[Paul Wouters review comments](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) were:\n\nSection 8.3\nWhy is the RECOMMENDED not a MUST? What is a possible valid exception case?\n",
       "createdAt": "2025-09-16T07:52:47Z",
-      "updatedAt": "2025-09-16T19:57:37Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-23T12:57:38Z",
+      "closedAt": "2025-09-23T12:57:38Z",
       "comments": [
         {
           "author": "falko-strenzke",
@@ -3802,10 +3853,12 @@
       "assignees": [
         "falko-strenzke"
       ],
-      "labels": [],
+      "labels": [
+        "ad-review"
+      ],
       "body": "[Paul Wouters review comments](https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/) were:\n\nSection 9.1\n\n> \tFurthermore, it is also not possible to craft a new signature\n> \tfor a message that was signed twice with a composite algorithm\n> \tby interchanging (that is, remixing) the component signatures,\n> \twhich would classify as a weak existential forgery. This is due\n> \tto the fact that each v6 signature also includes a random salt\n> \tat the start of the hashed meta data, as also specified in the\n> \taforementioned reference.\n\nCouldn't I simply choose to use the same \"random salt\" ?",
       "createdAt": "2025-09-16T07:54:11Z",
-      "updatedAt": "2025-09-18T15:39:54Z",
+      "updatedAt": "2025-09-23T12:41:21Z",
       "closedAt": "2025-09-18T15:39:54Z",
       "comments": [
         {
@@ -3833,10 +3886,12 @@
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "ad-review"
+      ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 11\n> \n> The reference column only lists Section, but should list RFC-TBD plus Section.",
       "createdAt": "2025-09-16T07:54:29Z",
-      "updatedAt": "2025-09-16T13:19:58Z",
+      "updatedAt": "2025-09-23T12:41:24Z",
       "closedAt": "2025-09-16T13:19:58Z",
       "comments": [
         {
@@ -3852,6 +3907,33 @@
           "body": "closed via #226",
           "createdAt": "2025-09-16T13:19:58Z",
           "updatedAt": "2025-09-16T13:19:58Z"
+        }
+      ]
+    },
+    {
+      "number": 244,
+      "id": "I_kwDOIrmZ-87NW4U6",
+      "title": "AD Review: lowercase requirement key words (2)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/244",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "editorial",
+        "ad-review"
+      ],
+      "body": "Paul's comment:\n\n[referring to / following  https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/235]\n\nSection 8.2\nSimilar with the lowercase \"may\" here.\n",
+      "createdAt": "2025-09-23T13:32:31Z",
+      "updatedAt": "2025-09-23T13:33:30Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "[DKG answered on the list](https://mailarchive.ietf.org/arch/msg/openpgp/XkBIoIXVdOtzWmtBRq-phhoYJBM/):\n\n> \n> Section 8.2 Similar with the lowercase \"may\" here.\n\nSure, i wouldn't object to MAY here.\n\nRe-reading these sections in the migration considerations section, it\noccurs to me that verification nuance is subtly different from signing\nnuance during the transition period.  I've proposed some text that might\naccount for that nuance here:\n\n  https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/227",
+          "createdAt": "2025-09-23T13:33:08Z",
+          "updatedAt": "2025-09-23T13:33:08Z"
         }
       ]
     }
@@ -22347,9 +22429,9 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "I simply applied DKG's suggestion from #234\r\n\r\ncloses #234",
+      "body": "I simply applied DKG's suggestion from #234\r\n\r\ncloses #234\r\nalso addresses and closes #235 (normative language in section 8.1)",
       "createdAt": "2025-09-19T09:59:26Z",
-      "updatedAt": "2025-09-22T08:16:04Z",
+      "updatedAt": "2025-09-24T16:41:48Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b207d239b114632955777acfeffb3b18c5cb0294",
@@ -22360,8 +22442,198 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To make this PR a bit less confusing, this is what section 8.1 looks like after accepting all three open suggestions from Aron:\r\n\r\n>\\#\\# Encrypting to Traditional and PQ(/T) Keys\r\n> \r\n> During the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys MAY by default encrypt to both to avoid disruption to communications (possibly displaying a warning).\r\n> As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.",
+          "createdAt": "2025-09-23T14:42:05Z",
+          "updatedAt": "2025-09-23T14:42:05Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm fine with the changes proposed by @wussler, but i note that the sense of the section has now changed a bit.\r\n\r\nWhereas before, encrypting to both was a lower-case \"should\", it is now an  RFC2119 \"MAY\".\r\n\r\nThe speculative sentence about future specifications was put there to remind future readers that hey, if this doesn't make sense any more, please update it with a new spec.  I'm fine with removing it if we're now in a MAY state, and the whole thing is cabined by the \"during the transition...\" language.",
+          "createdAt": "2025-09-24T16:41:47Z",
+          "updatedAt": "2025-09-24T16:41:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87CLCoh",
+          "commit": {
+            "abbreviatedOid": "81b9bb1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T12:11:16Z",
+          "updatedAt": "2025-09-23T12:11:17Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nDuring the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys MAY by default encrypt to both to avoid disruption to communications (possibly displaying a warning).\r\nAs noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.\r\n```",
+              "createdAt": "2025-09-23T12:11:17Z",
+              "updatedAt": "2025-09-23T13:19:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CLJ6W",
+          "commit": {
+            "abbreviatedOid": "81b9bb1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T12:15:33Z",
+          "updatedAt": "2025-09-23T12:15:41Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n```\r\n@dkg I believe this is a bit too speculative about future specifications",
+              "createdAt": "2025-09-23T12:15:34Z",
+              "updatedAt": "2025-09-23T12:15:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CMQHu",
+          "commit": {
+            "abbreviatedOid": "81b9bb1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T13:19:47Z",
+          "updatedAt": "2025-09-23T13:19:47Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-09-23T13:19:47Z",
+              "updatedAt": "2025-09-23T13:19:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CQRrB",
+          "commit": {
+            "abbreviatedOid": "81b9bb1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM after submitting @wussler changes.",
+          "createdAt": "2025-09-23T17:48:13Z",
+          "updatedAt": "2025-09-23T17:48:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 245,
+      "id": "PR_kwDOIrmZ-86qFGAb",
+      "title": "reword Sec. 8.2 about signing with traditional and PQ(/T) signatures",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/245",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "closes #244 (due to rewording that avoids lowercase \"may\")",
+      "createdAt": "2025-09-23T13:58:16Z",
+      "updatedAt": "2025-09-24T16:37:36Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "b207d239b114632955777acfeffb3b18c5cb0294",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "reword-sign-with-trad-and-pq",
+      "headRefOid": "88412b807a30b1e6e5ed67a66824bedd2b73d466",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "LGTM as well, and yes please to one-line-per-sentence.",
+          "createdAt": "2025-09-24T16:37:35Z",
+          "updatedAt": "2025-09-24T16:37:35Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87CNH0D",
+          "commit": {
+            "abbreviatedOid": "88412b8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T14:09:33Z",
+          "updatedAt": "2025-09-23T14:09:33Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "merely splitting it into two lines as we generally do one line per sentence in the document:\r\n\r\n```suggestion\r\nThe OpenPGP specification [RFC9580] allows to sign a message with multiple signatures.\r\nThis implies the possibility to sign with both a PQ(/T) and a traditional key as described in {{multiple-signatures}}.\r\n```",
+              "createdAt": "2025-09-23T14:09:33Z",
+              "updatedAt": "2025-09-23T14:09:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CNIbL",
+          "commit": {
+            "abbreviatedOid": "88412b8"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-23T14:10:09Z",
+          "updatedAt": "2025-09-23T14:10:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CQPf1",
+          "commit": {
+            "abbreviatedOid": "88412b8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T17:45:06Z",
+          "updatedAt": "2025-09-23T17:45:06Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I agree with splitting.",
+              "createdAt": "2025-09-23T17:45:06Z",
+              "updatedAt": "2025-09-23T17:45:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87CQQiJ",
+          "commit": {
+            "abbreviatedOid": "88412b8"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, and I propose to commit the @TJ-91 split.",
+          "createdAt": "2025-09-23T17:46:30Z",
+          "updatedAt": "2025-09-23T17:46:30Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
