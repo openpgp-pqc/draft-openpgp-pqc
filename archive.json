@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-25T01:27:29.757141+00:00",
+  "timestamp": "2025-09-28T01:42:52.490958+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -22431,7 +22431,7 @@
       "labels": [],
       "body": "I simply applied DKG's suggestion from #234\r\n\r\ncloses #234\r\nalso addresses and closes #235 (normative language in section 8.1)",
       "createdAt": "2025-09-19T09:59:26Z",
-      "updatedAt": "2025-09-24T16:41:48Z",
+      "updatedAt": "2025-09-26T21:16:03Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "b207d239b114632955777acfeffb3b18c5cb0294",
@@ -22530,6 +22530,19 @@
           "body": "LGTM after submitting @wussler changes.",
           "createdAt": "2025-09-23T17:48:13Z",
           "updatedAt": "2025-09-23T17:48:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87DJONI",
+          "commit": {
+            "abbreviatedOid": "81b9bb1"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "I'm fine with the changes proposed by @wussler, but i note that the sense of the section has now changed a bit.\r\n\r\nWhereas before, encrypting to both was a lower-case \"should\", it is now an RFC2119 \"MAY\".\r\n\r\nThe speculative sentence about future specifications was put there to remind future readers that hey, if this doesn't make sense any more, please update it with a new spec. I'm fine with removing it if we're now in a MAY state, and the whole thing is cabined by the \"during the transition...\" language.",
+          "createdAt": "2025-09-26T21:16:03Z",
+          "updatedAt": "2025-09-26T21:16:03Z",
           "comments": []
         }
       ]
