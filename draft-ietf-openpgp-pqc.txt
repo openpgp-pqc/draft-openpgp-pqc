@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 22 March 2026                                            MTG AG
+Expires: 3 April 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                       18 September 2025
+                                                       30 September 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2026.
+   This Internet-Draft will expire on 3 April 2026.
 
 Copyright Notice
 
@@ -1145,9 +1145,10 @@ Table of Contents
 
 8.2.  Signing with Traditional and PQ(/T) Keys
 
-   An implementation may sign with both a PQ(/T) and a traditional key
-   using multiple signatures over the same data as described in
-   Section 3.3.  Signing only with PQ(/T) key material is not backwards
+   The OpenPGP specification [RFC9580] allows to sign a message with
+   multiple signatures.  This implies the possibility to sign with both
+   a PQ(/T) and a traditional key as described in Section 3.3.  Note
+   that signing only with PQ(/T) key material is not backwards
    compatible.
 
 8.3.  Verifying with Traditional and PQ(/T) Keys
