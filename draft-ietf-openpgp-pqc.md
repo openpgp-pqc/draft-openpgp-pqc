@@ -860,7 +860,8 @@ An implementation should not abort the encryption process when encrypting a mess
 
 ## Signing with Traditional and PQ(/T) Keys
 
-The OpenPGP specification [RFC9580] allows to sign a message with multiple signatures. This implies the possibility to sign with both a PQ(/T) and a traditional key as described in {{multiple-signatures}}.
+The OpenPGP specification [RFC9580] allows to sign a message with multiple signatures.
+This implies the possibility to sign with both a PQ(/T) and a traditional key as described in {{multiple-signatures}}.
 Note that signing only with PQ(/T) key material is not backwards compatible.
 
 ## Verifying with Traditional and PQ(/T) Keys
