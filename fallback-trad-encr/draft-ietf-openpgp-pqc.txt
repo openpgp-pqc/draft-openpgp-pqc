@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 23 March 2026                                            MTG AG
+Expires: 3 April 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                       19 September 2025
+                                                       30 September 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2026.
+   This Internet-Draft will expire on 3 April 2026.
 
 Copyright Notice
 
@@ -1140,10 +1140,13 @@ Table of Contents
    post-quantum secure when using multiple PKESKs if at least one does
    not use PQ(/T) encryption schemes.  During the transition to post-
    quantum cryptography, an implementation attempting to encrypt a
-   message to both PQ(/T) and traditional keys should generally proceed
-   by default (perhaps logging a warning) to avoid disruption to
-   communications.  A future revision of this specification may prohibit
-   encrypting a given message to both PQ(/T) and traditional keys.
+   message to both PQ(/T) and traditional keys MAY by default encrypt to
+   both to avoid disruption to communications (possibly displaying a
+   warning).  As noted in Section 3.1, the confidentiality of a message
+   is not post-quantum secure when using multiple PKESKs if at least one
+   does not use PQ(/T) encryption schemes.  A future revision of this
+   specification may prohibit encrypting a given message to both PQ(/T)
+   and traditional keys.
 
 8.2.  Signing with Traditional and PQ(/T) Keys
 
