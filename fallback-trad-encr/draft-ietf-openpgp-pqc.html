@@ -2858,10 +2858,8 @@ Therefore various migration considerations must be taken into account, in partic
         <h3 id="name-encrypting-to-traditional-a">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-encrypting-to-traditional-a" class="section-name selfRef">Encrypting to Traditional and PQ(/T) Keys</a>
         </h3>
-<p id="section-8.1-1">As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
-During the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys <span class="bcp14">MAY</span> by default encrypt to both to avoid disruption to communications (possibly displaying a warning).
-As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
-A future revision of this specification may prohibit encrypting a given message to both PQ(/T) and traditional keys.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-1">During the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys <span class="bcp14">MAY</span> by default encrypt to both to avoid disruption to communications (possibly displaying a warning).
+As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signing-with-traditional-and-pqt-keys">
