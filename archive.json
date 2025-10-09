@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-02T01:25:29.290928+00:00",
+  "timestamp": "2025-10-09T01:27:14.504303+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3565,7 +3565,7 @@
       ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-09-23T12:40:56Z",
+      "updatedAt": "2025-10-07T14:24:02Z",
       "closedAt": null,
       "comments": [
         {
@@ -3623,6 +3623,13 @@
           "body": "We have tackled this in https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/147 by discouraging key reuse, mostly because of library support.\n\nOpenPGP has a very specific message structure, and generating a valid signature on a message requires a lot of flexibility in the \"other protocol\", on top of key reuse.\n\nThe implementation situation has since then changed (except Botan), but I would prefer not introducing a breaking change at this point if not strictly necessary.",
           "createdAt": "2025-09-23T12:40:56Z",
           "updatedAt": "2025-09-23T12:40:56Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "From [the on-list discussion](https://mailarchive.ietf.org/arch/msg/openpgp/SX83emP81C9BWNRKghedEZMAXvE) it looks like the WG has consensus to not use the context string for this draft.  The easiest way forward might be to add a sentence or two (maybe as a new subsection in the Security Considerations) and go ahead and cut a new draft.",
+          "createdAt": "2025-10-07T14:24:02Z",
+          "updatedAt": "2025-10-07T14:24:02Z"
         }
       ]
     },
