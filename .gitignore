@@ -1,6 +1,7 @@
 *~
 /*-[0-9][0-9].xml
 archive.json
+.includes.mk
 draft-ietf-openpgp-pqc.xml
 draft-wussler-pqc-openpgp.xml
 Gemfile.lock
