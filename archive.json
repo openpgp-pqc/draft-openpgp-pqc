@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-09T01:27:14.504303+00:00",
+  "timestamp": "2025-10-12T01:38:15.041026+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3565,7 +3565,7 @@
       ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-10-07T14:24:02Z",
+      "updatedAt": "2025-10-11T06:24:07Z",
       "closedAt": null,
       "comments": [
         {
@@ -3630,6 +3630,13 @@
           "body": "From [the on-list discussion](https://mailarchive.ietf.org/arch/msg/openpgp/SX83emP81C9BWNRKghedEZMAXvE) it looks like the WG has consensus to not use the context string for this draft.  The easiest way forward might be to add a sentence or two (maybe as a new subsection in the Security Considerations) and go ahead and cut a new draft.",
           "createdAt": "2025-10-07T14:24:02Z",
           "updatedAt": "2025-10-07T14:24:02Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See #246 \n\nSome additional thoughts (I guess all of them obvious) collected here for documentation purposes.\n\nUsing a non-empty `ctx` (for example, a fixed label such as \"OpenPGP\") could further reduce residual risk that a signature generated in one ecosystem could be misinterpreted in another that uses the same algorithm family. Whether this benefit outweighs the interoperability and migration costs depends on the deployment context.\n\nIf a future revision decides to adopt a non-empty ctx for ML-DSA, EdDSA, or both:\n\n- the chosen string must be a fixed, public constant defined in the specification;\n- the `ctx` value must be considered part of the algorithm instantiation - signatures produced under a different `ctx` are not valid;",
+          "createdAt": "2025-10-11T06:24:07Z",
+          "updatedAt": "2025-10-11T06:24:07Z"
         }
       ]
     },
@@ -22658,6 +22665,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 246,
+      "id": "PR_kwDOIrmZ-86tN60q",
+      "title": "Added rationale for empty ctx in ml-dsa and eddsa",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/246",
+      "state": "OPEN",
+      "author": "fluppe2",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I remember having those discussions about EdDSA in the beginnings, prior to Dilithium becoming ML-DSA and the introduction of ctx in FIPS 204.\r\n\r\nTherefore, I tried to emphasize that potential future ctx discussions should always address both, ML-DSA and EdDSA, in such composite signatures.\r\n",
+      "createdAt": "2025-10-11T06:15:59Z",
+      "updatedAt": "2025-10-11T06:17:02Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "9f3d67f1791f45062f6ca89554005aa0ccef04aa",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "231-ad-review-context-string-in-ml-dsa-signatures",
+      "headRefOid": "4c373c1690eb34b30d232efd2e57a0ad02e667f3",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
