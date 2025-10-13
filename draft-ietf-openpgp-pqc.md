@@ -898,7 +898,7 @@ However, OpenPGP already provides domain separation through:
 - inclusion of algorithm identifiers and version-specific data (e.g., the v6 salt) in the hashed metadata; and
 - explicit algorithm tagging in signature packets;
 
-Together, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even without a non-empty `ctx`.
+Together, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even with an empty `ctx`.
 
 ## Key Combiner {#sec-key-combiner}
 
