@@ -1205,7 +1205,7 @@ Table of Contents
 
    This specification defines both algorithms with an empty context
    string.  Using an empty ctx is consistent with existing deployments
-   and reference specifications (“pure” mode) and ensures maximal
+   and reference specifications ("pure" mode) and ensures maximal
    interoperability with external libraries and prior implementations.
 
    However, OpenPGP already provides domain separation through:
