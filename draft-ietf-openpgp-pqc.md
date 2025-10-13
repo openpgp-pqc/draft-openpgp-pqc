@@ -891,7 +891,8 @@ An attacker cannot generate a fresh valid signature for a message that has alrea
 
 Both ML-DSA [FIPS-204] and EdDSA [RFC8032] support an optional context string parameter `ctx` that can be incorporated into the algorithm internal message preprocessing step before signing and verification.
 
-This specification defines both algorithms with an empty context string. Using an empty `ctx` is consistent with existing deployments and reference specifications (“pure” mode) and ensures maximal interoperability with external libraries and prior implementations.
+This specification defines both algorithms with an empty context string.
+Using an empty `ctx` is consistent with existing deployments and reference specifications ("pure" mode) and ensures maximal interoperability with external libraries and prior implementations.
 
 However, OpenPGP already provides domain separation through:
 
