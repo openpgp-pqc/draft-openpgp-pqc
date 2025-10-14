@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-12T01:38:15.041026+00:00",
+  "timestamp": "2025-10-14T01:27:10.757167+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -22678,19 +22678,98 @@
       "labels": [],
       "body": "I remember having those discussions about EdDSA in the beginnings, prior to Dilithium becoming ML-DSA and the introduction of ctx in FIPS 204.\r\n\r\nTherefore, I tried to emphasize that potential future ctx discussions should always address both, ML-DSA and EdDSA, in such composite signatures.\r\n",
       "createdAt": "2025-10-11T06:15:59Z",
-      "updatedAt": "2025-10-11T06:17:02Z",
+      "updatedAt": "2025-10-13T07:38:37Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9f3d67f1791f45062f6ca89554005aa0ccef04aa",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "231-ad-review-context-string-in-ml-dsa-signatures",
-      "headRefOid": "4c373c1690eb34b30d232efd2e57a0ad02e667f3",
+      "headRefOid": "81669e782c88ca5927b97857a36d7a54b24dd0a4",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87GcXwR",
+          "commit": {
+            "abbreviatedOid": "4c373c1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-12T18:14:51Z",
+          "updatedAt": "2025-10-12T18:14:52Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\r\nTogether, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even with an empty `ctx`.\r\n```\r\n\r\nThe double negation read heavy to me",
+              "createdAt": "2025-10-12T18:14:51Z",
+              "updatedAt": "2025-10-12T18:14:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GcYKK",
+          "commit": {
+            "abbreviatedOid": "4c373c1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-12T18:15:47Z",
+          "updatedAt": "2025-10-12T18:15:47Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nThis specification defines both algorithms with an empty context string.\r\nUsing an empty `ctx` is consistent with existing deployments and reference specifications (\"pure\" mode) and ensures maximal interoperability with external libraries and prior implementations.\r\n```",
+              "createdAt": "2025-10-12T18:15:47Z",
+              "updatedAt": "2025-10-12T18:15:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gf7me",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2025-10-13T07:22:55Z",
+          "updatedAt": "2025-10-13T07:38:37Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-10-13T07:22:55Z",
+              "updatedAt": "2025-10-13T07:38:37Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-10-13T07:23:14Z",
+              "updatedAt": "2025-10-13T07:38:37Z"
+            },
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-10-13T07:23:26Z",
+              "updatedAt": "2025-10-13T07:38:37Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nHowever, OpenPGP already provides a certain means of domain separation through the fact that is uses the pure modes of ML-DSA and SLH-DSA to sign message hashes. Other protocols will typically sign the message directly with the pure mode. Thereby, in order to have a maliciously aliased message, with a meaningful interpretation in OpenPGP, signed via such other protocols, the signer would have to be tricked into signing a hash value. A signer who can be tricked into signing arbitrary data always poses a fundamental security problem in iself, though. This observation of course does not provide an ultimate defense, as there might exist other protocols that also sign hashes with the pure mode. But neither does the usage of a non-empty context-parameter provide an ultimate defense, as that may be subject to an attacker's control in other protocols as well.\r\n```\r\nI don't think the inclusion of the version and algorithm specific data in the signed data can be used as an argument that there is a domain separation. The actually effective countermeasure in my view is that OpenPGP uses the pure variants of ML-DSA and SLH-DSA to sign a hash.",
+              "createdAt": "2025-10-13T07:36:25Z",
+              "updatedAt": "2025-10-13T07:38:37Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
