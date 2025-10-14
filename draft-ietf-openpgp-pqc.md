@@ -887,19 +887,13 @@ As a consequence, a component signature taken out of the context of a specific c
 
 An attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.
 
-### Context String for ML-DSA and EdDSA
+### Preventing Signature Cross-Protocol Attacks
 
-Both ML-DSA [FIPS-204] and EdDSA [RFC8032] support an optional context string parameter `ctx` that can be incorporated into the algorithm internal message preprocessing step before signing and verification.
-
-This specification defines both algorithms with an empty context string.
-Using an empty `ctx` is consistent with existing deployments and reference specifications ("pure" mode) and ensures maximal interoperability with external libraries and prior implementations.
-
-However, OpenPGP already provides domain separation through:
-
-- inclusion of algorithm identifiers and version-specific data (e.g., the v6 salt) in the hashed metadata; and
-- explicit algorithm tagging in signature packets;
-
-Together, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even with an empty `ctx`.
+Signature cross-protocol attacks exploit the reuse of signatures across different protocols or contexts, allowing attackers to maliciously repurpose valid signatures in unintended ways.
+ML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
+This context parameter can in principle contribute to the prevention of cross-protocol attacks.
+Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
+In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{key-generation}}.
 
 ## Key Combiner {#sec-key-combiner}
 
