@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 16 April 2026</td>
+<td class="center">Expires 17 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc9580" class="eref">9580</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-13" class="published">13 October 2025</time>
+<time datetime="2025-10-14" class="published">14 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-16">16 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-17">17 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1137,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1385,7 +1385,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-security-aspects-of-composi" class="internal xref">Security Aspects of Composite Signatures</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1.2.1">
-                    <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-9.1.1" class="auto internal xref">9.1.1</a>.  <a href="#name-context-string-for-ml-dsa-a" class="internal xref">Context String for ML-DSA and EdDSA</a></p>
+                    <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-9.1.1" class="auto internal xref">9.1.1</a>.  <a href="#name-preventing-signature-cross-" class="internal xref">Preventing Signature Cross-Protocol Attacks</a></p>
 </li>
                 </ul>
 </li>
@@ -2914,24 +2914,16 @@ It should be noted that the composite signature schemes specified in this draft 
 This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.4" class="relref">Section 5.2.4</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid OpenPGP signature for any message.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">An attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
-<div id="context-string-for-ml-dsa-and-eddsa">
+<div id="preventing-signature-cross-protocol-attacks">
 <section id="section-9.1.1">
-          <h4 id="name-context-string-for-ml-dsa-a">
-<a href="#section-9.1.1" class="section-number selfRef">9.1.1. </a><a href="#name-context-string-for-ml-dsa-a" class="section-name selfRef">Context String for ML-DSA and EdDSA</a>
+          <h4 id="name-preventing-signature-cross-">
+<a href="#section-9.1.1" class="section-number selfRef">9.1.1. </a><a href="#name-preventing-signature-cross-" class="section-name selfRef">Preventing Signature Cross-Protocol Attacks</a>
           </h4>
-<p id="section-9.1.1-1">Both ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> and EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> support an optional context string parameter <code>ctx</code> that can be incorporated into the algorithm internal message preprocessing step before signing and verification.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.1.1-2">This specification defines both algorithms with an empty context string.
-Using an empty <code>ctx</code> is consistent with existing deployments and reference specifications ("pure" mode) and ensures maximal interoperability with external libraries and prior implementations.<a href="#section-9.1.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.1.1-3">However, OpenPGP already provides domain separation through:<a href="#section-9.1.1-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-9.1.1-4.1">
-              <p id="section-9.1.1-4.1.1">inclusion of algorithm identifiers and version-specific data (e.g., the v6 salt) in the hashed metadata; and<a href="#section-9.1.1-4.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-9.1.1-4.2">
-              <p id="section-9.1.1-4.2.1">explicit algorithm tagging in signature packets;<a href="#section-9.1.1-4.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-9.1.1-5">Together, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even with an empty <code>ctx</code>.<a href="#section-9.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1.1-1">Signature cross-protocol attacks exploit the reuse of signatures across different protocols or contexts, allowing attackers to maliciously repurpose valid signatures in unintended ways.
+ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
+This context parameter can in principle contribute to the prevention of cross-protocol attacks.
+Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
+In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in <a href="#key-generation" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

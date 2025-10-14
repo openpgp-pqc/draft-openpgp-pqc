@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 16 April 2026                                            MTG AG
+Expires: 17 April 2026                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         13 October 2025
+                                                         14 October 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 April 2026.
+   This Internet-Draft will expire on 17 April 2026.
 
 Copyright Notice
 
@@ -136,7 +136,7 @@ Table of Contents
      8.4.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
-       9.1.1.  Context String for ML-DSA and EdDSA
+       9.1.1.  Preventing Signature Cross-Protocol Attacks
      9.2.  Key Combiner
        9.2.1.  Domain Separation and Context Binding
      9.3.  ML-DSA and SLH-DSA Hedged Variants
@@ -1196,27 +1196,22 @@ Table of Contents
    components are not interchangeable and cannot be recombined into a
    valid signature.
 
-9.1.1.  Context String for ML-DSA and EdDSA
+9.1.1.  Preventing Signature Cross-Protocol Attacks
 
-   Both ML-DSA [FIPS-204] and EdDSA [RFC8032] support an optional
-   context string parameter ctx that can be incorporated into the
-   algorithm internal message preprocessing step before signing and
-   verification.
-
-   This specification defines both algorithms with an empty context
-   string.  Using an empty ctx is consistent with existing deployments
-   and reference specifications ("pure" mode) and ensures maximal
-   interoperability with external libraries and prior implementations.
-
-   However, OpenPGP already provides domain separation through:
-
-   *  inclusion of algorithm identifiers and version-specific data
-      (e.g., the v6 salt) in the hashed metadata; and
-
-   *  explicit algorithm tagging in signature packets;
-
-   Together, these provide mitigation against cross-protocol or cross-
-   algorithm confusion attacks even with an empty ctx.
+   Signature cross-protocol attacks exploit the reuse of signatures
+   across different protocols or contexts, allowing attackers to
+   maliciously repurpose valid signatures in unintended ways.  ML-DSA
+   [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an
+   optional context string parameter ctx that can be incorporated into
+   the algorithm's internal message preprocessing step before signing
+   and verification.  This context parameter can in principle contribute
+   to the prevention of cross-protocol attacks.  Nevertheless, this
+   specification defines all these algorithms to use an empty context
+   string which is in accordance with the previous use of EdDSA in
+   OpenPGP, and maximizes interoperability with cryptographic libraries.
+   In order to reliably prevent cross-protocol attacks, this
+   specification recommends to avoid key-reuse across protocols in
+   Section 6.1.1.
 
 9.2.  Key Combiner
 
