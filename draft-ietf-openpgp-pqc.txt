@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 3 April 2026                                             MTG AG
+Expires: 17 April 2026                                            MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                       30 September 2025
+                                                         14 October 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2026.
+   This Internet-Draft will expire on 17 April 2026.
 
 Copyright Notice
 
@@ -136,6 +136,7 @@ Table of Contents
      8.4.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
+       9.1.1.  Preventing Signature Cross-Protocol Attacks
      9.2.  Key Combiner
        9.2.1.  Domain Separation and Context Binding
      9.3.  ML-DSA and SLH-DSA Hedged Variants
@@ -1194,6 +1195,23 @@ Table of Contents
    The two legitimate signatures use different salts, so their
    components are not interchangeable and cannot be recombined into a
    valid signature.
+
+9.1.1.  Preventing Signature Cross-Protocol Attacks
+
+   Signature cross-protocol attacks exploit the reuse of signatures
+   across different protocols or contexts, allowing attackers to
+   maliciously repurpose valid signatures in unintended ways.  ML-DSA
+   [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an
+   optional context string parameter ctx that can be incorporated into
+   the algorithm's internal message preprocessing step before signing
+   and verification.  This context parameter can in principle contribute
+   to the prevention of cross-protocol attacks.  Nevertheless, this
+   specification defines all these algorithms to use an empty context
+   string which is in accordance with the previous use of EdDSA in
+   OpenPGP, and maximizes interoperability with cryptographic libraries.
+   In order to reliably prevent cross-protocol attacks, this
+   specification recommends to avoid key-reuse across protocols in
+   Section 6.1.1.
 
 9.2.  Key Combiner
 
