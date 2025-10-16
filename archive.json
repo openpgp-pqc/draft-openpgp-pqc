@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-14T01:27:10.757167+00:00",
+  "timestamp": "2025-10-16T01:37:23.918018+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3556,7 +3556,7 @@
       "id": "I_kwDOIrmZ-87L5q5s",
       "title": "AD Review: Context String in ML-DSA Signatures",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/231",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -3565,8 +3565,8 @@
       ],
       "body": "AD review: https://mailarchive.ietf.org/arch/msg/openpgp/zhAL7mFI-p3-7njGsEVkqyIZsCc/\n\n> Section 5.1.2. ML-DSA Signatures\n> \n> Why is the context string empty and not set to \"OpenPGP\" or something? Wouldn't\n> this strengthen against cross protocol attacks?",
       "createdAt": "2025-09-16T07:38:51Z",
-      "updatedAt": "2025-10-11T06:24:07Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-14T13:58:23Z",
+      "closedAt": "2025-10-14T13:58:23Z",
       "comments": [
         {
           "author": "fluppe2",
@@ -22671,24 +22671,26 @@
       "id": "PR_kwDOIrmZ-86tN60q",
       "title": "Added rationale for empty ctx in ml-dsa and eddsa",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/246",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I remember having those discussions about EdDSA in the beginnings, prior to Dilithium becoming ML-DSA and the introduction of ctx in FIPS 204.\r\n\r\nTherefore, I tried to emphasize that potential future ctx discussions should always address both, ML-DSA and EdDSA, in such composite signatures.\r\n",
       "createdAt": "2025-10-11T06:15:59Z",
-      "updatedAt": "2025-10-13T07:38:37Z",
+      "updatedAt": "2025-10-14T13:58:22Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "9f3d67f1791f45062f6ca89554005aa0ccef04aa",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "231-ad-review-context-string-in-ml-dsa-signatures",
-      "headRefOid": "81669e782c88ca5927b97857a36d7a54b24dd0a4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "7cb6db4a1061b524a4e20aae47e685fc6822c1d0",
+      "closedAt": "2025-10-14T13:58:22Z",
+      "mergedAt": "2025-10-14T13:58:22Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "db865918692b9f9e7741c0ad293b4a671e51378a"
+      },
       "comments": [],
       "reviews": [
         {
@@ -22768,6 +22770,425 @@
               "updatedAt": "2025-10-13T07:38:37Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GtqQ4",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T04:27:35Z",
+          "updatedAt": "2025-10-14T04:27:36Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I see your point about the \"sign-a-hash\" convention and I agree to remove the second bullet point about \"algorithm tagging\".\r\n\r\nHowever the first bullet point about the inclusion of context and algorithm specific metadata in the preprocessing of the message does also add the fact that the signed hash has a very specific form. \r\n\r\nAlso, I would not write such a long text. Instead, I propose to keep it short:\r\n\r\n> However, OpenPGP already provides domain separation through:\r\n>\r\n> - the use of the pure modes of ML-DSA and SLH-DSA to sign hashed message data, which provides separation between OpenPGP and other protocols that sign raw messages directly; and\r\n> - inclusion of version- and algorithm-specific metadata in the hashed signature data, ensuring distinction among OpenPGP signature formats and algorithm versions.\r\n>\r\n> Together, these provide mitigation against cross-protocol or cross-algorithm confusion attacks even with an empty ctx.\r\n\r\n\r\n ",
+              "createdAt": "2025-10-14T04:27:36Z",
+              "updatedAt": "2025-10-14T04:27:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GuyRA",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T06:56:42Z",
+          "updatedAt": "2025-10-14T06:56:42Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "> However the first bullet point about the inclusion of context and algorithm specific metadata in the preprocessing of the message does also add the fact that the signed hash has a very specific form.\r\n\r\nNo, unfortunately not: The signed data starts with the random salt. In a hypothetical protocol that also signs hashes with the pure mode, the signer could be presented a message where the attacker can choose the up to 32 leading bytes (the maximum size of the signature salt) freeley. That leads to a great potential that valid files of certain formats can be crafted, that are at the same time OpenPGP signed data implying valid messages of a totally different content.",
+              "createdAt": "2025-10-14T06:56:42Z",
+              "updatedAt": "2025-10-14T06:56:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GwXk5",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T08:52:10Z",
+          "updatedAt": "2025-10-14T08:52:10Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I wouldn't be too speculative about this stuff, since ultimately we can't objectively judge how likely attacks are and to me it reads like an excuse not to implement the context string. Also to me arguments about what most other protocols do now don't really matter since a) one problematic protocol is enough and b) this spec will live for a while and things change.\r\n\r\nCan't we just write something like\r\n\r\n> Utilizing the `ctx` parameter for domain separation would provide additional protection against cross-protocol or cross-algorithm confusion attacks.\r\n> Users should not reuse keys across protocols to mitigate the risk of such attacks.\r\n\r\n",
+              "createdAt": "2025-10-14T08:52:10Z",
+              "updatedAt": "2025-10-14T08:52:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GwfKd",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T09:00:29Z",
+          "updatedAt": "2025-10-14T09:00:29Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I basically agree but:\r\n\r\n> Utilizing the ctx parameter for domain separation would provide additional protection against cross-protocol or cross-algorithm confusion attacks.\r\n\r\ndoesn't connect well with the following statement (why don't we use it then?). I wouldn't mention the the context parameter at all then.",
+              "createdAt": "2025-10-14T09:00:29Z",
+              "updatedAt": "2025-10-14T09:01:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxL1g",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T09:50:33Z",
+          "updatedAt": "2025-10-14T09:50:33Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I agree that the following statement is not well connected.\r\n\r\nI would like to drop \"cross-algorithm confusion attacks\" and write:\r\n\r\n> Utilizing the `ctx` parameter for domain separation would provide an additional layer of protection against cross-protocol attacks.\r\n> Users should follow the principle of key separation and avoid reusing keys across protocols to prevent these attacks entirely.\r\n\r\nI think cross-algorithm confusion attacks are not really a concern for ML-DSA but only EdDSA and in OpenPGP we always hash the signature algorithm in the signed data. But maybe @fluppe2 had something in mind.\r\n\r\n>  I wouldn't mention the the context parameter at all then.\r\n\r\nTo be clear, these sentences would appear after Stavros' text about the fact that we do not use the context string (lines 894+895) and serves as a justification for that.",
+              "createdAt": "2025-10-14T09:50:33Z",
+              "updatedAt": "2025-10-14T09:50:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxNmr",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T09:52:27Z",
+          "updatedAt": "2025-10-14T09:52:27Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I think we also need to incorporate SLH-DSA here",
+              "createdAt": "2025-10-14T09:52:27Z",
+              "updatedAt": "2025-10-14T09:52:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxVFO",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:01:10Z",
+          "updatedAt": "2025-10-14T10:01:10Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "I would aim at keeping it simple\r\n\r\n```\r\n### Context String for ML-DSA and EdDSA\r\n\r\nBoth ML-DSA [FIPS-204] and EdDSA [RFC8032] support an optional context string parameter `ctx` that can be incorporated into the algorithm internal message preprocessing step before signing and verification.\r\n\r\nThis specification defines both algorithms with an empty context string.\r\nUsing an empty `ctx` is consistent with existing deployments and reference specifications (\"pure\" mode) and ensures maximal interoperability with external libraries and prior implementations.\r\n\r\nCross-protocol attacks are prevented by avoiding key reuse, as recommended in section {{generating-keys}}.\r\n```\r\n\r\n... and adding the ref to the `Generating PQ(/T) Keys` section",
+              "createdAt": "2025-10-14T10:01:10Z",
+              "updatedAt": "2025-10-14T10:01:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxdVf",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:11:17Z",
+          "updatedAt": "2025-10-14T10:11:17Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "> I think we also need to incorporate SLH-DSA here\r\n\r\nDefinitely. It also seem easier to target since in order to conduct a cross algorithm attack against ML-DSA-composites, one needs to create signatures for both component schemes in the other protocol.",
+              "createdAt": "2025-10-14T10:11:17Z",
+              "updatedAt": "2025-10-14T10:11:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gxf3O",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:14:16Z",
+          "updatedAt": "2025-10-14T10:14:17Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "> I think cross-algorithm confusion attacks are not really a concern for ML-DSA but only EdDSA and in OpenPGP we always hash the signature algorithm in the signed data. But maybe @fluppe2 had something in mind.\r\n\r\n@TJ-91 \r\nWhat reason do you have in mind why ML-DSA is not affected or less affected by cross-algorithm attacks than EdDSA? The only reason that I can think of is that such attacks against ML-DSA composites need to produce both component signatures. But that doesn't rule them out.\r\n",
+              "createdAt": "2025-10-14T10:14:16Z",
+              "updatedAt": "2025-10-14T10:14:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gxilx",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:17:02Z",
+          "updatedAt": "2025-10-14T10:17:02Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "> Using an empty `ctx` is consistent with existing deployments\r\n\r\n@wussler \r\nI am not sure whether exisiting deployments  is really a good argument. Also this is remark that only makes sense now. When people read the RFC in a few years they'll not understand the sense of that statement. Specs generally should not refer to temporal context in this way in my view.",
+              "createdAt": "2025-10-14T10:17:02Z",
+              "updatedAt": "2025-10-14T10:17:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxkyR",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:19:55Z",
+          "updatedAt": "2025-10-14T10:19:55Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Okay, then \r\n```\r\n### Context String for ML-DSA and EdDSA\r\n\r\nBoth ML-DSA [FIPS-204] and EdDSA [RFC8032] support an optional context string parameter `ctx` that can be incorporated into the algorithm internal message preprocessing step before signing and verification.\r\n\r\nThis specification defines both algorithms with an empty context string.\r\nUsing an empty `ctx` is consistent with existing OpenPGP standards and ensures maximal interoperability with external libraries and prior implementations.\r\n\r\nCross-protocol attacks are prevented by avoiding key reuse, as recommended in section {{generating-keys}}.\r\n```",
+              "createdAt": "2025-10-14T10:19:55Z",
+              "updatedAt": "2025-10-14T10:19:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gxw_f",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:35:59Z",
+          "updatedAt": "2025-10-14T10:35:59Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "@wussler I like to keep it simple too but here the \"cross-protocol attacks\" is coming out of the blue. This is why I explain the purpose of the context parameter. Maybe we can combine our ideas like this?\r\n\r\n> Utilizing the `ctx` parameter provides an additional layer of protection against cross-protocol attacks.\r\n> Cross-protocol attacks are prevented entirely by avoiding key reuse, as recommended in section {{generating-keys}}.\r\n\r\nOr do you think it is unnecessary to explain here?\r\n\r\n---\r\n\r\n@falko-strenzke \r\n\r\n> What reason do you have in mind why ML-DSA is not affected or less affected by cross-algorithm attacks than EdDSA?\r\n\r\nMaybe it makes more sense to ask how can a cross-algorithm attack work with ML-DSA. The different parameter sets are clearly distinct and have incompatible formats and I don't see how a confusion can happen. But maybe I misunderstand things.",
+              "createdAt": "2025-10-14T10:35:59Z",
+              "updatedAt": "2025-10-14T10:35:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxxPq",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:36:19Z",
+          "updatedAt": "2025-10-14T10:36:19Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I would simply write:\r\n\r\n> # Preventing Cross-Protocol Attacks\r\n\r\n> In a cross-protocol attack against a signature scheme, an attacker crafts a valid message for one protocol that can be transformed to a different message in another protocol for which the same signature is valid but has a different authenticated content. He lets the legitimate signer sign the crafted message and thus can produce a second validly signed message for the second protocol that the signer never intentionally signed.\r\n\r\n> ML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter `ctx` that can be incorporated into the algorithm's internal message preprocessing step before signing and verification. This context parameter can in principle contribute to the prevention of cross-protocol attacks.\r\n> Nevertheless, this specification defines all of these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP and maximizes interoperability with cryptographic libraries. In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{key-generation}}.\r\n\r\nI think the referenced section {{key-generation}} correctly refers to \r\n\r\n> ## Key Generation\r\n\r\nunder \"Security Considerations\"\r\n\r\n",
+              "createdAt": "2025-10-14T10:36:19Z",
+              "updatedAt": "2025-10-14T10:36:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GxyFm",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:37:29Z",
+          "updatedAt": "2025-10-14T10:37:29Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "> Maybe we can combine our ideas like this?\r\n\r\nGood for me :)",
+              "createdAt": "2025-10-14T10:37:29Z",
+              "updatedAt": "2025-10-14T10:37:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gx07J",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T10:41:04Z",
+          "updatedAt": "2025-10-14T10:41:04Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "This text is good for me. One nitpick is \r\n> He lets \r\n\r\n-> They let\r\n-> The attacker lets\r\n\r\nor passive:\r\n```The legitimate signer is then led to sign the crafted message and thus the attacker can produce a second validly signed message for the second protocol that the signer never intentionally signed.```",
+              "createdAt": "2025-10-14T10:41:04Z",
+              "updatedAt": "2025-10-14T10:41:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87GyhxO",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T11:35:04Z",
+          "updatedAt": "2025-10-14T11:35:04Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I have no objections to this alternative. Some remarks:\r\n\r\n1) Since the section is only about signatures, I would reflect that also in the title.\r\n\r\n2) In the first sentence \"different authenticated content\" is a bit ambiguous to me. I assume with content the interpretation of the signed byte sequence is meant but \"authenticated content\" can also mean the plain bytes that are signed.\r\n\r\n3) In the same sense \"transformed to a different message in another protocol\" is a bit misleading, since there is no active transformation of the message, just a different interpretation of the same bytes.\r\n",
+              "createdAt": "2025-10-14T11:35:04Z",
+              "updatedAt": "2025-10-14T11:35:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Gzqjw",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T12:46:32Z",
+          "updatedAt": "2025-10-14T12:46:32Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "> I have no objections to this alternative. Some remarks:\r\n> \r\n> 1. Since the section is only about signatures, I would reflect that also in the title.\r\n\r\nYes, makes sense.\r\n> \r\n> 2. In the first sentence \"different authenticated content\" is a bit ambiguous to me. I assume with content the interpretation of the signed byte sequence is meant but \"authenticated content\" can also mean the plain bytes that are signed.\r\n\r\nThe content of the messages will certainly be different, except the other protocol defines the signed data exactly like OpenPGP. For instance OpenPGP's salt value is not part of the OpenPGP message but in a protocol that signs without a header it is. This also answers the next point.\r\n> \r\n> 3. In the same sense \"transformed to a different message in another protocol\" is a bit misleading, since there is no active transformation of the message, just a different interpretation of the same bytes.\r\n\r\n",
+              "createdAt": "2025-10-14T12:46:32Z",
+              "updatedAt": "2025-10-14T12:47:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87G1CXI",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T13:45:51Z",
+          "updatedAt": "2025-10-14T13:45:51Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "# Preventing Signature Cross-Protocol Attacks\r\n\r\nA cross-protocol signature attack lets an attacker transform a valid message from one protocol into different content in another, then reuse the signer's signature to produce an unintended valid signature for the second protocol.\r\n\r\nML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification. This context parameter can in principle contribute to the prevention of cross-protocol attacks.\r\nNevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries. In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{key-generation}}.",
+              "createdAt": "2025-10-14T13:45:51Z",
+              "updatedAt": "2025-10-14T13:46:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87G1I1k",
+          "commit": {
+            "abbreviatedOid": "81669e7"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-14T13:50:27Z",
+          "updatedAt": "2025-10-14T13:50:29Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n### Preventing Signature Cross-Protocol Attacks\r\n\r\nSignature cross-protocol attacks exploit the reuse of signatures across different protocols or contexts, allowing attackers to maliciously repurpose valid signatures in unintended ways.\r\nML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.\r\nThis context parameter can in principle contribute to the prevention of cross-protocol attacks.\r\nNevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.\r\nIn order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{key-generation}}.\r\n\r\n## Key Combiner {#sec-key-combiner}\r\n```",
+              "createdAt": "2025-10-14T13:50:28Z",
+              "updatedAt": "2025-10-14T13:54:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87G1P4g",
+          "commit": {
+            "abbreviatedOid": "7cb6db4"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-14T13:55:56Z",
+          "updatedAt": "2025-10-14T13:55:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87G1QOg",
+          "commit": {
+            "abbreviatedOid": "7cb6db4"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-14T13:56:10Z",
+          "updatedAt": "2025-10-14T13:56:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87G1RR5",
+          "commit": {
+            "abbreviatedOid": "7cb6db4"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-14T13:56:53Z",
+          "updatedAt": "2025-10-14T13:56:53Z",
+          "comments": []
         }
       ]
     }
