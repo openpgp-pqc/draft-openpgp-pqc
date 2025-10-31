@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 22 March 2026                                            MTG AG
+Expires: 4 May 2026                                               MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                       18 September 2025
+                                                         31 October 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2026.
+   This Internet-Draft will expire on 4 May 2026.
 
 Copyright Notice
 
@@ -132,9 +132,11 @@ Table of Contents
    8.  Migration Considerations
      8.1.  Encrypting to Traditional and PQ(/T) Keys
      8.2.  Signing with Traditional and PQ(/T) Keys
-     8.3.  Generating PQ(/T) Keys
+     8.3.  Verifying with Traditional and PQ(/T) Keys
+     8.4.  Generating PQ(/T) Keys
    9.  Security Considerations
      9.1.  Security Aspects of Composite Signatures
+       9.1.1.  Preventing Signature Cross-Protocol Attacks
      9.2.  Key Combiner
        9.2.1.  Domain Separation and Context Binding
      9.3.  ML-DSA and SLH-DSA Hedged Variants
@@ -207,12 +209,14 @@ Table of Contents
    algorithms based on the factoring or discrete logarithm problem.  As
    the security of algorithms based on these mathematical problems is
    endangered by the advent of quantum computers, there is a need to
-   extend OpenPGP by algorithms that remain secure in the presence of
-   quantum computers.
+   extend OpenPGP by algorithms that remain secure in the presence of a
+   cryptographically relevant quantum computer (CRQC), i.e., a quantum
+   computer with sufficient capacity to break traditional public key
+   cryptography.
 
    Such cryptographic algorithms are referred to as post-quantum
-   cryptography.  The algorithms defined in this extension were chosen
-   for standardization by the National Institute of Standards and
+   cryptography (PQC).  The algorithms defined in this extension were
+   chosen for standardization by the National Institute of Standards and
    Technology (NIST) in mid 2022 [NISTIR-8413] as the result of the NIST
    Post-Quantum Cryptography Standardization process initiated in 2016
    [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
@@ -223,15 +227,17 @@ Table of Contents
    For the two ML-* schemes, this document follows the conservative
    strategy to deploy post-quantum in combination with traditional
    schemes such that the security is retained even if all schemes but
-   one in the combination are broken.  In contrast, the stateless hash-
-   based signature scheme SLH-DSA is considered to be sufficiently well
-   understood with respect to its security assumptions in order to be
-   used standalone.  To this end, this document specifies the following
-   new set: SLH-DSA standalone and the two ML-* as composite with ECC-
-   based KEM and digital signature schemes.  Here, the term "composite"
-   indicates that any data structure or algorithm pertaining to the
-   combination of the two components appears as single data structure or
-   algorithm from the protocol perspective.
+   one in the combination are broken.  Such combinations are referred to
+   as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid
+   algorithms.  In contrast, the stateless hash-based signature scheme
+   SLH-DSA is considered to be sufficiently well understood with respect
+   to its security assumptions in order to be used standalone.  To this
+   end, this document specifies the following new set: SLH-DSA
+   standalone and the two ML-* as composite with ECC-based KEM and
+   digital signature schemes.  Here, the term "composite" indicates that
+   any data structure or algorithm pertaining to the combination of the
+   two components appears as single data structure or algorithm from the
+   protocol perspective.
 
    The document specifies the conventions for interoperability between
    compliant OpenPGP implementations that make use of this extension and
@@ -244,6 +250,9 @@ Table of Contents
    "OPTIONAL" in this document are to be interpreted as described in
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
+
+   In wire format descriptions, the operator "||" is used to indicate
+   concatenation of groups of octets.
 
 1.1.1.  Terminology for Multi-Algorithm Schemes
 
@@ -259,18 +268,17 @@ Table of Contents
 
    This section describes the individual post-quantum cryptographic
    schemes.  All schemes listed here are believed to provide security in
-   the presence of a cryptographically relevant quantum computer.
-   However, the mathematical problems on which the two ML-* schemes and
-   SLH-DSA are based, are fundamentally different, and accordingly the
-   level of trust commonly placed in them as well as their performance
-   characteristics vary.
+   the presence of a CRQC.  However, the mathematical problems on which
+   the two ML-* schemes and SLH-DSA are based, are fundamentally
+   different, and accordingly the level of trust commonly placed in them
+   as well as their performance characteristics vary.
 
 1.2.1.  ML-KEM
 
    ML-KEM [FIPS-203] is based on the hardness of solving the Learning
    with Errors problem in module lattices (MLWE).  The scheme is
-   believed to provide security against cryptanalytic attacks by
-   classical as well as quantum computers.  This specification defines
+   believed to provide security against cryptanalytic attacks based on
+   classical as well as quantum algorithms.  This specification defines
    ML-KEM only in composite combination with ECDH encryption schemes in
    order to provide a pre-quantum security fallback.
 
@@ -441,7 +449,7 @@ Table of Contents
    Furthermore, when performing the explicitly listed operations in
    Section 4.1.1.1 or Section 4.1.1.2 it is REQUIRED to follow the
    specification and security advisory mandated from the respective
-   elliptic curve specification.
+   elliptic curve specification [RFC7748].
 
 3.5.  Key Version Binding
 
@@ -1129,21 +1137,31 @@ Table of Contents
 
 8.1.  Encrypting to Traditional and PQ(/T) Keys
 
-   As noted in Section 3.1, the confidentiality of a message is not
-   post-quantum secure when using multiple PKESKs if at least one does
-   not use PQ(/T) encryption schemes.  An implementation should not
-   abort the encryption process when encrypting a message to both PQ(/T)
-   and traditional keys to allow for a smooth transition to post-quantum
-   cryptography.
+   During the transition to post-quantum cryptography, an implementation
+   attempting to encrypt a message to both PQ(/T) and traditional keys
+   MAY by default encrypt to both to avoid disruption to communications
+   (possibly displaying a warning).  As noted in Section 3.1, the
+   confidentiality of a message is not post-quantum secure when using
+   multiple PKESKs if at least one does not use PQ(/T) encryption
+   schemes.
 
 8.2.  Signing with Traditional and PQ(/T) Keys
 
-   An implementation may sign with both a PQ(/T) and a traditional key
-   using multiple signatures over the same data as described in
-   Section 3.3.  Signing only with PQ(/T) key material is not backwards
+   The OpenPGP specification [RFC9580] allows to sign a message with
+   multiple signatures.  This implies the possibility to sign with both
+   a PQ(/T) and a traditional key as described in Section 3.3.  Note
+   that signing only with PQ(/T) key material is not backwards
    compatible.
 
-8.3.  Generating PQ(/T) Keys
+8.3.  Verifying with Traditional and PQ(/T) Keys
+
+   When verifying, an implementation MAY be willing to accept signatures
+   PQ(/T) keys and from traditional keys.  A verifier concerned with a
+   cryptographically relevant quantum computer with knowledge of a peer
+   that has a PQ(/T) signing key MAY prefer instead to ignore all
+   traditional signatures from that peer.
+
+8.4.  Generating PQ(/T) Keys
 
    It is RECOMMENDED to generate fresh secrets when generating PQ(/T)
    keys.  Note that reusing key material from existing ECC keys in
@@ -1177,6 +1195,23 @@ Table of Contents
    The two legitimate signatures use different salts, so their
    components are not interchangeable and cannot be recombined into a
    valid signature.
+
+9.1.1.  Preventing Signature Cross-Protocol Attacks
+
+   Signature cross-protocol attacks exploit the reuse of signatures
+   across different protocols or contexts, allowing attackers to
+   maliciously repurpose valid signatures in unintended ways.  ML-DSA
+   [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an
+   optional context string parameter ctx that can be incorporated into
+   the algorithm's internal message preprocessing step before signing
+   and verification.  This context parameter can in principle contribute
+   to the prevention of cross-protocol attacks.  Nevertheless, this
+   specification defines all these algorithms to use an empty context
+   string which is in accordance with the previous use of EdDSA in
+   OpenPGP, and maximizes interoperability with cryptographic libraries.
+   In order to reliably prevent cross-protocol attacks, this
+   specification recommends to avoid key-reuse across protocols in
+   Section 6.1.1.
 
 9.2.  Key Combiner
 
@@ -1312,104 +1347,106 @@ Table of Contents
    IANA is requested to add the algorithm IDs defined in Table 9 to the
    existing registry OpenPGP Public Key Algorithms.
 
-   +==+============+=======+=======+=========+==============+=========+
-   |ID| Algorithm  | Public| Secret|Signature| PKESK Format |Reference|
-   |  |            |    Key|    Key|   Format|              |         |
-   |  |            | Format| Format|         |              |         |
-   +==+============+=======+=======+=========+==============+=========+
-   |30| ML-DSA-    |     32|     32|64 octets|          N/A |  Section|
-   |  | 65+Ed25519 | octets| octets|  Ed25519|              |   5.2 of|
-   |  |            |Ed25519|Ed25519|signature|              |  RFC TBD|
-   |  |            | public| secret|   (Table|              |         |
-   |  |            |    key|    key| 6), 3309|              |         |
-   |  |            | (Table| (Table|   octets|              |         |
-   |  |            |    6),| 6), 32|ML-DSA-65|              |         |
-   |  |            |   1952| octets|signature|              |         |
-   |  |            | octets|    ML-|(Table 7)|              |         |
-   |  |            |    ML-| DSA-65|         |              |         |
-   |  |            | DSA-65| secret|         |              |         |
-   |  |            | public|    key|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
-   |  |            |     7)|       |         |              |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |31| ML-DSA-    |     57|     57|      114|          N/A |  Section|
-   |  | 87+Ed448   | octets| octets|   octets|              |   5.2 of|
-   |  |            |  Ed448|  Ed448|    Ed448|              |  RFC TBD|
-   |  |            | public| secret|signature|              |         |
-   |  |            |    key|    key|   (Table|              |         |
-   |  |            | (Table| (Table| 6), 4627|              |         |
-   |  |            |    6),| 6), 32|   octets|              |         |
-   |  |            |   2592| octets|ML-DSA-87|              |         |
-   |  |            | octets|    ML-|signature|              |         |
-   |  |            |    ML-| DSA-87|(Table 7)|              |         |
-   |  |            | DSA-87| secret|         |              |         |
-   |  |            | public|    key|         |              |         |
-   |  |            |    key| (Table|         |              |         |
-   |  |            | (Table|     7)|         |              |         |
-   |  |            |     7)|       |         |              |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |32| SLH-DSA-   |     32|     64|     7856|          N/A |  Section|
-   |  | SHAKE-128s | octets| octets|   octets|              |   6.1 of|
-   |  |            | public| secret|signature|              |  RFC TBD|
-   |  |            |    key|    key|(Table 8)|              |         |
-   |  |            | (Table| (Table|         |              |         |
-   |  |            |     8)|     8)|         |              |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |33| SLH-DSA-   |     32|     64|    17088|          N/A |  Section|
-   |  | SHAKE-128f | octets| octets|   octets|              |   6.1 of|
-   |  |            | public| secret|signature|              |  RFC TBD|
-   |  |            |    key|    key|(Table 8)|              |         |
-   |  |            | (Table| (Table|         |              |         |
-   |  |            |     8)|     8)|         |              |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |34| SLH-DSA-   |     64|    128|    29792|          N/A |  Section|
-   |  | SHAKE-256s | octets| octets|   octets|              |   6.1 of|
-   |  |            | public| secret|signature|              |  RFC TBD|
-   |  |            |    key|    key|(Table 8)|              |         |
-   |  |            | (Table| (Table|         |              |         |
-   |  |            |     8)|     8)|         |              |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |35| ML-KEM-    |     32|     32|      N/A|    32 octets |  Section|
-   |  | 768+X25519 | octets| octets|         |       X25519 |   4.2 of|
-   |  |            | X25519| X25519|         |  ciphertext, |  RFC TBD|
-   |  |            | public| secret|         |  1088 octets |         |
-   |  |            |    key|    key|         |   ML-KEM-768 |         |
-   |  |            | (Table| (Table|         |  ciphertext, |         |
-   |  |            |    3),| 3), 64|         |      1 octet |         |
-   |  |            |   1184| octets|         |    remaining |         |
-   |  |            | octets|    ML-|         |   length, [1 |         |
-   |  |            |    ML-|KEM-768|         |        octet |         |
-   |  |            |KEM-768|secret-|         | algorithm ID |         |
-   |  |            | public|    key|         |   in case of |         |
-   |  |            |    key| (Table|         | v3 PKESK,] n |         |
-   |  |            | (Table|     4)|         |       octets |         |
-   |  |            |     4)|       |         |      wrapped |         |
-   |  |            |       |       |         |  session key |         |
-   |  |            |       |       |         |     (Section |         |
-   |  |            |       |       |         |       4.3.1) |         |
-   +--+------------+-------+-------+---------+--------------+---------+
-   |36| ML-KEM-    |     56|     56|      N/A|    56 octets |  Section|
-   |  | 1024+X448  | octets| octets|         |         X448 |   4.2 of|
-   |  |            |   X448|   X448|         |  ciphertext, |  RFC TBD|
-   |  |            | public| secret|         |  1568 octets |         |
-   |  |            |    key|    key|         |  ML-KEM-1024 |         |
-   |  |            | (Table| (Table|         |  ciphertext, |         |
-   |  |            |    3),| 3), 64|         |      1 octet |         |
-   |  |            |   1568| octets|         |    remaining |         |
-   |  |            | octets|ML-KEM-|         |   length, [1 |         |
-   |  |            |ML-KEM-|   1024|         |        octet |         |
-   |  |            |   1024|secret-|         | algorithm ID |         |
-   |  |            | public|    key|         |   in case of |         |
-   |  |            |    key| (Table|         | v3 PKESK,] n |         |
-   |  |            | (Table|     4)|         |       octets |         |
-   |  |            |     4)|       |         |      wrapped |         |
-   |  |            |       |       |         |  session key |         |
-   |  |            |       |       |         |     (Section |         |
-   |  |            |       |       |         |       4.3.1) |         |
-   +--+------------+-------+-------+---------+--------------+---------+
+   +=======+==========+=======+=======+=========+============+=========+
+   |ID     |Algorithm | Public| Secret|Signature|       PKESK|Reference|
+   |       |          |    Key|    Key|   Format|      Format|         |
+   |       |          | Format| Format|         |            |         |
+   +=======+==========+=======+=======+=========+============+=========+
+   |TBD(30)|ML-DSA-   |     32|     32|64 octets|         N/A|  Section|
+   |       |65+Ed25519| octets| octets|  Ed25519|            |   5.2 of|
+   |       |          |Ed25519|Ed25519|signature|            |  RFC TBD|
+   |       |          | public| secret|   (Table|            |         |
+   |       |          |    key|    key| 6), 3309|            |         |
+   |       |          | (Table| (Table|   octets|            |         |
+   |       |          |    6),| 6), 32|ML-DSA-65|            |         |
+   |       |          |   1952| octets|signature|            |         |
+   |       |          | octets|    ML-|(Table 7)|            |         |
+   |       |          |    ML-| DSA-65|         |            |         |
+   |       |          | DSA-65| secret|         |            |         |
+   |       |          | public|    key|         |            |         |
+   |       |          |    key| (Table|         |            |         |
+   |       |          | (Table|     7)|         |            |         |
+   |       |          |     7)|       |         |            |         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(31)|ML-DSA-   |     57|     57|      114|         N/A|  Section|
+   |       |87+Ed448  | octets| octets|   octets|            |   5.2 of|
+   |       |          |  Ed448|  Ed448|    Ed448|            |  RFC TBD|
+   |       |          | public| secret|signature|            |         |
+   |       |          |    key|    key|   (Table|            |         |
+   |       |          | (Table| (Table| 6), 4627|            |         |
+   |       |          |    6),| 6), 32|   octets|            |         |
+   |       |          |   2592| octets|ML-DSA-87|            |         |
+   |       |          | octets|    ML-|signature|            |         |
+   |       |          |    ML-| DSA-87|(Table 7)|            |         |
+   |       |          | DSA-87| secret|         |            |         |
+   |       |          | public|    key|         |            |         |
+   |       |          |    key| (Table|         |            |         |
+   |       |          | (Table|     7)|         |            |         |
+   |       |          |     7)|       |         |            |         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(32)|SLH-DSA-  |     32|     64|     7856|         N/A|  Section|
+   |       |SHAKE-128s| octets| octets|   octets|            |   6.1 of|
+   |       |          | public| secret|signature|            |  RFC TBD|
+   |       |          |    key|    key|(Table 8)|            |         |
+   |       |          | (Table| (Table|         |            |         |
+   |       |          |     8)|     8)|         |            |         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(33)|SLH-DSA-  |     32|     64|    17088|         N/A|  Section|
+   |       |SHAKE-128f| octets| octets|   octets|            |   6.1 of|
+   |       |          | public| secret|signature|            |  RFC TBD|
+   |       |          |    key|    key|(Table 8)|            |         |
+   |       |          | (Table| (Table|         |            |         |
+   |       |          |     8)|     8)|         |            |         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(34)|SLH-DSA-  |     64|    128|    29792|         N/A|  Section|
+   |       |SHAKE-256s| octets| octets|   octets|            |   6.1 of|
+   |       |          | public| secret|signature|            |  RFC TBD|
+   |       |          |    key|    key|(Table 8)|            |         |
+   |       |          | (Table| (Table|         |            |         |
+   |       |          |     8)|     8)|         |            |         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(35)|ML-KEM-   |     32|     32|      N/A|   32 octets|  Section|
+   |       |768+X25519| octets| octets|         |      X25519|   4.2 of|
+   |       |          | X25519| X25519|         | ciphertext,|  RFC TBD|
+   |       |          | public| secret|         | 1088 octets|         |
+   |       |          |    key|    key|         |  ML-KEM-768|         |
+   |       |          | (Table| (Table|         | ciphertext,|         |
+   |       |          |    3),| 3), 64|         |     1 octet|         |
+   |       |          |   1184| octets|         |   remaining|         |
+   |       |          | octets|    ML-|         |  length, [1|         |
+   |       |          |    ML-|KEM-768|         |       octet|         |
+   |       |          |KEM-768|secret-|         |   algorithm|         |
+   |       |          | public|    key|         |  ID in case|         |
+   |       |          |    key| (Table|         |       of v3|         |
+   |       |          | (Table|     4)|         |   PKESK,] n|         |
+   |       |          |     4)|       |         |      octets|         |
+   |       |          |       |       |         |     wrapped|         |
+   |       |          |       |       |         | session key|         |
+   |       |          |       |       |         |    (Section|         |
+   |       |          |       |       |         |      4.3.1)|         |
+   +-------+----------+-------+-------+---------+------------+---------+
+   |TBD(36)|ML-KEM-   |     56|     56|      N/A|   56 octets|  Section|
+   |       |1024+X448 | octets| octets|         |        X448|   4.2 of|
+   |       |          |   X448|   X448|         | ciphertext,|  RFC TBD|
+   |       |          | public| secret|         | 1568 octets|         |
+   |       |          |    key|    key|         | ML-KEM-1024|         |
+   |       |          | (Table| (Table|         | ciphertext,|         |
+   |       |          |    3),| 3), 64|         |     1 octet|         |
+   |       |          |   1568| octets|         |   remaining|         |
+   |       |          | octets|ML-KEM-|         |  length, [1|         |
+   |       |          |ML-KEM-|   1024|         |       octet|         |
+   |       |          |   1024|secret-|         |   algorithm|         |
+   |       |          | public|    key|         |  ID in case|         |
+   |       |          |    key| (Table|         |       of v3|         |
+   |       |          | (Table|     4)|         |   PKESK,] n|         |
+   |       |          |     4)|       |         |      octets|         |
+   |       |          |       |       |         |     wrapped|         |
+   |       |          |       |       |         | session key|         |
+   |       |          |       |       |         |    (Section|         |
+   |       |          |       |       |         |      4.3.1)|         |
+   +-------+----------+-------+-------+---------+------------+---------+
 
-    Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
+     Table 9: IANA updates for registry 'OpenPGP Public Key Algorithms'
 
    IANA is asked to add the following note to this registry:
 
@@ -1582,7 +1619,7 @@ Table of Contents
 Acknowledgments
 
    Thanks to Daniel Kahn Gillmor, Justus Winter, Daniel Huigens,
-   Evangelos Karatsiolis, and early implementors of the draft for their
+   Evangelos Karatsiolis, and early implementers of the draft for their
    reviews and feedback on this document.
 
 References
