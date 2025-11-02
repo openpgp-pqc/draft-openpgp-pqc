@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-16T01:37:23.918018+00:00",
+  "timestamp": "2025-11-02T01:45:46.297526+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -23188,6 +23188,61 @@
           "body": "",
           "createdAt": "2025-10-14T13:56:53Z",
           "updatedAt": "2025-10-14T13:56:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 247,
+      "id": "PR_kwDOIrmZ-86ww2Sb",
+      "title": "soft-request algorithms in IANA table",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/247",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-31T06:49:26Z",
+      "updatedAt": "2025-10-31T08:27:44Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "db865918692b9f9e7741c0ad293b4a671e51378a",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "iana-only-request-ids",
+      "headRefOid": "f3ca36ae4300cdf6ea355386d825fc3fe59c687c",
+      "closedAt": "2025-10-31T08:27:44Z",
+      "mergedAt": "2025-10-31T08:27:44Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "391a7cbc7d3e1b9b19a77939d8f232d22cf39515"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87K1Mtx",
+          "commit": {
+            "abbreviatedOid": "f3ca36a"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-10-31T07:58:19Z",
+          "updatedAt": "2025-10-31T07:58:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87K1aTO",
+          "commit": {
+            "abbreviatedOid": "f3ca36a"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-31T08:20:19Z",
+          "updatedAt": "2025-10-31T08:20:19Z",
           "comments": []
         }
       ]
