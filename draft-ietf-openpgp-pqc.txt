@@ -635,10 +635,11 @@ Table of Contents
 
    For the composite KEM schemes defined in Table 2 the following
    procedure MUST be used to compute the KEK that wraps a session key.
-   The construction is a key derivation function compliant to Section 4
-   of [SP800-56C], based on SHA3-256.  It is given by the following
-   algorithm, which computes the key encryption key KEK that is used to
-   wrap (that is, encrypt) the session key.
+   The construction is a key derivation function compliant to the QSF/
+   X-Wing construction in [BCD_24], the generalization of which is
+   analyzed in [CHHKM].  It is given by the following algorithm, which
+   computes the key encryption key KEK that is used to wrap (that is,
+   encrypt) the session key.
 
   //   multiKeyCombine(
   //       mlkemKeyShare, ecdhKeyShare,
@@ -1215,14 +1216,11 @@ Table of Contents
 
 9.2.  Key Combiner
 
-   For the key combination in Section 4.2.1 this specification limits
-   itself to the use of SHA3-256 in a construction following
-   [SP800-56C].  A central security notion of a key combiner is IND-
-   CCA2-security.  It is argued in [BCD_24] that the key combiner
-   specified in Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-
-   CCA2-secure or the Strong Diffie-Hellman problem in a nominal group
-   holds.  Note that Curve25519 and Curve448 qualify as such nominal
-   groups [ABH_21].
+   A central security notion of a key combiner is IND-CCA2-security.  It
+   is argued in [BCD_24] that the key combiner specified in
+   Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the
+   Strong Diffie-Hellman problem in a nominal group holds.  Note that
+   Curve25519 and Curve448 qualify as such nominal groups [ABH_21].
 
    Note that the inclusion of the ECC public key in the key combiner
    also accounts for multi-target attacks against X25519 and X448.
@@ -1675,6 +1673,11 @@ Informative References
               Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
 
+   [CHHKM]    Connolly, D., Hövelmanns, K., Hülsing, A., Kousidis, S.,
+              and M. Meijers, "Starfighters—On the General Applicability
+              of X-Wing", Cryptology {ePrint} Archive, Paper 2025/1397 ,
+              2025, <https://eprint.iacr.org/2025/1397>.
+
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
               <https://csrc.nist.gov/projects/post-quantum-cryptography/
@@ -1693,13 +1696,6 @@ Informative References
               Post-Quantum Traditional Hybrid Schemes", RFC 9794,
               DOI 10.17487/RFC9794, June 2025,
               <https://www.rfc-editor.org/rfc/rfc9794>.
-
-   [SP800-56C]
-              Barker, E., Chen, L., Roginsky, A., and R. Davis,
-              "Recommendation for Key-Derivation Methods in Key-
-              Establishment Schemes", NIST Special Publication 800-56C
-              Rev. 2 , August 2020,
-              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
 
 Appendix A.  Test Vectors
 
