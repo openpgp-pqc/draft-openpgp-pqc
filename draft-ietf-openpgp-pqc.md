@@ -510,7 +510,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 ### Key Combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to the construction {{BCD+24}}, the generalization of which is analyzed in {{CHHKM}}, based on SHA3-256.
+The construction is a key derivation function compliant to the QSF/X-Wing construction in {{BCD+24}}, the generalization of which is analyzed in {{CHHKM}}.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap (that is, encrypt) the session key.
 
 
