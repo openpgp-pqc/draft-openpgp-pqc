@@ -161,6 +161,28 @@ informative:
     seriesinfo:
       NIST Special Publication 800-56C Rev. 2
 
+  CHHKM:
+    target: https://eprint.iacr.org/2025/1397
+    title: Starfighters—On the General Applicability of X-Wing
+    date: 2025
+    seriesinfo: Cryptology {ePrint} Archive, Paper 2025/1397
+    author:
+      -
+        ins: D. Connolly
+        name: Deirdre Connolly
+      -
+        ins: K. Hövelmanns
+        name: Kathrin Hövelmanns
+      -
+        ins: A. Hülsing
+        name: Andreas Hülsing
+      -
+        ins: S. Kousidis
+        name: Stavros Kousidis
+      -
+        ins: M Meijers
+        name: Matthias Meijers
+
   BCD+24:
     target: https://doi.org/10.62056/a3qj89n4e
     title: X-Wing The Hybrid KEM You've Been Looking For
@@ -508,7 +530,7 @@ The ML-KEM + ECDH composite public-key encryption schemes are built according to
 ### Key Combiner {#kem-key-combiner}
 
 For the composite KEM schemes defined in {{kem-alg-specs}} the following procedure MUST be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to Section 4 of {{SP800-56C}}, based on SHA3-256.
+The construction is a key derivation function compliant to the construction {{BCD+24}}, the generalization of which is analyzed in {{CHHKM}}, based on SHA3-256.
 It is given by the following algorithm, which computes the key encryption key `KEK` that is used to wrap (that is, encrypt) the session key.
 
 
