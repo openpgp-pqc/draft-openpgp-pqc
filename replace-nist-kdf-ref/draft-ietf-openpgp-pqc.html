@@ -2206,7 +2206,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key Combiner</a>
           </h4>
 <p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 2</a> the following procedure <span class="bcp14">MUST</span> be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to the construction <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span>, the generalization of which is analyzed in <span>[<a href="#CHHKM" class="cite xref">CHHKM</a>]</span>, based on SHA3-256.
+The construction is a key derivation function compliant to the QSF/X-Wing construction in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span>, the generalization of which is analyzed in <span>[<a href="#CHHKM" class="cite xref">CHHKM</a>]</span>.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap (that is, encrypt) the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
 <pre>
