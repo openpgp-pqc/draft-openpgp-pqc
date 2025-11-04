@@ -180,7 +180,7 @@ informative:
         ins: S. Kousidis
         name: Stavros Kousidis
       -
-        ins: M Meijers
+        ins: M. Meijers
         name: Matthias Meijers
 
   BCD+24:
