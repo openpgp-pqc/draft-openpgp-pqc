@@ -2932,8 +2932,7 @@ In order to reliably prevent cross-protocol attacks, this specification recommen
         <h3 id="name-key-combiner-2">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key Combiner</a>
         </h3>
-<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
-A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.2-2">Note that the inclusion of the ECC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
 <section id="section-9.2.1">
@@ -3546,12 +3545,8 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9794">[RFC9794]</dt>
-        <dd>
-<span class="refAuthor">Driscoll, F.</span>, <span class="refAuthor">Parsons, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="seriesInfo">RFC 9794</span>, <span class="seriesInfo">DOI 10.17487/RFC9794</span>, <time datetime="2025-06" class="refDate">June 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9794">https://www.rfc-editor.org/rfc/rfc9794</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SP800-56C">[SP800-56C]</dt>
       <dd>
-<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <span class="seriesInfo">NIST Special Publication 800-56C Rev. 2 </span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
+<span class="refAuthor">Driscoll, F.</span>, <span class="refAuthor">Parsons, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="seriesInfo">RFC 9794</span>, <span class="seriesInfo">DOI 10.17487/RFC9794</span>, <time datetime="2025-06" class="refDate">June 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9794">https://www.rfc-editor.org/rfc/rfc9794</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
