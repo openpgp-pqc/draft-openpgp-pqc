@@ -869,7 +869,7 @@ Note that signing only with PQ(/T) key material is not backwards compatible.
 When verifying, an implementation MAY be willing to accept signatures PQ(/T) keys and from traditional keys.
 A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.
 
-## Generating PQ(/T) Keys
+## Generating PQ(/T) Keys {#pq-key-generation}
 
 It is RECOMMENDED to generate fresh secrets when generating PQ(/T) keys.
 Note that reusing key material from existing ECC keys in PQ(/T) keys does not provide backwards compatibility.
@@ -893,7 +893,7 @@ Signature cross-protocol attacks exploit the reuse of signatures across differen
 ML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
 This context parameter can in principle contribute to the prevention of cross-protocol attacks.
 Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
-In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{key-generation}}.
+In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{pq-key-generation}}.
 
 ## Key Combiner {#sec-key-combiner}
 
