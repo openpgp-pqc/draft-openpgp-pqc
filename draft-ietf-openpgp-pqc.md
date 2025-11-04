@@ -141,26 +141,6 @@ informative:
     seriesinfo:
       NIST IR 8413
 
-  SP800-56C:
-    target: https://doi.org/10.6028/NIST.SP.800-56Cr2
-    title: Recommendation for Key-Derivation Methods in Key-Establishment Schemes
-    author:
-      -
-        ins: E. Barker
-        name: Elaine Barker
-      -
-        ins: L. Chen
-        name: Lily Chen
-      -
-        ins: A. Roginsky
-        name: Allen Roginsky
-      -
-        ins: R. Davis
-        name: Richard Davis
-    date: August 2020
-    seriesinfo:
-      NIST Special Publication 800-56C Rev. 2
-
   CHHKM:
     target: https://eprint.iacr.org/2025/1397
     title: Starfighters—On the General Applicability of X-Wing
@@ -919,7 +899,6 @@ In order to reliably prevent cross-protocol attacks, this specification recommen
 
 ## Key Combiner {#sec-key-combiner}
 
-For the key combination in {{kem-key-combiner}} this specification limits itself to the use of SHA3-256 in a construction following {{SP800-56C}}.
 A central security notion of a key combiner is IND-CCA2-security. It is argued in [BCD+24] that the key combiner specified in {{kem-key-combiner}} is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups {{ABH+21}}.
 
 Note that the inclusion of the ECC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.
