@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-02T01:45:46.297526+00:00",
+  "timestamp": "2025-11-06T01:42:12.789953+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3950,6 +3950,38 @@
           "updatedAt": "2025-09-23T13:33:08Z"
         }
       ]
+    },
+    {
+      "number": 248,
+      "id": "I_kwDOIrmZ-87Vt3Tm",
+      "title": "Brian's Review: Usefulness of len(domSep)",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/248",
+      "state": "OPEN",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Review from Brian Weis:\n\n> 2. I\u2019m not sure about the value of len(domSep). Section 9.2.1 mentions that it is \u201cguaranteed to result in a suffix-free set of octet strings even if further values should be defined for domSep\u201d. I am guessing that \u201csuffix\u201d implies that a new domSep is defined that has the currently-defined domSep with new octets appended to it, and the intent is that len(domSep) will ensure a different output KEK. But a different domSep (with either the same initial bytes or not) will already result in a different output. So can you clarify what is meant by \u201csufffix-free\u201d, and whether you still think len(domSep) is useful?",
+      "createdAt": "2025-11-04T09:23:01Z",
+      "updatedAt": "2025-11-04T09:28:21Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 249,
+      "id": "I_kwDOIrmZ-87Vt65T",
+      "title": "Brian's Review: KDF compliance to Section 4 of [SP800-56C] \u2013 output length of KDF as an input",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/249",
+      "state": "CLOSED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Review from Brian Weis:\n\n> I believe it might be valuable to update  the multiKeyCombine() KDF defined in Section 4.2.1: \n> 1. The key derivation function is claimed to be \u201ccompliant to Section 4 of [SP800-56C], based on SHA3-256\u201d. In reviewing the inputs to the hash function, this seems to be a fair statement except that one input is missing. I note that that Section 4.1 of NIST SP800-56Cc2 specifies adding L, which represents the length of \u201cthe secret keying material to be derived\u201d, which has always been recommended or required in KDFs defined by NIST (see NIST SP800-108r1 and NIST SP800-56Br1).  It may have been intentionally omitted because it was expected that there will only ever be one KDF output length, but if in the future there is a change to the KDF hash function that results in a different length this will be important. I would suggest adding it now \u2014 the cost is not great.\n",
+      "createdAt": "2025-11-04T09:25:54Z",
+      "updatedAt": "2025-11-04T15:51:42Z",
+      "closedAt": "2025-11-04T15:51:42Z",
+      "comments": []
     }
   ],
   "pulls": [
@@ -23243,6 +23275,177 @@
           "body": "",
           "createdAt": "2025-10-31T08:20:19Z",
           "updatedAt": "2025-10-31T08:20:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 250,
+      "id": "PR_kwDOIrmZ-86xYKIU",
+      "title": "modify KEM combiner: replace NIST SP 56C with QSF",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/250",
+      "state": "MERGED",
+      "author": "falko-strenzke",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "closes #249",
+      "createdAt": "2025-11-04T10:04:21Z",
+      "updatedAt": "2025-11-04T15:51:42Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "391a7cbc7d3e1b9b19a77939d8f232d22cf39515",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "replace-nist-kdf-ref",
+      "headRefOid": "bde49f534ecc6265784ab47e7a5749c24ab15385",
+      "closedAt": "2025-11-04T15:51:41Z",
+      "mergedAt": "2025-11-04T15:51:41Z",
+      "mergedBy": "falko-strenzke",
+      "mergeCommit": {
+        "oid": "5a1987598393d12eb77d4f2f936f1c1f6a630154"
+      },
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@wussler @TJ-91 Please don't merge yet.\r\nStavros still potentially wants to revise this PR!",
+          "createdAt": "2025-11-04T14:35:33Z",
+          "updatedAt": "2025-11-04T14:35:33Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87LoTQx",
+          "commit": {
+            "abbreviatedOid": "674f452"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-04T12:57:09Z",
+          "updatedAt": "2025-11-04T12:57:09Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Lo5S5",
+          "commit": {
+            "abbreviatedOid": "674f452"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-04T13:34:14Z",
+          "updatedAt": "2025-11-04T13:34:14Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Lq0Qy",
+          "commit": {
+            "abbreviatedOid": "674f452"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-04T15:11:40Z",
+          "updatedAt": "2025-11-04T15:11:41Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n        ins: M. Meijers\r\n```",
+              "createdAt": "2025-11-04T15:11:40Z",
+              "updatedAt": "2025-11-04T15:11:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87LrKvc",
+          "commit": {
+            "abbreviatedOid": "674f452"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-11-04T15:26:08Z",
+          "updatedAt": "2025-11-04T15:26:08Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\nThe construction is a key derivation function compliant to the QSF/X-Wing construction in {{BCD+24}}, the generalization of which is analyzed in {{CHHKM}}.\r\n```\r\nIn BCD+24 there is only SHA3-256, so we can drop this last part of the sentence. Also our ML-KEM-768+X25519 is basically X-Wing, but ML-KEM+1024+X448 is another instantiation using QSF whose security is (re-)analyzed in CHHKM. I would say that the proposed formulation kind of is correct as much as it can be.",
+              "createdAt": "2025-11-04T15:26:08Z",
+              "updatedAt": "2025-11-04T15:34:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87LrntM",
+          "commit": {
+            "abbreviatedOid": "bde49f5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-11-04T15:46:53Z",
+          "updatedAt": "2025-11-04T15:46:53Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 251,
+      "id": "PR_kwDOIrmZ-86xaO9A",
+      "title": "Fix reference for PQ key generation in security consideration",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/251",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This fixes the nit in https://mailarchive.ietf.org/arch/msg/openpgp/vqBUAsAfrHLauYCr8De1j9BeY9c/",
+      "createdAt": "2025-11-04T12:31:41Z",
+      "updatedAt": "2025-11-04T14:40:45Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "391a7cbc7d3e1b9b19a77939d8f232d22cf39515",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "keygen-ref",
+      "headRefOid": "b58a2621e51e7dcb708a0325c00a40a8919e0e27",
+      "closedAt": "2025-11-04T14:40:45Z",
+      "mergedAt": "2025-11-04T14:40:45Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "88c28942861fe8fd99f1277338a87993cf8335d5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87Lo4Sc",
+          "commit": {
+            "abbreviatedOid": "b58a262"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-04T13:33:23Z",
+          "updatedAt": "2025-11-04T13:33:23Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87LqE6J",
+          "commit": {
+            "abbreviatedOid": "b58a262"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-04T14:33:38Z",
+          "updatedAt": "2025-11-04T14:33:38Z",
           "comments": []
         }
       ]
