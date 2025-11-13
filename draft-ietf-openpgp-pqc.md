@@ -1086,6 +1086,18 @@ IANA is asked to add the following note to this registry:
 ## draft-ietf-openpgp-pqc-11
 - Editorial changes and fixes of inconsistencies.
 
+## draft-ietf-openpgp-pqc-12
+- Moved from informational to standards-track.
+
+## draft-ietf-openpgp-pqc-13
+- Addressed various editorial comments from AD review.
+- Added text about signature verification to the migration considerations section.
+- Added text about preventing signature cross-protocol attacks to the security considerations section.
+
+## draft-ietf-openpgp-pqc-14
+- Fixed a broken reference.
+- Updated KEM combiner references.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
