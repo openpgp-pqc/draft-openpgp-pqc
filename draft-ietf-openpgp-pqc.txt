@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 8 May 2026                                               MTG AG
+Expires: 17 May 2026                                              MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         4 November 2025
+                                                        13 November 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 May 2026.
+   This Internet-Draft will expire on 17 May 2026.
 
 Copyright Notice
 
@@ -163,6 +163,9 @@ Table of Contents
      12.14. draft-ietf-openpgp-pqc-09
      12.15. draft-ietf-openpgp-pqc-10
      12.16. draft-ietf-openpgp-pqc-11
+     12.17. draft-ietf-openpgp-pqc-12
+     12.18. draft-ietf-openpgp-pqc-13
+     12.19. draft-ietf-openpgp-pqc-14
    13. Contributors
    Acknowledgments
    References
@@ -1607,6 +1610,26 @@ Table of Contents
 12.16.  draft-ietf-openpgp-pqc-11
 
    *  Editorial changes and fixes of inconsistencies.
+
+12.17.  draft-ietf-openpgp-pqc-12
+
+   *  Moved from informational to standards-track.
+
+12.18.  draft-ietf-openpgp-pqc-13
+
+   *  Addressed various editorial comments from AD review.
+
+   *  Added text about signature verification to the migration
+      considerations section.
+
+   *  Added text about preventing signature cross-protocol attacks to
+      the security considerations section.
+
+12.19.  draft-ietf-openpgp-pqc-14
+
+   *  Fixed a broken reference.
+
+   *  Updated KEM combiner references.
 
 13.  Contributors
 
