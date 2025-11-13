@@ -1613,7 +1613,7 @@ Table of Contents
 
 12.17.  draft-ietf-openpgp-pqc-12
 
-   *  Moved from informational to standards-track
+   *  Moved from informational to standards-track.
 
 12.18.  draft-ietf-openpgp-pqc-13
 
