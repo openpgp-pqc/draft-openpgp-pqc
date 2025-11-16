@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-06T01:42:12.789953+00:00",
+  "timestamp": "2025-11-16T01:47:32.981699+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -23446,6 +23446,74 @@
           "body": "",
           "createdAt": "2025-11-04T14:33:38Z",
           "updatedAt": "2025-11-04T14:33:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 252,
+      "id": "PR_kwDOIrmZ-86zLogG",
+      "title": "update changelog for -12, -13, and -14",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/252",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-13T09:32:51Z",
+      "updatedAt": "2025-11-13T11:05:43Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "5a1987598393d12eb77d4f2f936f1c1f6a630154",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "add-missing-changelog-entries",
+      "headRefOid": "faa9800f83e4911c2a7128bfcff2f6af91c7c30a",
+      "closedAt": "2025-11-13T10:22:15Z",
+      "mergedAt": "2025-11-13T10:22:15Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "416bedc8ca4925cd0f11641c957959f85f40c1ed"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87OJ9l1",
+          "commit": {
+            "abbreviatedOid": "faa9800"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-13T09:38:21Z",
+          "updatedAt": "2025-11-13T09:38:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87OK6yW",
+          "commit": {
+            "abbreviatedOid": "faa9800"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-11-13T10:21:52Z",
+          "updatedAt": "2025-11-13T10:21:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87OL5AF",
+          "commit": {
+            "abbreviatedOid": "faa9800"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-11-13T11:05:43Z",
+          "updatedAt": "2025-11-13T11:05:43Z",
           "comments": []
         }
       ]
