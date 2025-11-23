@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-16T01:47:32.981699+00:00",
+  "timestamp": "2025-11-23T01:54:25.433344+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3956,16 +3956,24 @@
       "id": "I_kwDOIrmZ-87Vt3Tm",
       "title": "Brian's Review: Usefulness of len(domSep)",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/248",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "falko-strenzke",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Review from Brian Weis:\n\n> 2. I\u2019m not sure about the value of len(domSep). Section 9.2.1 mentions that it is \u201cguaranteed to result in a suffix-free set of octet strings even if further values should be defined for domSep\u201d. I am guessing that \u201csuffix\u201d implies that a new domSep is defined that has the currently-defined domSep with new octets appended to it, and the intent is that len(domSep) will ensure a different output KEK. But a different domSep (with either the same initial bytes or not) will already result in a different output. So can you clarify what is meant by \u201csufffix-free\u201d, and whether you still think len(domSep) is useful?",
       "createdAt": "2025-11-04T09:23:01Z",
-      "updatedAt": "2025-11-04T09:28:21Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-11-20T09:53:48Z",
+      "closedAt": "2025-11-20T09:53:48Z",
+      "comments": [
+        {
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Review was answererd, closing this issue.",
+          "createdAt": "2025-11-20T09:53:48Z",
+          "updatedAt": "2025-11-20T09:53:48Z"
+        }
+      ]
     },
     {
       "number": 249,
