@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 4 May 2026                                               MTG AG
+Expires: 13 June 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         31 October 2025
+                                                        10 December 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -18,14 +18,14 @@ Expires: 4 May 2026                                               MTG AG
 Abstract
 
    This document defines a post-quantum public-key algorithm extension
-   for the OpenPGP protocol.  Given the generally assumed threat of a
-   cryptographically relevant quantum computer, this extension provides
-   a basis for long-term secure OpenPGP signatures and ciphertexts.
-   Specifically, it defines composite public-key encryption based on ML-
-   KEM (formerly CRYSTALS-Kyber), composite public-key signatures based
-   on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with
-   elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a
-   standalone public key signature scheme.
+   for the OpenPGP protocol, updating [RFC9580].  Given the generally
+   assumed threat of a cryptographically relevant quantum computer, this
+   extension provides a basis for long-term secure OpenPGP signatures
+   and ciphertexts.  Specifically, it defines composite public-key
+   encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite
+   public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium),
+   both in combination with elliptic curve cryptography, and SLH-DSA
+   (formerly SPHINCS+) as a standalone public key signature scheme.
 
 About This Document
 
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 May 2026.
+   This Internet-Draft will expire on 13 June 2026.
 
 Copyright Notice
 
@@ -163,6 +163,9 @@ Table of Contents
      12.14. draft-ietf-openpgp-pqc-09
      12.15. draft-ietf-openpgp-pqc-10
      12.16. draft-ietf-openpgp-pqc-11
+     12.17. draft-ietf-openpgp-pqc-12
+     12.18. draft-ietf-openpgp-pqc-13
+     12.19. draft-ietf-openpgp-pqc-14
    13. Contributors
    Acknowledgments
    References
@@ -205,9 +208,9 @@ Table of Contents
 
 1.  Introduction
 
-   The OpenPGP protocol supports various traditional public-key
-   algorithms based on the factoring or discrete logarithm problem.  As
-   the security of algorithms based on these mathematical problems is
+   The OpenPGP protocol supports [RFC9580] various traditional public-
+   key algorithms based on the factoring or discrete logarithm problem.
+   As the security of algorithms based on these mathematical problems is
    endangered by the advent of quantum computers, there is a need to
    extend OpenPGP by algorithms that remain secure in the presence of a
    cryptographically relevant quantum computer (CRQC), i.e., a quantum
@@ -216,10 +219,10 @@ Table of Contents
 
    Such cryptographic algorithms are referred to as post-quantum
    cryptography (PQC).  The algorithms defined in this extension were
-   chosen for standardization by the National Institute of Standards and
-   Technology (NIST) in mid 2022 [NISTIR-8413] as the result of the NIST
-   Post-Quantum Cryptography Standardization process initiated in 2016
-   [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
+   chosen for standardization by the US National Institute of Standards
+   and Technology (NIST) in mid 2022 [NISTIR-8413] as the result of the
+   NIST Post-Quantum Cryptography Standardization process initiated in
+   2016 [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
    Encapsulation Mechanism (KEM), a KEM being a modern building block
    for public-key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
    [FIPS-205] as signature schemes.
@@ -241,7 +244,8 @@ Table of Contents
 
    The document specifies the conventions for interoperability between
    compliant OpenPGP implementations that make use of this extension and
-   the newly defined algorithms or algorithm combinations.
+   updates RFC 9580 by adding KEM and signature algorithms specified in
+   Section 4, Section 5, and Section 6.
 
 1.1.  Conventions used in this Document
 
@@ -299,8 +303,8 @@ Table of Contents
    defines SLH-DSA as a standalone signature scheme.
 
    In deployments the performance characteristics of SLH-DSA should be
-   taken into account.  We refer to Section 10.1 for a discussion of the
-   performance characteristics of this scheme.
+   taken into account.  The performance characteristics of this scheme
+   is discussed in Section 10.1.
 
 1.3.  Elliptic Curve Cryptography
 
@@ -392,11 +396,16 @@ Table of Contents
                   Table 2: KEM algorithm specifications
 
    The specified algorithm IDs offer two security levels for each
-   scheme, for a tradeoff between security and performance.  SLH-DSA is
-   also offered in a "fast" and a "small" variant to allow for further
-   tradeoffs.  For SLH-DSA-SHAKE-256, only the "small" variant is
-   offered to contain signature size.  See also Section 10.1 for further
-   considerations about parameter choices.
+   scheme, for a tradeoff between security and performance.  The larger
+   parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 35) are
+   recommended to support interoperability, but they are not required
+   for compliance.  Implementations targeting highly constrained
+   environments may omit these larger variants.
+
+   SLH-DSA is also offered in a "fast" and a "small" variant to allow
+   for further tradeoffs.  For SLH-DSA-SHAKE-256, only the "small"
+   variant is offered to contain signature size.  See also Section 10.1
+   for further considerations about parameter choices.
 
 3.  Algorithm Combinations
 
@@ -635,10 +644,11 @@ Table of Contents
 
    For the composite KEM schemes defined in Table 2 the following
    procedure MUST be used to compute the KEK that wraps a session key.
-   The construction is a key derivation function compliant to Section 4
-   of [SP800-56C], based on SHA3-256.  It is given by the following
-   algorithm, which computes the key encryption key KEK that is used to
-   wrap (that is, encrypt) the session key.
+   The construction is a key derivation function compliant to the QSF/
+   X-Wing construction in [BCD_24], the generalization of which is
+   analyzed in [CHHKM].  It is given by the following algorithm, which
+   computes the key encryption key KEK that is used to wrap (that is,
+   encrypt) the session key.
 
   //   multiKeyCombine(
   //       mlkemKeyShare, ecdhKeyShare,
@@ -942,7 +952,7 @@ Table of Contents
    2.  Verify the ML-DSA signature with ML-DSA.Verify() from
        Section 5.1.2
 
-   As specified in Section 3.2 an implementation MUST validate both
+   As specified in Section 5 an implementation MUST validate both
    signatures, that is, EdDSA and ML-DSA, successfully to state that a
    composite ML-DSA + EdDSA signature is valid.
 
@@ -1211,18 +1221,15 @@ Table of Contents
    OpenPGP, and maximizes interoperability with cryptographic libraries.
    In order to reliably prevent cross-protocol attacks, this
    specification recommends to avoid key-reuse across protocols in
-   Section 6.1.1.
+   Section 8.4.
 
 9.2.  Key Combiner
 
-   For the key combination in Section 4.2.1 this specification limits
-   itself to the use of SHA3-256 in a construction following
-   [SP800-56C].  A central security notion of a key combiner is IND-
-   CCA2-security.  It is argued in [BCD_24] that the key combiner
-   specified in Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-
-   CCA2-secure or the Strong Diffie-Hellman problem in a nominal group
-   holds.  Note that Curve25519 and Curve448 qualify as such nominal
-   groups [ABH_21].
+   A central security notion of a key combiner is IND-CCA2-security.  It
+   is argued in [BCD_24] that the key combiner specified in
+   Section 4.2.1 is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the
+   Strong Diffie-Hellman problem in a nominal group holds.  Note that
+   Curve25519 and Curve448 qualify as such nominal groups [ABH_21].
 
    Note that the inclusion of the ECC public key in the key combiner
    also accounts for multi-target attacks against X25519 and X448.
@@ -1345,7 +1352,8 @@ Table of Contents
 11.  IANA Considerations
 
    IANA is requested to add the algorithm IDs defined in Table 9 to the
-   existing registry OpenPGP Public Key Algorithms.
+   existing registry OpenPGP Public Key Algorithms maintained at
+   [IANA-OPENPGP].
 
    +=======+==========+=======+=======+=========+============+=========+
    |ID     |Algorithm | Public| Secret|Signature|       PKESK|Reference|
@@ -1610,6 +1618,26 @@ Table of Contents
 
    *  Editorial changes and fixes of inconsistencies.
 
+12.17.  draft-ietf-openpgp-pqc-12
+
+   *  Moved from informational to standards-track.
+
+12.18.  draft-ietf-openpgp-pqc-13
+
+   *  Addressed various editorial comments from AD review.
+
+   *  Added text about signature verification to the migration
+      considerations section.
+
+   *  Added text about preventing signature cross-protocol attacks to
+      the security considerations section.
+
+12.19.  draft-ietf-openpgp-pqc-14
+
+   *  Fixed a broken reference.
+
+   *  Updated KEM combiner references.
+
 13.  Contributors
 
    Stephan Ehlen (BSI)
@@ -1637,6 +1665,11 @@ Normative References
    [FIPS-205] National Institute of Standards and Technology, "Stateless
               Hash-Based Digital Signature Standard", August 2024,
               <https://doi.org/10.6028/NIST.FIPS.205>.
+
+   [IANA-OPENPGP]
+              IANA, "OpenPGP Public Key Algorithms", n.d.,
+              <https://www.iana.org/assignments/openpgp/
+              openpgp.xhtml#openpgp-public-key-algorithms>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1675,6 +1708,11 @@ Informative References
               Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
 
+   [CHHKM]    Connolly, D., Hövelmanns, K., Hülsing, A., Kousidis, S.,
+              and M. Meijers, "Starfighters—On the General Applicability
+              of X-Wing", Cryptology {ePrint} Archive, Paper 2025/1397 ,
+              2025, <https://eprint.iacr.org/2025/1397>.
+
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
               <https://csrc.nist.gov/projects/post-quantum-cryptography/
@@ -1693,13 +1731,6 @@ Informative References
               Post-Quantum Traditional Hybrid Schemes", RFC 9794,
               DOI 10.17487/RFC9794, June 2025,
               <https://www.rfc-editor.org/rfc/rfc9794>.
-
-   [SP800-56C]
-              Barker, E., Chen, L., Roginsky, A., and R. Davis,
-              "Recommendation for Key-Derivation Methods in Key-
-              Establishment Schemes", NIST Special Publication 800-56C
-              Rev. 2 , August 2020,
-              <https://doi.org/10.6028/NIST.SP.800-56Cr2>.
 
 Appendix A.  Test Vectors
 

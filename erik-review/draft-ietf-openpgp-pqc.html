@@ -10,26 +10,25 @@
 <meta content="Falko Strenzke" name="author">
 <meta content="Aron Wussler" name="author">
 <meta content="
-       This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
+       This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol, updating  .
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-openpgp-pqc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.4.0
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.5
-    setuptools 80.9.0
     wcwidth 0.2.14
 -->
 <link href="draft-ietf-openpgp-pqc.xml" rel="alternate" type="application/rfc+xml">
@@ -1049,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQC in OpenPGP</td>
-<td class="right">October 2025</td>
+<td class="right">December 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 17 April 2026</td>
+<td class="center">Expires 13 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc9580" class="eref">9580</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-14" class="published">14 October 2025</time>
+<time datetime="2025-12-10" class="published">10 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-17">17 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-06-13">13 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1099,7 +1098,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Post-Quantum Cryptography in OpenPGP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
+<p id="section-abstract-1">This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol, updating <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
@@ -1137,7 +1136,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1473,6 +1472,15 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.16">
                 <p id="section-toc.1-1.12.2.16.1"><a href="#section-12.16" class="auto internal xref">12.16</a>. <a href="#name-draft-ietf-openpgp-pqc-11" class="internal xref">draft-ietf-openpgp-pqc-11</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.17">
+                <p id="section-toc.1-1.12.2.17.1"><a href="#section-12.17" class="auto internal xref">12.17</a>. <a href="#name-draft-ietf-openpgp-pqc-12" class="internal xref">draft-ietf-openpgp-pqc-12</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.18">
+                <p id="section-toc.1-1.12.2.18.1"><a href="#section-12.18" class="auto internal xref">12.18</a>. <a href="#name-draft-ietf-openpgp-pqc-13" class="internal xref">draft-ietf-openpgp-pqc-13</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.19">
+                <p id="section-toc.1-1.12.2.19.1"><a href="#section-12.19" class="auto internal xref">12.19</a>. <a href="#name-draft-ietf-openpgp-pqc-14" class="internal xref">draft-ietf-openpgp-pqc-14</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
@@ -1619,17 +1627,17 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The OpenPGP protocol supports various traditional public-key algorithms based on the factoring or discrete logarithm problem.
+<p id="section-1-1">The OpenPGP protocol supports <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> various traditional public-key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
-The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
+The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
 Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
 Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and the newly defined algorithms or algorithm combinations.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates RFC 9580 by adding KEM and signature algorithms specified in <a href="#composite-kem-section" class="auto internal xref">Section 4</a>, <a href="#composite-signature-section" class="auto internal xref">Section 5</a>, and <a href="#slhdsa-section" class="auto internal xref">Section 6</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="conventions-used-in-this-document">
 <section id="section-1.1">
         <h3 id="name-conventions-used-in-this-do">
@@ -1691,7 +1699,7 @@ Its security relies on the hardness of finding preimages for cryptographic hash 
 This feature is generally considered to be a high security guarantee.
 Therefore, this specification defines SLH-DSA as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA should be taken into account.
-We refer to <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for a discussion of the performance characteristics of this scheme.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
+The performance characteristics of this scheme is discussed in <a href="#performance-considerations" class="auto internal xref">Section 10.1</a>.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1870,9 +1878,11 @@ All of these schemes are fully specified via their algorithm ID, that is, they a
         </table>
 </div>
 <p id="section-2.1-5">The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
+The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 35) are recommended to support interoperability, but they are not required for compliance.
+Implementations targeting highly constrained environments may omit these larger variants.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+<p id="section-2.1-6">SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
-See also <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for further considerations about parameter choices.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+See also <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for further considerations about parameter choices.<a href="#section-2.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1933,7 +1943,7 @@ This is an interpretation of <span><a href="https://rfc-editor.org/rfc/rfc9580#s
 </div>
 </section>
 </div>
-<div id="composite-kem-schemes">
+<div id="composite-kem-section">
 <section id="section-4">
       <h2 id="name-composite-kem-schemes">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-composite-kem-schemes" class="section-name selfRef">Composite KEM Schemes</a>
@@ -2207,7 +2217,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-combiner" class="section-name selfRef">Key Combiner</a>
           </h4>
 <p id="section-4.2.1-1">For the composite KEM schemes defined in <a href="#kem-alg-specs" class="auto internal xref">Table 2</a> the following procedure <span class="bcp14">MUST</span> be used to compute the KEK that wraps a session key.
-The construction is a key derivation function compliant to Section 4 of <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>, based on SHA3-256.
+The construction is a key derivation function compliant to the QSF/X-Wing construction in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span>, the generalization of which is analyzed in <span>[<a href="#CHHKM" class="cite xref">CHHKM</a>]</span>.
 It is given by the following algorithm, which computes the key encryption key <code>KEK</code> that is used to wrap (that is, encrypt) the session key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.1-2">
 <pre>
@@ -2418,7 +2428,7 @@ Upon parsing the secret key format, or before using the secret key, for the expa
 </div>
 </section>
 </div>
-<div id="composite-signature-schemes">
+<div id="composite-signature-section">
 <section id="section-5">
       <h2 id="name-composite-signature-schemes">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-composite-signature-schemes" class="section-name selfRef">Composite Signature Schemes</a>
@@ -2602,7 +2612,7 @@ EdDSA key generation follows the specification in <span>[<a href="#RFC8032" clas
               <p id="section-5.2.3-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.2.3-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation <span class="bcp14">MUST</span> validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.3-3">As specified in <a href="#composite-signature-section" class="auto internal xref">Section 5</a> an implementation <span class="bcp14">MUST</span> validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2678,7 +2688,7 @@ Upon parsing the secret key format, or before using the secret key, for the expa
 </div>
 </section>
 </div>
-<div id="slh-dsa-1">
+<div id="slhdsa-section">
 <section id="section-6">
       <h2 id="name-slh-dsa-2">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-slh-dsa-2" class="section-name selfRef">SLH-DSA</a>
@@ -2886,7 +2896,7 @@ Note that signing only with PQ(/T) key material is not backwards compatible.<a h
 A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key <span class="bcp14">MAY</span> prefer instead to ignore all traditional signatures from that peer.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="generating-pqt-keys">
+<div id="pq-key-generation">
 <section id="section-8.4">
         <h3 id="name-generating-pq-t-keys">
 <a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-generating-pq-t-keys" class="section-name selfRef">Generating PQ(/T) Keys</a>
@@ -2923,7 +2933,7 @@ As a consequence, a component signature taken out of the context of a specific c
 ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
 This context parameter can in principle contribute to the prevention of cross-protocol attacks.
 Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
-In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in <a href="#key-generation" class="auto internal xref">Section 6.1.1</a>.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
+In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in <a href="#pq-key-generation" class="auto internal xref">Section 8.4</a>.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2933,8 +2943,7 @@ In order to reliably prevent cross-protocol attacks, this specification recommen
         <h3 id="name-key-combiner-2">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-key-combiner-2" class="section-name selfRef">Key Combiner</a>
         </h3>
-<p id="section-9.2-1">For the key combination in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> this specification limits itself to the use of SHA3-256 in a construction following <span>[<a href="#SP800-56C" class="cite xref">SP800-56C</a>]</span>.
-A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">A central security notion of a key combiner is IND-CCA2-security. It is argued in <span>[<a href="#BCD_24" class="cite xref">BCD_24</a>]</span> that the key combiner specified in <a href="#kem-key-combiner" class="auto internal xref">Section 4.2.1</a> is IND-CCA2-secure if ML-KEM is IND-CCA2-secure or the Strong Diffie-Hellman problem in a nominal group holds. Note that Curve25519 and Curve448 qualify as such nominal groups <span>[<a href="#ABH_21" class="cite xref">ABH_21</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.2-2">Note that the inclusion of the ECC public key in the key combiner also accounts for multi-target attacks against X25519 and X448.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 <div id="sec-fixed-info">
 <section id="section-9.2.1">
@@ -3034,7 +3043,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 9</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 9</a> to the existing registry <code>OpenPGP Public Key Algorithms</code> maintained at <span>[<a href="#IANA-OPENPGP" class="cite xref">IANA-OPENPGP</a>]</span>.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
 <table class="center" id="table-9">
         <caption>
@@ -3054,7 +3063,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">30</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(30)</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-65+Ed25519</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>), 1952 octets ML-DSA-65 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets Ed25519 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>), 32 octets ML-DSA-65 secret key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>)</td>
@@ -3064,7 +3073,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#ecc-mldsa" class="auto internal xref">Section 5.2</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">31</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(31)</td>
             <td class="text-left" rowspan="1" colspan="1">ML-DSA-87+Ed448</td>
             <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 public key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>),  2592 octets ML-DSA-87 public key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">57 octets Ed448 secret key (<a href="#tab-eddsa-artifacts" class="auto internal xref">Table 6</a>), 32 octets ML-DSA-87 secret key (<a href="#tab-mldsa-artifacts" class="auto internal xref">Table 7</a>)</td>
@@ -3074,7 +3083,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#ecc-mldsa" class="auto internal xref">Section 5.2</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(32)</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128s</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
@@ -3084,7 +3093,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">33</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(33)</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-128f</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">64 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
@@ -3094,7 +3103,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">34</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(34)</td>
             <td class="text-left" rowspan="1" colspan="1">SLH-DSA-SHAKE-256s</td>
             <td class="text-right" rowspan="1" colspan="1">64 octets public key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">128 octets secret key (<a href="#slhdsa-artifact-lengths" class="auto internal xref">Table 8</a>)</td>
@@ -3104,7 +3113,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#slhdsa" class="auto internal xref">Section 6.1</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">35</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(35)</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-768+X25519</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets X25519 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1184 octets ML-KEM-768 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">32 octets X25519 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 64 octets ML-KEM-768 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
@@ -3114,7 +3123,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
               <a href="#ecc-mlkem" class="auto internal xref">Section 4.2</a> of RFC TBD</td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">36</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD(36)</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-1024+X448</td>
             <td class="text-right" rowspan="1" colspan="1">56 octets X448 public key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 1568  octets ML-KEM-1024 public key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
             <td class="text-right" rowspan="1" colspan="1">56 octets X448 secret key (<a href="#tab-ecdh-cfrg-artifacts" class="auto internal xref">Table 3</a>), 64 octets ML-KEM-1024 secret-key (<a href="#tab-mlkem-artifacts" class="auto internal xref">Table 4</a>)</td>
@@ -3450,6 +3459,51 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </ul>
 </section>
 </div>
+<div id="draft-ietf-openpgp-pqc-12">
+<section id="section-12.17">
+        <h3 id="name-draft-ietf-openpgp-pqc-12">
+<a href="#section-12.17" class="section-number selfRef">12.17. </a><a href="#name-draft-ietf-openpgp-pqc-12" class="section-name selfRef">draft-ietf-openpgp-pqc-12</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.17-1.1">
+            <p id="section-12.17-1.1.1">Moved from informational to standards-track.<a href="#section-12.17-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="draft-ietf-openpgp-pqc-13">
+<section id="section-12.18">
+        <h3 id="name-draft-ietf-openpgp-pqc-13">
+<a href="#section-12.18" class="section-number selfRef">12.18. </a><a href="#name-draft-ietf-openpgp-pqc-13" class="section-name selfRef">draft-ietf-openpgp-pqc-13</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.18-1.1">
+            <p id="section-12.18-1.1.1">Addressed various editorial comments from AD review.<a href="#section-12.18-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.18-1.2">
+            <p id="section-12.18-1.2.1">Added text about signature verification to the migration considerations section.<a href="#section-12.18-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.18-1.3">
+            <p id="section-12.18-1.3.1">Added text about preventing signature cross-protocol attacks to the security considerations section.<a href="#section-12.18-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="draft-ietf-openpgp-pqc-14">
+<section id="section-12.19">
+        <h3 id="name-draft-ietf-openpgp-pqc-14">
+<a href="#section-12.19" class="section-number selfRef">12.19. </a><a href="#name-draft-ietf-openpgp-pqc-14" class="section-name selfRef">draft-ietf-openpgp-pqc-14</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.19-1.1">
+            <p id="section-12.19-1.1.1">Fixed a broken reference.<a href="#section-12.19-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-12.19-1.2">
+            <p id="section-12.19-1.2.1">Updated KEM combiner references.<a href="#section-12.19-1.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="contributors">
@@ -3493,6 +3547,10 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205">https://doi.org/10.6028/NIST.FIPS.205</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="IANA-OPENPGP">[IANA-OPENPGP]</dt>
+        <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"OpenPGP Public Key Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms">https://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -3534,6 +3592,10 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
         <dd>
 <span class="refAuthor">Barbosa, M.</span>, <span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Duarte, J. D.</span>, <span class="refAuthor">Kaiser, A.</span>, <span class="refAuthor">Schwabe, P.</span>, <span class="refAuthor">Varner, K.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"X-Wing The Hybrid KEM You've Been Looking For"</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.62056/a3qj89n4e">https://doi.org/10.62056/a3qj89n4e</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="CHHKM">[CHHKM]</dt>
+        <dd>
+<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Hövelmanns, K.</span>, <span class="refAuthor">Hülsing, A.</span>, <span class="refAuthor">Kousidis, S.</span>, and <span class="refAuthor">M. Meijers</span>, <span class="refTitle">"Starfighters—On the General Applicability of X-Wing"</span>, <span class="seriesInfo">Cryptology {ePrint} Archive, Paper 2025/1397 </span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://eprint.iacr.org/2025/1397">https://eprint.iacr.org/2025/1397</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="NIST-PQC">[NIST-PQC]</dt>
         <dd>
 <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Moody, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Post-Quantum Cryptography Standardization"</span>, <time datetime="2016-12" class="refDate">December 2016</time>, <span>&lt;<a href="https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization">https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization</a>&gt;</span>. </dd>
@@ -3543,12 +3605,8 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <span class="refAuthor">Alagic, G.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Dang, T.</span>, <span class="refAuthor">Kelsey, J.</span>, <span class="refAuthor">Lichtinger, J.</span>, <span class="refAuthor">Miller, C.</span>, <span class="refAuthor">Moody, D.</span>, <span class="refAuthor">Peralta, R.</span>, <span class="refAuthor">Perlner, R.</span>, <span class="refAuthor">Robinson, A.</span>, <span class="refAuthor">Smith-Tone, D.</span>, and <span class="refAuthor">Y. Liu</span>, <span class="refTitle">"Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process"</span>, <span class="seriesInfo">NIST IR 8413 </span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.IR.8413-upd1">https://doi.org/10.6028/NIST.IR.8413-upd1</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9794">[RFC9794]</dt>
-        <dd>
-<span class="refAuthor">Driscoll, F.</span>, <span class="refAuthor">Parsons, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="seriesInfo">RFC 9794</span>, <span class="seriesInfo">DOI 10.17487/RFC9794</span>, <time datetime="2025-06" class="refDate">June 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9794">https://www.rfc-editor.org/rfc/rfc9794</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="SP800-56C">[SP800-56C]</dt>
       <dd>
-<span class="refAuthor">Barker, E.</span>, <span class="refAuthor">Chen, L.</span>, <span class="refAuthor">Roginsky, A.</span>, and <span class="refAuthor">R. Davis</span>, <span class="refTitle">"Recommendation for Key-Derivation Methods in Key-Establishment Schemes"</span>, <span class="seriesInfo">NIST Special Publication 800-56C Rev. 2 </span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-56Cr2">https://doi.org/10.6028/NIST.SP.800-56Cr2</a>&gt;</span>. </dd>
+<span class="refAuthor">Driscoll, F.</span>, <span class="refAuthor">Parsons, M.</span>, and <span class="refAuthor">B. Hale</span>, <span class="refTitle">"Terminology for Post-Quantum Traditional Hybrid Schemes"</span>, <span class="seriesInfo">RFC 9794</span>, <span class="seriesInfo">DOI 10.17487/RFC9794</span>, <time datetime="2025-06" class="refDate">June 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9794">https://www.rfc-editor.org/rfc/rfc9794</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
