@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-23T01:54:25.433344+00:00",
+  "timestamp": "2025-12-11T01:48:59.632118+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -23525,6 +23525,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 253,
+      "id": "PR_kwDOIrmZ-864Nw8F",
+      "title": "Address \u00c9ric's review",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/253",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-10T20:08:53Z",
+      "updatedAt": "2025-12-10T20:08:54Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "erik-review",
+      "headRefOid": "00f71a5b2b97344efaabc44e2318360435442a6a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
