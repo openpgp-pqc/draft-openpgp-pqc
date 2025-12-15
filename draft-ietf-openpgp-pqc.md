@@ -368,7 +368,7 @@ This ensures backwards compatibility due to {{Section 5.2.5 of RFC9580}}, since 
 Newer implementations with PQ(/T) support MAY ignore the traditional signature(s) during validation.
 
 Implementations SHOULD consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
-This is an interpretation of {{Section 5.2.5 of RFC9580}}.
+This is consistent with {{Section 5.2.5 of RFC9580}}.
 
 ## ECC Requirements
 
