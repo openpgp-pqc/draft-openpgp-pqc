@@ -503,7 +503,7 @@ The ML-KEM + ECDH composite public key encryption schemes are built according to
 
  - A Key Encryption Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares, the ECDH ciphertext, the ECDH public key, and the protocol binding information.
 
- - The session key for content encryption is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
+ - The session key for content encryption, generated as specified in [RFC9580], is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
  - The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
