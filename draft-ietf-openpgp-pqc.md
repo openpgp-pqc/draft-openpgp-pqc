@@ -230,7 +230,7 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
 
 # Introduction
 
-The OpenPGP protocol supports [RFC9580] various traditional public key algorithms based on the factoring or discrete logarithm problem.
+The OpenPGP protocol [RFC9580] supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
 
 Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
@@ -243,7 +243,7 @@ In contrast, the stateless hash-based signature scheme SLH-DSA is considered to 
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
 
-The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates RFC 9580 by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
+The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
 
 ## Conventions used in this Document
 
@@ -284,7 +284,7 @@ This feature is generally considered to be a high security guarantee.
 Therefore, this specification defines SLH-DSA as a standalone signature scheme.
 
 In deployments the performance characteristics of SLH-DSA should be taken into account.
-The performance characteristics of this scheme is discussed in {{performance-considerations}}.
+The performance characteristics of this scheme are discussed in {{performance-considerations}}.
 
 ## Elliptic Curve Cryptography
 
@@ -346,7 +346,7 @@ ID | Algorithm                        | Requirement | Definition
 
 
 The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 35) are recommended to support interoperability, but they are not required for compliance.
+The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
 Implementations targeting highly constrained environments may omit these larger variants.
 
 SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
