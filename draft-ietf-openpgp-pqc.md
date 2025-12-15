@@ -256,7 +256,7 @@ The short form "PQ(/T)" stands for PQ or PQ/T.
 ## Post-Quantum Cryptography
 
 This section describes the individual post-quantum cryptographic schemes.
-All schemes listed here are believed to provide security in the presence of a CRQC.
+All schemes listed here are designed to provide security in the presence of a CRQC.
 However, the mathematical problems on which the two ML-* schemes and SLH-DSA are based, are fundamentally different, and accordingly the level of trust commonly placed in them as well as their performance characteristics vary.
 
 ### ML-KEM {#mlkem-intro}
