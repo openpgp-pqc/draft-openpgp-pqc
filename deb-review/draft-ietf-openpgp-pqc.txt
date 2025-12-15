@@ -143,6 +143,7 @@ Table of Contents
      9.4.  Minimum Digest Size for PQ(/T) Signatures
      9.5.  Symmetric Algorithms for SEIPD Packets
      9.6.  Key Generation
+     9.7.  Random Number Generation and Seeding
    10. Additional Considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -1295,6 +1296,12 @@ Table of Contents
    protocols may lead to signature confusion vulnerabilities, that
    formally classify as signature forgeries.  Generally, reusing a key
    for different purposes may lead to subtle vulnerabilities.
+
+9.7.  Random Number Generation and Seeding
+
+   As mandated by Section 13.10 of [RFC9580], all random data must be
+   generated using a cryptographically secure pseudorandom number
+   generator (CSPRNG).
 
 10.  Additional Considerations
 
