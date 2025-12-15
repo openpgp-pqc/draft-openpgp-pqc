@@ -2207,7 +2207,7 @@ All artifacts are encoded as defined in <span>[<a href="#FIPS-203" class="cite x
             <p id="section-4.2-4.3.1">A Key Encryption Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares, the ECDH ciphertext, the ECDH public key, and the protocol binding information.<a href="#section-4.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-4.4">
-            <p id="section-4.2-4.4.1">The session key for content encryption is then wrapped as described in <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> using AES-256 as algorithm and the KEK as key.<a href="#section-4.2-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-4.4.1">The session key for content encryption, generated as specified in <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, is then wrapped as described in <span>[<a href="#RFC3394" class="cite xref">RFC3394</a>]</span> using AES-256 as algorithm and the KEK as key.<a href="#section-4.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-4.5">
             <p id="section-4.2-4.5.1">The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.<a href="#section-4.2-4.5.1" class="pilcrow">¶</a></p>
