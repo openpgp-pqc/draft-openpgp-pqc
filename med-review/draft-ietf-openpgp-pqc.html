@@ -1919,7 +1919,7 @@ Note that the confidentiality of a message is not post-quantum secure when encry
 This ensures backwards compatibility due to <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.5" class="relref">Section 5.2.5</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>, since a legacy implementation without PQ(/T) support can fall back on the traditional signature.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Newer implementations with PQ(/T) support <span class="bcp14">MAY</span> ignore the traditional signature(s) during validation.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">Implementations <span class="bcp14">SHOULD</span> consider the message correctly signed if at least one of the non-ignored signatures validates successfully.
-This is an interpretation of <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.5" class="relref">Section 5.2.5</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+This is consistent with <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.5" class="relref">Section 5.2.5</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ecc-requirements">

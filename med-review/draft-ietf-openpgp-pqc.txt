@@ -440,7 +440,7 @@ Table of Contents
 
    Implementations SHOULD consider the message correctly signed if at
    least one of the non-ignored signatures validates successfully.  This
-   is an interpretation of Section 5.2.5 of [RFC9580].
+   is consistent with Section 5.2.5 of [RFC9580].
 
 3.4.  ECC Requirements
 
