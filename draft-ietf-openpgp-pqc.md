@@ -843,6 +843,7 @@ The algorithm-specific part of the secret key consists of:
 
 Implementations MUST implement `AES-256`.
 An implementation SHOULD use `AES-256` in the case of a v1 Symmetrically Encrypted and Integrity Protected Data (SEIPD) packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
+This requirement is not specified as a MUST, because it would render messages not using AES-256 invalid and subject to rejection upon decryption; however, a receiving implementation may not have access to all recipient certificates and therefore cannot reliably enforce such a requirement.
 
 A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
