@@ -473,13 +473,13 @@ ML-KEM has the parametrization with the corresponding artifact lengths in octets
 All artifacts are encoded as defined in [FIPS-203].
 
 {: title="ML-KEM parameters and artifact lengths" #tab-mlkem-artifacts}
-|                        | ML-KEM-768  | ML-KEM-1024 |
-|------------------------| ----------- | ----------- |
-| Algorithm ID reference | 35          | 36          |
-| Public key             | 1184 octets | 1568 octets |
-| Secret key             | 64 octets   | 64 octets   |
-| Ciphertext             | 1088 octets | 1568 octets |
-| Key share              | 32 octets   | 32 octets   |
+|                               | ML-KEM-768  | ML-KEM-1024 |
+|-------------------------------| ----------- | ----------- |
+| Algorithm ID reference        | 35          | 36          |
+| Public (encapsulation) key    | 1184 octets | 1568 octets |
+| Secret (decapsulation) key    | 64 octets   | 64 octets   |
+| Ciphertext                    | 1088 octets | 1568 octets |
+| Key share (shared secret key) | 32 octets   | 32 octets   |
 
 
 To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM" of {{tab-mlkem-artifacts}}.
@@ -696,7 +696,7 @@ All artifacts are encoded as defined in [FIPS-204].
 |------------------------| ----------- | ----------- |
 | Algorithm ID reference | 30          | 31          |
 | Public key             | 1952 octets | 2592 octets |
-| Secret key             | 32 octets   | 32 octets   |
+| Secret (Private) key   | 32 octets   | 32 octets   |
 | Signature              | 3309 octets | 4627 octets |
 
 
@@ -781,8 +781,8 @@ This group of algorithms is henceforth referred to as "SLH-DSA code points".
 |                        | SLH-DSA-SHAKE-128s | SLH-DSA-SHAKE-128f | SLH-DSA-SHAKE-256s |
 |------------------------| ------------------ | ------------------ | -------------------|
 | Algorithm ID reference | 32                 | 33                 | 34                 |
-| Public key             | 32 octets          | 32 octets          | 64 octets          |
-| Secret key             | 64 octets          | 64 octets          | 128 octets         |
+| Public key (PK)        | 32 octets          | 32 octets          | 64 octets          |
+| Secret key (SK)        | 64 octets          | 64 octets          | 128 octets         |
 | Signature              | 7856 octets        | 17088 octets       | 29792 octets       |
 
 
