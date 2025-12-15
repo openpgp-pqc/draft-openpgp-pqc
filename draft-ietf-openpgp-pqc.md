@@ -300,7 +300,7 @@ This specification introduces new cryptographic schemes, which can be categorize
  - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.
 
 For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
-This means that all component signatures must be verified successfully in order to achieve a successful verification of the composite signature.
+This means that all component signatures must be verified successfully to achieve a successful verification of the composite signature.
 In the case of the composite public key decryption, each of the component KEM decapsulation operations must succeed.
 
 ### Non-Composite Algorithm Combinations {#non-composite-multi-alg}
@@ -387,7 +387,7 @@ All PQ(/T) asymmetric algorithms are to be used only in v6 (and newer) keys and 
 
 ### ECDH KEM {#ecc-kem}
 
-In this section we define the encryption, decryption, and data formats for the ECDH component of the composite algorithms.
+In this section, the encryption, decryption, and data formats for the ECDH component of the composite algorithms are defined.
 
 {{tab-ecdh-cfrg-artifacts}} describes the ECDH KEM parameters and artifact lengths.
 The artifacts in {{tab-ecdh-cfrg-artifacts}} follow the encodings described in [RFC7748].
@@ -858,7 +858,7 @@ Therefore various migration considerations must be taken into account, in partic
 
 ## Encrypting to Traditional and PQ(/T) Keys
 
-During the transition to post-quantum cryptography, an implementation attempting to encrypt a message to both PQ(/T) and traditional keys MAY by default encrypt to both to avoid disruption to communications (possibly displaying a warning).
+During the transition to post-quantum cryptography, an implementation MAY, by default, encrypt messages to both PQ(/T) and traditional keys to avoid disruption to communications, optionally displaying a warning.
 As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
 
 ## Signing with Traditional and PQ(/T) Keys
