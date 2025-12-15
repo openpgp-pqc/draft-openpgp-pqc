@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 13 June 2026                                             MTG AG
+Expires: 18 June 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        10 December 2025
+                                                        15 December 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 June 2026.
+   This Internet-Draft will expire on 18 June 2026.
 
 Copyright Notice
 
@@ -208,7 +208,7 @@ Table of Contents
 
 1.  Introduction
 
-   The OpenPGP protocol supports [RFC9580] various traditional public-
+   The OpenPGP protocol [RFC9580] supports various traditional public-
    key algorithms based on the factoring or discrete logarithm problem.
    As the security of algorithms based on these mathematical problems is
    endangered by the advent of quantum computers, there is a need to
@@ -244,7 +244,7 @@ Table of Contents
 
    The document specifies the conventions for interoperability between
    compliant OpenPGP implementations that make use of this extension and
-   updates RFC 9580 by adding KEM and signature algorithms specified in
+   updates [RFC9580] by adding KEM and signature algorithms specified in
    Section 4, Section 5, and Section 6.
 
 1.1.  Conventions used in this Document
@@ -304,7 +304,7 @@ Table of Contents
 
    In deployments the performance characteristics of SLH-DSA should be
    taken into account.  The performance characteristics of this scheme
-   is discussed in Section 10.1.
+   are discussed in Section 10.1.
 
 1.3.  Elliptic Curve Cryptography
 
@@ -397,7 +397,7 @@ Table of Contents
 
    The specified algorithm IDs offer two security levels for each
    scheme, for a tradeoff between security and performance.  The larger
-   parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 35) are
+   parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are
    recommended to support interoperability, but they are not required
    for compliance.  Implementations targeting highly constrained
    environments may omit these larger variants.

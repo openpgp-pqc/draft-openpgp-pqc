@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 13 June 2026</td>
+<td class="center">Expires 18 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc9580" class="eref">9580</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-10" class="published">10 December 2025</time>
+<time datetime="2025-12-15" class="published">15 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-13">13 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-06-18">18 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1136,7 +1136,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1627,7 +1627,7 @@ Specifically, it defines composite public-key encryption based on ML-KEM (former
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The OpenPGP protocol supports <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> various traditional public-key algorithms based on the factoring or discrete logarithm problem.
+<p id="section-1-1">The OpenPGP protocol <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> supports various traditional public-key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
 The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
@@ -1637,7 +1637,7 @@ Such combinations are referred to as multi-algorithm or "post-quantum/traditiona
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates RFC 9580 by adding KEM and signature algorithms specified in <a href="#composite-kem-section" class="auto internal xref">Section 4</a>, <a href="#composite-signature-section" class="auto internal xref">Section 5</a>, and <a href="#slhdsa-section" class="auto internal xref">Section 6</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> by adding KEM and signature algorithms specified in <a href="#composite-kem-section" class="auto internal xref">Section 4</a>, <a href="#composite-signature-section" class="auto internal xref">Section 5</a>, and <a href="#slhdsa-section" class="auto internal xref">Section 6</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="conventions-used-in-this-document">
 <section id="section-1.1">
         <h3 id="name-conventions-used-in-this-do">
@@ -1699,7 +1699,7 @@ Its security relies on the hardness of finding preimages for cryptographic hash 
 This feature is generally considered to be a high security guarantee.
 Therefore, this specification defines SLH-DSA as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA should be taken into account.
-The performance characteristics of this scheme is discussed in <a href="#performance-considerations" class="auto internal xref">Section 10.1</a>.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
+The performance characteristics of this scheme are discussed in <a href="#performance-considerations" class="auto internal xref">Section 10.1</a>.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1878,7 +1878,7 @@ All of these schemes are fully specified via their algorithm ID, that is, they a
         </table>
 </div>
 <p id="section-2.1-5">The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 35) are recommended to support interoperability, but they are not required for compliance.
+The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
 Implementations targeting highly constrained environments may omit these larger variants.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
 <p id="section-2.1-6">SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
