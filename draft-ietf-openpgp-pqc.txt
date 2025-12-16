@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 17 May 2026                                              MTG AG
+Expires: 19 June 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        13 November 2025
+                                                        16 December 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2026.
+   This Internet-Draft will expire on 19 June 2026.
 
 Copyright Notice
 
@@ -270,7 +270,7 @@ Table of Contents
 1.2.  Post-Quantum Cryptography
 
    This section describes the individual post-quantum cryptographic
-   schemes.  All schemes listed here are believed to provide security in
+   schemes.  All schemes listed here are designed to provide security in
    the presence of a CRQC.  However, the mathematical problems on which
    the two ML-* schemes and SLH-DSA are based, are fundamentally
    different, and accordingly the level of trust commonly placed in them
@@ -440,7 +440,7 @@ Table of Contents
 
    Implementations SHOULD consider the message correctly signed if at
    least one of the non-ignored signatures validates successfully.  This
-   is an interpretation of Section 5.2.5 of [RFC9580].
+   is consistent with Section 5.2.5 of [RFC9580].
 
 3.4.  ECC Requirements
 
@@ -578,21 +578,21 @@ Table of Contents
    lengths in octets as given in Table 4.  All artifacts are encoded as
    defined in [FIPS-203].
 
-          +========================+=============+=============+
-          |                        | ML-KEM-768  | ML-KEM-1024 |
-          +========================+=============+=============+
-          | Algorithm ID reference | 35          | 36          |
-          +------------------------+-------------+-------------+
-          | Public key             | 1184 octets | 1568 octets |
-          +------------------------+-------------+-------------+
-          | Secret key             | 64 octets   | 64 octets   |
-          +------------------------+-------------+-------------+
-          | Ciphertext             | 1088 octets | 1568 octets |
-          +------------------------+-------------+-------------+
-          | Key share              | 32 octets   | 32 octets   |
-          +------------------------+-------------+-------------+
+       +===============================+=============+=============+
+       |                               | ML-KEM-768  | ML-KEM-1024 |
+       +===============================+=============+=============+
+       | Algorithm ID reference        | 35          | 36          |
+       +-------------------------------+-------------+-------------+
+       | Public (encapsulation) key    | 1184 octets | 1568 octets |
+       +-------------------------------+-------------+-------------+
+       | Secret (decapsulation) key    | 64 octets   | 64 octets   |
+       +-------------------------------+-------------+-------------+
+       | Ciphertext                    | 1088 octets | 1568 octets |
+       +-------------------------------+-------------+-------------+
+       | Key share (shared secret key) | 32 octets   | 32 octets   |
+       +-------------------------------+-------------+-------------+
 
-             Table 4: ML-KEM parameters and artifact lengths
+              Table 4: ML-KEM parameters and artifact lengths
 
    To instantiate ML-KEM, one must select a parameter set from the
    column "ML-KEM" of Table 4.
@@ -901,7 +901,7 @@ Table of Contents
           +------------------------+-------------+-------------+
           | Public key             | 1952 octets | 2592 octets |
           +------------------------+-------------+-------------+
-          | Secret key             | 32 octets   | 32 octets   |
+          | Secret (Private) key   | 32 octets   | 32 octets   |
           +------------------------+-------------+-------------+
           | Signature              | 3309 octets | 4627 octets |
           +------------------------+-------------+-------------+
@@ -1027,10 +1027,10 @@ Table of Contents
    |reference|                  |                  |                  |
    +---------+------------------+------------------+------------------+
    |Public   |32 octets         |32 octets         |64 octets         |
-   |key      |                  |                  |                  |
+   |key (PK) |                  |                  |                  |
    +---------+------------------+------------------+------------------+
    |Secret   |64 octets         |64 octets         |128 octets        |
-   |key      |                  |                  |                  |
+   |key (SK) |                  |                  |                  |
    +---------+------------------+------------------+------------------+
    |Signature|7856 octets       |17088 octets      |29792 octets      |
    +---------+------------------+------------------+------------------+
