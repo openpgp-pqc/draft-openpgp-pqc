@@ -18,7 +18,7 @@ Expires: 19 June 2026                                             MTG AG
 Abstract
 
    This document defines a post-quantum public key algorithm extension
-   for the OpenPGP protocol, updating [RFC9580].  Given the generally
+   for the OpenPGP protocol, extending [RFC9580].  Given the generally
    assumed threat of a cryptographically relevant quantum computer, this
    extension provides a basis for long-term secure OpenPGP signatures
    and ciphertexts.  Specifically, it defines composite public key
@@ -245,7 +245,7 @@ Table of Contents
 
    The document specifies the conventions for interoperability between
    compliant OpenPGP implementations that make use of this extension and
-   updates [RFC9580] by adding KEM and signature algorithms specified in
+   extends [RFC9580] by adding KEM and signature algorithms specified in
    Section 4, Section 5, and Section 6.
 
 1.1.  Conventions used in this Document
