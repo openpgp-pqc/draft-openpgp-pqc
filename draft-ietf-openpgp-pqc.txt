@@ -17,12 +17,12 @@ Expires: 19 June 2026                                             MTG AG
 
 Abstract
 
-   This document defines a post-quantum public-key algorithm extension
+   This document defines a post-quantum public key algorithm extension
    for the OpenPGP protocol.  Given the generally assumed threat of a
    cryptographically relevant quantum computer, this extension provides
    a basis for long-term secure OpenPGP signatures and ciphertexts.
-   Specifically, it defines composite public-key encryption based on ML-
-   KEM (formerly CRYSTALS-Kyber), composite public-key signatures based
+   Specifically, it defines composite public key encryption based on ML-
+   KEM (formerly CRYSTALS-Kyber), composite public key signatures based
    on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with
    elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a
    standalone public key signature scheme.
@@ -104,7 +104,7 @@ Table of Contents
        4.2.3.  Encryption Procedure
        4.2.4.  Decryption Procedure
      4.3.  Packet Specifications
-       4.3.1.  Public-Key Encrypted Session Key Packets (Packet Type
+       4.3.1.  Public Key Encrypted Session Key Packets (Packet Type
                ID 1)
        4.3.2.  Key Material Packets
    5.  Composite Signature Schemes
@@ -143,6 +143,7 @@ Table of Contents
      9.4.  Minimum Digest Size for PQ(/T) Signatures
      9.5.  Symmetric Algorithms for SEIPD Packets
      9.6.  Key Generation
+     9.7.  Random Number Generation and Seeding
    10. Additional Considerations
      10.1.  Performance Considerations for SLH-DSA
    11. IANA Considerations
@@ -208,7 +209,7 @@ Table of Contents
 
 1.  Introduction
 
-   The OpenPGP protocol supports various traditional public-key
+   The OpenPGP protocol supports various traditional public key
    algorithms based on the factoring or discrete logarithm problem.  As
    the security of algorithms based on these mathematical problems is
    endangered by the advent of quantum computers, there is a need to
@@ -224,7 +225,7 @@ Table of Contents
    Post-Quantum Cryptography Standardization process initiated in 2016
    [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
    Encapsulation Mechanism (KEM), a KEM being a modern building block
-   for public-key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
+   for public key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
    [FIPS-205] as signature schemes.
 
    For the two ML-* schemes, this document follows the conservative
@@ -321,7 +322,7 @@ Table of Contents
    This specification introduces new cryptographic schemes, which can be
    categorized as follows:
 
-   *  PQ/T multi-algorithm public-key encryption, namely a composite
+   *  PQ/T multi-algorithm public key encryption, namely a composite
       combination of ML-KEM with ECDH,
 
    *  PQ/T multi-algorithm digital signature, namely composite
@@ -336,7 +337,7 @@ Table of Contents
    message, in order for the message to be deciphered and considered as
    valid.  This means that all component signatures must be verified
    successfully in order to achieve a successful verification of the
-   composite signature.  In the case of the composite public-key
+   composite signature.  In the case of the composite public key
    decryption, each of the component KEM decapsulation operations must
    succeed.
 
@@ -351,8 +352,9 @@ Table of Contents
    verification of such combinations of signatures.
 
    Furthermore, the OpenPGP protocol also allows parallel encryption to
-   different keys by using multiple PKESK packets, thus realizing non-
-   composite multi-algorithm public-key encryption.
+   different keys by using multiple Public Key Encrypted Session Key
+   (PKESK) packets, thus realizing non-composite multi-algorithm public
+   key encryption.
 
 2.  Supported Public Key Algorithms
 
@@ -405,7 +407,7 @@ Table of Contents
 
 3.1.  Composite KEMs
 
-   The ML-KEM + ECDH public-key encryption involves both the ML-KEM and
+   The ML-KEM + ECDH public key encryption involves both the ML-KEM and
    an ECDH KEM in an a priori non-separable manner.  This is achieved
    via KEM combination, that is, both key encapsulations/decapsulations
    are performed in parallel, and the resulting key shares are fed into
@@ -447,7 +449,8 @@ Table of Contents
    Even though the zero point, also called the point at infinity, may
    occur as a result of arithmetic operations on points of an elliptic
    curve, it MUST NOT appear in any ECC data structure defined in this
-   document.
+   document.  An implementation MAY signal an error if this condition is
+   encountered.
 
    Furthermore, when performing the explicitly listed operations in
    Section 4.1.1.1 or Section 4.1.1.2 it is REQUIRED to follow the
@@ -538,7 +541,7 @@ Table of Contents
    The encapsulation and decapsulation operations of X448-KEM are
    described using the function X448() and encodings defined in
    [RFC7748].  The ecdhSecretKey is denoted as r, the ecdhPublicKey as
-   R, they are subject to the equation R = X25519(r, U(P)).  Here, U(P)
+   R, they are subject to the equation R = X448(r, U(P)).  Here, U(P)
    denotes the u-coordinate of the base point of Curve448.
 
    The operation X448-KEM.Encaps() is defined as follows:
@@ -599,7 +602,7 @@ Table of Contents
 
 4.2.  Composite Encryption Schemes with ML-KEM
 
-   Table 2 specifies the following ML-KEM + ECDH composite public-key
+   Table 2 specifies the following ML-KEM + ECDH composite public key
    encryption schemes:
 
            +========================+=============+============+
@@ -612,7 +615,7 @@ Table of Contents
 
                   Table 5: ML-KEM + ECDH composite schemes
 
-   The ML-KEM + ECDH composite public-key encryption schemes are built
+   The ML-KEM + ECDH composite public key encryption schemes are built
    according to the following principal design:
 
    *  The ML-KEM encapsulation algorithm is invoked to create an ML-KEM
@@ -622,14 +625,14 @@ Table of Contents
       X448-KEM, is invoked to create an ECDH ciphertext together with an
       ECDH symmetric key share.
 
-   *  A Key-Encryption-Key (KEK) is computed as the output of a key
+   *  A Key Encryption Key (KEK) is computed as the output of a key
       combiner that receives as input both of the above created
       symmetric key shares, the ECDH ciphertext, the ECDH public key,
       and the protocol binding information.
 
-   *  The session key for content encryption is then wrapped as
-      described in [RFC3394] using AES-256 as algorithm and the KEK as
-      key.
+   *  The session key for content encryption, generated as specified in
+      [RFC9580], is then wrapped as described in [RFC3394] using AES-256
+      as algorithm and the KEK as key.
 
    *  The PKESK packet's algorithm-specific parts are made up of the ML-
       KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
@@ -656,7 +659,7 @@ Table of Contents
   //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
   //   ecdhPublicKey   - the ECDH public key of the recipient as an
   //                     octet string
-  //   algId           - the OpenPGP algorithm ID of the public-key
+  //   algId           - the OpenPGP algorithm ID of the public key
   //                     encryption algorithm
 
   KEK = SHA3-256(
@@ -685,10 +688,10 @@ Table of Contents
 
 4.2.3.  Encryption Procedure
 
-   The procedure to perform public-key encryption with an ML-KEM + ECDH
+   The procedure to perform public key encryption with an ML-KEM + ECDH
    composite scheme is as follows:
 
-   1.  Take the recipient's authenticated public-key packet pkComposite
+   1.  Take the recipient's authenticated public key packet pkComposite
        and sessionKey as input
 
    2.  Parse the algorithm ID from pkComposite and set it as algId
@@ -722,7 +725,7 @@ Table of Contents
 
 4.2.4.  Decryption Procedure
 
-   The procedure to perform public-key decryption with an ML-KEM + ECDH
+   The procedure to perform public key decryption with an ML-KEM + ECDH
    composite scheme is as follows:
 
    1.   Take the matching PKESK and own secret key packet as input
@@ -761,7 +764,7 @@ Table of Contents
 
 4.3.  Packet Specifications
 
-4.3.1.  Public-Key Encrypted Session Key Packets (Packet Type ID 1)
+4.3.1.  Public Key Encrypted Session Key Packets (Packet Type ID 1)
 
    The algorithm-specific fields consist of the output of the encryption
    procedure described in Section 4.2.3:
@@ -1098,10 +1101,10 @@ Table of Contents
 7.1.  Symmetric Algorithms for SEIPD Packets
 
    Implementations MUST implement AES-256.  An implementation SHOULD use
-   AES-256 in the case of a v1 SEIPD packet, or AES-256 with any
-   available AEAD mode in the case of a v2 SEIPD packet, if all
-   recipient certificates indicate support for it (explicitly or
-   implicitly).
+   AES-256 in the case of a v1 Symmetrically Encrypted and Integrity
+   Protected Data (SEIPD) packet, or AES-256 with any available AEAD
+   mode in the case of a v2 SEIPD packet, if all recipient certificates
+   indicate support for it (explicitly or implicitly).
 
    A certificate that contains a PQ(/T) key SHOULD include AES-256 in
    the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD
@@ -1293,6 +1296,12 @@ Table of Contents
    protocols may lead to signature confusion vulnerabilities, that
    formally classify as signature forgeries.  Generally, reusing a key
    for different purposes may lead to subtle vulnerabilities.
+
+9.7.  Random Number Generation and Seeding
+
+   As mandated by Section 13.10 of [RFC9580], all random data must be
+   generated using a cryptographically secure pseudorandom number
+   generator (CSPRNG).
 
 10.  Additional Considerations
 
@@ -1731,7 +1740,7 @@ A.1.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 Ed25519 Private-Key packet
+   *  A v6 Ed25519 Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -1739,7 +1748,7 @@ A.1.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Private-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1798,7 +1807,7 @@ A.1.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.1.1
    consisting of:
 
-   *  A v6 Ed25519 Public-Key packet
+   *  A v6 Ed25519 Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -1806,7 +1815,7 @@ A.1.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Public-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Public Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -1914,13 +1923,13 @@ A.2.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v4 Ed25519 Private-Key packet
+   *  A v4 Ed25519 Private Key packet
 
    *  A User ID packet
 
    *  A v4 positive certification self-signature
 
-   *  A v4 ML-KEM-768+X25519 Private-Subkey packet
+   *  A v4 ML-KEM-768+X25519 Private Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -1977,13 +1986,13 @@ A.2.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.2.1
    consisting of:
 
-   *  A v4 Ed25519 Public-Key packet
+   *  A v4 Ed25519 Public Key packet
 
    *  A User ID packet
 
    *  A v4 positive certification self-signature
 
-   *  A v4 ML-KEM-768+X25519 Public-Subkey packet
+   *  A v4 ML-KEM-768+X25519 Public Subkey packet
 
    *  A v4 subkey binding signature
 
@@ -2144,7 +2153,7 @@ A.3.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 ML-DSA-65+Ed25519 Private-Key packet
+   *  A v6 ML-DSA-65+Ed25519 Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -2152,7 +2161,7 @@ A.3.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Private-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -2459,7 +2468,7 @@ A.3.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.3.1
    consisting of:
 
-   *  A v6 ML-DSA-65+Ed25519 Public-Key packet
+   *  A v6 ML-DSA-65+Ed25519 Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -2467,7 +2476,7 @@ A.3.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Public-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Public Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -2975,7 +2984,7 @@ A.4.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 ML-DSA-87+Ed448 Private-Key packet
+   *  A v6 ML-DSA-87+Ed448 Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -2983,7 +2992,7 @@ A.4.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-1024+X448 Private-Subkey packet
+   *  A v6 ML-KEM-1024+X448 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -3400,7 +3409,7 @@ A.4.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.4.1
    consisting of:
 
-   *  A v6 ML-DSA-87+Ed448 Public-Key packet
+   *  A v6 ML-DSA-87+Ed448 Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -3408,7 +3417,7 @@ A.4.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-1024+X448 Public-Subkey packet
+   *  A v6 ML-KEM-1024+X448 Public Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -4095,7 +4104,7 @@ A.5.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 SLH-DSA-128s Private-Key packet
+   *  A v6 SLH-DSA-128s Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -4103,7 +4112,7 @@ A.5.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Private-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -4650,7 +4659,7 @@ A.5.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.5.1
    consisting of:
 
-   *  A v6 SLH-DSA-128s Public-Key packet
+   *  A v6 SLH-DSA-128s Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -4658,7 +4667,7 @@ A.5.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Public-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Public Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -5592,7 +5601,7 @@ A.6.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 SLH-DSA-128f Private-Key packet
+   *  A v6 SLH-DSA-128f Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -5600,7 +5609,7 @@ A.6.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Private-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -6724,7 +6733,7 @@ A.6.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.6.1
    consisting of:
 
-   *  A v6 SLH-DSA-128f Public-Key packet
+   *  A v6 SLH-DSA-128f Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -6732,7 +6741,7 @@ A.6.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-768+X25519 Public-Subkey packet
+   *  A v6 ML-KEM-768+X25519 Public Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -8216,7 +8225,7 @@ A.7.1.  Transferable Secret Key
 
    Here is a Transferable Secret Key consisting of:
 
-   *  A v6 SLH-DSA-256s Private-Key packet
+   *  A v6 SLH-DSA-256s Private Key packet
 
    *  A v6 direct key self-signature
 
@@ -8224,7 +8233,7 @@ A.7.1.  Transferable Secret Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-1024+X448 Private-Subkey packet
+   *  A v6 ML-KEM-1024+X448 Private Subkey packet
 
    *  A v6 subkey binding signature
 
@@ -10154,7 +10163,7 @@ A.7.2.  Transferable Public Key
    Here is the corresponding Transferable Public Key for Appendix A.7.1
    consisting of:
 
-   *  A v6 SLH-DSA-256s Public-Key packet
+   *  A v6 SLH-DSA-256s Public Key packet
 
    *  A v6 direct key self-signature
 
@@ -10162,7 +10171,7 @@ A.7.2.  Transferable Public Key
 
    *  A v6 positive certification self-signature
 
-   *  A v6 ML-KEM-1024+X448 Public-Subkey packet
+   *  A v6 ML-KEM-1024+X448 Public Subkey packet
 
    *  A v6 subkey binding signature
 
