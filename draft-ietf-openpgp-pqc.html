@@ -10,7 +10,7 @@
 <meta content="Falko Strenzke" name="author">
 <meta content="Aron Wussler" name="author">
 <meta content="
-       This document defines a post-quantum public key algorithm extension for the OpenPGP protocol.
+       This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending  .
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
@@ -1098,7 +1098,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Post-Quantum Cryptography in OpenPGP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a post-quantum public key algorithm extension for the OpenPGP protocol.
+<p id="section-abstract-1">This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
@@ -1630,17 +1630,17 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The OpenPGP protocol supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
+<p id="section-1-1">The OpenPGP protocol <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
-The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
+The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
 Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
 Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and the newly defined algorithms or algorithm combinations.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and extends <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> by adding KEM and signature algorithms specified in <a href="#composite-kem-section" class="auto internal xref">Section 4</a>, <a href="#composite-signature-section" class="auto internal xref">Section 5</a>, and <a href="#slhdsa-section" class="auto internal xref">Section 6</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="conventions-used-in-this-document">
 <section id="section-1.1">
         <h3 id="name-conventions-used-in-this-do">
@@ -1702,7 +1702,7 @@ Its security relies on the hardness of finding preimages for cryptographic hash 
 This feature is generally considered to be a high security guarantee.
 Therefore, this specification defines SLH-DSA as a standalone signature scheme.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-1.2.3-2">In deployments the performance characteristics of SLH-DSA should be taken into account.
-We refer to <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for a discussion of the performance characteristics of this scheme.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
+The performance characteristics of this scheme are discussed in <a href="#performance-considerations" class="auto internal xref">Section 10.1</a>.<a href="#section-1.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1881,9 +1881,11 @@ All of these schemes are fully specified via their algorithm ID, that is, they a
         </table>
 </div>
 <p id="section-2.1-5">The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
+The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
+Implementations targeting highly constrained environments may omit these larger variants.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+<p id="section-2.1-6">SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
-See also <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for further considerations about parameter choices.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+See also <a href="#performance-considerations" class="auto internal xref">Section 10.1</a> for further considerations about parameter choices.<a href="#section-2.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1945,7 +1947,7 @@ An implementation <span class="bcp14">MAY</span> signal an error if this conditi
 </div>
 </section>
 </div>
-<div id="composite-kem-schemes">
+<div id="composite-kem-section">
 <section id="section-4">
       <h2 id="name-composite-kem-schemes">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-composite-kem-schemes" class="section-name selfRef">Composite KEM Schemes</a>
@@ -2430,7 +2432,7 @@ Upon parsing the secret key format, or before using the secret key, for the expa
 </div>
 </section>
 </div>
-<div id="composite-signature-schemes">
+<div id="composite-signature-section">
 <section id="section-5">
       <h2 id="name-composite-signature-schemes">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-composite-signature-schemes" class="section-name selfRef">Composite Signature Schemes</a>
@@ -2614,7 +2616,7 @@ EdDSA key generation follows the specification in <span>[<a href="#RFC8032" clas
               <p id="section-5.2.3-2.2.1">Verify the ML-DSA signature with <code>ML-DSA.Verify()</code> from <a href="#mldsa-signature" class="auto internal xref">Section 5.1.2</a><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.2.3-3">As specified in <a href="#composite-signatures" class="auto internal xref">Section 3.2</a> an implementation <span class="bcp14">MUST</span> validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.3-3">As specified in <a href="#composite-signature-section" class="auto internal xref">Section 5</a> an implementation <span class="bcp14">MUST</span> validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2690,7 +2692,7 @@ Upon parsing the secret key format, or before using the secret key, for the expa
 </div>
 </section>
 </div>
-<div id="slh-dsa-1">
+<div id="slhdsa-section">
 <section id="section-6">
       <h2 id="name-slh-dsa-2">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-slh-dsa-2" class="section-name selfRef">SLH-DSA</a>
@@ -2841,8 +2843,9 @@ A verifying implementation <span class="bcp14">MUST</span> reject any SLH-DSA si
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-symmetric-algorithms-for-se" class="section-name selfRef">Symmetric Algorithms for SEIPD Packets</a>
         </h3>
 <p id="section-7.1-1">Implementations <span class="bcp14">MUST</span> implement <code>AES-256</code>.
-An implementation <span class="bcp14">SHOULD</span> use <code>AES-256</code> in the case of a v1 Symmetrically Encrypted and Integrity Protected Data (SEIPD) packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">A certificate that contains a PQ(/T) key <span class="bcp14">SHOULD</span> include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and <span class="bcp14">SHOULD</span> include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+An implementation <span class="bcp14">SHOULD</span> use <code>AES-256</code> in the case of a v1 Symmetrically Encrypted and Integrity Protected Data (SEIPD) packet, or <code>AES-256</code> with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
+This requirement is not specified as a <span class="bcp14">MUST</span>, because it would render messages not using AES-256 invalid and subject to rejection upon decryption; however, a receiving implementation may not have access to all recipient certificates and therefore cannot reliably enforce such a requirement.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">A certificate that contains a PQ(/T) key <span class="bcp14">SHOULD</span> include <code>AES-256</code> in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and <span class="bcp14">SHOULD</span> include the pair <code>AES-256</code> with <code>OCB</code> in the "Preferred AEAD Ciphersuites" subpacket to make support for <code>AES-256</code> and <code>AES-256</code> with <code>OCB</code> explicit.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">If <code>AES-256</code> is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since <code>AES-256</code> is mandatory to implement.
 If <code>AES-128</code> is also implicitly added to the list, it is added after <code>AES-256</code>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
@@ -3053,7 +3056,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 9</a> to the existing registry <code>OpenPGP Public Key Algorithms</code>.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-1">IANA is requested to add the algorithm IDs defined in <a href="#iana-pubkey-algos" class="auto internal xref">Table 9</a> to the existing registry <code>OpenPGP Public Key Algorithms</code> maintained at <span>[<a href="#IANA-OPENPGP" class="cite xref">IANA-OPENPGP</a>]</span>.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <span id="name-iana-updates-for-registry-o"></span><div id="iana-pubkey-algos">
 <table class="center" id="table-9">
         <caption>
@@ -3556,6 +3559,10 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dt id="FIPS-205">[FIPS-205]</dt>
         <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Stateless Hash-Based Digital Signature Standard"</span>, <time datetime="2024-08" class="refDate">August 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.FIPS.205">https://doi.org/10.6028/NIST.FIPS.205</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA-OPENPGP">[IANA-OPENPGP]</dt>
+        <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"OpenPGP Public Key Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms">https://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
