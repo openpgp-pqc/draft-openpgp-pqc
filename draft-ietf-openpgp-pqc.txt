@@ -4,9 +4,9 @@
 
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
-Updates: 9580 (if approved)                                      J. Roth
-Intended status: Standards Track                             F. Strenzke
-Expires: 19 June 2026                                             MTG AG
+Intended status: Standards Track                                 J. Roth
+Expires: 19 June 2026                                        F. Strenzke
+                                                                  MTG AG
                                                               A. Wussler
                                                                Proton AG
                                                         16 December 2025
