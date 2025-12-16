@@ -1112,6 +1112,9 @@ IANA is asked to add the following note to this registry:
 - Fixed a broken reference.
 - Updated KEM combiner references.
 
+## draft-ietf-openpgp-pqc-15
+- Addressed various editorial comments from IESG reviews.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
