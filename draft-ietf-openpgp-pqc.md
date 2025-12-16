@@ -74,6 +74,12 @@ normative:
         - org: National Institute of Standards and Technology
       date: August 2024
 
+  IANA-OPENPGP:
+      target: https://www.iana.org/assignments/openpgp/openpgp.xhtml#openpgp-public-key-algorithms
+      title: OpenPGP Public Key Algorithms
+      author:
+        - org: IANA
+
 informative:
 
   NIST-PQC:
@@ -216,7 +222,7 @@ informative:
 
 --- abstract
 
-This document defines a post-quantum public key algorithm extension for the OpenPGP protocol.
+This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending [RFC9580].
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
 
@@ -224,11 +230,11 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
 
 # Introduction
 
-The OpenPGP protocol supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
+The OpenPGP protocol [RFC9580] supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
 
 Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
-The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
+The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
 Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
@@ -237,7 +243,7 @@ In contrast, the stateless hash-based signature scheme SLH-DSA is considered to 
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
 
-The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and the newly defined algorithms or algorithm combinations.
+The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
 
 ## Conventions used in this Document
 
@@ -278,7 +284,7 @@ This feature is generally considered to be a high security guarantee.
 Therefore, this specification defines SLH-DSA as a standalone signature scheme.
 
 In deployments the performance characteristics of SLH-DSA should be taken into account.
-We refer to {{performance-considerations}} for a discussion of the performance characteristics of this scheme.
+The performance characteristics of this scheme are discussed in {{performance-considerations}}.
 
 ## Elliptic Curve Cryptography
 
@@ -340,6 +346,9 @@ ID | Algorithm                        | Requirement | Definition
 
 
 The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
+The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
+Implementations targeting highly constrained environments may omit these larger variants.
+
 SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
 See also {{performance-considerations}} for further considerations about parameter choices.
@@ -381,7 +390,7 @@ Furthermore, when performing the explicitly listed operations in {{x25519-kem}} 
 
 All PQ(/T) asymmetric algorithms are to be used only in v6 (and newer) keys and certificates, with the single exception of ML-KEM-768+X25519 (algorithm ID 35), which is also allowed in v4 encryption-capable subkeys.
 
-# Composite KEM Schemes
+# Composite KEM Schemes {#composite-kem-section}
 
 ## Building Blocks
 
@@ -646,7 +655,7 @@ The algorithm-specific secret key is these two values:
    Namely, the secret key is given by the concatenation of the values of `d` and `z`, generated in steps 1 and 2 of `ML-KEM.KeyGen` [FIPS-203], each of a length of 32 octets.
    Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-KEM.KeyGen_internal` [FIPS-203] has to be invoked with the parsed values of `d` and `z` as input.
 
-# Composite Signature Schemes
+# Composite Signature Schemes {#composite-signature-section}
 
 ## Building Blocks
 
@@ -729,7 +738,7 @@ To verify an ML-DSA + EdDSA signature the following sequence of operations has t
 
  2. Verify the ML-DSA signature with `ML-DSA.Verify()` from {{mldsa-signature}}
 
-As specified in {{composite-signatures}} an implementation MUST validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.
+As specified in {{composite-signature-section}} an implementation MUST validate both signatures, that is, EdDSA and ML-DSA, successfully to state that a composite ML-DSA + EdDSA signature is valid.
 
 ## Packet Specifications
 
@@ -769,7 +778,7 @@ The algorithm-specific secret key for ML-DSA + EdDSA keys is this series of valu
    Namely, the secret key is given by the value `xi` generated in step 1 of `ML-DSA.KeyGen` [FIPS-204].
    Upon parsing the secret key format, or before using the secret key, for the expansion of the key, the function `ML-DSA.KeyGen_internal` [FIPS-204] has to be invoked with the parsed value of `xi` as input.
 
-# SLH-DSA
+# SLH-DSA {#slhdsa-section}
 
 Throughout this specification SLH-DSA refers to the default pure and hedged version of SLH-DSA defined in [FIPS-205].
 
@@ -834,8 +843,9 @@ The algorithm-specific part of the secret key consists of:
 
 Implementations MUST implement `AES-256`.
 An implementation SHOULD use `AES-256` in the case of a v1 Symmetrically Encrypted and Integrity Protected Data (SEIPD) packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
+This requirement is not specified as a MUST, because it would render messages not using AES-256 invalid and subject to rejection upon decryption; however, a receiving implementation may not have access to all recipient certificates and therefore cannot reliably enforce such a requirement.
 
-A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
+A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket to make support for `AES-256` and `AES-256` with `OCB` explicit.
 
 If `AES-256` is not explicitly in the list of the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket, and if the certificate contains a PQ(/T) key, it is implicitly at the end of the list.
 This is justified since `AES-256` is mandatory to implement.
@@ -977,7 +987,7 @@ Based on the performance measurements published in the NIST submissions for SLH-
 
 # IANA Considerations
 
-IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms`.
+IANA is requested to add the algorithm IDs defined in {{iana-pubkey-algos}} to the existing registry `OpenPGP Public Key Algorithms` maintained at {{IANA-OPENPGP}}.
 
 {: title="IANA updates for registry 'OpenPGP Public Key Algorithms'" #iana-pubkey-algos}
 ID     | Algorithm           | Public Key Format                                                                                                      | Secret Key Format                                                                                                      | Signature Format                                                                                                 | PKESK Format                                                                                                                                                                                           | Reference
