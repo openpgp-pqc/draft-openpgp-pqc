@@ -222,7 +222,7 @@ informative:
 
 --- abstract
 
-This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, updating [RFC9580].
+This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending [RFC9580].
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
 
@@ -243,7 +243,7 @@ In contrast, the stateless hash-based signature scheme SLH-DSA is considered to 
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
 
-The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and updates [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
+The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
 
 ## Conventions used in this Document
 
