@@ -336,10 +336,9 @@ Table of Contents
    algorithms for each of the component schemes used in a cryptographic
    message, in order for the message to be deciphered and considered as
    valid.  This means that all component signatures must be verified
-   successfully in order to achieve a successful verification of the
-   composite signature.  In the case of the composite public key
-   decryption, each of the component KEM decapsulation operations must
-   succeed.
+   successfully to achieve a successful verification of the composite
+   signature.  In the case of the composite public key decryption, each
+   of the component KEM decapsulation operations must succeed.
 
 1.4.2.  Non-Composite Algorithm Combinations
 
@@ -470,8 +469,8 @@ Table of Contents
 
 4.1.1.  ECDH KEM
 
-   In this section we define the encryption, decryption, and data
-   formats for the ECDH component of the composite algorithms.
+   In this section, the encryption, decryption, and data formats for the
+   ECDH component of the composite algorithms are defined.
 
    Table 3 describes the ECDH KEM parameters and artifact lengths.  The
    artifacts in Table 3 follow the encodings described in [RFC7748].
@@ -1145,12 +1144,11 @@ Table of Contents
 8.1.  Encrypting to Traditional and PQ(/T) Keys
 
    During the transition to post-quantum cryptography, an implementation
-   attempting to encrypt a message to both PQ(/T) and traditional keys
-   MAY by default encrypt to both to avoid disruption to communications
-   (possibly displaying a warning).  As noted in Section 3.1, the
-   confidentiality of a message is not post-quantum secure when using
-   multiple PKESKs if at least one does not use PQ(/T) encryption
-   schemes.
+   MAY, by default, encrypt messages to both PQ(/T) and traditional keys
+   to avoid disruption to communications, optionally displaying a
+   warning.  As noted in Section 3.1, the confidentiality of a message
+   is not post-quantum secure when using multiple PKESKs if at least one
+   does not use PQ(/T) encryption schemes.
 
 8.2.  Signing with Traditional and PQ(/T) Keys
 
