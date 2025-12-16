@@ -216,20 +216,20 @@ informative:
 
 --- abstract
 
-This document defines a post-quantum public-key algorithm extension for the OpenPGP protocol.
+This document defines a post-quantum public key algorithm extension for the OpenPGP protocol.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
-Specifically, it defines composite public-key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public-key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
+Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
 
 --- middle
 
 # Introduction
 
-The OpenPGP protocol supports various traditional public-key algorithms based on the factoring or discrete logarithm problem.
+The OpenPGP protocol supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
 As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
 
 Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
 The algorithms defined in this extension were chosen for standardization by the National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
-Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public-key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
+Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
 Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
@@ -293,7 +293,7 @@ This section provides a categorization of the new algorithms and their combinati
 
 This specification introduces new cryptographic schemes, which can be categorized as follows:
 
- - PQ/T multi-algorithm public-key encryption, namely a composite combination of ML-KEM with ECDH,
+ - PQ/T multi-algorithm public key encryption, namely a composite combination of ML-KEM with ECDH,
 
  - PQ/T multi-algorithm digital signature, namely composite combinations of ML-DSA with EdDSA,
 
@@ -301,7 +301,7 @@ This specification introduces new cryptographic schemes, which can be categorize
 
 For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully in order to achieve a successful verification of the composite signature.
-In the case of the composite public-key decryption, each of the component KEM decapsulation operations must succeed.
+In the case of the composite public key decryption, each of the component KEM decapsulation operations must succeed.
 
 ### Non-Composite Algorithm Combinations {#non-composite-multi-alg}
 
@@ -310,7 +310,7 @@ Furthermore, multiple OpenPGP signatures may be combined on the application laye
 These latter two cases realize non-composite combinations of signatures.
 {{multiple-signatures}} specifies how implementations should handle the verification of such combinations of signatures.
 
-Furthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple PKESK packets, thus realizing non-composite multi-algorithm public-key encryption.
+Furthermore, the OpenPGP protocol also allows parallel encryption to different keys by using multiple Public Key Encrypted Session Key (PKESK) packets, thus realizing non-composite multi-algorithm public key encryption.
 
 # Supported Public Key Algorithms
 
@@ -348,7 +348,7 @@ See also {{performance-considerations}} for further considerations about paramet
 
 ## Composite KEMs {#composite-kem}
 
-The ML-KEM + ECDH public-key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
+The ML-KEM + ECDH public key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
 This is achieved via KEM combination, that is, both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
@@ -373,6 +373,7 @@ This is consistent with {{Section 5.2.5 of RFC9580}}.
 ## ECC Requirements
 
 Even though the zero point, also called the point at infinity, may occur as a result of arithmetic operations on points of an elliptic curve, it MUST NOT appear in any ECC data structure defined in this document.
+An implementation MAY signal an error if this condition is encountered.
 
 Furthermore, when performing the explicitly listed operations in {{x25519-kem}} or {{x448-kem}} it is REQUIRED to follow the specification and security advisory mandated from the respective elliptic curve specification [RFC7748].
 
@@ -437,7 +438,7 @@ The operation `X25519-KEM.Decaps()` is defined as follows:
 #### X448-KEM {#x448-kem}
 
 The encapsulation and decapsulation operations of `X448-KEM` are described using the function `X448()` and encodings defined in [RFC7748].
-The `ecdhSecretKey` is denoted as `r`, the `ecdhPublicKey` as `R`, they are subject to the equation `R = X25519(r, U(P))`.
+The `ecdhSecretKey` is denoted as `r`, the `ecdhPublicKey` as `R`, they are subject to the equation `R = X448(r, U(P))`.
 Here, `U(P)` denotes the u-coordinate of the base point of Curve448.
 
 The operation `X448-KEM.Encaps()` is defined as follows:
@@ -486,7 +487,7 @@ To instantiate `ML-KEM`, one must select a parameter set from the column "ML-KEM
 
 ## Composite Encryption Schemes with ML-KEM {#ecc-mlkem}
 
-{{kem-alg-specs}} specifies the following ML-KEM + ECDH composite public-key encryption schemes:
+{{kem-alg-specs}} specifies the following ML-KEM + ECDH composite public key encryption schemes:
 
 {: title="ML-KEM + ECDH composite schemes" #tab-mlkem-ecc-composite}
 Algorithm ID reference                   | ML-KEM       | ECDH-KEM
@@ -494,15 +495,15 @@ Algorithm ID reference                   | ML-KEM       | ECDH-KEM
 35                                       | ML-KEM-768   | X25519-KEM
 36                                       | ML-KEM-1024  | X448-KEM
 
-The ML-KEM + ECDH composite public-key encryption schemes are built according to the following principal design:
+The ML-KEM + ECDH composite public key encryption schemes are built according to the following principal design:
 
  - The ML-KEM encapsulation algorithm is invoked to create an ML-KEM ciphertext together with an ML-KEM symmetric key share.
 
  - The encapsulation algorithm of an ECDH KEM, namely X25519-KEM or X448-KEM, is invoked to create an ECDH ciphertext together with an ECDH symmetric key share.
 
- - A Key-Encryption-Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares, the ECDH ciphertext, the ECDH public key, and the protocol binding information.
+ - A Key Encryption Key (KEK) is computed as the output of a key combiner that receives as input both of the above created symmetric key shares, the ECDH ciphertext, the ECDH public key, and the protocol binding information.
 
- - The session key for content encryption is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
+ - The session key for content encryption, generated as specified in [RFC9580], is then wrapped as described in {{RFC3394}} using AES-256 as algorithm and the KEK as key.
 
  - The PKESK packet's algorithm-specific parts are made up of the ML-KEM ciphertext, the ECDH ciphertext, and the wrapped session key.
 
@@ -526,7 +527,7 @@ It is given by the following algorithm, which computes the key encryption key `K
     //   ecdhCipherText  - the ECDH ciphertext encoded as an octet string
     //   ecdhPublicKey   - the ECDH public key of the recipient as an
     //                     octet string
-    //   algId           - the OpenPGP algorithm ID of the public-key
+    //   algId           - the OpenPGP algorithm ID of the public key
     //                     encryption algorithm
 
     KEK = SHA3-256(
@@ -550,9 +551,9 @@ ECDH key generation follows the specification in {{RFC7748}}, and the artifacts 
 
 ### Encryption Procedure {#ecc-mlkem-encryption}
 
-The procedure to perform public-key encryption with an ML-KEM + ECDH composite scheme is as follows:
+The procedure to perform public key encryption with an ML-KEM + ECDH composite scheme is as follows:
 
- 1. Take the recipient's authenticated public-key packet `pkComposite` and `sessionKey` as input
+ 1. Take the recipient's authenticated public key packet `pkComposite` and `sessionKey` as input
 
  2. Parse the algorithm ID from `pkComposite` and set it as `algId`
 
@@ -572,7 +573,7 @@ The procedure to perform public-key encryption with an ML-KEM + ECDH composite s
 
 ### Decryption Procedure
 
-The procedure to perform public-key decryption with an ML-KEM + ECDH composite scheme is as follows:
+The procedure to perform public key decryption with an ML-KEM + ECDH composite scheme is as follows:
 
  1. Take the matching PKESK and own secret key packet as input
 
@@ -598,7 +599,7 @@ The procedure to perform public-key decryption with an ML-KEM + ECDH composite s
 
 ## Packet Specifications
 
-### Public-Key Encrypted Session Key Packets (Packet Type ID 1) {#ecc-mlkem-pkesk}
+### Public Key Encrypted Session Key Packets (Packet Type ID 1) {#ecc-mlkem-pkesk}
 
 The algorithm-specific fields consist of the output of the encryption procedure described in {{ecc-mlkem-encryption}}:
 
@@ -832,7 +833,7 @@ The algorithm-specific part of the secret key consists of:
 ## Symmetric Algorithms for SEIPD Packets
 
 Implementations MUST implement `AES-256`.
-An implementation SHOULD use `AES-256` in the case of a v1 SEIPD packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
+An implementation SHOULD use `AES-256` in the case of a v1 Symmetrically Encrypted and Integrity Protected Data (SEIPD) packet, or `AES-256` with any available AEAD mode in the case of a v2 SEIPD packet, if all recipient certificates indicate support for it (explicitly or implicitly).
 
 A certificate that contains a PQ(/T) key SHOULD include `AES-256` in the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD include the pair `AES-256` with `OCB` in the "Preferred AEAD Ciphersuites" subpacket.
 
@@ -942,6 +943,10 @@ Implementations may also make more nuanced decisions.
 When generating keys, this specification requires component keys to be generated independently, and recommends not to reuse existing keys for any of the components.
 Note that reusing a key across different protocols may lead to signature confusion vulnerabilities, that formally classify as signature forgeries.
 Generally, reusing a key for different purposes may lead to subtle vulnerabilities.
+
+## Random Number Generation and Seeding
+
+As mandated by {{Section 13.10 of RFC9580}}, all random data must be generated using a cryptographically secure pseudorandom number generator (CSPRNG).
 
 # Additional Considerations
 
@@ -1121,11 +1126,11 @@ To help implementing this specification a set of non-normative examples follow h
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 Ed25519 Private-Key packet
+- A v6 Ed25519 Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `c789e17d9dbdca7b3c833a3c063feb0353f80ad911fe27868fb0645df803e947`.
@@ -1141,11 +1146,11 @@ The subkey has the fingerprint `dafe0eebb2675ecfcdc20a23fe89ca5d12e83f527dfa354b
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-ed25519}} consisting of:
 
-- A v6 Ed25519 Public-Key packet
+- A v6 Ed25519 Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-eddsa-sample-pk.asc"}
@@ -1181,10 +1186,10 @@ The hex-encoded session key is `94a3b8c9784463bb96b682cddf549adb23579b75bcb646f9
 
 Here is a Transferable Secret Key consisting of:
 
-- A v4 Ed25519 Private-Key packet
+- A v4 Ed25519 Private Key packet
 - A User ID packet
 - A v4 positive certification self-signature
-- A v4 ML-KEM-768+X25519 Private-Subkey packet
+- A v4 ML-KEM-768+X25519 Private Subkey packet
 - A v4 subkey binding signature
 
 The primary key has the fingerprint `342e5db2de345215cb2c944f7102ffed3b9cf12d`.
@@ -1200,10 +1205,10 @@ The subkey has the fingerprint `e51dbfea51936988b5428fffa4f95f985ed61a51`.
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-v4-ed25519}} consisting of:
 
-- A v4 Ed25519 Public-Key packet
+- A v4 Ed25519 Public Key packet
 - A User ID packet
 - A v4 positive certification self-signature
-- A v4 ML-KEM-768+X25519 Public-Subkey packet
+- A v4 ML-KEM-768+X25519 Public Subkey packet
 - A v4 subkey binding signature
 
 {: sourcecode-name="v4-eddsa-sample-pk.asc"}
@@ -1260,11 +1265,11 @@ The hex-encoded session key is `160867d96032b640208c1c92174d0270bb89189d72320711
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 ML-DSA-65+Ed25519 Private-Key packet
+- A v6 ML-DSA-65+Ed25519 Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `a3e2e14b6a493ff930fb27321f125e9a6880338be9fb7da3ae065ea65793242f`.
@@ -1280,11 +1285,11 @@ The subkey has the fingerprint `7dae8fbce23022607167af72a002e774e0ca379a2d7ae072
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-mldsa65}} consisting of:
 
-- A v6 ML-DSA-65+Ed25519 Public-Key packet
+- A v6 ML-DSA-65+Ed25519 Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-mldsa-65-sample-pk.asc"}
@@ -1330,11 +1335,11 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 ML-DSA-87+Ed448 Private-Key packet
+- A v6 ML-DSA-87+Ed448 Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-1024+X448 Private-Subkey packet
+- A v6 ML-KEM-1024+X448 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `0d7a8be1410cd68eed4845ab487b4b4cfaecd8ebad1a1166a84230499200ee20`.
@@ -1350,11 +1355,11 @@ The subkey has the fingerprint `65090e147a8116ab7f62ab4ec7aae59d9e6532feb2af230c
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-mldsa87}} consisting of:
 
-- A v6 ML-DSA-87+Ed448 Public-Key packet
+- A v6 ML-DSA-87+Ed448 Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-1024+X448 Public-Subkey packet
+- A v6 ML-KEM-1024+X448 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-mldsa-87-sample-pk.asc"}
@@ -1400,11 +1405,11 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 SLH-DSA-128s Private-Key packet
+- A v6 SLH-DSA-128s Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `eed4d13fc36c78e48276a93233339c4dd230fd5f6f5c5b82c63d5c0b5e361d92`.
@@ -1420,11 +1425,11 @@ The subkey has the fingerprint `3e8745a4bb488779e0f32480fa23f8d0bfd8c2f49d7f74e9
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-128s}} consisting of:
 
-- A v6 SLH-DSA-128s Public-Key packet
+- A v6 SLH-DSA-128s Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-slhdsa-128s-sample-pk.asc"}
@@ -1470,11 +1475,11 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 SLH-DSA-128f Private-Key packet
+- A v6 SLH-DSA-128f Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Private-Subkey packet
+- A v6 ML-KEM-768+X25519 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `d54e0307021169f7b88beb2b76e3aad0e114be1a8f982d74dba9ca51d03537f4`.
@@ -1490,11 +1495,11 @@ The subkey has the fingerprint `d8875664256c382dd7f3a5ce05021088922811f5d0b1a1f8
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-128f}} consisting of:
 
-- A v6 SLH-DSA-128f Public-Key packet
+- A v6 SLH-DSA-128f Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-768+X25519 Public-Subkey packet
+- A v6 ML-KEM-768+X25519 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-slhdsa-128f-sample-pk.asc"}
@@ -1519,11 +1524,11 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 
 Here is a Transferable Secret Key consisting of:
 
-- A v6 SLH-DSA-256s Private-Key packet
+- A v6 SLH-DSA-256s Private Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-1024+X448 Private-Subkey packet
+- A v6 ML-KEM-1024+X448 Private Subkey packet
 - A v6 subkey binding signature
 
 The primary key has the fingerprint `72fff84863aeba67f0d1d7691173247dd427533b9d7ee76011c6f77f2ce9fa7a`.
@@ -1539,11 +1544,11 @@ The subkey has the fingerprint `570a5bbab93169876a8240da35a1ada7ba8a640aabe3ab46
 
 Here is the corresponding Transferable Public Key for {{test-vector-sec-slhdsa-256s}} consisting of:
 
-- A v6 SLH-DSA-256s Public-Key packet
+- A v6 SLH-DSA-256s Public Key packet
 - A v6 direct key self-signature
 - A User ID packet
 - A v6 positive certification self-signature
-- A v6 ML-KEM-1024+X448 Public-Subkey packet
+- A v6 ML-KEM-1024+X448 Public Subkey packet
 - A v6 subkey binding signature
 
 {: sourcecode-name="v6-slhdsa-256s-sample-pk.asc"}
