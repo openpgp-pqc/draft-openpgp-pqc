@@ -244,7 +244,7 @@ Table of Contents
    protocol perspective.
 
    The document specifies the conventions for interoperability between
-   compliant OpenPGP implementations extending [RFC9580] by adding KEM
+   compliant OpenPGP implementations, extending [RFC9580] by adding KEM
    and signature algorithms specified in Section 4, Section 5, and
    Section 6.
 
