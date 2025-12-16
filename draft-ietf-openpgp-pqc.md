@@ -2,7 +2,6 @@
 title: "Post-Quantum Cryptography in OpenPGP"
 abbrev: "PQC in OpenPGP"
 category: std
-updates: 9580
 
 docname: draft-ietf-openpgp-pqc-latest
 submissiontype: IETF
