@@ -242,7 +242,7 @@ In contrast, the stateless hash-based signature scheme SLH-DSA is considered to 
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
 Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
 
-The document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
+The document specifies the conventions for interoperability between compliant OpenPGP implementations, extending [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.
 
 ## Conventions used in this Document
 
