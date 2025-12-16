@@ -6,10 +6,10 @@ Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Updates: 9580 (if approved)                                      J. Roth
 Intended status: Standards Track                             F. Strenzke
-Expires: 18 June 2026                                             MTG AG
+Expires: 19 June 2026                                             MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        15 December 2025
+                                                        16 December 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 June 2026.
+   This Internet-Draft will expire on 19 June 2026.
 
 Copyright Notice
 
@@ -1116,7 +1116,8 @@ Table of Contents
    A certificate that contains a PQ(/T) key SHOULD include AES-256 in
    the "Preferred Symmetric Ciphers for v1 SEIPD" subpacket and SHOULD
    include the pair AES-256 with OCB in the "Preferred AEAD
-   Ciphersuites" subpacket.
+   Ciphersuites" subpacket to make support for AES-256 and AES-256 with
+   OCB explicit.
 
    If AES-256 is not explicitly in the list of the "Preferred Symmetric
    Ciphers for v1 SEIPD" subpacket, and if the certificate contains a
