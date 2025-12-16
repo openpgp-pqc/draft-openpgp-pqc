@@ -225,7 +225,7 @@ Table of Contents
    NIST Post-Quantum Cryptography Standardization process initiated in
    2016 [NIST-PQC].  Namely, these are ML-KEM [FIPS-203] as a Key
    Encapsulation Mechanism (KEM), a KEM being a modern building block
-   for public-key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
+   for public key encryption, and ML-DSA [FIPS-204] as well as SLH-DSA
    [FIPS-205] as signature schemes.
 
    For the two ML-* schemes, this document follows the conservative
