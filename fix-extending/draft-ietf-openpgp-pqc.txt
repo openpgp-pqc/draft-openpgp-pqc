@@ -243,10 +243,10 @@ Table of Contents
    two components appears as single data structure or algorithm from the
    protocol perspective.
 
-   The document specifies the conventions for interoperability between
-   compliant OpenPGP implementations, extending [RFC9580] by adding KEM
-   and signature algorithms specified in Section 4, Section 5, and
-   Section 6.
+   This document extends [RFC9580] by adding KEM and signature
+   algorithms specified in Section 4, Section 5, and Section 6 and
+   specifies the conventions for interoperability between compliant
+   OpenPGP implementations.
 
 1.1.  Conventions used in this Document
 
