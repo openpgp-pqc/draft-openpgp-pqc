@@ -167,7 +167,7 @@ Table of Contents
      12.17. draft-ietf-openpgp-pqc-12
      12.18. draft-ietf-openpgp-pqc-13
      12.19. draft-ietf-openpgp-pqc-14
-     12.20. draft-ietf-openpgp-pqc-14
+     12.20. draft-ietf-openpgp-pqc-15
    13. Contributors
    Acknowledgments
    References
@@ -1652,7 +1652,7 @@ Table of Contents
 
    *  Updated KEM combiner references.
 
-12.20.  draft-ietf-openpgp-pqc-14
+12.20.  draft-ietf-openpgp-pqc-15
 
    *  Addressed various editorial comments from IESG reviews.
 
