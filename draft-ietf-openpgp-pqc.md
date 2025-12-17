@@ -230,17 +230,17 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
 # Introduction
 
 The OpenPGP protocol [RFC9580] supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
-As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
+As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP with algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.
 
 Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
-The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
+The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid-2022 {{NISTIR-8413}} as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 {{NIST-PQC}}.
 Namely, these are ML-KEM {{FIPS-203}} as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public key encryption, and ML-DSA {{FIPS-204}} as well as SLH-DSA {{FIPS-205}} as signature schemes.
 
 For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
 Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
-Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.
+Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as a single data structure or algorithm from the protocol perspective.
 
 This document extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}} and specifies the conventions for interoperability between compliant OpenPGP implementations.
 
@@ -287,7 +287,7 @@ The performance characteristics of this scheme are discussed in {{performance-co
 
 ## Elliptic Curve Cryptography
 
-The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748].
+ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in [RFC7748].
 EdDSA as defined in [RFC8032] is used as the elliptic curve-based digital signature scheme.
 
 ## Standalone and Multi-Algorithm Schemes {#multi-algo-schemes}
@@ -304,7 +304,7 @@ This specification introduces new cryptographic schemes, which can be categorize
 
  - PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.
 
-For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
+For each of the composite schemes, this specification mandates that the consuming party successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully to achieve a successful verification of the composite signature.
 In the case of the composite public key decryption, each of the component KEM decapsulation operations must succeed.
 
@@ -360,7 +360,7 @@ The ML-KEM + ECDH public key encryption involves both the ML-KEM and an ECDH KEM
 This is achieved via KEM combination, that is, both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.
 
 As explained in {{non-composite-multi-alg}}, the OpenPGP protocol inherently supports parallel encryption to different keys.
-Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.
+Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys unless all keys support PQ(/T) encryption schemes.
 
 ## Composite Signatures
 
@@ -863,22 +863,22 @@ A receiving implementation MUST treat such a signature as invalid.
 
 The post-quantum KEM algorithms defined in {{kem-alg-specs}} and the signature algorithms defined in {{sig-alg-specs}} are a set of new public key algorithms that extend the algorithm selection of [RFC9580].
 During the transition period, the post-quantum algorithms will not be supported by all clients.
-Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
+Therefore, various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.
 
 ## Encrypting to Traditional and PQ(/T) Keys
 
 During the transition to post-quantum cryptography, an implementation MAY, by default, encrypt messages to both PQ(/T) and traditional keys to avoid disruption to communications, optionally displaying a warning.
-As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.
+As noted in {{composite-kem}}, the confidentiality of a message is not post-quantum secure when using multiple PKESKs unless all of them use PQ(/T) encryption schemes.
 
 ## Signing with Traditional and PQ(/T) Keys
 
-The OpenPGP specification [RFC9580] allows to sign a message with multiple signatures.
+The OpenPGP specification [RFC9580] allows signing a message with multiple signatures.
 This implies the possibility to sign with both a PQ(/T) and a traditional key as described in {{multiple-signatures}}.
 Note that signing only with PQ(/T) key material is not backwards compatible.
 
 ## Verifying with Traditional and PQ(/T) Keys
 
-When verifying, an implementation MAY be willing to accept signatures PQ(/T) keys and from traditional keys.
+When verifying, an implementation MAY be willing to accept signatures both from PQ(/T) keys and from traditional keys.
 A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key MAY prefer instead to ignore all traditional signatures from that peer.
 
 ## Generating PQ(/T) Keys {#pq-key-generation}
@@ -894,7 +894,7 @@ When multiple signatures are applied to a message, the question of the protocol'
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
+This is due to the fact that in any OpenPGP signature, the hashed metadata includes the signature algorithm ID, as specified in {{Section 5.2.4 of RFC9580}}.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid OpenPGP signature for any message.
 
 An attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.
@@ -905,7 +905,7 @@ Signature cross-protocol attacks exploit the reuse of signatures across differen
 ML-DSA [FIPS-204], SLH-DSA [FIPS-205], and EdDSA [RFC8032] support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
 This context parameter can in principle contribute to the prevention of cross-protocol attacks.
 Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
-In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in {{pq-key-generation}}.
+In order to reliably prevent cross-protocol attacks, this specification recommends avoiding key-reuse across protocols in {{pq-key-generation}}.
 
 ## Key Combiner {#sec-key-combiner}
 
@@ -920,7 +920,7 @@ This ensures that the input keying material is used to generate a KEK for a spec
 Appending the length octet ensures that no collisions can result across different domains, which might be defined in the future.
 This is because `domSep || len(domSep)` is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for `domSep`.
 The term "suffix-free" applied to a set of words indicates that no word is the suffix of another.
-Thus this property ensures unambiguous parsing of a word from the rear of a string.
+Thus, this property ensures unambiguous parsing of a word from the rear of a string.
 Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.
 
 The algorithm ID, passed as the `algID` parameter to `multiKeyCombine`, binds the derived KEK to the chosen algorithm.
@@ -1130,7 +1130,7 @@ Thanks to Daniel Kahn Gillmor, Justus Winter, Daniel Huigens, Evangelos Karatsio
 
 # Test Vectors
 
-To help implementing this specification a set of non-normative examples follow here.
+To help with implementing this specification a set of non-normative examples follow here.
 
 ## Sample v6 Ed25519 with ML-KEM-768+X25519 Data
 
