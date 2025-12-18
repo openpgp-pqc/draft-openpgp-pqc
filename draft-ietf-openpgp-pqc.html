@@ -24,10 +24,10 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.5.0
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
     wcwidth 0.2.14
 -->
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 20 June 2026</td>
+<td class="center">Expires 21 June 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-17" class="published">17 December 2025</time>
+<time datetime="2025-12-18" class="published">18 December 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-20">20 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-06-21">21 June 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1484,6 +1484,9 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.20">
                 <p id="section-toc.1-1.12.2.20.1"><a href="#section-12.20" class="auto internal xref">12.20</a>. <a href="#name-draft-ietf-openpgp-pqc-15" class="internal xref">draft-ietf-openpgp-pqc-15</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.21">
+                <p id="section-toc.1-1.12.2.21.1"><a href="#section-12.21" class="auto internal xref">12.21</a>. <a href="#name-draft-ietf-openpgp-pqc-16" class="internal xref">draft-ietf-openpgp-pqc-16</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
@@ -1631,15 +1634,15 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">The OpenPGP protocol <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> supports various traditional public key algorithms based on the factoring or discrete logarithm problem.
-As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP by algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
+As the security of algorithms based on these mathematical problems is endangered by the advent of quantum computers, there is a need to extend OpenPGP with algorithms that remain secure in the presence of a cryptographically relevant quantum computer (CRQC), i.e., a quantum computer with sufficient capacity to break traditional public key cryptography.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Such cryptographic algorithms are referred to as post-quantum cryptography (PQC).
-The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid 2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
+The algorithms defined in this extension were chosen for standardization by the US National Institute of Standards and Technology (NIST) in mid-2022 <span>[<a href="#NISTIR-8413" class="cite xref">NISTIR-8413</a>]</span> as the result of the NIST Post-Quantum Cryptography Standardization process initiated in 2016 <span>[<a href="#NIST-PQC" class="cite xref">NIST-PQC</a>]</span>.
 Namely, these are ML-KEM <span>[<a href="#FIPS-203" class="cite xref">FIPS-203</a>]</span> as a Key Encapsulation Mechanism (KEM), a KEM being a modern building block for public key encryption, and ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span> as well as SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span> as signature schemes.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">For the two ML-* schemes, this document follows the conservative strategy to deploy post-quantum in combination with traditional schemes such that the security is retained even if all schemes but one in the combination are broken.
 Such combinations are referred to as multi-algorithm or "post-quantum/traditional" (PQ/T) hybrid algorithms.
 In contrast, the stateless hash-based signature scheme SLH-DSA is considered to be sufficiently well understood with respect to its security assumptions in order to be used standalone.
 To this end, this document specifies the following new set: SLH-DSA standalone and the two ML-* as composite with ECC-based KEM and digital signature schemes.
-Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
+Here, the term "composite" indicates that any data structure or algorithm pertaining to the combination of the two components appears as a single data structure or algorithm from the protocol perspective.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">This document extends <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> by adding KEM and signature algorithms specified in <a href="#composite-kem-section" class="auto internal xref">Section 4</a>, <a href="#composite-signature-section" class="auto internal xref">Section 5</a>, and <a href="#slhdsa-section" class="auto internal xref">Section 6</a> and specifies the conventions for interoperability between compliant OpenPGP implementations.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="conventions-used-in-this-document">
 <section id="section-1.1">
@@ -1712,7 +1715,7 @@ The performance characteristics of this scheme are discussed in <a href="#perfor
         <h3 id="name-elliptic-curve-cryptography">
 <a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-elliptic-curve-cryptography" class="section-name selfRef">Elliptic Curve Cryptography</a>
         </h3>
-<p id="section-1.3-1">The ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.
+<p id="section-1.3-1">ECDH encryption is defined here as a KEM via X25519 and X448 which are defined in <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.
 EdDSA as defined in <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> is used as the elliptic curve-based digital signature scheme.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1739,7 +1742,7 @@ EdDSA as defined in <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</sp
               <p id="section-1.4.1-2.3.1">PQ digital signature, namely SLH-DSA as a standalone cryptographic algorithm.<a href="#section-1.4.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-1.4.1-3">For each of the composite schemes, this specification mandates that the consuming party has to successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, in order for the message to be deciphered and considered as valid.
+<p id="section-1.4.1-3">For each of the composite schemes, this specification mandates that the consuming party successfully perform the cryptographic algorithms for each of the component schemes used in a cryptographic message, for the message to be deciphered and considered as valid.
 This means that all component signatures must be verified successfully to achieve a successful verification of the composite signature.
 In the case of the composite public key decryption, each of the component KEM decapsulation operations must succeed.<a href="#section-1.4.1-3" class="pilcrow">¶</a></p>
 </section>
@@ -1903,7 +1906,7 @@ See also <a href="#performance-considerations" class="auto internal xref">Sectio
 <p id="section-3.1-1">The ML-KEM + ECDH public key encryption involves both the ML-KEM and an ECDH KEM in an a priori non-separable manner.
 This is achieved via KEM combination, that is, both key encapsulations/decapsulations are performed in parallel, and the resulting key shares are fed into a key combiner to produce a single shared secret for message encryption.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">As explained in <a href="#non-composite-multi-alg" class="auto internal xref">Section 1.4.2</a>, the OpenPGP protocol inherently supports parallel encryption to different keys.
-Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys if at least one key does not support PQ(/T) encryption schemes.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+Note that the confidentiality of a message is not post-quantum secure when encrypting to different keys unless all keys support PQ(/T) encryption schemes.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="composite-signatures">
@@ -2872,14 +2875,14 @@ A receiving implementation <span class="bcp14">MUST</span> treat such a signatur
       </h2>
 <p id="section-8-1">The post-quantum KEM algorithms defined in <a href="#kem-alg-specs" class="auto internal xref">Table 2</a> and the signature algorithms defined in <a href="#sig-alg-specs" class="auto internal xref">Table 1</a> are a set of new public key algorithms that extend the algorithm selection of <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 During the transition period, the post-quantum algorithms will not be supported by all clients.
-Therefore various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.<a href="#section-8-1" class="pilcrow">¶</a></p>
+Therefore, various migration considerations must be taken into account, in particular backwards compatibility to existing implementations that have not yet been updated to support the post-quantum algorithms.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <div id="encrypting-to-traditional-and-pqt-keys">
 <section id="section-8.1">
         <h3 id="name-encrypting-to-traditional-a">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-encrypting-to-traditional-a" class="section-name selfRef">Encrypting to Traditional and PQ(/T) Keys</a>
         </h3>
 <p id="section-8.1-1">During the transition to post-quantum cryptography, an implementation <span class="bcp14">MAY</span>, by default, encrypt messages to both PQ(/T) and traditional keys to avoid disruption to communications, optionally displaying a warning.
-As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs if at least one does not use PQ(/T) encryption schemes.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>, the confidentiality of a message is not post-quantum secure when using multiple PKESKs unless all of them use PQ(/T) encryption schemes.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signing-with-traditional-and-pqt-keys">
@@ -2887,7 +2890,7 @@ As noted in <a href="#composite-kem" class="auto internal xref">Section 3.1</a>,
         <h3 id="name-signing-with-traditional-an">
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-signing-with-traditional-an" class="section-name selfRef">Signing with Traditional and PQ(/T) Keys</a>
         </h3>
-<p id="section-8.2-1">The OpenPGP specification <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> allows to sign a message with multiple signatures.
+<p id="section-8.2-1">The OpenPGP specification <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span> allows signing a message with multiple signatures.
 This implies the possibility to sign with both a PQ(/T) and a traditional key as described in <a href="#multiple-signatures" class="auto internal xref">Section 3.3</a>.
 Note that signing only with PQ(/T) key material is not backwards compatible.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -2897,7 +2900,7 @@ Note that signing only with PQ(/T) key material is not backwards compatible.<a h
         <h3 id="name-verifying-with-traditional-">
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-verifying-with-traditional-" class="section-name selfRef">Verifying with Traditional and PQ(/T) Keys</a>
         </h3>
-<p id="section-8.3-1">When verifying, an implementation <span class="bcp14">MAY</span> be willing to accept signatures PQ(/T) keys and from traditional keys.
+<p id="section-8.3-1">When verifying, an implementation <span class="bcp14">MAY</span> be willing to accept signatures both from PQ(/T) keys and from traditional keys.
 A verifier concerned with a cryptographically relevant quantum computer with knowledge of a peer that has a PQ(/T) signing key <span class="bcp14">MAY</span> prefer instead to ignore all traditional signatures from that peer.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2926,7 +2929,7 @@ Note that reusing key material from existing ECC keys in PQ(/T) keys does not pr
 In a signature stripping attack, an adversary removes one or more of the signatures such that only a subset of the signatures remain in the message at the point when it is verified.
 This amounts to a downgrade attack that potentially reduces the value of the signature.
 It should be noted that the composite signature schemes specified in this draft are not subject to a signature stripping vulnerability.
-This is due to the fact that in any OpenPGP signature, the hashed meta data includes the signature algorithm ID, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.4" class="relref">Section 5.2.4</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
+This is due to the fact that in any OpenPGP signature, the hashed metadata includes the signature algorithm ID, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9580#section-5.2.4" class="relref">Section 5.2.4</a> of [<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
 As a consequence, a component signature taken out of the context of a specific composite algorithm is not a valid OpenPGP signature for any message.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">An attacker cannot generate a fresh valid signature for a message that has already been signed twice with the composite algorithm; being able to do so would violate Strong Unforgeability under Chosen Message Attack (SUF-CMA). Specifically, an attacker might try to construct a new signature by remixing the component parts of two legitimate composite signatures. That is impossible because each v6 signature embeds a random salt at the start of its hashed metadata. The two legitimate signatures use different salts, so their components are not interchangeable and cannot be recombined into a valid signature.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 <div id="preventing-signature-cross-protocol-attacks">
@@ -2938,7 +2941,7 @@ As a consequence, a component signature taken out of the context of a specific c
 ML-DSA <span>[<a href="#FIPS-204" class="cite xref">FIPS-204</a>]</span>, SLH-DSA <span>[<a href="#FIPS-205" class="cite xref">FIPS-205</a>]</span>, and EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span> support an optional context string parameter ctx that can be incorporated into the algorithm's internal message preprocessing step before signing and verification.
 This context parameter can in principle contribute to the prevention of cross-protocol attacks.
 Nevertheless, this specification defines all these algorithms to use an empty context string which is in accordance with the previous use of EdDSA in OpenPGP, and maximizes interoperability with cryptographic libraries.
-In order to reliably prevent cross-protocol attacks, this specification recommends to avoid key-reuse across protocols in <a href="#pq-key-generation" class="auto internal xref">Section 8.4</a>.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
+In order to reliably prevent cross-protocol attacks, this specification recommends avoiding key-reuse across protocols in <a href="#pq-key-generation" class="auto internal xref">Section 8.4</a>.<a href="#section-9.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2960,7 +2963,7 @@ This ensures that the input keying material is used to generate a KEK for a spec
 Appending the length octet ensures that no collisions can result across different domains, which might be defined in the future.
 This is because <code>domSep || len(domSep)</code> is guaranteed to result in a suffix-free set of octet strings even if further values should be defined for <code>domSep</code>.
 The term "suffix-free" applied to a set of words indicates that no word is the suffix of another.
-Thus this property ensures unambiguous parsing of a word from the rear of a string.
+Thus, this property ensures unambiguous parsing of a word from the rear of a string.
 Unambiguous parseability, in turn, ensures that no collisions can happen on the space of input strings to the key combiner.<a href="#section-9.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.2.1-2">The algorithm ID, passed as the <code>algID</code> parameter to <code>multiKeyCombine</code>, binds the derived KEK to the chosen algorithm.
 The algorithm ID identifies unequivocally the algorithm, the parameters for its instantiation, and the length of all artifacts, including the derived key.<a href="#section-9.2.1-2" class="pilcrow">¶</a></p>
@@ -3529,6 +3532,18 @@ for encryption with SEIPDv1, in line with the crypto-refresh.<a href="#section-1
         </ul>
 </section>
 </div>
+<div id="draft-ietf-openpgp-pqc-16">
+<section id="section-12.21">
+        <h3 id="name-draft-ietf-openpgp-pqc-16">
+<a href="#section-12.21" class="section-number selfRef">12.21. </a><a href="#name-draft-ietf-openpgp-pqc-16" class="section-name selfRef">draft-ietf-openpgp-pqc-16</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-12.21-1.1">
+            <p id="section-12.21-1.1.1">Addressed more editorial comments from IESG reviews.<a href="#section-12.21-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="contributors">
@@ -3643,7 +3658,7 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
       <h2 id="name-test-vectors">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-test-vectors" class="section-name selfRef">Test Vectors</a>
       </h2>
-<p id="appendix-A-1">To help implementing this specification a set of non-normative examples follow here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">To help with implementing this specification a set of non-normative examples follow here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="sample-v6-ed25519-with-ml-kem-768x25519-data">
 <section id="appendix-A.1">
         <h3 id="name-sample-v6-ed25519-with-ml-k">
