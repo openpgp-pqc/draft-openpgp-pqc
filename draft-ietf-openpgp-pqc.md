@@ -1115,6 +1115,9 @@ IANA is asked to add the following note to this registry:
 ## draft-ietf-openpgp-pqc-15
 - Addressed various editorial comments from IESG reviews.
 
+## draft-ietf-openpgp-pqc-16
+- Addressed more editorial comments from IESG reviews.
+
 # Contributors
 
 Stephan Ehlen (BSI)<br>
