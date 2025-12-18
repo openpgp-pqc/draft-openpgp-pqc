@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Standards Track                                 J. Roth
-Expires: 20 June 2026                                        F. Strenzke
+Expires: 21 June 2026                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                        17 December 2025
+                                                        18 December 2025
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2026.
+   This Internet-Draft will expire on 21 June 2026.
 
 Copyright Notice
 
@@ -168,6 +168,7 @@ Table of Contents
      12.18. draft-ietf-openpgp-pqc-13
      12.19. draft-ietf-openpgp-pqc-14
      12.20. draft-ietf-openpgp-pqc-15
+     12.21. draft-ietf-openpgp-pqc-16
    13. Contributors
    Acknowledgments
    References
@@ -1655,6 +1656,10 @@ Table of Contents
 12.20.  draft-ietf-openpgp-pqc-15
 
    *  Addressed various editorial comments from IESG reviews.
+
+12.21.  draft-ietf-openpgp-pqc-16
+
+   *  Addressed more editorial comments from IESG reviews.
 
 13.  Contributors
 
