@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-16T01:49:19.464924+00:00",
+  "timestamp": "2025-12-18T01:45:07.690553+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -3996,7 +3996,7 @@
       "id": "I_kwDOIrmZ-87eENp7",
       "title": "Handle update tag",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/254",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -4005,8 +4005,8 @@
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/openpgp/anVqivIqT6Qz5K6Za_n_pWf4s8Q/",
       "createdAt": "2025-12-13T07:42:23Z",
-      "updatedAt": "2025-12-13T07:42:23Z",
-      "closedAt": null,
+      "updatedAt": "2025-12-16T12:51:39Z",
+      "closedAt": "2025-12-16T12:51:39Z",
       "comments": []
     }
   ],
@@ -23549,24 +23549,26 @@
       "id": "PR_kwDOIrmZ-864Nw8F",
       "title": "Address \u00c9ric's review",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/253",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/openpgp/TTdgDRqqHFMY4tt2FUMI46pzMIw/",
       "createdAt": "2025-12-10T20:08:53Z",
-      "updatedAt": "2025-12-15T16:06:51Z",
+      "updatedAt": "2025-12-16T12:51:21Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
+      "baseRefOid": "625b1acff7d0c7f9923e809a6b319a585274fa2c",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "erik-review",
-      "headRefOid": "2344552d0bc327a016b564c3b5f122186889763d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "946a57318d569267e38f0a695737b7f37b980c00",
+      "closedAt": "2025-12-16T12:51:21Z",
+      "mergedAt": "2025-12-16T12:51:21Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "88715a99e764a1a4b0a39afc4389f185ce5c93ab"
+      },
       "comments": [],
       "reviews": [
         {
@@ -23674,6 +23676,132 @@
           "createdAt": "2025-12-15T09:20:47Z",
           "updatedAt": "2025-12-15T09:20:47Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vfu22",
+          "commit": {
+            "abbreviatedOid": "2344552"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T08:17:07Z",
+          "updatedAt": "2025-12-16T08:17:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VhDxG",
+          "commit": {
+            "abbreviatedOid": "2344552"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T09:44:57Z",
+          "updatedAt": "2025-12-16T09:44:57Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "See my comment on #255, I propose to remove, or rephrase",
+              "createdAt": "2025-12-16T09:44:57Z",
+              "updatedAt": "2025-12-16T09:45:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vi0FM",
+          "commit": {
+            "abbreviatedOid": "2344552"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T11:44:12Z",
+          "updatedAt": "2025-12-16T11:44:12Z",
+          "comments": [
+            {
+              "originalPosition": 106,
+              "body": "```suggestion\r\nA certificate that contains a PQ(/T) key SHOULD include `AES-256` in the \"Preferred Symmetric Ciphers for v1 SEIPD\" subpacket and SHOULD include the pair `AES-256` with `OCB` in the \"Preferred AEAD Ciphersuites\" subpacket to make support for `AES-256` and `AES-256` with `OCB` explicit.\r\n```\r\n\r\nThis addresses \u00c9ric's point about when the SHOULDs can be bypassed (by explaining the reason why an implementation should do it).",
+              "createdAt": "2025-12-16T11:44:12Z",
+              "updatedAt": "2025-12-16T11:44:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VjVzG",
+          "commit": {
+            "abbreviatedOid": "2344552"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T12:21:43Z",
+          "updatedAt": "2025-12-16T12:21:43Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nThis document defines a post-quantum public-key algorithm extension for the OpenPGP protocol, extending [RFC9580].\r\n```\r\n\r\nI vote for changing this to extending, if you agree, commit this suggestion :)",
+              "createdAt": "2025-12-16T12:21:43Z",
+              "updatedAt": "2025-12-16T12:22:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vjd4N",
+          "commit": {
+            "abbreviatedOid": "f67cee5"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T12:28:28Z",
+          "updatedAt": "2025-12-16T12:28:28Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vje8s",
+          "commit": {
+            "abbreviatedOid": "f67cee5"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T12:29:35Z",
+          "updatedAt": "2025-12-16T12:29:35Z",
+          "comments": [
+            {
+              "originalPosition": 43,
+              "body": "```suggestion\r\nThe document specifies the conventions for interoperability between compliant OpenPGP implementations that make use of this extension and extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.\r\n```",
+              "createdAt": "2025-12-16T12:29:35Z",
+              "updatedAt": "2025-12-16T12:29:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VjxnO",
+          "commit": {
+            "abbreviatedOid": "08fdb89"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T12:46:57Z",
+          "updatedAt": "2025-12-16T12:46:57Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nThis document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending [RFC9580].\r\n```",
+              "createdAt": "2025-12-16T12:46:57Z",
+              "updatedAt": "2025-12-16T12:46:58Z"
+            }
+          ]
         }
       ]
     },
@@ -23682,25 +23810,35 @@
       "id": "PR_kwDOIrmZ-864rr6e",
       "title": "Handle update tag/info",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/255",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I chose to remove the update tag for reasons of simplicity and since #253 adds a reference to RFC9580 to the abstract, so the setting and nature of this pqc spec should be clear.\r\n\r\nAlternatively, I am open to add the tag back in again and add a clarifying sentence to the abstract.",
       "createdAt": "2025-12-13T07:49:24Z",
-      "updatedAt": "2025-12-15T09:29:19Z",
+      "updatedAt": "2025-12-16T12:51:39Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "254-handle-update-tag",
       "headRefOid": "f6daaab1ae3e81ecaea713762a366daf9e69234c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2025-12-16T12:51:38Z",
+      "mergedAt": "2025-12-16T12:51:38Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "992ffdc3ffbacaf4fa5f90c6d2d5042313b2d600"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I am fine with removing the tag, but I suggest to rephrase #253 in that regard. We only added `updating [RFC9580]` to contextualize the update tag, right? It seems a bit odd to me to not have the update tag, but in the abstract write about updating RFC9580.\r\n\r\nMy proposal: We can either remove it, or replace \"updating\" by \"extending\" or something similar that marks it as an extension to RFC9580.",
+          "createdAt": "2025-12-16T09:43:21Z",
+          "updatedAt": "2025-12-16T09:43:21Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-87VODDG",
@@ -23714,6 +23852,19 @@
           "createdAt": "2025-12-15T09:29:19Z",
           "updatedAt": "2025-12-15T09:29:19Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VhCcK",
+          "commit": {
+            "abbreviatedOid": "f6daaab"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T09:43:39Z",
+          "updatedAt": "2025-12-16T09:43:39Z",
+          "comments": []
         }
       ]
     },
@@ -23722,24 +23873,26 @@
       "id": "PR_kwDOIrmZ-8643koc",
       "title": "Address Deb's review",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/256",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/openpgp/Uj0HMET-N6Pyz3BBoddGUss9ds8/",
       "createdAt": "2025-12-15T08:49:33Z",
-      "updatedAt": "2025-12-15T13:15:34Z",
+      "updatedAt": "2025-12-16T12:13:54Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "deb-review",
       "headRefOid": "ed457c394aa9c9f93b2318292a102b576661cf60",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-16T12:13:54Z",
+      "mergedAt": "2025-12-16T12:13:54Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "fe85fe6df0ab5cb3cb89e04bee53b49477f940a8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -23767,6 +23920,19 @@
           "createdAt": "2025-12-15T13:15:34Z",
           "updatedAt": "2025-12-15T13:15:34Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VhGvQ",
+          "commit": {
+            "abbreviatedOid": "ed457c3"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me. Just one remark, I think writing \"public-key\" is actually correct in some cases, e.g. for \"public-key encryption\". It's a compound adjective, if I am not mistaken.\r\n\r\nWikipedia has an example for \"heavy-metal detector\": A \"heavy-metal detector\" detects heavy metal. But a \"heavy metal detector\" is a heavy detector for metal.\r\n\r\nI'm not a native speaker and not a grammar expert and ultimately, I don't care enough, so I approve this PR. Also, for nouns like \"Public Subkey Packet\" I fully agree to remove the hyphen and align to RFC 9580.",
+          "createdAt": "2025-12-16T09:47:58Z",
+          "updatedAt": "2025-12-16T09:47:58Z",
+          "comments": []
         }
       ]
     },
@@ -23775,24 +23941,26 @@
       "id": "PR_kwDOIrmZ-8645SA-",
       "title": "Address Med's review",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/257",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/openpgp/_7eMQCXFYZY4i-_mQTJv2-ZftA0/",
       "createdAt": "2025-12-15T11:02:10Z",
-      "updatedAt": "2025-12-15T15:58:29Z",
+      "updatedAt": "2025-12-16T12:11:10Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "med-review",
       "headRefOid": "1a5940667c6919965820dd572554d99eb71cce07",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-16T12:11:10Z",
+      "mergedAt": "2025-12-16T12:11:10Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "bd6cd5d5caacdda61fe24e2d748e449151c239ba"
+      },
       "comments": [
         {
           "author": "boucadair",
@@ -23828,6 +23996,32 @@
           "createdAt": "2025-12-15T15:58:29Z",
           "updatedAt": "2025-12-15T15:58:29Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VfuC2",
+          "commit": {
+            "abbreviatedOid": "1a59406"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T08:16:05Z",
+          "updatedAt": "2025-12-16T08:16:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vg_dq",
+          "commit": {
+            "abbreviatedOid": "1a59406"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T09:41:00Z",
+          "updatedAt": "2025-12-16T09:41:00Z",
+          "comments": []
         }
       ]
     },
@@ -23836,26 +24030,293 @@
       "id": "PR_kwDOIrmZ-8649oiv",
       "title": "Address comments from Gorry's review",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/258",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/openpgp/4CpKO_NKjJy47i0u3SEopTlAEpo/",
       "createdAt": "2025-12-15T16:19:11Z",
-      "updatedAt": "2025-12-15T16:20:22Z",
+      "updatedAt": "2025-12-16T12:21:19Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
-      "baseRefOid": "416bedc8ca4925cd0f11641c957959f85f40c1ed",
+      "baseRefOid": "fe85fe6df0ab5cb3cb89e04bee53b49477f940a8",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "gorry-review",
-      "headRefOid": "46facd7cf514366d29b02a85a44f3d76f5fbdaae",
+      "headRefOid": "d68ba0856b262c3d59221c9caa60f56b2717184c",
+      "closedAt": "2025-12-16T12:21:18Z",
+      "mergedAt": "2025-12-16T12:21:18Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "625b1acff7d0c7f9923e809a6b319a585274fa2c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87VftVA",
+          "commit": {
+            "abbreviatedOid": "46facd7"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-12-16T08:15:07Z",
+          "updatedAt": "2025-12-16T08:15:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vg_0-",
+          "commit": {
+            "abbreviatedOid": "46facd7"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T09:41:23Z",
+          "updatedAt": "2025-12-16T09:41:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 259,
+      "id": "PR_kwDOIrmZ-865JclI",
+      "title": "Update changelog",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/259",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-16T12:58:36Z",
+      "updatedAt": "2025-12-16T13:12:41Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "992ffdc3ffbacaf4fa5f90c6d2d5042313b2d600",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "changelog-v15",
+      "headRefOid": "639249d834b39c171b8f9fabbe56891149c9a30d",
+      "closedAt": "2025-12-16T13:12:41Z",
+      "mergedAt": "2025-12-16T13:12:41Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "0237fb84a7d59d3ce6cfbfed666c0d828d8abd6b"
+      },
+      "comments": [
+        {
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> btw, do we need to remove the changelog at some point, or will that be done during the final editing by the IETF?\r\n\r\nI think this is done in the publishing phase",
+          "createdAt": "2025-12-16T13:03:11Z",
+          "updatedAt": "2025-12-16T13:03:11Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87VkAQY",
+          "commit": {
+            "abbreviatedOid": "639249d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "btw, do we need to remove the changelog at some point, or will that be done during the final editing by the IETF?",
+          "createdAt": "2025-12-16T13:01:36Z",
+          "updatedAt": "2025-12-16T13:02:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VkIZF",
+          "commit": {
+            "abbreviatedOid": "639249d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T13:09:58Z",
+          "updatedAt": "2025-12-16T13:09:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 260,
+      "id": "PR_kwDOIrmZ-865JfRL",
+      "title": "Fix double \"extend\"",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/260",
+      "state": "MERGED",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-12-16T13:02:00Z",
+      "updatedAt": "2025-12-17T09:50:20Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "992ffdc3ffbacaf4fa5f90c6d2d5042313b2d600",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-extending",
+      "headRefOid": "fac86f9ebccd8380777d33276fd7c47624da195b",
+      "closedAt": "2025-12-17T09:50:20Z",
+      "mergedAt": "2025-12-17T09:50:20Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "48a13a4aee95f4925c86e95ff58edabb0a46b676"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87VkHI1",
+          "commit": {
+            "abbreviatedOid": "baab5bb"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T13:08:52Z",
+          "updatedAt": "2025-12-16T13:08:53Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "do we even need the first part of the sentence or can we simply write:\r\n\r\n```suggestion\r\nThe document extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}}.\r\n```\r\n\r\nOtherwise I propose to re-order the sentence then it becomes more natural, IMO\r\n\r\n```suggestion\r\nThe document extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}} and specifies the conventions for interoperability between compliant OpenPGP implementations.\r\n```",
+              "createdAt": "2025-12-16T13:08:52Z",
+              "updatedAt": "2025-12-16T13:08:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VkHbY",
+          "commit": {
+            "abbreviatedOid": "baab5bb"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-16T13:09:05Z",
+          "updatedAt": "2025-12-16T13:09:05Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VkH6h",
+          "commit": {
+            "abbreviatedOid": "baab5bb"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T13:09:29Z",
+          "updatedAt": "2025-12-16T13:09:30Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "maybe also \"this document\"?",
+              "createdAt": "2025-12-16T13:09:30Z",
+              "updatedAt": "2025-12-16T13:09:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VkIdU",
+          "commit": {
+            "abbreviatedOid": "baab5bb"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T13:10:02Z",
+          "updatedAt": "2025-12-16T13:10:03Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I prefer the 2nd option. @fluppe2?",
+              "createdAt": "2025-12-16T13:10:02Z",
+              "updatedAt": "2025-12-16T13:10:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87VnsG1",
+          "commit": {
+            "abbreviatedOid": "baab5bb"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-16T16:25:40Z",
+          "updatedAt": "2025-12-16T16:25:40Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThis document extends [RFC9580] by adding KEM and signature algorithms specified in {{composite-kem-section}}, {{composite-signature-section}}, and {{slhdsa-section}} and specifies the conventions for interoperability between compliant OpenPGP implementations.\r\n```",
+              "createdAt": "2025-12-16T16:25:40Z",
+              "updatedAt": "2025-12-16T16:25:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Vy5_K",
+          "commit": {
+            "abbreviatedOid": "fac86f9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-17T09:49:42Z",
+          "updatedAt": "2025-12-17T09:49:42Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 261,
+      "id": "PR_kwDOIrmZ-865aVAb",
+      "title": "Address Mike's review",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/261",
+      "state": "OPEN",
+      "author": "wussler",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/openpgp/Lmu09XGdxgKXjXmALyJhErh3TOo/",
+      "createdAt": "2025-12-17T16:48:43Z",
+      "updatedAt": "2025-12-17T16:58:12Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "48a13a4aee95f4925c86e95ff58edabb0a46b676",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "mike-review",
+      "headRefOid": "5be73f9cfe86d3b4d22c73752e55660334c21246",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87V5weU",
+          "commit": {
+            "abbreviatedOid": "5be73f9"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-17T16:58:11Z",
+          "updatedAt": "2025-12-17T16:58:11Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
