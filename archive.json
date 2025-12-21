@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-18T01:45:07.690553+00:00",
+  "timestamp": "2025-12-21T01:54:42.869886+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24283,24 +24283,26 @@
       "id": "PR_kwDOIrmZ-865aVAb",
       "title": "Address Mike's review",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/261",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wussler",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "https://mailarchive.ietf.org/arch/msg/openpgp/Lmu09XGdxgKXjXmALyJhErh3TOo/",
       "createdAt": "2025-12-17T16:48:43Z",
-      "updatedAt": "2025-12-17T16:58:12Z",
+      "updatedAt": "2025-12-18T12:22:33Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "48a13a4aee95f4925c86e95ff58edabb0a46b676",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "mike-review",
-      "headRefOid": "5be73f9cfe86d3b4d22c73752e55660334c21246",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "68da0bb3a2fbafca60c388f45bcf1fec6df326f2",
+      "closedAt": "2025-12-18T12:22:32Z",
+      "mergedAt": "2025-12-18T12:22:32Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "bef2594c2473d17e953ee0dd7ea1bd4ae2646069"
+      },
       "comments": [],
       "reviews": [
         {
@@ -24314,6 +24316,19 @@
           "body": "",
           "createdAt": "2025-12-17T16:58:11Z",
           "updatedAt": "2025-12-17T16:58:11Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87WGp3C",
+          "commit": {
+            "abbreviatedOid": "5be73f9"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-18T10:38:36Z",
+          "updatedAt": "2025-12-18T10:38:36Z",
           "comments": []
         }
       ]
