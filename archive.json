@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-21T01:54:42.869886+00:00",
+  "timestamp": "2025-12-25T01:49:36.206105+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24330,6 +24330,73 @@
           "createdAt": "2025-12-18T10:38:36Z",
           "updatedAt": "2025-12-18T10:38:36Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 262,
+      "id": "PR_kwDOIrmZ-866bX_Y",
+      "title": "Convert MUST/SHOULD/MAY from algorithm tables to text",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/262",
+      "state": "OPEN",
+      "author": "dkg",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u00c9ric Vyncke's DISCUSS specifically asked for these MTI indicators to be moved out of the table and into the text.\r\n\r\nIt's not clear to me that this changes the meaning of the draft in any clear way, which I suppose is both an argument for and against making this change.",
+      "createdAt": "2025-12-24T05:49:09Z",
+      "updatedAt": "2025-12-25T01:01:44Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "bef2594c2473d17e953ee0dd7ea1bd4ae2646069",
+      "headRepository": "dkg/openpgp-pqc",
+      "headRefName": "vyncke-discuss",
+      "headRefOid": "312e15fc8cc5c6fdcf8d42a1fa59726a60e9a6db",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87XLjBc",
+          "commit": {
+            "abbreviatedOid": "d7857d5"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-24T07:14:24Z",
+          "updatedAt": "2025-12-24T07:14:24Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\nThe specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance. The SLH-DSA algorithms offer an additional tradeoff between signature generation time (\"128f\") and signature size (\"128s\") at the same security level.\n```",
+              "createdAt": "2025-12-24T07:14:24Z",
+              "updatedAt": "2025-12-24T07:14:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87XRj_E",
+          "commit": {
+            "abbreviatedOid": "d7857d5"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-25T01:01:44Z",
+          "updatedAt": "2025-12-25T01:01:44Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "thanks!  this is a good catch.  i've adopted a similar (but not exactly identical) phrasing to your suggestion.  feel free to re-open (or make a new suggestion) if you have other concerns.",
+              "createdAt": "2025-12-25T01:01:44Z",
+              "updatedAt": "2025-12-25T01:01:44Z"
+            }
+          ]
         }
       ]
     }
