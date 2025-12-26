@@ -350,7 +350,7 @@ but may omit them if targeting a highly constrained environment.
 An implementation MAY implement any of the SLH-DSA algorithms.
 
 The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
-he SLH-DSA algorithms offer an additional performance tradeoff between signature generation time ("128f" is faster) and signature size ("128s" is smaller) at the lower of the two SLH-DSA security levels.
+The SLH-DSA algorithms offer an additional performance tradeoff between signature generation time ("128f" is faster) and signature size ("128s" is smaller) at the lower of the two SLH-DSA security levels.
 The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
 Implementations targeting highly constrained environments may omit these larger variants.
 
