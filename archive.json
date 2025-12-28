@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-25T01:49:36.206105+00:00",
+  "timestamp": "2025-12-28T01:59:58.883985+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24345,13 +24345,13 @@
       "labels": [],
       "body": "\u00c9ric Vyncke's DISCUSS specifically asked for these MTI indicators to be moved out of the table and into the text.\r\n\r\nIt's not clear to me that this changes the meaning of the draft in any clear way, which I suppose is both an argument for and against making this change.",
       "createdAt": "2025-12-24T05:49:09Z",
-      "updatedAt": "2025-12-25T01:01:44Z",
+      "updatedAt": "2025-12-26T02:53:39Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "bef2594c2473d17e953ee0dd7ea1bd4ae2646069",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "vyncke-discuss",
-      "headRefOid": "312e15fc8cc5c6fdcf8d42a1fa59726a60e9a6db",
+      "headRefOid": "35b5108d745062e1527da48b4a7eea542c5a83d9",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -24395,6 +24395,46 @@
               "body": "thanks!  this is a good catch.  i've adopted a similar (but not exactly identical) phrasing to your suggestion.  feel free to re-open (or make a new suggestion) if you have other concerns.",
               "createdAt": "2025-12-25T01:01:44Z",
               "updatedAt": "2025-12-25T01:01:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87XSzRu",
+          "commit": {
+            "abbreviatedOid": "312e15f"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-25T08:48:48Z",
+          "updatedAt": "2025-12-25T08:48:48Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\nThe SLH-DSA algorithms offer an additional performance tradeoff between signature generation time (\"128f\" is faster) and signature size (\"128s\" is smaller) at the lower of the two SLH-DSA security levels.\n```\nTypo. Otherwise LGTM.",
+              "createdAt": "2025-12-25T08:48:48Z",
+              "updatedAt": "2025-12-25T08:48:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87XVM4-",
+          "commit": {
+            "abbreviatedOid": "312e15f"
+          },
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-12-26T02:53:39Z",
+          "updatedAt": "2025-12-26T02:53:39Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "d'oh!  thank you \u263a  fixed now.",
+              "createdAt": "2025-12-26T02:53:39Z",
+              "updatedAt": "2025-12-26T02:53:39Z"
             }
           ]
         }
