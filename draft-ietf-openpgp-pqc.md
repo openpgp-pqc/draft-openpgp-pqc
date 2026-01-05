@@ -345,7 +345,7 @@ ID | Algorithm                        | Requirement | Definition
 
 
 A conformant implementation MUST implement ML-DSA-65+Ed25519 and ML-KEM-768+X25519.
-It SHOULD also implement the ML-DSA-87+Ed448 and ML-KEM-1024+X448,
+It SHOULD also implement ML-DSA-87+Ed448 and ML-KEM-1024+X448,
 but may omit them if targeting a highly constrained environment.
 An implementation MAY implement any of the SLH-DSA algorithms.
 
