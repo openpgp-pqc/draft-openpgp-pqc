@@ -354,7 +354,6 @@ The SLH-DSA algorithms offer an additional performance tradeoff between signatur
 The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
 Implementations targeting highly constrained environments may omit these larger variants.
 
-SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
 See also {{performance-considerations}} for further considerations about parameter choices.
 
