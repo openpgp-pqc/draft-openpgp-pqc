@@ -327,21 +327,21 @@ All of these schemes are fully specified via their algorithm ID, that is, they a
 For signatures, the following (composite) signature schemes are specified:
 
 {: title="Signature algorithm specifications" #sig-alg-specs}
-ID                    | Algorithm                        | Definition
----------------------:| -------------------------------- | --------------------
-30                    | ML-DSA-65+Ed25519                | {{ecc-mldsa}}
-31                    | ML-DSA-87+Ed448                  | {{ecc-mldsa}}
-32                    | SLH-DSA-SHAKE-128s               | {{slhdsa}}
-33                    | SLH-DSA-SHAKE-128f               | {{slhdsa}}
-34                    | SLH-DSA-SHAKE-256s               | {{slhdsa}}
+ID                    | Algorithm                        | Requirement | Definition
+---------------------:| -------------------------------- | ----------- | --------------------
+30                    | ML-DSA-65+Ed25519                | MUST        | {{ecc-mldsa}}
+31                    | ML-DSA-87+Ed448                  | SHOULD      | {{ecc-mldsa}}
+32                    | SLH-DSA-SHAKE-128s               | MAY         | {{slhdsa}}
+33                    | SLH-DSA-SHAKE-128f               | MAY         | {{slhdsa}}
+34                    | SLH-DSA-SHAKE-256s               | MAY         | {{slhdsa}}
 
 For encryption, the following composite KEM schemes are specified:
 
 {: title="KEM algorithm specifications" #kem-alg-specs}
-ID | Algorithm                        | Definition
----| -------------------------------- | --------------------
-35 | ML-KEM-768+X25519                | {{ecc-mlkem}}
-36 | ML-KEM-1024+X448                 | {{ecc-mlkem}}
+ID | Algorithm                        | Requirement | Definition
+---| -------------------------------- | ----------- | --------------------
+35 | ML-KEM-768+X25519                | MUST        | {{ecc-mlkem}}
+36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
 
 A conformant implementation MUST implement ML-DSA-65+Ed25519 and ML-KEM-768+X25519.
