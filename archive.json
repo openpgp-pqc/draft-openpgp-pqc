@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-28T01:59:58.883985+00:00",
+  "timestamp": "2026-01-06T01:51:53.772321+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24345,18 +24345,26 @@
       "labels": [],
       "body": "\u00c9ric Vyncke's DISCUSS specifically asked for these MTI indicators to be moved out of the table and into the text.\r\n\r\nIt's not clear to me that this changes the meaning of the draft in any clear way, which I suppose is both an argument for and against making this change.",
       "createdAt": "2025-12-24T05:49:09Z",
-      "updatedAt": "2025-12-26T02:53:39Z",
+      "updatedAt": "2026-01-05T15:59:46Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "bef2594c2473d17e953ee0dd7ea1bd4ae2646069",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "vyncke-discuss",
-      "headRefOid": "35b5108d745062e1527da48b4a7eea542c5a83d9",
+      "headRefOid": "2eda54d395ed44cf669dc0d67e6ffdb154712e55",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In response to [\u00c9ric's comment](https://mailarchive.ietf.org/arch/msg/openpgp/IZnRpxWincVj1ak-QaXWztWppT8) i've restored the columns in the tables.",
+          "createdAt": "2026-01-05T13:52:53Z",
+          "updatedAt": "2026-01-05T13:52:53Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOIrmZ-87XLjBc",
@@ -24437,6 +24445,72 @@
               "updatedAt": "2025-12-26T02:53:39Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YNNB2",
+          "commit": {
+            "abbreviatedOid": "2eda54d"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-05T15:36:33Z",
+          "updatedAt": "2026-01-05T15:36:33Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YNh81",
+          "commit": {
+            "abbreviatedOid": "2eda54d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-01-05T15:56:34Z",
+          "updatedAt": "2026-01-05T15:56:34Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\nIt SHOULD also implement ML-DSA-87+Ed448 and ML-KEM-1024+X448,\n```\nThis `the` kind of sounds strange to me. Artefact?",
+              "createdAt": "2026-01-05T15:56:34Z",
+              "updatedAt": "2026-01-05T15:56:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YNknE",
+          "commit": {
+            "abbreviatedOid": "2eda54d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-01-05T15:59:09Z",
+          "updatedAt": "2026-01-05T15:59:10Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "```suggestion\n```\nI think this sentence has to go now, as this has moved to the above text.\n\n(The linebreak might need extra care.)",
+              "createdAt": "2026-01-05T15:59:09Z",
+              "updatedAt": "2026-01-05T15:59:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YNlNZ",
+          "commit": {
+            "abbreviatedOid": "2eda54d"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Apart from the editorial comments LGTM.\n\n@dkg Thanks for taking care.",
+          "createdAt": "2026-01-05T15:59:46Z",
+          "updatedAt": "2026-01-05T15:59:46Z",
+          "comments": []
         }
       ]
     }
