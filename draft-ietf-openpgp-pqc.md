@@ -344,11 +344,16 @@ ID | Algorithm                        | Requirement | Definition
 36 | ML-KEM-1024+X448                 | SHOULD      | {{ecc-mlkem}}
 
 
+A conformant implementation MUST implement ML-DSA-65+Ed25519 and ML-KEM-768+X25519.
+It SHOULD also implement ML-DSA-87+Ed448 and ML-KEM-1024+X448,
+but may omit them if targeting a highly constrained environment.
+An implementation MAY implement any of the SLH-DSA algorithms.
+
 The specified algorithm IDs offer two security levels for each scheme, for a tradeoff between security and performance.
+The SLH-DSA algorithms offer an additional performance tradeoff between signature generation time ("128f" is faster) and signature size ("128s" is smaller) at the lower of the two SLH-DSA security levels.
 The larger parameter sets of ML-DSA and ML-KEM (Algorithm IDs 31 and 36) are recommended to support interoperability, but they are not required for compliance.
 Implementations targeting highly constrained environments may omit these larger variants.
 
-SLH-DSA is also offered in a "fast" and a "small" variant to allow for further tradeoffs.
 For SLH-DSA-SHAKE-256, only the "small" variant is offered to contain signature size.
 See also {{performance-considerations}} for further considerations about parameter choices.
 
