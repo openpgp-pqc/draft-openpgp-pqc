@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-06T01:51:53.772321+00:00",
+  "timestamp": "2026-01-08T01:51:59.586787+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24338,24 +24338,26 @@
       "id": "PR_kwDOIrmZ-866bX_Y",
       "title": "Convert MUST/SHOULD/MAY from algorithm tables to text",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/262",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "dkg",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\u00c9ric Vyncke's DISCUSS specifically asked for these MTI indicators to be moved out of the table and into the text.\r\n\r\nIt's not clear to me that this changes the meaning of the draft in any clear way, which I suppose is both an argument for and against making this change.",
       "createdAt": "2025-12-24T05:49:09Z",
-      "updatedAt": "2026-01-05T15:59:46Z",
+      "updatedAt": "2026-01-06T14:10:13Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "bef2594c2473d17e953ee0dd7ea1bd4ae2646069",
       "headRepository": "dkg/openpgp-pqc",
       "headRefName": "vyncke-discuss",
-      "headRefOid": "2eda54d395ed44cf669dc0d67e6ffdb154712e55",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0b2685046747d2760862f4bdde1ea43270995728",
+      "closedAt": "2026-01-06T14:10:13Z",
+      "mergedAt": "2026-01-06T14:10:13Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "234f6504a8befecd107e8ad8003bbc8564fa127e"
+      },
       "comments": [
         {
           "author": "dkg",
@@ -24363,6 +24365,20 @@
           "body": "In response to [\u00c9ric's comment](https://mailarchive.ietf.org/arch/msg/openpgp/IZnRpxWincVj1ak-QaXWztWppT8) i've restored the columns in the tables.",
           "createdAt": "2026-01-05T13:52:53Z",
           "updatedAt": "2026-01-05T13:52:53Z"
+        },
+        {
+          "author": "dkg",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've offered some fixes to address the nits raised by @fluppe2.  please don't wait on me to apply more fixes as y'all see fit.  you're the editors!",
+          "createdAt": "2026-01-06T13:26:48Z",
+          "updatedAt": "2026-01-06T13:26:48Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@TJ-91 After the removed (vague) sentence we still point the reader to Section 10.1 that discusses performance aspects in more detail. I'm fine with @dkg's proposal as it is right now.\r\n\r\n@TJ-91 If you are fine also, please merge.\r\n\r\n",
+          "createdAt": "2026-01-06T14:02:12Z",
+          "updatedAt": "2026-01-06T14:03:10Z"
         }
       ],
       "reviews": [
@@ -24510,6 +24526,32 @@
           "body": "Apart from the editorial comments LGTM.\n\n@dkg Thanks for taking care.",
           "createdAt": "2026-01-05T15:59:46Z",
           "updatedAt": "2026-01-05T15:59:46Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YX_l8",
+          "commit": {
+            "abbreviatedOid": "2eda54d"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Thanks for the PR! I agree with Stravros' suggestions. Aside from one nit, it looks good to me!\r\n\r\nregarding:\r\n\r\n> The SLH-DSA algorithms offer an additional performance tradeoff between signature generation time (\"128f\" is faster) and signature size (\"128s\" is smaller) at the lower of the two SLH-DSA security levels.\r\n\r\nThe to-be-removed sentence was a bit more vague. If you want to make it more explicit, I would try to do the tradeoff more justice by adding signature verification time to the consideration (correlates with signature size):\r\n\r\n> The SLH-DSA algorithms offer an additional performance tradeoff between signature generation time (\"128f\" is faster **when signing**), and **signature verification time and** signature size (\"128s\" is smaller **and faster when verifying**) at the lower of the two SLH-DSA security levels.\r\n\r\nVerification speed might be relevant e.g. for signing software (1 slow sig gen vs millions of fast sig verifications).\r\n\r\nThere also is the key generation time aspect, but that is - I think - not relevant to OpenPGP.\r\nThe alternative would be to stay more vague like in the original text.",
+          "createdAt": "2026-01-06T09:35:36Z",
+          "updatedAt": "2026-01-06T09:39:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87YbOGR",
+          "commit": {
+            "abbreviatedOid": "0b26850"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-06T14:02:31Z",
+          "updatedAt": "2026-01-06T14:02:31Z",
           "comments": []
         }
       ]
