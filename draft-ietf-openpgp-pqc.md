@@ -28,7 +28,7 @@ author:
     name: Johannes Roth
     org: MTG AG
     country: Germany
-    email: johannes.roth@mtg.de
+    email: johannes.roth+ietf@posteo.de
  -
     ins: F. Strenzke
     name: Falko Strenzke
