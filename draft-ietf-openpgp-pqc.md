@@ -148,7 +148,7 @@ informative:
 
   CHHKM:
     target: https://eprint.iacr.org/2025/1397
-    title: Starfighters—On the General Applicability of X-Wing
+    title: Starfighters - On the General Applicability of X-Wing
     date: 2025
     seriesinfo: Cryptology {ePrint} Archive, Paper 2025/1397
     author:
@@ -156,11 +156,11 @@ informative:
         ins: D. Connolly
         name: Deirdre Connolly
       -
-        ins: K. Hövelmanns
-        name: Kathrin Hövelmanns
+        ins: K. Hoevelmanns
+        name: Kathrin Hoevelmanns
       -
-        ins: A. Hülsing
-        name: Andreas Hülsing
+        ins: A. Huelsing
+        name: Andreas Huelsing
       -
         ins: S. Kousidis
         name: Stavros Kousidis
@@ -221,7 +221,7 @@ informative:
 
 --- abstract
 
-This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending [RFC9580].
+This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending RFC9580.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.
 
@@ -971,7 +971,7 @@ This specification introduces both ML-DSA + EdDSA as well as SLH-DSA as PQ(/T) s
 Generally, it can be said that ML-DSA + EdDSA provides a performance in terms of execution time requirements that is close to that of traditional ECC signature schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like ECC-based or even RSA signature schemes.
 
-Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
+Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required - namely only the 2nd preimage resistance of a hash function - and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
 However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.
 
 Pertaining to the execution time, the particularly costly operation in SLH-DSA is the signature generation.
