@@ -1194,7 +1194,7 @@ The hex-encoded output of `multiKeyCombine` is `5bf078bf7977109db6dead92d3578b62
 The hex-encoded session key is `94a3b8c9784463bb96b682cddf549adb23579b75bcb646f989d7cfe3e6e14435`.
 
 {: sourcecode-name="v6-eddsa-sample-message.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v6-eddsa-sample-message.asc}
 ~~~
 
@@ -1252,7 +1252,7 @@ The hex-encoded output of `multiKeyCombine` is `c1591d7511f9f0213bfd57cf316e5ec0
 The hex-encoded session key is `b4dc7197e1519822ca689da484643edf272934d98ae1974b5d88317a7a6a3c4f`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v1.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v4-eddsa-sample-message-v1.asc}
 ~~~
 
@@ -1272,7 +1272,7 @@ The hex-encoded output of `multiKeyCombine` is `5c5652a690b55d1e9545fbd722f838cd
 The hex-encoded session key is `160867d96032b640208c1c92174d0270bb89189d72320711acd221bbea2a26b6`.
 
 {: sourcecode-name="v4-eddsa-sample-message-v2.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v4-eddsa-sample-message-v2.asc}
 ~~~
 
@@ -1333,7 +1333,7 @@ The hex-encoded output of `multiKeyCombine` is `a4904982f7caa9c9de690afd772d8bfe
 The hex-encoded session key is `adee68618b302d4bfd7ae3d432bc63a1c1ad7f5fd6e7fd7bdedbb0d0b14a5c9a`.
 
 {: sourcecode-name="v6-mldsa-65-sample-message.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v6-mldsa-65-sample-message.asc}
 ~~~
 
@@ -1344,7 +1344,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 - A v6 signature packet
 
 {: sourcecode-name="v6-mldsa-65-sample-signature.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-signature
 {::include test-vectors/v6-mldsa-65-sample-signature.asc}
 ~~~
 
@@ -1403,7 +1403,7 @@ The hex-encoded output of `multiKeyCombine` is `ef1e32906f67d39bc800d90cabb0033c
 The hex-encoded session key is `0588ce40b038aac353d1cf8c67a674b412985105794821013ef154f786c4d89d`.
 
 {: sourcecode-name="v6-mldsa-87-sample-message.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v6-mldsa-87-sample-message.asc}
 ~~~
 
@@ -1414,7 +1414,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 - A v6 signature packet
 
 {: sourcecode-name="v6-mldsa-87-sample-signature.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-signature
 {::include test-vectors/v6-mldsa-87-sample-signature.asc}
 ~~~
 
@@ -1473,7 +1473,7 @@ The hex-encoded output of `multiKeyCombine` is `ae8ab57801911c04c7b4c2a2f665cf8d
 The hex-encoded session key is `e87567cad8fee5738f92090feed009d8af95437fa664f94da98776d966bbbc52`.
 
 {: sourcecode-name="v6-slhdsa-128s-sample-message.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-encrypted
 {::include test-vectors/v6-slhdsa-128s-sample-message.asc}
 ~~~
 
@@ -1484,7 +1484,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 - A v6 signature packet
 
 {: sourcecode-name="v6-slhdsa-128s-sample-signature.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-signature
 {::include test-vectors/v6-slhdsa-128s-sample-signature.asc}
 ~~~
 
@@ -1534,7 +1534,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 - A v6 signature packet
 
 {: sourcecode-name="v6-slhdsa-128f-sample-signature.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-signature
 {::include test-vectors/v6-slhdsa-128f-sample-signature.asc}
 ~~~
 
@@ -1583,7 +1583,7 @@ Here is a detached signature for the message "Testing\n" made by the secret key 
 - A v6 signature packet
 
 {: sourcecode-name="v6-slhdsa-256s-sample-signature.asc"}
-~~~ application/pgp-keys
+~~~ application/pgp-signature
 {::include test-vectors/v6-slhdsa-256s-sample-signature.asc}
 ~~~
 
