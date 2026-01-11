@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-08T01:51:59.586787+00:00",
+  "timestamp": "2026-01-11T02:01:10.381272+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24552,6 +24552,61 @@
           "body": "",
           "createdAt": "2026-01-06T14:02:31Z",
           "updatedAt": "2026-01-06T14:02:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 263,
+      "id": "PR_kwDOIrmZ-868VXmL",
+      "title": "update johannes' email to johannes.roth+ietf@posteo.de",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/263",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-01-09T13:44:28Z",
+      "updatedAt": "2026-01-10T11:52:43Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "234f6504a8befecd107e8ad8003bbc8564fa127e",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "update-email-johannes",
+      "headRefOid": "eb894ddc0fde897eba2147c652439142926b0d06",
+      "closedAt": "2026-01-10T11:52:43Z",
+      "mergedAt": "2026-01-10T11:52:43Z",
+      "mergedBy": "fluppe2",
+      "mergeCommit": {
+        "oid": "848aebb19f47b030879ade51182f3f17146a983e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87ZNxIU",
+          "commit": {
+            "abbreviatedOid": "eb894dd"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-09T14:55:03Z",
+          "updatedAt": "2026-01-09T14:55:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87ZXCjb",
+          "commit": {
+            "abbreviatedOid": "eb894dd"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-10T10:30:35Z",
+          "updatedAt": "2026-01-10T10:30:35Z",
           "comments": []
         }
       ]
