@@ -10,7 +10,7 @@
 <meta content="Falko Strenzke" name="author">
 <meta content="Aron Wussler" name="author">
 <meta content="
-       This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending  .
+       This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending RFC9580.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme. 
     " name="description">
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kousidis, et al.</td>
-<td class="center">Expires 16 July 2026</td>
+<td class="center">Expires 17 July 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-openpgp-pqc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-12" class="published">12 January 2026</time>
+<time datetime="2026-01-13" class="published">13 January 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-07-16">16 July 2026</time></dd>
+<dd class="expires"><time datetime="2026-07-17">17 July 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1095,7 +1095,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Post-Quantum Cryptography in OpenPGP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending <span>[<a href="#RFC9580" class="cite xref">RFC9580</a>]</span>.
+<p id="section-abstract-1">This document defines a post-quantum public key algorithm extension for the OpenPGP protocol, extending RFC9580.
 Given the generally assumed threat of a cryptographically relevant quantum computer, this extension provides a basis for long-term secure OpenPGP signatures and ciphertexts.
 Specifically, it defines composite public key encryption based on ML-KEM (formerly CRYSTALS-Kyber), composite public key signatures based on ML-DSA (formerly CRYSTALS-Dilithium), both in combination with elliptic curve cryptography, and SLH-DSA (formerly SPHINCS+) as a standalone public key signature scheme.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
@@ -1133,7 +1133,7 @@ Specifically, it defines composite public key encryption based on ML-KEM (former
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -3040,7 +3040,7 @@ Generally, reusing a key for different purposes may lead to subtle vulnerabiliti
 <p id="section-10.1-1">This specification introduces both ML-DSA + EdDSA as well as SLH-DSA as PQ(/T) signature schemes.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 <p id="section-10.1-2">Generally, it can be said that ML-DSA + EdDSA provides a performance in terms of execution time requirements that is close to that of traditional ECC signature schemes.
 Regarding the size of signatures and public keys, though, ML-DSA has far greater requirements than traditional schemes like ECC-based or even RSA signature schemes.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required – namely only the 2nd preimage resistance of a hash function – and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
+<p id="section-10.1-3">Implementers may want to offer SLH-DSA for applications where the weaker security assumptions of a hash-based signature scheme are required - namely only the 2nd preimage resistance of a hash function - and thus a potentially higher degree of trust in the long-term security of signatures is achieved.
 However, SLH-DSA has performance characteristics in terms of execution time of the signature generation as well as space requirements for the signature that are even greater than those of ML-DSA + EdDSA signature schemes.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
 <p id="section-10.1-4">Pertaining to the execution time, the particularly costly operation in SLH-DSA is the signature generation.
 Depending on the parameter set, it can range from approximately one hundred to more than two thousand times that of ML-DSA-87.
@@ -3638,7 +3638,7 @@ Andreas Huelsing (TU Eindhoven)<a href="#section-13-1" class="pilcrow">¶</a></p
 <dd class="break"></dd>
 <dt id="CHHKM">[CHHKM]</dt>
         <dd>
-<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Hövelmanns, K.</span>, <span class="refAuthor">Hülsing, A.</span>, <span class="refAuthor">Kousidis, S.</span>, and <span class="refAuthor">M. Meijers</span>, <span class="refTitle">"Starfighters—On the General Applicability of X-Wing"</span>, <span class="seriesInfo">Cryptology {ePrint} Archive, Paper 2025/1397 </span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://eprint.iacr.org/2025/1397">https://eprint.iacr.org/2025/1397</a>&gt;</span>. </dd>
+<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Hoevelmanns, K.</span>, <span class="refAuthor">Huelsing, A.</span>, <span class="refAuthor">Kousidis, S.</span>, and <span class="refAuthor">M. Meijers</span>, <span class="refTitle">"Starfighters - On the General Applicability of X-Wing"</span>, <span class="seriesInfo">Cryptology {ePrint} Archive, Paper 2025/1397 </span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://eprint.iacr.org/2025/1397">https://eprint.iacr.org/2025/1397</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NIST-PQC">[NIST-PQC]</dt>
         <dd>
@@ -3835,7 +3835,7 @@ DfLTUACVh1++iUEzaAum6MV/n1Xi3eJnGBB+C+zT6+txKwQ=
 <p id="appendix-A.1.3-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>9d994741e0db5eacee44cb028c2ec48b1346feae2576aaac383bbcd64138c932</code>.<a href="#appendix-A.1.3-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.1.3-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>5bf078bf7977109db6dead92d3578b62d0ab0487ef84e8e0af08f4b4b229e590</code>.<a href="#appendix-A.1.3-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.1.3-6">The hex-encoded session key is <code>94a3b8c9784463bb96b682cddf549adb23579b75bcb646f989d7cfe3e6e14435</code>.<a href="#appendix-A.1.3-6" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.1.3-7">
+<div class="lang-application/pgp-encrypted sourcecode" id="appendix-A.1.3-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -4040,7 +4040,7 @@ WttYQKbEq2/yj2hWWuL9Wc9m6v8PtmFguVBWPYT01a4jEvb3tKFJ3C0qEyXzApsJ
 <p id="appendix-A.2.3-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>2fc0c8fcace9636c86d1ee1715a302819ad48c549579a462a33eed36627c532e</code>.<a href="#appendix-A.2.3-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.3-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>c1591d7511f9f0213bfd57cf316e5ec0d40c4ea826fa989ab606aa3b8a1a2c1f</code>.<a href="#appendix-A.2.3-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.3-6">The hex-encoded session key is <code>b4dc7197e1519822ca689da484643edf272934d98ae1974b5d88317a7a6a3c4f</code>.<a href="#appendix-A.2.3-6" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2.3-7">
+<div class="lang-application/pgp-encrypted sourcecode" id="appendix-A.2.3-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -4098,7 +4098,7 @@ Wfo=
 <p id="appendix-A.2.4-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>5ac67eab192f25ac99d87543e6fcd3a4769cb02c9d1afdc79354c2baa2289e29</code>.<a href="#appendix-A.2.4-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.4-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>5c5652a690b55d1e9545fbd722f838cd8ff4d3657af5a9026d02f3185ca74993</code>.<a href="#appendix-A.2.4-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.2.4-6">The hex-encoded session key is <code>160867d96032b640208c1c92174d0270bb89189d72320711acd221bbea2a26b6</code>.<a href="#appendix-A.2.4-6" class="pilcrow">¶</a></p>
-<div class="lang-application/pgp-keys sourcecode" id="appendix-A.2.4-7">
+<div class="lang-application/pgp-encrypted sourcecode" id="appendix-A.2.4-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -4808,7 +4808,7 @@ AAAAAAAAAAAABA8TGSIp
 <p id="appendix-A.3.3-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>88f3e9a8de1917127b4b758f6e83bd4ce00faaae01bd8b6e412a43a710b26012</code>.<a href="#appendix-A.3.3-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.3.3-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>a4904982f7caa9c9de690afd772d8bfe027a1ad6a5bbda00db68963fe303ae8e</code>.<a href="#appendix-A.3.3-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.3.3-6">The hex-encoded session key is <code>adee68618b302d4bfd7ae3d432bc63a1c1ad7f5fd6e7fd7bdedbb0d0b14a5c9a</code>.<a href="#appendix-A.3.3-6" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.3.3-7">
+<div class="breakable lang-application/pgp-encrypted sourcecode" id="appendix-A.3.3-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -4929,7 +4929,7 @@ ak/MpQwGKTcC2WrrqWhgq/WTs+8NCk5Vfa2P
               <p id="appendix-A.3.4-2.1.1">A v6 signature packet<a href="#appendix-A.3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.3.4-3">
+<div class="breakable lang-application/pgp-signature sourcecode" id="appendix-A.3.4-3">
 <pre>
 -----BEGIN PGP SIGNATURE-----
 
@@ -5899,7 +5899,7 @@ BQwVHCIoMDU=
 <p id="appendix-A.4.3-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>732860c8114ae84a964664b1f607785d11bc7d24d5324510adad89bd52db7ee0df9982ad0d1669bdd05556330c86f2dae9e2edea42e05bc5</code>.<a href="#appendix-A.4.3-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.4.3-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>ef1e32906f67d39bc800d90cabb0033c77ca6dce8ffca3e96d9c7348e2e8c16e</code>.<a href="#appendix-A.4.3-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.4.3-6">The hex-encoded session key is <code>0588ce40b038aac353d1cf8c67a674b412985105794821013ef154f786c4d89d</code>.<a href="#appendix-A.4.3-6" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.4.3-7">
+<div class="breakable lang-application/pgp-encrypted sourcecode" id="appendix-A.4.3-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -6060,7 +6060,7 @@ r9dO/yldgvycbQA=
               <p id="appendix-A.4.4-2.1.1">A v6 signature packet<a href="#appendix-A.4.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.4.4-3">
+<div class="breakable lang-application/pgp-signature sourcecode" id="appendix-A.4.4-3">
 <pre>
 -----BEGIN PGP SIGNATURE-----
 
@@ -7319,7 +7319,7 @@ cOrVcviHJIqF4pArtSHV0pUIMcusFC5I1Z0ARKsrOSngGNmRTigQ
 <p id="appendix-A.5.3-4">The hex-encoded <code>ecdhKeyShare</code> input to <code>multiKeyCombine</code> is <code>9dbd0f9bde7fef09817146e53a0b5ce7d27e79612670968fa0025422c578ab55</code>.<a href="#appendix-A.5.3-4" class="pilcrow">¶</a></p>
 <p id="appendix-A.5.3-5">The hex-encoded output of <code>multiKeyCombine</code> is <code>ae8ab57801911c04c7b4c2a2f665cf8d8a8188f948c2a65e39c292d9b1d86e32</code>.<a href="#appendix-A.5.3-5" class="pilcrow">¶</a></p>
 <p id="appendix-A.5.3-6">The hex-encoded session key is <code>e87567cad8fee5738f92090feed009d8af95437fa664f94da98776d966bbbc52</code>.<a href="#appendix-A.5.3-6" class="pilcrow">¶</a></p>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.5.3-7">
+<div class="breakable lang-application/pgp-encrypted sourcecode" id="appendix-A.5.3-7">
 <pre>
 -----BEGIN PGP MESSAGE-----
 
@@ -7533,7 +7533,7 @@ sKUHCp9weZuzUrfClgkH4bZCGsmzmDfJX1dWn2yAJq+7LDlFXDWr5JSm2pM1Pw==
               <p id="appendix-A.5.4-2.1.1">A v6 signature packet<a href="#appendix-A.5.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.5.4-3">
+<div class="breakable lang-application/pgp-signature sourcecode" id="appendix-A.5.4-3">
 <pre>
 -----BEGIN PGP SIGNATURE-----
 
@@ -10004,7 +10004,7 @@ In+iXahZ2PurUj62toNQAOMnB+fi6GCkoROG7TctcYbgYed4BSOqtT6as1tfAWyg
               <p id="appendix-A.6.3-2.1.1">A v6 signature packet<a href="#appendix-A.6.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.6.3-3">
+<div class="breakable lang-application/pgp-signature sourcecode" id="appendix-A.6.3-3">
 <pre>
 -----BEGIN PGP SIGNATURE-----
 
@@ -14278,7 +14278,7 @@ TontEOLGO7U+
               <p id="appendix-A.7.3-2.1.1">A v6 signature packet<a href="#appendix-A.7.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<div class="breakable lang-application/pgp-keys sourcecode" id="appendix-A.7.3-3">
+<div class="breakable lang-application/pgp-signature sourcecode" id="appendix-A.7.3-3">
 <pre>
 -----BEGIN PGP SIGNATURE-----
 

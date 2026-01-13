@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Standards Track                                 J. Roth
-Expires: 16 July 2026                                        F. Strenzke
+Expires: 17 July 2026                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         12 January 2026
+                                                         13 January 2026
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -18,7 +18,7 @@ Expires: 16 July 2026                                        F. Strenzke
 Abstract
 
    This document defines a post-quantum public key algorithm extension
-   for the OpenPGP protocol, extending [RFC9580].  Given the generally
+   for the OpenPGP protocol, extending RFC9580.  Given the generally
    assumed threat of a cryptographically relevant quantum computer, this
    extension provides a basis for long-term secure OpenPGP signatures
    and ciphertexts.  Specifically, it defines composite public key
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 July 2026.
+   This Internet-Draft will expire on 17 July 2026.
 
 Copyright Notice
 
@@ -1338,8 +1338,8 @@ Table of Contents
 
    Implementers may want to offer SLH-DSA for applications where the
    weaker security assumptions of a hash-based signature scheme are
-   required – namely only the 2nd preimage resistance of a hash function
-   – and thus a potentially higher degree of trust in the long-term
+   required - namely only the 2nd preimage resistance of a hash function
+   - and thus a potentially higher degree of trust in the long-term
    security of signatures is achieved.  However, SLH-DSA has performance
    characteristics in terms of execution time of the signature
    generation as well as space requirements for the signature that are
@@ -1739,10 +1739,11 @@ Informative References
               Hybrid KEM You've Been Looking For", 2024,
               <https://doi.org/10.62056/a3qj89n4e>.
 
-   [CHHKM]    Connolly, D., Hövelmanns, K., Hülsing, A., Kousidis, S.,
-              and M. Meijers, "Starfighters—On the General Applicability
-              of X-Wing", Cryptology {ePrint} Archive, Paper 2025/1397 ,
-              2025, <https://eprint.iacr.org/2025/1397>.
+   [CHHKM]    Connolly, D., Hoevelmanns, K., Huelsing, A., Kousidis, S.,
+              and M. Meijers, "Starfighters - On the General
+              Applicability of X-Wing", Cryptology {ePrint} Archive,
+              Paper 2025/1397 , 2025,
+              <https://eprint.iacr.org/2025/1397>.
 
    [NIST-PQC] Chen, L., Moody, D., and Y. Liu, "Post-Quantum
               Cryptography Standardization", December 2016,
