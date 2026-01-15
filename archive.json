@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-13T01:49:27.330454+00:00",
+  "timestamp": "2026-01-15T01:51:40.962138+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24671,24 +24671,26 @@
       "id": "PR_kwDOIrmZ-868vKND",
       "title": "RFC Editor idnits",
       "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/265",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "fluppe2",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Removed some non-ASCII characters and tried to apply RFC 3156 consistently to the test vectors.",
       "createdAt": "2026-01-12T16:16:12Z",
-      "updatedAt": "2026-01-12T19:41:16Z",
+      "updatedAt": "2026-01-13T08:48:16Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "e89fcf17806f206f978c7372397c67b94cb43a01",
       "headRepository": "openpgp-pqc/draft-openpgp-pqc",
       "headRefName": "rfceditor-idnits",
       "headRefOid": "bee27ae77db10cf6c1950e303f1948f322ebdf55",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-01-13T08:48:16Z",
+      "mergedAt": "2026-01-13T08:48:16Z",
+      "mergedBy": "TJ-91",
+      "mergeCommit": {
+        "oid": "a2b76d415cdfd6ed4922f180d1d7a85545039acf"
+      },
       "comments": [],
       "reviews": [
         {
@@ -24702,6 +24704,19 @@
           "body": "",
           "createdAt": "2026-01-12T19:41:16Z",
           "updatedAt": "2026-01-12T19:41:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87Z1OV8",
+          "commit": {
+            "abbreviatedOid": "bee27ae"
+          },
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-13T08:48:00Z",
+          "updatedAt": "2026-01-13T08:48:00Z",
           "comments": []
         }
       ]
