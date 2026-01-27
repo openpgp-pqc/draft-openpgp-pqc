@@ -5,11 +5,11 @@
 Network Working Group                                        S. Kousidis
 Internet-Draft                                                       BSI
 Intended status: Standards Track                                 J. Roth
-Expires: 17 July 2026                                        F. Strenzke
+Expires: 31 July 2026                                        F. Strenzke
                                                                   MTG AG
                                                               A. Wussler
                                                                Proton AG
-                                                         13 January 2026
+                                                         27 January 2026
 
 
                   Post-Quantum Cryptography in OpenPGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 July 2026.
+   This Internet-Draft will expire on 31 July 2026.
 
 Copyright Notice
 
@@ -801,11 +801,11 @@ Table of Contents
    Note that like in the case of the algorithms X25519 and X448
    specified in [RFC9580], for the ML-KEM composite schemes, in the case
    of a v3 PKESK packet, the symmetric algorithm identifier is not
-   encrypted.  Instead, it is placed in plaintext after the
-   mlkemCipherText and before the length octet preceding the wrapped
-   session key.  In the case of v3 PKESK packets for ML-KEM composite
-   schemes, the symmetric algorithm used MUST be AES-128, AES-192 or
-   AES-256 (algorithm ID 7, 8 or 9).
+   encrypted.  Instead, it is prepended to the wrapped session key in
+   plaintext and its length is included in the preceding length field.
+   In the case of v3 PKESK packets for ML-KEM composite schemes, the
+   symmetric algorithm used MUST be AES-128, AES-192 or AES-256
+   (algorithm ID 7, 8 or 9).
 
    In the case of a v3 PKESK, a receiving implementation MUST check if
    the length of the unwrapped symmetric key matches the symmetric
