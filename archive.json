@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-15T01:51:40.962138+00:00",
+  "timestamp": "2026-01-29T02:09:33.719885+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -24717,6 +24717,82 @@
           "body": "",
           "createdAt": "2026-01-13T08:48:00Z",
           "updatedAt": "2026-01-13T08:48:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 266,
+      "id": "PR_kwDOIrmZ-86_oDl6",
+      "title": "fix description of the placement of the v3 pkesk algorithm identifier",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/pull/266",
+      "state": "MERGED",
+      "author": "TJ-91",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes the issue that Daniel Huigens raised on the mailing list https://mailarchive.ietf.org/arch/msg/openpgp/KEBlD6t9RcO3NIHb4S7y0ZwDbn0/",
+      "createdAt": "2026-01-27T14:57:32Z",
+      "updatedAt": "2026-01-27T17:51:53Z",
+      "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "baseRefName": "main",
+      "baseRefOid": "a2b76d415cdfd6ed4922f180d1d7a85545039acf",
+      "headRepository": "openpgp-pqc/draft-openpgp-pqc",
+      "headRefName": "fix-pkeskv3-sym-alg-id-text",
+      "headRefOid": "41f19d15630f24a5a8a1c3dc2d07cb6a62e8f504",
+      "closedAt": "2026-01-27T17:51:53Z",
+      "mergedAt": "2026-01-27T17:51:53Z",
+      "mergedBy": "wussler",
+      "mergeCommit": {
+        "oid": "ad570f3cb415d13839b509c8456ecb4f7156cde2"
+      },
+      "comments": [
+        {
+          "author": "TJ-91",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As Paul mentioned we should probably send this to the editor directly (and not publish a new version) to avoid extra work / delay",
+          "createdAt": "2026-01-27T16:00:47Z",
+          "updatedAt": "2026-01-27T16:00:47Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIrmZ-87dQAvy",
+          "commit": {
+            "abbreviatedOid": "41f19d1"
+          },
+          "author": "falko-strenzke",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-27T15:43:55Z",
+          "updatedAt": "2026-01-27T15:43:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87dROPL",
+          "commit": {
+            "abbreviatedOid": "41f19d1"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-27T16:42:38Z",
+          "updatedAt": "2026-01-27T16:42:39Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87dSkwT",
+          "commit": {
+            "abbreviatedOid": "41f19d1"
+          },
+          "author": "wussler",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-01-27T17:49:37Z",
+          "updatedAt": "2026-01-27T17:49:37Z",
           "comments": []
         }
       ]
