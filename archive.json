@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-29T02:09:33.719885+00:00",
+  "timestamp": "2026-02-08T02:41:23.693040+00:00",
   "repo": "openpgp-pqc/draft-openpgp-pqc",
   "labels": [
     {
@@ -4007,6 +4007,22 @@
       "createdAt": "2025-12-13T07:42:23Z",
       "updatedAt": "2025-12-16T12:51:39Z",
       "closedAt": "2025-12-16T12:51:39Z",
+      "comments": []
+    },
+    {
+      "number": 267,
+      "id": "I_kwDOIrmZ-87otaYA",
+      "title": "Asw",
+      "url": "https://github.com/openpgp-pqc/draft-openpgp-pqc/issues/267",
+      "state": "CLOSED",
+      "author": "Dustin4444",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "// #266 ",
+      "createdAt": "2026-02-06T00:40:34Z",
+      "updatedAt": "2026-02-06T00:40:40Z",
+      "closedAt": "2026-02-06T00:40:40Z",
       "comments": []
     }
   ],
@@ -24733,7 +24749,7 @@
       "labels": [],
       "body": "Fixes the issue that Daniel Huigens raised on the mailing list https://mailarchive.ietf.org/arch/msg/openpgp/KEBlD6t9RcO3NIHb4S7y0ZwDbn0/",
       "createdAt": "2026-01-27T14:57:32Z",
-      "updatedAt": "2026-01-27T17:51:53Z",
+      "updatedAt": "2026-02-06T00:36:21Z",
       "baseRepository": "openpgp-pqc/draft-openpgp-pqc",
       "baseRefName": "main",
       "baseRefOid": "a2b76d415cdfd6ed4922f180d1d7a85545039acf",
@@ -24793,6 +24809,19 @@
           "body": "",
           "createdAt": "2026-01-27T17:49:37Z",
           "updatedAt": "2026-01-27T17:49:37Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOIrmZ-87gHrnm",
+          "commit": {
+            "abbreviatedOid": "41f19d1"
+          },
+          "author": "Dustin4444",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "#266 ",
+          "createdAt": "2026-02-06T00:36:21Z",
+          "updatedAt": "2026-02-06T00:36:21Z",
           "comments": []
         }
       ]
